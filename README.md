@@ -44,15 +44,17 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 | **File I/O** | Private-file creation, UTF-8 write/read, size and deletion | [IO_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/IO_Probe) |
 | **ZIP / JAR** | Archive reads, manifest parsing, JAR class loading and UTF-8 resources | [ZIP_JAR_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/ZIP_JAR_Probe) |
 | **Networking** | TCP/UDP IPv4 loopback, Java worker echo, nonblocking NIO channels and selector readiness | [Network_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/Network_Probe) |
+| **LAN / DNS** | Outbound TCP/UDP echo between PS5 and Mac, forward DNS lookup and VM lifecycle | [LAN_DNS_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/LAN_DNS_Probe) |
 
-Java loopback networking now passes in the runtime repository; LAN connections, DNS and TLS still need separate tests. These results establish runtime groundwork; Minecraft itself has not been tested. The current Java bootstrap uses interpreter mode, and JIT performance remains future work.
+Java loopback, outbound LAN TCP/UDP and forward DNS now pass in the runtime repository. Inbound LAN server acceptance and TLS remain separate tests. These results establish runtime groundwork; Minecraft itself has not been tested. The current Java bootstrap uses interpreter mode, and JIT performance remains future work.
 
 ## Roadmap
 
 ### 1 · Prove the server foundation
 
 - [x] Validate the Java runtime's TCP/UDP loopback and NIO selector probes on PS5.
-- [ ] Validate LAN connections and broader dependency/class-path loading on PS5.
+- [x] Validate outbound Java LAN TCP/UDP and forward DNS on PS5.
+- [ ] Validate inbound LAN server connections and broader dependency/class-path loading on PS5.
 - [ ] Choose a target Minecraft version and check its Java and native dependencies.
 - [ ] Launch a vanilla dedicated server and reach a ready state.
 - [ ] Create, save, stop and reload a test world.
