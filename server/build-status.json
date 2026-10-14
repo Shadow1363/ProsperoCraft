@@ -1,10 +1,10 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.004",
+  "app_version": "01.000.005",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "62ad5f481ccd87fd9aedf42fa0e85f00ab0817ccbf787f6e1594056d59dd58e1",
-  "console": "pending: 01.000.003 failed JVM creation after native reserve ENOMEM; 01.000.004 reduces max heap to 192 MiB",
+  "package_sha256": "fe00f3479c68d6c491bd4fd44f049714a5470cdc1e6784fe6677ef42a3450a11",
+  "console": "pending: 01.000.004 failed JVM creation after 80 MiB native reserve ENOMEM; 01.000.005 uses incremental 16 MiB non-class metaspace nodes",
   "host": "PASS: real official vanilla Done readiness, stop, server-thread exit, nonempty saved level.dat at 192 MiB / -Xint; 128 MiB attempt exhausted Java heap during world generation",
   "package": "PASS: signature/integrity, ZIP CRC/title/version, official JAR hashes, Java25 fixtures, target timezone/CA data, no host native binaries or world/EULA file",
   "runtime_modules": [
@@ -28,5 +28,6 @@
     "jdk.zipfs"
   ],
   "scope": "One bounded flat-world startup/save/stop attempt. Console ready state, world save and player joins remain unvalidated.",
-  "max_heap_mib": 192
+  "max_heap_mib": 192,
+  "runtime_adaptation": "PS5-only non-class metaspace node size 16 MiB; existing growth unchanged"
 }
