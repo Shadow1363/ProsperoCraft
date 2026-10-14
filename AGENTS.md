@@ -15,3 +15,14 @@ Preserve the Java runtime link. Commit and push completed, authorized changes,
 verify successful publication and report any failures honestly. Keep generated
 builds, dependency caches, credentials, logs and unrelated files out of source
 control. Passing compiled packages belong in release assets.
+
+After every completed Minecraft source, asset, documentation, configuration
+or script change, run the relevant checks, then commit and push to this
+repository before ending the turn. Development can be published before
+console validation; mark results pending. The user explicitly authorized
+these updates. Verify each push. Runtime fixes must be published separately
+to ps5-java25-homebrew using its sync script; do not mix source ownership.
+Keep official downloaded JARs in ignored caches/local build packages,
+with source-controlled artifact metadata and checksums for reproduction.
+The initial --help bootstrap probe must not auto-accept the EULA or claim
+world/server readiness from host success.

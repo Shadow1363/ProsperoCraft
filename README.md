@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a dedicated server, then working toward the client, controller support and mod compatibility.
 
-> **Status: planning and runtime groundwork.** This repository currently contains project documentation. There is no playable Minecraft build or server release yet.
+> **Status: first server bootstrap probe ready for PS5 testing.** Minecraft **26.3 / Java 25** artifact verification and the official server’s `--help` entry point pass host tests. Console validation is pending; no ready server or playable release is claimed.
 
 ## The goal
 
@@ -46,7 +46,12 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 | **Networking** | TCP/UDP IPv4 loopback, Java worker echo, nonblocking NIO channels and selector readiness | [Network_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/Network_Probe) |
 | **LAN / DNS** | Outbound TCP/UDP echo between PS5 and Mac, forward DNS lookup and VM lifecycle | [LAN_DNS_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/LAN_DNS_Probe) |
 
-Java loopback, outbound LAN TCP/UDP and forward DNS now pass in the runtime repository. Inbound LAN server acceptance and TLS remain separate tests. These results establish runtime groundwork; Minecraft itself has not been tested. The current Java bootstrap uses interpreter mode, and JIT performance remains future work.
+| **Inbound LAN** | External IPv4 TCP accept and UDP receive/reply | [Inbound_LAN_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/Inbound_LAN_Probe) |
+| **HTTPS / IPv6** | Verified HTTPS, IPv6 loopback and concurrent/repeated local traffic | [Advanced_Network_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/Advanced_Network_Probe) |
+| **LAN endurance** | Actual IPv6 link-local LAN and 60-second external TCP/UDP workloads | [LAN_Endurance_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/LAN_Endurance_Probe) |
+| **Dependencies / JNI** | Manifest-linked JARs, services/resources, system class path and real resident JNI calls | [Dependency_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/Dependency_Probe) |
+
+The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. These results establish runtime groundwork; the Minecraft-specific probe has not yet been tested on PS5. The current Java bootstrap uses interpreter mode, and JIT performance remains future work.
 
 ## Roadmap
 
@@ -54,8 +59,10 @@ Java loopback, outbound LAN TCP/UDP and forward DNS now pass in the runtime repo
 
 - [x] Validate the Java runtime's TCP/UDP loopback and NIO selector probes on PS5.
 - [x] Validate outbound Java LAN TCP/UDP and forward DNS on PS5.
-- [ ] Validate inbound LAN server connections and broader dependency/class-path loading on PS5.
-- [ ] Choose a target Minecraft version and check its Java and native dependencies.
+- [x] Validate inbound LAN and multi-JAR/system class-path loading on PS5.
+- [x] Pin official Minecraft 26.3 / Java 25 artifacts and inventory its 40 JARs.
+- [x] Verify the inventory and official `--help` entry point on the host.
+- [ ] Pass the first Minecraft server bootstrap probe on PS5.
 - [ ] Launch a vanilla dedicated server and reach a ready state.
 - [ ] Create, save, stop and reload a test world.
 - [ ] Connect from another device and verify sustained ticks and clean shutdown.
@@ -75,14 +82,41 @@ Java loopback, outbound LAN TCP/UDP and forward DNS now pass in the runtime repo
 - [ ] Test individual mods before attempting larger mod sets.
 - [ ] Publish exact tested versions, results and reproducible builds.
 
+## First server bootstrap probe
+
+**App:** `PPSA99874`, version `01.000.000`. [Source](server/native/bootstrap.cpp) · [Pinned artifacts](server/26.3.lock.json) · [Build status](server/build-status.json)
+
+Run all five rows in order:
+
+1. Initialize the embedded Java runtime.
+2. Create the Java 25 interpreter VM (512 MiB maximum heap).
+3. Verify all 40 official JAR hashes, the server’s Java 25 bytecode and representative dependency/module classes.
+4. Invoke the real, unmodified Minecraft 26.3 `net.minecraft.server.Main --help` and check its option-parser output.
+5. Destroy the VM.
+
+No Mac networking helper is needed. This build does not accept the EULA, generate a world, listen for players or establish server tick performance. Long exception messages wrap and support D-pad left/right paging.
+
+The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
+
+### Build and verify
+
+With the pinned Java port/toolchain available:
+
+```sh
+python3 tools/package_server_probe.py --runtime-workspace /path/to/PS5_Homebrew
+python3 tools/test_server_probe.py --runtime-image /path/to/PS5_Homebrew/dist/PPSA99874/assets/java25
+```
+
+The preparation script creates the class-path header and external probe specification under `build/`. The Java repository supplies the reusable runtime builder and extra target-built Java modules. No host native binaries are included. Optional module natives and server-specific native dependencies still need console validation.
+
+Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoader. Keep any existing app closed while replacing files.
+
 ## Milestones & releases
 
-**No Minecraft milestones have passed yet.** The Java milestones above belong to the runtime project.
+**No Minecraft milestones have passed on PS5 yet.** Host preflight/help and package integrity checks pass; all five console rows remain pending. The Java milestones above belong to the runtime project.
 
-As game-specific tests pass on the actual PS5, this repository will gain frozen milestone folders and matching releases. Each release will identify its game version, app version, dependencies, console results and package checksum. Host tests and successful compilation are recorded separately from console validation.
+Passing Minecraft snapshots will be frozen only after a human confirms ALL PASS for the exact console build. Each record will identify the game/app versions, dependency pins and package checksum.
 
 ## Follow the project
 
-Start with the **[Java port README](https://github.com/mateo-cogeanu/ps5-java25-homebrew#readme)** for the current runtime status, passing probe downloads and build notes.
-
-Minecraft-specific source and progress will be added here as that work begins. The first target is a reproducible vanilla server milestone; client and mod support follow after their prerequisites are tested.
+Runtime fixes and reusable tools are published to [ps5-java25-homebrew](https://github.com/mateo-cogeanu/ps5-java25-homebrew). Minecraft harnesses, artifact pins, preparation scripts and console results are published here. A complete vanilla dedicated server remains the next goal after bootstrap; client and mod work follow their own prerequisites.
