@@ -1,11 +1,11 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.007",
+  "app_version": "01.000.008",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "6d35e0e2d2dc9bb3d8cbb088769f9a1e4ffeec3bed690628327f930a0fbf313d",
-  "console": "pending: 01.000.006 executes server wrapper but returns no ready state with partial Log4j initialization stack; original exception heading unavailable",
-  "host": "PASS: real vanilla readiness/save/stop at 192 MiB with console-only logging; bounded output test retains initial error and later cause across 40KB stack text",
+  "package_sha256": "015fead1662e7a88181e6c707048d898d5b65cc85a5660b6da80afd347fb2ffe",
+  "console": "pending: 01.000.007 identifies legacy-verifier OOM during JOML Matrix3f verification and logging config lookup failure",
+  "host": "PASS: real vanilla readiness/save/stop at 192 MiB; 8 MiB interpreter code cache used 1044 KiB; logging XML loads from probe JAR; verifier diagnostic sanitizer checks pass",
   "package": "PASS: signature/integrity, ZIP CRC/title/version, official JAR hashes, Java25 fixtures, target timezone/CA data, no host native binaries or world/EULA file",
   "runtime_modules": [
     "java.base",
@@ -31,5 +31,6 @@
   "max_heap_mib": 192,
   "runtime_adaptation": "PS5-only non-class metaspace node size 16 MiB; existing growth unchanged",
   "probe_jar_sha256": "4c129b00516f32a78a4b5bd0ffd28a477de524d7dbbfa91bca2221c9b5bcbc36",
-  "diagnostics": "Dedicated bounded first output/error headings/recent output; Java cause chain; JNI/UI text budget increased to preserve headings and context"
+  "diagnostics": "Dedicated bounded first output/error headings/recent output; Java cause chain; JNI/UI text budget increased to preserve headings and context",
+  "reserved_code_cache_mib": 8
 }

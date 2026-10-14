@@ -35,6 +35,8 @@ shutil.copy2(ROOT/'server/config/log4j2-ps5.xml',assets/'java25/log4j2-ps5.xml')
 wrapper_classes=ROOT/'build/wrapper-classes';shutil.rmtree(wrapper_classes,ignore_errors=True);wrapper_classes.mkdir()
 subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/javac','--release','25','-d',str(wrapper_classes),*[str(p) for p in sorted((ROOT/'server/java').glob('*.java'))]],check=True)
 with zipfile.ZipFile(jars/'ps5-server-probe.jar','w',zipfile.ZIP_DEFLATED) as probe:
+    config=zipfile.ZipInfo('log4j2-ps5.xml');config.compress_type=zipfile.ZIP_DEFLATED
+    probe.writestr(config,(ROOT/'server/config/log4j2-ps5.xml').read_bytes())
     for path in sorted(wrapper_classes.rglob('*.class')):
         info=zipfile.ZipInfo(path.relative_to(wrapper_classes).as_posix());info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16
         probe.writestr(info,path.read_bytes())

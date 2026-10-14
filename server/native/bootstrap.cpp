@@ -210,6 +210,7 @@ void run_test(int i) {
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
    {const_cast<char *>("-Xms16m"),nullptr},
    {const_cast<char *>("-Xmx192m"),nullptr},
+   {const_cast<char *>("-XX:ReservedCodeCacheSize=8m"),nullptr},
    // Bootstrap class metadata needs far less than the default 1 GiB reservation.
    {const_cast<char *>("-XX:CompressedClassSpaceSize=32m"),nullptr},
    {const_cast<char *>("-Xshare:off"),nullptr},
@@ -222,7 +223,7 @@ void run_test(int i) {
    {const_cast<char *>("-Duser.home=/download0"),nullptr},
    {const_cast<char *>("-Duser.dir=/download0/mc-server-start"),nullptr},
    {const_cast<char *>("-Dlog4j2.disableJmx=true"),nullptr},
-   {const_cast<char *>("-Dlog4j2.configurationFile=/app0/assets/java25/log4j2-ps5.xml"),nullptr},
+   {const_cast<char *>("-Dlog4j2.configurationFile=jar:file:/app0/assets/java25/jars/ps5-server-probe.jar!/log4j2-ps5.xml"),nullptr},
    {const_cast<char *>("-Dps5.mc.workdir=/download0/mc-server-start"),nullptr},
    {const_cast<char *>("-Dps5.mc.eulaAccepted=true"),nullptr},
    // Always resolve relative paths against user.dir. UnixFileSystem then
@@ -349,7 +350,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.007",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.008",42,rgb(238,242,250));
  c.label(103,163,"Official Minecraft 26.3 / Java 25. Authorized test world: real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;

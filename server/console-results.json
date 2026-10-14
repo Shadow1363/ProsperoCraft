@@ -71,10 +71,21 @@
     {
       "app_version": "01.000.007",
       "package_sha256": "6d35e0e2d2dc9bb3d8cbb088769f9a1e4ffeec3bed690628327f930a0fbf313d",
-      "console": "pending",
+      "console": "PASS: initialization, VM creation and artifact preflight; FAIL server readiness; destruction not shown",
       "changes": "Headless console-only Log4j configuration, dedicated bounded error headings/first/recent output, cause chain and larger native display buffer",
       "host": "PASS: real readiness/save/stop at 192 MiB with new logging; diagnostics retain first exception across long stack and later cause",
-      "root_cause_status": "Prior underlying exception unknown; configuration reduces unneeded appender paths and next report preserves error headings"
+      "root_cause_status": "Prior underlying exception unknown; configuration reduces unneeded appender paths and next report preserves error headings",
+      "evidence": "User photos IMG_0442.JPG through IMG_0449.JPG",
+      "failure": "java.lang.OutOfMemoryError: (class: org/joml/Matrix3f, method: set signature: (Lorg/joml/Quaterniondc;)Lorg/joml/Matrix3f;) during block/registry initialization. Log4j reports configuration not found.",
+      "root_cause": "OOM originates from native legacy verifier error path; exact failing allocation or JNI acquisition not yet known"
+    },
+    {
+      "app_version": "01.000.008",
+      "package_sha256": "015fead1662e7a88181e6c707048d898d5b65cc85a5660b6da80afd347fb2ffe",
+      "console": "pending",
+      "changes": "8 MiB code-cache reservation in interpreter mode; logging XML loaded from probe JAR URL; verifier OOM site/errno/pending-JNI context and Java heap counters",
+      "host": "PASS: real startup/save/stop; 8 MiB code cache used 1044 KiB at shutdown; no logging reconfiguration error",
+      "runtime_diagnostic": "Native libverify build and sanitizer regression pass; original verifier remains enabled"
     }
   ]
 }

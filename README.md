@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.007
+## Current development: server start probe 01.000.008
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -129,3 +129,12 @@ Earlier build failures remain recorded in [console results](server/console-resul
 ## Follow the project
 
 Runtime fixes and reusable tools are published to [ps5-java25-homebrew](https://github.com/mateo-cogeanu/ps5-java25-homebrew). Minecraft harnesses, artifact pins, preparation scripts and console results are published here. The current development probe attempts real vanilla startup/save/stop; client and mod work follow their own prerequisites.
+
+Build 01.000.007 reached block/registry initialization and reported an
+OutOfMemoryError from the legacy verifier while checking JOML Matrix3f,
+plus a separate logging configuration lookup failure. Build 01.000.008
+uses an explicit 8 MiB code-cache reservation in interpreter mode, loads
+the logging XML through the probe JAR URL, and includes native verifier
+failure-site/errno/JNI-state diagnostics and Java heap counters. The host
+server reaches ready/save/stop with about 1 MiB of code cache used. The
+PS5 failure is not yet confirmed resolved.

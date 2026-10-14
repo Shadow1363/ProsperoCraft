@@ -59,6 +59,6 @@ public class ServerStart25 {
     if(!stopped&&serverThread()!=null){commands.write("stop\n".getBytes(StandardCharsets.UTF_8));commands.flush();Thread thread=serverThread();if(thread!=null)thread.join(30000);}
    }
   }finally{System.setOut(originalOut);System.setErr(originalErr);System.setIn(originalIn);commands.close();input.close();}
-  if(failure!=null)throw new Exception("MC server start stage "+stage+": "+describe(failure)+" | output: "+observer.recent(),failure);
+  if(failure!=null)throw new Exception("MC server start stage "+stage+": "+describe(failure)+" | Java heap bytes: max="+Runtime.getRuntime().maxMemory()+" total="+Runtime.getRuntime().totalMemory()+" free="+Runtime.getRuntime().freeMemory()+" | output: "+observer.recent(),failure);
  }
 }

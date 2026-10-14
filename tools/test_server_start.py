@@ -9,7 +9,7 @@ assets=ROOT/'build/assets/java25';lock=json.loads((ROOT/'server/26.3.lock.json')
 # Run entirely from the prepared probe JAR; no loose-class directory fallback.
 cp=str(assets/'jars/ps5-server-probe.jar')+':'+':'.join(str(assets/'jars'/r['file']) for r in lock['jars'])
 with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
- result=subprocess.run([str(JDK/'bin/java'),'-Xint',f'-Xmx{args.heap_mib}m','-XX:+UseSerialGC','-XX:ActiveProcessorCount=2','-Dps5.mc.eulaAccepted=true','-Dps5.mc.workdir='+directory,'-Duser.dir='+directory,'-Dlog4j2.disableJmx=true','-Dlog4j2.configurationFile='+str(assets/'log4j2-ps5.xml'),'--limit-modules',','.join(lock['modules']),'-cp',cp,'ServerStart25'],cwd=directory,capture_output=True,text=True,timeout=780)
+ result=subprocess.run([str(JDK/'bin/java'),'-Xint',f'-Xmx{args.heap_mib}m','-XX:+UseSerialGC','-XX:ReservedCodeCacheSize=8m','-XX:+PrintCodeCache','-XX:ActiveProcessorCount=2','-Dps5.mc.eulaAccepted=true','-Dps5.mc.workdir='+directory,'-Duser.dir='+directory,'-Dlog4j2.disableJmx=true','-Dlog4j2.configurationFile=jar:'+ (assets/'jars/ps5-server-probe.jar').as_uri()+'!/log4j2-ps5.xml','--limit-modules',','.join(lock['modules']),'-cp',cp,'ServerStart25'],cwd=directory,capture_output=True,text=True,timeout=780)
  output=result.stdout+result.stderr;(ROOT/'build/host-ServerStart25.log').write_text(output)
  assert result.returncode==0 and 'MC_SERVER_START_OK' in output,output[-12000:]
  assert (Path(directory)/'world/level.dat').stat().st_size>0
