@@ -20,8 +20,11 @@
     {
       "app_version": "01.000.002",
       "package_sha256": "2f203fe94cc8bada0e17e189f7883d89c7a6fc76c3f83908b60f20fd5810157d",
-      "console": "pending",
-      "changes": "Runtime now embeds and packages real upstream legacy bytecode verifier; no verification bypass"
+      "console": "ALL PASS: human user confirms all five rows on actual PS5",
+      "changes": "Runtime now embeds and packages real upstream legacy bytecode verifier; no verification bypass",
+      "firmware": "13.60",
+      "reported_date": "2026-10-14",
+      "evidence": "User message: ALL PASS!"
     }
   ]
 }
