@@ -84,7 +84,7 @@ The runtime now has **nine passing console milestones**, including inbound IPv4,
 
 ## First server bootstrap probe
 
-**App:** `PPSA99874`, version `01.000.001`. [Source](server/native/bootstrap.cpp) · [Pinned artifacts](server/26.3.lock.json) · [Build status](server/build-status.json)
+**App:** `PPSA99874`, version `01.000.002`. [Source](server/native/bootstrap.cpp) · [Pinned artifacts](server/26.3.lock.json) · [Build status](server/build-status.json)
 
 Run all five rows in order:
 
@@ -115,7 +115,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 **Build 01.000.000 aborted during JVM creation on PS5.** The cause remains unknown. Build 01.000.001 restores the previously passing 128 MiB heap budget for bootstrap/help and saves the JVM’s formatted abort/exit message. After an abort, relaunch and use D-pad left/right to photograph every page of the saved diagnostic panel. [Console results](server/console-results.json)
 
-**No Minecraft milestones have passed on PS5 yet.** Host preflight/help and package integrity checks pass; all five console rows remain pending. The Java milestones above belong to the runtime project.
+**No Minecraft milestones have passed on PS5 yet.** Host preflight/help and package integrity checks pass; build 01.000.001 passed VM lifecycle and artifact/dependency checks, but `--help` failed with a verifier-link error. Build 01.000.002 includes the real upstream legacy verifier and awaits console testing. The Java milestones above belong to the runtime project.
 
 Passing Minecraft snapshots will be frozen only after a human confirms ALL PASS for the exact console build. Each record will identify the game/app versions, dependency pins and package checksum.
 

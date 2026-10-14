@@ -343,7 +343,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Bootstrap 01.000.001",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Bootstrap 01.000.002",42,rgb(238,242,250));
  c.label(103,163,"Official Minecraft 26.3 / Java 25. Bootstrap only: no world creation.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
