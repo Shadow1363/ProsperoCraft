@@ -51,10 +51,19 @@
     {
       "app_version": "01.000.005",
       "package_sha256": "fe00f3479c68d6c491bd4fd44f049714a5470cdc1e6784fe6677ef42a3450a11",
-      "console": "pending",
+      "console": "PASS: initialization, 192 MiB VM creation, official JAR checks and DestroyJavaVM. FAIL: server-start row before main execution.",
       "max_heap_mib": 192,
       "runtime_change": "PS5 non-class metaspace node 16 MiB instead of 64 MiB, existing demand growth preserved",
-      "host": "192 MiB vanilla start/save/stop passed before native adaptation; patched settings/configuration model and target build pass; host JVM does not execute PS5 native code"
+      "host": "192 MiB vanilla start/save/stop passed before native adaptation; patched settings/configuration model and target build pass; host JVM does not execute PS5 native code",
+      "failure": "main method lookup: java.lang.NoClassDefFoundError: ServerStart25$Observer; code FFFFFAE7",
+      "evidence": "User photo IMG_0438.JPG; user confirms other rows pass"
+    },
+    {
+      "app_version": "01.000.006",
+      "package_sha256": "b9b9daa54a29fad8d2d3c491d5d9b48748fa6ef1b4762e447620804487a0f963",
+      "console": "pending",
+      "changes": "Consumer probe classes including nested Observer are in ps5-server-probe.jar on the real system class path; passing 192 MiB heap and smaller metaspace settings retained",
+      "host": "PASS: exact DefineClass/GetStaticMethodID negative missing-helper and positive helper-JAR regression; actual server readiness/save/stop from JAR-only wrapper class path"
     }
   ]
 }

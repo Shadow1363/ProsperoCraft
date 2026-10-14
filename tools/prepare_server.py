@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import urllib.request
 import zipfile
 ROOT=Path(__file__).resolve().parents[1]
@@ -27,7 +28,18 @@ with zipfile.ZipFile(cache) as archive:
             (jars/record['file']).write_bytes(payload)
 inventory=''.join(record['file']+'='+record['sha256']+'\n' for record in lock['jars'])
 (assets/'java25/server-inventory.properties').write_text(inventory)
-classpath='/app0/assets/java25/classes:'+':'.join('/app0/assets/java25/jars/'+record['file'] for record in lock['jars'])
+# Put the consumer's helper classes in a JAR: the PS5 system loader already
+# supports bundled JAR URLs, while loose class-directory lookup uses sandbox
+# metadata operations that are not established for these fixtures.
+wrapper_classes=ROOT/'build/wrapper-classes';shutil.rmtree(wrapper_classes,ignore_errors=True);wrapper_classes.mkdir()
+subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/javac','--release','25','-d',str(wrapper_classes),*[str(p) for p in sorted((ROOT/'server/java').glob('*.java'))]],check=True)
+with zipfile.ZipFile(jars/'ps5-server-probe.jar','w',zipfile.ZIP_DEFLATED) as probe:
+    for path in sorted(wrapper_classes.rglob('*.class')):
+        info=zipfile.ZipInfo(path.relative_to(wrapper_classes).as_posix());info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16
+        probe.writestr(info,path.read_bytes())
+with zipfile.ZipFile(jars/'ps5-server-probe.jar') as probe:
+    assert 'ServerStart25$Observer.class' in probe.namelist()
+classpath='/app0/assets/java25/jars/ps5-server-probe.jar:'+':'.join('/app0/assets/java25/jars/'+record['file'] for record in lock['jars'])
 (ROOT/'build/server_classpath.hpp').write_text('#pragma once\n#define SERVER_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n')
 spec={'source':str(ROOT/'server/native/bootstrap.cpp'),'param':str(ROOT/'server/param.json'),'asset_dir':str(assets),'java_sources':[str(p) for p in sorted((ROOT/'server/java').glob('*.java'))],'modules':lock['modules'],'include_dirs':[str(ROOT/'build'),str(runtime/'java25/probe')]}
 (ROOT/'build/probe-spec.json').write_text(json.dumps(spec,indent=2)+'\n')

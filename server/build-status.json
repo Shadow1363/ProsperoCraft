@@ -1,11 +1,11 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.005",
+  "app_version": "01.000.006",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "fe00f3479c68d6c491bd4fd44f049714a5470cdc1e6784fe6677ef42a3450a11",
-  "console": "pending: 01.000.004 failed JVM creation after 80 MiB native reserve ENOMEM; 01.000.005 uses incremental 16 MiB non-class metaspace nodes",
-  "host": "PASS: real official vanilla Done readiness, stop, server-thread exit, nonempty saved level.dat at 192 MiB / -Xint; 128 MiB attempt exhausted Java heap during world generation",
+  "package_sha256": "b9b9daa54a29fad8d2d3c491d5d9b48748fa6ef1b4762e447620804487a0f963",
+  "console": "pending: 01.000.005 passes lifecycle/artifact checks, fails helper class resolution in server row; 01.000.006 packages probe classes in explicit system-classpath JAR",
+  "host": "PASS: actual vanilla Done readiness, stop, server-thread exit and saved level.dat at 192 MiB with probe classes only in their JAR; exact JNI helper lookup regression passes",
   "package": "PASS: signature/integrity, ZIP CRC/title/version, official JAR hashes, Java25 fixtures, target timezone/CA data, no host native binaries or world/EULA file",
   "runtime_modules": [
     "java.base",
@@ -29,5 +29,6 @@
   ],
   "scope": "One bounded flat-world startup/save/stop attempt. Console ready state, world save and player joins remain unvalidated.",
   "max_heap_mib": 192,
-  "runtime_adaptation": "PS5-only non-class metaspace node size 16 MiB; existing growth unchanged"
+  "runtime_adaptation": "PS5-only non-class metaspace node size 16 MiB; existing growth unchanged",
+  "probe_jar_sha256": "4c129b00516f32a78a4b5bd0ffd28a477de524d7dbbfa91bca2221c9b5bcbc36"
 }
