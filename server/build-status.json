@@ -1,11 +1,11 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.003",
+  "app_version": "01.000.004",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "76da0b6cb07cb600842d9151430b8a9cedfa262994e3e43a8bd2709719f18c64",
-  "console": "pending: first ready/save/stop world probe; frozen bootstrap 01.000.002 ALL PASS",
-  "host": "PASS: real official vanilla server Done readiness, stop command, Server thread exit and nonempty saved world/level.dat at 256 MiB / -Xint with requested target module roots",
+  "package_sha256": "62ad5f481ccd87fd9aedf42fa0e85f00ab0817ccbf787f6e1594056d59dd58e1",
+  "console": "pending: 01.000.003 failed JVM creation after native reserve ENOMEM; 01.000.004 reduces max heap to 192 MiB",
+  "host": "PASS: real official vanilla Done readiness, stop, server-thread exit, nonempty saved level.dat at 192 MiB / -Xint; 128 MiB attempt exhausted Java heap during world generation",
   "package": "PASS: signature/integrity, ZIP CRC/title/version, official JAR hashes, Java25 fixtures, target timezone/CA data, no host native binaries or world/EULA file",
   "runtime_modules": [
     "java.base",
@@ -28,5 +28,5 @@
     "jdk.zipfs"
   ],
   "scope": "One bounded flat-world startup/save/stop attempt. Console ready state, world save and player joins remain unvalidated.",
-  "max_heap_mib": 256
+  "max_heap_mib": 192
 }

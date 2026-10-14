@@ -209,7 +209,7 @@ void run_test(int i) {
    {const_cast<char *>("-XX:UseAVX=0"),nullptr},
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
    {const_cast<char *>("-Xms16m"),nullptr},
-   {const_cast<char *>("-Xmx256m"),nullptr},
+   {const_cast<char *>("-Xmx192m"),nullptr},
    // Bootstrap class metadata needs far less than the default 1 GiB reservation.
    {const_cast<char *>("-XX:CompressedClassSpaceSize=32m"),nullptr},
    {const_cast<char *>("-Xshare:off"),nullptr},
@@ -252,7 +252,7 @@ void run_test(int i) {
   if(startup_log) {std::fprintf(startup_log,"JNI_CreateJavaVM returned %d\n",rc);std::fflush(startup_log);}
   if(rc==JNI_OK && (!java_vm||!java_env)) rc=-1302;
   if(rc!=JNI_OK) {java_vm=nullptr;java_env=nullptr;skip_vm_dependents();read_previous_log();}
-  result(i,rc,"Real JNI_CreateJavaVM, -Xint, 256 MiB max heap");
+  result(i,rc,"Real JNI_CreateJavaVM, -Xint, 192 MiB max heap");
  } else if(!java_vm||!java_env) {
   result(i,-1303,"Create the VM first; relaunch to retry");
  } else if(i>=2 && i<=3) {
@@ -348,7 +348,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.003",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.004",42,rgb(238,242,250));
  c.label(103,163,"Official Minecraft 26.3 / Java 25. Authorized test world: real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;

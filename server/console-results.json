@@ -29,10 +29,22 @@
     {
       "app_version": "01.000.003",
       "package_sha256": "76da0b6cb07cb600842d9151430b8a9cedfa262994e3e43a8bd2709719f18c64",
-      "console": "pending",
+      "console": "FAIL: JVM creation; human photo IMG_0436.JPG",
       "scope": "Authorized EULA, separate flat test world, real Done readiness, stop command, server thread exit, saved level.dat",
       "host": "PASS",
-      "max_heap_mib": 256
+      "max_heap_mib": 256,
+      "last_checkpoint": "FAIL: Native memory reserve bytes=67108864 mode=4098 errno=12; followed by signal 0xb",
+      "root_cause": "Memory reservation failed with ENOMEM; overall memory limit and subsequent signal cause not established"
+    },
+    {
+      "app_version": "01.000.004",
+      "package_sha256": "62ad5f481ccd87fd9aedf42fa0e85f00ab0817ccbf787f6e1594056d59dd58e1",
+      "console": "pending",
+      "max_heap_mib": 192,
+      "changes": "Reduce heap reservation from 256 MiB; server test and target modules unchanged",
+      "host": "PASS: actual vanilla Done readiness, stop, server thread exit and saved level.dat at 192 MiB",
+      "host_lower_bound": "128 MiB test failed with OutOfMemoryError: Java heap space in world generation; host test terminated after confirming exhaustion",
+      "limitations": "No PS5 memory limit established; failed reserve may not alone explain subsequent signal"
     }
   ]
 }
