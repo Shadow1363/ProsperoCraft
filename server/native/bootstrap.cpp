@@ -12,6 +12,7 @@
 #include <signal.h>
 #include "jni.h"
 #include "native_trace.hpp"
+#include "vm_diagnostics.hpp"
 #include "server_classpath.hpp"
 using Initializer=void (*)();
 extern "C" Initializer __jvm_init_array_start[],__jvm_init_array_end[];
@@ -57,7 +58,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-char exception_detail[1536]{};
+char exception_detail[4096]{};
 char previous_log[7][160]={{},{},{},{},{},{},"No previous startup log."};
 struct NativeTraceScope {
  NativeTraceScope() {
@@ -81,13 +82,31 @@ void network_checkpoint(JNIEnv *env,jclass,jstring stage) {
  env->ReleaseStringUTFChars(stage,utf);
 }
 int vm_print(FILE *,const char *format,va_list arguments) {
+#ifdef __PROSPERO__
+ Ps5TraceIOScope guard;
+#endif
+ ps5_vm_diagnostics::capture(format,arguments);
  if(!startup_log) return 0;
  int count=std::vfprintf(startup_log,format,arguments);std::fflush(startup_log);return count;
 }
-void vm_exit(int code) {
- if(startup_log) {std::fprintf(startup_log,"VM EXIT: %d\n",code);std::fflush(startup_log);}
+void save_vm_failure(const char *reason) {
+#ifdef __PROSPERO__
+ Ps5TraceIOScope guard;
+#endif
+ int fd=open("/download0/mc-bootstrap-abort.txt",O_CREAT|O_WRONLY|O_TRUNC,0600);
+ if(fd>=0) {
+  write(fd,reason,std::strlen(reason));write(fd,"\n",1);
+  const char *text=ps5_vm_diagnostics::used?ps5_vm_diagnostics::output:"No JVM formatted diagnostic captured.";
+  std::size_t left=std::strlen(text);
+  while(left){ssize_t count=write(fd,text,left);if(count<=0)break;text+=count;left-=static_cast<std::size_t>(count);}
+  close(fd);
+ }
 }
-void vm_abort() {log_stage("VM ABORT");}
+void vm_exit(int code) {
+ char reason[80];std::snprintf(reason,sizeof(reason),"VM EXIT: %d",code);save_vm_failure(reason);
+ if(startup_log) {std::fprintf(startup_log,"%s\n",reason);std::fflush(startup_log);}
+}
+void vm_abort() {save_vm_failure("VM ABORT during bootstrap");log_stage("VM ABORT");}
 bool read_last_line(const char *path) {
  FILE *file=std::fopen(path,"r");if(!file) return false;
  bool found=false;char line[256]{};
@@ -105,6 +124,9 @@ bool read_last_line(const char *path) {
 void read_previous_log() {
  read_last_line("/download0/java25-startup.log");
  read_last_line("/download0/java25-vm-trace.log");
+ FILE *failure=std::fopen("/download0/mc-bootstrap-abort.txt","rb");
+ if(failure){size_t count=std::fread(exception_detail,1,sizeof(exception_detail)-1,failure);exception_detail[count]='\0';std::fclose(failure);}
+
 }
 
 void result(int i,int rc,const char *message) {
@@ -157,6 +179,8 @@ void run_test(int i) {
  } else if(!initialized) {
   result(i,-1301,"Initialize runtime first, then relaunch to retry");
  } else if(i==1) {
+  ps5_vm_diagnostics::reset();exception_detail[0]='\0';exception_page=0;
+  unlink("/download0/mc-bootstrap-abort.txt");
   // Check the actual read operation; access() may have different sandbox
   // permission behavior. Distinguish preflight errors from JNI returns.
   log_stage("Opening packaged Java core image");
@@ -183,7 +207,7 @@ void run_test(int i) {
    {const_cast<char *>("-XX:UseAVX=0"),nullptr},
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
    {const_cast<char *>("-Xms16m"),nullptr},
-   {const_cast<char *>("-Xmx512m"),nullptr},
+   {const_cast<char *>("-Xmx128m"),nullptr},
    // Bootstrap class metadata needs far less than the default 1 GiB reservation.
    {const_cast<char *>("-XX:CompressedClassSpaceSize=32m"),nullptr},
    {const_cast<char *>("-Xshare:off"),nullptr},
@@ -224,7 +248,7 @@ void run_test(int i) {
   if(startup_log) {std::fprintf(startup_log,"JNI_CreateJavaVM returned %d\n",rc);std::fflush(startup_log);}
   if(rc==JNI_OK && (!java_vm||!java_env)) rc=-1302;
   if(rc!=JNI_OK) {java_vm=nullptr;java_env=nullptr;skip_vm_dependents();read_previous_log();}
-  result(i,rc,"Real JNI_CreateJavaVM, -Xint, 512 MiB max heap");
+  result(i,rc,"Real JNI_CreateJavaVM, -Xint, 128 MiB max heap");
  } else if(!java_vm||!java_env) {
   result(i,-1303,"Create the VM first; relaunch to retry");
  } else if(i>=2 && i<=3) {
@@ -319,7 +343,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Bootstrap 01.000.000",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Bootstrap 01.000.001",42,rgb(238,242,250));
  c.label(103,163,"Official Minecraft 26.3 / Java 25. Bootstrap only: no world creation.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;

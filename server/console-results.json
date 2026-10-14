@@ -1,0 +1,19 @@
+{
+  "title_id": "PPSA99874",
+  "results": [
+    {
+      "app_version": "01.000.000",
+      "package_sha256": "24a12be75ea723bb409d715e498464580c79f080e0993580ed8f14772ed3acfc",
+      "console": "FAIL: user reports abort during JVM creation",
+      "last_checkpoint": "VM ABORT",
+      "evidence": "User photo IMG_0434.JPG, 2026-10-14",
+      "root_cause": "Unknown; final native string trace does not identify the VM abort reason."
+    },
+    {
+      "app_version": "01.000.001",
+      "package_sha256": "2419577cf09826e246f70be14ec090d423f77701f34652f9ea1265fda2e16622",
+      "console": "pending",
+      "changes": "128 MiB max heap control; bounded native JVM formatted-output capture; persisted abort/exit report shown with paging after relaunch"
+    }
+  ]
+}
