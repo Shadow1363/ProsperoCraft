@@ -8,13 +8,24 @@ public class ServerStart25 {
  private static native void checkpoint(String stage);
  private static void trace(String stage){if(Boolean.getBoolean("ps5.probe.dependencyTrace"))checkpoint("MC start: "+stage);}
  private static final class Observer extends OutputStream {
-  final PrintStream console;final StringBuilder tail=new StringBuilder();volatile boolean ready;
+  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;
   Observer(PrintStream console){this.console=console;}
-  public synchronized void write(int value){console.write(value);tail.append((char)(value&255));trim();}
-  public synchronized void write(byte[] bytes,int offset,int length){console.write(bytes,offset,length);tail.append(new String(bytes,offset,length,StandardCharsets.UTF_8));trim();}
-  private void trim(){if(tail.indexOf("Done (")>=0&&tail.indexOf("For help, type")>=0)ready=true;if(tail.length()>16000)tail.delete(0,tail.length()-16000);}
-  synchronized String recent(){return tail.toString();}
+  public synchronized void write(int value){console.write(value);record(Character.toString((char)(value&255)));}
+  public synchronized void write(byte[] bytes,int offset,int length){console.write(bytes,offset,length);record(new String(bytes,offset,length,StandardCharsets.UTF_8));}
+  private void record(String text){
+   if(head.length()<4096)head.append(text,0,Math.min(text.length(),4096-head.length()));
+   tail.append(text);
+   if(tail.indexOf("Done (")>=0&&tail.indexOf("For help, type")>=0)ready=true;
+   if(tail.length()>4096)tail.delete(0,tail.length()-4096);
+   for(int i=0;i<text.length();i++){
+    char c=text.charAt(i);
+    if(c=='\n'){note();line.setLength(0);}else if(line.length()<4096)line.append(c=='\t'?' ':c);
+   }
+  }
+  private void note(){String value=line.toString().trim();if(errors.length()<4096&&!value.startsWith("at ")&&(value.contains("ERROR")||value.contains("Exception")||value.contains("Error")||value.contains("Caused by:")))errors.append(value,0,Math.min(value.length(),4096-errors.length())).append('\n');}
+  synchronized String recent(){return "ERROR HEADINGS AND CAUSES:\n"+errors+"\nFIRST OUTPUT:\n"+head+"\nRECENT OUTPUT:\n"+tail;}
  }
+ private static String describe(Throwable error){StringBuilder result=new StringBuilder();for(int i=0;error!=null&&i<8;i++,error=error.getCause()){if(i>0)result.append(" | caused by: ");result.append(error);}return result.toString();}
  private static Thread serverThread(){for(Thread thread:Thread.getAllStackTraces().keySet())if(thread.isAlive()&&thread.getName().equals("Server thread"))return thread;return null;}
  public static void main(String[] args)throws Exception {
   if(!Boolean.getBoolean("ps5.mc.eulaAccepted"))throw new IllegalStateException("Human EULA acceptance is required before this test");
@@ -35,7 +46,7 @@ public class ServerStart25 {
     stage="wait up to 10 minutes for real Done readiness message";trace(stage);
     long deadline=System.nanoTime()+600_000_000_000L;
     while(!observer.ready&&System.nanoTime()<deadline){if(serverThread()==null)break;Thread.sleep(200);}
-    if(!observer.ready)throw new IOException("Server did not report ready. Recent output: "+observer.recent());
+    if(!observer.ready)throw new IOException("Server did not report ready; thread exited or deadline elapsed");
     stage="send stop and await real server thread exit";trace(stage);
     commands.write("stop\n".getBytes(StandardCharsets.UTF_8));commands.flush();
     Thread thread=serverThread();if(thread!=null)thread.join(120000);
@@ -48,6 +59,6 @@ public class ServerStart25 {
     if(!stopped&&serverThread()!=null){commands.write("stop\n".getBytes(StandardCharsets.UTF_8));commands.flush();Thread thread=serverThread();if(thread!=null)thread.join(30000);}
    }
   }finally{System.setOut(originalOut);System.setErr(originalErr);System.setIn(originalIn);commands.close();input.close();}
-  if(failure!=null)throw new Exception("MC server start stage "+stage+": "+failure+" | output: "+observer.recent(),failure);
+  if(failure!=null)throw new Exception("MC server start stage "+stage+": "+describe(failure)+" | output: "+observer.recent(),failure);
  }
 }

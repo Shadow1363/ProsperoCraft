@@ -1,11 +1,11 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.006",
+  "app_version": "01.000.007",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "b9b9daa54a29fad8d2d3c491d5d9b48748fa6ef1b4762e447620804487a0f963",
-  "console": "pending: 01.000.005 passes lifecycle/artifact checks, fails helper class resolution in server row; 01.000.006 packages probe classes in explicit system-classpath JAR",
-  "host": "PASS: actual vanilla Done readiness, stop, server-thread exit and saved level.dat at 192 MiB with probe classes only in their JAR; exact JNI helper lookup regression passes",
+  "package_sha256": "6d35e0e2d2dc9bb3d8cbb088769f9a1e4ffeec3bed690628327f930a0fbf313d",
+  "console": "pending: 01.000.006 executes server wrapper but returns no ready state with partial Log4j initialization stack; original exception heading unavailable",
+  "host": "PASS: real vanilla readiness/save/stop at 192 MiB with console-only logging; bounded output test retains initial error and later cause across 40KB stack text",
   "package": "PASS: signature/integrity, ZIP CRC/title/version, official JAR hashes, Java25 fixtures, target timezone/CA data, no host native binaries or world/EULA file",
   "runtime_modules": [
     "java.base",
@@ -30,5 +30,6 @@
   "scope": "One bounded flat-world startup/save/stop attempt. Console ready state, world save and player joins remain unvalidated.",
   "max_heap_mib": 192,
   "runtime_adaptation": "PS5-only non-class metaspace node size 16 MiB; existing growth unchanged",
-  "probe_jar_sha256": "4c129b00516f32a78a4b5bd0ffd28a477de524d7dbbfa91bca2221c9b5bcbc36"
+  "probe_jar_sha256": "4c129b00516f32a78a4b5bd0ffd28a477de524d7dbbfa91bca2221c9b5bcbc36",
+  "diagnostics": "Dedicated bounded first output/error headings/recent output; Java cause chain; JNI/UI text budget increased to preserve headings and context"
 }

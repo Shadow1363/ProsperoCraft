@@ -28,6 +28,7 @@ with zipfile.ZipFile(cache) as archive:
             (jars/record['file']).write_bytes(payload)
 inventory=''.join(record['file']+'='+record['sha256']+'\n' for record in lock['jars'])
 (assets/'java25/server-inventory.properties').write_text(inventory)
+shutil.copy2(ROOT/'server/config/log4j2-ps5.xml',assets/'java25/log4j2-ps5.xml')
 # Put the consumer's helper classes in a JAR: the PS5 system loader already
 # supports bundled JAR URLs, while loose class-directory lookup uses sandbox
 # metadata operations that are not established for these fixtures.

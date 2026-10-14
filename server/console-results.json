@@ -61,9 +61,20 @@
     {
       "app_version": "01.000.006",
       "package_sha256": "b9b9daa54a29fad8d2d3c491d5d9b48748fa6ef1b4762e447620804487a0f963",
-      "console": "pending",
+      "console": "PASS: initialization, VM creation and official JAR preflight. FAIL: real server did not report ready; DestroyJavaVM not shown as run.",
       "changes": "Consumer probe classes including nested Observer are in ps5-server-probe.jar on the real system class path; passing 192 MiB heap and smaller metaspace settings retained",
-      "host": "PASS: exact DefineClass/GetStaticMethodID negative missing-helper and positive helper-JAR regression; actual server readiness/save/stop from JAR-only wrapper class path"
+      "host": "PASS: exact DefineClass/GetStaticMethodID negative missing-helper and positive helper-JAR regression; actual server readiness/save/stop from JAR-only wrapper class path",
+      "evidence": "User photos IMG_0439.JPG, IMG_0440.JPG, IMG_0441.JPG",
+      "failure": "ServerStart25 wait-for-ready IOException; captured output begins mid-stack in Unsafe.ensureClassInitialized and Log4j PluginBuilder/AbstractConfiguration; original error heading lost to rolling output and native truncation",
+      "root_cause": "Not established: partial stack implicates logging initialization but does not identify the underlying exception"
+    },
+    {
+      "app_version": "01.000.007",
+      "package_sha256": "6d35e0e2d2dc9bb3d8cbb088769f9a1e4ffeec3bed690628327f930a0fbf313d",
+      "console": "pending",
+      "changes": "Headless console-only Log4j configuration, dedicated bounded error headings/first/recent output, cause chain and larger native display buffer",
+      "host": "PASS: real readiness/save/stop at 192 MiB with new logging; diagnostics retain first exception across long stack and later cause",
+      "root_cause_status": "Prior underlying exception unknown; configuration reduces unneeded appender paths and next report preserves error headings"
     }
   ]
 }

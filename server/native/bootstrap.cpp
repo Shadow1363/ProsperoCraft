@@ -59,7 +59,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-char exception_detail[4096]{};
+char exception_detail[24576]{};
 char previous_log[7][160]={{},{},{},{},{},{},"No previous startup log."};
 struct NativeTraceScope {
  NativeTraceScope() {
@@ -138,7 +138,7 @@ void java_failure(int i,int code,const char* phase) {
  // Keep the original exception alive while obtaining its actual Java text.
  jthrowable original=java_env->ExceptionOccurred();
  java_env->ExceptionClear();
- char detail[1536]="Java exception text unavailable";
+ char detail[24000]="Java exception text unavailable";
  if(original) {
   jclass type=java_env->GetObjectClass(original);
   jmethodID method=type?java_env->GetMethodID(type,"toString","()Ljava/lang/String;"):nullptr;
@@ -222,6 +222,7 @@ void run_test(int i) {
    {const_cast<char *>("-Duser.home=/download0"),nullptr},
    {const_cast<char *>("-Duser.dir=/download0/mc-server-start"),nullptr},
    {const_cast<char *>("-Dlog4j2.disableJmx=true"),nullptr},
+   {const_cast<char *>("-Dlog4j2.configurationFile=/app0/assets/java25/log4j2-ps5.xml"),nullptr},
    {const_cast<char *>("-Dps5.mc.workdir=/download0/mc-server-start"),nullptr},
    {const_cast<char *>("-Dps5.mc.eulaAccepted=true"),nullptr},
    // Always resolve relative paths against user.dir. UnixFileSystem then
@@ -348,7 +349,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.006",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.007",42,rgb(238,242,250));
  c.label(103,163,"Official Minecraft 26.3 / Java 25. Authorized test world: real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
