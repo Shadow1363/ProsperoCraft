@@ -263,6 +263,7 @@
     "java.sql",
     "jdk.httpserver",
     "jdk.jfr",
-    "jdk.unsupported"
+    "jdk.unsupported",
+    "jdk.zipfs"
   ]
 }

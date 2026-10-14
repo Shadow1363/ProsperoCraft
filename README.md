@@ -83,7 +83,7 @@ The runtime now has **nine passing console milestones**, including inbound IPv4,
 
 ## First server bootstrap probe
 
-**App:** `PPSA99874`, version `01.000.002`. [Source](server/native/bootstrap.cpp) · [Pinned artifacts](server/26.3.lock.json) · [Build status](server/build-status.json)
+**Passing snapshot:** `PPSA99874`, version `01.000.002`. [Frozen source](Server_Bootstrap/server/native/bootstrap.cpp) · [Pinned artifacts](Server_Bootstrap/server/26.3.lock.json) · [Validation](Server_Bootstrap/validation.json)
 
 Run all five rows in order:
 
@@ -97,13 +97,19 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
+## Current development: server start probe 01.000.003
+
+The five rows initialize the runtime, create a 256 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
+
+The world and configuration live under the application-visible `/download0/mc-server-start`. The test preserves that directory across launches, writes its controlled low-distance server properties, listens on available interfaces without a preset IP, waits up to ten minutes for the real `Done` message, sends `stop`, awaits server-thread exit and reads the saved `world/level.dat`. The menu waits while this row runs. The host test passes; **PS5 server startup/save/stop remains pending**. This development build includes target-built `jdk.zipfs` for Minecraft datapacks, in addition to the bootstrap module set. It does not establish player-join support or sustained performance.
+
 ### Build and verify
 
 With the pinned Java port/toolchain available:
 
 ```sh
 python3 tools/package_server_probe.py --runtime-workspace /path/to/PS5_Homebrew
-python3 tools/test_server_probe.py --runtime-image /path/to/PS5_Homebrew/dist/PPSA99874/assets/java25
+python3 tools/test_server_start.py
 ```
 
 The preparation script creates the class-path header and external probe specification under `build/`. The Java repository supplies the reusable runtime builder and extra target-built Java modules. No host native binaries are included. Optional module natives and server-specific native dependencies still need console validation.
@@ -122,4 +128,4 @@ Earlier build failures remain recorded in [console results](server/console-resul
 
 ## Follow the project
 
-Runtime fixes and reusable tools are published to [ps5-java25-homebrew](https://github.com/mateo-cogeanu/ps5-java25-homebrew). Minecraft harnesses, artifact pins, preparation scripts and console results are published here. A complete vanilla dedicated server remains the next goal after bootstrap; client and mod work follow their own prerequisites.
+Runtime fixes and reusable tools are published to [ps5-java25-homebrew](https://github.com/mateo-cogeanu/ps5-java25-homebrew). Minecraft harnesses, artifact pins, preparation scripts and console results are published here. The current development probe attempts real vanilla startup/save/stop; client and mod work follow their own prerequisites.

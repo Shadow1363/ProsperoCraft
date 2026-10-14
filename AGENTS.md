@@ -26,3 +26,10 @@ Keep official downloaded JARs in ignored caches/local build packages,
 with source-controlled artifact metadata and checksums for reproduction.
 The initial --help bootstrap probe must not auto-accept the EULA or claim
 world/server readiness from host success.
+
+Server_Bootstrap is the frozen passing 01.000.002 snapshot. Do not modify it.
+The human accepted the Minecraft EULA for the server test on 2026-10-14,
+recorded in server/eula-consent.json. Development server-start code lives
+in server/ and tools/. Retain passing full packages under ignored
+dist/milestones before replacing the current build. Public releases omit
+official game JARs and document local provisioning and separate checksums.

@@ -1,3 +1,4 @@
+#include <sys/stat.h>
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #include "demo_renderer.hpp"
 #include "menu_audio.hpp"
@@ -48,7 +49,7 @@ namespace {
 using ps5::demo::Canvas;
 constexpr std::uint32_t rgb(unsigned r,unsigned g,unsigned b) {return 0xff000000u|r|(g<<8)|(b<<16);}
 constexpr int test_count=5;
-const char *names[]={"Initialize embedded core runtime","Create Java 25 VM (interpreter mode)","Verify official server JARs and Java dependencies","Run Minecraft 26.3 server --help","Destroy Java VM"};
+const char *names[]={"Initialize embedded core runtime","Create Java 25 VM (interpreter mode)","Verify official server JARs and Java dependencies","Start flat world, wait for ready, save and stop","Destroy Java VM"};
 int status[test_count]{}; // 0 untested, 1 pass, -1 fail, 2 running
 char messages[test_count][104]{};
 int selected=0,pending=-1,pad=-1;
@@ -179,6 +180,7 @@ void run_test(int i) {
  } else if(!initialized) {
   result(i,-1301,"Initialize runtime first, then relaunch to retry");
  } else if(i==1) {
+  if(mkdir("/download0/mc-server-start",0700)!=0 && errno!=EEXIST) {result(i,errno,"Cannot create isolated server directory");return;}
   ps5_vm_diagnostics::reset();exception_detail[0]='\0';exception_page=0;
   unlink("/download0/mc-bootstrap-abort.txt");
   // Check the actual read operation; access() may have different sandbox
@@ -207,7 +209,7 @@ void run_test(int i) {
    {const_cast<char *>("-XX:UseAVX=0"),nullptr},
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
    {const_cast<char *>("-Xms16m"),nullptr},
-   {const_cast<char *>("-Xmx128m"),nullptr},
+   {const_cast<char *>("-Xmx256m"),nullptr},
    // Bootstrap class metadata needs far less than the default 1 GiB reservation.
    {const_cast<char *>("-XX:CompressedClassSpaceSize=32m"),nullptr},
    {const_cast<char *>("-Xshare:off"),nullptr},
@@ -218,8 +220,10 @@ void run_test(int i) {
    {const_cast<char *>(SERVER_CLASSPATH_OPTION),nullptr},
    {const_cast<char *>("-Djava.io.tmpdir=/download0"),nullptr},
    {const_cast<char *>("-Duser.home=/download0"),nullptr},
-   {const_cast<char *>("-Duser.dir=/download0"),nullptr},
+   {const_cast<char *>("-Duser.dir=/download0/mc-server-start"),nullptr},
    {const_cast<char *>("-Dlog4j2.disableJmx=true"),nullptr},
+   {const_cast<char *>("-Dps5.mc.workdir=/download0/mc-server-start"),nullptr},
+   {const_cast<char *>("-Dps5.mc.eulaAccepted=true"),nullptr},
    // Always resolve relative paths against user.dir. UnixFileSystem then
    // skips its desktop getcwd comparison in the native title sandbox.
    {const_cast<char *>("-Dsun.nio.fs.chdirAllowed=true"),nullptr},
@@ -248,11 +252,11 @@ void run_test(int i) {
   if(startup_log) {std::fprintf(startup_log,"JNI_CreateJavaVM returned %d\n",rc);std::fflush(startup_log);}
   if(rc==JNI_OK && (!java_vm||!java_env)) rc=-1302;
   if(rc!=JNI_OK) {java_vm=nullptr;java_env=nullptr;skip_vm_dependents();read_previous_log();}
-  result(i,rc,"Real JNI_CreateJavaVM, -Xint, 128 MiB max heap");
+  result(i,rc,"Real JNI_CreateJavaVM, -Xint, 256 MiB max heap");
  } else if(!java_vm||!java_env) {
   result(i,-1303,"Create the VM first; relaunch to retry");
  } else if(i>=2 && i<=3) {
-  const char *fixture=i==2?"ServerPreflight25":"ServerHelp25";
+  const char *fixture=i==2?"ServerPreflight25":"ServerStart25";
   NativeTraceScope trace_scope;
   log_stage("Reading bundled java.security through native file API");
   FILE *security=std::fopen("/app0/assets/java25/conf/security/java.security","rb");
@@ -301,6 +305,7 @@ void run_test(int i) {
   jclass string_class=java_env->FindClass("java/lang/String");
   jobjectArray arguments=string_class?java_env->NewObjectArray(0,string_class,nullptr):nullptr;
   if(!arguments||java_env->ExceptionCheck()) {java_failure(i,-1306,"argument array");if(string_class) java_env->DeleteLocalRef(string_class);java_env->DeleteLocalRef(klass);return;}
+  if(i==3) ps5_native_trace::disable(); // Keep checkpoints; avoid per-copy disk tracing during world bootstrap.
   log_stage("Calling Minecraft fixture.main");
   java_env->CallStaticVoidMethod(klass,method,arguments);
   bool failed=java_env->ExceptionCheck();
@@ -343,8 +348,8 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Bootstrap 01.000.002",42,rgb(238,242,250));
- c.label(103,163,"Official Minecraft 26.3 / Java 25. Bootstrap only: no world creation.",24,rgb(139,153,178));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.003",42,rgb(238,242,250));
+ c.label(103,163,"Official Minecraft 26.3 / Java 25. Authorized test world: real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
   if(selected==i) c.rounded(95,y-4,1730,76,22,rgb(109,156,255));
