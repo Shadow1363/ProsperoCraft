@@ -115,6 +115,15 @@
       "changes": "PS5 native verifier scratch allocation falls back from libc malloc to real page-rounded anonymous RW mmap; each block retains its backend for matching free/munmap; allocation-result diagnostics go to startup.log; method reset cleanup and bytecode checks retained",
       "checks": "PASS: target verifier build, package signature/integrity, ZIP CRC/title/version and target library byte equality; scratch allocator sanitizers with forced heap rejection and real mapping fallback, both-backend exhaustion cleanup; complete host legacy verifier validates Matrix3f, MemUtil$MemUtilNIO, Matrix4f and Quaternionf",
       "known_issues": "Native management library absent, optional OS telemetry unsupported; console server readiness/save/stop unvalidated"
+    },
+    {
+      "app_version": "01.000.012",
+      "package_sha256": "422e7140e4af341199feae579142931d1b9318998af0418e923779a7c9485b4d",
+      "console": "pending",
+      "changes": "Real native management integration plus active memory/flags preflight; PS5-only optional OSHI crash-report adaptation; verifier page fallback and read-only log sharing retained",
+      "checks": "PASS: real host JMM data from actual native sources; target native symbol and library identity checks; original JAR checksums and derivative content audit; PS5 report path under full JVM verification; target module preflight/help; host server ready/save/stop",
+      "scope": "Only optional crash-report SystemReport OSHI hardware/software methods adapted. Uses a local unsigned diagnostic derivative, not a claim of unmodified signed server execution. No invented physical telemetry or global signature bypass.",
+      "pending": "PS5 management preflight, verifier fallback and server readiness/save/stop; full OSHI backend not implemented"
     }
   ]
 }

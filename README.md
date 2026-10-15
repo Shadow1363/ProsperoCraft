@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.011
+## Current development: server start probe 01.000.012
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -128,7 +128,7 @@ Earlier build failures remain recorded in [console results](server/console-resul
 
 ## Follow the project
 
-Runtime fixes and reusable tools are published to [ps5-java25-homebrew](https://github.com/mateo-cogeanu/ps5-java25-homebrew). Minecraft harnesses, artifact pins, preparation scripts and console results are published here. The current development probe attempts real vanilla startup/save/stop; client and mod work follow their own prerequisites.
+Runtime fixes and reusable tools are published to [ps5-java25-homebrew](https://github.com/mateo-cogeanu/ps5-java25-homebrew). Minecraft harnesses, artifact pins, preparation scripts and console results are published here. The current development probe attempts real server startup/save/stop with PS5 diagnostic compatibility; client and mod work follow their own prerequisites.
 
 Build 01.000.007 reached block/registry initialization and reported an
 OutOfMemoryError from the legacy verifier while checking JOML Matrix3f,
@@ -205,3 +205,32 @@ checks the actual MemUtilNIO class as well as Matrix3f, Matrix4f and Quaternionf
 The target library was rebuilt and verified against the packaged copy.
 **PS5 validation is pending.** Management-library and OS-telemetry warnings remain
 separate unresolved issues; the server has not yet reached ready on PS5.
+
+
+## Current fixes in 01.000.012
+
+- **JVM management:** the real target `libmanagement` is embedded and connected
+  to HotSpot's management interface. Preflight now queries actual heap/non-heap
+  memory and VM input flags rather than only resolving the class name.
+- **Verifier memory:** the method scratch cleanup and real OS-page allocation
+  fallback from 01.000.011 remain included, with allocation diagnostics in the
+  startup log. Console confirmation is still required.
+- **PS5 system reports:** unsupported OSHI hardware/software readings are marked
+  explicitly unavailable. The accurate PS5 OS identity and real JVM memory/flags
+  are retained; no physical hardware readings are invented or warnings globally
+  hidden. Full OSHI support is not claimed.
+
+The last item is a narrowly scoped **Minecraft diagnostic adaptation**. The
+original signed server JAR remains unchanged and hash-verified. A separate local
+unsigned derivative executes with only the two optional `SystemReport` telemetry
+methods adapted; every other server class/resource is byte-identical. Original
+desktop behavior is retained. No global signature checks are disabled. The
+execution artifact is therefore not described as an unmodified signed server.
+See [scope, provenance, and validation](docs/platform-diagnostics.md). Generated
+game artifacts, including the diagnostic derivative, are not committed or
+published as binary release assets. The frozen bootstrap release is unchanged.
+
+Host management, diagnostic adaptation, restricted-module preflight/help, and
+real server readiness/save/stop checks pass. **PS5 testing remains pending** for
+management, the verifier fallback and real server ready/save/stop. Use the log
+page on port 8765 to collect results after the attempt.

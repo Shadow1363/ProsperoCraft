@@ -3,7 +3,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 
-/** One bounded real vanilla startup/save/stop attempt; no simulated server. */
+/** One bounded real server startup/save/stop attempt with PS5 report adaptation. */
 public class ServerStart25 {
  private static native void checkpoint(String stage);
  private static void trace(String stage){if(Boolean.getBoolean("ps5.probe.dependencyTrace"))checkpoint("MC start: "+stage);}
@@ -43,7 +43,7 @@ public class ServerStart25 {
   try(PrintStream captured=new PrintStream(observer,true,StandardCharsets.UTF_8)) {
    System.setOut(captured);System.setErr(captured);System.setIn(input);
    try {
-    stage="initialize and invoke official vanilla server nogui";trace(stage);
+    stage="initialize and invoke server nogui with PS5 diagnostic adaptation";trace(stage);
     Class<?> main=Class.forName("net.minecraft.server.Main",true,ClassLoader.getSystemClassLoader());
     main.getMethod("main",String[].class).invoke(null,(Object)new String[]{"--nogui","--universe",root.toString(),"--world","world"});
     stage="wait up to 10 minutes for real Done readiness message";trace(stage);

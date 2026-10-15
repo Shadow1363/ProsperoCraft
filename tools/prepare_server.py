@@ -34,6 +34,10 @@ shutil.copy2(ROOT/'server/config/log4j2-ps5.xml',assets/'java25/log4j2-ps5.xml')
 # metadata operations that are not established for these fixtures.
 wrapper_classes=ROOT/'build/wrapper-classes';shutil.rmtree(wrapper_classes,ignore_errors=True);wrapper_classes.mkdir()
 subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/javac','--release','25','-d',str(wrapper_classes),*[str(p) for p in sorted((ROOT/'server/java').glob('*.java'))]],check=True)
+# Build a local diagnostic-only server derivative; verified official JARs stay intact.
+transform=ROOT/'tools/PreparePlatformDiagnostics.java'
+subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/javac','-d',str(ROOT/'build'),str(transform)],check=True)
+subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/java','-cp',str(ROOT/'build'),'PreparePlatformDiagnostics',str(jars/'server-26.3.jar'),str(jars/'ps5-platform-diagnostics.jar'),str(assets/'java25/platform-diagnostics-audit.json')],check=True)
 with zipfile.ZipFile(jars/'ps5-server-probe.jar','w',zipfile.ZIP_DEFLATED) as probe:
     config=zipfile.ZipInfo('log4j2-ps5.xml');config.compress_type=zipfile.ZIP_DEFLATED
     probe.writestr(config,(ROOT/'server/config/log4j2-ps5.xml').read_bytes())
@@ -42,7 +46,7 @@ with zipfile.ZipFile(jars/'ps5-server-probe.jar','w',zipfile.ZIP_DEFLATED) as pr
         probe.writestr(info,path.read_bytes())
 with zipfile.ZipFile(jars/'ps5-server-probe.jar') as probe:
     assert 'ServerStart25$Observer.class' in probe.namelist()
-classpath='/app0/assets/java25/jars/ps5-server-probe.jar:'+':'.join('/app0/assets/java25/jars/'+record['file'] for record in lock['jars'])
+classpath='/app0/assets/java25/jars/ps5-server-probe.jar:/app0/assets/java25/jars/ps5-platform-diagnostics.jar:'+':'.join('/app0/assets/java25/jars/'+record['file'] for record in lock['jars'] if record['file']!='server-26.3.jar')
 (ROOT/'build/server_classpath.hpp').write_text('#pragma once\n#define SERVER_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n')
 spec={'source':str(ROOT/'server/native/bootstrap.cpp'),'param':str(ROOT/'server/param.json'),'asset_dir':str(assets),'java_sources':[str(p) for p in sorted((ROOT/'server/java').glob('*.java'))],'modules':lock['modules'],'include_dirs':[str(ROOT/'build'),str(runtime/'java25/probe')]}
 (ROOT/'build/probe-spec.json').write_text(json.dumps(spec,indent=2)+'\n')

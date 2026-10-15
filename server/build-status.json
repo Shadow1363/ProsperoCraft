@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.011",
+  "app_version": "01.000.012",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "83715a72cf71b7edbd7624b765f12771f54e7e2dbce2a64a76b944bc40263003",
-  "console": "pending: test real verifier page fallback and server ready/save/stop on PS5",
-  "host": "PASS: actual allocator ASan/UBSan tests for 600 methods, forced libc rejection with real mmap and munmap, both-backend failure; complete patched legacy verifier validates Matrix3f, MemUtil$MemUtilNIO, Matrix4f and Quaternionf via JNI; OOM formatter sanitizer regression",
-  "package": "PASS: target libverify rebuild, signature/integrity, ZIP CRC/title/version and packaged target library byte equality; diagnostic string present",
+  "package_sha256": "422e7140e4af341199feae579142931d1b9318998af0418e923779a7c9485b4d",
+  "console": "pending: real management preflight, PS5 telemetry adaptation, verifier mapping fallback, server readiness/save/stop",
+  "host": "PASS: actual management C JNI hook/JMM table with real memory/flags; generated resident loader library scope; PS5 diagnostic adapter under full JVM verification and JAR content-diff audit; preflight/help under target module set; real host server ready/save/stop with diagnostic derivative and persisted console; constrained verifier fallback sanitizer and real JOML verifier tests",
+  "package": "PASS: target management build and actual native hook/JMM/memory function definitions; native container integrity, ZIP CRC/title/version, packaged management/verifier target library byte equality and local derivative present",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -33,5 +33,7 @@
   "probe_jar_sha256": "4c129b00516f32a78a4b5bd0ffd28a477de524d7dbbfa91bca2221c9b5bcbc36",
   "diagnostics": "Native read-only HTTP port 8765 independent of JVM; fixed allowlist; full console persisted per attempt up to 32 MiB; latest exception persisted",
   "reserved_code_cache_mib": 8,
-  "known_failures": "010 passed Matrix3f verification, then native scratch allocation failed verifying MemUtil$MemUtilNIO.copy4x4. Missing management library and optional OS telemetry warnings remain."
+  "known_failures": "No new console results for 011/012. Previously missing management addressed by real target native library; unsupported optional OSHI telemetry now explicitly unavailable on PS5. Verifier native allocation fallback remains unvalidated on console.",
+  "diagnostic_adapter": "Local unsigned derivative of hash-verified official server JAR; only optional SystemReport hardware/software telemetry is wrapped; original desktop methods retained; gameplay classes/resources unchanged; no global signature checks disabled",
+  "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument"
 }

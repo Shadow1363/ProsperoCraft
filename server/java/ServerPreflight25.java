@@ -33,6 +33,12 @@ public class ServerPreflight25 {
    for(String name:new String[]{"org.xml.sax.SAXException","java.util.logging.Logger","java.lang.management.ManagementFactory","sun.misc.Unsafe","org.slf4j.Logger","org.apache.logging.log4j.core.LoggerContext","joptsimple.OptionParser","io.netty.channel.nio.NioEventLoopGroup","com.google.gson.Gson","net.minecraft.server.Main"}) {
     stage="resolve "+name;trace(stage);Class.forName(name,false,loader);
    }
+   stage="query real JVM management memory and flags";trace(stage);
+   var memory=java.lang.management.ManagementFactory.getMemoryMXBean();
+   if(memory.getHeapMemoryUsage().getMax()!=Runtime.getRuntime().maxMemory())throw new AssertionError("JVM heap management mismatch");
+   if(memory.getNonHeapMemoryUsage().getUsed()<0)throw new AssertionError("Non-heap management unavailable");
+   if(!java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().contains("-Xint"))throw new AssertionError("Missing actual VM flags");
+   System.out.println("MC_MANAGEMENT_OK actual heap, non-heap and VM flags");
    System.out.println("MC_PREFLIGHT_OK 26.3 / Java25 / 40 verified JARs");
   }catch(Throwable error){throw new Exception("MC preflight stage "+stage+": "+error,error);}
  }

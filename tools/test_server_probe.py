@@ -15,7 +15,7 @@ if args.runtime_image:
     module_options=['--limit-modules',','.join(names)]
 classes=ROOT/'build/host-classes';classes.mkdir(exist_ok=True)
 subprocess.run([str(JDK/'bin/javac'),'--release','25','-d',str(classes),*[str(p) for p in sorted((ROOT/'server/java').glob('*.java'))]],check=True)
-assets=ROOT/'build/assets/java25';lock=json.loads((ROOT/'server/26.3.lock.json').read_text());cp=str(classes)+':'+':'.join(str(assets/'jars'/record['file']) for record in lock['jars'])
+assets=ROOT/'build/assets/java25';lock=json.loads((ROOT/'server/26.3.lock.json').read_text());cp=str(classes)+':'+str(assets/'jars/ps5-platform-diagnostics.jar')+':'+':'.join(str(assets/'jars'/record['file']) for record in lock['jars'] if record['file']!='server-26.3.jar')
 with tempfile.TemporaryDirectory() as directory:
     for fixture,marker in [('ServerPreflight25','MC_PREFLIGHT_OK'),('ServerHelp25','MC_SERVER_HELP_OK')]:
         result=subprocess.run([str(JDK/'bin/java'),'-Xint','-Xmx128m',*module_options,'-Dlog4j2.disableJmx=true','-Dps5.mc.assets='+str(assets),'-cp',cp,fixture],cwd=directory,capture_output=True,text=True,timeout=90)
