@@ -14,6 +14,7 @@
 #include "jni.h"
 #include "native_trace.hpp"
 #include "log_share.hpp"
+#include "jni_worker.hpp"
 #include "vm_diagnostics.hpp"
 #include "server_classpath.hpp"
 using Initializer=void (*)();
@@ -58,9 +59,12 @@ unsigned exception_page=0,exception_pages=1;
 std::uint32_t previous=0;
 bool initialized=false;
 JavaVM *java_vm=nullptr;
-JNIEnv *java_env=nullptr;
+thread_local JNIEnv *java_env=nullptr;
+ps5::jni_worker::Job server_job;
+bool server_job_started=false;
+time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.013";
+constexpr const char *build_version="01.000.014";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -341,7 +345,25 @@ void run_test(int i) {
   result(i,rc,"Real DestroyJavaVM, application UI stays active");
  }
 }
+void server_on_worker(JNIEnv *env,void *) {
+ java_env=env;
+ log_stage("Server worker attached; invoking fixture with worker-owned JNIEnv");
+ run_test(3);
+ java_env=nullptr;
+}
 bool update() noexcept {
+ if(server_job_started) {
+  if(!server_job.ready()) {time_t now=time(nullptr);if(now==server_last_frame)return false;server_last_frame=now;return true;}
+  int error=server_job.join();server_job_started=false;
+  if(error)result(3,error,"Server worker attach/detach failed");
+  return true;
+ }
+ if(pending==3) {
+  pending=-1;session_status("RUN: server worker (UI remains active)");
+  int error=server_job.start(java_vm,server_on_worker);
+  if(error)result(3,error,"Cannot start server worker");else {server_started_at=server_last_frame=time(nullptr);server_job_started=true;}
+  return true;
+ }
  if(pending>=0) {int i=pending;pending=-1;if(i!=0){char state[256];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}run_test(i);return true;}
  if(pad<0) return false;
  static int last_audio=0;
@@ -367,22 +389,26 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.013",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.014",42,rgb(238,242,250));
  c.label(103,163,"Minecraft 26.3 / Java 25. PS5 diagnostic adapter; real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
   if(selected==i) c.rounded(95,y-4,1730,76,22,rgb(109,156,255));
   c.rounded(100,y,1720,68,19,rgb(25,34,51));
   c.label(124,y+8,names[i],25,rgb(238,242,250));
-  c.label(125,y+38,messages[i][0]?messages[i]:"Select and press X to run this test.",20,rgb(139,153,178));
-  c.label(1650,y+25,status[i]==1?"PASS":status[i]==-1?"FAIL":status[i]==2?"RUN":status[i]==3?"SKIP":"--",24,status[i]==1?rgb(105,215,172):status[i]==-1?rgb(230,176,91):rgb(139,153,178));
+  c.label(125,y+38,server_job_started&&i==3?"Server running on dedicated worker; logs available on port 8765.":messages[i][0]?messages[i]:"Select and press X to run this test.",20,rgb(139,153,178));
+  int visible_status=server_job_started&&i==3?2:status[i];
+  c.label(1650,y+25,visible_status==1?"PASS":visible_status==-1?"FAIL":visible_status==2?"RUN":visible_status==3?"SKIP":"--",24,visible_status==1?rgb(105,215,172):visible_status==-1?rgb(230,176,91):rgb(139,153,178));
  }
  int audio_state=ps5::menu_audio::state.load();
  if(audio_state<0) {
   char audio_error[80];std::snprintf(audio_error,sizeof(audio_error),"Audio: %s / code %08X",ps5::menu_audio::phase_name(),static_cast<unsigned>(audio_state));
   c.label(103,736,audio_error,20,rgb(230,176,91));
  }
- if(exception_detail[0]) {
+ if(server_job_started) {
+  char activity[160];std::snprintf(activity,sizeof(activity),"Server worker active: %lld seconds. Logs: http://<PS5-IP>:8765/",static_cast<long long>(time(nullptr)-server_started_at));
+  c.label(103,768,activity,24,rgb(139,153,178));
+ } else if(exception_detail[0]) {
   c.label(103,768,"Java exception (full message):",24,rgb(230,176,91));
   // Wrap against actual baked glyph widths instead of a character count.
   std::string_view text(exception_detail);size_t offset=0;unsigned line=0;
@@ -408,7 +434,7 @@ void draw(Canvas &c) noexcept {
   c.label(103,768,"Last startup checkpoints (oldest to newest):",24,rgb(139,153,178));
   for(int i=0;i<7;++i) c.label(103,800+i*21,previous_log[i],20,rgb(238,242,250));
  }
- if(native_open_error[0] && !exception_detail[0]) c.label(103,925,native_open_error,18,rgb(230,176,91));
+ if(!server_job_started && native_open_error[0] && !exception_detail[0]) c.label(103,925,native_open_error,18,rgb(230,176,91));
  c.label(103,954,"D-pad: select   X: run selected test   PS: close game",24,rgb(139,153,178));
  if(ps5::log_share::state==1) c.label(103,1004,"Logs: http://<PS5-IP>:8765/  -  keep this app open; download from a LAN browser or the log helper.",20,rgb(139,153,178));
  else {char error[120];std::snprintf(error,sizeof(error),"Log sharing unavailable: socket error %d",-ps5::log_share::state.load());c.label(103,1004,error,20,rgb(230,176,91));}

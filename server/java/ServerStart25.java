@@ -31,6 +31,7 @@ public class ServerStart25 {
  private static String describe(Throwable error){StringBuilder result=new StringBuilder();for(int i=0;error!=null&&i<8;i++,error=error.getCause()){if(i>0)result.append(" | caused by: ");result.append(error);}return result.toString();}
  private static Thread serverThread(){for(Thread thread:Thread.getAllStackTraces().keySet())if(thread.isAlive()&&thread.getName().equals("Server thread"))return thread;return null;}
  public static void main(String[] args)throws Exception {
+  Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
   if(!Boolean.getBoolean("ps5.mc.eulaAccepted"))throw new IllegalStateException("Human EULA acceptance is required before this test");
   Path root=Path.of(System.getProperty("ps5.mc.workdir",System.getProperty("user.dir"))).toAbsolutePath();
   String stage="write authorized EULA and isolated flat-world configuration";trace(stage);
