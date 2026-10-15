@@ -155,6 +155,15 @@
       "pending": "Native allocation-failure handling and exact subsequent fault origin; actual PS5 server ready/save/stop",
       "limitations": "Diagnostic correction only; does not establish original crash cause, native crash recovery or a server console pass.",
       "evidence": "Handler anchor 0xe03ec0 matches retained 015 ELF handler at 0xa03ec0 + 0x400000 load base. Caller 0xdf3cc7 resolves to os::malloc(size_t, MemTag, NativeCallStack const&) at ELF 0x9f3cc7. Disassembly shows call __wrap_malloc at 0x9f3cc1, test RAX at 0x9f3cc7 and null branch. Last call: bytes=0x80 destination=0 completed=1. Signal PC=0x8000751d0, fault=0x100026c946 is outside app text. Failed allocation is confirmed, but its reason, later crashing instruction and causal chain remain unproven. startup.log=84392 bytes; vm-trace.log=86110543 bytes; raw logs local."
+    },
+    {
+      "app_version": "01.000.016",
+      "package_sha256": "7eed006d6f907493961cb3656199aeef1784a883981a4cf8f7e28a7d78dc9d1c",
+      "console": "pending",
+      "changes": "HotSpot native allocation fallback to real OS pages when libc refuses memory; pooled small blocks, direct large mappings, backend-aware realloc/free and uniform raw prefix for NMT preinit. Java heap remains 192 MiB; quiet crash capture and worker retained.",
+      "checks": "PASS: actual native allocator ASan/UBSan forced failures, size classes/alignment, pooled sharing, resize migration, failure preserving original bytes, eight-thread stress and matching cleanup. Actual os.cpp API bodies with NMT contract model preserve limits/accounting/header revival; actual NMT preinit raw bridges remain compatible with post-init NMT-off operation. Target rebuild, native integrity, ZIP/version and rebuilt JVM/JAR byte identity also pass.",
+      "pending": "PS5 VM creation, dependency checks, actual server ready/save/stop, clean VM shutdown; verify native fallback clears the later SIGSEGV.",
+      "limitations": "Confirmed prior native allocation failure addressed by fallback; libc rejection reason and later crashing instruction unproven. Native memory remains finite; failure of both backends remains an allocation failure."
     }
   ]
 }
