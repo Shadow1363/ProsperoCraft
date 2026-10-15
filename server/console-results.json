@@ -101,10 +101,20 @@
     {
       "app_version": "01.000.010",
       "package_sha256": "b2c958e0026a9c8681c8011f35767e8f2d47607887baa439ffb8d16432990264",
-      "console": "pending",
+      "console": "FAIL: server readiness. Matrix3f verification completed; later MemUtil$MemUtilNIO verification failed on a native scratch block allocation.",
       "changes": "PS5 verifier releases method scratch blocks at each method reset; original verifier checks retained; independent native log sharing retained",
       "host": "PASS: constrained native allocator sanitizer test (600 methods), complete patched verifier validates actual Matrix3f/Matrix4f/Quaternionf classes via host JNI; OOM formatting regression",
-      "known_issues": "Missing native management library and unsupported optional OS telemetry remain; actual server ready/save/stop unvalidated"
+      "known_issues": "Missing native management library and unsupported optional OS telemetry remain; actual server ready/save/stop unvalidated",
+      "evidence": "Four user-pasted logs on 2026-10-15; current console timestamp 14:42:36, failure at 14:42:42; raw logs excluded from Git",
+      "failure": "OutOfMemoryError in MemUtil$MemUtilNIO.copy4x4(Matrix4x3dc,double[],int), verifier site=3600 errno=35 JNI-pending=0; Java heap free=58020336. Missing management library and unsupported optional system telemetry warnings persist."
+    },
+    {
+      "app_version": "01.000.011",
+      "package_sha256": "83715a72cf71b7edbd7624b765f12771f54e7e2dbce2a64a76b944bc40263003",
+      "console": "pending",
+      "changes": "PS5 native verifier scratch allocation falls back from libc malloc to real page-rounded anonymous RW mmap; each block retains its backend for matching free/munmap; allocation-result diagnostics go to startup.log; method reset cleanup and bytecode checks retained",
+      "checks": "PASS: target verifier build, package signature/integrity, ZIP CRC/title/version and target library byte equality; scratch allocator sanitizers with forced heap rejection and real mapping fallback, both-backend exhaustion cleanup; complete host legacy verifier validates Matrix3f, MemUtil$MemUtilNIO, Matrix4f and Quaternionf",
+      "known_issues": "Native management library absent, optional OS telemetry unsupported; console server readiness/save/stop unvalidated"
     }
   ]
 }

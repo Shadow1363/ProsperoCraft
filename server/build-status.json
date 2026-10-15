@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.010",
+  "app_version": "01.000.011",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "b2c958e0026a9c8681c8011f35767e8f2d47607887baa439ffb8d16432990264",
-  "console": "pending: PS5 server ready/save/stop with new verifier scratch lifetime; 009 log sharing confirmed by user",
-  "host": "PASS: real patched legacy verifier checks JOML Matrix3f, Matrix4f and Quaternionf via JNI; 600-method constrained pool ASan/UBSan regression; OOM diagnostic sanitizer regression. Prior 009 real host server ready/save/stop with console logging passed.",
-  "package": "PASS: target libverify rebuild, signature/integrity, ZIP CRC/title/version and packaged rebuilt libverify byte equality",
+  "package_sha256": "83715a72cf71b7edbd7624b765f12771f54e7e2dbce2a64a76b944bc40263003",
+  "console": "pending: test real verifier page fallback and server ready/save/stop on PS5",
+  "host": "PASS: actual allocator ASan/UBSan tests for 600 methods, forced libc rejection with real mmap and munmap, both-backend failure; complete patched legacy verifier validates Matrix3f, MemUtil$MemUtilNIO, Matrix4f and Quaternionf via JNI; OOM formatter sanitizer regression",
+  "package": "PASS: target libverify rebuild, signature/integrity, ZIP CRC/title/version and packaged target library byte equality; diagnostic string present",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -29,9 +29,9 @@
   ],
   "scope": "One bounded flat-world startup/save/stop attempt. Console ready state, world save and player joins remain unvalidated.",
   "max_heap_mib": 192,
-  "runtime_adaptation": "PS5-only non-class metaspace node size 16 MiB; verifier non-root method scratch released on method reset; original checks retained",
+  "runtime_adaptation": "PS5 non-class metaspace node size 16 MiB; verifier resets method scratch and falls back to real anonymous RW pages on libc allocation failure, with matching backend cleanup",
   "probe_jar_sha256": "4c129b00516f32a78a4b5bd0ffd28a477de524d7dbbfa91bca2221c9b5bcbc36",
   "diagnostics": "Native read-only HTTP port 8765 independent of JVM; fixed allowlist; full console persisted per attempt up to 32 MiB; latest exception persisted",
   "reserved_code_cache_mib": 8,
-  "known_failures": "009 native verifier scratch allocation failed; 010 addresses retained method scratch, console resolution pending. Native management library remains absent; optional OS telemetry unsupported."
+  "known_failures": "010 passed Matrix3f verification, then native scratch allocation failed verifying MemUtil$MemUtilNIO.copy4x4. Missing management library and optional OS telemetry warnings remain."
 }

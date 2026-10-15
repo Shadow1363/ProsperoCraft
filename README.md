@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.010
+## Current development: server start probe 01.000.011
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -187,3 +187,21 @@ This addresses a demonstrated native allocation pattern; **PS5 resolution is
 pending**. The missing native management library and unsupported optional OS
 telemetry are separate remaining issues. No ready server or world save on PS5 is
 claimed. Log sharing remains available on port 8765 in this build.
+
+
+The 01.000.010 console logs show progress past Matrix3f verification, followed
+by another native scratch allocation failure in `MemUtil$MemUtilNIO.copy4x4`
+(site 3600, no pending JNI exception), with 58,020,336 Java heap bytes free.
+Build **01.000.011** keeps method scratch cleanup and adds a PS5-only fallback:
+if libc refuses a verifier pool block, request real anonymous read/write OS pages.
+Each block records its allocation backend and is released with `free` or `munmap`
+as appropriate. If both backends fail, the verifier still reports OOM; no checks
+are bypassed. The startup log records requested bytes, malloc errno, mapped bytes
+and mmap errno for fallback attempts, even with verbose native tracing disabled.
+
+Host sanitizer checks cover forced heap rejection, writable real mappings,
+matching cleanup and both-backend exhaustion. The complete patched verifier
+checks the actual MemUtilNIO class as well as Matrix3f, Matrix4f and Quaternionf.
+The target library was rebuilt and verified against the packaged copy.
+**PS5 validation is pending.** Management-library and OS-telemetry warnings remain
+separate unresolved issues; the server has not yet reached ready on PS5.
