@@ -4,7 +4,7 @@
   "minecraft": "26.3",
   "java_major": 25,
   "package_sha256": "f710eb9803c587604e7ef57c50a19ebe3ff48ed4a8ea7309a7f634f31f93864a",
-  "console": "pending: PS5 worker attachment, live elapsed counter, crash behavior and real server ready/save/stop",
+  "console": "FAIL: user reports whole-app crash at 19 seconds on row 4; retrieved run 01.000.014-1792080732-489635711 confirms worker attachment and captures SIGSEGV (signal 11). No abort report, no captured Java exception and empty server console. Exact failing call remains unidentified.",
   "host": "PASS: real JNI-attached worker under UBSan/full JVM verification, separate environments, context loader inheritance, main-loop ticks and detach/join/main-thread VM destruction; actual server fixture reaches Done, saves level.dat and stops at 192 MiB from this worker",
   "package": "PASS: native signed-container integrity, ZIP CRC/title/version, prepared probe/diagnostic JAR and rebuilt target libjava byte equality",
   "runtime_modules": [
@@ -33,9 +33,10 @@
   "probe_jar_sha256": "a916e8b57ba2d7340ac5b8a3243bb18fca2baed393df0241d0531ad403807eac",
   "diagnostics": "Build and recorded-run metadata; explicit startup run markers; archived previous exception/abort/server reports and current-run placeholders; VM abort records session state; HTTP collector includes metadata",
   "reserved_code_cache_mib": 8,
-  "known_failures": "013 user confirms row 4 crashes the entire app, no current-run abort or console crash code supplied; startup reaches successful scratch mappings. A native crash, external termination or other failure is not distinguished by this evidence. Root cause remains unconfirmed.",
+  "known_failures": "FAIL: user reports whole-app crash at 19 seconds on row 4; retrieved run 01.000.014-1792080732-489635711 confirms worker attachment and captures SIGSEGV (signal 11). No abort report, no captured Java exception and empty server console. Exact failing call remains unidentified.",
   "diagnostic_adapter": "Local unsigned derivative of hash-verified official server JAR; only optional SystemReport hardware/software telemetry is wrapped; original desktop methods retained; gameplay classes/resources unchanged; no global signature checks disabled",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
-  "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display"
+  "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
+  "crash_evidence": "Retrieved via Firefox on 2026-10-15: startup.log 82494 bytes, vm-trace.log 62008129 bytes, server.log 0 bytes, run/build metadata and exception placeholder. Native trace is truncated at VM creation; one current signal record. Runtime handler anchor 0xdf19f0 matches 014 ELF symbol 0x9f19f0 plus 0x400000 load bias. PC=0x8000751d0, fault=0x100026c946; native-call record unavailable. Last completed metadata trace is context, not proof of fault origin. Raw logs kept local."
 }

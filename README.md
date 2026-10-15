@@ -276,3 +276,5 @@ For the attached-worker host regression, first build the fixture runner with `py
 ```sh
 python3 tools/test_server_start.py --worker-runner /path/to/PS5_Homebrew/build/java25/jni-worker-test/jni-worker-check
 ```
+
+Build 014 console follow-up: the user reports a whole-app crash at 19 seconds. Retrieved logs confirm worker attachment and contain a current signal 11 record matching the 014 handler address. The server console is empty, the current exception remains a placeholder and the abort endpoint is unavailable. The exact native fault site remains unresolved; this build has **not** passed startup/save/stop on PS5. Raw diagnostic files remain local.

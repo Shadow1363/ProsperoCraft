@@ -139,11 +139,12 @@
     {
       "app_version": "01.000.014",
       "package_sha256": "f710eb9803c587604e7ef57c50a19ebe3ff48ed4a8ea7309a7f634f31f93864a",
-      "console": "pending",
+      "console": "FAIL: user reports whole-app crash at 19 seconds on row 4; retrieved run 01.000.014-1792080732-489635711 confirms worker attachment and captures SIGSEGV (signal 11). No abort report, no captured Java exception and empty server console. Exact failing call remains unidentified.",
       "changes": "Row 4 runs on a JNI-attached native worker with 8 MiB stack and thread-owned JNIEnv; explicit system context loader; result buffers hidden until join; main UI polls worker and redraws elapsed seconds",
       "checks": "PASS: native host JVM lifecycle/guards and actual worker server readiness/save/stop, 4403 main-loop ticks; target linking, signed-container integrity, ZIP CRC/version and library/JAR identity",
-      "pending": "PS5 worker attachment and elapsed counter, whole-app crash investigation, actual console ready/save/stop",
-      "limitations": "Same process: native crash remains fatal. No proof of original crash cause. Main invocation is not covered by the subsequent readiness timeout."
+      "pending": "Locate native fault and achieve actual PS5 ready/save/stop; worker attachment alone is not full console validation",
+      "limitations": "Same process: native crash remains fatal. No proof of original crash cause. Main invocation is not covered by the subsequent readiness timeout.",
+      "evidence": "Retrieved via Firefox on 2026-10-15: startup.log 82494 bytes, vm-trace.log 62008129 bytes, server.log 0 bytes, run/build metadata and exception placeholder. Native trace is truncated at VM creation; one current signal record. Runtime handler anchor 0xdf19f0 matches 014 ELF symbol 0x9f19f0 plus 0x400000 load bias. PC=0x8000751d0, fault=0x100026c946; native-call record unavailable. Last completed metadata trace is context, not proof of fault origin. Raw logs kept local."
     }
   ]
 }
