@@ -82,10 +82,19 @@
     {
       "app_version": "01.000.008",
       "package_sha256": "015fead1662e7a88181e6c707048d898d5b65cc85a5660b6da80afd347fb2ffe",
-      "console": "pending",
+      "console": "FAIL: server readiness; downloaded startup log identifies native verifier malloc failure and missing native management library",
       "changes": "8 MiB code-cache reservation in interpreter mode; logging XML loaded from probe JAR URL; verifier OOM site/errno/pending-JNI context and Java heap counters",
       "host": "PASS: real startup/save/stop; 8 MiB code cache used 1044 KiB at shutdown; no logging reconfiguration error",
-      "runtime_diagnostic": "Native libverify build and sanitizer regression pass; original verifier remains enabled"
+      "runtime_diagnostic": "Native libverify build and sanitizer regression pass; original verifier remains enabled",
+      "evidence": "Startup log retrieved over FTP on 2026-10-15; raw log retained locally outside Git",
+      "failure": "JOML Matrix3f verifier site=3586 errno=35 JNI-pending=0; UnsatisfiedLinkError: no management in system library path. errno may be stale; no physical RAM exhaustion conclusion."
+    },
+    {
+      "app_version": "01.000.009",
+      "package_sha256": "17536fa2131291c448923525249d7bac264078df8fc6a77b75123ee80997eadc",
+      "console": "pending",
+      "changes": "Independent native read-only LAN log server on port 8765; full per-attempt Minecraft console file capped at 32 MiB; persisted exception endpoint",
+      "known_failures": "008 native verifier allocation and missing management library remain unresolved"
     }
   ]
 }

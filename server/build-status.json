@@ -1,11 +1,11 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.008",
+  "app_version": "01.000.009",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "015fead1662e7a88181e6c707048d898d5b65cc85a5660b6da80afd347fb2ffe",
-  "console": "pending: 01.000.007 identifies legacy-verifier OOM during JOML Matrix3f verification and logging config lookup failure",
-  "host": "PASS: real vanilla readiness/save/stop at 192 MiB; 8 MiB interpreter code cache used 1044 KiB; logging XML loads from probe JAR; verifier diagnostic sanitizer checks pass",
+  "package_sha256": "17536fa2131291c448923525249d7bac264078df8fc6a77b75123ee80997eadc",
+  "console": "pending: validate LAN log downloads before and during server test; server readiness remains unvalidated",
+  "host": "PASS: native HTTP handler ASan/UBSan and real socket lifecycle; >2 MiB binary log downloads, fixed route rejection, disconnected clients and ZIP collector; full Java console retention across 40 KB stack; actual vanilla ready/save/stop at 192 MiB with persisted Done output",
   "package": "PASS: signature/integrity, ZIP CRC/title/version, official JAR hashes, Java25 fixtures, target timezone/CA data, no host native binaries or world/EULA file",
   "runtime_modules": [
     "java.base",
@@ -31,6 +31,7 @@
   "max_heap_mib": 192,
   "runtime_adaptation": "PS5-only non-class metaspace node size 16 MiB; existing growth unchanged",
   "probe_jar_sha256": "4c129b00516f32a78a4b5bd0ffd28a477de524d7dbbfa91bca2221c9b5bcbc36",
-  "diagnostics": "Dedicated bounded first output/error headings/recent output; Java cause chain; JNI/UI text budget increased to preserve headings and context",
-  "reserved_code_cache_mib": 8
+  "diagnostics": "Native read-only HTTP port 8765 independent of JVM; fixed allowlist; full console persisted per attempt up to 32 MiB; latest exception persisted",
+  "reserved_code_cache_mib": 8,
+  "known_failures": "008 native verifier allocation failure site 3586 JNI-pending=0 and missing native management library remain unresolved"
 }

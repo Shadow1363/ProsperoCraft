@@ -13,6 +13,7 @@
 #include <signal.h>
 #include "jni.h"
 #include "native_trace.hpp"
+#include "log_share.hpp"
 #include "vm_diagnostics.hpp"
 #include "server_classpath.hpp"
 using Initializer=void (*)();
@@ -155,6 +156,8 @@ void java_failure(int i,int code,const char* phase) {
   java_env->DeleteLocalRef(original);
  }
  std::snprintf(exception_detail,sizeof(exception_detail),"%s: %s",phase,detail);exception_page=0;
+ FILE *shared=std::fopen("/download0/probe-exception.txt","w");
+ if(shared){std::fputs(exception_detail,shared);std::fclose(shared);}
  char message[80];std::snprintf(message,sizeof(message),"%.20s: %.48s",phase,detail);
  if(startup_log) {std::fprintf(startup_log,"NETWORK FAILURE: %s: %s / code %08X\n",phase,detail,static_cast<unsigned>(code));std::fflush(startup_log);}
  result(i,code,message);
@@ -223,6 +226,7 @@ void run_test(int i) {
    {const_cast<char *>("-Duser.home=/download0"),nullptr},
    {const_cast<char *>("-Duser.dir=/download0/mc-server-start"),nullptr},
    {const_cast<char *>("-Dlog4j2.disableJmx=true"),nullptr},
+   {const_cast<char *>("-Dps5.probe.serverLogPath=/download0/mc-server-start/server-console.log"),nullptr},
    {const_cast<char *>("-Dlog4j2.configurationFile=jar:file:/app0/assets/java25/jars/ps5-server-probe.jar!/log4j2-ps5.xml"),nullptr},
    {const_cast<char *>("-Dps5.mc.workdir=/download0/mc-server-start"),nullptr},
    {const_cast<char *>("-Dps5.mc.eulaAccepted=true"),nullptr},
@@ -350,7 +354,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.008",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.009",42,rgb(238,242,250));
  c.label(103,163,"Official Minecraft 26.3 / Java 25. Authorized test world: real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
@@ -393,14 +397,17 @@ void draw(Canvas &c) noexcept {
  }
  if(native_open_error[0] && !exception_detail[0]) c.label(103,925,native_open_error,18,rgb(230,176,91));
  c.label(103,954,"D-pad: select   X: run selected test   PS: close game",24,rgb(139,153,178));
- c.label(103,1004,"After a crash, relaunch and photograph the seven startup checkpoints shown above.",20,rgb(139,153,178));
+ if(ps5::log_share::state==1) c.label(103,1004,"Logs: http://<PS5-IP>:8765/  -  keep this app open; download from a LAN browser or the log helper.",20,rgb(139,153,178));
+ else {char error[120];std::snprintf(error,sizeof(error),"Log sharing unavailable: socket error %d",-ps5::log_share::state.load());c.label(103,1004,error,20,rgb(230,176,91));}
 }
 }
 int main() {
+ ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
  if(sceUserServiceGetInitialUser(&user)>=0 && scePadInit()>=0) pad=scePadOpen(user,0,0,nullptr);
  ps5::menu_audio::start(user);
  ps5::demo::run_ui(draw,update,"Java 25 VM startup attempt ready");
  ps5::menu_audio::stop();
+ ps5::log_share::stop();
 }

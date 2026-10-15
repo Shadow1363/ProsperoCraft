@@ -9,9 +9,12 @@ public class ServerStart25 {
  private static void trace(String stage){if(Boolean.getBoolean("ps5.probe.dependencyTrace"))checkpoint("MC start: "+stage);}
  private static final class Observer extends OutputStream {
   final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;
-  Observer(PrintStream console){this.console=console;}
-  public synchronized void write(int value){console.write(value);record(Character.toString((char)(value&255)));}
-  public synchronized void write(byte[] bytes,int offset,int length){console.write(bytes,offset,length);record(new String(bytes,offset,length,StandardCharsets.UTF_8));}
+  OutputStream log;long logged;
+  private void persist(byte[] bytes,int offset,int length){if(log==null)return;try{int n=(int)Math.min(length,32L*1024*1024-logged);if(n>0){log.write(bytes,offset,n);logged+=n;}if(n<length){log.write("\n[Log capped at 32 MiB]\n".getBytes(StandardCharsets.UTF_8));log.close();log=null;}else log.flush();}catch(IOException e){console.println("Probe console log write failed: "+e);try{log.close();}catch(IOException ignored){}log=null;}}
+  public synchronized void close()throws IOException{if(log!=null){log.close();log=null;}}
+  Observer(PrintStream console){this.console=console;String path=System.getProperty("ps5.probe.serverLogPath");if(path!=null)try{log=new FileOutputStream(path);}catch(IOException e){console.println("Probe console log unavailable: "+e);}}
+  public synchronized void write(int value){console.write(value);persist(new byte[]{(byte)value},0,1);record(Character.toString((char)(value&255)));}
+  public synchronized void write(byte[] bytes,int offset,int length){console.write(bytes,offset,length);persist(bytes,offset,length);record(new String(bytes,offset,length,StandardCharsets.UTF_8));}
   private void record(String text){
    if(head.length()<4096)head.append(text,0,Math.min(text.length(),4096-head.length()));
    tail.append(text);

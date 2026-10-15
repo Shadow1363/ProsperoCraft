@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.008
+## Current development: server start probe 01.000.009
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -138,3 +138,35 @@ the logging XML through the probe JAR URL, and includes native verifier
 failure-site/errno/JNI-state diagnostics and Java heap counters. The host
 server reaches ready/save/stop with about 1 MiB of code cache used. The
 PS5 failure is not yet confirmed resolved.
+
+
+## Download diagnostic logs (01.000.009)
+
+Keep the probe open and visit **`http://<PS5-IP>:8765/`** from a browser on the
+same LAN. Use the console's current IPv4 address; none is compiled into the app.
+The menu shows listener status. This native service runs independently of the JVM
+and serves the app's own files, avoiding FTP sandbox access restrictions. It stays
+available while the server test is running. After a process crash, relaunch and
+download the saved logs before running a new test.
+
+Download **Startup log**, **Native VM trace**, **Full Minecraft console**,
+**Last JVM abort**, and **Latest probe exception** as available. The Minecraft
+console file is replaced per server attempt and capped at 32 MiB with an explicit
+marker; the existing on-screen report remains bounded. Other logs retain their
+existing append/truncation behavior. Missing files return 404.
+
+To collect a ZIP with checksums, use the Java runtime workspace helper:
+
+```sh
+python3 /path/to/PS5_Homebrew/tools/fetch_probe_logs.py <PS5-IP> --output probe-logs.zip
+```
+
+The read-only page exposes only named logs, with no file browser, upload or
+commands. It is unencrypted LAN access without authentication; keep it on the
+intended network and do not forward port 8765. Nothing is uploaded automatically.
+See the [runtime log-sharing documentation](https://github.com/mateo-cogeanu/ps5-java25-homebrew/blob/main/Development/docs/probe-log-sharing.md).
+
+The downloaded 01.000.008 startup log confirms native verifier allocation failure
+at site 3586 with no pending JNI exception, and a missing native `management`
+library. These remain unresolved in 01.000.009; this build improves collection.
+**PS5 log downloads and server readiness/save/stop remain pending.**
