@@ -4,7 +4,7 @@
   "minecraft": "26.3",
   "java_major": 25,
   "package_sha256": "89c2070d164891d9fa9235fca95b9aee70c805f77358651ae3aa7a84a1ddce6b",
-  "console": "pending: PS5 quiet native-call capture and original row-4 SIGSEGV investigation; real ready/save/stop remains unvalidated",
+  "console": "FAIL: retrieved build 015 run 01.000.015-1792082413-302274281 contains SIGSEGV 11 after worker attachment. Quiet capture works: last recorded call malloc(128) returned null and completed. No Java exception captured; server.log is empty; abort endpoint unavailable. Actual server ready/save/stop remains unvalidated.",
   "host": "PASS: 16 native wrapper semantics, quiet call context without per-call disk writes, signal interrupting an allocation, separate per-thread records/stages/guards, table exhaustion, trace IO under ASan/UBSan. Target LLVM IR proves no allocation/emulated TLS/initialization guard in trace-context access. Java server fixture is unchanged from 014 host readiness/save/stop pass.",
   "package": "PASS: rebuilt target HotSpot, native signed-container integrity, ZIP CRC/title/version, exact target libjvm and prepared JAR identity; one preallocated trace-context table and new calloc/realloc/free wrappers linked",
   "runtime_modules": [
@@ -33,10 +33,10 @@
   "probe_jar_sha256": "a916e8b57ba2d7340ac5b8a3243bb18fca2baed393df0241d0531ad403807eac",
   "diagnostics": "Row 4 keeps native call context in quiet mode. Caller/arguments/completion state and stages are per-thread, backed by non-allocating bounded static storage. Explicit stages and fatal signal evidence still write to vm-trace.log.",
   "reserved_code_cache_mib": 8,
-  "known_failures": "014 crashed at 19 seconds with SIGSEGV PC=0x8000751d0, fault=0x100026c946, after worker attachment; separate abort absent, Java exception placeholder, console empty. 015 repairs missing/racy diagnostics; it is not an established correction of the underlying native fault.",
+  "known_failures": "FAIL: retrieved build 015 run 01.000.015-1792082413-302274281 contains SIGSEGV 11 after worker attachment. Quiet capture works: last recorded call malloc(128) returned null and completed. No Java exception captured; server.log is empty; abort endpoint unavailable. Actual server ready/save/stop remains unvalidated.",
   "diagnostic_adapter": "Local unsigned derivative of hash-verified official server JAR; only optional SystemReport hardware/software telemetry is wrapped; original desktop methods retained; gameplay classes/resources unchanged; no global signature checks disabled",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "Retrieved via Firefox on 2026-10-15: startup.log 82494 bytes, vm-trace.log 62008129 bytes, server.log 0 bytes, run/build metadata and exception placeholder. Native trace is truncated at VM creation; one current signal record. Runtime handler anchor 0xdf19f0 matches 014 ELF symbol 0x9f19f0 plus 0x400000 load bias. PC=0x8000751d0, fault=0x100026c946; native-call record unavailable. Last completed metadata trace is context, not proof of fault origin. Raw logs kept local."
+  "crash_evidence": "Handler anchor 0xe03ec0 matches retained 015 ELF handler at 0xa03ec0 + 0x400000 load base. Caller 0xdf3cc7 resolves to os::malloc(size_t, MemTag, NativeCallStack const&) at ELF 0x9f3cc7. Disassembly shows call __wrap_malloc at 0x9f3cc1, test RAX at 0x9f3cc7 and null branch. Last call: bytes=0x80 destination=0 completed=1. Signal PC=0x8000751d0, fault=0x100026c946 is outside app text. Failed allocation is confirmed, but its reason, later crashing instruction and causal chain remain unproven. startup.log=84392 bytes; vm-trace.log=86110543 bytes; raw logs local."
 }

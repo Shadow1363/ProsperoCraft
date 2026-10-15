@@ -149,11 +149,12 @@
     {
       "app_version": "01.000.015",
       "package_sha256": "89c2070d164891d9fa9235fca95b9aee70c805f77358651ae3aa7a84a1ddce6b",
-      "console": "pending",
+      "console": "FAIL: retrieved build 015 run 01.000.015-1792082413-302274281 contains SIGSEGV 11 after worker attachment. Quiet capture works: last recorded call malloc(128) returned null and completed. No Java exception captured; server.log is empty; abort endpoint unavailable. Actual server ready/save/stop remains unvalidated.",
       "changes": "Retain native call evidence during row 4 using quiet mode instead of disabling capture; preallocated per-thread stages/calls/guards prevent cross-thread overwrites and allocator recursion; add calloc/realloc/free context without changing allocator behavior.",
       "checks": "PASS: ASan/UBSan wrapper semantics, interrupted allocation signal evidence, no per-call quiet disk IO, thread isolation and table exhaustion; target context IR lacks allocation/emulated TLS/init guards; HotSpot rebuild, signed-container integrity, ZIP CRC/version and target library/JAR identity.",
-      "pending": "Repeat PS5 row 4, retrieve current startup/trace/session/exception/server reports; locate original native SIGSEGV and reach real ready/save/stop.",
-      "limitations": "Diagnostic correction only; does not establish original crash cause, native crash recovery or a server console pass."
+      "pending": "Native allocation-failure handling and exact subsequent fault origin; actual PS5 server ready/save/stop",
+      "limitations": "Diagnostic correction only; does not establish original crash cause, native crash recovery or a server console pass.",
+      "evidence": "Handler anchor 0xe03ec0 matches retained 015 ELF handler at 0xa03ec0 + 0x400000 load base. Caller 0xdf3cc7 resolves to os::malloc(size_t, MemTag, NativeCallStack const&) at ELF 0x9f3cc7. Disassembly shows call __wrap_malloc at 0x9f3cc1, test RAX at 0x9f3cc7 and null branch. Last call: bytes=0x80 destination=0 completed=1. Signal PC=0x8000751d0, fault=0x100026c946 is outside app text. Failed allocation is confirmed, but its reason, later crashing instruction and causal chain remain unproven. startup.log=84392 bytes; vm-trace.log=86110543 bytes; raw logs local."
     }
   ]
 }
