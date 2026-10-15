@@ -119,11 +119,21 @@
     {
       "app_version": "01.000.012",
       "package_sha256": "422e7140e4af341199feae579142931d1b9318998af0418e923779a7c9485b4d",
-      "console": "pending",
+      "console": "FAIL: new server OOM during MobEffects initialization; initialization and JNI VM creation shown successful, management preflight not shown in latest startup section; no full console pass",
       "changes": "Real native management integration plus active memory/flags preflight; PS5-only optional OSHI crash-report adaptation; verifier page fallback and read-only log sharing retained",
       "checks": "PASS: real host JMM data from actual native sources; target native symbol and library identity checks; original JAR checksums and derivative content audit; PS5 report path under full JVM verification; target module preflight/help; host server ready/save/stop",
       "scope": "Only optional crash-report SystemReport OSHI hardware/software methods adapted. Uses a local unsigned diagnostic derivative, not a claim of unmodified signed server execution. No invented physical telemetry or global signature bypass.",
-      "pending": "PS5 management preflight, verifier fallback and server readiness/save/stop; full OSHI backend not implemented"
+      "pending": "PS5 management preflight, verifier fallback and server readiness/save/stop; full OSHI backend not implemented",
+      "evidence": "User console at 15:22:29, newest startup tail ends VM ABORT. Build association inferred from latest delivered 012 and new PS5 diagnostic-adaptation stage; old exception report repeats 010 MemUtilNIO failure.",
+      "failure": "Bare java.lang.OutOfMemoryError from ClassLoader.defineClass1 while initializing MobEffects through Blocks; this differs from prior detailed verifier OOM. Exact native allocation not established by this trace."
+    },
+    {
+      "app_version": "01.000.013",
+      "package_sha256": "d8eb072ec6ed7ba840f2b7c82ceba4b671494e6568823fdcdfb5fea83b4a49ec",
+      "console": "pending",
+      "changes": "Real classloader scratch mmap fallback and contextual failure diagnostics; build/run metadata and current/previous report separation; earlier runtime management/verifier/PS5 telemetry adaptations retained",
+      "checks": "PASS: actual ClassLoader.c JNI path tests under UBSan/full verification, including byte-array/hidden/direct class definitions, long UTF source and exception cleanup; archive/HTTP/ZIP metadata regression; target libjava rebuild, container integrity, ZIP CRC/title/version and library byte equality",
+      "pending": "PS5 class-loading failure resolution, management preflight, metadata/archives and actual server ready/save/stop"
     }
   ]
 }

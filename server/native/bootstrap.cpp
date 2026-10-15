@@ -60,6 +60,13 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
+constexpr const char *build_version="01.000.013";
+char run_id[96]="No run started in this process";
+bool archives_ok=true;
+void session_status(const char *state) {
+ char text[512];std::snprintf(text,sizeof(text),"Build: %s\nRun: %s\nState: %s\nPrevious report archive: %s\n",build_version,run_id,state,archives_ok?"OK":"incomplete; inspect previous reports");
+ ps5::log_share::write_note("/download0/probe-session.txt",text);
+}
 char exception_detail[24576]{};
 char previous_log[7][160]={{},{},{},{},{},{},"No previous startup log."};
 struct NativeTraceScope {
@@ -108,7 +115,7 @@ void vm_exit(int code) {
  char reason[80];std::snprintf(reason,sizeof(reason),"VM EXIT: %d",code);save_vm_failure(reason);
  if(startup_log) {std::fprintf(startup_log,"%s\n",reason);std::fflush(startup_log);}
 }
-void vm_abort() {save_vm_failure("VM ABORT during bootstrap");log_stage("VM ABORT");}
+void vm_abort() {save_vm_failure("VM ABORT (see last startup stage)");log_stage("VM ABORT");session_status("VM ABORT; inspect abort.txt and startup.log. exception.txt may have no Java report.");}
 bool read_last_line(const char *path) {
  FILE *file=std::fopen(path,"r");if(!file) return false;
  bool found=false;char line[256]{};
@@ -133,6 +140,7 @@ void read_previous_log() {
 
 void result(int i,int rc,const char *message) {
  status[i]=rc==0?1:-1;
+ char state[256];std::snprintf(state,sizeof(state),"%s: %s",rc==0?"PASS":"FAIL",names[i]);session_status(state);
  std::snprintf(messages[i],sizeof(messages[i]),"%s / code %08X",message,static_cast<unsigned>(rc));
 }
 void java_failure(int i,int code,const char* phase) {
@@ -170,8 +178,13 @@ void skip_vm_dependents() {
 }
 void run_test(int i) {
  if(i==0) {
+  timespec now{};clock_gettime(CLOCK_REALTIME,&now);
+  std::snprintf(run_id,sizeof(run_id),"%s-%lld-%ld",build_version,static_cast<long long>(now.tv_sec),now.tv_nsec);
+  archives_ok=ps5::log_share::begin_session(build_version,run_id);
+  if(!archives_ok)std::snprintf(messages[i],sizeof(messages[i]),"Previous log archive incomplete; check recorded run status");
   startup_log=std::fopen("/download0/java25-startup.log","a");
   if(!startup_log) {result(i,errno,"Cannot open persistent startup log");return;}
+  std::fprintf(startup_log,"\n=== RUN %s BUILD %s ===\n",run_id,build_version);std::fflush(startup_log);
   log_stage("Begin embedded core constructors");
   size_t count=0;
   for(auto *fn=__jvm_init_array_start;fn!=__jvm_init_array_end;++fn) {if(*fn) {(*fn)();++count;}}
@@ -329,7 +342,7 @@ void run_test(int i) {
  }
 }
 bool update() noexcept {
- if(pending>=0) {int i=pending;pending=-1;run_test(i);return true;}
+ if(pending>=0) {int i=pending;pending=-1;if(i!=0){char state[256];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}run_test(i);return true;}
  if(pad<0) return false;
  static int last_audio=0;
  int current_audio=ps5::menu_audio::state.load();
@@ -354,7 +367,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.012",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.013",42,rgb(238,242,250));
  c.label(103,163,"Minecraft 26.3 / Java 25. PS5 diagnostic adapter; real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
@@ -402,6 +415,8 @@ void draw(Canvas &c) noexcept {
 }
 }
 int main() {
+ char build_note[256];std::snprintf(build_note,sizeof(build_note),"Open app build: %s\nProcess ID: %d\nRecorded session/logs may be from a prior process after relaunch.\n",build_version,getpid());
+ ps5::log_share::write_note("/download0/probe-build.txt",build_note);
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;

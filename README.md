@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.012
+## Current development: server start probe 01.000.013
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -234,3 +234,31 @@ Host management, diagnostic adaptation, restricted-module preflight/help, and
 real server readiness/save/stop checks pass. **PS5 testing remains pending** for
 management, the verifier fallback and real server ready/save/stop. Use the log
 page on port 8765 to collect results after the attempt.
+
+
+## Class loading and log identity in 01.000.013
+
+The latest console attempt reached MobEffects initialization, then reported a
+bare OOM through `ClassLoader.defineClass1`. Its startup tail ended in VM ABORT;
+the supplied exception file still described the older MemUtilNIO attempt.
+Build **01.000.013** adds PS5-only native class-byte/UTF scratch allocation
+fallback to real anonymous RW pages, with matching backend cleanup. Bytecode
+checks and JVM definition entry points remain unchanged. Startup diagnostics
+record allocation sizes/results and distinguish failure after entering the JVM.
+The exact origin of the console OOM remains unproven until this build is tested.
+
+The log page now separates **Open app build** (`build.txt`) from **Recorded run
+status** (`session.txt`). Relaunching preserves the failed run's logs; these
+identifiers can differ after a crash. Initializing a new run archives the prior
+exception, VM abort and server output before writing current-run placeholders.
+Prior reports have their own download links. Archive failure preserves the
+current source report and is recorded in session status. Startup history has
+explicit build/run markers, and the ZIP collector includes build/session files.
+
+The actual native class-loader host test loads and executes classes using heap
+and forced mapping paths, exercises hidden/direct definitions and long UTF
+sources, and checks cleanup after malformed input, invalid ranges and real OOM.
+Log archive/collector checks also pass. **PS5 validation and real server readiness
+remain pending.** If it aborts again, include `abort.txt`, `session.txt`,
+`startup.log` and `server.log`; the current exception file may correctly state
+that no Java exception was captured before the process aborted.

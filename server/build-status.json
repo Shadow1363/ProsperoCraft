@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.012",
+  "app_version": "01.000.013",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "422e7140e4af341199feae579142931d1b9318998af0418e923779a7c9485b4d",
-  "console": "pending: real management preflight, PS5 telemetry adaptation, verifier mapping fallback, server readiness/save/stop",
-  "host": "PASS: actual management C JNI hook/JMM table with real memory/flags; generated resident loader library scope; PS5 diagnostic adapter under full JVM verification and JAR content-diff audit; preflight/help under target module set; real host server ready/save/stop with diagnostic derivative and persisted console; constrained verifier fallback sanitizer and real JOML verifier tests",
-  "package": "PASS: target management build and actual native hook/JMM/memory function definitions; native container integrity, ZIP CRC/title/version, packaged management/verifier target library byte equality and local derivative present",
+  "package_sha256": "d8eb072ec6ed7ba840f2b7c82ceba4b671494e6568823fdcdfb5fea83b4a49ec",
+  "console": "pending: PS5 classloader scratch fallback and current/previous log sessions; real server readiness/save/stop",
+  "host": "PASS: actual patched ClassLoader.c JNI under UBSan/full JVM verification; heap and mmap byte-array definitions, hidden class definitions, direct-buffer ownership, long UTF source, malformed/range/OOM cleanup; native HTTP/log-session archive and collector regression including failed archive preserving current source",
+  "package": "PASS: native container integrity, ZIP CRC/title/version, rebuilt target libjava byte equality; classloader allocation/JVM-call diagnostics present. Management, verifier page fallback and diagnostic adapter retained.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -31,9 +31,10 @@
   "max_heap_mib": 192,
   "runtime_adaptation": "PS5 non-class metaspace node size 16 MiB; verifier resets method scratch and falls back to real anonymous RW pages on libc allocation failure, with matching backend cleanup",
   "probe_jar_sha256": "4c129b00516f32a78a4b5bd0ffd28a477de524d7dbbfa91bca2221c9b5bcbc36",
-  "diagnostics": "Native read-only HTTP port 8765 independent of JVM; fixed allowlist; full console persisted per attempt up to 32 MiB; latest exception persisted",
+  "diagnostics": "Build and recorded-run metadata; explicit startup run markers; archived previous exception/abort/server reports and current-run placeholders; VM abort records session state; HTTP collector includes metadata",
   "reserved_code_cache_mib": 8,
-  "known_failures": "No new console results for 011/012. Previously missing management addressed by real target native library; unsupported optional OSHI telemetry now explicitly unavailable on PS5. Verifier native allocation fallback remains unvalidated on console.",
+  "known_failures": "Latest user console reports bare OOM from ClassLoader.defineClass1 during MobEffects initialization, beyond earlier JOML failures. Newest startup section ends VM ABORT; supplied exception.txt is an older MemUtilNIO report. Exact allocation location unproven until new diagnostics run.",
   "diagnostic_adapter": "Local unsigned derivative of hash-verified official server JAR; only optional SystemReport hardware/software telemetry is wrapped; original desktop methods retained; gameplay classes/resources unchanged; no global signature checks disabled",
-  "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument"
+  "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
+  "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added"
 }
