@@ -92,9 +92,19 @@
     {
       "app_version": "01.000.009",
       "package_sha256": "17536fa2131291c448923525249d7bac264078df8fc6a77b75123ee80997eadc",
-      "console": "pending",
+      "console": "PASS: log sharing (user supplied startup, VM trace, full console and exception logs). FAIL: server startup; no full milestone pass claimed.",
       "changes": "Independent native read-only LAN log server on port 8765; full per-attempt Minecraft console file capped at 32 MiB; persisted exception endpoint",
-      "known_failures": "008 native verifier allocation and missing management library remain unresolved"
+      "known_failures": "008 native verifier allocation and missing management library remain unresolved",
+      "failure": "Verifier native scratch allocation failure at site 3586 during Matrix3f.rotateLocal; JNI-pending=0, Java heap free=58800432 bytes. Also native management library missing; OS telemetry unsupported.",
+      "evidence": "Four user-supplied text logs on 2026-10-15; raw logs excluded from Git"
+    },
+    {
+      "app_version": "01.000.010",
+      "package_sha256": "b2c958e0026a9c8681c8011f35767e8f2d47607887baa439ffb8d16432990264",
+      "console": "pending",
+      "changes": "PS5 verifier releases method scratch blocks at each method reset; original verifier checks retained; independent native log sharing retained",
+      "host": "PASS: constrained native allocator sanitizer test (600 methods), complete patched verifier validates actual Matrix3f/Matrix4f/Quaternionf classes via host JNI; OOM formatting regression",
+      "known_issues": "Missing native management library and unsupported optional OS telemetry remain; actual server ready/save/stop unvalidated"
     }
   ]
 }

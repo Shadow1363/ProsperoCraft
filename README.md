@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.009
+## Current development: server start probe 01.000.010
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -170,3 +170,20 @@ The downloaded 01.000.008 startup log confirms native verifier allocation failur
 at site 3586 with no pending JNI exception, and a missing native `management`
 library. These remain unresolved in 01.000.009; this build improves collection.
 **PS5 log downloads and server readiness/save/stop remain pending.**
+
+
+Build **01.000.009 log sharing is confirmed working by the user**; the downloaded
+console identifies native verifier scratch allocation failure during
+`Matrix3f.rotateLocal`, with 58,800,432 Java heap bytes still free. Build
+**01.000.010** includes the Java port's PS5-only method-scratch lifetime fix:
+non-root verifier scratch blocks are released at each method reset instead of
+retaining oversized allocations until class verification finishes. All bytecode
+checks remain active. The patched complete verifier validates Matrix3f, Matrix4f
+and Quaternionf through host JNI, and a constrained allocator sanitizer test
+passes 600 methods where the original retention exhausts its budget. The packaged
+target library was rebuilt and verified byte-for-byte.
+
+This addresses a demonstrated native allocation pattern; **PS5 resolution is
+pending**. The missing native management library and unsupported optional OS
+telemetry are separate remaining issues. No ready server or world save on PS5 is
+claimed. Log sharing remains available on port 8765 in this build.

@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.009",
+  "app_version": "01.000.010",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "17536fa2131291c448923525249d7bac264078df8fc6a77b75123ee80997eadc",
-  "console": "pending: validate LAN log downloads before and during server test; server readiness remains unvalidated",
-  "host": "PASS: native HTTP handler ASan/UBSan and real socket lifecycle; >2 MiB binary log downloads, fixed route rejection, disconnected clients and ZIP collector; full Java console retention across 40 KB stack; actual vanilla ready/save/stop at 192 MiB with persisted Done output",
-  "package": "PASS: signature/integrity, ZIP CRC/title/version, official JAR hashes, Java25 fixtures, target timezone/CA data, no host native binaries or world/EULA file",
+  "package_sha256": "b2c958e0026a9c8681c8011f35767e8f2d47607887baa439ffb8d16432990264",
+  "console": "pending: PS5 server ready/save/stop with new verifier scratch lifetime; 009 log sharing confirmed by user",
+  "host": "PASS: real patched legacy verifier checks JOML Matrix3f, Matrix4f and Quaternionf via JNI; 600-method constrained pool ASan/UBSan regression; OOM diagnostic sanitizer regression. Prior 009 real host server ready/save/stop with console logging passed.",
+  "package": "PASS: target libverify rebuild, signature/integrity, ZIP CRC/title/version and packaged rebuilt libverify byte equality",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -29,9 +29,9 @@
   ],
   "scope": "One bounded flat-world startup/save/stop attempt. Console ready state, world save and player joins remain unvalidated.",
   "max_heap_mib": 192,
-  "runtime_adaptation": "PS5-only non-class metaspace node size 16 MiB; existing growth unchanged",
+  "runtime_adaptation": "PS5-only non-class metaspace node size 16 MiB; verifier non-root method scratch released on method reset; original checks retained",
   "probe_jar_sha256": "4c129b00516f32a78a4b5bd0ffd28a477de524d7dbbfa91bca2221c9b5bcbc36",
   "diagnostics": "Native read-only HTTP port 8765 independent of JVM; fixed allowlist; full console persisted per attempt up to 32 MiB; latest exception persisted",
   "reserved_code_cache_mib": 8,
-  "known_failures": "008 native verifier allocation failure site 3586 JNI-pending=0 and missing native management library remain unresolved"
+  "known_failures": "009 native verifier scratch allocation failed; 010 addresses retained method scratch, console resolution pending. Native management library remains absent; optional OS telemetry unsupported."
 }
