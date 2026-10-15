@@ -64,7 +64,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.014";
+constexpr const char *build_version="01.000.015";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -76,7 +76,7 @@ char previous_log[7][160]={{},{},{},{},{},{},"No previous startup log."};
 struct NativeTraceScope {
  NativeTraceScope() {
 #ifdef __PROSPERO__
-  ps5_vm_native_call_record() = {nullptr,0,0,0,0,false};
+  ps5_vm_reset_native_call_record();
 #endif
   ps5_native_trace::enable();
  }
@@ -328,7 +328,7 @@ void run_test(int i) {
   jclass string_class=java_env->FindClass("java/lang/String");
   jobjectArray arguments=string_class?java_env->NewObjectArray(0,string_class,nullptr):nullptr;
   if(!arguments||java_env->ExceptionCheck()) {java_failure(i,-1306,"argument array");if(string_class) java_env->DeleteLocalRef(string_class);java_env->DeleteLocalRef(klass);return;}
-  if(i==3) ps5_native_trace::disable(); // Keep checkpoints; avoid per-copy disk tracing during world bootstrap.
+  if(i==3) ps5_native_trace::quiet(); // Keep per-thread call evidence without per-copy disk tracing.
   log_stage("Calling Minecraft fixture.main");
   java_env->CallStaticVoidMethod(klass,method,arguments);
   bool failed=java_env->ExceptionCheck();
@@ -389,7 +389,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.014",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.015",42,rgb(238,242,250));
  c.label(103,163,"Minecraft 26.3 / Java 25. PS5 diagnostic adapter; real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;

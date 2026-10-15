@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.014
+## Current development: server start probe 01.000.015
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -278,3 +278,11 @@ python3 tools/test_server_start.py --worker-runner /path/to/PS5_Homebrew/build/j
 ```
 
 Build 014 console follow-up: the user reports a whole-app crash at 19 seconds. Retrieved logs confirm worker attachment and contain a current signal 11 record matching the 014 handler address. The server console is empty, the current exception remains a placeholder and the abort endpoint is unavailable. The exact native fault site remains unresolved; this build has **not** passed startup/save/stop on PS5. Raw diagnostic files remain local.
+
+## Native crash capture in 01.000.015
+
+Build **01.000.015** repairs the missing native-call evidence in row 4. The harness previously disabled call tracing before invoking the server. It now uses quiet mode: caller, pointers, byte count and completion status remain in memory without per-call disk writes. Allocation wrappers also cover calloc, realloc and free while preserving the original functions.
+
+The runtime stores call/stage/recursion state separately for each thread in a preallocated table. This prevents cross-thread overwrites without using allocating emulated TLS in an allocator wrapper or signal handler. Table exhaustion suppresses new capture and leaves existing records intact. The attached worker, live elapsed counter and read-only log sharing remain.
+
+Host sanitizer tests, target code checks, the HotSpot rebuild and package integrity checks pass. **The underlying build 014 SIGSEGV is still unresolved; build 015 is awaiting PS5 validation.** It does not claim a completed native crash fix. Repeat the test sequence, then leave the probe open on its menu after relaunch so the current logs can be retrieved.
