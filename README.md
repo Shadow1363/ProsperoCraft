@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.030
+## Current development: server start probe 01.000.031
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -407,3 +407,7 @@ Build 029 also records native synchronization errors in the product VM instead o
 Build 029 captured `pthread_mutex_init` returning ENOMEM, followed by a signal during fatal reporting. No Java exception or completed fatal report was captured. Build 030 uses the Java port's bounded early pools of real native mutexes and conditions, with exclusive stable-address leases and separate relative/absolute clock attributes. Exhaustion still attempts real native initialization and preserves failures. The Java heap remains 192 MiB. Host sanitizer checks pass with late initialization refused, native wait/signal/timeout behavior and 8,000 concurrent lease lifetimes. **All five PS5 rows and actual server ready/save/stop remain pending.**
 
 Build 030 target compilation, signed-container integrity, ZIP checks and target-library identity checks pass. Package SHA-256: `04abef711724a49249dbf306f5bcba32f3dc7c49d70a561c4ff2c40852c24bca`. PS5 testing remains pending.
+
+## Mutex reserve follow-up in 01.000.031
+
+Build 030 initialized every early pool entry successfully, but still closed after a later mutex-init ENOMEM. Its capture does not record pool occupancy or identify the constructor. The generated-class workload can require additional metadata locks, making the 512-mutex reserve a plausible bottleneck. Build 031 expands the runtime mutex reserve to 4096 and reports exact pool occupancy, attribute matching and caller on native init failure, plus distinct event/parker/monitor labels. Condition capacities and the 192 MiB Java heap are unchanged. Host sanitizer checks cover all 4096 entries, exhaustion/reuse, incompatible attributes and the actual emitted failure fields. **This is a capacity adjustment and diagnostic build; PS5 server ready/save/stop is still unvalidated.**

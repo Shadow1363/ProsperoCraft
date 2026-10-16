@@ -286,11 +286,19 @@
     },
     {
       "app_version": "01.000.030",
-      "console": "pending",
+      "console": "FAIL: user reports whole-app crash in under10seconds during server row.",
       "changes": "Reusable runtime initializes bounded real native mutex/condition pools early, leases stable addresses exclusively, separates relative/absolute attributes and preserves genuine fallback failure. Heap192MiB unchanged.",
       "checks": "PASS: actual-header ASan/UBSan late init ENOMEM,512 unique mutex slots/exhaustion/reuse,locked EBUSY,native wait/signal/timeout,attribute matching,8000 concurrent lease lifetimes,cleanup; target metadata no heap/TLS/guard IR; actual product-check constructor regression. PASS: target hotspot/java.base-libs rebuild; signed container integrity; ZIP CRC/version030/pool and error labels; retained symbols; package target libjava/libverify/libjvm byte identity. Existing writable-string warning only.",
-      "pending": "All five PS5 rows, early successful pool counts, actual ready/save/stop.",
-      "package_sha256": "04abef711724a49249dbf306f5bcba32f3dc7c49d70a561c4ff2c40852c24bca"
+      "pending": "031 console retest; occupancy and caller not captured in030; actual ready/save/stop pending.",
+      "package_sha256": "04abef711724a49249dbf306f5bcba32f3dc7c49d70a561c4ff2c40852c24bca",
+      "evidence": "Run01.000.030-1792178567-148021191; startup44037768/current8398 bytes; trace412239 records all early primitives initialized512/512/256, later mutex_init return12 ENOMEM then signal in fatal reporting. Class log435831 bytes,626 hidden records including486 lambdas; not an exact live-lock count. Resource log1112bytes stops10s at raw maxrss301360; units/limit not inferred. No Java exception/native abort/completed fatal report; server blank."
+    },
+    {
+      "app_version": "01.000.031",
+      "console": "pending",
+      "changes": "Runtime mutex reserve512\u21924096; on actual failed native init report leased/initialized counts,config/attribute match and caller; distinct event/parker/monitor product check labels. Conditions512/256 and heap192MiB unchanged. Exhaustion hypothesis remains unconfirmed by030.",
+      "checks": "PASS: actual-header ASan/UBSan4096 unique leases, forced exhausted/native ENOMEM, reuse, exact exhaustion versus attribute-mismatch failure fields, locked EBUSY,native wait/signal/timeout,8000 concurrent lifetimes and cleanup; target no heap/compiler-TLS/guard IR; actual product-check constructor. Target/package pending.",
+      "pending": "All five PS5 rows, successful early reserve counts, actual server ready/save/stop; root cause unresolved."
     }
   ]
 }
