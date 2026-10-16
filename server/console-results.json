@@ -232,11 +232,20 @@
     },
     {
       "app_version": "01.000.024",
-      "console": "pending",
+      "console": "FAIL: later whole-app crash. Native TLS refusal/fallback continuation now confirmed on console.",
       "changes": "Checked pthread TLS return/readback; allocation-free bounded fallback for refused/mismatched current-pointer updates, explicit null override and safe destructor handling. Native key error/result diagnostics and raw signal context capture; no ABI offset changes.",
       "checks": "PASS: sanitizer actual methods/POSIX backend with 8000 injected-failure cycles, stale-clear/destructor handling, 1024 collision/exhaustion helper test, raw-context formatter bounds/errno and target storage IR. Final target rebuild, signed-container integrity, ZIP CRC/version024, fallback/readback/raw-context labels and target-library byte identity PASS.",
       "pending": "All five PS5 rows, native TLS failure evidence if any, crash resolution, real server ready/save/stop. Exact 023 fault remains unproven.",
-      "package_sha256": "9d8f2be9798d44adcbd3552c0991b7807a703ab0860f49f24b5a9eb959539970"
+      "package_sha256": "9d8f2be9798d44adcbd3552c0991b7807a703ab0860f49f24b5a9eb959539970",
+      "evidence": "Run01.000.024-1792169418-775137903; startup18331518 bytes, trace400049 bytes. pthread_setspecific result12 observednull fallback1 on two threads; handshake/Java entry and first child clear/return recorded. Later no SIGNAL/VM ABORT/fatal report; blank server console. Exact new cause unknown."
+    },
+    {
+      "app_version": "01.000.025",
+      "console": "pending",
+      "changes": "Diagnostic executable wraps linked abort/exit/_exit to capture direct caller/status and preceding native context before delegating unchanged. Retain verified TLS fallback. No later crash fix claimed.",
+      "checks": "PASS: actual native wrappers ASan/UBSan, noreturn delegate/status/errno checks, disabled-tracing capture, recursive logging bypass and existing signal/context/storage semantics. Signed-container integrity, ZIP CRC/version025, wrapper labels/symbols and actual rewritten abort/exit/_exit call sites, target-library byte identity PASS.",
+      "pending": "All five PS5 rows, direct termination evidence if applicable, cause of later crash and actual ready/save/stop.",
+      "package_sha256": "dbeb0a8b9a56c550d329cf43f6939fb36a7cd1af4aa98d5aacbeac00fc6aff9e"
     }
   ]
 }
