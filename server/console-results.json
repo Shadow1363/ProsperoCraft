@@ -268,11 +268,20 @@
     },
     {
       "app_version": "01.000.028",
-      "console": "pending",
+      "console": "FAIL: user reports whole-app crash around20seconds during server row.",
       "changes": "Runtime canonical compiler-TLS array registry with real native-key destructor delegate; stale native arguments ignored. Scoped pthread create/join integration reclaims retained arrays after actual thread death, with generations protecting reused native identities.128 static start contexts and1024 distinct identity slots. SDK object ABI pinned by hash; Java heap192MiB retained.",
       "checks": "PASS: actual adapter ASan/UBSan refused/false-success/stale native keys, explicit refused null, repeated1000 lookups/thread,800 concurrent pthread lifetimes, actual native destructor order, successful/failed create/join, generation reuse/exhaustion, complete map cleanup; allocator1600 lifetime stress; no-TLS/no-guard target IR. Package checks pending. Final signed containers/ZIP CRC/version028,SDK object ABI pin/scoped key refs,linked lifecycle wrappers,adapter labels,retained symbols and target library byte identity PASS.",
-      "pending": "All five PS5 rows; actual retained-key fallback, crash resolution and real server ready/save/stop. Detached/unjoined refused-key arrays retained until native identity reuse/process exit.",
-      "package_sha256": "351348273fbc3aa10da1957ed41b36dffdd661830a3aaffc6eb6e96012261a17"
+      "pending": "New crash cause unresolved; compiler-TLS fallback not reached in captured markers; actual ready/save/stop unvalidated.",
+      "package_sha256": "351348273fbc3aa10da1957ed41b36dffdd661830a3aaffc6eb6e96012261a17",
+      "evidence": "Run01.000.028-1792176182-882723558; startup44020970/current110157 bytes, trace478496, class log571669, resource log1320 bytes stopping12s at raw maxrss356576. Last native marker child before handshake, after current-pointer fallback and successful stack setup. No EMUTLS/SIGNAL/NATIVE TERMINATION markers, fatal report or Java exception; server output blank. Last class loads include Matrix4x3fc/Matrix4x3f. No exact fault location."
+    },
+    {
+      "app_version": "01.000.029",
+      "console": "pending",
+      "changes": "Runtime fixes signed-shift UB reproduced by actual verifier/JOML regression. PS5 product checks persist native synchronization errors before fatal exit; detailed parent/child handshake checkpoints. No heap-size or validation-rule changes.",
+      "checks": "PASS: actual legacy verifier JNI with UBSan halt_on_error, refused libc and real mappings/exhausted budgets on Matrix4x3fc/Matrix4x3f; exhaustive actual signed16 and signed32 boundary decoding ASan/UBSan; actual synchronization helper/PlatformEvent constructor injected init ENOMEM and accepted timeout/busy statuses. Target/package pending. Target hotspot/java.base-libs rebuild, signed containers/ZIP CRC/version029/new labels,retained symbols and target library byte identity PASS.",
+      "pending": "All five PS5 rows, exact cause of earlier crash, actual server ready/save/stop. Verifier UB is confirmed by host reproduction, not proven console crash cause.",
+      "package_sha256": "2a67af442a72459a980cbbb40ed8574223ee58f9ca092467a7b40ce564c3864b"
     }
   ]
 }
