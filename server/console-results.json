@@ -250,11 +250,20 @@
     },
     {
       "app_version": "01.000.026",
-      "console": "pending",
+      "console": "FAIL: user reports whole-app crash after46seconds while server row runs.",
       "changes": "Reduce confirmed successful verifier-allocation diagnostic flood (first8 then every1024, mmap failures retained); built-in class-load file and best-effort once-per-second raw native getrusage samples with download/archive support. No memory-size/check changes.",
       "checks": "PASS: actual verifier ASan/UBSan1200 mappings/sampling/failure cleanup, HTTP/collector ASan/UBSan diagnostic archive/download and native sample/errno; hostJava25 class logger option; target java.base-libs rebuild. Final signed-container integrity, ZIP CRC/version026, class/resource/sampling labels/options/routes and target-library byte identity PASS.",
-      "pending": "All five PS5 rows, telemetry/class progress, exact later termination cause and actual ready/save/stop.",
-      "package_sha256": "802f8dcff229d91959df65ad19a23fb5ba9a718ab4f94faf26d5f0c6fd7976c6"
+      "pending": "Real PS5 ready/save/stop remains unvalidated; compiler-TLS key update behavior after allocator repair not established.",
+      "package_sha256": "802f8dcff229d91959df65ad19a23fb5ba9a718ab4f94faf26d5f0c6fd7976c6",
+      "evidence": "Run01.000.026-1792173594-763764800; startup42842580 bytes/current3392327, native trace1062322, native resource samples0..45seconds. Direct abort caller0x11da179 and completed malloc caller0x11da0b7/128bytes/null; anchor0x400030 establishes0x400000 load adjustment. Matching ELF resolves both to __emutls_get_address; disassembly confirms failed initial-array malloc branches to abort. Class records reached CompletableFuture/ThreadPoolExecutor Worker; empty class-load file caused by harness vfprintf ignoring FILE target. No current fatal or Java exception report."
+    },
+    {
+      "app_version": "01.000.027",
+      "console": "pending",
+      "changes": "Runtime scoped compiler-rt emutls allocation fallback with matched malloc/realloc/free; preserve SDK object and capture key setter refusal/readback. Harness honors non-console FILE targets so class/fatal file logs are not redirected into startup.log. No heap-size increase.",
+      "checks": "PASS: adapter ASan/UBSan allocation failure/growth/cleanup/errno/concurrency; actual setter diagnostic; target no-TLS/no-guard IR; actual harness FILE routing ASan/UBSan; scoped object dependencies; signed containers, ZIP CRC/version027/adapter labels/retained symbols and target libjava/libverify/libjvm identity.",
+      "pending": "All five PS5 rows, actual compiler-TLS mapping/key behavior and ready/save/stop. The native-key diagnostics preserve SDK semantics; key refusal would require a separate repair.",
+      "package_sha256": "91b8ff8e580ba306f2ed485e256804f79f2c4ed96c216d48a0074c53a890430e"
     }
   ]
 }

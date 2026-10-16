@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.026
+## Current development: server start probe 01.000.027
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -383,3 +383,9 @@ The 024 console log confirms native pthread TLS returns ENOMEM and the fallback 
 ## Progress and resource logs in 01.000.026
 
 The 025 capture has no native termination or fatal signal marker, so the exact cause remains unknown. Its current startup log contains 272930 verifier mapping messages (over 21MiB). Build 026 samples repetitive successful messages while retaining mmap failures; allocation/verification behavior is unchanged. The log page adds **Class loading progress** and **Native resource samples**, archived on a new run. Native samples use actual OS getrusage without JNI and report raw counters or an explicit query error. Raw maximum RSS is not available memory or a proven container limit; the last loaded class is progress evidence. **All PS5 rows, diagnostic evidence and real server ready/save/stop remain pending.**
+
+## Compiler TLS allocation repair in 01.000.027
+
+Build 026 crashed after approximately 46 seconds. Its native termination trace and matching executable identify an abort in compiler-rt's emulated TLS setup after a 128-byte address-array allocation returned null. Build 027 uses the Java project's scoped compiler-TLS allocator adapter: libc first, then actual OS RW pages, with matched growth and release. The Java heap remains 192 MiB. This fixes the confirmed allocation path; console execution must establish whether later startup succeeds.
+
+The harness also honors the JVM print hook's requested FILE stream. Build 026 redirected class-loading output into startup.log and left class-load.log empty; build 027 preserves separate class/fatal log files while retaining console capture. Resource samples remain available. Compiler-TLS native key update failures now have a distinct diagnostic marker; its setter semantics are unchanged, so a refusal remains a separate issue. **All five rows and real server readiness/save/stop require PS5 testing.**

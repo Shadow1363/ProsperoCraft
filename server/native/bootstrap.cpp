@@ -65,7 +65,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.026";
+constexpr const char *build_version="01.000.027";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -96,10 +96,15 @@ void network_checkpoint(JNIEnv *env,jclass,jstring stage) {
  log_stage(utf);
  env->ReleaseStringUTFChars(stage,utf);
 }
-int vm_print(FILE *,const char *format,va_list arguments) {
+int vm_print(FILE *stream,const char *format,va_list arguments) {
 #ifdef __PROSPERO__
  Ps5TraceIOScope guard;
 #endif
+ // HotSpot also calls the hook for file logging. Preserve its FILE target;
+ // redirect only console output to the startup capture.
+ if(stream&&stream!=stdout&&stream!=stderr){
+  int count=std::vfprintf(stream,format,arguments);std::fflush(stream);return count;
+ }
  ps5_vm_diagnostics::capture(format,arguments);
  if(!startup_log) return 0;
  int count=std::vfprintf(startup_log,format,arguments);std::fflush(startup_log);return count;
@@ -394,7 +399,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.026",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.027",42,rgb(238,242,250));
  c.label(103,163,"Minecraft 26.3 / Java 25. PS5 diagnostic adapter; real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
