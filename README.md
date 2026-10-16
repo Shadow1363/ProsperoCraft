@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.016
+## Current development: server start probe 01.000.017
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -294,3 +294,17 @@ Build 015 console follow-up: quiet capture now records a completed 128-byte nati
 Build **01.000.016** includes a Java runtime fix for the confirmed failed 128-byte HotSpot allocation. When libc refuses native storage, HotSpot now falls back to real writable anonymous OS pages. Small allocations share mappings through eight size classes; larger ones use direct mappings. Backend-aware resize/free preserves existing bytes on failure and releases mappings when no longer needed. The raw storage prefix also covers early NMT allocations so they remain compatible after initialization. Existing native-memory tracking checks and the 192 MiB Java heap setting remain.
 
 The actual allocator passes sanitizer tests with forced failures, resize migration, alignment, pooled sharing, concurrency and complete cleanup. The actual HotSpot API bodies also pass checks against a narrow NMT contract model, including failed-resize header revival and allocation limits. Target rebuild and package/library identity checks pass. **PS5 validation is pending:** this addresses the observed allocation failure, but does not yet prove the subsequent SIGSEGV or server startup/save/stop is resolved.
+
+## Bulk file-I/O buffer fallback in 01.000.017
+
+Build 016 logs confirm successful HotSpot native-page fallbacks, then report
+`OutOfMemoryError` in `RandomAccessFile.readBytes0` while loading a dependency
+JAR. Its trace has no captured signal record and no abort report; this does not
+prove the prior native crash is resolved. Server readiness/save/stop has not passed.
+
+Build **01.000.017** consumes a separate Java runtime fix for bulk file-read/write
+temporary buffers: libc first, then real writable OS pages, with matching
+cleanup even after partial writes and exceptions. Both allocation failures
+still produce the original error. JNI/UBSan host checks and target/package
+checks are recorded in [build status](server/build-status.json).
+**PS5 validation of build 017 remains pending.**

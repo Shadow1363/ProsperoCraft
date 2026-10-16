@@ -159,11 +159,20 @@
     {
       "app_version": "01.000.016",
       "package_sha256": "7eed006d6f907493961cb3656199aeef1784a883981a4cf8f7e28a7d78dc9d1c",
-      "console": "pending",
+      "console": "FAIL: server reports OutOfMemoryError in RandomAccessFile.readBytes0 during dependency JAR loading; VM created and worker attached",
       "changes": "HotSpot native allocation fallback to real OS pages when libc refuses memory; pooled small blocks, direct large mappings, backend-aware realloc/free and uniform raw prefix for NMT preinit. Java heap remains 192 MiB; quiet crash capture and worker retained.",
       "checks": "PASS: actual native allocator ASan/UBSan forced failures, size classes/alignment, pooled sharing, resize migration, failure preserving original bytes, eight-thread stress and matching cleanup. Actual os.cpp API bodies with NMT contract model preserve limits/accounting/header revival; actual NMT preinit raw bridges remain compatible with post-init NMT-off operation. Target rebuild, native integrity, ZIP/version and rebuilt JVM/JAR byte identity also pass.",
-      "pending": "PS5 VM creation, dependency checks, actual server ready/save/stop, clean VM shutdown; verify native fallback clears the later SIGSEGV.",
-      "limitations": "Confirmed prior native allocation failure addressed by fallback; libc rejection reason and later crashing instruction unproven. Native memory remains finite; failure of both backends remains an allocation failure."
+      "pending": "Actual ready/save/stop and clean shutdown; prior SIGSEGV resolution not established by absence of a signal record.",
+      "limitations": "Confirmed prior native allocation failure addressed by fallback; libc rejection reason and later crashing instruction unproven. Native memory remains finite; failure of both backends remains an allocation failure.",
+      "evidence": "Read-only retrieval 2026-10-16, run 01.000.016-1792158897-280057484: startup 86854 bytes, native trace 78648085 bytes, console 1783 bytes; 13 successful slab mappings and 2 direct mappings; no SIGNAL or abort report captured. Session records RUN. Raw logs local."
+    },
+    {
+      "app_version": "01.000.017",
+      "package_sha256": "d984b7e30d34ac33356e5e6c0bb2cabcb29b64ae71a79bcdd4cdfd4ae80c4374",
+      "console": "pending",
+      "changes": "Consume Java patch 0041 bulk file-I/O native scratch fallback; retain 192 MiB heap and earlier fixes.",
+      "checks": "JNI/UBSan actual read/write/helper forced-failure and data-integrity tests PASS; target java.base-libs rebuild and signed-container/ZIP/version/embedded diagnostic checks PASS.",
+      "pending": "PS5 all five rows, real server ready/save/stop and clean VM destruction."
     }
   ]
 }
