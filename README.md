@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.022
+## Current development: server start probe 01.000.023
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -367,3 +367,7 @@ are recorded in [build status](server/build-status.json).
 ## Stack discovery and thread initialization in 01.000.022
 
 The 021 crash trace records successful native thread creation and child entry, then stops before stack recording/current-thread setup finishes. No signal or fatal report was saved. The remaining fresh attribute allocation in stack discovery now uses an early initialized query pool, separate from creation attributes so live stack addresses cannot contaminate new threads. Actual OS stack queries and real failures remain in place. Intermediate stack/TLS markers narrow any continuing failure. Host sanitizer stress and target compilation pass; **022 console validation and actual server ready/save/stop remain pending**. The exact 021 fault is unproven.
+
+## Current-thread TLS in 01.000.023
+
+The 022 trace confirms stack discovery succeeds, then the new child stops between compiler TLS assignment checkpoints. This target uses compiler TLS emulation, which may allocate on a thread's first access. Build 023 removes that dependency for HotSpot's current-thread pointer and uses its existing native pthread TLS backend, including guarded pre-init lookups and JNI destructor semantics. Host sanitizer tests cover 1600 concurrent initialization/clear cycles and signal lookups; target IR checks native key access without compiler TLS emulation. The trace provides no exact crash PC; **023 console validation and actual server ready/save/stop remain pending**.

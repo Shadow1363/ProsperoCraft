@@ -214,11 +214,20 @@
     },
     {
       "app_version": "01.000.022",
-      "console": "pending",
+      "console": "FAIL: whole-app crash; successful stack discovery, child stops between compiler TLS assignment checkpoints.",
       "changes": "Consume separate preinitialized stack-query attribute pool; intermediate stack discovery and compiler/pthread TLS checkpoints. Preserve actual OS stack getters and error propagation.",
       "pending": "All five PS5 rows, crash resolution, actual ready/save/stop. 021 trace narrows the interval but does not prove attr init is the fault.",
       "checks": "PASS: attribute helper ASan/UBSan denied late init, isolated stack addresses, both pools exhaustion/cleanup, 800 pthread creations; target static-storage IR and HotSpot rebuild. Packaging pending. Signed-container integrity, ZIP CRC/version/diagnostic labels and target-library identity PASS.",
-      "package_sha256": "2ba87db03effc09ba50bf3c72e536ec4e96312da7bf1dab6c1b6141a8a328d4c"
+      "package_sha256": "2ba87db03effc09ba50bf3c72e536ec4e96312da7bf1dab6c1b6141a8a328d4c",
+      "evidence": "Run01.000.022-1792167902-443606310; startup18273737 bytes, trace327670 bytes. Query attr result0; stack base0x7ed778000 size1MiB; before compiler TLS assignment appears, completion does not. No SIGNAL/native abort/fatal report or Java exception; blank server console. No exact crash PC."
+    },
+    {
+      "app_version": "01.000.023",
+      "console": "pending",
+      "changes": "Use existing native pthread TLS for HotSpot current-thread pointer on PS5; remove allocating compiler-TLS first access for that pointer. Preserve native backend/destructor semantics and pre-init null.",
+      "checks": "PASS: extracted actual lifecycle/getter and native POSIX backend under ASan/UBSan, 1600 concurrent initialization/clear cycles, signal lookups/isolation/destructor restoration; target IR no current-pointer compiler TLS/direct allocator. Full target HotSpot build, absence of _thr_current in linked JVM/embedded ELF, signed-container integrity, ZIP CRC/version023, native TLS labels and target-library byte identity PASS.",
+      "pending": "Five PS5 rows, crash resolution and actual ready/save/stop; no exact 022 fault PC was captured.",
+      "package_sha256": "fda11fe558df505ed3f2afaa7b4efa7c84367863b607e22b979652f3080cc221"
     }
   ]
 }
