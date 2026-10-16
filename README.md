@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.029
+## Current development: server start probe 01.000.030
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -401,3 +401,9 @@ Build 028 pins a Java runtime repair that retains compiler-rt's canonical array 
 Build 028 closed around 20 seconds. The capture ends during a child thread's startup handshake; no signal, abort, fatal report or Java exception identifies the fault. Class loading reached JOML Matrix4x3f. Testing that class with the actual verifier reproduced signed-shift undefined behavior, now corrected by the Java runtime. That finding does not prove the PS5 crash cause.
 
 Build 029 also records native synchronization errors in the product VM instead of compiling those checks away, and adds parent/child monitor-handshake checkpoints. Host sanitizer regressions cover the verifier, decoding boundaries and failed native synchronization initialization. The Java heap remains 192 MiB. **The crash cause, all five PS5 rows and actual ready/save/stop remain pending.**
+
+## Native synchronization allocation in 01.000.030
+
+Build 029 captured `pthread_mutex_init` returning ENOMEM, followed by a signal during fatal reporting. No Java exception or completed fatal report was captured. Build 030 uses the Java port's bounded early pools of real native mutexes and conditions, with exclusive stable-address leases and separate relative/absolute clock attributes. Exhaustion still attempts real native initialization and preserves failures. The Java heap remains 192 MiB. Host sanitizer checks pass with late initialization refused, native wait/signal/timeout behavior and 8,000 concurrent lease lifetimes. **All five PS5 rows and actual server ready/save/stop remain pending.**
+
+Build 030 target compilation, signed-container integrity, ZIP checks and target-library identity checks pass. Package SHA-256: `04abef711724a49249dbf306f5bcba32f3dc7c49d70a561c4ff2c40852c24bca`. PS5 testing remains pending.

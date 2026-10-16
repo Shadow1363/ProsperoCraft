@@ -277,11 +277,20 @@
     },
     {
       "app_version": "01.000.029",
-      "console": "pending",
+      "console": "FAIL: user reports whole-app crash after about10seconds during server row.",
       "changes": "Runtime fixes signed-shift UB reproduced by actual verifier/JOML regression. PS5 product checks persist native synchronization errors before fatal exit; detailed parent/child handshake checkpoints. No heap-size or validation-rule changes.",
       "checks": "PASS: actual legacy verifier JNI with UBSan halt_on_error, refused libc and real mappings/exhausted budgets on Matrix4x3fc/Matrix4x3f; exhaustive actual signed16 and signed32 boundary decoding ASan/UBSan; actual synchronization helper/PlatformEvent constructor injected init ENOMEM and accepted timeout/busy statuses. Target/package pending. Target hotspot/java.base-libs rebuild, signed containers/ZIP CRC/version029/new labels,retained symbols and target library byte identity PASS.",
-      "pending": "All five PS5 rows, exact cause of earlier crash, actual server ready/save/stop. Verifier UB is confirmed by host reproduction, not proven console crash cause.",
-      "package_sha256": "2a67af442a72459a980cbbb40ed8574223ee58f9ca092467a7b40ce564c3864b"
+      "pending": "030 repair console retest; exact native allocation limit and actual server ready/save/stop remain unestablished.",
+      "package_sha256": "2a67af442a72459a980cbbb40ed8574223ee58f9ca092467a7b40ce564c3864b",
+      "evidence": "Run01.000.029-1792177345-661045028; native trace412128 bytes records mutex_init return12 ENOMEM, errno35, then signal during fatal reporting. Class log435831 bytes. Resources stop at10s raw maxrss308960; units/limit not inferred. No Java exception, native abort or completed fatal file; server output blank."
+    },
+    {
+      "app_version": "01.000.030",
+      "console": "pending",
+      "changes": "Reusable runtime initializes bounded real native mutex/condition pools early, leases stable addresses exclusively, separates relative/absolute attributes and preserves genuine fallback failure. Heap192MiB unchanged.",
+      "checks": "PASS: actual-header ASan/UBSan late init ENOMEM,512 unique mutex slots/exhaustion/reuse,locked EBUSY,native wait/signal/timeout,attribute matching,8000 concurrent lease lifetimes,cleanup; target metadata no heap/TLS/guard IR; actual product-check constructor regression. PASS: target hotspot/java.base-libs rebuild; signed container integrity; ZIP CRC/version030/pool and error labels; retained symbols; package target libjava/libverify/libjvm byte identity. Existing writable-string warning only.",
+      "pending": "All five PS5 rows, early successful pool counts, actual ready/save/stop.",
+      "package_sha256": "04abef711724a49249dbf306f5bcba32f3dc7c49d70a561c4ff2c40852c24bca"
     }
   ]
 }
