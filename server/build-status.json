@@ -3,10 +3,10 @@
   "app_version": "01.000.031",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "pending",
+  "package_sha256": "5817e19dfe2405a911d70e5cc9db031ef341b1249470243efd85835952b66a43",
   "console": "All five PS5 rows, successful early reserve counts, actual server ready/save/stop; root cause unresolved.",
   "host": "PASS: actual-header ASan/UBSan4096 unique leases, forced exhausted/native ENOMEM, reuse, exact exhaustion versus attribute-mismatch failure fields, locked EBUSY,native wait/signal/timeout,8000 concurrent lifetimes and cleanup; target no heap/compiler-TLS/guard IR; actual product-check constructor. Target/package pending.",
-  "package": "pending",
+  "package": "PASS: target hotspot/java.base-libs rebuild; signed container integrity; ZIP CRC/version031/new failure and constructor labels; retained symbols; package target libjava/libverify/libjvm byte identity.",
   "runtime_modules": [
     "java.base",
     "java.compiler",

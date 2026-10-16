@@ -411,3 +411,5 @@ Build 030 target compilation, signed-container integrity, ZIP checks and target-
 ## Mutex reserve follow-up in 01.000.031
 
 Build 030 initialized every early pool entry successfully, but still closed after a later mutex-init ENOMEM. Its capture does not record pool occupancy or identify the constructor. The generated-class workload can require additional metadata locks, making the 512-mutex reserve a plausible bottleneck. Build 031 expands the runtime mutex reserve to 4096 and reports exact pool occupancy, attribute matching and caller on native init failure, plus distinct event/parker/monitor labels. Condition capacities and the 192 MiB Java heap are unchanged. Host sanitizer checks cover all 4096 entries, exhaustion/reuse, incompatible attributes and the actual emitted failure fields. **This is a capacity adjustment and diagnostic build; PS5 server ready/save/stop is still unvalidated.**
+
+Build 031 target compilation, signed-container integrity, ZIP checks and target-library identity checks pass. Package SHA-256: `5817e19dfe2405a911d70e5cc9db031ef341b1249470243efd85835952b66a43`. PS5 testing remains pending.
