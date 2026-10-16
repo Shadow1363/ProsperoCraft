@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.025
+## Current development: server start probe 01.000.026
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -379,3 +379,7 @@ Build 023 passes native TLS setup, handshake and Java thread entry before a late
 ## Direct native termination diagnostics in 01.000.025
 
 The 024 console log confirms native pthread TLS returns ENOMEM and the fallback lets affected threads enter Java and later clear/return. The later whole-app crash produces no signal or current fatal report. Build 025 adds direct linked `abort`/`exit`/`_exit` hooks that save caller/status and previous native context, then preserve original termination behavior. This is a diagnostic build; kernel kills and calls internal to separately loaded modules can still bypass the hooks. **The later crash cause and real PS5 server ready/save/stop remain unconfirmed.**
+
+## Progress and resource logs in 01.000.026
+
+The 025 capture has no native termination or fatal signal marker, so the exact cause remains unknown. Its current startup log contains 272930 verifier mapping messages (over 21MiB). Build 026 samples repetitive successful messages while retaining mmap failures; allocation/verification behavior is unchanged. The log page adds **Class loading progress** and **Native resource samples**, archived on a new run. Native samples use actual OS getrusage without JNI and report raw counters or an explicit query error. Raw maximum RSS is not available memory or a proven container limit; the last loaded class is progress evidence. **All PS5 rows, diagnostic evidence and real server ready/save/stop remain pending.**

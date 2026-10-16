@@ -14,6 +14,7 @@
 #include "jni.h"
 #include "native_trace.hpp"
 #include "log_share.hpp"
+#include "process_usage.hpp"
 #include "jni_worker.hpp"
 #include "vm_diagnostics.hpp"
 #include "server_classpath.hpp"
@@ -64,7 +65,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.025";
+constexpr const char *build_version="01.000.026";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -239,6 +240,7 @@ void run_test(int i) {
    {const_cast<char *>("-XX:ActiveProcessorCount=2"),nullptr},
    {const_cast<char *>("-XX:-UsePerfData"),nullptr},
    {const_cast<char *>("-XX:ErrorFile=/download0/hs_err_java25.log"),nullptr},
+   {const_cast<char *>("-Xlog:class+load=info:file=/download0/java25-class-load.log:uptime,tid:filecount=0"),nullptr},
    {const_cast<char *>(SERVER_CLASSPATH_OPTION),nullptr},
    {const_cast<char *>("-Djava.io.tmpdir=/download0"),nullptr},
    {const_cast<char *>("-Duser.home=/download0"),nullptr},
@@ -356,7 +358,7 @@ void server_on_worker(JNIEnv *env,void *) {
 }
 bool update() noexcept {
  if(server_job_started) {
-  if(!server_job.ready()) {time_t now=time(nullptr);if(now==server_last_frame)return false;server_last_frame=now;return true;}
+  if(!server_job.ready()) {time_t now=time(nullptr);if(now==server_last_frame)return false;server_last_frame=now;ps5::process_usage::append("/download0/process-usage.log",(long long)(now-server_started_at));return true;}
   int error=server_job.join();server_job_started=false;
   if(error)result(3,error,"Server worker attach/detach failed");
   return true;
@@ -364,7 +366,7 @@ bool update() noexcept {
  if(pending==3) {
   pending=-1;session_status("RUN: server worker (UI remains active)");
   int error=server_job.start(java_vm,server_on_worker);
-  if(error)result(3,error,"Cannot start server worker");else {server_started_at=server_last_frame=time(nullptr);server_job_started=true;}
+  if(error)result(3,error,"Cannot start server worker");else {server_started_at=server_last_frame=time(nullptr);server_job_started=true;ps5::process_usage::append("/download0/process-usage.log",0);}
   return true;
  }
  if(pending>=0) {int i=pending;pending=-1;if(i!=0){char state[256];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}run_test(i);return true;}
@@ -392,7 +394,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.025",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.026",42,rgb(238,242,250));
  c.label(103,163,"Minecraft 26.3 / Java 25. PS5 diagnostic adapter; real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;

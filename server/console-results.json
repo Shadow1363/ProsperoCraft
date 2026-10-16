@@ -241,11 +241,20 @@
     },
     {
       "app_version": "01.000.025",
-      "console": "pending",
+      "console": "FAIL: user reports later whole-app crash around9seconds; no native termination or signal marker captured.",
       "changes": "Diagnostic executable wraps linked abort/exit/_exit to capture direct caller/status and preceding native context before delegating unchanged. Retain verified TLS fallback. No later crash fix claimed.",
       "checks": "PASS: actual native wrappers ASan/UBSan, noreturn delegate/status/errno checks, disabled-tracing capture, recursive logging bypass and existing signal/context/storage semantics. Signed-container integrity, ZIP CRC/version025, wrapper labels/symbols and actual rewritten abort/exit/_exit call sites, target-library byte identity PASS.",
       "pending": "All five PS5 rows, direct termination evidence if applicable, cause of later crash and actual ready/save/stop.",
-      "package_sha256": "dbeb0a8b9a56c550d329cf43f6939fb36a7cd1af4aa98d5aacbeac00fc6aff9e"
+      "package_sha256": "dbeb0a8b9a56c550d329cf43f6939fb36a7cd1af4aa98d5aacbeac00fc6aff9e",
+      "evidence": "Run01.000.025-1792170619-574784685; startup39450252 bytes, current section21118733 bytes including272930 verifier mapping messages; trace497139 bytes. TLS ENOMEM/fallback continues. No NATIVE TERMINATION/SIGNAL/VM ABORT/current fatal report. Cause unknown; missing markers do not prove OS kill."
+    },
+    {
+      "app_version": "01.000.026",
+      "console": "pending",
+      "changes": "Reduce confirmed successful verifier-allocation diagnostic flood (first8 then every1024, mmap failures retained); built-in class-load file and best-effort once-per-second raw native getrusage samples with download/archive support. No memory-size/check changes.",
+      "checks": "PASS: actual verifier ASan/UBSan1200 mappings/sampling/failure cleanup, HTTP/collector ASan/UBSan diagnostic archive/download and native sample/errno; hostJava25 class logger option; target java.base-libs rebuild. Final signed-container integrity, ZIP CRC/version026, class/resource/sampling labels/options/routes and target-library byte identity PASS.",
+      "pending": "All five PS5 rows, telemetry/class progress, exact later termination cause and actual ready/save/stop.",
+      "package_sha256": "802f8dcff229d91959df65ad19a23fb5ba9a718ab4f94faf26d5f0c6fd7976c6"
     }
   ]
 }
