@@ -169,10 +169,19 @@
     {
       "app_version": "01.000.017",
       "package_sha256": "d984b7e30d34ac33356e5e6c0bb2cabcb29b64ae71a79bcdd4cdfd4ae80c4374",
-      "console": "pending",
+      "console": "FAIL: Java logging configuration open reports OutOfMemoryError from native platform-string conversion; VM creation and worker attachment succeed",
       "changes": "Consume Java patch 0041 bulk file-I/O native scratch fallback; retain 192 MiB heap and earlier fixes.",
       "checks": "JNI/UBSan actual read/write/helper forced-failure and data-integrity tests PASS; target java.base-libs rebuild and signed-container/ZIP/version/embedded diagnostic checks PASS.",
-      "pending": "PS5 all five rows, real server ready/save/stop and clean VM destruction."
+      "pending": "Real server ready/save/stop and clean shutdown; previous native crash resolution remains unconfirmed.",
+      "evidence": "Retrieved 2026-10-16, run 01.000.017-1792160787-234852390; startup 90222 bytes, native trace 78855506 bytes, console 1613 bytes. Successful 13310-byte bulk I/O fallback recorded. Server stack FileInputStream.open0 -> LogManager.readConfiguration -> Guava LocalCache -> Minecraft Block. Exact message identifies getStringUTF8 failed MALLOC_MIN4. No captured SIGNAL or abort. Raw logs local."
+    },
+    {
+      "app_version": "01.000.018",
+      "package_sha256": "70b88f9d9cf6bd1ba31f25e912aa9e7edacf06fe689732bb61c91268125eb554",
+      "console": "pending",
+      "changes": "Consume Java runtime patch 0042 for platform-string native allocation fallback and matched release; preserve earlier fixes and 192 MiB heap.",
+      "checks": "PASS: actual JNI conversion/release UBSan failure tests, encoding and NUL behavior, target java.base-libs rebuild and signed-container/ZIP/version/diagnostic/JAR identity checks.",
+      "pending": "PS5 all five rows, actual server ready/save/stop, clean VM shutdown."
     }
   ]
 }

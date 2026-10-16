@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.017
+## Current development: server start probe 01.000.018
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -308,3 +308,16 @@ cleanup even after partial writes and exceptions. Both allocation failures
 still produce the original error. JNI/UBSan host checks and target/package
 checks are recorded in [build status](server/build-status.json).
 **PS5 validation of build 017 remains pending.**
+
+## Native platform strings in 01.000.018
+
+Build 017 confirms the file-I/O mapping fallback works, then fails in
+`FileInputStream.open0` while Java logging loads its configuration. The error
+"requested array size exceeds VM limit" comes from a failed native platform-string
+allocation and can occur for a normal-sized path. Build **01.000.018** consumes
+the Java runtime's platform-string fallback: libc first, then real OS pages,
+with matched normal/error cleanup and unchanged encoding/NUL checks.
+The JNI/UBSan host checks and target/package validation are recorded in
+[build status](server/build-status.json). **PS5 validation remains pending**;
+no successful world readiness/save/stop or resolution of prior native crashes
+is claimed.
