@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.020
+## Current development: server start probe 01.000.021
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -349,3 +349,17 @@ ASan/UBSan host checks cover actual pthread creation/reuse and safe host mapping
 target/package checks are recorded in [build status](server/build-status.json).
 **PS5 thread success, crash resolution and real server ready/save/stop remain
 pending.** No completed Minecraft server milestone is claimed.
+
+## Crash evidence and diagnostic overhead in 01.000.021
+
+The user reports build 020 crashed and was reopened. Its logs confirm a
+successful exact-size aligned metaspace reservation, but contain no captured
+signal/abort and no server console output. The cause remains unrecorded.
+Build **01.000.021** is a diagnostic build: routine metadata disk tracing is
+sampled while every last-stage update remains in memory; native call tracing
+uses quiet mode throughout VM/server execution. It adds thread startup phase
+markers and a fixed-name HotSpot fatal report linked as `hs-error.log` on the
+log page. Reports are archived before a new run; relaunch preserves them.
+A report is available only if HotSpot generates it. Host/target/package checks
+are recorded in [build status](server/build-status.json).
+**The crash is unresolved; PS5 server ready/save/stop remains pending.**

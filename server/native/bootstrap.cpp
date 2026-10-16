@@ -64,7 +64,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.020";
+constexpr const char *build_version="01.000.021";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -79,6 +79,7 @@ struct NativeTraceScope {
   ps5_vm_reset_native_call_record();
 #endif
   ps5_native_trace::enable();
+  ps5_native_trace::quiet();
  }
  ~NativeTraceScope() {ps5_native_trace::disable();}
 };
@@ -237,7 +238,7 @@ void run_test(int i) {
    {const_cast<char *>("-XX:+UseSerialGC"),nullptr},
    {const_cast<char *>("-XX:ActiveProcessorCount=2"),nullptr},
    {const_cast<char *>("-XX:-UsePerfData"),nullptr},
-   {const_cast<char *>("-XX:ErrorFile=/download0/hs_err_java25_%p.log"),nullptr},
+   {const_cast<char *>("-XX:ErrorFile=/download0/hs_err_java25.log"),nullptr},
    {const_cast<char *>(SERVER_CLASSPATH_OPTION),nullptr},
    {const_cast<char *>("-Djava.io.tmpdir=/download0"),nullptr},
    {const_cast<char *>("-Duser.home=/download0"),nullptr},
@@ -268,8 +269,10 @@ void run_test(int i) {
   ssize_t traced=write(trace_fd,begin,sizeof(begin)-1);
   int trace_error=errno;close(trace_fd);
   if(traced!=sizeof(begin)-1) {result(i,trace_error?trace_error:-1313,"Before JVM: checkpoint write failed");skip_vm_dependents();return;}
+  ps5_vm_set_metadata_interval(1024);
   log_stage("Calling real JNI_CreateJavaVM");
   ps5_native_trace::enable();
+  ps5_native_trace::quiet();
   int rc=JNI_CreateJavaVM(&java_vm,reinterpret_cast<void **>(&java_env),&args);
   ps5_native_trace::disable();
   if(startup_log) {std::fprintf(startup_log,"JNI_CreateJavaVM returned %d\n",rc);std::fflush(startup_log);}
@@ -389,7 +392,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.020",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.021",42,rgb(238,242,250));
  c.label(103,163,"Minecraft 26.3 / Java 25. PS5 diagnostic adapter; real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
