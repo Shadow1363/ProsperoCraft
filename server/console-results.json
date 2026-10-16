@@ -178,10 +178,19 @@
     {
       "app_version": "01.000.018",
       "package_sha256": "70b88f9d9cf6bd1ba31f25e912aa9e7edacf06fe689732bb61c91268125eb554",
-      "console": "pending",
+      "console": "FAIL: verifier class-hash OOM for Matrix3fc at site 506 and separate native SeedGenerator Thread creation failure; VM and worker initialization succeed",
       "changes": "Consume Java runtime patch 0042 for platform-string native allocation fallback and matched release; preserve earlier fixes and 192 MiB heap.",
       "checks": "PASS: actual JNI conversion/release UBSan failure tests, encoding and NUL behavior, target java.base-libs rebuild and signed-container/ZIP/version/diagnostic/JAR identity checks.",
-      "pending": "PS5 all five rows, actual server ready/save/stop, clean VM shutdown."
+      "pending": "Seed-thread native failure stage/cause; actual server ready/save/stop and clean shutdown.",
+      "evidence": "Run 01.000.018-1792162968-330920059 retrieved 2026-10-16. Server console 2006 bytes, startup 166695 bytes, VM trace 84661137 bytes. Successful 44-byte platform-string mmap plus file/classloader mappings. Verifier errno=2 JNI-pending=0 (errno may be stale). No SIGNAL or abort report captured; session RUN. Raw logs local."
+    },
+    {
+      "app_version": "01.000.019",
+      "package_sha256": "bb6975dc4bab44c09041f144f240b41c4ec360371dd70fb3b35b10d534bcec6e",
+      "console": "pending",
+      "changes": "Consume runtime verifier-owned allocation fallback and native thread-failure stage diagnostics.",
+      "checks": "PASS: actual pool ASan/UBSan and complete verifier JNI/UBSan forced allocation/mapping failure cleanup; target rebuild, package integrity/version, labels and target-library/JAR identity.",
+      "pending": "PS5 all five rows; seed-thread failure diagnosis/resolution, actual real server ready/save/stop and VM shutdown."
     }
   ]
 }

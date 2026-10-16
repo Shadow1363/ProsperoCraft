@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.018
+## Current development: server start probe 01.000.019
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -321,3 +321,15 @@ The JNI/UBSan host checks and target/package validation are recorded in
 [build status](server/build-status.json). **PS5 validation remains pending**;
 no successful world readiness/save/stop or resolution of prior native crashes
 is claimed.
+
+## Verifier class-hash memory in 01.000.019
+
+Build 018 logs confirm successful platform-string/file-I/O mappings, then
+report verifier OOM at class-hash initialization for `org/joml/Matrix3fc` and
+a separate native SeedGenerator thread-creation failure. Build **01.000.019**
+extends the runtime fallback to all verifier-owned native allocations,
+including the class-hash calloc arrays and their matched cleanup. Complete
+host verifier checks pass with libc allocation refused and with mapping
+failures injected during initialization. Thread creation now logs its exact
+failure stage/return code; **the seed-thread cause remains unresolved**.
+PS5 server readiness/save/stop and clean shutdown remain pending.
