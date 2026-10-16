@@ -187,10 +187,19 @@
     {
       "app_version": "01.000.019",
       "package_sha256": "bb6975dc4bab44c09041f144f240b41c4ec360371dd70fb3b35b10d534bcec6e",
-      "console": "pending",
+      "console": "FAIL: seed-thread pthread_attr_init ENOMEM; later SIGSEGV following aligned-reservation failures. No verifier OOM appears in captured console.",
       "changes": "Consume runtime verifier-owned allocation fallback and native thread-failure stage diagnostics.",
       "checks": "PASS: actual pool ASan/UBSan and complete verifier JNI/UBSan forced allocation/mapping failure cleanup; target rebuild, package integrity/version, labels and target-library/JAR identity.",
-      "pending": "PS5 all five rows; seed-thread failure diagnosis/resolution, actual real server ready/save/stop and VM shutdown."
+      "pending": "Actual seed-thread creation, later signal cause/resolution, server ready/save/stop and clean shutdown.",
+      "evidence": "Run 01.000.019-1792163876-738453398; trace126644754 bytes; thread attr init result0x0c errno0 type2. Successful16MiB unaligned reservation then failed32MiB alignment reservations errno12. Signal11 PC0x8000751d0 fault0x100026c946; no abort report; exception placeholder/session RUN. Raw logs local."
+    },
+    {
+      "app_version": "01.000.020",
+      "package_sha256": "65a40891e076c74412b666ea11bd01437124931a6a0c0c3fb418dd676bb9da68",
+      "console": "pending",
+      "changes": "Consume early thread-attribute leases and exact-size non-replacing metaspace alignment hints; retain prior verifier/memory fixes.",
+      "checks": "PASS: ASan/UBSan actual lease with 800 pthreads and actual reservation decision/real host mappings; target rebuild, signed-container integrity, ZIP version/labels and target-library/JAR identity.",
+      "pending": "PS5 all five rows; seed-thread success, crash resolution, real server ready/save/stop and VM shutdown."
     }
   ]
 }

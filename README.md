@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.019
+## Current development: server start probe 01.000.020
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -333,3 +333,19 @@ host verifier checks pass with libc allocation refused and with mapping
 failures injected during initialization. Thread creation now logs its exact
 failure stage/return code; **the seed-thread cause remains unresolved**.
 PS5 server readiness/save/stop and clean shutdown remain pending.
+
+## Thread attributes and metaspace alignment in 01.000.020
+
+Build 019 identifies the seed-thread failure as `pthread_attr_init` returning
+ENOMEM before thread creation. Later native reservations fail while trying to
+align another metaspace region, followed by a signal crash; the subsequent
+fault's causal chain remains unproven. Build **01.000.020** consumes two Java
+runtime fixes: a bounded, exclusively leased pool of real thread-attribute
+objects initialized early, and exact-size non-replacing aligned mapping hints
+before the larger metaspace reservation attempt. Security seed behavior,
+verification and the 192 MiB Java heap setting remain.
+
+ASan/UBSan host checks cover actual pthread creation/reuse and safe host mappings;
+target/package checks are recorded in [build status](server/build-status.json).
+**PS5 thread success, crash resolution and real server ready/save/stop remain
+pending.** No completed Minecraft server milestone is claimed.
