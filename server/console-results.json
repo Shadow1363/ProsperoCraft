@@ -223,11 +223,20 @@
     },
     {
       "app_version": "01.000.023",
-      "console": "pending",
+      "console": "FAIL: whole-app crash after successful native TLS setup/handshake and Java thread entry. JVM fatal report captured.",
       "changes": "Use existing native pthread TLS for HotSpot current-thread pointer on PS5; remove allocating compiler-TLS first access for that pointer. Preserve native backend/destructor semantics and pre-init null.",
       "checks": "PASS: extracted actual lifecycle/getter and native POSIX backend under ASan/UBSan, 1600 concurrent initialization/clear cycles, signal lookups/isolation/destructor restoration; target IR no current-pointer compiler TLS/direct allocator. Full target HotSpot build, absence of _thr_current in linked JVM/embedded ELF, signed-container integrity, ZIP CRC/version023, native TLS labels and target-library byte identity PASS.",
       "pending": "Five PS5 rows, crash resolution and actual ready/save/stop; no exact 022 fault PC was captured.",
-      "package_sha256": "fda11fe558df505ed3f2afaa7b4efa7c84367863b607e22b979652f3080cc221"
+      "package_sha256": "fda11fe558df505ed3f2afaa7b4efa7c84367863b607e22b979652f3080cc221",
+      "evidence": "Run01.000.023-1792168419-493490863; startup18292229 bytes, trace381645 bytes, fatal report46156 bytes. First signal PC0/fault0x388; current thread native, about25MiB metaspace/26GC. Register interpretation inconsistent; no exact fault site or native-key refusal proven. Blank server console. Raw logs retained locally."
+    },
+    {
+      "app_version": "01.000.024",
+      "console": "pending",
+      "changes": "Checked pthread TLS return/readback; allocation-free bounded fallback for refused/mismatched current-pointer updates, explicit null override and safe destructor handling. Native key error/result diagnostics and raw signal context capture; no ABI offset changes.",
+      "checks": "PASS: sanitizer actual methods/POSIX backend with 8000 injected-failure cycles, stale-clear/destructor handling, 1024 collision/exhaustion helper test, raw-context formatter bounds/errno and target storage IR. Final target rebuild, signed-container integrity, ZIP CRC/version024, fallback/readback/raw-context labels and target-library byte identity PASS.",
+      "pending": "All five PS5 rows, native TLS failure evidence if any, crash resolution, real server ready/save/stop. Exact 023 fault remains unproven.",
+      "package_sha256": "9d8f2be9798d44adcbd3552c0991b7807a703ab0860f49f24b5a9eb959539970"
     }
   ]
 }

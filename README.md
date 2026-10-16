@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.023
+## Current development: server start probe 01.000.024
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -371,3 +371,7 @@ The 021 crash trace records successful native thread creation and child entry, t
 ## Current-thread TLS in 01.000.023
 
 The 022 trace confirms stack discovery succeeds, then the new child stops between compiler TLS assignment checkpoints. This target uses compiler TLS emulation, which may allocate on a thread's first access. Build 023 removes that dependency for HotSpot's current-thread pointer and uses its existing native pthread TLS backend, including guarded pre-init lookups and JNI destructor semantics. Host sanitizer tests cover 1600 concurrent initialization/clear cycles and signal lookups; target IR checks native key access without compiler TLS emulation. The trace provides no exact crash PC; **023 console validation and actual server ready/save/stop remain pending**.
+
+## Native key failures and crash evidence in 01.000.024
+
+Build 023 passes native TLS setup, handshake and Java thread entry before a later SIGSEGV. Its saved JVM fatal report is useful, but the reported registers are inconsistent; no exact crash location is established. Build 024 fixes ignored native key update failures in product builds: checked return/readback, a bounded allocation-free override for failed updates, explicit null on refused clear, and destructor handling that cannot resurrect a detached Thread. Normal native TLS remains the primary path. The fallback supports 1024 distinct failed thread identities per process and fails explicitly on exhaustion. New diagnostics record any actual key refusal and raw signal context without changing ABI offsets. **Native-key failure as the 023 cause, crash resolution, and real PS5 server ready/save/stop remain unconfirmed.**
