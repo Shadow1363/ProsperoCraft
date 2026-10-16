@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.027
+## Current development: server start probe 01.000.028
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -389,3 +389,9 @@ The 025 capture has no native termination or fatal signal marker, so the exact c
 Build 026 crashed after approximately 46 seconds. Its native termination trace and matching executable identify an abort in compiler-rt's emulated TLS setup after a 128-byte address-array allocation returned null. Build 027 uses the Java project's scoped compiler-TLS allocator adapter: libc first, then actual OS RW pages, with matched growth and release. The Java heap remains 192 MiB. This fixes the confirmed allocation path; console execution must establish whether later startup succeeds.
 
 The harness also honors the JVM print hook's requested FILE stream. Build 026 redirected class-loading output into startup.log and left class-load.log empty; build 027 preserves separate class/fatal log files while retaining console capture. Resource samples remain available. Compiler-TLS native key update failures now have a distinct diagnostic marker; its setter semantics are unchanged, so a refusal remains a separate issue. **All five rows and real server readiness/save/stop require PS5 testing.**
+
+## Compiler TLS key retention in 01.000.028
+
+Build 027 confirms that mapped TLS allocation works, but its native key setter returns ENOMEM. That loses the storage pointer and repeats allocation: 247 refused key updates and 495 mappings precede another compiler-rt abort. Class loading is now captured separately as intended.
+
+Build 028 pins a Java runtime repair that retains compiler-rt's canonical array independently of the native setter. Native destructors use the current array instead of a potentially stale native pointer. Thread creation/join adapters reclaim retained storage after actual thread death, with generation checks protecting reused identities. A detached or unjoined thread with refused native registration retains its array until identity reuse or process exit. Host sanitizer tests cover real pthread destructor order, stale pointers, concurrent isolation, failure paths and cleanup. The heap remains 192 MiB. **All five PS5 rows and actual server ready/save/stop remain pending.**

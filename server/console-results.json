@@ -259,11 +259,20 @@
     },
     {
       "app_version": "01.000.027",
-      "console": "pending",
+      "console": "FAIL: user reports whole-app crash after46seconds during server row.",
       "changes": "Runtime scoped compiler-rt emutls allocation fallback with matched malloc/realloc/free; preserve SDK object and capture key setter refusal/readback. Harness honors non-console FILE targets so class/fatal file logs are not redirected into startup.log. No heap-size increase.",
       "checks": "PASS: adapter ASan/UBSan allocation failure/growth/cleanup/errno/concurrency; actual setter diagnostic; target no-TLS/no-guard IR; actual harness FILE routing ASan/UBSan; scoped object dependencies; signed containers, ZIP CRC/version027/adapter labels/retained symbols and target libjava/libverify/libjvm identity.",
-      "pending": "All five PS5 rows, actual compiler-TLS mapping/key behavior and ready/save/stop. The native-key diagnostics preserve SDK semantics; key refusal would require a separate repair.",
-      "package_sha256": "91b8ff8e580ba306f2ed485e256804f79f2c4ed96c216d48a0074c53a890430e"
+      "pending": "027 allocation path continued; refused native compiler-TLS key ownership requires repair. PS5 actual server readiness/save/stop unvalidated.",
+      "package_sha256": "91b8ff8e580ba306f2ed485e256804f79f2c4ed96c216d48a0074c53a890430e",
+      "evidence": "Run01.000.027-1792174924-792508947; native trace1149786 bytes. Mapped allocator succeeds, but247 native key updates return ENOMEM, causing495 mapped allocations. Later direct compiler-rt abort. Last native malloc160bytes/null is inside allocator backend. Separate class log2327062 bytes now works. No current fatal report or Java exception. Raw maxrss reaches458592 at46s; units/limit not inferred."
+    },
+    {
+      "app_version": "01.000.028",
+      "console": "pending",
+      "changes": "Runtime canonical compiler-TLS array registry with real native-key destructor delegate; stale native arguments ignored. Scoped pthread create/join integration reclaims retained arrays after actual thread death, with generations protecting reused native identities.128 static start contexts and1024 distinct identity slots. SDK object ABI pinned by hash; Java heap192MiB retained.",
+      "checks": "PASS: actual adapter ASan/UBSan refused/false-success/stale native keys, explicit refused null, repeated1000 lookups/thread,800 concurrent pthread lifetimes, actual native destructor order, successful/failed create/join, generation reuse/exhaustion, complete map cleanup; allocator1600 lifetime stress; no-TLS/no-guard target IR. Package checks pending. Final signed containers/ZIP CRC/version028,SDK object ABI pin/scoped key refs,linked lifecycle wrappers,adapter labels,retained symbols and target library byte identity PASS.",
+      "pending": "All five PS5 rows; actual retained-key fallback, crash resolution and real server ready/save/stop. Detached/unjoined refused-key arrays retained until native identity reuse/process exit.",
+      "package_sha256": "351348273fbc3aa10da1957ed41b36dffdd661830a3aaffc6eb6e96012261a17"
     }
   ]
 }
