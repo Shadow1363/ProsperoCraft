@@ -205,11 +205,20 @@
     {
       "app_version": "01.000.021",
       "package_sha256": "3a6197ede3774b2fc1df93b67a687982dcea674c4f8ad12c827bf299a6f13109",
-      "console": "pending",
+      "console": "FAIL: user reports whole-app crash/relaunch; child native entry recorded after successful pthread_create, before stack/TLS initialization finishes.",
       "changes": "Diagnostic build: sampled routine metadata disk IO, quiet native-call context throughout VM phases, thread lifecycle checkpoints, fixed-name retrievable actual HotSpot fatal report and archive.",
       "checks": "PASS: trace/native context ASan/UBSan, target no-allocation context IR, native HTTP/fatal-report archive/download and collector; target rebuild, package integrity/version/labels and target library/JAR identity.",
       "pending": "PS5 crash evidence or resolution and all five rows including real server ready/save/stop.",
-      "limitations": "020 termination cause remains unknown. This improves diagnostics/overhead; no root-cause crash fix or ready server claimed."
+      "limitations": "020 termination cause remains unknown. This improves diagnostics/overhead; no root-cause crash fix or ready server claimed.",
+      "evidence": "Run01.000.021-1792166156-782986775; full startup18270444 bytes; native trace313503 bytes. Last child0x880f51f40 object0x20015f410 native-entry phase1, no phase2. No SIGNAL/abort/fatal report or Java exception; server console blank. Not an exact fault location. Raw logs retained locally."
+    },
+    {
+      "app_version": "01.000.022",
+      "console": "pending",
+      "changes": "Consume separate preinitialized stack-query attribute pool; intermediate stack discovery and compiler/pthread TLS checkpoints. Preserve actual OS stack getters and error propagation.",
+      "pending": "All five PS5 rows, crash resolution, actual ready/save/stop. 021 trace narrows the interval but does not prove attr init is the fault.",
+      "checks": "PASS: attribute helper ASan/UBSan denied late init, isolated stack addresses, both pools exhaustion/cleanup, 800 pthread creations; target static-storage IR and HotSpot rebuild. Packaging pending. Signed-container integrity, ZIP CRC/version/diagnostic labels and target-library identity PASS.",
+      "package_sha256": "2ba87db03effc09ba50bf3c72e536ec4e96312da7bf1dab6c1b6141a8a328d4c"
     }
   ]
 }
