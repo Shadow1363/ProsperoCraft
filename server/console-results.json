@@ -367,11 +367,12 @@
     },
     {
       "app_version": "01.000.039",
-      "console": "pending",
+      "console": "FAIL: verification PASS; user reports whole-app crash during flat-world startup.",
       "changes": "Directory records move from interior handle storage to dedicated page-aligned64KiB mapping; separate descriptor/handle/buffer partial-init and close cleanup, fixed backend/alternate/error checkpoints. Native signal evidence captures bounded saved-stack words and monotonic frame links within actual thread bounds, skipping nested-signal sampling. This is diagnostic work; alignment is an unproven EINVAL hypothesis, and native crash cause remains unresolved. Heap192MiB unchanged.",
       "checks": "PASS: actual bounded sampler ASan/UBSan guarded mappings, alignment/range/overflow/reversed ranges and cyclic/monotonic frame chains; target sampler IR without allocator/TLS/initializer guard; existing signal-context literal replay and target offsets; actual JNI directory Files.walk/Unicode/link/errors/repeated cleanup and malformed-record/alternate/no-replay tests with separate mapped buffer; target HotSpot/java.base-libs rebuild;11-library audit; signed containers; ZIP CRC/version039/stack+directory checkpoints/compression marker; retained symbols and target libjava/libverify/libnio/libzip/libjvm byte identity.",
-      "pending": "PS5 all five rows; directory EINVAL/alternate ABI/buffer hypothesis; exact external native crash caller and real ready/save/stop. Directory buffering is a portability adjustment, stack capture is diagnostic; no confirmed crash fix. Discovery DNS remains unresolved.",
-      "package_sha256": "f6c68ef2fcadbcccb7f6547f79af1b5ee0ecfd2f92e760e015b1ae419cb2f506"
+      "pending": "Complete native trace/caller identification and repair; actual server ready/save/stop and clean shutdown. No new passing milestone.",
+      "package_sha256": "f6c68ef2fcadbcccb7f6547f79af1b5ee0ecfd2f92e760e015b1ae419cb2f506",
+      "evidence": "Run 01.000.039-1792229683-675501422. User confirms verification PASS and crash during flat-world startup. Browser session confirms VM ABORT after reopening without tests. Abort endpoint begins VM ABORT (see last startup stage). Full native trace not retrieved: Firefox Save dialog disabled; canceled. Exact crash caller remains unresolved; no claim of a complete report set."
     }
   ]
 }
