@@ -35,9 +35,12 @@ public class ServerPreflight25 {
    }
    stage="canonicalize and mount vanilla assets through ZipFS";trace(stage);
    Path assetsJar=root.resolve("jars/ps5-platform-diagnostics.jar").toRealPath();
+   stage="mount canonical vanilla asset JAR";trace(stage);
    try(FileSystem assetsFs=FileSystems.newFileSystem(assetsJar,Map.of());InputStream version=Files.newInputStream(assetsFs.getPath("/version.json"))) {
+    stage="read vanilla version.json from mounted JAR";trace(stage);
     if(version.read()<0)throw new IOException("Empty vanilla version.json");
    }
+   stage="closed vanilla asset ZipFS";trace(stage);
    System.out.println("MC_ASSET_ZIPFS_OK canonical asset path, mount and real version.json read");
    stage="resolve platform modules and server dependency classes";trace(stage);
    ClassLoader loader=ClassLoader.getSystemClassLoader();

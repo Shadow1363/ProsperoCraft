@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.035
+## Current development: server start probe 01.000.036
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -439,3 +439,11 @@ Build 034 adds early preflight checks that catch a Java null access and mount/re
 Build034 crashes during the deliberate Java null check in row3, before verifying JARs or mounting assets. The console confirms corrected interrupted-PC reads, but no continuation is recorded. The inherited FreeBSD signal handler queries desktop kernel stack-gap controls before exception handling; disassembly confirms the linked procctl uses a raw desktop syscall. The exact terminating instruction is still unknown.
 
 Build035 excludes that desktop-specific workaround on PS5 while preserving JVM stack guards and normal exception selection. Additional checkpoints narrow any remaining failure to stack triage, state/interpreter classification or continuation selection. The null preflight stays enabled. Actual-block host regressions and the target rebuild/package checks pass; **PS5 exception recovery, all five rows and real server ready/save/stop remain pending**. Package SHA-256: `17d71f2c4a4fe50407670a2ca46fdbfab3ffbfc5f90f4a38eeefba24bcc2572a`.
+
+## Signal recovery confirmed; asset lookup in 01.000.036
+
+Build035 confirms normal implicit Java null exception recovery on the PS5 and passes all40 pinned JAR checksum stages. It then crashes in the combined vanilla asset canonicalize/mount stage without a subsequent signal record. The new register layout and desktop stack-gap exclusion therefore have direct console evidence, but a full server pass is still unestablished.
+
+The previous path fallback called an SDK openat function that issues a raw desktop syscall. Build036 pins a runtime repair that verifies each unelided path component with resident open/close, refusing link-dependent fallback paths and preserving actual errors. Optional desktop directory-at capabilities are no longer advertised on PS5; a secure anchored directory backend remains unported. Native realpath/fallback/component checkpoints and separate canonicalization/mount/read/close stages narrow any next failure. Heap remains192MiB.
+
+Actual host JNI/ZipFS tests, capability checks, target compilation and package integrity/library checks pass. **All five PS5 rows and actual ready/save/stop remain pending.** Package SHA-256: `dfe1565747b98ffa1bed235c38bb8ca72fe57fc2281040bba729861afd40f772`.

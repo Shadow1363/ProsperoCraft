@@ -331,11 +331,20 @@
     },
     {
       "app_version": "01.000.035",
-      "console": "pending",
+      "console": "FAIL row3 at asset canonicalize/mount; real null recovery and40-JAR verification confirmed.",
       "changes": "PS5 signal handler excludes desktop FreeBSD procctl/sysctl stack-gap workaround, retaining JVM stack guard and implicit-exception checks. New triage/state/interpreter/null-continuation checkpoints. Deliberate Java null preflight retained; heap192MiB unchanged.",
       "checks": "PASS: actual extracted triage block ASan/UBSan PS5/FreeBSD kernel-call instrumentation, JVM overflow checks and desktop guard adjustment; signal-register fixture/target IR; target HotSpot rebuild with signal object free of procctl/sysctlbyname references;11-library audit; signed container integrity; ZIP CRC/version035/continuation labels/preflight markers; retained symbols and target libjava/libverify/libnio/libjvm identity.",
-      "pending": "PS5 all five rows, actual null-exception continuation, asset ZipFS and server ready/save/stop. Desktop syscall failure is a hypothesis; corrected register reads alone did not prevent034 crash.",
-      "package_sha256": "17d71f2c4a4fe50407670a2ca46fdbfab3ffbfc5f90f4a38eeefba24bcc2572a"
+      "pending": "036 resident filesystem boundary console retest; actual server ready/save/stop pending.",
+      "package_sha256": "17d71f2c4a4fe50407670a2ca46fdbfab3ffbfc5f90f4a38eeefba24bcc2572a",
+      "evidence": "Run01.000.035-1792225691-270275020; complete native150069bytes and startup-tail524288bytes. Real null recovery confirmed: state8/interpreter1, selected/resuming0x20607b61d from0x206083d8a; all40 JAR checks and bytecode step complete. Last stage canonicalize/mount vanilla asset; no later signal. Session RUN row3; exception placeholder; other endpoints not retrieved. Linked openat issues raw syscall499; exact terminating instruction remains unproven."
+    },
+    {
+      "app_version": "01.000.036",
+      "console": "pending",
+      "changes": "Replace raw desktop openat in realpath EPERM fallback with resident open/close of each unelided absolute component prefix, preserving link refusal and actual errors. Stop advertising unported optional desktop directory-at capability on PS5; no SecureDirectoryStream until anchored backend port. Add descriptor realpath phases and distinct consumer canonicalize/mount/read/close stages. Heap192MiB unchanged.",
+      "checks": "PASS: actual JNI realpath with native EPERM and real ZipFS mount/read; actual prefix walk ASan/UBSan links, missing/unelided components, path bounds and4000 FD-cleanup operations; actual capability block PS5/BSD with injected lookups; target helper IR no openat/TLS; consumer artifact/null/ZipFS preflight and official help;11-library audit; target java.base-libs rebuild; actual dispatcher object lacks desktop-at imports; signed containers; ZIP CRC/version036/finer stage and realpath labels; retained symbols and target libjava/libverify/libnio/libjvm byte identity.",
+      "pending": "PS5 row3 canonicalization/ZipFS mount/read and all five rows; actual server ready/save/stop. Null-exception continuation confirmed035; full consumer pass not established.",
+      "package_sha256": "dfe1565747b98ffa1bed235c38bb8ca72fe57fc2281040bba729861afd40f772"
     }
   ]
 }
