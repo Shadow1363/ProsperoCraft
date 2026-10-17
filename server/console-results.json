@@ -385,11 +385,20 @@
     },
     {
       "app_version": "01.000.041",
-      "console": "pending",
+      "console": "FAIL: user reports crash at same flat-world startup stage; live run confirms VM ABORT.",
       "changes": "Explicit plains flat-world biome/layers; bounded platform-thread enumeration instead of native stack dump for thread lookup; runtime raw fatal allocation size/file/line/type/detail before full reporter. Native resource exhaustion remains unresolved; heap192MiB/authentication/datapack validation retained.",
       "checks": "PASS: real host Minecraft Done/stop/saved level.dat at192MiB in interpreter mode with explicit flat layers and no missing-layers error; absent/live/exited thread enumeration with81 fixture threads; metadata preflight; actual runtime fatal-OOM entry ASan/UBSan contract test; target HotSpot/java.base-libs build; two signed-container integrity checks; ZIP CRC/version041; libjava/libverify/libjvm target byte identity; retained exact-build ELF and matching package copies. Console not tested.",
-      "pending": "All041 PS5 rows; real readiness/save/stop; native resource limit/cause and fatal trace validation.",
-      "package_sha256": "d95e4458cc35bf2cd3009bbaca15268a3c4b9df10c98e7157538c93d7bb90df2"
+      "pending": "Native capacity/cause and actual server readiness/save/stop remain unknown; other041 rows not reported.",
+      "package_sha256": "d95e4458cc35bf2cd3009bbaca15268a3c4b9df10c98e7157538c93d7bb90df2",
+      "evidence": "Run01.000.041-1792232186-809546025, current live session VM ABORT. Saved full native trace confirms16-byte AllocateHeap request, source allocation.cpp:42, failed64KiB/minimal16KiB slab; second16-byte fatal and24-byte allocation refusal precede abort/_exit1. No captured SIGNAL. Startup tail also records433-byte class-byte scratch failed16KiB mapping errno12. Server output ends creating new world, without missing-layers error or Done. Discovery UnknownHostException persists. Resource samples end57s maxrss_raw504576; units and memory limit not inferred. Raw reports local."
+    },
+    {
+      "app_version": "01.000.042",
+      "console": "pending",
+      "changes": "Runtime borrows compatible larger-class free slots only after requested-class mapping refusal; preserves actual ownership and genuine OOM; snapshots each fallback class mapped/live/free usage on complete failure. Heap192MiB;041 flat layers and stack-dump-free thread lookup retained. Effect on console exhaustion unproven.",
+      "checks": "PASS: actual allocator ASan/UBSan forced mapping refusal/larger-slot reuse, exhaustion, owner-first cleanup, undersized-slot rejection, failed resize, concurrency; os.cpp/NMT contract model; target HotSpot/java.base-libs build; signed eboot/libc integrity; ZIP CRC/version042; target libjava/libverify/libjvm byte identity; retained042 symbols and matching package copies. Consumer Java source unchanged from041 host ready/save/stop pass. Console pending.",
+      "package_sha256": "3005ff93a3d8098148e3232e6419480877a293ada83381959d805abd94332a48",
+      "pending": "All042 PS5 rows and actual readiness/save/stop; overall native exhaustion remains unresolved."
     }
   ]
 }

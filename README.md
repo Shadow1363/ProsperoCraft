@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.041
+## Current development: server start probe 01.000.042
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -513,3 +513,33 @@ threads. Runtime fatal-entry ASan/UBSan contract test and target build pass.
 all console rows and actual readiness/save/stop require validation.**
 
 Build041 package SHA-256: `d95e4458cc35bf2cd3009bbaca15268a3c4b9df10c98e7157538c93d7bb90df2`.
+
+
+## Build041 console failure and build042 allocator mitigation
+
+The current-run reports for `01.000.041-1792232186-809546025` confirm a failed
+16-byte native AllocateHeap request. Both64KiB and minimal16KiB slabs were
+refused with ENOMEM; fatal-site tracing identifies `allocation.cpp:42`. A second
+16-byte fatal request and24-byte refusal precede VM ABORT/_exit1, without a
+captured signal. The startup tail also records a failed433-byte class scratch
+allocation. The server reached new-world creation without the previous
+missing-layers error, but never reported Done. Discovery DNS remains unresolved.
+Last resource sample:57s, `maxrss_raw=504576`; units and process limit remain
+unproven. Raw logs are retained locally.
+
+Build042 pins a runtime mitigation: after mapping refusal, a small allocation
+may borrow an available slot from a larger compatible size class. Ownership,
+free/realloc behavior and real exhaustion failure are preserved. Complete
+failure now records mapped bytes/live/free slots for each fallback class.
+These counters cover fallback slabs only. Build041 does not establish that
+compatible spare slots existed at its failure; this addresses a concrete
+allocator limitation and needs console evidence for its effect. It is not a
+confirmed fix for overall native exhaustion. Heap remains192MiB.
+
+Actual-header ASan/UBSan tests pass for forced mapping refusal with larger-slot
+reuse, exhaustion, owner-first release, undersized-slot rejection, failed resize
+and concurrent lifetimes; os.cpp/NMT contract-model checks and target build pass.
+The consumer Java harness is unchanged from the host-tested041 source.
+**All042 console rows and real server readiness/save/stop remain pending.**
+
+Build042 package SHA-256: `3005ff93a3d8098148e3232e6419480877a293ada83381959d805abd94332a48`.
