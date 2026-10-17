@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.042
+## Current development: server start probe 01.000.043
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -543,3 +543,31 @@ The consumer Java harness is unchanged from the host-tested041 source.
 **All042 console rows and real server readiness/save/stop remain pending.**
 
 Build042 package SHA-256: `3005ff93a3d8098148e3232e6419480877a293ada83381959d805abd94332a48`.
+
+
+## Build042 returned failure; build043 class scratch mitigation
+
+The human reports042 failed at58 seconds without crashing. Current-run session
+`01.000.042-1792232967-506149971` records a returned server-row FAIL. The server
+console still identifies class-byte scratch OOM while generating an ExecuteCommand
+lambda during datapack loading. Its native trace records115 successful compatible
+larger-slot borrows, then normal worker return, with no captured fatal OOM,
+VM ABORT or signal marker. The short server-exception report is BootstrapMethodError;
+it does not supersede the detailed console cause. No ready/save/stop pass.
+
+Build043 pins a PS5 runtime change that uses a bounded4KiB native stack buffer
+for small byte-array class definitions, including hidden generated classes.
+Larger files retain libc/mmap scratch and genuine allocation failure. JNI copying,
+range checks, JVM class definition and bytecode verification remain enabled.
+Each active definition uses4KiB more stack; recursive stack demand and later
+metadata/native exhaustion remain console concerns. Heap192MiB and worker8MiB
+stack are unchanged. This removes the observed temporary-buffer mapping need,
+not a claim that the native resource limit is solved.
+
+Actual ClassLoader.c JNI tests with UBSan and full host bytecode verification
+pass small ordinary/hidden classes with BOTH backends denied, large heap/mmap
+success and OOM, zero/4096/4097 boundaries, malformed/range cases, long UTF
+source and direct-buffer cleanup. Target build passes. **All043 PS5 rows and
+real readiness/save/stop remain pending.** Discovery DNS remains unresolved.
+
+Build043 package SHA-256: `f523a0dceb4fc068fcee45af35dd6a3304b30c396c7751a42b3be92eb6bf761c`.

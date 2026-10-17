@@ -394,11 +394,20 @@
     },
     {
       "app_version": "01.000.042",
-      "console": "pending",
+      "console": "FAIL at58 seconds per human; app did not crash. Live session records returned server-row failure.",
       "changes": "Runtime borrows compatible larger-class free slots only after requested-class mapping refusal; preserves actual ownership and genuine OOM; snapshots each fallback class mapped/live/free usage on complete failure. Heap192MiB;041 flat layers and stack-dump-free thread lookup retained. Effect on console exhaustion unproven.",
       "checks": "PASS: actual allocator ASan/UBSan forced mapping refusal/larger-slot reuse, exhaustion, owner-first cleanup, undersized-slot rejection, failed resize, concurrency; os.cpp/NMT contract model; target HotSpot/java.base-libs build; signed eboot/libc integrity; ZIP CRC/version042; target libjava/libverify/libjvm byte identity; retained042 symbols and matching package copies. Consumer Java source unchanged from041 host ready/save/stop pass. Console pending.",
       "package_sha256": "3005ff93a3d8098148e3232e6419480877a293ada83381959d805abd94332a48",
-      "pending": "All042 PS5 rows and actual readiness/save/stop; overall native exhaustion remains unresolved."
+      "pending": "Native resource exhaustion remains;043 small-class scratch mitigation requires console validation; other042 rows not reported.",
+      "evidence": "Run01.000.042-1792232967-506149971. Saved server console records datapack load failure caused by class-byte scratch malloc/mmap OOM in ExecuteCommand lambda definition. Native trace records115 successful larger-slot borrows; no VM ABORT/native fatal OOM/SIGNAL marker. Native worker run returned. Session FAIL server row, server-exception BootstrapMethodError. No real Done/save/stop."
+    },
+    {
+      "app_version": "01.000.043",
+      "console": "pending",
+      "changes": "PS5 defineClass0/1 byte-array scratch uses bounded4096-byte local buffer for small classes; larger classes retain libc/mmap and real failure. JNI copy/range/verification unchanged. Compatible-slab reuse retained. Heap192MiB/worker8MiB stack unchanged; each definition adds4KiB native frame usage.",
+      "checks": "PASS: actual ClassLoader.c JNI UBSan/-Xverify:all small ordinary/hidden class execution with both backends denied, large heap/mmap success and OOM, zero/4096/4097 boundaries, malformed/range/long UTF/direct-buffer cleanup; target hotspot/java.base-libs; signed eboot/libc integrity; ZIP CRC/version043; target libjava/libverify/libjvm byte identity; retained symbols and matching package copies. Harness unchanged from041 host ready/save/stop pass. Console pending.",
+      "package_sha256": "f523a0dceb4fc068fcee45af35dd6a3304b30c396c7751a42b3be92eb6bf761c",
+      "pending": "All043 PS5 rows; recursive stack demand, native exhaustion and actual readiness/save/stop."
     }
   ]
 }
