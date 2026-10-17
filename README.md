@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.045
+## Current development: server start probe 01.000.046
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -636,3 +636,36 @@ establish that overall native exhaustion is solved.
 Final target rebuild and package checks pass. Initial compile was restarted after
 a source-header edit invalidated its precompiled header; the final rebuild passed.
 Build045 package SHA-256: `f59d9ffedfc4e1e9548b01dc18bf4c8f430997ef4be93dc0e20a38f599d6d754`.
+
+
+## Build045 saved read failure and build046 bounded native reads
+
+The human reports045 crashed and relaunched. Preserved session
+`01.000.045-1792235749-802431410` instead records a returned server-row FAIL;
+its full saved native trace ends at a Java fixture exception without VM ABORT,
+fatal OOM or native termination markers. Saved SIGNAL records select and resume
+implicit-null continuations. These reports do not explain a later app exit or
+disprove the human report; that discrepancy remains unresolved.
+
+Firefox inspection of the current server.log tail identifies datapack-loading
+OOM at `RandomAccessFile.readBytes0`, through ZipFile/Inflater fill and JAR class
+loading into `Commands.<init>:236`. Full server-log saving was disabled; the
+local cause record is a transcription of the visible tail, not a raw download.
+The short exception file cannot format its Java text. Real Done/save/stop did
+not pass. Overall native capacity and discovery DNS remain unresolved.
+
+Build046 pins PS5 readBytes to the existing8KiB stack buffer after validating
+the original full caller array slice. It returns one genuine short read;
+Java stream/readFully callers continue from the returned count. This removes
+large bulk-read scratch allocations without changing writes, increasing stack
+size, pinning Java arrays or bypassing class/ZIP checks. More native read calls
+may be needed. The earlier arena sizing and class-scratch changes are retained;
+heap192MiB and worker8MiB remain unchanged.
+
+Actual JNI-body UBSan/-Xcheck:jni tests pass full-content short-read loops,
+EOF/null/bounds/closed/error paths and unchanged write allocation/OOM cleanup.
+Real host RandomAccessFile.readFully and ZipFile reads also pass with the actual
+capped body installed in that test process and both storage backends refused.
+Target rebuild passes. **All046 PS5 rows and readiness/save/stop remain pending.**
+
+Build046 package SHA-256: `bf498ad48ca257bd9ed5550e25e3b3248cbcb39392215ac7edd44a366cb7d3b7`.

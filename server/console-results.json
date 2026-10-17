@@ -421,11 +421,20 @@
     },
     {
       "app_version": "01.000.045",
-      "console": "pending",
+      "console": "FAIL: human reports crash/relaunch; current preserved session instead records returned server-row FAIL. Difference retained as unresolved.",
       "changes": "PS5 default arena chunk uses128-byte allowance for Chunk/raw-backend/NMT overhead, avoiding old32752+32-byte request spilling into48KiB mapping. Default payload32640; tiny/initial/medium sizes and real OOM unchanged. Heap192MiB/worker8MiB and prior scratch fixes retained. Overall native exhaustion unresolved.",
       "checks": "PASS: actual raw allocator/os.cpp ASan/UBSan regression uses exact arena enum and Chunk/NMT layout contracts with16KiB page model, new default request fits32KiB mapping cap while old32752-byte request fails; tracking-off/on models and existing allocator/concurrency/cleanup checks; final target HotSpot/java.base-libs rebuild with real-layout static assertion; signed eboot/libc integrity; ZIP CRC/version045; target libjava/libverify/libjvm byte identity; retained symbols and matching packages. Initial build interrupted by edited-header/PCH invalidation; final rebuild passed. Console pending.",
       "package_sha256": "f59d9ffedfc4e1e9548b01dc18bf4c8f430997ef4be93dc0e20a38f599d6d754",
-      "pending": "All045 PS5 rows; reduced arena mapping pressure and actual readiness/save/stop; native capacity unknown."
+      "pending": "046 bounded-read repair needs PS5 test; reported later termination and total native capacity unresolved; actual readiness/save/stop unproven.",
+      "evidence": "Run01.000.045-1792235749-802431410. Full saved native trace ends Minecraft fixture threw exception, then successful8256-byte mappings; no VM ABORT/fatal OOM/native termination marker. SIGNAL entries resolve to selected/resumed implicit-null continuations. Server log tail observed via Firefox screenshot reports datapack ExecutionException caused by OOM at RandomAccessFile.readBytes0 -> ZipFile.Source.readAt/ZipFileInflaterInputStream.fill -> Resource.getBytes/BuiltinClassLoader -> Commands.<init>:236. Full server.log Save was disabled; cause transcription is local, not a raw download. Short server-exception says Java exception text unavailable. Actual later app termination/relaunch cause not captured. No Done/save/stop."
+    },
+    {
+      "app_version": "01.000.046",
+      "console": "pending",
+      "changes": "PS5 bulk reads cap to existing8192-byte stack buffer after original-slice validation, preserving real short-read/EOF/error/count semantics. No bulk read malloc/mmap, extra pool or stack increase. Writes unchanged. Prior arena/classloader fixes, heap192MiB and worker8MiB retained. Total native exhaustion unresolved.",
+      "checks": "PASS: actual io_util.c JNI UBSan/-Xcheck:jni bounded8KiB single reads/65537-byte continuation with malloc+mmap denied, full original bounds/null/EOF/closed/I/O failures; actual capped body registered for host RandomAccessFile.readFully and ZipFile.readAllBytes with correct content/position/EOF and verified native-reader use; unchanged write partial I/O/allocation/OOM cleanup; target hotspot/java.base-libs; two signed-container integrity checks; ZIP CRC/version046; target libjava/libverify/libjvm byte identity; retained symbols and matching package copies. Console pending.",
+      "package_sha256": "bf498ad48ca257bd9ed5550e25e3b3248cbcb39392215ac7edd44a366cb7d3b7",
+      "pending": "All046 PS5 rows, real readiness/save/stop and overall native pressure;045 reported later exit not explained by retained trace."
     }
   ]
 }
