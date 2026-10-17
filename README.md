@@ -97,11 +97,11 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.046
+## Current development: server start probe 01.000.047
 
-The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
+The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
-The world and configuration live under the application-visible `/download0/mc-server-start`. The test preserves that directory across launches, writes its controlled low-distance server properties, listens on available interfaces without a preset IP, waits up to ten minutes for the real `Done` message, sends `stop`, awaits server-thread exit and reads the saved `world/level.dat`. Row 4 runs on a dedicated JNI-attached native worker with an 8 MiB stack. The menu redraws elapsed seconds while test selection and VM destruction remain disabled until the worker joins. The ten-minute readiness deadline starts after the synchronous server main method returns; it does not bound that initial call. The host readiness/save/stop test passes at 192 MiB; **PS5 server startup/save/stop remains pending**. Build 01.000.003 failed during JVM creation after a 64 MiB native reservation returned ENOMEM with its 256 MiB heap setting. A host attempt at 128 MiB exhausted Java heap during world generation. Build 01.000.004 also failed at JVM creation with an 80 MiB reservation failure. Build 01.000.005 retains the 192 MiB Java heap and includes a PS5 runtime adaptation: non-class metaspace reserves 16 MiB nodes instead of 64 MiB, growing through the existing allocator as needed. Build 01.000.005 now passes real VM creation at 192 MiB, official JAR checks and VM destruction on PS5. The server row then failed on `ServerStart25$Observer` lookup before execution. Build 01.000.006 puts all consumer probe classes in `ps5-server-probe.jar` on the system class path; the matching JNI lookup regression and real host readiness/save/stop test pass. The console memory limit and earlier signal cause remain unestablished. Build 01.000.006 executes the wrapper, but did not reach ready and exposed a partial Log4j initialization stack. Build 01.000.007 uses headless console-only logging and preserves error headings, cause chains, initial output and recent output separately. Native text capacity now holds the report instead of truncating it to 1.5 KiB. Its host readiness/save/stop and long-error diagnostic tests pass; the actual prior exception is not yet identified. This development build includes target-built `jdk.zipfs` for Minecraft datapacks, in addition to the bootstrap module set. It does not establish player-join support or sustained performance.
+The world and configuration live under the application-visible `/download0/mc-server-start`. The test preserves that directory across launches, writes its controlled low-distance server properties, listens on available interfaces without a preset IP, waits up to ten minutes for the real `Done` message, sends `stop`, awaits server-thread exit and reads the saved `world/level.dat`. Row 4 runs on a dedicated JNI-attached native worker with an 8 MiB stack. The menu redraws elapsed seconds while test selection and VM destruction remain disabled until the worker joins. The ten-minute readiness deadline starts after the synchronous server main method returns; it does not bound that initial call. The current host readiness/save/stop test passes at 160 MiB (earlier runs passed at 192 MiB); **PS5 server startup/save/stop remains pending**. Build 01.000.003 failed during JVM creation after a 64 MiB native reservation returned ENOMEM with its 256 MiB heap setting. A host attempt at 128 MiB exhausted Java heap during world generation. Build 01.000.004 also failed at JVM creation with an 80 MiB reservation failure. Build 01.000.005 retains the 192 MiB Java heap and includes a PS5 runtime adaptation: non-class metaspace reserves 16 MiB nodes instead of 64 MiB, growing through the existing allocator as needed. Build 01.000.005 now passes real VM creation at 192 MiB, official JAR checks and VM destruction on PS5. The server row then failed on `ServerStart25$Observer` lookup before execution. Build 01.000.006 puts all consumer probe classes in `ps5-server-probe.jar` on the system class path; the matching JNI lookup regression and real host readiness/save/stop test pass. The console memory limit and earlier signal cause remain unestablished. Build 01.000.006 executes the wrapper, but did not reach ready and exposed a partial Log4j initialization stack. Build 01.000.007 uses headless console-only logging and preserves error headings, cause chains, initial output and recent output separately. Native text capacity now holds the report instead of truncating it to 1.5 KiB. Its host readiness/save/stop and long-error diagnostic tests pass; the actual prior exception is not yet identified. This development build includes target-built `jdk.zipfs` for Minecraft datapacks, in addition to the bootstrap module set. It does not establish player-join support or sustained performance.
 
 ### Build and verify
 
@@ -669,3 +669,30 @@ capped body installed in that test process and both storage backends refused.
 Target rebuild passes. **All046 PS5 rows and readiness/save/stop remain pending.**
 
 Build046 package SHA-256: `bf498ad48ca257bd9ed5550e25e3b3248cbcb39392215ac7edd44a366cb7d3b7`.
+
+
+## Build046 exhausted slabs; build047 lower Java heap budget experiment
+
+The human reports046 crashed/relaunched. Saved session
+`01.000.046-1792236273-725851607` confirms VM ABORT. Its full native trace
+identifies a160-byte AllocateHeap failure at `allocation.cpp:42`. At failure,
+all eight fallback classes have zero free slots, with21905408 mapped bytes and
+184103 live slots. Later24/16-byte refusals and a second fatal OOM precede
+abort/exit1. These figures measure fallback slabs only; they do not establish
+total native usage, the process limit or a memory leak. The visible server tail
+ends at new-world creation; full Save was disabled. No Done/save/stop pass.
+
+The current host flat-world harness passes real readiness/save/stop at160MiB
+in interpreter mode. Build047 therefore tests a smaller Java max heap ceiling,
+160MiB instead of192MiB, while retaining the same runtime pin and all prior
+fixes. Initial heap16MiB, worker stack8MiB, code cache8MiB and two processors
+are unchanged. The32MiB ceiling reduction is a controlled budget experiment,
+not a claim of32MiB additional available native storage. It may trade native
+pressure for Java heap exhaustion or more GC; actual PS5 benefit is unproven.
+The historical128MiB host OOM remains recorded and is not contradicted by this
+160MiB run. No additional runtime allocator change is included.
+
+**All047 PS5 rows and real readiness/save/stop remain pending.** Discovery DNS
+and overall native resource capacity remain unresolved.
+
+Build047 package checks pass; SHA-256: `bb7193b2526bdb77b04c91af81f6f82a6750dfe2a014a061f9bbd690b229bb90`.

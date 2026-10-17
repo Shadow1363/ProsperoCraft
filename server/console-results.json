@@ -430,11 +430,21 @@
     },
     {
       "app_version": "01.000.046",
-      "console": "pending",
+      "console": "FAIL: human crash/relaunch; live session confirms VM ABORT.",
       "changes": "PS5 bulk reads cap to existing8192-byte stack buffer after original-slice validation, preserving real short-read/EOF/error/count semantics. No bulk read malloc/mmap, extra pool or stack increase. Writes unchanged. Prior arena/classloader fixes, heap192MiB and worker8MiB retained. Total native exhaustion unresolved.",
       "checks": "PASS: actual io_util.c JNI UBSan/-Xcheck:jni bounded8KiB single reads/65537-byte continuation with malloc+mmap denied, full original bounds/null/EOF/closed/I/O failures; actual capped body registered for host RandomAccessFile.readFully and ZipFile.readAllBytes with correct content/position/EOF and verified native-reader use; unchanged write partial I/O/allocation/OOM cleanup; target hotspot/java.base-libs; two signed-container integrity checks; ZIP CRC/version046; target libjava/libverify/libjvm byte identity; retained symbols and matching package copies. Console pending.",
       "package_sha256": "bf498ad48ca257bd9ed5550e25e3b3248cbcb39392215ac7edd44a366cb7d3b7",
-      "pending": "All046 PS5 rows, real readiness/save/stop and overall native pressure;045 reported later exit not explained by retained trace."
+      "pending": "047 lower heap budget160MiB requires PS5 test; overall native exhaustion and readiness/save/stop remain unresolved.",
+      "evidence": "Run01.000.046-1792236273-725851607; full saved native trace shows160-byte AllocateHeap failure allocation.cpp:42, complete fallback slab exhaustion (all8 classes report zero free slots),21905408 mapped bytes/184103 live slots across those classes. Later24/16-byte failures and second fatal OOM precede VM ABORT/_exit1. Counts cover fallback slabs only; not total native memory or proven leak. Visible server console ends new-world creation; full Save disabled. Total capacity/limit and discovery DNS unresolved; no Done/save/stop."
+    },
+    {
+      "app_version": "01.000.047",
+      "console": "pending",
+      "changes": "Controlled consumer heap-budget experiment: maximum Java heap160MiB instead of192MiB; host test default and VM result label match. Initial16MiB, worker8MiB, code cache8MiB,2processors and runtime pin7f2ace9 unchanged. A lower ceiling does not prove32MiB native availability; may instead cause Java heap OOM/more GC.",
+      "checks": "PASS: actual current host Minecraft Done readiness/stop/thread exit/nonempty saved level.dat at160MiB, interpreter/SerialGC/2processors; no missing-layers error. Package native bootstrap builds; signed eboot/libc integrity; ZIP CRC/version047; packaged eboot contains-Xmx160m/160MiB label and no-Xmx192m; target libjava/libverify/libjvm byte identity; retained symbols/matching copies. Runtime sync unchanged at7f2ace9. Console pending.",
+      "max_heap_mib": 160,
+      "package_sha256": "bb7193b2526bdb77b04c91af81f6f82a6750dfe2a014a061f9bbd690b229bb90",
+      "pending": "All047 PS5 rows, native pressure versus Java heap tradeoff and actual readiness/save/stop; capacity/limit unknown."
     }
   ]
 }
