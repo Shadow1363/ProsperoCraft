@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.049
+## Current development: server start probe 01.000.050
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -752,3 +752,24 @@ rows, JFR initialization/output and real readiness/save/stop remain pending.**
 Overall native capacity and discovery DNS remain unresolved.
 
 Build049 package checks pass; SHA-256: `9a4407ef9da7b47bd05f43c5767b34c101df30d103b99bf5790223e41a8e98b9`.
+
+### Build050: generated JFR metadata in the runtime image
+
+Build049 returned server-row FAIL without a reported crash. The full saved
+server log identifies a null resource stream in `MetadataLoader.createTypes`,
+through `FlightRecorder.register` and Minecraft JFR profiler initialization.
+This reaches beyond the prior default dump-path query; JFR dump output itself
+remains unvalidated. Target Java compilation had omitted the generated
+`jdk/jfr/internal/types/metadata.bin` resource.
+
+Build050 pins runtime `496ea846b7b960441dba6f1e77b68808db39cd07`. The image builder runs requested modules'
+target data generators, including JFR and desktop data, and verifies the JFR
+resource SHA-256 across target output, JMOD and linked image. No host metadata
+is copied. The extracted target JFR classes/resources load the metadata and
+create238 types on the host JVM; this is not PS5 registration evidence.
+Signed-container integrity, package CRC/version, native/image identities and
+retained symbols pass. Heap160MiB and prior native repairs remain.
+**All050 PS5 rows and real readiness/save/stop remain pending.** Discovery DNS
+and overall native capacity are unresolved.
+
+Build050 package SHA-256: `a4c1bfa3dc45b5c11bff656eeaecbecd85865b3802a9aeb2ffcabe64dddfc904`.

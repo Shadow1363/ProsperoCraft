@@ -459,12 +459,22 @@
     },
     {
       "app_version": "01.000.049",
-      "console": "pending",
+      "console": "FAIL: returned server-row failure; user reports no crash.",
       "changes": "PS5 JFR emergency dump defaults use real application-visible/download0 for null/empty setter and empty-global fallback; explicit paths and normal dump-open/write failure behavior retained; other platforms retain cwd query. No JFR disabling.160MiB heap and native-preparation trace retained.",
       "checks": "PASS: actual JFR default/helper/get/set path bodies ASan/UBSan null/empty/global fallback without PS5 cwd query, explicit/max/oversize behavior and buffer bounds; desktop cwd path retained. Target hotspot/java.base-libs build and actual JFR object has no cwd dependency. Signed eboot/libc integrity; ZIP CRC/version049;160MiB flag/native diagnostic labels in packaged eboot; target libjava/libverify/libjvm identities; retained symbols and matching package copies. Consumer harness unchanged from047 host160MiB ready/save/stop. Console/file writes pending.",
       "max_heap_mib": 160,
       "package_sha256": "9a4407ef9da7b47bd05f43c5767b34c101df30d103b99bf5790223e41a8e98b9",
-      "pending": "All049 PS5 rows, JFR default directory initialization/output and actual readiness/save/stop; native capacity/DNS unresolved."
+      "pending": "050 generated metadata packaging requires PS5 validation; dump output, native capacity, discovery DNS and actual readiness/save/stop remain unresolved.",
+      "evidence": "Run01.000.049-1792248591-426516313. Live session returned server-row FAIL; user reports failure without crash. Full downloaded server.log records datapack ExecutionException/InternalError caused by null metadata resource stream in jdk.jfr.internal.MetadataLoader.createTypes, through TypeLibrary/MetadataRepository/FlightRecorder.register and Minecraft JfrProfiler/Commands. Target image lacked generated jdk.jfr/jdk/jfr/internal/types/metadata.bin. Discovery DNS UnknownHostException persists. No real Done/save/stop. This confirms execution beyond prior default dump-path query; full native trace not collected this run and dump writing not validated."
+    },
+    {
+      "app_version": "01.000.050",
+      "console": "pending",
+      "changes": "Runtime image builder runs target gendata goals for requested modules with generators (java.base/java.desktop/jdk.jfr), rather than Java compilation alone. Target JFR metadata.bin verified by SHA-256 in source/JMOD/linked image and recorded in audit. No host metadata copied; JFR remains enabled. Heap160MiB/worker8MiB/native fixes retained.",
+      "checks": "PASS: target gendata/module build; generated metadata SHA-256 matches JMOD and linked image. Actual extracted target JFR classes/resources on host Java25 resolve metadata and MetadataLoader.createTypes creates238 types. Signed eboot/libc integrity; ZIP CRC/version050;160MiB flag; target native library and resource-verified image identities; retained050 symbols/matching package copies. Consumer Java unchanged from047 host160MiB ready/save/stop. PS5 registration/ready/save/stop pending.",
+      "max_heap_mib": 160,
+      "package_sha256": "a4c1bfa3dc45b5c11bff656eeaecbecd85865b3802a9aeb2ffcabe64dddfc904",
+      "pending": "All050 PS5 rows, JFR metadata initialization/registration and real readiness/save/stop. Native capacity and discovery DNS unresolved."
     }
   ]
 }
