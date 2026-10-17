@@ -18,6 +18,7 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
  result=subprocess.run(command,cwd=directory,capture_output=True,text=True,timeout=780)
  output=result.stdout+result.stderr;(ROOT/'build/host-ServerStart25.log').write_text(output)
  assert result.returncode==0 and 'MC_SERVER_START_OK' in output,output[-12000:]
+ assert 'No key layers' not in output, output[-12000:]
  assert (Path(directory)/'world/level.dat').stat().st_size>0
  assert 'Done (' in (Path(directory)/'server-console.log').read_text()
  print(f'PASS: real server Done readiness, clean stop, saved level.dat at {args.heap_mib} MiB / interpreter mode')

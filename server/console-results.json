@@ -376,11 +376,20 @@
     },
     {
       "app_version": "01.000.040",
-      "console": "pending",
+      "console": "FAIL: user reports crash on flat-world start; current-run reports confirm native VM abort after class-byte allocation OOM.",
       "changes": "PS5 core path returns unavailable without desktop getcwd/getprogname in fatal handling. Small native slabs retry one minimal page-rounded mapping after64KiB refusal, retaining genuine failure when both fail. Heap192MiB and passing verification unchanged.",
       "checks": "PASS: actual PS5 core-path body ASan/UBSan zero-size/bounds/no desktop queries; actual allocator and os API/NMT-contract tests ASan/UBSan including64KiB refusal/smaller mapping success, complete refusal/real OOM, all size classes, resize preservation, concurrent lifetimes and cleanup; target HotSpot/java.base-libs build;11-library audit; signed containers; ZIP CRC; version040; retained symbols; target native library byte identity. Target core-path disassembly returns0 with no calls.",
-      "pending": "All PS5 rows; startup/save/stop, native OOM recovery and failure-report survival.",
-      "package_sha256": "42caf2dc57df38b7b8348f3bafdcda0abb0c8f4c81391b1a92d05d5560e17502"
+      "pending": "Native resource limit/cause; actual server readiness/save/stop; other040 rows not reported.041 repair/diagnostics require PS5 validation.",
+      "package_sha256": "42caf2dc57df38b7b8348f3bafdcda0abb0c8f4c81391b1a92d05d5560e17502",
+      "evidence": "Run01.000.040-1792230582-556842474; live session VM ABORT. Full saved server console reports class-byte scratch malloc/mmap OutOfMemoryError during ExecuteCommand lambda definition and datapack loading. Trace records failed16384-byte scratch mappings for433/940bytes, then MC wait stage, failed native8256-byte request/16384-byte mapping errno12, VM ABORT/_exit1. No SIGNAL marker in captured native trace. Resource samples end58s maxrss_raw504352; units/limit not inferred. Full hs-error report unavailable from endpoint. Separate discovery.minecraftservices.com UnknownHostException persists."
+    },
+    {
+      "app_version": "01.000.041",
+      "console": "pending",
+      "changes": "Explicit plains flat-world biome/layers; bounded platform-thread enumeration instead of native stack dump for thread lookup; runtime raw fatal allocation size/file/line/type/detail before full reporter. Native resource exhaustion remains unresolved; heap192MiB/authentication/datapack validation retained.",
+      "checks": "PASS: real host Minecraft Done/stop/saved level.dat at192MiB in interpreter mode with explicit flat layers and no missing-layers error; absent/live/exited thread enumeration with81 fixture threads; metadata preflight; actual runtime fatal-OOM entry ASan/UBSan contract test; target HotSpot/java.base-libs build; two signed-container integrity checks; ZIP CRC/version041; libjava/libverify/libjvm target byte identity; retained exact-build ELF and matching package copies. Console not tested.",
+      "pending": "All041 PS5 rows; real readiness/save/stop; native resource limit/cause and fatal trace validation.",
+      "package_sha256": "d95e4458cc35bf2cd3009bbaca15268a3c4b9df10c98e7157538c93d7bb90df2"
     }
   ]
 }

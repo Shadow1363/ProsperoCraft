@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.040
+## Current development: server start probe 01.000.041
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -481,3 +481,35 @@ Build039 verification passes on PS5. Its saved native frame chain identifies a n
 Build040 pins a runtime repair that reports no desktop core path on PS5, allowing normal fatal reporting to continue, and retries a minimal real mapped slab when the64KiB request is refused. If both mappings fail, native OOM remains a real failure. Actual-body host sanitizer tests and target compilation pass. **PS5 startup, real readiness/save/stop and failure-report survival require retesting.** No heap increase or game validation changes are included.
 
 The subsequently saved039 trace confirms native OOM followed by a current-directory query fault during fatal reporting. Build040 package SHA-256: `42caf2dc57df38b7b8348f3bafdcda0abb0c8f4c81391b1a92d05d5560e17502`. Console results remain pending.
+
+
+## Build040 console failure and build041 follow-up
+
+The user reports a crash on flat-world startup in040. Retrieved current-run
+reports identify `01.000.040-1792230582-556842474`. The server console reports
+`OutOfMemoryError: PS5 class-byte scratch allocation failed (malloc and mmap)`
+while defining a command lambda during datapack loading. A later native request
+for8256bytes fails its16384-byte mapping with ENOMEM, then the VM aborts. This
+trace has no signal marker; the previous secondary fatal-query crash did not
+recur in this capture. Native resource capacity and the final allocation site
+remain unknown. The last resource sample is58s, `maxrss_raw=504352`; its units
+and the console's limit are not inferred. Service discovery also still reports
+`UnknownHostException`. No ready/save/stop milestone passed.
+
+Build041 supplies explicit flat-world biome/layers, correcting the independent
+`No key layers in MapLike[{}]` configuration error. Server-thread lookup now
+enumerates platform threads without requesting every thread's native stack
+trace during readiness/failure cleanup. This removes avoidable native work;
+it does not establish that stack collection caused the abort. The runtime pin
+adds raw native fatal size/file/line/type/detail diagnostics before the full
+error reporter. Heap size, online authentication and official datapack checks
+are retained. Existing worlds are preserved; generation settings apply when
+creating a world.
+
+Host tests pass for a real Done/stop/saved level.dat run at192MiB without the
+missing-layers error, plus absent/live/exited thread lookup with more than64
+threads. Runtime fatal-entry ASan/UBSan contract test and target build pass.
+**Build041 remains an experimental follow-up: PS5 native resource exhaustion,
+all console rows and actual readiness/save/stop require validation.**
+
+Build041 package SHA-256: `d95e4458cc35bf2cd3009bbaca15268a3c4b9df10c98e7157538c93d7bb90df2`.

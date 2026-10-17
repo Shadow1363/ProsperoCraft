@@ -29,7 +29,19 @@ public class ServerStart25 {
   synchronized String recent(){return "ERROR HEADINGS AND CAUSES:\n"+errors+"\nFIRST OUTPUT:\n"+head+"\nRECENT OUTPUT:\n"+tail;}
  }
  private static String describe(Throwable error){StringBuilder result=new StringBuilder();for(int i=0;error!=null&&i<8;i++,error=error.getCause()){if(i>0)result.append(" | caused by: ");result.append(error);}return result.toString();}
- private static Thread serverThread(){for(Thread thread:Thread.getAllStackTraces().keySet())if(thread.isAlive()&&thread.getName().equals("Server thread"))return thread;return null;}
+ static Thread serverThread(){
+  // Finding a thread must not request a native stack dump of every thread,
+  // especially after the server has already reported allocation failure.
+  ThreadGroup group=Thread.currentThread().getThreadGroup();
+  while(group.getParent()!=null)group=group.getParent();
+  for(int capacity=64;capacity<=4096;capacity*=2){
+   Thread[] threads=new Thread[capacity];int count=group.enumerate(threads,true);
+   if(count==capacity)continue; // Retry a possibly truncated enumeration.
+   for(int i=0;i<count;i++)if(threads[i].isAlive()&&threads[i].getName().equals("Server thread"))return threads[i];
+   return null;
+  }
+  throw new IllegalStateException("Server thread enumeration exceeded 4096 platform threads");
+ }
  // Check the exact nofollow operation used by DirectoryValidator before loading the server.
  static void checkWorldMetadata(Path root)throws IOException {
   try {
@@ -47,7 +59,7 @@ public class ServerStart25 {
   stage="verify world metadata without following final symlinks";trace(stage);
   checkWorldMetadata(root);
   Files.writeString(root.resolve("eula.txt"),"# Human accepted Minecraft EULA for this test\neula=true\n");
-  Files.writeString(root.resolve("server.properties"),"level-name=world\nlevel-type=minecraft:flat\ngenerate-structures=false\nspawn-chunk-radius=0\nview-distance=2\nsimulation-distance=2\nmax-players=1\nonline-mode=true\nserver-ip=\nserver-port=25565\nenable-query=false\nenable-rcon=false\nwhite-list=true\nmax-tick-time=-1\n");
+  Files.writeString(root.resolve("server.properties"),"level-name=world\nlevel-type=minecraft:flat\ngenerator-settings={\"biome\":\"minecraft:plains\",\"layers\":[{\"block\":\"minecraft:bedrock\",\"height\":1},{\"block\":\"minecraft:dirt\",\"height\":2},{\"block\":\"minecraft:grass_block\",\"height\":1}]}\ngenerate-structures=false\nspawn-chunk-radius=0\nview-distance=2\nsimulation-distance=2\nmax-players=1\nonline-mode=true\nserver-ip=\nserver-port=25565\nenable-query=false\nenable-rcon=false\nwhite-list=true\nmax-tick-time=-1\n");
   PrintStream originalOut=System.out,originalErr=System.err;InputStream originalIn=System.in;
   Observer observer=new Observer(originalOut);PipedInputStream input=new PipedInputStream();PipedOutputStream commands=new PipedOutputStream(input);
   boolean stopped=false;Throwable failure=null;
