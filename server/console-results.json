@@ -479,12 +479,22 @@
     },
     {
       "app_version": "01.000.051",
-      "console": "pending",
+      "console": "FAIL: human reports1m3s; live session returned server-row FAIL.",
       "changes": "Diagnostic PS5 NetworkInterface getAll tracing: entry/enumeration/count, array allocation/per-interface conversion failures with exact source lines, BSD getifaddrs/addif failures and checked malloc requested sizes. Bounded descriptor writer preserves errno; JNI exception/real interface/allocation behavior retained. No confirmed OOM repair.160MiB heap/8MiB worker/JFR resource fix retained.",
       "checks": "PASS: actual diagnostic writer ASan/UBSan short writes/EINTR/open-write errors/bounds/errno; actual getAll body with JNI/enumeration stubs success and failures, pending exceptions/index/cleanup. Target HotSpot/java.base-libs build. Signed eboot/libc integrity; ZIP CRC/version051/160MiB/diagnostic labels; target libjava/libverify/libnet/libjvm and resource-verified image identities; retained051 symbols and matching copies. Consumer Java unchanged from047 host160MiB Done/save/stop; console OOM unresolved.",
       "max_heap_mib": 160,
       "package_sha256": "6ae273e10141baf6f996626c4405157c0e2888bccb6a4b02fcd2de28efa0fc9d",
-      "pending": "All051 PS5 rows, precise NetworkInterface OOM diagnostics, actual readiness/save/stop; no confirmed allocation repair. Discovery DNS and native capacity unresolved."
+      "pending": "052 mapped route-query fallback requires PS5 ABI/permissions and allocation validation. Exact resident internal cause, overall capacity, DNS and real readiness/save/stop remain unresolved.",
+      "evidence": "Run01.000.051-1792251260-559736208. User reports failure after1m3s; live session returned server-row FAIL. Full saved native trace identifies three earlier successful getAll calls returning2 interfaces, then IPv4 getifaddrs failed errno12 before addif/Java conversion; getAll returns null with pending exception. No checked native list malloc or Java array/conversion failure marker at that failure. This identifies resident operation but not its internal allocation/kernel cause. Full server.log reaches TCP listener setup and Netty DefaultChannelId initialization fails with OOM rooted in NetworkInterface.getAll; later NoClassDefFoundError wraps it. Three native signals all resume implicit-null continuations; zero VM ABORT/fatal OOM markers; fixture threw exception. No Done/readiness/save proof. Discovery DNS persists."
+    },
+    {
+      "app_version": "01.000.052",
+      "console": "pending",
+      "changes": "PS5-only resident getifaddrs ENOMEM fallback for libnet IPv4/IPv6 enumeration and MAC lookup: fresh bounded NET_RT_IFLIST sysctl query and explicitly owned mmap snapshot/nodes. Real interface/link/IP/mask/flags/name/scope/broadcast data retained with bounded parsing and zero-padded short masks. Resident success/non-ENOMEM errors unchanged. No cached/fake interfaces; persistent query/map errors remain real failures.160MiB heap/8MiB worker/JFR fix retained.",
+      "checks": "PASS: actual fallback/parser ASan/UBSan host BSD synthetic route fixtures IPv4/IPv6/link/MAC/name/flags/mask/broadcast/scope; resident ownership and non-ENOMEM behavior; both mapping failures, query errors/size growth/retry cap/oversize, truncated/mutated framing and cleanup. Actual netif writer/getAll regression with JNI/enumeration stubs passes. Target HotSpot/java.base-libs build; signed eboot/libc integrity; ZIP CRC/version052/160MiB/fallback labels; target libjava/libverify/libnet/libjvm and generated-resource image identity; retained052 symbols and matching copies. Host fixtures do not establish PS5 route ABI/permissions. Consumer Java unchanged from047 host160MiB readiness/save/stop.",
+      "max_heap_mib": 160,
+      "package_sha256": "8ad63066a7f9564eca2e8c4e91feb11f1d67db9e734db269cb31c242e093bec3",
+      "pending": "All052 PS5 rows; live route-query fallback ABI/permissions/ownership and actual readiness/save/stop. Native capacity and discovery DNS remain unresolved."
     }
   ]
 }

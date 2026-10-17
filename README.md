@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.051
+## Current development: server start probe 01.000.052
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -802,3 +802,33 @@ worker8MiB and target JFR metadata remain. **All051 console rows and real
 readiness/save/stop remain pending.**
 
 Build051 package SHA-256: `6ae273e10141baf6f996626c4405157c0e2888bccb6a4b02fcd2de28efa0fc9d`.
+
+### Build052: retry resident interface enumeration ENOMEM
+
+Build051 returned FAIL after the reported1m3s. Its full saved trace records
+three earlier successful interface-list calls, each returning two Java
+interfaces, then **IPv4 `getifaddrs()` fails with errno12 before native addif
+or Java object conversion**. This identifies the resident platform operation;
+it does not identify an internal allocator or kernel-query failure. The
+server again reaches TCP listener setup and fails Netty channel-ID
+initialization. Three implicit-null signals all resume; no VM ABORT/native
+fatal OOM marker is recorded. There is no real `Done` or saved-world proof.
+
+Build052 pins runtime `af1f51b913a373a061ee725d95cfe46b88cbbbe0`. The
+[runtime repair](https://github.com/mateo-cogeanu/ps5-java25-homebrew/blob/main/Development/docs/java25-interface-query-fallback.md)
+keeps successful resident getifaddrs calls and non-ENOMEM errors unchanged.
+On ENOMEM, it obtains fresh kernel route/interface data into owned mappings
+with bounded parsing and matching cleanup. This covers IPv4/IPv6 enumeration
+and MAC lookup, preserves real names/flags/addresses/masks/scope/link data, and
+returns real errors on persistent query/map failure or unsupported records.
+No cached addresses or invented interfaces are supplied.
+
+Actual fallback/parser host BSD fixtures pass ASan/UBSan, including query/map
+failures, size races, truncation/mutation and cleanup. Target native build and
+package integrity/native-image identity checks pass. **Host fixtures and
+target SDK compilation do not establish PS5 kernel route ABI or permissions.
+All052 PS5 rows and real readiness/save/stop remain pending.** Heap160MiB,
+worker8MiB and target JFR metadata remain. Overall native capacity and discovery
+DNS are unresolved.
+
+Build052 package SHA-256: `8ad63066a7f9564eca2e8c4e91feb11f1d67db9e734db269cb31c242e093bec3`.
