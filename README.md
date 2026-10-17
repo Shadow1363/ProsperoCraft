@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.032
+## Current development: server start probe 01.000.033
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -419,3 +419,11 @@ Build 031 target compilation, signed-container integrity, ZIP checks and target-
 Build 031 initializes all 4096/512/256 native primitives and reaches 12,884 class records, compared with 4,245 in build 030. Its later failure is native condition initialization ENOMEM; no mutex fallback failure is recorded. Build 032 expands relative/absolute condition reserves to 4096/2048 and records occupancy, requested clock domain and caller on failed native initialization. Event/monitor condition checks have distinct labels; parker retains relative/absolute labels. Mutex capacity 4096 and Java heap 192 MiB remain. Host tests cover each full condition reserve, exhaustion/reuse and the actual failure fields. **PS5 startup/save/stop remains unvalidated; condition-pool exhaustion is not established by the 031 capture.**
 
 Build 032 target compilation, signed-container integrity, ZIP checks and target-library identity checks pass. Package SHA-256: `8e758fd3d6c76419b48d7f5913ae5bc907b626fca3d30374016439f76c78ae33`. PS5 testing remains pending.
+
+## World metadata blocker in 01.000.033
+
+Build 032 reaches the official server's world-directory validation, which fails reading `/download0/mc-server-start/world` attributes with Operation not permitted. The pinned server bytecode uses `NOFOLLOW_LINKS`. The native trace records no synchronization-init failure in this capture; a later signal occurs on another Java thread, whose exact crash cause remains unresolved.
+
+Build 033 pins the Java port's nofollow descriptor-metadata repair: genuine file/directory attributes and missing-path errors, while final symlinks remain rejected when native lstat cannot describe them. The official validator is unchanged. The harness checks the required root/world metadata operation before loading Minecraft, allowing an early contextual failure. Shared exception/session reports use descriptor IO, with write failures recorded in the native trace. Heap and synchronization reserves are unchanged. **All five PS5 rows, actual ready/save/stop and resolution of the later native crash remain pending.**
+
+Build 033 target compilation, signed-container integrity, ZIP checks and target-library identity checks pass. Package SHA-256: `d808a0cdd89f0828eb6265ea5bd4d265f7cf1405e93caf37df5c7b91995fe9f2`. PS5 testing remains pending.

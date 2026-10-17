@@ -65,12 +65,12 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.032";
+constexpr const char *build_version="01.000.033";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
  char text[512];std::snprintf(text,sizeof(text),"Build: %s\nRun: %s\nState: %s\nPrevious report archive: %s\n",build_version,run_id,state,archives_ok?"OK":"incomplete; inspect previous reports");
- ps5::log_share::write_note("/download0/probe-session.txt",text);
+ if(!ps5::log_share::write_note("/download0/probe-session.txt",text))ps5_vm_trace_values("REPORT: session write failed errno=",errno," reserved=",0," reserved=",0);
 }
 char exception_detail[24576]{};
 char previous_log[7][160]={{},{},{},{},{},{},"No previous startup log."};
@@ -175,8 +175,7 @@ void java_failure(int i,int code,const char* phase) {
   java_env->DeleteLocalRef(original);
  }
  std::snprintf(exception_detail,sizeof(exception_detail),"%s: %s",phase,detail);exception_page=0;
- FILE *shared=std::fopen("/download0/probe-exception.txt","w");
- if(shared){std::fputs(exception_detail,shared);std::fclose(shared);}
+ if(!ps5::log_share::write_note("/download0/probe-exception.txt",exception_detail))ps5_vm_trace_values("REPORT: exception write failed errno=",errno," reserved=",0," reserved=",0);
  char message[80];std::snprintf(message,sizeof(message),"%.20s: %.48s",phase,detail);
  if(startup_log) {std::fprintf(startup_log,"NETWORK FAILURE: %s: %s / code %08X\n",phase,detail,static_cast<unsigned>(code));std::fflush(startup_log);}
  result(i,code,message);
@@ -399,7 +398,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.032",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.033",42,rgb(238,242,250));
  c.label(103,163,"Minecraft 26.3 / Java 25. PS5 diagnostic adapter; real startup, save and stop.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;

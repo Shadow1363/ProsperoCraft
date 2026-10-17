@@ -304,11 +304,20 @@
     },
     {
       "app_version": "01.000.032",
-      "console": "pending",
+      "console": "FAIL: user reports FAIL briefly then whole-app crash at46.5seconds.",
       "changes": "Runtime relative/absolute condition reserves512/256\u21924096/2048; native failure records occupancy,domain,config and caller; event/monitor condition-init labels; guard unprimed snapshots. Mutex4096 and heap192MiB unchanged. Exact031 exhaustion/caller remains unestablished.",
       "checks": "PASS: actual-header ASan/UBSan exhaust/reuse4096mutex,4096relative,2048absolute with late native init ENOMEM; distinct domain/exhaustion/custom-attribute diagnostics,errno preservation,locked EBUSY,native wait/signal/timeout,8000 concurrent lifetimes and cleanup; target no heap/compiler-TLS/guard IR; actual product-check constructor. PASS: target hotspot/java.base-libs rebuild; signed container integrity; ZIP CRC/version032/new condition failure and constructor labels; retained symbols; package target libjava/libverify/libjvm byte identity. Known writable-string warning only.",
-      "pending": "All five PS5 rows, successful early pool counts, actual server ready/save/stop; root cause not fully established.",
-      "package_sha256": "8e758fd3d6c76419b48d7f5913ae5bc907b626fca3d30374016439f76c78ae33"
+      "pending": "033 runtime filesystem/harness retest; secondary native crash unresolved; actual ready/save/stop pending.",
+      "package_sha256": "8e758fd3d6c76419b48d7f5913ae5bc907b626fca3d30374016439f76c78ae33",
+      "evidence": "Run01.000.032-1792222427-309455704; startup45848915/current1077330 bytes,trace1145462,class2363219,server1284,resource4855 stopping46s raw maxrss449392. Early pools initialized4096/4096/2048; no native synchronization init failure recorded. Official server logs FileSystemException EPERM during DirectoryValidator world NOFOLLOW attributes. Startup records wrapped exception/codeFFFFFAE5; exception endpoint remains placeholder. Later signal is on a different Java thread after retained compiler-TLS fallback; exact fault cause not established. No native abort/completed fatal file; resource units/limit not inferred."
+    },
+    {
+      "app_version": "01.000.033",
+      "console": "pending",
+      "changes": "Runtime lstat EPERM\u2192real O_NOFOLLOW open/fstat with ENOENT/error propagation and final symlink refusal. Harness prechecks required world/root metadata before loading server. Descriptor exception/session report writes avoid FILE allocation and log actual errors. Heap192MiB and synchronization reserves unchanged.",
+      "checks": "PASS: actual JNI ASan/UBSan real files/directories/FIFO/absent/leaf and dangling/intermediate symlinks/native link metadata, EPERM-only fallback and descriptor errors/cleanup; existing following-stat; actual report writer partial/EINTR/zero/ENOSPC/open/close errors; HTTP/archive/collector; actual Java metadata preflight. PASS: target java.base-libs rebuild; signed container integrity; ZIP CRC/version033/report labels/metadata preflight class; retained symbols; package target libjava/libverify/libnio/libjvm byte identity.",
+      "pending": "All five PS5 rows, genuine world metadata on console, actual server ready/save/stop; secondary native signal cause remains unresolved.",
+      "package_sha256": "d808a0cdd89f0828eb6265ea5bd4d265f7cf1405e93caf37df5c7b91995fe9f2"
     }
   ]
 }

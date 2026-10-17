@@ -30,12 +30,22 @@ public class ServerStart25 {
  }
  private static String describe(Throwable error){StringBuilder result=new StringBuilder();for(int i=0;error!=null&&i<8;i++,error=error.getCause()){if(i>0)result.append(" | caused by: ");result.append(error);}return result.toString();}
  private static Thread serverThread(){for(Thread thread:Thread.getAllStackTraces().keySet())if(thread.isAlive()&&thread.getName().equals("Server thread"))return thread;return null;}
+ // Check the exact nofollow operation used by DirectoryValidator before loading the server.
+ static void checkWorldMetadata(Path root)throws IOException {
+  try {
+   Files.readAttributes(root,java.nio.file.attribute.BasicFileAttributes.class,LinkOption.NOFOLLOW_LINKS);
+   try{Files.readAttributes(root.resolve("world"),java.nio.file.attribute.BasicFileAttributes.class,LinkOption.NOFOLLOW_LINKS);}
+   catch(NoSuchFileException absent){/* The official server creates a missing world. */}
+  }catch(IOException failure){throw new IOException("World metadata preflight (NOFOLLOW_LINKS): "+failure,failure);}
+ }
  public static void main(String[] args)throws Exception {
   Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
   if(!Boolean.getBoolean("ps5.mc.eulaAccepted"))throw new IllegalStateException("Human EULA acceptance is required before this test");
   Path root=Path.of(System.getProperty("ps5.mc.workdir",System.getProperty("user.dir"))).toAbsolutePath();
   String stage="write authorized EULA and isolated flat-world configuration";trace(stage);
   Files.createDirectories(root);
+  stage="verify world metadata without following final symlinks";trace(stage);
+  checkWorldMetadata(root);
   Files.writeString(root.resolve("eula.txt"),"# Human accepted Minecraft EULA for this test\neula=true\n");
   Files.writeString(root.resolve("server.properties"),"level-name=world\nlevel-type=minecraft:flat\ngenerate-structures=false\nspawn-chunk-radius=0\nview-distance=2\nsimulation-distance=2\nmax-players=1\nonline-mode=true\nserver-ip=\nserver-port=25565\nenable-query=false\nenable-rcon=false\nwhite-list=true\nmax-tick-time=-1\n");
   PrintStream originalOut=System.out,originalErr=System.err;InputStream originalIn=System.in;
