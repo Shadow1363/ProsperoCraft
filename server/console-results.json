@@ -509,12 +509,22 @@
     },
     {
       "app_version": "01.000.054",
-      "console": "pending",
+      "console": "FAIL: user reports failure; live session returned server-row FAIL.",
       "changes": "PS5 route parser uses observed192-byte RTM_IFINFO header rather than SDK sizeof168; copies only stable bitmap/flags/index prefix, skips opaque statistics. Static prefix offset4/8/12,20-byte address header and8-byte alignment assertions. Existing validation/errors/query/resident success and ownership retained. Diagnostic header-size note added;160MiB heap/8MiB worker/JFR metadata retained. Repairs captured layout mismatch; live completion still pending.",
       "checks": "PASS: actual complete local1320-byte PS5 route replay through parser and actual mapped fallback with injected resident/kernel results yields8 records (4link,2IPv4,2IPv6), correct map cleanup ASan/UBSan. Synthetic fixtures now use actual192-byte header and PS5 IPv6 family28; existing query/map/growth/errors/bounds/truncation/mutation/hex/errno tests pass. Target HotSpot/java.base-libs; signed eboot/libc integrity; ZIP CRC/version054/160MiB/actual PS5 header diagnostic label; target libjava/libverify/libnet/libjvm and generated-resource image identity; retained054 symbols/matching package copies. Raw capture/logs remain local. Consumer Java unchanged from047 host160MiB readiness/save/stop. Console conversion/readiness pending.",
       "max_heap_mib": 160,
       "package_sha256": "6b671effa946902950f8327c81e63fc8704501bc7254aeb313fd926e1d53200a",
-      "pending": "All054 PS5 rows, live fallback/Java interface conversion and actual readiness/save/stop. Resident ENOMEM cause/native capacity and discovery DNS remain unresolved."
+      "pending": "055 node allocation fallback needs PS5 mapping/Java conversion/readiness/save/stop validation. Resident libc refusal cause, overall native capacity and DNS unresolved.",
+      "evidence": "Run01.000.054-1792253539-553195562. Live session returned server-row FAIL. Full downloaded native trace confirms fresh route query1320 bytes,192-byte header, route fallback complete8 records, IPv4 getifaddrs success. Next checked malloc addrP64 bytes fails errno12 in addif; pending exception and null list follow. Full server.log reports Native heap allocation failed OOM through NetworkInterface.getAll/Netty DefaultChannelId at listener setup. Three signals each resume; zero captured VM ABORT/fatal OOM markers; fixture threw exception. No real Done/readiness/save proof. DNS still fails."
+    },
+    {
+      "app_version": "01.000.055",
+      "console": "pending",
+      "changes": "PS5-only internal interface/address-node allocation uses aligned owner prefix, libc first, page-rounded anonymous mapping on refusal and matching recursive free/munmap. Genuine failure retained if both backends refuse. No global allocator/pool or synthetic interfaces. Fixes unlinked first address cleanup if new-parent allocation fails. Each mapped node consumes at least16KiB; total native limit unresolved. Prior route repair,160MiB heap/8MiB worker/JFR metadata retained.",
+      "checks": "PASS: actual allocator/addif/freeif ASan/UBSan libc/mapped/mixed ownership, IPv4/IPv6/broadcast copies, virtual nodes, every partial allocation failure including unlinked cleanup, real OOM, zero/64/88/page/overflow/alignment/errno. JNI OOM and kernel flags/index are narrow stubs. Target HotSpot/java.base-libs; signed eboot/libc integrity; ZIP CRC/version055/160MiB/node+header labels; target libjava/libverify/libnet/libjvm and generated-resource image identity; retained055 symbols/matching copies. Consumer Java unchanged from047 host160MiB readiness/save/stop. Console mapping/conversion/readiness pending.",
+      "max_heap_mib": 160,
+      "package_sha256": "316164ac6f84c7b705de4e28b5ff378bf3cd4e26039e80db6691e6b366a6af59",
+      "pending": "All055 PS5 rows; mapped interface nodes/Java conversion and actual readiness/save/stop. Overall native capacity and discovery DNS remain unresolved."
     }
   ]
 }

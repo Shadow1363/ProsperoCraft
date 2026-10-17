@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.054
+## Current development: server start probe 01.000.055
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -884,3 +884,28 @@ pending.** Resident ENOMEM's internal cause, overall native capacity and
 discovery DNS remain unresolved. Heap160MiB/worker8MiB/JFR metadata remain.
 
 Build054 package SHA-256: `6b671effa946902950f8327c81e63fc8704501bc7254aeb313fd926e1d53200a`.
+
+### Build055: mapped internal interface nodes
+
+Build054 confirms the route header repair on PS5: its full saved trace reports
+successful parsing of eight records and IPv4 getifaddrs completion. The next
+64-byte address-node malloc in addif fails. The matching server console now
+reports `OutOfMemoryError: Native heap allocation failed` at Netty initialization.
+Three signals resume; no captured VM ABORT/native fatal OOM. No real readiness
+or verified saved world; discovery DNS still fails.
+
+Build055 pins runtime `f7a692f2d7a7f6e2a78aef5901eaef92c942b53c` and adds a PS5-only libc-first mapped
+fallback for internal interface/address nodes, with aligned ownership prefixes
+and matching recursive cleanup. It also releases an unlinked address if a new
+parent node cannot be allocated. Both backend failures retain real OOM.
+Each mapped node uses at least one16KiB page; this does not establish a repair
+for the overall native capacity limit. Route snapshot ownership remains separate.
+
+Actual allocator/addif/freeif sanitizer tests pass libc/mapped/mixed ownership,
+real address copies, virtual interfaces, every partial failure/cleanup, complete
+refusal, boundaries/alignment and errno. JNI OOM/kernel flag/index calls are
+narrow host stubs. Target build and package integrity/native-image identities
+pass. **All055 PS5 rows, node mapping/Java interface conversion and real
+readiness/save/stop remain pending.** Heap160MiB/worker8MiB/JFR metadata remain.
+
+Build055 package SHA-256: `316164ac6f84c7b705de4e28b5ff378bf3cd4e26039e80db6691e6b366a6af59`.
