@@ -439,12 +439,22 @@
     },
     {
       "app_version": "01.000.047",
-      "console": "pending",
+      "console": "FAIL: human reports crash/relaunch. Saved session remains RUN server worker; native trace captures unresumed signal.",
       "changes": "Controlled consumer heap-budget experiment: maximum Java heap160MiB instead of192MiB; host test default and VM result label match. Initial16MiB, worker8MiB, code cache8MiB,2processors and runtime pin7f2ace9 unchanged. A lower ceiling does not prove32MiB native availability; may instead cause Java heap OOM/more GC.",
       "checks": "PASS: actual current host Minecraft Done readiness/stop/thread exit/nonempty saved level.dat at160MiB, interpreter/SerialGC/2processors; no missing-layers error. Package native bootstrap builds; signed eboot/libc integrity; ZIP CRC/version047; packaged eboot contains-Xmx160m/160MiB label and no-Xmx192m; target libjava/libverify/libjvm byte identity; retained symbols/matching copies. Runtime sync unchanged at7f2ace9. Console pending.",
       "max_heap_mib": 160,
       "package_sha256": "bb7193b2526bdb77b04c91af81f6f82a6750dfe2a014a061f9bbd690b229bb90",
-      "pending": "All047 PS5 rows, native pressure versus Java heap tradeoff and actual readiness/save/stop; capacity/limit unknown."
+      "pending": "048 diagnostic native-preparation trace needs PS5 test; external target identity/cause, overall native capacity and actual readiness/save/stop unresolved.",
+      "evidence": "Run01.000.047-1792245216-254595165. Full downloaded trace ends SIGSEGV pc=fault0x100026c946, thread state4(native), no captured native fatal OOM/VM ABORT/termination. Signal anchor0xe29fd0 matches retained047 ELF pd_hotspot_signal_handler0xa29fd0 plus0x400000. Stack words symbolize to native-call preparation/interpreter/link-resolution/class initialization, but top resident-library return and external target are not symbolized; raw stack words need not all be active return PCs. Full server console ends new-world creation, discovery DNS failure persists. No Done/save/stop. Lower160MiB ceiling changes observed failure but improvement/total capacity not established."
+    },
+    {
+      "app_version": "01.000.048",
+      "console": "pending",
+      "changes": "Diagnostic runtime trace around InterpreterRuntime native preparation: begin, native lookup complete and signature installation complete; bounded holder/name/signature/thread/target output. Preparation events do not identify every active JNI call. Native lookup/handler behavior and160MiB heap/8MiB worker unchanged. No confirmed fault repair.",
+      "checks": "PASS: actual native-preparation formatter ASan/UBSan length-delimited Symbol-like slices, truncation/nonprintable/null-empty/target-thread identities/concurrent formatting with stubbed trace IO; target hotspot/java.base-libs; signed eboot/libc integrity; ZIP CRC/version048; native diagnostic labels and160MiB flag in packaged eboot; target libjava/libverify/libjvm byte identity; retained048 symbols/matching packages. Consumer Java/heap unchanged from047 host160MiB Done/save/stop. Console pending.",
+      "max_heap_mib": 160,
+      "package_sha256": "c4b44bf6871d7c8023b7cb8c8a8c09a4bced523e5b5139e616bc51619cc0a74a",
+      "pending": "All048 PS5 rows; native-preparation evidence, external signal cause and actual readiness/save/stop; capacity unknown."
     }
   ]
 }

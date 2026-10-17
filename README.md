@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.047
+## Current development: server start probe 01.000.048
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -696,3 +696,31 @@ The historical128MiB host OOM remains recorded and is not contradicted by this
 and overall native resource capacity remain unresolved.
 
 Build047 package checks pass; SHA-256: `bb7193b2526bdb77b04c91af81f6f82a6750dfe2a014a061f9bbd690b229bb90`.
+
+
+## Build047 external-address signal; build048 native-preparation diagnostics
+
+The human reports047 crashed/relaunched. Preserved run
+`01.000.047-1792245216-254595165` remains marked RUN server worker, while its full
+native trace ends in an unresumed SIGSEGV at `pc=fault=0x100026c946` with thread
+state4 (native). There is no captured native fatal OOM, VM ABORT or termination
+marker. The handler anchor matches the exact retained047 ELF with load offset
+`0x400000`. Raw stack words map into native-call preparation, interpreter/link
+resolution and class initialization; they do not establish the active callee.
+The top resident-library return/external target are not symbolized. The full
+server console ends at new-world creation. Discovery DNS remains unresolved.
+No ready/save/stop pass; lower heap benefit and total capacity remain unproven.
+
+Build048 retains160MiB and adds runtime diagnostic checkpoints before native
+preparation, after lookup and after signature handler installation. Bounded
+stack formatting records holder/name/signature, thread identity and resolved
+native address without Symbol string allocation. Native lookup/signature
+behavior remains unchanged. Preparation is not a complete invocation trace:
+a previously prepared native method can run again without a new event, and
+nested preparation may replace the latest context. This is a diagnostic build,
+not a confirmed repair for the external-address fault.
+
+Actual formatter ASan/UBSan tests and target build pass. **All048 PS5 rows,
+trace usefulness, native fault resolution and readiness/save/stop remain pending.**
+
+Build048 package checks pass; SHA-256: `c4b44bf6871d7c8023b7cb8c8a8c09a4bced523e5b5139e616bc51619cc0a74a`.
