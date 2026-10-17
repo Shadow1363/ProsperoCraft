@@ -469,12 +469,22 @@
     },
     {
       "app_version": "01.000.050",
-      "console": "pending",
+      "console": "FAIL: user reports exactly1minute, no crash; live session returned server-row FAIL.",
       "changes": "Runtime image builder runs target gendata goals for requested modules with generators (java.base/java.desktop/jdk.jfr), rather than Java compilation alone. Target JFR metadata.bin verified by SHA-256 in source/JMOD/linked image and recorded in audit. No host metadata copied; JFR remains enabled. Heap160MiB/worker8MiB/native fixes retained.",
       "checks": "PASS: target gendata/module build; generated metadata SHA-256 matches JMOD and linked image. Actual extracted target JFR classes/resources on host Java25 resolve metadata and MetadataLoader.createTypes creates238 types. Signed eboot/libc integrity; ZIP CRC/version050;160MiB flag; target native library and resource-verified image identities; retained050 symbols/matching package copies. Consumer Java unchanged from047 host160MiB ready/save/stop. PS5 registration/ready/save/stop pending.",
       "max_heap_mib": 160,
       "package_sha256": "a4c1bfa3dc45b5c11bff656eeaecbecd85865b3802a9aeb2ffcabe64dddfc904",
-      "pending": "All050 PS5 rows, JFR metadata initialization/registration and real readiness/save/stop. Native capacity and discovery DNS unresolved."
+      "pending": "Exact NetworkInterface allocation/cause;051 diagnostics need PS5 run. JFR metadata null-resource failure no longer observed; JFR recording/dump not validated. Real readiness/save/stop, native capacity and DNS unresolved.",
+      "evidence": "Run01.000.050-1792250488-988914320. User reports failure at exactly1minute without crash; live session returned server-row FAIL. Full downloaded server.log advances beyond JFR:1866 advancements loaded, dedicated server starts, reaches TCP listener *:25565, then Netty DefaultChannelId initialization fails with OutOfMemoryError rooted in NetworkInterface.getAll. The later NoClassDefFoundError wraps that initialization failure. Server logs stopping/saving but no Done readiness or successful save proof. Exception endpoint reports heap max/total162201600 free18874592 after failure; not peak availability. Full saved native trace has3 signals, each selected/resumed implicit-null continuation, zero VM ABORT/fatal OOM markers, and fixture threw exception. Exact failed allocation/cause unknown; discovery DNS still UnknownHostException."
+    },
+    {
+      "app_version": "01.000.051",
+      "console": "pending",
+      "changes": "Diagnostic PS5 NetworkInterface getAll tracing: entry/enumeration/count, array allocation/per-interface conversion failures with exact source lines, BSD getifaddrs/addif failures and checked malloc requested sizes. Bounded descriptor writer preserves errno; JNI exception/real interface/allocation behavior retained. No confirmed OOM repair.160MiB heap/8MiB worker/JFR resource fix retained.",
+      "checks": "PASS: actual diagnostic writer ASan/UBSan short writes/EINTR/open-write errors/bounds/errno; actual getAll body with JNI/enumeration stubs success and failures, pending exceptions/index/cleanup. Target HotSpot/java.base-libs build. Signed eboot/libc integrity; ZIP CRC/version051/160MiB/diagnostic labels; target libjava/libverify/libnet/libjvm and resource-verified image identities; retained051 symbols and matching copies. Consumer Java unchanged from047 host160MiB Done/save/stop; console OOM unresolved.",
+      "max_heap_mib": 160,
+      "package_sha256": "6ae273e10141baf6f996626c4405157c0e2888bccb6a4b02fcd2de28efa0fc9d",
+      "pending": "All051 PS5 rows, precise NetworkInterface OOM diagnostics, actual readiness/save/stop; no confirmed allocation repair. Discovery DNS and native capacity unresolved."
     }
   ]
 }

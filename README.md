@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.050
+## Current development: server start probe 01.000.051
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -773,3 +773,32 @@ retained symbols pass. Heap160MiB and prior native repairs remain.
 and overall native capacity are unresolved.
 
 Build050 package SHA-256: `a4c1bfa3dc45b5c11bff656eeaecbecd85865b3802a9aeb2ffcabe64dddfc904`.
+
+### Build051: identify network interface startup OOM
+
+Build050 returned FAIL at one minute without a reported crash. The full saved
+console gets past JFR initialization, loads1866 advancements, starts the server
+and reaches listener setup on `*:25565`. Netty's `DefaultChannelId` initialization
+then fails with an `OutOfMemoryError` rooted in `NetworkInterface.getAll()`.
+The later `NoClassDefFoundError` wraps this initialization failure. This is
+server-thread failure before readiness, not evidence of a one-minute timeout.
+The server logs stopping/saving; no real `Done` or successful saved-world check
+was reached. The exception report has18874592 free Java heap bytes after failure;
+this does not identify peak heap availability or rule out heap OOM.
+
+The full native trace records fixture failure, no VM ABORT/native fatal OOM, and
+three implicit-null signals that each resume. Discovery DNS still fails.
+The exact allocation inside interface enumeration/conversion remains unknown.
+
+Build051 pins runtime `e09a729f7eba8156d7d5108ac128cdd826dfe6cb` with bounded PS5 native diagnostics for
+interface enumeration, counts, native checked allocation failure and Java
+array/object conversion failures, including exact conversion source lines.
+It preserves the real interfaces, allocation paths and exception behavior.
+**This is a diagnostic build, not a confirmed OOM repair.** Actual-body writer
+and getAll host tests with narrow JNI/enumeration stubs pass ASan/UBSan; target
+HotSpot/java.base native build, signed containers, native/image identities,
+version/heap/diagnostic labels, ZIP CRC and retained symbols pass. Heap160MiB,
+worker8MiB and target JFR metadata remain. **All051 console rows and real
+readiness/save/stop remain pending.**
+
+Build051 package SHA-256: `6ae273e10141baf6f996626c4405157c0e2888bccb6a4b02fcd2de28efa0fc9d`.
