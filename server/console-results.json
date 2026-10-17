@@ -519,12 +519,22 @@
     },
     {
       "app_version": "01.000.055",
-      "console": "pending",
+      "console": "FAIL: user reports failure; live session returned server-row FAIL.",
       "changes": "PS5-only internal interface/address-node allocation uses aligned owner prefix, libc first, page-rounded anonymous mapping on refusal and matching recursive free/munmap. Genuine failure retained if both backends refuse. No global allocator/pool or synthetic interfaces. Fixes unlinked first address cleanup if new-parent allocation fails. Each mapped node consumes at least16KiB; total native limit unresolved. Prior route repair,160MiB heap/8MiB worker/JFR metadata retained.",
       "checks": "PASS: actual allocator/addif/freeif ASan/UBSan libc/mapped/mixed ownership, IPv4/IPv6/broadcast copies, virtual nodes, every partial allocation failure including unlinked cleanup, real OOM, zero/64/88/page/overflow/alignment/errno. JNI OOM and kernel flags/index are narrow stubs. Target HotSpot/java.base-libs; signed eboot/libc integrity; ZIP CRC/version055/160MiB/node+header labels; target libjava/libverify/libnet/libjvm and generated-resource image identity; retained055 symbols/matching copies. Consumer Java unchanged from047 host160MiB readiness/save/stop. Console mapping/conversion/readiness pending.",
       "max_heap_mib": 160,
       "package_sha256": "316164ac6f84c7b705de4e28b5ff378bf3cd4e26039e80db6691e6b366a6af59",
-      "pending": "All055 PS5 rows; mapped interface nodes/Java conversion and actual readiness/save/stop. Overall native capacity and discovery DNS remain unresolved."
+      "pending": "056 error handling/fresh errno diagnostics need PS5 IPv6/Java conversion/readiness/save/stop test. Overall native capacity and DNS unresolved.",
+      "evidence": "Run01.000.055-1792254170-750451055. Live session returned server-row FAIL. Full downloaded trace confirms fresh1320-byte route query,192-byte header,8 parsed records and four successful16KiB node mappings for64/56-byte IPv4 nodes. Subsequent IPv6 resident getifaddrs failure reports errno13(EACCES), outside old ENOMEM-only retry; getAll returns null with pending exception. Trace does not establish fresh vs stale13 because resident calls did not clear errno; earlier node libc refusal also logs13 after ioctl. Server log Netty initialization OOM through NetworkInterface.getAll at listener setup; three signals resume, zero captured VM ABORT/fatal OOM markers; fixture failure. No Done/readiness/save proof; DNS persists."
+    },
+    {
+      "app_version": "01.000.056",
+      "console": "pending",
+      "changes": "PS5 route-query retry also handles resident EACCES and errno-less failures; clears errno before resident getifaddrs and node libc allocation to isolate stale state. Success restores caller errno; actual resident error recorded. ENOMEM still covered; other resident errors and actual kernel-query/mapping/parser failures remain real failures. No cached/fake interfaces.160MiB heap/8MiB worker/JFR and mapped-node/header fixes retained.",
+      "checks": "PASS: actual fallback/parser ASan/UBSan explicit EACCES/errno-less resident failure after stale errors, normal success, unchanged EPERM/EIO failures and actual EACCES/EIO query error propagation; complete local1320-byte route replay/parser/mapped ownership and prior bounds/growth/hex tests. Actual node allocator/addif/freeif regression adds libc refusal without errno; prior ownership/OOM/cleanup tests pass. Target HotSpot/java.base-libs; signed eboot/libc; ZIP CRC/version056/160MiB/error+node labels; target libjava/libverify/libnet/libjvm and generated-resource image identity; retained056 symbols/matching copies. Consumer Java unchanged from047 host160MiB ready/save/stop. Console IPv6/Java conversion/readiness pending.",
+      "max_heap_mib": 160,
+      "package_sha256": "f1f400feb87cb90ca760f0aa8d4635774c93258a8563d4ddcc246aef7c9c59e8",
+      "pending": "All056 PS5 rows, IPv6 enumeration/Java conversion and actual readiness/save/stop. Native capacity and DNS unresolved."
     }
   ]
 }

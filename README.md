@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.055
+## Current development: server start probe 01.000.056
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -909,3 +909,25 @@ pass. **All055 PS5 rows, node mapping/Java interface conversion and real
 readiness/save/stop remain pending.** Heap160MiB/worker8MiB/JFR metadata remain.
 
 Build055 package SHA-256: `316164ac6f84c7b705de4e28b5ff378bf3cd4e26039e80db6691e6b366a6af59`.
+
+### Build056: resident query errors after successful node mappings
+
+Build055's full downloaded trace confirms route parsing and four mapped IPv4
+list nodes. The following IPv6 resident getifaddrs call fails with errno13,
+which the old ENOMEM-only retry did not cover. Earlier libc refusal logs also
+carry13 after ioctl; without clearing errno, the trace cannot distinguish
+a fresh error from a stale value. Netty initialization still fails; no real
+readiness/save proof. Three signals resume and no VM ABORT/native fatal OOM
+is captured. Discovery DNS remains unresolved.
+
+Build056 pins runtime `2d251667e4de560306f3e6de073ab7492ef632ec`. It clears errno before resident query
+and node malloc, records the returned resident error, and extends live route
+retry to EACCES and errno-less failure. Success restores prior errno. Other
+resident errors and actual kernel-query denials/errors remain failures.
+Sanitizer tests cover these cases, stale errno isolation, actual route replay
+and mapped/node cleanup. Target build and package integrity/native-image
+identity checks pass. **All056 PS5 rows, IPv6/Java conversion and real
+readiness/save/stop remain pending.** Heap160MiB/worker8MiB and previous fixes
+remain; overall native capacity is unresolved.
+
+Build056 package SHA-256: `f1f400feb87cb90ca760f0aa8d4635774c93258a8563d4ddcc246aef7c9c59e8`.
