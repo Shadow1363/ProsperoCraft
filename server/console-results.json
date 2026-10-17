@@ -322,11 +322,20 @@
     },
     {
       "app_version": "01.000.034",
-      "console": "pending",
+      "console": "FAIL: user reports crash at verifying; logs stop at deliberate Java null preflight.",
       "changes": "PS5 signal mcontext starts0x40 rather than SDK0x10; route register reads and continuation writes through verified view. realpath EPERM fallback verifies non-link components with anchored openat. Harness preflight checks Java null recovery and real asset ZipFS. Fixed512KiB startup-tail endpoint; heap192MiB unchanged.",
       "checks": "PASS: literal PS5 signal-byte replay with actual SDK fields and continuation write isolation; target layout/IR; actual JNI realpath and real ZipFS mount/read; descriptor walk ASan/UBSan bounds, links and FD cleanup; native HTTP full/tail downloads and collector; descriptor report writer; consumer artifact/help preflight with null exception and asset mount. PASS: target hotspot/java.base-libs rebuild; signed container integrity; ZIP CRC/version034; both new preflight markers and nested helper; tail endpoint and signal continuation labels; retained symbols; target libjava/libverify/libnio/libjvm byte identity.",
-      "pending": "PS5 all five rows, null-exception recovery, canonical asset ZipFS and actual server ready/save/stop. Signal ABI defect is reproduced on host; whole-app crash resolution requires console retest.",
-      "package_sha256": "848e02fc6672db599c851cfdd5045eee2a0a533335afb04808d1299ea2a4b7b1"
+      "pending": "035 console recovery test; actual server ready/save/stop still pending.",
+      "package_sha256": "848e02fc6672db599c851cfdd5045eee2a0a533335afb04808d1299ea2a4b7b1",
+      "evidence": "Run01.000.034-1792225019-849496091; full native trace85362bytes and startup-tail524288bytes including earlier runs. Row3 stops at deliberate null access before inventory/asset checks. SIGSEGV fault0, corrected PC0x206083d8a equals raw offset0xe0; no continuation marker. Session remains RUN verification; exception placeholder; fatal report unavailable. Other endpoints not downloaded. Linked procctl disassembly issues raw syscall544; exact terminating instruction not proven."
+    },
+    {
+      "app_version": "01.000.035",
+      "console": "pending",
+      "changes": "PS5 signal handler excludes desktop FreeBSD procctl/sysctl stack-gap workaround, retaining JVM stack guard and implicit-exception checks. New triage/state/interpreter/null-continuation checkpoints. Deliberate Java null preflight retained; heap192MiB unchanged.",
+      "checks": "PASS: actual extracted triage block ASan/UBSan PS5/FreeBSD kernel-call instrumentation, JVM overflow checks and desktop guard adjustment; signal-register fixture/target IR; target HotSpot rebuild with signal object free of procctl/sysctlbyname references;11-library audit; signed container integrity; ZIP CRC/version035/continuation labels/preflight markers; retained symbols and target libjava/libverify/libnio/libjvm identity.",
+      "pending": "PS5 all five rows, actual null-exception continuation, asset ZipFS and server ready/save/stop. Desktop syscall failure is a hypothesis; corrected register reads alone did not prevent034 crash.",
+      "package_sha256": "17d71f2c4a4fe50407670a2ca46fdbfab3ffbfc5f90f4a38eeefba24bcc2572a"
     }
   ]
 }

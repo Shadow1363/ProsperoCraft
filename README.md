@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.034
+## Current development: server start probe 01.000.035
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -433,3 +433,9 @@ Build 033 target compilation, signed-container integrity, ZIP checks and target-
 Build 033 passed the earlier world metadata blocker, then reported native realpath EPERM while mounting the vanilla asset JAR. The complete native trace also exposed a signal ABI mismatch: HotSpot read a stack address as the interrupted PC because the SDK outer context lacks 48 reserved PS5 bytes. Runtime patches correct register reads and continuation writes, and add a descriptor-verified path fallback after EPERM. Link-dependent paths remain refused when native realpath cannot resolve them; the official game validator is unchanged.
 
 Build 034 adds early preflight checks that catch a Java null access and mount/read the actual vanilla asset JAR through ZipFS. Its log page offers a compact startup tail (last512KiB), preserving full historical downloads. Host replay, actual JNI/ZipFS tests, HTTP tests, target compilation and package integrity/library checks pass. **Live signal recovery, all five console rows and actual ready/save/stop remain pending.** Heap remains192MiB. Package SHA-256: `848e02fc6672db599c851cfdd5045eee2a0a533335afb04808d1299ea2a4b7b1`. No new passing milestone is claimed.
+
+## Null preflight crash in 01.000.034
+
+Build034 crashes during the deliberate Java null check in row3, before verifying JARs or mounting assets. The console confirms corrected interrupted-PC reads, but no continuation is recorded. The inherited FreeBSD signal handler queries desktop kernel stack-gap controls before exception handling; disassembly confirms the linked procctl uses a raw desktop syscall. The exact terminating instruction is still unknown.
+
+Build035 excludes that desktop-specific workaround on PS5 while preserving JVM stack guards and normal exception selection. Additional checkpoints narrow any remaining failure to stack triage, state/interpreter classification or continuation selection. The null preflight stays enabled. Actual-block host regressions and the target rebuild/package checks pass; **PS5 exception recovery, all five rows and real server ready/save/stop remain pending**. Package SHA-256: `17d71f2c4a4fe50407670a2ca46fdbfab3ffbfc5f90f4a38eeefba24bcc2572a`.
