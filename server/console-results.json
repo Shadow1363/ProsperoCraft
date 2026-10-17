@@ -295,11 +295,20 @@
     },
     {
       "app_version": "01.000.031",
-      "console": "pending",
+      "console": "FAIL: user reports whole-app crash after41seconds during server row.",
       "changes": "Runtime mutex reserve512\u21924096; on actual failed native init report leased/initialized counts,config/attribute match and caller; distinct event/parker/monitor product check labels. Conditions512/256 and heap192MiB unchanged. Exhaustion hypothesis remains unconfirmed by030.",
       "checks": "PASS: actual-header ASan/UBSan4096 unique leases, forced exhausted/native ENOMEM, reuse, exact exhaustion versus attribute-mismatch failure fields, locked EBUSY,native wait/signal/timeout,8000 concurrent lifetimes and cleanup; target no heap/compiler-TLS/guard IR; actual product-check constructor. PASS: target hotspot/java.base-libs rebuild; signed container integrity; ZIP CRC/version031/new failure and constructor labels; retained symbols; package target libjava/libverify/libjvm byte identity.",
-      "pending": "All five PS5 rows, successful early reserve counts, actual server ready/save/stop; root cause unresolved.",
-      "package_sha256": "5817e19dfe2405a911d70e5cc9db031ef341b1249470243efd85835952b66a43"
+      "pending": "032 condition reserve adjustment needs console retest;031 has no condition occupancy/domain/caller. Actual ready/save/stop unvalidated.",
+      "package_sha256": "5817e19dfe2405a911d70e5cc9db031ef341b1249470243efd85835952b66a43",
+      "evidence": "Run01.000.031-1792221784-166934058; startup44771584/current733815 bytes,trace933226,class1657532/12884records,resources4543 stopping43s at raw maxrss378352. All early pools initialized4096/512/256. Later cond_init returns12 ENOMEM; no mutex fallback failure; then signal during fatal reporting. No Java exception/native abort/completed fatal report; server blank. Resource units/limit not inferred."
+    },
+    {
+      "app_version": "01.000.032",
+      "console": "pending",
+      "changes": "Runtime relative/absolute condition reserves512/256\u21924096/2048; native failure records occupancy,domain,config and caller; event/monitor condition-init labels; guard unprimed snapshots. Mutex4096 and heap192MiB unchanged. Exact031 exhaustion/caller remains unestablished.",
+      "checks": "PASS: actual-header ASan/UBSan exhaust/reuse4096mutex,4096relative,2048absolute with late native init ENOMEM; distinct domain/exhaustion/custom-attribute diagnostics,errno preservation,locked EBUSY,native wait/signal/timeout,8000 concurrent lifetimes and cleanup; target no heap/compiler-TLS/guard IR; actual product-check constructor. PASS: target hotspot/java.base-libs rebuild; signed container integrity; ZIP CRC/version032/new condition failure and constructor labels; retained symbols; package target libjava/libverify/libjvm byte identity. Known writable-string warning only.",
+      "pending": "All five PS5 rows, successful early pool counts, actual server ready/save/stop; root cause not fully established.",
+      "package_sha256": "8e758fd3d6c76419b48d7f5913ae5bc907b626fca3d30374016439f76c78ae33"
     }
   ]
 }

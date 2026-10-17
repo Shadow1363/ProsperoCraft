@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.031
+## Current development: server start probe 01.000.032
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -413,3 +413,9 @@ Build 030 target compilation, signed-container integrity, ZIP checks and target-
 Build 030 initialized every early pool entry successfully, but still closed after a later mutex-init ENOMEM. Its capture does not record pool occupancy or identify the constructor. The generated-class workload can require additional metadata locks, making the 512-mutex reserve a plausible bottleneck. Build 031 expands the runtime mutex reserve to 4096 and reports exact pool occupancy, attribute matching and caller on native init failure, plus distinct event/parker/monitor labels. Condition capacities and the 192 MiB Java heap are unchanged. Host sanitizer checks cover all 4096 entries, exhaustion/reuse, incompatible attributes and the actual emitted failure fields. **This is a capacity adjustment and diagnostic build; PS5 server ready/save/stop is still unvalidated.**
 
 Build 031 target compilation, signed-container integrity, ZIP checks and target-library identity checks pass. Package SHA-256: `5817e19dfe2405a911d70e5cc9db031ef341b1249470243efd85835952b66a43`. PS5 testing remains pending.
+
+## Condition reserves in 01.000.032
+
+Build 031 initializes all 4096/512/256 native primitives and reaches 12,884 class records, compared with 4,245 in build 030. Its later failure is native condition initialization ENOMEM; no mutex fallback failure is recorded. Build 032 expands relative/absolute condition reserves to 4096/2048 and records occupancy, requested clock domain and caller on failed native initialization. Event/monitor condition checks have distinct labels; parker retains relative/absolute labels. Mutex capacity 4096 and Java heap 192 MiB remain. Host tests cover each full condition reserve, exhaustion/reuse and the actual failure fields. **PS5 startup/save/stop remains unvalidated; condition-pool exhaustion is not established by the 031 capture.**
+
+Build 032 target compilation, signed-container integrity, ZIP checks and target-library identity checks pass. Package SHA-256: `8e758fd3d6c76419b48d7f5913ae5bc907b626fca3d30374016439f76c78ae33`. PS5 testing remains pending.
