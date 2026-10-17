@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.048
+## Current development: server start probe 01.000.049
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -724,3 +724,31 @@ Actual formatter ASan/UBSan tests and target build pass. **All048 PS5 rows,
 trace usefulness, native fault resolution and readiness/save/stop remain pending.**
 
 Build048 package checks pass; SHA-256: `c4b44bf6871d7c8023b7cb8c8a8c09a4bced523e5b5139e616bc51619cc0a74a`.
+
+
+## Build048 identifies JFR default-directory query; build049 repair
+
+The user reports048 crashed/relaunched. Run
+`01.000.048-1792246886-523251605` remains marked RUN; the full downloaded trace
+captures an unresumed native signal. Its latest same-thread native preparation
+is `jdk.jfr.internal.JVM.setDumpPath(String)` with target0xa2f590. Exact048 ELF
+symbols confirm the0x400000 load offset and native jfr_set_dump_path address.
+The null/empty setter branch calls os::get_current_directory; its dump buffer
+symbol maps to the captured0x2a43860 argument and the captured0x401 length
+matches1025bytes. Fault PC0x100026c946 is outside the app. There is no captured
+native fatal OOM or VM ABORT. Preparation alone is incomplete call tracking;
+matching target, arguments and disassembly identify this default cwd query.
+
+Build049 pins a runtime repair that defaults PS5 JFR emergency dumps to the
+real application-visible `/download0`, covering both the setter and empty-global
+fallback. Explicit nonempty paths and normal file-open/write failure behavior
+are retained. The helper does not create a directory or disable JFR. Other
+platforms retain their cwd lookup. Native diagnostics and160MiB heap remain.
+
+Actual JFR path helper/get/set ASan/UBSan tests pass null/empty/default fallback,
+explicit/max/oversize paths, buffer bounds and desktop behavior. Target rebuild
+passes; its JFR emergency-dump object has no cwd-query dependency. **All049 PS5
+rows, JFR initialization/output and real readiness/save/stop remain pending.**
+Overall native capacity and discovery DNS remain unresolved.
+
+Build049 package checks pass; SHA-256: `9a4407ef9da7b47bd05f43c5767b34c101df30d103b99bf5790223e41a8e98b9`.

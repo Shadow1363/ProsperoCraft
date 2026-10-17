@@ -449,12 +449,22 @@
     },
     {
       "app_version": "01.000.048",
-      "console": "pending",
+      "console": "FAIL: human reports crash/relaunch; saved session still RUN, native trace captures unresumed external signal.",
       "changes": "Diagnostic runtime trace around InterpreterRuntime native preparation: begin, native lookup complete and signature installation complete; bounded holder/name/signature/thread/target output. Preparation events do not identify every active JNI call. Native lookup/handler behavior and160MiB heap/8MiB worker unchanged. No confirmed fault repair.",
       "checks": "PASS: actual native-preparation formatter ASan/UBSan length-delimited Symbol-like slices, truncation/nonprintable/null-empty/target-thread identities/concurrent formatting with stubbed trace IO; target hotspot/java.base-libs; signed eboot/libc integrity; ZIP CRC/version048; native diagnostic labels and160MiB flag in packaged eboot; target libjava/libverify/libjvm byte identity; retained048 symbols/matching packages. Consumer Java/heap unchanged from047 host160MiB Done/save/stop. Console pending.",
       "max_heap_mib": 160,
       "package_sha256": "c4b44bf6871d7c8023b7cb8c8a8c09a4bced523e5b5139e616bc51619cc0a74a",
-      "pending": "All048 PS5 rows; native-preparation evidence, external signal cause and actual readiness/save/stop; capacity unknown."
+      "pending": "049 JFR default-directory repair needs PS5 validation; overall native capacity, discovery DNS and actual readiness/save/stop remain unresolved.",
+      "evidence": "Run01.000.048-1792246886-523251605. Full saved trace latest same-thread native preparation is jdk/jfr/internal/JVM.setDumpPath(String), resolved0xa2f590, lookup/signature complete. Exact048 ELF jfr_set_dump_path0x62f590 and handler0xa2b030 confirm0x400000 offset. JFR set_dump_path null/empty branch tail-calls os::get_current_directory with _dump_path; symbol0x2643860+offset=0x2a43860 matches captured argument buffer, captured size0x401 matches1025. Faultpc0x100026c946 outside app, thread native; no native fatal OOM/VM ABORT/termination captured. Preparation alone is not active invocation proof, but target/arguments/disassembly identify JFR default cwd query. No real Done/save/stop. Server console not collected this run."
+    },
+    {
+      "app_version": "01.000.049",
+      "console": "pending",
+      "changes": "PS5 JFR emergency dump defaults use real application-visible/download0 for null/empty setter and empty-global fallback; explicit paths and normal dump-open/write failure behavior retained; other platforms retain cwd query. No JFR disabling.160MiB heap and native-preparation trace retained.",
+      "checks": "PASS: actual JFR default/helper/get/set path bodies ASan/UBSan null/empty/global fallback without PS5 cwd query, explicit/max/oversize behavior and buffer bounds; desktop cwd path retained. Target hotspot/java.base-libs build and actual JFR object has no cwd dependency. Signed eboot/libc integrity; ZIP CRC/version049;160MiB flag/native diagnostic labels in packaged eboot; target libjava/libverify/libjvm identities; retained symbols and matching package copies. Consumer harness unchanged from047 host160MiB ready/save/stop. Console/file writes pending.",
+      "max_heap_mib": 160,
+      "package_sha256": "9a4407ef9da7b47bd05f43c5767b34c101df30d103b99bf5790223e41a8e98b9",
+      "pending": "All049 PS5 rows, JFR default directory initialization/output and actual readiness/save/stop; native capacity/DNS unresolved."
     }
   ]
 }
