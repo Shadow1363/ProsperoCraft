@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.043
+## Current development: server start probe 01.000.044
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -571,3 +571,31 @@ source and direct-buffer cleanup. Target build passes. **All043 PS5 rows and
 real readiness/save/stop remain pending.** Discovery DNS remains unresolved.
 
 Build043 package SHA-256: `f523a0dceb4fc068fcee45af35dd6a3304b30c396c7751a42b3be92eb6bf761c`.
+
+
+## Build043 medium class scratch failure; build044 reusable storage
+
+The user reports043 failed without crashing. Live session
+`01.000.043-1792234015-586564080` confirms a returned server-row failure.
+Its saved console advances beyond the earlier lambda-definition failure to
+`ExecuteCommand.addConditionals`, where an ordinary class triggers class-byte
+scratch OOM. The startup tail records20257bytes with a refused32768-byte mapping
+(ENOMEM). The wrapper then reports a Java fixture exception; server readiness,
+save and stop did not pass. Full native trace was not retrieved for this run.
+The separate discovery DNS failure remains.
+
+Build044 pins four exclusive reusable32KiB scratch leases in the PS5 classloader.
+Libc remains first; after refusal, eligible requests try an atomic lease before
+mmap. Pool exhaustion and >32KiB requests retain real mmap and OOM behavior.
+The4KiB local small-class buffer remains. This adds about128KiB fixed BSS plus
+headers; recursive/concurrent definitions cannot share an active lease. Normal
+JNI copy/range checks and JVM verification are retained. Native resource limits,
+BSS backing on console and later metadata exhaustion remain unproven.
+
+Actual-helper ASan/UBSan tests cover simultaneous20257-byte leases, exclusivity,
+exhaustion, actual mmap fallback, size boundaries, reuse and concurrent ownership.
+Actual JNI UBSan/full-verification tests execute medium ordinary/hidden classes
+with both backends refused and retain >32KiB allocation/OOM checks. Target build
+passes. **All044 PS5 rows and real readiness/save/stop remain pending.**
+
+Build044 package SHA-256: `9c617614a4f4e2627521e255181d9319574848e7bc8f9542f4701c8c75e91bd9`.

@@ -403,11 +403,20 @@
     },
     {
       "app_version": "01.000.043",
-      "console": "pending",
+      "console": "FAIL: user reports failed without crashing; live session returned server-row FAIL.",
       "changes": "PS5 defineClass0/1 byte-array scratch uses bounded4096-byte local buffer for small classes; larger classes retain libc/mmap and real failure. JNI copy/range/verification unchanged. Compatible-slab reuse retained. Heap192MiB/worker8MiB stack unchanged; each definition adds4KiB native frame usage.",
       "checks": "PASS: actual ClassLoader.c JNI UBSan/-Xverify:all small ordinary/hidden class execution with both backends denied, large heap/mmap success and OOM, zero/4096/4097 boundaries, malformed/range/long UTF/direct-buffer cleanup; target hotspot/java.base-libs; signed eboot/libc integrity; ZIP CRC/version043; target libjava/libverify/libjvm byte identity; retained symbols and matching package copies. Harness unchanged from041 host ready/save/stop pass. Console pending.",
       "package_sha256": "f523a0dceb4fc068fcee45af35dd6a3304b30c396c7751a42b3be92eb6bf761c",
-      "pending": "All043 PS5 rows; recursive stack demand, native exhaustion and actual readiness/save/stop."
+      "pending": "Native capacity/cause and real ready/save/stop unresolved;044 scratch-pool effect requires console test; other043 rows not reported.",
+      "evidence": "Run01.000.043-1792234015-586564080. Saved current server.log records datapack load class-byte scratch OOM at defineClass1 while ExecuteCommand.addConditionals loads an ordinary class, past prior generated-class site. Startup tail records20257-byte request,32768-byte mmap refusal errno12; wait-for-Done stage then Java exception report and fixture failure. No Done/save/stop. Full native trace not collected this run; no claim about its absent markers. Discovery DNS still UnknownHostException."
+    },
+    {
+      "app_version": "01.000.044",
+      "console": "pending",
+      "changes": "Four exclusive32KiB reusable classloader scratch leases after libc refusal and before mmap; pool exhaustion/large requests retain real failure. About128KiB BSS overhead;4KiB local small-class path retained; heap192MiB/worker8MiB unchanged. Overall exhaustion unresolved.",
+      "checks": "PASS: actual scratch helpers ASan/UBSan four simultaneous20257-byte leases, alignment/exclusivity/exhaustion/real mmap fallback/0 through32769 and overflow/reuse/concurrency; actual ClassLoader.c JNI UBSan/-Xverify:all medium ordinary/hidden execution with both backends denied, >32KiB heap/mmap/OOM and malformed/range/UTF/direct cleanup; target hotspot/java.base-libs; two signed-container integrity checks; ZIP CRC/version044; target libjava/libverify/libjvm byte identity; retained symbols/matching package copies. Consumer harness unchanged from041 host ready/save/stop. Console pending.",
+      "package_sha256": "9c617614a4f4e2627521e255181d9319574848e7bc8f9542f4701c8c75e91bd9",
+      "pending": "All044 PS5 rows, scratch-pool backing/effect and actual readiness/save/stop; native capacity/cause unknown."
     }
   ]
 }
