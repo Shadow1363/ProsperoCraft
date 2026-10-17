@@ -16,6 +16,11 @@ public class ServerPreflight25 {
    stage="exercise Java null exception and signal continuation";trace(stage);
    try{readNullProbe(null);throw new AssertionError("Missing null exception");}catch(NullPointerException expected){}
    System.out.println("MC_NULL_EXCEPTION_OK normal Java null exception caught");
+   stage="exercise native ZIP compression allocations";trace(stage);
+   byte[] zipInput=new byte[65536],zipEncoded=new byte[66000],zipOutput=new byte[65536];new Random(38).nextBytes(zipInput);int zipSize;
+   try(var deflater=new java.util.zip.Deflater()){deflater.setInput(zipInput);deflater.finish();zipSize=deflater.deflate(zipEncoded);if(!deflater.finished())throw new IOException("ZIP preflight compression incomplete");}
+   try(var inflater=new java.util.zip.Inflater()){inflater.setInput(zipEncoded,0,zipSize);if(inflater.inflate(zipOutput)!=zipInput.length||!inflater.finished()||!Arrays.equals(zipInput,zipOutput))throw new IOException("ZIP preflight decompression mismatch");}
+   System.out.println("MC_ZIP_STREAM_OK native deflate/inflate allocations and content verified");
    Path root=Path.of(System.getProperty("ps5.mc.assets","/app0/assets/java25"));
    Properties inventory=new Properties();try(var input=Files.newInputStream(root.resolve("server-inventory.properties"))){inventory.load(input);}
    if(inventory.size()!=40)throw new AssertionError("Expected 40 pinned JARs");

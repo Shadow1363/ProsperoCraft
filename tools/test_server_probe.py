@@ -22,7 +22,7 @@ with tempfile.TemporaryDirectory() as directory:
         output=result.stdout+result.stderr;(ROOT/'build'/('host-'+fixture+'.log')).write_text(output)
         assert result.returncode==0 and marker in output,output[-5000:]
         if fixture=='ServerPreflight25':
-            assert 'MC_NULL_EXCEPTION_OK' in output and 'MC_ASSET_ZIPFS_OK' in output,output[-5000:]
+            assert 'MC_NULL_EXCEPTION_OK' in output and 'MC_ASSET_ZIPFS_OK' in output and 'MC_ZIP_STREAM_OK' in output,output[-5000:]
         print('PASS:',fixture,marker)
     assert not (Path(directory)/'eula.txt').exists() and not (Path(directory)/'world').exists()
     print('PASS: official --help returns without EULA acceptance or world creation')

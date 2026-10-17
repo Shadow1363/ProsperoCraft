@@ -349,11 +349,20 @@
     },
     {
       "app_version": "01.000.037",
-      "console": "pending",
+      "console": "FAIL verification directory iteration EINVAL; server datapack Inflater.init native OOM; DNS warning also recorded.",
       "changes": "PS5 JNI directory stream uses mapped private handle with genuine resident open/libkernel sceKernelGetdents, bounded wire parsing, encoded error propagation and cleanup. Access EPERM fallback checks actual non-creating read/write opens plus metadata/close; no execute/search inference. Separate per-test verification/server exception endpoints, archive/reset/collector. Preflight isolates READ access, packaged directory enumeration and ZipFS mount. Heap192MiB unchanged.",
       "checks": "PASS: actual JNI directory open/read/close in host JVM with PS5 non-secure-directory capability, real Files.walk/Unicode/link/missing/non-directory/repeated cleanup; actual helper ASan/UBSan malformed/truncated/oversized/embedded-NUL records, SCE errors/EINTR/EOF/sticky failure; actual JNI access EPERM real operations and ZipFS mount/read, no execute inference/non-EPERM errors/unchanged contents; consumer artifact/access/directory/ZipFS and help preflight; HTTP independent reports/archive/collector; descriptor report writer; target java.base-libs rebuild and libkernel directory import;11-library audit; signed containers/ZIP CRC/version037/report paths/new stages; retained symbols and target libjava/libverify/libnio/libjvm byte identity.",
-      "pending": "PS5 all five rows, real directory enumeration/access/ZipFS and actual server ready/save/stop.036 app survival confirmed by user; full server pass not established.",
-      "package_sha256": "f081c082bdc1a1f0c872935207cc21756e8a3ccde37e8bbb80f651d58f1ba343"
+      "pending": "038 directory ABI/native ZIP allocation retest; service-discovery DNS unresolved; no real ready/save/stop yet.",
+      "package_sha256": "f081c082bdc1a1f0c872935207cc21756e8a3ccde37e8bbb80f651d58f1ba343",
+      "evidence": "Run01.000.037-1792227908-101637862; full native1169036bytes,server8689bytes and independent server exception9034bytes downloaded; verification/session transcribed. Read access and canonicalization pass; verification fails directory iteration with EINVAL. Server reaches datapack loading then fails native Inflater.init OOM through ZipFS. Reported heap free17297224bytes; not proof of Java heap exhaustion. Separate discovery.minecraftservices.com UnknownHostException/services unavailable. No all-pass or ready/save/stop result. Other reports not collected."
+    },
+    {
+      "app_version": "01.000.038",
+      "console": "pending",
+      "changes": "Resident directory ABI fallback after initial getdents EINVAL/ENOSYS only, successful rewind and no entries delivered; no replay afterward. PS5 native Inflater/Deflater stream and internal zlib callbacks use aligned libc-first/mapped allocation ownership with overflow/zeroing/matched cleanup; genuine OOM retained. Early compressed roundtrip preflight. Heap192MiB unchanged.",
+      "checks": "PASS: actual complete Inflater/Deflater JNI with all natives registered, actual host zlib, libc refusal,128 raw/wrapped roundtrips, compressed ZipFS create/read, limited mapping-budget OOM and cleanup; actual allocator ASan/UBSan zeroing/alignment/overflow/errno and1024 zlib lifetimes; actual directory/JNI host tests plus initial alternate success/failure and no-replay after delivery; consumer compression/access/directory/ZipFS preflight and help; target java.base-libs rebuild;11-library audit; native alternate directory import; signed containers; ZIP CRC/version038/compression marker/report paths; retained symbols and target libjava/libverify/libnio/libzip/libjvm byte identity.",
+      "pending": "All five PS5 rows; actual alternate directory ABI and native stream/internal zlib allocations; real server ready/save/stop. Discovery-service DNS failure remains unresolved and may need separate diagnosis; no address pin/authentication bypass.",
+      "package_sha256": "12dbc7f95c20837c314af3950e7c5780e8eb956f089fadcb8b564ee850985e25"
     }
   ]
 }

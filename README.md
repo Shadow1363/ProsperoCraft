@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.037
+## Current development: server start probe 01.000.038
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -455,3 +455,11 @@ Build036 survives both verification and server-start failures, with the log serv
 Build037 pins resident libkernel directory enumeration with bounded record parsing and actual errors, plus descriptor-based read/write access checks after native EPERM. Execute/search permissions are never inferred; official world validation remains unchanged. Preflight separates readable-access, actual directory iteration and ZIP mounting. Verification and server exceptions now have separate links on the log page, preserving both when subsequent tests run. They are archived/reset for an explicitly initialized new run and retained on relaunch.
 
 Host actual JNI/directory/ZipFS tests, malformed-record sanitizer tests, HTTP/archive checks, target compilation and package checks pass. **All five PS5 rows and real server ready/save/stop remain pending.** Package SHA-256: `f081c082bdc1a1f0c872935207cc21756e8a3ccde37e8bbb80f651d58f1ba343`.
+
+## Directory ABI and native compression in 01.000.038
+
+Build037 confirms readable asset access and canonicalization. Verification fails directory iteration with Invalid argument. The server reaches datapack loading, then native Inflater.init throws OutOfMemoryError through compressed ZipFS input. This is a native allocation path; the Java heap still reports free space. Minecraft service discovery also reports a separate DNS failure, which remains unresolved. Independent verification/server reports are now captured successfully.
+
+Build038 tries the alternate resident directory API only after an initial unsupported-call response and successful rewind, with no entries delivered; it never replays after delivery. PS5 Inflater/Deflater stream and private zlib allocations gain a libc-first mapped fallback with overflow checks and matched cleanup. Both backends failing remains genuine OOM. Preflight now checks a real native compressed roundtrip before assets. Heap remains192MiB; authentication, game code and archive checks remain intact.
+
+Actual JNI/zlib/ZipFS and sanitizer tests, target compilation and package checks pass. **All five PS5 rows, actual server ready/save/stop and the discovery DNS result remain pending.** Package SHA-256: `12dbc7f95c20837c314af3950e7c5780e8eb956f089fadcb8b564ee850985e25`.
