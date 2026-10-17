@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.044
+## Current development: server start probe 01.000.045
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -599,3 +599,40 @@ with both backends refused and retain >32KiB allocation/OOM checks. Target build
 passes. **All044 PS5 rows and real readiness/save/stop remain pending.**
 
 Build044 package SHA-256: `9c617614a4f4e2627521e255181d9319574848e7bc8f9542f4701c8c75e91bd9`.
+
+
+## Build044 native arena abort
+
+The user reports044 crashed and relaunched. Current saved run
+`01.000.044-1792234674-244574062` records VM ABORT. The full native trace
+identifies a32752-byte allocation refusal in `arena.cpp:186`, `Chunk::new`;
+the raw backend requested49152 mapped bytes and received ENOMEM. The process
+then aborts and exits1, without a captured signal marker. Saved server output
+ends at new-world creation, without a class-byte scratch OOM or real Done.
+This does not establish scratch-pool success or its causal role; overall native
+capacity remains unknown. Discovery DNS remains unresolved.
+
+The allocator adds a32-byte ownership header. The near32KiB arena request
+therefore crosses a16KiB page boundary and needs48KiB. Runtime patch0071
+increases the PS5 arena sizing allowance so a default chunk plus real Chunk,
+raw header and optional NMT overhead fits32KiB. Existing growth, ownership,
+alignment and real OOM propagation remain. This corrects measurable page
+waste without establishing sufficient total console memory.
+
+
+Build045 reduces only the default arena payload by88 bytes so its allocation
+fits32KiB including backend/tracking overhead. Tiny/initial/medium sizes remain
+unchanged. A target static assertion checks actual layouts. Actual allocator
+and os.cpp API sanitizer tests use the exact arena enum, a Chunk layout/NMT
+contract model and16KiB pages: the revised request succeeds with a32KiB mapping
+cap and the old32752-byte request fails. This is host evidence, not a console
+pass. Heap192MiB, worker8MiB and prior scratch fixes remain unchanged.
+**All045 PS5 rows and actual ready/save/stop remain pending.**
+
+Build044 resource measurements end58s at `maxrss_raw=504784`; units and the
+console memory limit are not inferred. The arena overhead correction does not
+establish that overall native exhaustion is solved.
+
+Final target rebuild and package checks pass. Initial compile was restarted after
+a source-header edit invalidated its precompiled header; the final rebuild passed.
+Build045 package SHA-256: `f59d9ffedfc4e1e9548b01dc18bf4c8f430997ef4be93dc0e20a38f599d6d754`.

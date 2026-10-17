@@ -412,11 +412,20 @@
     },
     {
       "app_version": "01.000.044",
-      "console": "pending",
+      "console": "FAIL: user reports crash and relaunch; current saved run records VM ABORT.",
       "changes": "Four exclusive32KiB reusable classloader scratch leases after libc refusal and before mmap; pool exhaustion/large requests retain real failure. About128KiB BSS overhead;4KiB local small-class path retained; heap192MiB/worker8MiB unchanged. Overall exhaustion unresolved.",
       "checks": "PASS: actual scratch helpers ASan/UBSan four simultaneous20257-byte leases, alignment/exclusivity/exhaustion/real mmap fallback/0 through32769 and overflow/reuse/concurrency; actual ClassLoader.c JNI UBSan/-Xverify:all medium ordinary/hidden execution with both backends denied, >32KiB heap/mmap/OOM and malformed/range/UTF/direct cleanup; target hotspot/java.base-libs; two signed-container integrity checks; ZIP CRC/version044; target libjava/libverify/libjvm byte identity; retained symbols/matching package copies. Consumer harness unchanged from041 host ready/save/stop. Console pending.",
       "package_sha256": "9c617614a4f4e2627521e255181d9319574848e7bc8f9542f4701c8c75e91bd9",
-      "pending": "All044 PS5 rows, scratch-pool backing/effect and actual readiness/save/stop; native capacity/cause unknown."
+      "pending": "045 arena page-overhead repair needs PS5 test; overall native memory capacity/cause and real ready/save/stop unresolved.",
+      "evidence": "Run01.000.044-1792234674-244574062. Full native trace identifies failed32752-byte request requiring49152-byte mapping errno12, fatal OOM at arena.cpp:186 Chunk::new, then VM ABORT/_exit1. No captured SIGNAL marker. Server console ends creating new world; no class-byte OOM in saved console, no Done/save/stop. Compatible slab borrowing continues. Scratch-pool causality/backing not established; overall resource limit unknown. Discovery DNS still fails. Resource samples end58s maxrss_raw504784; units/limit not inferred."
+    },
+    {
+      "app_version": "01.000.045",
+      "console": "pending",
+      "changes": "PS5 default arena chunk uses128-byte allowance for Chunk/raw-backend/NMT overhead, avoiding old32752+32-byte request spilling into48KiB mapping. Default payload32640; tiny/initial/medium sizes and real OOM unchanged. Heap192MiB/worker8MiB and prior scratch fixes retained. Overall native exhaustion unresolved.",
+      "checks": "PASS: actual raw allocator/os.cpp ASan/UBSan regression uses exact arena enum and Chunk/NMT layout contracts with16KiB page model, new default request fits32KiB mapping cap while old32752-byte request fails; tracking-off/on models and existing allocator/concurrency/cleanup checks; final target HotSpot/java.base-libs rebuild with real-layout static assertion; signed eboot/libc integrity; ZIP CRC/version045; target libjava/libverify/libjvm byte identity; retained symbols and matching packages. Initial build interrupted by edited-header/PCH invalidation; final rebuild passed. Console pending.",
+      "package_sha256": "f59d9ffedfc4e1e9548b01dc18bf4c8f430997ef4be93dc0e20a38f599d6d754",
+      "pending": "All045 PS5 rows; reduced arena mapping pressure and actual readiness/save/stop; native capacity unknown."
     }
   ]
 }
