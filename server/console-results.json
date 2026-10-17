@@ -358,11 +358,20 @@
     },
     {
       "app_version": "01.000.038",
-      "console": "pending",
+      "console": "FAIL verification directory EINVAL; user reports whole-app crash59seconds into server row.",
       "changes": "Resident directory ABI fallback after initial getdents EINVAL/ENOSYS only, successful rewind and no entries delivered; no replay afterward. PS5 native Inflater/Deflater stream and internal zlib callbacks use aligned libc-first/mapped allocation ownership with overflow/zeroing/matched cleanup; genuine OOM retained. Early compressed roundtrip preflight. Heap192MiB unchanged.",
       "checks": "PASS: actual complete Inflater/Deflater JNI with all natives registered, actual host zlib, libc refusal,128 raw/wrapped roundtrips, compressed ZipFS create/read, limited mapping-budget OOM and cleanup; actual allocator ASan/UBSan zeroing/alignment/overflow/errno and1024 zlib lifetimes; actual directory/JNI host tests plus initial alternate success/failure and no-replay after delivery; consumer compression/access/directory/ZipFS preflight and help; target java.base-libs rebuild;11-library audit; native alternate directory import; signed containers; ZIP CRC/version038/compression marker/report paths; retained symbols and target libjava/libverify/libnio/libzip/libjvm byte identity.",
-      "pending": "All five PS5 rows; actual alternate directory ABI and native stream/internal zlib allocations; real server ready/save/stop. Discovery-service DNS failure remains unresolved and may need separate diagnosis; no address pin/authentication bypass.",
-      "package_sha256": "12dbc7f95c20837c314af3950e7c5780e8eb956f089fadcb8b564ee850985e25"
+      "pending": "039 aligned-buffer hypothesis and native caller evidence require console test. Crash cause/DNS/ready-save-stop unresolved.",
+      "package_sha256": "12dbc7f95c20837c314af3950e7c5780e8eb956f089fadcb8b564ee850985e25",
+      "evidence": "Run01.000.038-1792228544-103686919; user reports verification FAIL then whole-app crash59seconds into server row. Complete native trace1274827bytes; verification/session transcribed. Directory iteration EINVAL persists after early compression preflight. Signal PC=fault0x100026c946, state4/native, outside app image; nested signal repeats address. Last completed memset caller resolves vtable initialization, not fault caller. No fatal report available. Server browser begins discovery DNS failure; full server/startup downloads blocked by disabled Firefox Save and canceled. No complete report-set claim."
+    },
+    {
+      "app_version": "01.000.039",
+      "console": "pending",
+      "changes": "Directory records move from interior handle storage to dedicated page-aligned64KiB mapping; separate descriptor/handle/buffer partial-init and close cleanup, fixed backend/alternate/error checkpoints. Native signal evidence captures bounded saved-stack words and monotonic frame links within actual thread bounds, skipping nested-signal sampling. This is diagnostic work; alignment is an unproven EINVAL hypothesis, and native crash cause remains unresolved. Heap192MiB unchanged.",
+      "checks": "PASS: actual bounded sampler ASan/UBSan guarded mappings, alignment/range/overflow/reversed ranges and cyclic/monotonic frame chains; target sampler IR without allocator/TLS/initializer guard; existing signal-context literal replay and target offsets; actual JNI directory Files.walk/Unicode/link/errors/repeated cleanup and malformed-record/alternate/no-replay tests with separate mapped buffer; target HotSpot/java.base-libs rebuild;11-library audit; signed containers; ZIP CRC/version039/stack+directory checkpoints/compression marker; retained symbols and target libjava/libverify/libnio/libzip/libjvm byte identity.",
+      "pending": "PS5 all five rows; directory EINVAL/alternate ABI/buffer hypothesis; exact external native crash caller and real ready/save/stop. Directory buffering is a portability adjustment, stack capture is diagnostic; no confirmed crash fix. Discovery DNS remains unresolved.",
+      "package_sha256": "f6c68ef2fcadbcccb7f6547f79af1b5ee0ecfd2f92e760e015b1ae419cb2f506"
     }
   ]
 }

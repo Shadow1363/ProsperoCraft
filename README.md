@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.038
+## Current development: server start probe 01.000.039
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -463,3 +463,11 @@ Build037 confirms readable asset access and canonicalization. Verification fails
 Build038 tries the alternate resident directory API only after an initial unsupported-call response and successful rewind, with no entries delivered; it never replays after delivery. PS5 Inflater/Deflater stream and private zlib allocations gain a libc-first mapped fallback with overflow checks and matched cleanup. Both backends failing remains genuine OOM. Preflight now checks a real native compressed roundtrip before assets. Heap remains192MiB; authentication, game code and archive checks remain intact.
 
 Actual JNI/zlib/ZipFS and sanitizer tests, target compilation and package checks pass. **All five PS5 rows, actual server ready/save/stop and the discovery DNS result remain pending.** Package SHA-256: `12dbc7f95c20837c314af3950e7c5780e8eb956f089fadcb8b564ee850985e25`.
+
+## Native crash evidence in 01.000.039
+
+Build038 fails directory verification with Invalid argument after the early compression check, and the user reports a whole-app crash59seconds into server startup. The saved trace records a native-state signal with PC and fault address0x100026c946 outside the app image, then another signal during error handling. The prior completed memset record is not the faulting call. No completed fatal report or native caller stack was available. The server page begins with discovery DNS failure; full server/startup files could not be saved this turn.
+
+Build039 separates directory bytes into a dedicated page-aligned64KiB mapping and records which directory API enters/retries/fails. This removes a buffer-layout assumption; alignment/size is not yet proven the cause of EINVAL. New signal diagnostics sample saved stack words and monotonic frame links within the actual thread bounds, with nested-signal sampling skipped. They are bounded best-effort evidence, not protection from every corrupt/unreadable stack page. **The native crash cause remains unresolved; this is a diagnostic development build.**
+
+Host sanitizer/target-code tests, target rebuilds and package checks pass. All five PS5 rows, directory enumeration, native caller capture and real ready/save/stop remain pending; DNS remains separate. Heap stays192MiB. Package SHA-256: `f6c68ef2fcadbcccb7f6547f79af1b5ee0ecfd2f92e760e015b1ae419cb2f506`.
