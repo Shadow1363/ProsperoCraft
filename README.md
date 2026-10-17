@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.039
+## Current development: server start probe 01.000.040
 
 The five rows initialize the runtime, create a 192 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -473,3 +473,11 @@ Build039 separates directory bytes into a dedicated page-aligned64KiB mapping an
 Host sanitizer/target-code tests, target rebuilds and package checks pass. All five PS5 rows, directory enumeration, native caller capture and real ready/save/stop remain pending; DNS remains separate. Heap stays192MiB. Package SHA-256: `f6c68ef2fcadbcccb7f6547f79af1b5ee0ecfd2f92e760e015b1ae419cb2f506`.
 
 Build039 console update: verification now **passes on PS5**, but flat-world startup still crashes. The reopened session records a native VM abort for run `01.000.039-1792229683-675501422`. The full native trace has not yet been retrieved because Firefox’s Save dialog is disabled; the caller and a repair remain unresolved. This establishes verification progress only; server readiness, save and stop remain unvalidated.
+
+## Native OOM and fatal-reporting repair in 01.000.040
+
+Build039 verification passes on PS5. Its saved native frame chain identifies a native allocation failure in the class dictionary, followed by a signal in the desktop core-path query during fatal reporting. Small allocations were refused64KiB slabs; the console memory limit remains unknown.
+
+Build040 pins a runtime repair that reports no desktop core path on PS5, allowing normal fatal reporting to continue, and retries a minimal real mapped slab when the64KiB request is refused. If both mappings fail, native OOM remains a real failure. Actual-body host sanitizer tests and target compilation pass. **PS5 startup, real readiness/save/stop and failure-report survival require retesting.** No heap increase or game validation changes are included.
+
+The subsequently saved039 trace confirms native OOM followed by a current-directory query fault during fatal reporting. Build040 package SHA-256: `42caf2dc57df38b7b8348f3bafdcda0abb0c8f4c81391b1a92d05d5560e17502`. Console results remain pending.

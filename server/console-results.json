@@ -370,9 +370,17 @@
       "console": "FAIL: verification PASS; user reports whole-app crash during flat-world startup.",
       "changes": "Directory records move from interior handle storage to dedicated page-aligned64KiB mapping; separate descriptor/handle/buffer partial-init and close cleanup, fixed backend/alternate/error checkpoints. Native signal evidence captures bounded saved-stack words and monotonic frame links within actual thread bounds, skipping nested-signal sampling. This is diagnostic work; alignment is an unproven EINVAL hypothesis, and native crash cause remains unresolved. Heap192MiB unchanged.",
       "checks": "PASS: actual bounded sampler ASan/UBSan guarded mappings, alignment/range/overflow/reversed ranges and cyclic/monotonic frame chains; target sampler IR without allocator/TLS/initializer guard; existing signal-context literal replay and target offsets; actual JNI directory Files.walk/Unicode/link/errors/repeated cleanup and malformed-record/alternate/no-replay tests with separate mapped buffer; target HotSpot/java.base-libs rebuild;11-library audit; signed containers; ZIP CRC/version039/stack+directory checkpoints/compression marker; retained symbols and target libjava/libverify/libnio/libzip/libjvm byte identity.",
-      "pending": "Complete native trace/caller identification and repair; actual server ready/save/stop and clean shutdown. No new passing milestone.",
+      "pending": "040 repairs need PS5 test; native memory limit and actual ready/save/stop unresolved.",
       "package_sha256": "f6c68ef2fcadbcccb7f6547f79af1b5ee0ecfd2f92e760e015b1ae419cb2f506",
-      "evidence": "Run 01.000.039-1792229683-675501422. User confirms verification PASS and crash during flat-world startup. Browser session confirms VM ABORT after reopening without tests. Abort endpoint begins VM ABORT (see last startup stage). Full native trace not retrieved: Firefox Save dialog disabled; canceled. Exact crash caller remains unresolved; no claim of a complete report set."
+      "evidence": "Complete saved native trace from user download, run01.000.039-1792229683-675501422. Frame chain resolves ConcurrentHashTable dictionary insertion -> AllocateHeap -> report_vm_out_of_memory -> VMError -> core-dump prerequisites -> get_core_path. Matching039 disassembly return0xa1e277 follows get_current_directory/getcwd; signal PC=fault0x100026c946. Small slab allocation failures record ENOMEM for64KiB. Trace ends VM ABORT/_exit1. Server log not retrieved. Native memory limit not established."
+    },
+    {
+      "app_version": "01.000.040",
+      "console": "pending",
+      "changes": "PS5 core path returns unavailable without desktop getcwd/getprogname in fatal handling. Small native slabs retry one minimal page-rounded mapping after64KiB refusal, retaining genuine failure when both fail. Heap192MiB and passing verification unchanged.",
+      "checks": "PASS: actual PS5 core-path body ASan/UBSan zero-size/bounds/no desktop queries; actual allocator and os API/NMT-contract tests ASan/UBSan including64KiB refusal/smaller mapping success, complete refusal/real OOM, all size classes, resize preservation, concurrent lifetimes and cleanup; target HotSpot/java.base-libs build;11-library audit; signed containers; ZIP CRC; version040; retained symbols; target native library byte identity. Target core-path disassembly returns0 with no calls.",
+      "pending": "All PS5 rows; startup/save/stop, native OOM recovery and failure-report survival.",
+      "package_sha256": "42caf2dc57df38b7b8348f3bafdcda0abb0c8f4c81391b1a92d05d5560e17502"
     }
   ]
 }
