@@ -21,6 +21,8 @@ with tempfile.TemporaryDirectory() as directory:
         result=subprocess.run([str(JDK/'bin/java'),'-Xint','-Xmx128m',*module_options,'-Dlog4j2.disableJmx=true','-Dps5.mc.assets='+str(assets),'-cp',cp,fixture],cwd=directory,capture_output=True,text=True,timeout=90)
         output=result.stdout+result.stderr;(ROOT/'build'/('host-'+fixture+'.log')).write_text(output)
         assert result.returncode==0 and marker in output,output[-5000:]
+        if fixture=='ServerPreflight25':
+            assert 'MC_NULL_EXCEPTION_OK' in output and 'MC_ASSET_ZIPFS_OK' in output,output[-5000:]
         print('PASS:',fixture,marker)
     assert not (Path(directory)/'eula.txt').exists() and not (Path(directory)/'world').exists()
     print('PASS: official --help returns without EULA acceptance or world creation')

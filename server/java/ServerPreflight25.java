@@ -7,10 +7,15 @@ import java.util.jar.JarFile;
 public class ServerPreflight25 {
  private static native void checkpoint(String stage);
  private static void trace(String stage){if(Boolean.getBoolean("ps5.probe.dependencyTrace"))checkpoint("MC preflight: "+stage);}
+ private static final class NullProbe {int value;}
+ private static int readNullProbe(NullProbe probe){return probe.value;}
  public static void main(String[] args) throws Exception {
   String stage="read official artifact inventory";
   try {
    trace(stage);if(Runtime.version().feature()!=25)throw new AssertionError("Java 25 required");
+   stage="exercise Java null exception and signal continuation";trace(stage);
+   try{readNullProbe(null);throw new AssertionError("Missing null exception");}catch(NullPointerException expected){}
+   System.out.println("MC_NULL_EXCEPTION_OK normal Java null exception caught");
    Path root=Path.of(System.getProperty("ps5.mc.assets","/app0/assets/java25"));
    Properties inventory=new Properties();try(var input=Files.newInputStream(root.resolve("server-inventory.properties"))){inventory.load(input);}
    if(inventory.size()!=40)throw new AssertionError("Expected 40 pinned JARs");
@@ -28,6 +33,12 @@ public class ServerPreflight25 {
      if(input.readInt()!=0xCAFEBABE)throw new AssertionError("Class magic");input.readUnsignedShort();if(input.readUnsignedShort()!=69)throw new AssertionError("Server class version");
     }
    }
+   stage="canonicalize and mount vanilla assets through ZipFS";trace(stage);
+   Path assetsJar=root.resolve("jars/ps5-platform-diagnostics.jar").toRealPath();
+   try(FileSystem assetsFs=FileSystems.newFileSystem(assetsJar,Map.of());InputStream version=Files.newInputStream(assetsFs.getPath("/version.json"))) {
+    if(version.read()<0)throw new IOException("Empty vanilla version.json");
+   }
+   System.out.println("MC_ASSET_ZIPFS_OK canonical asset path, mount and real version.json read");
    stage="resolve platform modules and server dependency classes";trace(stage);
    ClassLoader loader=ClassLoader.getSystemClassLoader();
    for(String name:new String[]{"org.xml.sax.SAXException","java.util.logging.Logger","java.lang.management.ManagementFactory","sun.misc.Unsafe","org.slf4j.Logger","org.apache.logging.log4j.core.LoggerContext","joptsimple.OptionParser","io.netty.channel.nio.NioEventLoopGroup","com.google.gson.Gson","net.minecraft.server.Main"}) {

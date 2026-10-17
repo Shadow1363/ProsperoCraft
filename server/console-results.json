@@ -313,11 +313,20 @@
     },
     {
       "app_version": "01.000.033",
-      "console": "pending",
+      "console": "FAIL: user reports whole-app crash around46seconds.",
       "changes": "Runtime lstat EPERM\u2192real O_NOFOLLOW open/fstat with ENOENT/error propagation and final symlink refusal. Harness prechecks required world/root metadata before loading server. Descriptor exception/session report writes avoid FILE allocation and log actual errors. Heap192MiB and synchronization reserves unchanged.",
       "checks": "PASS: actual JNI ASan/UBSan real files/directories/FIFO/absent/leaf and dangling/intermediate symlinks/native link metadata, EPERM-only fallback and descriptor errors/cleanup; existing following-stat; actual report writer partial/EINTR/zero/ENOSPC/open/close errors; HTTP/archive/collector; actual Java metadata preflight. PASS: target java.base-libs rebuild; signed container integrity; ZIP CRC/version033/report labels/metadata preflight class; retained symbols; package target libjava/libverify/libnio/libjvm byte identity.",
-      "pending": "All five PS5 rows, genuine world metadata on console, actual server ready/save/stop; secondary native signal cause remains unresolved.",
-      "package_sha256": "d808a0cdd89f0828eb6265ea5bd4d265f7cf1405e93caf37df5c7b91995fe9f2"
+      "pending": "034 repair console retest; actual server ready/save/stop remains unvalidated.",
+      "package_sha256": "d808a0cdd89f0828eb6265ea5bd4d265f7cf1405e93caf37df5c7b91995fe9f2",
+      "evidence": "Run01.000.033-1792223396-744652693; complete server3681 and native trace1149358 bytes. World metadata blocker passed; Main172 asset JAR toRealPath fails EPERM. Captured signal fault0xc, actual RIP raw0xe0=0x206085421; old accessor raw0xb0 reads stack0x7ed672978. No native synchronization init failure recorded. Historical startup download canceled after stalling remaining browser requests; other reports not fully collected. Live recovery remains unvalidated."
+    },
+    {
+      "app_version": "01.000.034",
+      "console": "pending",
+      "changes": "PS5 signal mcontext starts0x40 rather than SDK0x10; route register reads and continuation writes through verified view. realpath EPERM fallback verifies non-link components with anchored openat. Harness preflight checks Java null recovery and real asset ZipFS. Fixed512KiB startup-tail endpoint; heap192MiB unchanged.",
+      "checks": "PASS: literal PS5 signal-byte replay with actual SDK fields and continuation write isolation; target layout/IR; actual JNI realpath and real ZipFS mount/read; descriptor walk ASan/UBSan bounds, links and FD cleanup; native HTTP full/tail downloads and collector; descriptor report writer; consumer artifact/help preflight with null exception and asset mount. PASS: target hotspot/java.base-libs rebuild; signed container integrity; ZIP CRC/version034; both new preflight markers and nested helper; tail endpoint and signal continuation labels; retained symbols; target libjava/libverify/libnio/libjvm byte identity.",
+      "pending": "PS5 all five rows, null-exception recovery, canonical asset ZipFS and actual server ready/save/stop. Signal ABI defect is reproduced on host; whole-app crash resolution requires console retest.",
+      "package_sha256": "848e02fc6672db599c851cfdd5045eee2a0a533335afb04808d1299ea2a4b7b1"
     }
   ]
 }
