@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.053
+## Current development: server start probe 01.000.054
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -856,3 +856,31 @@ is confirmed. All053 PS5 rows and readiness/save/stop remain pending.**
 Heap160MiB, worker8MiB and JFR metadata remain.
 
 Build053 package SHA-256: `744786c43edb36a6ad339f680818677f9a723773b941baa1b406b4be2d91113b`.
+
+### Build054: correct captured PS5 route header layout
+
+Build053's full downloaded native trace identifies the fallback failure.
+The kernel query succeeds with1320 bytes; parser line90 rejects offset0.
+All captured bytes were reconstructed locally: four248-byte interface-info
+records place link sockaddrs at byte192, while the SDK declares168. Reading
+at168 interprets statistics as an invalid sockaddr length1. Address-message
+headers remain20 bytes with8-byte sockaddr alignment. The server again fails
+Netty initialization at listener setup; no real readiness/save proof. Three
+native signals all resume, with no captured VM ABORT/native fatal OOM.
+
+Build054 pins runtime `95964447de52acbc8017e6282f887d88e327c95c` and fixes this confirmed parser mismatch.
+It skips the observed192-byte header and copies only stable bitmap/flags/index
+fields, with target layout assertions. All prior bounds/errors/ownership and
+resident-success behavior remain. Actual local1320-byte replay through the
+parser and mapped fallback produces eight records: four link, two IPv4, two
+IPv6. Mapping cleanup and prior regression checks pass ASan/UBSan; synthetic
+fixtures now use the actual PS5 wire header and IPv6 family value. Raw route
+data and logs remain local.
+
+Target build, signed-container integrity, ZIP CRC/version/heap/header labels,
+native/image identities and retained symbols pass. **All054 PS5 rows, live
+fallback completion/Java conversion and actual readiness/save/stop remain
+pending.** Resident ENOMEM's internal cause, overall native capacity and
+discovery DNS remain unresolved. Heap160MiB/worker8MiB/JFR metadata remain.
+
+Build054 package SHA-256: `6b671effa946902950f8327c81e63fc8704501bc7254aeb313fd926e1d53200a`.

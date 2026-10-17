@@ -499,12 +499,22 @@
     },
     {
       "app_version": "01.000.053",
-      "console": "pending",
+      "console": "FAIL: user reports failure; live session returned server-row FAIL.",
       "changes": "Diagnostic route fallback evidence: size/data sysctl errors, requested/received lengths, SDK header sizes, mapping errors/retry cap; exact parser source line/offset and up to2048 rejected bytes as32-byte hex rows in existing bounded native trace. Snapshot preserves errno and uses stack storage. Query/parser acceptance/allocations unchanged. No confirmed EINVAL or server startup repair.160MiB heap/8MiB worker/JFR fix retained.",
       "checks": "PASS: actual fallback/parser host BSD fixtures ASan/UBSan plus exact diagnostic hex reconstruction at0/31/32/33/4096-byte inputs,2048-byte cap, errno/query-stage/parser-line/offset checks; prior mapping/query/growth/ownership/bounds/cleanup regression. Target HotSpot/java.base-libs; signed eboot/libc integrity; ZIP CRC/version053/160MiB/query-parser-hex labels in actual eboot; target libjava/libverify/libnet/libjvm and generated-resource image identity; retained053 symbols/matching copies. Consumer Java unchanged from047 host160MiB readiness/save/stop. PS5 EINVAL unresolved.",
       "max_heap_mib": 160,
       "package_sha256": "744786c43edb36a6ad339f680818677f9a723773b941baa1b406b4be2d91113b",
-      "pending": "All053 PS5 rows; exact route-query/parser failure evidence and actual readiness/save/stop. No confirmed EINVAL repair."
+      "pending": "054 actual192-byte route header repair requires PS5 fallback/Java interface conversion and readiness/save/stop. Resident ENOMEM internal cause, overall capacity and DNS unresolved.",
+      "evidence": "Run01.000.053-1792252782-830533839. Live session returned server-row FAIL. Full downloaded native trace shows resident ENOMEM; fresh kernel route size/data queries succeed requested=received1320; SDK headers168/20; parser rejects line90 offset0. Entire1320-byte captured hex reconstructed locally: four248-byte RTM_IFINFO messages place link sockaddrs at192, not SDK168; old parser reads statistics and rejects apparent sockaddr length1. Address headers20 and alignment8 match. Server log reaches listener setup then Netty DefaultChannelId initialization OOM through NetworkInterface.getAll. Three captured signals all resume; no VM ABORT/fatal OOM marker; fixture threw exception. No Done/readiness/save proof; discovery DNS persists."
+    },
+    {
+      "app_version": "01.000.054",
+      "console": "pending",
+      "changes": "PS5 route parser uses observed192-byte RTM_IFINFO header rather than SDK sizeof168; copies only stable bitmap/flags/index prefix, skips opaque statistics. Static prefix offset4/8/12,20-byte address header and8-byte alignment assertions. Existing validation/errors/query/resident success and ownership retained. Diagnostic header-size note added;160MiB heap/8MiB worker/JFR metadata retained. Repairs captured layout mismatch; live completion still pending.",
+      "checks": "PASS: actual complete local1320-byte PS5 route replay through parser and actual mapped fallback with injected resident/kernel results yields8 records (4link,2IPv4,2IPv6), correct map cleanup ASan/UBSan. Synthetic fixtures now use actual192-byte header and PS5 IPv6 family28; existing query/map/growth/errors/bounds/truncation/mutation/hex/errno tests pass. Target HotSpot/java.base-libs; signed eboot/libc integrity; ZIP CRC/version054/160MiB/actual PS5 header diagnostic label; target libjava/libverify/libnet/libjvm and generated-resource image identity; retained054 symbols/matching package copies. Raw capture/logs remain local. Consumer Java unchanged from047 host160MiB readiness/save/stop. Console conversion/readiness pending.",
+      "max_heap_mib": 160,
+      "package_sha256": "6b671effa946902950f8327c81e63fc8704501bc7254aeb313fd926e1d53200a",
+      "pending": "All054 PS5 rows, live fallback/Java interface conversion and actual readiness/save/stop. Resident ENOMEM cause/native capacity and discovery DNS remain unresolved."
     }
   ]
 }
