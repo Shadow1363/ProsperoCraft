@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.052
+## Current development: server start probe 01.000.053
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -832,3 +832,27 @@ worker8MiB and target JFR metadata remain. Overall native capacity and discovery
 DNS are unresolved.
 
 Build052 package SHA-256: `8ad63066a7f9564eca2e8c4e91feb11f1d67db9e734db269cb31c242e093bec3`.
+
+### Build053: distinguish route-query and parser EINVAL
+
+Build052's live session returned server-row FAIL. Browser inspection of the
+current native trace shows resident ENOMEM triggering the route fallback,
+then EINVAL and a null interface list with pending exception. The server
+tail again identifies Netty initialization OOM through NetworkInterface.getAll
+at listener setup. Firefox Save As was disabled and direct-link download
+unavailable; this result uses UI observations, not full downloaded logs.
+No whole-trace absence claims are made. DNS remains unresolved; stopping/saving
+messages are not evidence of readiness or a verified saved world.
+
+Build053 pins runtime `b8fc4881e0ea207224af3205f61126c1fd1c9e28` and adds precise
+size/data query failures, lengths, SDK header sizes, mapping/retry diagnostics,
+parser rejection line/offset and up to2048 bytes of rejected route data in
+bounded hex rows. Query failure before data arrives produces no byte capture.
+The actual snapshot passes byte reconstruction/cap/errno sanitizer tests along
+with existing fallback/parser regression tests. Target build, signed containers,
+package version/heap/diagnostic labels, native/image identity and retained
+symbols pass. **This is diagnostic development; no EINVAL or startup repair
+is confirmed. All053 PS5 rows and readiness/save/stop remain pending.**
+Heap160MiB, worker8MiB and JFR metadata remain.
+
+Build053 package SHA-256: `744786c43edb36a6ad339f680818677f9a723773b941baa1b406b4be2d91113b`.

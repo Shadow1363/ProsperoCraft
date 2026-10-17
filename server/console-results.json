@@ -489,12 +489,22 @@
     },
     {
       "app_version": "01.000.052",
-      "console": "pending",
+      "console": "FAIL: user reports failure; live session returned server-row FAIL.",
       "changes": "PS5-only resident getifaddrs ENOMEM fallback for libnet IPv4/IPv6 enumeration and MAC lookup: fresh bounded NET_RT_IFLIST sysctl query and explicitly owned mmap snapshot/nodes. Real interface/link/IP/mask/flags/name/scope/broadcast data retained with bounded parsing and zero-padded short masks. Resident success/non-ENOMEM errors unchanged. No cached/fake interfaces; persistent query/map errors remain real failures.160MiB heap/8MiB worker/JFR fix retained.",
       "checks": "PASS: actual fallback/parser ASan/UBSan host BSD synthetic route fixtures IPv4/IPv6/link/MAC/name/flags/mask/broadcast/scope; resident ownership and non-ENOMEM behavior; both mapping failures, query errors/size growth/retry cap/oversize, truncated/mutated framing and cleanup. Actual netif writer/getAll regression with JNI/enumeration stubs passes. Target HotSpot/java.base-libs build; signed eboot/libc integrity; ZIP CRC/version052/160MiB/fallback labels; target libjava/libverify/libnet/libjvm and generated-resource image identity; retained052 symbols and matching copies. Host fixtures do not establish PS5 route ABI/permissions. Consumer Java unchanged from047 host160MiB readiness/save/stop.",
       "max_heap_mib": 160,
       "package_sha256": "8ad63066a7f9564eca2e8c4e91feb11f1d67db9e734db269cb31c242e093bec3",
-      "pending": "All052 PS5 rows; live route-query fallback ABI/permissions/ownership and actual readiness/save/stop. Native capacity and discovery DNS remain unresolved."
+      "pending": "053 exact route-query/parser rejection diagnostics require PS5 run. EINVAL source, overall capacity, DNS and real readiness/save/stop remain unresolved.",
+      "evidence": "Run01.000.052-1792251903-802361895. Live session returned server-row FAIL. Current native trace inspected via Firefox find/screenshot: getAll enter errno12; IPv4 getifaddrs enter; resident ENOMEM route fallback; IPv4 getifaddrs failed errno22; getAll enumerated null with pending exception. No completion marker in this observed sequence. Exact kernel-query vs parser EINVAL source is not instrumented in052. Server bottom screenshot reaches TCP listener *:25565 then Netty DefaultChannelId NoClassDefFoundError caused by initialization OOM rooted in NetworkInterface.getAll; stopping/saving lines do not establish success. DNS failure visible at beginning. Firefox Save As disabled and direct-link save unavailable; full raw native/server logs not downloaded. No whole-trace absence claims. No real readiness/save/stop proof."
+    },
+    {
+      "app_version": "01.000.053",
+      "console": "pending",
+      "changes": "Diagnostic route fallback evidence: size/data sysctl errors, requested/received lengths, SDK header sizes, mapping errors/retry cap; exact parser source line/offset and up to2048 rejected bytes as32-byte hex rows in existing bounded native trace. Snapshot preserves errno and uses stack storage. Query/parser acceptance/allocations unchanged. No confirmed EINVAL or server startup repair.160MiB heap/8MiB worker/JFR fix retained.",
+      "checks": "PASS: actual fallback/parser host BSD fixtures ASan/UBSan plus exact diagnostic hex reconstruction at0/31/32/33/4096-byte inputs,2048-byte cap, errno/query-stage/parser-line/offset checks; prior mapping/query/growth/ownership/bounds/cleanup regression. Target HotSpot/java.base-libs; signed eboot/libc integrity; ZIP CRC/version053/160MiB/query-parser-hex labels in actual eboot; target libjava/libverify/libnet/libjvm and generated-resource image identity; retained053 symbols/matching copies. Consumer Java unchanged from047 host160MiB readiness/save/stop. PS5 EINVAL unresolved.",
+      "max_heap_mib": 160,
+      "package_sha256": "744786c43edb36a6ad339f680818677f9a723773b941baa1b406b4be2d91113b",
+      "pending": "All053 PS5 rows; exact route-query/parser failure evidence and actual readiness/save/stop. No confirmed EINVAL repair."
     }
   ]
 }
