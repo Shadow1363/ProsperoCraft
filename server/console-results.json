@@ -340,11 +340,20 @@
     },
     {
       "app_version": "01.000.036",
-      "console": "pending",
+      "console": "FAIL verification and server start; no whole-app crash reported.",
       "changes": "Replace raw desktop openat in realpath EPERM fallback with resident open/close of each unelided absolute component prefix, preserving link refusal and actual errors. Stop advertising unported optional desktop directory-at capability on PS5; no SecureDirectoryStream until anchored backend port. Add descriptor realpath phases and distinct consumer canonicalize/mount/read/close stages. Heap192MiB unchanged.",
       "checks": "PASS: actual JNI realpath with native EPERM and real ZipFS mount/read; actual prefix walk ASan/UBSan links, missing/unelided components, path bounds and4000 FD-cleanup operations; actual capability block PS5/BSD with injected lookups; target helper IR no openat/TLS; consumer artifact/null/ZipFS preflight and official help;11-library audit; target java.base-libs rebuild; actual dispatcher object lacks desktop-at imports; signed containers; ZIP CRC/version036/finer stage and realpath labels; retained symbols and target libjava/libverify/libnio/libjvm byte identity.",
-      "pending": "PS5 row3 canonicalization/ZipFS mount/read and all five rows; actual server ready/save/stop. Null-exception continuation confirmed035; full consumer pass not established.",
-      "package_sha256": "dfe1565747b98ffa1bed235c38bb8ca72fe57fc2281040bba729861afd40f772"
+      "pending": "037 resident directory/access repairs need console retest; no real ready/save/stop yet.",
+      "package_sha256": "dfe1565747b98ffa1bed235c38bb8ca72fe57fc2281040bba729861afd40f772",
+      "evidence": "Run01.000.036-1792227462-56014041; user reports verification FAIL and server-start FAIL without whole-app crash. Complete native1166489bytes, startup-tail524288bytes and full server exception downloaded; verification/session transcribed after user reran row3. Native trace confirms canonical asset path complete; verification exception identifies canonical asset ZipFS mount EPERM. Server stack identifies UnixFileSystemProvider.newDirectoryStream on world during unchanged official DirectoryValidator traversal. Exact verification native throw stack not retained; access-call repair supported by actual ZipFS source/forced-EPERM host reproduction. Other reports not collected."
+    },
+    {
+      "app_version": "01.000.037",
+      "console": "pending",
+      "changes": "PS5 JNI directory stream uses mapped private handle with genuine resident open/libkernel sceKernelGetdents, bounded wire parsing, encoded error propagation and cleanup. Access EPERM fallback checks actual non-creating read/write opens plus metadata/close; no execute/search inference. Separate per-test verification/server exception endpoints, archive/reset/collector. Preflight isolates READ access, packaged directory enumeration and ZipFS mount. Heap192MiB unchanged.",
+      "checks": "PASS: actual JNI directory open/read/close in host JVM with PS5 non-secure-directory capability, real Files.walk/Unicode/link/missing/non-directory/repeated cleanup; actual helper ASan/UBSan malformed/truncated/oversized/embedded-NUL records, SCE errors/EINTR/EOF/sticky failure; actual JNI access EPERM real operations and ZipFS mount/read, no execute inference/non-EPERM errors/unchanged contents; consumer artifact/access/directory/ZipFS and help preflight; HTTP independent reports/archive/collector; descriptor report writer; target java.base-libs rebuild and libkernel directory import;11-library audit; signed containers/ZIP CRC/version037/report paths/new stages; retained symbols and target libjava/libverify/libnio/libjvm byte identity.",
+      "pending": "PS5 all five rows, real directory enumeration/access/ZipFS and actual server ready/save/stop.036 app survival confirmed by user; full server pass not established.",
+      "package_sha256": "f081c082bdc1a1f0c872935207cc21756e8a3ccde37e8bbb80f651d58f1ba343"
     }
   ]
 }

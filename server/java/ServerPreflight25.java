@@ -35,6 +35,10 @@ public class ServerPreflight25 {
    }
    stage="canonicalize and mount vanilla assets through ZipFS";trace(stage);
    Path assetsJar=root.resolve("jars/ps5-platform-diagnostics.jar").toRealPath();
+   stage="check readable vanilla asset JAR";trace(stage);
+   assetsJar.getFileSystem().provider().checkAccess(assetsJar,AccessMode.READ);
+   stage="enumerate packaged asset directory";trace(stage);
+   try(var entries=Files.newDirectoryStream(assetsJar.getParent())){boolean found=false;for(Path entry:entries)if(entry.getFileName().equals(assetsJar.getFileName()))found=true;if(!found)throw new IOException("Asset JAR missing from real directory enumeration");}
    stage="mount canonical vanilla asset JAR";trace(stage);
    try(FileSystem assetsFs=FileSystems.newFileSystem(assetsJar,Map.of());InputStream version=Files.newInputStream(assetsFs.getPath("/version.json"))) {
     stage="read vanilla version.json from mounted JAR";trace(stage);
