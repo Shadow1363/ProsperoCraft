@@ -97,7 +97,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.056
+## Current development: server start probe 01.000.057
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -931,3 +931,31 @@ readiness/save/stop remain pending.** Heap160MiB/worker8MiB and previous fixes
 remain; overall native capacity is unresolved.
 
 Build056 package SHA-256: `f1f400feb87cb90ca760f0aa8d4635774c93258a8563d4ddcc246aef7c9c59e8`.
+
+
+### Build057: interface flags and error preservation
+
+Build056's full reports confirm both resident queries fail with fresh errno0;
+fresh route queries and six mapped nodes succeed, and getAll creates two Java
+interfaces without a pending exception. The next failure is isLoopback0 during
+Netty MAC/channel-ID initialization. Three signals resume; no captured VM ABORT
+or native fatal allocation marker. No actual readiness/save proof; DNS persists.
+Reports were preserved through menu-only restart and retrieved locally.
+
+Build057 pins runtime `c0650c9b6bf69dfae4a4faaf5bf3264be61c459c`. Denied interface flag ioctls retry through
+fresh route records with actual flags; unrelated errors and real lookup failures
+remain errors. New diagnostics identify the failed substage and preserve errno
+across cleanup. The056 trace does not prove a denied flags ioctl: this is a
+repair candidate supported by earlier ioctl errors. The short native diagnostic
+suffix now uses stack storage so libc scratch refusal cannot hide the underlying
+SocketException. Long messages and Java allocation errors retain real failures.
+
+Actual flag-query/parser tests pass ASan/UBSan with denial, correct flag bits,
+missing interfaces and failure propagation. Real JNI error-formatter tests pass
+-Xcheck:jni/UBSan for PS5 and desktop controls, exact text, boundary sizes,
+injected scratch refusal and cleanup. Target build, signed containers, ZIP,
+native/image identities and retained symbols pass. **All057 PS5 rows, flags
+resolution and actual readiness/save/stop remain pending.** Native capacity and
+DNS remain unresolved. Heap160MiB/worker8MiB and earlier fixes remain.
+
+Build057 package SHA-256: `9bc62068b7c1a151bb706a4915dbe17c71ff19ab67667a40e2acfc2caa8a4ea0`.

@@ -529,12 +529,22 @@
     },
     {
       "app_version": "01.000.056",
-      "console": "pending",
+      "console": "FAIL: user reports failure; live session returned server-row FAIL.",
       "changes": "PS5 route-query retry also handles resident EACCES and errno-less failures; clears errno before resident getifaddrs and node libc allocation to isolate stale state. Success restores caller errno; actual resident error recorded. ENOMEM still covered; other resident errors and actual kernel-query/mapping/parser failures remain real failures. No cached/fake interfaces.160MiB heap/8MiB worker/JFR and mapped-node/header fixes retained.",
       "checks": "PASS: actual fallback/parser ASan/UBSan explicit EACCES/errno-less resident failure after stale errors, normal success, unchanged EPERM/EIO failures and actual EACCES/EIO query error propagation; complete local1320-byte route replay/parser/mapped ownership and prior bounds/growth/hex tests. Actual node allocator/addif/freeif regression adds libc refusal without errno; prior ownership/OOM/cleanup tests pass. Target HotSpot/java.base-libs; signed eboot/libc; ZIP CRC/version056/160MiB/error+node labels; target libjava/libverify/libnet/libjvm and generated-resource image identity; retained056 symbols/matching copies. Consumer Java unchanged from047 host160MiB ready/save/stop. Console IPv6/Java conversion/readiness pending.",
       "max_heap_mib": 160,
       "package_sha256": "f1f400feb87cb90ca760f0aa8d4635774c93258a8563d4ddcc246aef7c9c59e8",
-      "pending": "All056 PS5 rows, IPv6 enumeration/Java conversion and actual readiness/save/stop. Native capacity and DNS unresolved."
+      "pending": "All057 PS5 rows, flag-query fallback and actual readiness/save/stop. Exact056 flag failure substage, native capacity and discovery DNS unresolved.",
+      "evidence": "Run01.000.056-1792254703-782971695. Live session returned server-row FAIL. Full native/server reports retrieved after menu-only reopen. Both resident getifaddrs calls fail with fresh errno0, both1320-byte route queries parse8 records; six16KiB internal node mappings succeed. getAll completes2 Java interfaces with no pending exception. Server fails at Netty channel-ID initialization with OOM through NetworkInterface.isLoopback0/getHardwareAddress. Exact flag-query substage uninstrumented in056. Three signals resume; zero captured VM ABORT/native fatal allocation markers. No real Done/readiness/save proof; discovery DNS persists."
+    },
+    {
+      "app_version": "01.000.057",
+      "console": "pending",
+      "changes": "PS5 SIOCGIFFLAGS EACCES/EPERM fallback queries fresh route records and resolves actual interface flags; normal success/other errors and missing/query/mapping failures retained. Preserves query errno across cleanup and adds flags/name-conversion diagnostics. PS5 last-error formatter uses256-byte stack scratch for short suffixes to avoid masking SocketException with native diagnostic malloc OOM; long messages retain allocation/errors. Denied ioctl remains a repair candidate, not confirmed056 root cause.160MiB heap/8MiB worker and earlier fixes retained.",
+      "checks": "PASS: actual BSD getFlags and route parser/fallback ASan/UBSan, live flags/loopback/multicast, normal ioctl/denied EACCES+EPERM, missing interface, real query/mapping errors and unchanged unrelated errors; full captured1320-byte replay and prior bounds/ownership tests. Actual last-error body real JNI/-Xcheck:jni and UBSan PS5+desktop controls, null/empty/252/253 boundaries, injected diagnostic malloc refusal, exact exception text and cleanup. Target HotSpot/java.base-libs; two signed-container integrities; ZIP CRC/version057/160MiB/flags labels; target libjava/libverify/libnet/libjvm and generated-resource image/audit identity; retained057 symbols/matching package copies. Consumer Java unchanged from047 host160MiB ready/save/stop. Console pending.",
+      "max_heap_mib": 160,
+      "package_sha256": "9bc62068b7c1a151bb706a4915dbe17c71ff19ab67667a40e2acfc2caa8a4ea0",
+      "pending": "All057 PS5 rows, flag-query fallback and actual readiness/save/stop. Exact056 flag failure substage, native capacity and discovery DNS unresolved."
     }
   ]
 }
