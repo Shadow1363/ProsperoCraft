@@ -1,4 +1,4 @@
-# Online two-hour PS5 server endurance probe — build01.000.060
+# Online two-hour PS5 server endurance probe — build01.000.061
 
 This development build extends the passing058 startup/save/stop fixture. The
 Server_Start snapshot and exact passing package remain frozen. Runtime pin,
@@ -102,3 +102,14 @@ so an unobserved readiness interval cannot silently count toward a pass.
 The final host integration passes online preflight plus75seconds of live ticks,
 36 checks,18 flushes, clean stop and saved metadata, with zero simulated joins.
 Actual PS5 online admission and7200seconds remain unvalidated.
+
+
+## Build061 trust-store repair
+
+060 resolves DNS but TLS preflight fails with no trust anchors, before starting
+the server/timer.061 adds genuine java.io descriptor metadata fallback and
+relative File resolution for whitelist discovery. Look for MC_TLS_TRUST_FILE
+and MC_TLS_TRUST_OK acceptedIssuers before MC_ONLINE_PREFLIGHT_OK. All certificate
+and online-identity checks remain standard. The real host HTTPS preflight
+passes under injected desktop metadata denial with the target111-root store;
+console TLS/admission and the full7200second outcome remain pending.

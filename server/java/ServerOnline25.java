@@ -21,7 +21,16 @@ public final class ServerOnline25 {
  }
  static String endpoint(JsonObject discovery,String service,String operation)throws IOException {return text(object(object(object(discovery,service),"endpoints"),operation),"uri");}
  static String uuid(String id)throws IOException {if(!id.matches("[0-9a-fA-F]{32}"))throw new IOException("Invalid online profile UUID");return id.substring(0,8)+"-"+id.substring(8,12)+"-"+id.substring(12,16)+"-"+id.substring(16,20)+"-"+id.substring(20);}
+ static void checkTrust()throws Exception {
+  String store=System.getProperty("javax.net.ssl.trustStore",Path.of(System.getProperty("java.home"),"lib/security/cacerts").toString());File file=new File(store);
+  System.out.println("MC_TLS_TRUST_FILE isFile="+file.isFile()+" canRead="+file.canRead()+" bytes="+file.length());
+  var factory=javax.net.ssl.TrustManagerFactory.getInstance(javax.net.ssl.TrustManagerFactory.getDefaultAlgorithm());factory.init((java.security.KeyStore)null);
+  int count=0;for(var manager:factory.getTrustManagers())if(manager instanceof javax.net.ssl.X509TrustManager x)count+=x.getAcceptedIssuers().length;
+  if(count==0)throw new IOException("Default TLS trust store has zero trusted issuers; inspect java.io metadata and packaged cacerts");
+  System.out.println("MC_TLS_TRUST_OK acceptedIssuers="+count+" default certificate validation enabled");
+ }
  public static void prepare(Path root)throws Exception {
+  checkTrust();
   String name=System.getProperty("ps5.mc.joinPlayer");
   if(name==null){Path file=Path.of(System.getProperty("ps5.mc.joinPlayerFile","/app0/assets/java25/join-player.txt"));if(Files.size(file)>64)throw new IOException("Join-player file too large");name=Files.readString(file).trim();}
   if(!name.matches("[A-Za-z0-9_]{3,16}"))throw new IOException("Join-player file must contain one Minecraft account name");

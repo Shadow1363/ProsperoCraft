@@ -98,9 +98,9 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: online two-hour endurance probe 01.000.060
+## Current development: online two-hour endurance probe 01.000.061
 
-The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all060 PS5 rows remain pending.
+The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all061 PS5 rows remain pending.
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -1071,3 +1071,29 @@ evidence; client load/performance is not established by startup alone.
 remain pending.** The passing058 milestone and original package stay frozen.
 
 Build060 pins runtime `8114dc2547966ea998cce13fade563594ba638aa`. Package SHA-256: `522c0d6252e769e2a92b285038131a837d0dffac481468f540f4d2f3f247f1a9`. Native sanitizer/target/package checks and real host online preflight plus75second endurance pass; authenticated PS5 joining and7200seconds remain pending.
+
+
+### Build061: trust-store metadata and relative whitelist discovery
+
+Build060 confirms native DNS success and reaches TLS, then fails before server
+launch with an empty trustAnchors error. The packaged store contains111 roots.
+Standard JSSE selects its store through java.io.File metadata; those queries
+still used desktop stat/access. A host injected-denial test reproduces zero
+roots and obtains111 from the same store after genuine descriptor fallback.
+The060 native trace does not independently record those metadata query errors.
+
+Build061 adapts java.io metadata/readability after PS5 EPERM, retaining actual
+file/descriptor failures and all other errors. Relative File metadata now uses
+user.dir under the existing PS5 property, matching streams/NIO so Minecraft
+can discover the preflight-generated whitelist. TLS preflight reports file
+metadata and real default trusted-issuer count. Certificate validation and
+online authentication remain enabled; no trust-all context is introduced.
+
+Actual JNI/JSSE regression passes with111 roots, exact file attributes and
+failure controls. Real HTTPS discovery/profile/session/key fetches and account
+provisioning succeed under the same injected denials with target cacerts.
+Actual patched relative-File policy, target Java/native build and package
+identity/integrity checks pass. **All061 PS5 rows, authenticated admission and
+the full two-hour result remain pending.** The058 snapshot/package stay frozen.
+
+Build061 runtime pin: `b990691af0d1e5067928dc056eee09697c53b88a`. Package SHA-256: `372ad9df77581d719a4e72a85d80e8857d4ff376cff3572eaa4339f240ba112e`.
