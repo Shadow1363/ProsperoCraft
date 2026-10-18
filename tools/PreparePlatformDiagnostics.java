@@ -4,11 +4,11 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.zip.*;
 
-/** Local build transform: only optional crash-report OSHI telemetry is adapted. */
+/** Local build transform: optional OSHI telemetry and a read-only server tick observer. */
 public class PreparePlatformDiagnostics {
  public static void main(String[] args)throws Exception {
-  String entry="net/minecraft/SystemReport.class";byte[] original;
-  try(ZipFile jar=new ZipFile(args[0])){original=jar.getInputStream(jar.getEntry(entry)).readAllBytes();}
+  String entry="net/minecraft/SystemReport.class",tickEntry="net/minecraft/server/MinecraftServer.class";byte[] original,tickOriginal;
+  try(ZipFile jar=new ZipFile(args[0])){original=jar.getInputStream(jar.getEntry(entry)).readAllBytes();tickOriginal=jar.getInputStream(jar.getEntry(tickEntry)).readAllBytes();}
   ClassFile cf=ClassFile.of();ClassModel model=cf.parse(original);Set<String> found=new HashSet<>();
   ClassDesc owner=ClassDesc.of("net.minecraft.SystemReport");
   MethodTypeDesc detail=MethodTypeDesc.ofDescriptor("(Ljava/lang/String;Ljava/lang/String;)V");
@@ -29,6 +29,14 @@ public class PreparePlatformDiagnostics {
   });
   if(found.size()!=2)throw new IllegalStateException("Expected exactly two telemetry methods");
   if(!cf.verify(adapted).isEmpty())throw new IllegalStateException("Transformed class failed verification");
+  int[] hooks={0};
+  byte[] tickAdapted=cf.transformClass(cf.parse(tickOriginal),ClassTransform.transformingMethodBodies(
+   method->method.methodName().equalsString("tickServer")&&method.methodType().equalsString("(Ljava/util/function/BooleanSupplier;)V"),
+   (code,element)->{
+    if(element instanceof java.lang.classfile.instruction.ReturnInstruction&&++hooks[0]==2){code.aload(0).invokestatic(ClassDesc.of("ServerGameplay25"),"tick",MethodTypeDesc.ofDescriptor("(Ljava/lang/Object;)V"));}
+    code.with(element);
+   }));
+  if(hooks[0]!=2||!cf.verify(tickAdapted).isEmpty())throw new IllegalStateException("Expected two original returns with one final tick observer: "+hooks[0]+" errors="+cf.verify(tickAdapted));
   // Minecraft packages are signed: never mix an unsigned replacement class
   // into a signed package. Produce an explicitly unsigned local derivative,
   // keeping the verified original JAR untouched. No signature checks are disabled.
@@ -38,6 +46,7 @@ public class PreparePlatformDiagnostics {
     if(upper.startsWith("META-INF/")&&(upper.endsWith(".SF")||upper.endsWith(".RSA")||upper.endsWith(".DSA")||upper.endsWith(".EC")||upper.startsWith("META-INF/SIG-")))continue;
     byte[] bytes=source.getInputStream(source.getEntry(name)).readAllBytes();
     if(name.equals(entry))bytes=adapted;
+    if(name.equals(tickEntry))bytes=tickAdapted;
     if(upper.equals("META-INF/MANIFEST.MF")){
      var manifest=new java.util.jar.Manifest(new java.io.ByteArrayInputStream(bytes));
      manifest.getEntries().clear();manifest.getMainAttributes().keySet().removeIf(key->key.toString().toUpperCase(Locale.ROOT).contains("DIGEST")||key.toString().equalsIgnoreCase("Signature-Version"));
@@ -48,6 +57,8 @@ public class PreparePlatformDiagnostics {
   }
   String before=HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(original));
   String after=HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(adapted));
-  Files.writeString(Path.of(args[2]),"{\"scope\":\"Local unsigned derivative of hash-verified server JAR; only SystemReport optional PS5 OSHI telemetry adapted; desktop methods preserved; do not redistribute as official\",\"original_class_sha256\":\""+before+"\",\"adapted_class_sha256\":\""+after+"\"}\n");
+  String tickBefore=HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(tickOriginal));
+  String tickAfter=HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(tickAdapted));
+  Files.writeString(Path.of(args[2]),"{\"scope\":\"Local unsigned derivative of hash-verified server JAR; SystemReport optional PS5 OSHI telemetry and one read-only MinecraftServer tick return observer; desktop telemetry methods preserved; do not redistribute as official\",\"original_class_sha256\":\""+before+"\",\"adapted_class_sha256\":\""+after+"\",\"original_tick_class_sha256\":\""+tickBefore+"\",\"adapted_tick_class_sha256\":\""+tickAfter+"\"}\n");
  }
 }

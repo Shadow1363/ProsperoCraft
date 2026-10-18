@@ -32,12 +32,13 @@ shutil.copy2(ROOT/'server/config/log4j2-ps5.xml',assets/'java25/log4j2-ps5.xml')
 # Put the consumer's helper classes in a JAR: the PS5 system loader already
 # supports bundled JAR URLs, while loose class-directory lookup uses sandbox
 # metadata operations that are not established for these fixtures.
+java_sources=sorted((ROOT/'server/java').glob('*.java'))+[runtime/'java25/tests/ps5probe/JitWarmup25.java']
 wrapper_classes=ROOT/'build/wrapper-classes';shutil.rmtree(wrapper_classes,ignore_errors=True);wrapper_classes.mkdir()
-subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/javac','--release','25','-cp',str(next(jars/r['file'] for r in lock['jars'] if r['id'].startswith('com.google.code.gson:gson:'))),'-d',str(wrapper_classes),*[str(p) for p in sorted((ROOT/'server/java').glob('*.java'))]],check=True)
+subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/javac','--release','25','-cp',str(next(jars/r['file'] for r in lock['jars'] if r['id'].startswith('com.google.code.gson:gson:'))),'-d',str(wrapper_classes),*[str(p) for p in java_sources]],check=True)
 # Build a local diagnostic-only server derivative; verified official JARs stay intact.
 transform=ROOT/'tools/PreparePlatformDiagnostics.java'
 subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/javac','-d',str(ROOT/'build'),str(transform)],check=True)
-subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/java','-cp',str(ROOT/'build'),'PreparePlatformDiagnostics',str(jars/'server-26.3.jar'),str(jars/'ps5-platform-diagnostics.jar'),str(assets/'java25/platform-diagnostics-audit.json')],check=True)
+subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/java','-cp',str(ROOT/'build')+':'+':'.join(str(jars/r['file']) for r in lock['jars']),'PreparePlatformDiagnostics',str(jars/'server-26.3.jar'),str(jars/'ps5-platform-diagnostics.jar'),str(assets/'java25/platform-diagnostics-audit.json')],check=True)
 with zipfile.ZipFile(jars/'ps5-server-probe.jar','w',zipfile.ZIP_DEFLATED) as probe:
     config=zipfile.ZipInfo('log4j2-ps5.xml');config.compress_type=zipfile.ZIP_DEFLATED
     probe.writestr(config,(ROOT/'server/config/log4j2-ps5.xml').read_bytes())
@@ -48,6 +49,6 @@ with zipfile.ZipFile(jars/'ps5-server-probe.jar') as probe:
     assert 'ServerStart25$Observer.class' in probe.namelist()
 classpath='/app0/assets/java25/jars/ps5-server-probe.jar:/app0/assets/java25/jars/ps5-platform-diagnostics.jar:'+':'.join('/app0/assets/java25/jars/'+record['file'] for record in lock['jars'] if record['file']!='server-26.3.jar')
 (ROOT/'build/server_classpath.hpp').write_text('#pragma once\n#define SERVER_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n')
-spec={'source':str(ROOT/'server/native/bootstrap.cpp'),'param':str(ROOT/'server/param.json'),'asset_dir':str(assets),'java_sources':[str(p) for p in sorted((ROOT/'server/java').glob('*.java'))],'modules':lock['modules'],'java_compile_classpath':[str(next(jars/r['file'] for r in lock['jars'] if r['id'].startswith('com.google.code.gson:gson:')))],'include_dirs':[str(ROOT/'build'),str(runtime/'java25/probe')]}
+spec={'source':str(ROOT/'server/native/bootstrap.cpp'),'param':str(ROOT/'server/param.json'),'asset_dir':str(assets),'java_sources':[str(p) for p in java_sources],'modules':lock['modules'],'java_compile_classpath':[str(next(jars/r['file'] for r in lock['jars'] if r['id'].startswith('com.google.code.gson:gson:')))],'include_dirs':[str(ROOT/'build'),str(runtime/'java25/probe')]}
 (ROOT/'build/probe-spec.json').write_text(json.dumps(spec,indent=2)+'\n')
 print('Prepared 40 verified official server JARs and external probe specification')

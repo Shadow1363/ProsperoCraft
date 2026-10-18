@@ -1,8 +1,8 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "60ab50e4694bf42c8874c6f96fb609b8c7735322",
+  "commit": "335443815712c132db69f36e6d4e099490e6c20b",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
-  "execution_mode": "-Xint",
+  "execution_mode": "Guarded -Xmixed -XX:TieredStopAtLevel=1 -XX:CICompilerCount=1; 8 MiB code cache; console validation pending",
   "optional_native_services": "java.management is embedded with real JMM data; target console validation pending; jdk.management OS extensions remain unported"
 }

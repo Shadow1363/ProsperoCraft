@@ -174,3 +174,22 @@ fixture pass, including readiness, tick checks, saves and clean stop. Retest
 065 startup and authenticated gameplay, then reproduce hungry food use while
 leaving the probe open. GC/TPS/hunger diagnostics and the configured two-hour
 phase remain. Console eating/performance and full endurance are still pending.
+
+
+## Build 066: gameplay before sustained load
+
+065 authenticates the client but drops to about 10–13 TPS and does not confirm
+chicken/mutton consumption below full hunger. 066 is a guarded C1 level-1 test
+with one compiler and the existing 8 MiB code cache. Run all rows in order;
+preflight must print JIT_WARMUP_OK after actual current-run compilation.
+If it fails or crashes, preserve/relaunch to share reports before starting
+another run. The current/previous JIT reports are downloadable.
+
+During the server row, join with the vanilla client and test chicken/mutton
+below full hunger. MC_ITEM_USE records the server use timer, held/use counts,
+food and elapsed ticks/wall time without changing gameplay. Compare with TPS,
+GC and native resource samples. MC_ITEM_USE_UNAVAILABLE means this diagnostic
+failed, not that consumption succeeded. Host C1 startup/30-second save/stop and
+observer initialization pass, with no player. PS5 JIT, food/mob performance,
+persistence and full7200seconds remain pending. Readiness starts the timer;
+a failed run does not qualify as an endurance pass.

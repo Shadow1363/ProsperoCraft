@@ -10,11 +10,14 @@ with zipfile.ZipFile(original) as source,zipfile.ZipFile(derived) as output:
     changed=[]
     for name in output.namelist():
         if output.read(name)!=source.read(name):changed.append(name)
-    assert set(changed)=={'META-INF/MANIFEST.MF','net/minecraft/SystemReport.class'},changed
+    assert set(changed)=={'META-INF/MANIFEST.MF','net/minecraft/SystemReport.class','net/minecraft/server/MinecraftServer.class'},changed
     for name in set(source.namelist())-set(output.namelist()):
         upper=name.upper();assert upper.startswith('META-INF/') and (upper.endswith(('.SF','.RSA','.DSA','.EC')) or upper.startswith('META-INF/SIG-')),name
     assert not any(name.upper().endswith(('.SF','.RSA','.DSA','.EC')) for name in output.namelist())
-cp=str(derived)+':'+':'.join(str(jars/r['file']) for r in lock['jars'] if r['file']!='server-26.3.jar')
+cp=str(jars/'ps5-server-probe.jar')+':'+str(derived)+':'+':'.join(str(jars/r['file']) for r in lock['jars'] if r['file']!='server-26.3.jar')
 subprocess.run([str(JDK/'javac'),'-cp',cp,'-d',str(ROOT/'build'),str(ROOT/'tools/test_platform_diagnostics.java')],check=True)
 subprocess.run([str(JDK/'java'),'-Xint','-Xverify:all','-cp',str(ROOT/'build')+':'+cp,'test_platform_diagnostics'],check=True)
-print('PASS: original artifact checksum intact; only SystemReport and unsigned-derivative manifest changed; other server resources/classes identical')
+print('PASS: original artifact checksum intact; only SystemReport, MinecraftServer observer and unsigned-derivative manifest changed; other server resources/classes identical')
+
+subprocess.run([str(JDK/'javac'),'-d',str(ROOT/'build'),str(ROOT/'tools/AuditTickObserver.java')],check=True)
+subprocess.run([str(JDK/'java'),'-cp',str(ROOT/'build'),'AuditTickObserver',str(original),str(derived)],check=True)

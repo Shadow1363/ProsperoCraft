@@ -60,7 +60,9 @@ public class ServerPreflight25 {
    var memory=java.lang.management.ManagementFactory.getMemoryMXBean();
    if(memory.getHeapMemoryUsage().getMax()!=Runtime.getRuntime().maxMemory())throw new AssertionError("JVM heap management mismatch");
    if(memory.getNonHeapMemoryUsage().getUsed()<0)throw new AssertionError("Non-heap management unavailable");
-   if(!java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().contains("-Xint"))throw new AssertionError("Missing actual VM flags");
+   var flags=java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments();
+   if(Boolean.getBoolean("ps5.probe.requireC1")){ps5probe.JitWarmup25.check();}
+   else if(!flags.contains("-Xint"))throw new AssertionError("Missing actual interpreter control flag");
    System.out.println("MC_MANAGEMENT_OK actual heap, non-heap and VM flags");
    System.out.println("MC_PREFLIGHT_OK 26.3 / Java25 / 40 verified JARs");
   }catch(Throwable error){throw new Exception("MC preflight stage "+stage+": "+error,error);}

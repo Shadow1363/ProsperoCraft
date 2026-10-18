@@ -52,7 +52,7 @@ namespace {
 using ps5::demo::Canvas;
 constexpr std::uint32_t rgb(unsigned r,unsigned g,unsigned b) {return 0xff000000u|r|(g<<8)|(b<<16);}
 constexpr int test_count=5;
-const char *names[]={"Initialize embedded core runtime","Create Java 25 VM (interpreter mode)","Verify JARs, Java exceptions and vanilla assets","2-hour endurance: live ticks, periodic saves, clean stop","Destroy Java VM"};
+const char *names[]={"Initialize embedded core runtime","Create Java 25 VM (guarded C1 mode)","Verify JARs, Java exceptions and vanilla assets","2-hour endurance: live ticks, periodic saves, clean stop","Destroy Java VM"};
 int status[test_count]{}; // 0 untested, 1 pass, -1 fail, 2 running
 char messages[test_count][104]{};
 int selected=0,pending=-1,pad=-1;
@@ -65,7 +65,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.065";
+constexpr const char *build_version="01.000.066";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -233,7 +233,11 @@ void run_test(int i) {
   }
   log_stage("Core image opened and JIMAGE header verified");
   JavaVMOption options[]={
-   {const_cast<char *>("-Xint"),nullptr},
+   {const_cast<char *>("-Xmixed"),nullptr},
+   {const_cast<char *>("-XX:TieredStopAtLevel=1"),nullptr},
+   {const_cast<char *>("-XX:CICompilerCount=1"),nullptr},
+   {const_cast<char *>("-Dps5.probe.requireC1=true"),nullptr},
+   {const_cast<char *>("-Xlog:jit+compilation=debug:file=/download0/java25-jit.log:uptime,level,tags:filecount=0"),nullptr},
    {const_cast<char *>("-XX:UseAVX=0"),nullptr},
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
    {const_cast<char *>("-Xms16m"),nullptr},
@@ -294,7 +298,7 @@ void run_test(int i) {
   if(startup_log) {std::fprintf(startup_log,"JNI_CreateJavaVM returned %d\n",rc);std::fflush(startup_log);}
   if(rc==JNI_OK && (!java_vm||!java_env)) rc=-1302;
   if(rc!=JNI_OK) {java_vm=nullptr;java_env=nullptr;skip_vm_dependents();read_previous_log();}
-  result(i,rc,"Real JNI_CreateJavaVM, -Xint, 160 MiB max heap");
+  result(i,rc,"Real JNI_CreateJavaVM, C1 level 1, 144 MiB max heap");
  } else if(!java_vm||!java_env) {
   result(i,-1303,"Create the VM first; relaunch to retry");
  } else if(i>=2 && i<=3) {
@@ -408,7 +412,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.065",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.066",42,rgb(238,242,250));
  c.label(103,163,"Minecraft 26.3 / Java 25. Two-hour endurance after readiness; saves every 5 minutes.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;

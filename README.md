@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a dedicated server, then working toward the client, controller support and mod compatibility.
 
-> **Status: flat-world server startup, save and stop pass on PS5.** Build **01.000.058** passes all five probe rows with Minecraft **26.3 / Java 25**, including real readiness, saved world metadata and VM destruction. Saved-world reload, player joins and endurance remain unvalidated.
+> **Status: flat-world server startup, save and stop pass on PS5.** Build **01.000.058** passes all five probe rows with Minecraft **26.3 / Java 25**, including real readiness, saved world metadata and VM destruction. Later development builds admit an authenticated player, but gameplay is slow and eating fails; full endurance remains unvalidated.
 
 ## The goal
 
@@ -50,7 +50,7 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 | **LAN endurance** | Actual IPv6 link-local LAN and 60-second external TCP/UDP workloads | [LAN_Endurance_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/LAN_Endurance_Probe) |
 | **Dependencies / JNI** | Manifest-linked JARs, services/resources, system class path and real resident JNI calls | [Dependency_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/Dependency_Probe) |
 
-The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. The current Java bootstrap uses interpreter mode, and JIT performance remains future work.
+The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
 ## Roadmap
 
@@ -98,7 +98,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: gameplay optimization probe 01.000.065
+## Current development: gameplay optimization probe 01.000.066
 
 The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all065 PS5 rows remain pending.
 
@@ -1215,3 +1215,37 @@ reached gameplay, so the earlier speed/eating issue is still unresolved. The
 unchanged; no new ALL PASS or full-duration result is claimed.
 
 065 runtime pin: `60ab50e4694bf42c8874c6f96fb609b8c7735322`. Package SHA-256: `696c39011917599f37ca31af1e65b0b97fde47cb763dab8f652ce9a900712da1`.
+
+
+### Build 066: guarded C1 performance candidate and food-use traces
+
+065 reaches readiness and admits the authenticated vanilla client. It still
+runs poorly: joined samples drop to roughly 10–13 TPS, with several seconds of
+GC per interval. Chicken and mutton reach the client burp but do not consume or
+restore hunger. FoodLevel 18 and 16 confirm hunger is below full. A death between
+samples explains the temporary reset to 20; it is not evidence of eating.
+The exact consumption failure remains unresolved.
+
+066 enables mixed-mode C1 at level 1 with one compiler and the existing 8 MiB
+code cache. A correctness gate requires this run's actual kernel compilation
+and checks deterministic results before accepting the preflight. This is the
+first C1 performance candidate, **not a PS5 JIT pass**. Heap stays 144 MiB and
+Java stacks 512 KiB; native compiler memory and compiled exceptions need testing.
+
+A read-only observer runs at the final server tick return. It records use state,
+remaining ticks, held/use stack counts, hunger, saturation and tick/wall duration.
+It changes no food, inventory or game rules. The local derivative now adapts
+SystemReport telemetry plus this single MinecraftServer observer; the verified
+original stays intact. An audit preserves every existing method opcode and
+invocation. All other classes/resources remain byte-identical except the unsigned
+manifest. Inspect `MC_ITEM_USE` and `/jit.log` alongside TPS/GC and native usage.
+
+Host C1 validation reaches Done and passes 30 seconds, 15 tick checks, seven
+saves and clean stop with nine forced chunks, online preflight and the observer
+initialized. No host player joined, so this proves neither eating nor mob speed.
+Package integrity checks pass. All 066 console rows, gameplay, player persistence
+and the full two-hour phase remain pending. The timer still starts at server
+readiness. Frozen 058 remains preserved.
+
+066 runtime pin: `335443815712c132db69f36e6d4e099490e6c20b`.
+Package SHA-256: `93a41b45355fb2ee7cd6d06d7c775b166d77201ee2f885b9a807e458b0e30bb4`.
