@@ -138,6 +138,14 @@ public class ServerStart25 {
   try(PrintStream captured=new PrintStream(observer,true,StandardCharsets.UTF_8)) {
    System.setOut(captured);System.setErr(captured);System.setIn(input);
    try {
+    stage="verify legacy-player directory listing";trace(stage);
+    // Match the legacy converter's java.io listing before the server consumes it.
+    File oldPlayers=root.resolve("world/players").toFile();
+    if(oldPlayers.exists()&&oldPlayers.isDirectory()) {
+     File[] entries=oldPlayers.listFiles();
+     if(entries==null)throw new IOException("Legacy-player directory listing failed; inspect PS5 java.io list native error");
+     System.out.println("MC_LEGACY_DIRECTORY_OK entries="+entries.length);
+    }
     if(Boolean.getBoolean("ps5.mc.checkNetworkMemory")) {stage="verify network allocator growth";trace(stage);ServerMemory25.check();}
     if(Boolean.getBoolean("ps5.mc.requireOnline")) {
      stage="verify online DNS/HTTPS discovery, account profile and whitelist";trace(stage);

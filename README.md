@@ -98,9 +98,9 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: gameplay optimization probe 01.000.064
+## Current development: gameplay optimization probe 01.000.065
 
-The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all064 PS5 rows remain pending.
+The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all065 PS5 rows remain pending.
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -1185,3 +1185,33 @@ phase is retained, but a full-duration pass is not the immediate acceptance
 criterion. Keep the frozen 058 snapshot/package unchanged.
 
 064 runtime pin: `bf394d0a8ca3dba37cae7b61277b8b1f728dd6d7`. Package SHA-256: `bf31e0effa895f0b2f24dd543c03c475c45a1916b4a93f499ca95a24617ebf0d`.
+
+
+### Build 065: fix java.io directory listing during legacy conversion
+
+064 passes online preflight but fails before readiness: the official
+OldUsersConverter receives null from File.listFiles and dereferences it.
+The remaining java.io directory implementation used desktop SDK enumeration;
+NIO already used the resident PS5 reader. The original native errno is not
+captured, so the precise opendir refusal cause is not established.
+
+065 uses the same resident directory helper for PS5 java.io listing. Real names,
+empty directories and actual failures remain distinct; partial failures are
+rejected and resources are released. Native diagnostics identify open/read/close
+errors. A read-only legacy-player directory preflight reports the listing before
+the official converter consumes it. No legacy files are removed, fabricated or
+silently skipped by this change; official migration behavior stays intact.
+
+The actual-JNI regression passes 351 filenames, array growth, Unicode, symlink,
+empty/missing/file paths and injected open/read/partial-read/close/mapping
+failures with SDK opendir denied. The real host server also runs through that
+rebound PS5 method with an existing legacy-player directory: online preflight,
+Done, 30 seconds / 14 tick checks / eight saves and clean stop pass. Target build
+and exact package checks pass. The full host run emits nonfatal optional macOS
+OSHI/JNA JNI-check warnings; the isolated listing regression has only the
+expected native re-registration warning. **All 065 PS5 rows remain pending.** 064 never
+reached gameplay, so the earlier speed/eating issue is still unresolved. The
+064 optimizations and GC/TPS/hunger diagnostics remain included. Frozen 058 is
+unchanged; no new ALL PASS or full-duration result is claimed.
+
+065 runtime pin: `60ab50e4694bf42c8874c6f96fb609b8c7735322`. Package SHA-256: `696c39011917599f37ca31af1e65b0b97fde47cb763dab8f652ce9a900712da1`.

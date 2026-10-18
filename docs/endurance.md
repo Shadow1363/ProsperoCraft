@@ -1,4 +1,4 @@
-# Online two-hour PS5 server endurance probe — build01.000.064
+# Online two-hour PS5 server endurance probe — build01.000.065
 
 This development build extends the passing058 startup/save/stop fixture. The
 Server_Start snapshot and exact passing package remain frozen. Runtime pin,
@@ -162,3 +162,15 @@ a minute while leaving the probe open; collect those reports before a full
 sustained-load attempt. The configured 7,200-second phase remains available.
 PS5 performance/eating, player-data save warning cause and full completion
 remain pending. Host telemetry/forced-chunk tests do not validate player eating.
+
+
+## Build 065: existing player-directory startup
+
+064 fails in legacy-player conversion before Done because java.io File.listFiles
+returns null. 065 adapts PS5 java.io directory listing to the existing resident
+reader and adds MC_LEGACY_DIRECTORY_OK before conversion. It does not remove or
+skip legacy files. The actual-JNI host test and an existing-directory server
+fixture pass, including readiness, tick checks, saves and clean stop. Retest
+065 startup and authenticated gameplay, then reproduce hungry food use while
+leaving the probe open. GC/TPS/hunger diagnostics and the configured two-hour
+phase remain. Console eating/performance and full endurance are still pending.
