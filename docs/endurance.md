@@ -1,4 +1,4 @@
-# Online two-hour PS5 server endurance probe — build01.000.062
+# Online two-hour PS5 server endurance probe — build01.000.063
 
 This development build extends the passing058 startup/save/stop fixture. The
 Server_Start snapshot and exact passing package remain frozen. Runtime pin,
@@ -128,3 +128,18 @@ not validate actual player admission. Host40second online readiness/save/stop
 passes; PS5 admission and the full two-hour result remain pending. Install062,
 run the normal rows and join after readiness; do not treat preflight or package
 checks as a console pass. The frozen058 milestone is unchanged.
+
+
+## Build063 native-memory headroom
+
+062 confirms online identity authentication but native allocation fails during
+update_tags configuration, followed by chunk-loading/thread failures and VM
+abort.063 uses144MiB max heap and512KiB Java thread stacks and unpooled Netty buffers, retaining real direct
+ioBuffer allocation. MC_NETWORK_MEMORY_OK confirms allocator and64KiB growth;
+networkErrors records Netty ERROR lines and blocks a pass. Default TLS and
+online authentication remain enabled. The host60second workload requests49
+flat chunks and validates tick/save/stop at144MiB; it does not reproduce the
+console's process memory ceiling or player connection. All063 console rows,
+complete authenticated world entry and two-hour completion remain pending.
+The console still uses real player chunk loading; validationChunkRadius is an
+optional host stress setting and is absent from native launch options.

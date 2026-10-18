@@ -31,9 +31,11 @@ public class test_endurance {
   stream.write("[00:00:00] [Minecraft Services Discovery/WARN]: Failed to connect\n".getBytes(StandardCharsets.UTF_8));
   if(field(c,o,"discoveryErrors")!=1)throw new AssertionError("missed actual discovery failure");failed(checkOnline,o);
   failed(endurance,o,new PipedOutputStream(),1L);System.clearProperty("ps5.mc.requireOnline");checkOnline.invoke(null,o);
+  stream.write("[00:00:00] [Netty NIO IO #2/ERROR]: Error sending packet clientbound/minecraft:update_tags\n".getBytes(StandardCharsets.UTF_8));
+  if(field(c,o,"networkErrors")!=1)throw new AssertionError("missed packet encoder failure");failed(checkOnline,o);
   var readyAt=c.getDeclaredField("readyAt");readyAt.setAccessible(true);readyAt.setLong(o,System.nanoTime()-3_000_000_000L);failed(endurance,o,new PipedOutputStream(),1L);readyAt.setLong(o,0L);
   System.setProperty("ps5.mc.testSetting","0");if(ServerStart25.setting("ps5.mc.testSetting",4,0,10)!=0)throw new AssertionError();
   System.setProperty("ps5.mc.testSetting","-1");try{ServerStart25.setting("ps5.mc.testSetting",4,0,10);throw new AssertionError();}catch(IllegalArgumentException expected){}
-  stream.close();System.out.println("PASS: real observer split replies/malformed/unrelated lines, saved acknowledgement vs saving, error count; command gate dead/unresponsive and repeated game-time, authentication/discovery-error and late-monitor failures; config bounds");
+  stream.close();System.out.println("PASS: real observer split replies/malformed/unrelated lines, saved acknowledgement vs saving, error count; command gate dead/unresponsive and repeated game-time, packet/authentication/discovery-error and late-monitor failures; config bounds");
  }
 }

@@ -98,9 +98,9 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: online two-hour endurance probe 01.000.062
+## Current development: online two-hour endurance probe 01.000.063
 
-The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all062 PS5 rows remain pending.
+The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all063 PS5 rows remain pending.
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -1123,3 +1123,32 @@ result remain pending.** Online authentication, certificate validation and
 whitelisting remain enabled; the timer still begins at actual server readiness.
 
 Runtime pin: `b9b4cfe783a111d85ee1a278745bae0bfe07a9c9`. Package SHA-256: `a1f139c46e5187cadadcc335a476599f15f80a2e741bb86ca98d0112f726639f`.
+
+
+### Build 063: memory headroom during authenticated configuration
+
+Build 062 authenticated the online session, then failed while encoding
+`clientbound/minecraft:update_tags`: Netty could not allocate a 32 KiB native
+buffer. Native trace confirms ENOMEM for its 48 KiB mapping, followed by class
+loading and thread failures and a VM abort. Five tick checks reached 120 seconds;
+no completed player admission or endurance pass was recorded. Raw reports stay local.
+
+Build 063 lowers the Java heap ceiling from 160 to 144 MiB, sets Java thread
+stacks to 512 KiB and selects Netty's existing unpooled allocator. This leaves
+more native headroom and reduces retained buffer storage. Network buffers still
+use real direct allocation. `MC_NETWORK_MEMORY_OK` checks allocator selection
+and 64 KiB growth/readback/release. Netty packet errors now fail endurance even
+without an authentication or server-thread error. An intermediate 128 MiB
+configuration exhausted Java heap during chunk stress and was rejected.
+
+Validation passes 20 actual update_tags codec roundtrips of 116,901 encoded
+bytes each, comparing every decoded tag and ID and releasing each buffer. At
+144 MiB / 512 KiB stacks, the real host online 60-second test with 49 forced flat
+chunks passes 25 advancing tick checks, 14 flushed saves, persisted region data
+and clean stop. Target compilation and exact package integrity checks pass.
+**PS5 memory fit, authenticated world entry and the full two-hour result remain
+pending.** Authentication, TLS and whitelist checks remain enabled; the timer
+starts at real server readiness. Frozen build 058 remains unchanged.
+
+Package SHA-256: `f80168f2fdb82487ba37d98a131cf36b0eabeb9094cb73f6e31ac8169556a3f3`.
+Runtime pin: `b9b4cfe783a111d85ee1a278745bae0bfe07a9c9`.

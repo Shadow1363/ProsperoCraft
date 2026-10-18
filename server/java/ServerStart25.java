@@ -8,7 +8,7 @@ public class ServerStart25 {
  private static native void checkpoint(String stage);
  private static void trace(String stage){if(Boolean.getBoolean("ps5.probe.dependencyTrace"))checkpoint("MC start: "+stage);}
  private static final class Observer extends OutputStream {
-  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;volatile long readyAt;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors,authErrors,discoveryErrors,playerJoins;
+  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;volatile long readyAt;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors,authErrors,discoveryErrors,networkErrors,playerJoins;
   OutputStream log;long logged;
   private void persist(byte[] bytes,int offset,int length){if(log==null)return;try{int n=(int)Math.min(length,32L*1024*1024-logged);if(n>0){log.write(bytes,offset,n);logged+=n;}if(n<length){log.write("\n[Log capped at 32 MiB]\n".getBytes(StandardCharsets.UTF_8));log.close();log=null;}else log.flush();}catch(IOException e){console.println("Probe console log write failed: "+e);try{log.close();}catch(IOException ignored){}log=null;}}
   public synchronized void close()throws IOException{if(log!=null){log.close();log=null;}}
@@ -37,6 +37,7 @@ public class ServerStart25 {
    if(reply.endsWith(" joined the game"))playerJoins++;
    if(value.contains("[User Authenticator ")&&value.contains("/ERROR]"))authErrors++;
    if(value.contains("[Minecraft Services Discovery/WARN]")&&(value.contains("Failed to connect")||value.contains("Services are unavailable")))discoveryErrors++;
+   if(value.contains("[Netty ")&&value.contains("/ERROR]"))networkErrors++;
    if(value.contains("[Server thread/ERROR]"))serverErrors++;
    if(errors.length()<4096&&!value.startsWith("at ")&&(value.contains("ERROR")||value.contains("Exception")||value.contains("Error")||value.contains("Caused by:")))errors.append(value,0,Math.min(value.length(),4096-errors.length())).append('\n');}
   synchronized String recent(){return "ERROR HEADINGS AND CAUSES:\n"+errors+"\nFIRST OUTPUT:\n"+head+"\nRECENT OUTPUT:\n"+tail;}
@@ -77,6 +78,7 @@ public class ServerStart25 {
   }
  }
  private static void checkOnline(Observer observer)throws IOException {
+  if(observer.networkErrors>0)throw new IOException("Network packet failure during endurance; inspect server.log");
   if(!Boolean.getBoolean("ps5.mc.requireOnline"))return;
   if(observer.discoveryErrors>0)throw new IOException("Minecraft authentication discovery failed; inspect server.log and native DNS stages");
   if(observer.authErrors>0)throw new IOException("Online login failure during endurance");
@@ -101,7 +103,7 @@ public class ServerStart25 {
    }
    if(observer.serverErrors>errors)throw new IOException("Server ERROR logged during endurance");
    Runtime memory=Runtime.getRuntime();
-   System.out.println("MC_ENDURANCE_HEALTH elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" targetSeconds="+seconds+" gameTime="+current+" checks="+checks+" saves="+saves+" joins="+observer.playerJoins+" authErrors="+observer.authErrors+" discoveryErrors="+observer.discoveryErrors+" heapUsed="+(memory.totalMemory()-memory.freeMemory())+" heapCommitted="+memory.totalMemory()+" heapMax="+memory.maxMemory());
+   System.out.println("MC_ENDURANCE_HEALTH elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" targetSeconds="+seconds+" gameTime="+current+" checks="+checks+" saves="+saves+" joins="+observer.playerJoins+" authErrors="+observer.authErrors+" discoveryErrors="+observer.discoveryErrors+" networkErrors="+observer.networkErrors+" heapUsed="+(memory.totalMemory()-memory.freeMemory())+" heapCommitted="+memory.totalMemory()+" heapMax="+memory.maxMemory());
    if(System.nanoTime()>=deadline)break;
    long remaining=deadline-System.nanoTime();Thread.sleep(Math.max(1,Math.min(poll*1000,remaining/1_000_000)));
   }while(true);
@@ -110,7 +112,7 @@ public class ServerStart25 {
   long before=observer.saveReplies;command(commands,"save-all flush");awaitReply(observer,before,true,timeout);
   if(observer.serverErrors>errors)throw new IOException("Server ERROR during final endurance save");
   checkOnline(observer);
-  System.out.println("MC_ENDURANCE_COMPLETE elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" checks="+checks+" saves="+(saves+1)+" joins="+observer.playerJoins+" authErrors="+observer.authErrors+" discoveryErrors="+observer.discoveryErrors);
+  System.out.println("MC_ENDURANCE_COMPLETE elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" checks="+checks+" saves="+(saves+1)+" joins="+observer.playerJoins+" authErrors="+observer.authErrors+" discoveryErrors="+observer.discoveryErrors+" networkErrors="+observer.networkErrors);
  }
  public static void main(String[] args)throws Exception {
   long enduranceSeconds=setting("ps5.mc.enduranceSeconds",0,0,86400);
@@ -130,6 +132,7 @@ public class ServerStart25 {
   try(PrintStream captured=new PrintStream(observer,true,StandardCharsets.UTF_8)) {
    System.setOut(captured);System.setErr(captured);System.setIn(input);
    try {
+    if(Boolean.getBoolean("ps5.mc.checkNetworkMemory")) {stage="verify network allocator growth";trace(stage);ServerMemory25.check();}
     if(Boolean.getBoolean("ps5.mc.requireOnline")) {
      stage="verify online DNS/HTTPS discovery, account profile and whitelist";trace(stage);
      Class.forName("ServerOnline25").getMethod("prepare",Path.class).invoke(null,root);
@@ -142,6 +145,9 @@ public class ServerStart25 {
     while(!observer.ready&&System.nanoTime()<deadline){if(serverThread()==null)break;Thread.sleep(200);}
     if(!observer.ready)throw new IOException("Server did not report ready; thread exited or deadline elapsed");
     checkOnline(observer);
+    // Optional host stress fixture, absent from console launch options.
+    long chunks=setting("ps5.mc.validationChunkRadius",0,0,4);
+    if(chunks>0){long edge=chunks*16;command(commands,"forceload add "+(-edge)+" "+(-edge)+" "+edge+" "+edge);}
     stage="endurance: tick progress, periodic flushed saves and server liveness";trace(stage);
     endurance(observer,commands,enduranceSeconds);
     stage="send stop and await real server thread exit";trace(stage);
