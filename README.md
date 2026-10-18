@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a dedicated server, then working toward the client, controller support and mod compatibility.
 
-> **Status: first Minecraft server bootstrap milestone passes on PS5.** Build **01.000.002** verifies all 40 official JARs and invokes Minecraft **26.3 / Java 25** `--help`. Development build **01.000.057** reaches server readiness, then crashes during the save path. Verified save/stop and player joins remain pending.
+> **Status: flat-world server startup, save and stop pass on PS5.** Build **01.000.058** passes all five probe rows with Minecraft **26.3 / Java 25**, including real readiness, saved world metadata and VM destruction. Saved-world reload, player joins and endurance remain unvalidated.
 
 ## The goal
 
@@ -63,7 +63,8 @@ The runtime now has **nine passing console milestones**, including inbound IPv4,
 - [x] Verify the inventory and official `--help` entry point on the host.
 - [x] Pass the first Minecraft server bootstrap probe on PS5.
 - [x] Launch a vanilla dedicated server and reach a ready state (observed in build057; the run then crashed during the save path).
-- [ ] Create, save, stop and reload a test world.
+- [x] Start a flat test world, save metadata and stop cleanly (build058 ALL PASS).
+- [ ] Reload a saved world and verify persistence.
 - [ ] Connect from another device and verify sustained ticks and clean shutdown.
 
 ### 2 · Bring up the client
@@ -97,11 +98,11 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: server start probe 01.000.058
+## Latest passing milestone: server start probe 01.000.058
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
-The world and configuration live under the application-visible `/download0/mc-server-start`. The test preserves that directory across launches, writes its controlled low-distance server properties, listens on available interfaces without a preset IP, waits up to ten minutes for the real `Done` message, sends `stop`, awaits server-thread exit and reads the saved `world/level.dat`. Row 4 runs on a dedicated JNI-attached native worker with an 8 MiB stack. The menu redraws elapsed seconds while test selection and VM destruction remain disabled until the worker joins. The ten-minute readiness deadline starts after the synchronous server main method returns; it does not bound that initial call. The current host readiness/save/stop test passes at 160 MiB (earlier runs passed at 192 MiB); **PS5 readiness is observed in build057; verified save/stop remains pending**. Build 01.000.003 failed during JVM creation after a 64 MiB native reservation returned ENOMEM with its 256 MiB heap setting. A host attempt at 128 MiB exhausted Java heap during world generation. Build 01.000.004 also failed at JVM creation with an 80 MiB reservation failure. Build 01.000.005 retains the 192 MiB Java heap and includes a PS5 runtime adaptation: non-class metaspace reserves 16 MiB nodes instead of 64 MiB, growing through the existing allocator as needed. Build 01.000.005 now passes real VM creation at 192 MiB, official JAR checks and VM destruction on PS5. The server row then failed on `ServerStart25$Observer` lookup before execution. Build 01.000.006 puts all consumer probe classes in `ps5-server-probe.jar` on the system class path; the matching JNI lookup regression and real host readiness/save/stop test pass. The console memory limit and earlier signal cause remain unestablished. Build 01.000.006 executes the wrapper, but did not reach ready and exposed a partial Log4j initialization stack. Build 01.000.007 uses headless console-only logging and preserves error headings, cause chains, initial output and recent output separately. Native text capacity now holds the report instead of truncating it to 1.5 KiB. Its host readiness/save/stop and long-error diagnostic tests pass; the actual prior exception is not yet identified. This development build includes target-built `jdk.zipfs` for Minecraft datapacks, in addition to the bootstrap module set. It does not establish player-join support or sustained performance.
+The world and configuration live under the application-visible `/download0/mc-server-start`. The test preserves that directory across launches, writes its controlled low-distance server properties, listens on available interfaces without a preset IP, waits up to ten minutes for the real `Done` message, sends `stop`, awaits server-thread exit and reads the saved `world/level.dat`. Row 4 runs on a dedicated JNI-attached native worker with an 8 MiB stack. The menu redraws elapsed seconds while test selection and VM destruction remain disabled until the worker joins. The ten-minute readiness deadline starts after the synchronous server main method returns; it does not bound that initial call. The current host readiness/save/stop test passes at 160 MiB (earlier runs passed at 192 MiB); **PS5 startup/save/stop passes in build058, confirmed by the human on 2026-10-18**. Build 01.000.003 failed during JVM creation after a 64 MiB native reservation returned ENOMEM with its 256 MiB heap setting. A host attempt at 128 MiB exhausted Java heap during world generation. Build 01.000.004 also failed at JVM creation with an 80 MiB reservation failure. Build 01.000.005 retains the 192 MiB Java heap and includes a PS5 runtime adaptation: non-class metaspace reserves 16 MiB nodes instead of 64 MiB, growing through the existing allocator as needed. Build 01.000.005 now passes real VM creation at 192 MiB, official JAR checks and VM destruction on PS5. The server row then failed on `ServerStart25$Observer` lookup before execution. Build 01.000.006 puts all consumer probe classes in `ps5-server-probe.jar` on the system class path; the matching JNI lookup regression and real host readiness/save/stop test pass. The console memory limit and earlier signal cause remain unestablished. Build 01.000.006 executes the wrapper, but did not reach ready and exposed a partial Log4j initialization stack. Build 01.000.007 uses headless console-only logging and preserves error headings, cause chains, initial output and recent output separately. Native text capacity now holds the report instead of truncating it to 1.5 KiB. Its host readiness/save/stop and long-error diagnostic tests pass; the actual prior exception is not yet identified. This development build includes target-built `jdk.zipfs` for Minecraft datapacks, in addition to the bootstrap module set. It does not establish player-join support or sustained performance.
 
 ### Build and verify
 
@@ -120,11 +121,12 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Server Start · 01.000.058** | ALL PASS on PS5: real readiness, saved metadata, clean stop and VM lifecycle | [Frozen source & validation](Server_Start) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Server_Start-v01.000.058) |
 | **Server Bootstrap · 01.000.002** | ALL PASS on PS5 13.60: VM lifecycle, 40-JAR preflight and official server `--help` | [Frozen source & validation](Server_Bootstrap) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Server_Bootstrap-v01.000.002) |
 
-The public release contains the console-tested app/runtime, with official game/dependency JARs excluded. To provision those, run `tools/prepare_server.py --runtime-workspace /path/to/PS5_Homebrew`, then copy the generated `build/assets/java25/jars/` into the extracted app's `assets/java25/jars/`. The regular packaging command above produces the full local app automatically. Exact full-package and release-asset hashes are recorded separately in [validation](Server_Bootstrap/validation.json).
+The public release contains the console-tested app/runtime, with official game/dependency JARs excluded. To provision those, run `tools/prepare_server.py --runtime-workspace /path/to/PS5_Homebrew`, then copy the generated `build/assets/java25/jars/` into the extracted app's `assets/java25/jars/`. The regular packaging command above produces the full local app automatically. Exact full-package and release-asset hashes are recorded separately in [Server_Start validation](Server_Start/validation.json) and [bootstrap validation](Server_Bootstrap/validation.json).
 
-Earlier build failures remain recorded in [console results](server/console-results.json). This milestone establishes bootstrap/help only. World creation, a ready dedicated server, player joins and sustained ticks are next.
+Earlier build failures remain recorded in [console results](server/console-results.json). The bootstrap snapshot establishes help only; Server_Start adds readiness and save/stop. Saved-world reload, player joins and sustained ticks are next.
 
 ## Follow the project
 
@@ -995,3 +997,19 @@ and verified save/stop/thread exit remain pending.** Native capacity and DNS
 remain unresolved.
 
 Build058 package SHA-256: `2dc0dd46c2238aa8cfa1136f0ab291650736229d180370e9754697fd22c7e5bb`.
+
+
+### Server_Start frozen: build058 ALL PASS
+
+On 2026-10-18 the human confirmed all five PS5 rows passed for the exact058
+package above. This validates runtime initialization, VM creation, artifact/asset
+preflight, real readiness, stop/server-thread exit, nonempty saved level.dat and
+VM destruction. The report's ten hours describes development effort, not an
+endurance measurement. Source and package checksums are frozen in
+[Server_Start](Server_Start); the exact full package is preserved locally.
+
+The [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Server_Start-v01.000.058)
+omits official/game-derived JARs while preserving all remaining tested bytes.
+Provision locally using the frozen README instructions. No saved-world reload,
+player join, performance or endurance pass is claimed; mount discovery/capacity
+remain unavailable and discovery DNS is not separately confirmed repaired.

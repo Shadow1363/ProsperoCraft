@@ -549,12 +549,13 @@
     },
     {
       "app_version": "01.000.058",
-      "console": "pending",
+      "console": "ALL PASS: human user report for01.000.058 on2026-10-18; all five PS5 rows including real readiness, saved level.dat, server thread exit and VM destruction.",
       "changes": "PS5 BsdNativeDispatcher.getfsstat throws real UnixException(ENOSYS) before iterator allocation or unvalidated desktop syscall395; no fabricated mounts/capacity, desktop branch retained. Existing Java mount lookup may report IOException; consumer handling needs console test. Common PS5 java.io native fileOpen resolves nonempty relative paths with File.getAbsolutePath/user.dir before platform-string conversion; absolute/empty paths and original error filename retained. Input/output/random-access opens share path; descriptor constructors unchanged.160MiB heap/8MiB worker/network fixes retained.",
       "checks": "PASS: actual native helper/fileOpen/handleOpen/mount/end bodies, real JNI -Xcheck:jni and UBSan, PS5+desktop controls, relative/absolute/read/write/append/rw/dot-parent/empty/missing-parent errors with cwd different from user.dir. Host platform-string transport uses JNI UTF for ASCII fixtures; mount syscalls injected and test UnixException transport replaced with IOException. PS5 mount branch invokes zero syscalls/diagnostic allocations and reports ENOSYS; desktop success/query/allocation failure and cleanup checked. Target HotSpot/java.base-libs; target mount object has no getfsstat/malloc dependency. Two signed integrities, ZIP CRC/version058/160MiB, five target libs incl libnio, generated-resource image/audit identity, retained058 symbols/matching copies. Consumer Java unchanged from047 host160MiB ready/save/stop. Console pending.",
       "max_heap_mib": 160,
       "package_sha256": "2dc0dd46c2238aa8cfa1136f0ab291650736229d180370e9754697fd22c7e5bb",
-      "pending": "All058 PS5 rows; tolerance of unavailable mount lookup, relative stream writes, verified save/stop/thread exit.057 readiness observed but run crashed. Mount discovery/free capacity unimplemented; native capacity and discovery DNS unresolved."
+      "pending": "Saved-world reload, player connection/sustained ticks, long endurance, mount discovery/free capacity and separate DNS repair remain unvalidated.",
+      "evidence": "Human report on2026-10-18: after 10H of work! ALL PASS! Latest delivered build01.000.058, exact full package SHA256 2dc0dd46c2238aa8cfa1136f0ab291650736229d180370e9754697fd22c7e5bb. All five probe rows pass, including real Done readiness, stop/server-thread exit, nonempty saved level.dat and DestroyJavaVM. Current-run raw logs not retrieved for this result; validation basis is explicit human console report. Ten hours refers to development work, not measured endurance."
     }
   ]
 }

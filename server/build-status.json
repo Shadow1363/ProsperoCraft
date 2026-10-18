@@ -4,7 +4,7 @@
   "minecraft": "26.3",
   "java_major": 25,
   "package_sha256": "2dc0dd46c2238aa8cfa1136f0ab291650736229d180370e9754697fd22c7e5bb",
-  "console": "pending: All058 PS5 rows; tolerance of unavailable mount lookup, relative stream writes, verified save/stop/thread exit.057 readiness observed but run crashed. Mount discovery/free capacity unimplemented; native capacity and discovery DNS unresolved.",
+  "console": "ALL PASS: human user report for01.000.058 on2026-10-18; all five PS5 rows including real readiness, saved level.dat, server thread exit and VM destruction.",
   "host": "PASS: actual native helper/fileOpen/handleOpen/mount/end bodies, real JNI -Xcheck:jni and UBSan, PS5+desktop controls, relative/absolute/read/write/append/rw/dot-parent/empty/missing-parent errors with cwd different from user.dir. Host platform-string transport uses JNI UTF for ASCII fixtures; mount syscalls injected and test UnixException transport replaced with IOException. PS5 mount branch invokes zero syscalls/diagnostic allocations and reports ENOSYS; desktop success/query/allocation failure and cleanup checked. Target HotSpot/java.base-libs; target mount object has no getfsstat/malloc dependency. Two signed integrities, ZIP CRC/version058/160MiB, five target libs incl libnio, generated-resource image/audit identity, retained058 symbols/matching copies. Consumer Java unchanged from047 host160MiB ready/save/stop. Console pending.",
   "package": "PASS: actual native helper/fileOpen/handleOpen/mount/end bodies, real JNI -Xcheck:jni and UBSan, PS5+desktop controls, relative/absolute/read/write/append/rw/dot-parent/empty/missing-parent errors with cwd different from user.dir. Host platform-string transport uses JNI UTF for ASCII fixtures; mount syscalls injected and test UnixException transport replaced with IOException. PS5 mount branch invokes zero syscalls/diagnostic allocations and reports ENOSYS; desktop success/query/allocation failure and cleanup checked. Target HotSpot/java.base-libs; target mount object has no getfsstat/malloc dependency. Two signed integrities, ZIP CRC/version058/160MiB, five target libs incl libnio, generated-resource image/audit identity, retained058 symbols/matching copies. Consumer Java unchanged from047 host160MiB ready/save/stop. Console pending.",
   "runtime_modules": [
@@ -27,13 +27,13 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "Flat-world startup/save/stop attempt with160MiB heap;057 reaches real readiness then crashes during save path.058 avoids unvalidated mount syscall and resolves relative stream paths; console pending.",
+  "scope": "Frozen Server_Start milestone: flat-world startup, real Done readiness, stop/thread exit and nonempty persisted world/level.dat. No reload/player/endurance claim.",
   "max_heap_mib": 160,
   "runtime_adaptation": "PS5 BsdNativeDispatcher.getfsstat throws real UnixException(ENOSYS) before iterator allocation or unvalidated desktop syscall395; no fabricated mounts/capacity, desktop branch retained. Existing Java mount lookup may report IOException; consumer handling needs console test. Common PS5 java.io native fileOpen resolves nonempty relative paths with File.getAbsolutePath/user.dir before platform-string conversion; absolute/empty paths and original error filename retained. Input/output/random-access opens share path; descriptor constructors unchanged.160MiB heap/8MiB worker/network fixes retained.",
   "probe_jar_sha256": "edbae9b21347b27629a5218b6dc698bfa646f4df2da756c6b648e8fe8c6ed9f2",
   "diagnostics": "057 route flag fallback works, server reports Done; native trace ends at getfsstat preparation. No exact final fault PC or complete save/stop proof.",
   "reserved_code_cache_mib": 8,
-  "known_failures": "All058 PS5 rows; tolerance of unavailable mount lookup, relative stream writes, verified save/stop/thread exit.057 readiness observed but run crashed. Mount discovery/free capacity unimplemented; native capacity and discovery DNS unresolved.",
+  "known_failures": "Mount enumeration/free capacity remain unavailable; discovery DNS previously failed and is not separately confirmed repaired. Player join, saved-world reload and endurance remain unvalidated.",
   "diagnostic_adapter": "Local unsigned derivative of hash-verified official server JAR; only optional SystemReport hardware/software telemetry is wrapped; original desktop methods retained; gameplay classes/resources unchanged; no global signature checks disabled",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
@@ -45,5 +45,12 @@
   "verifier_native_fix": "Covers class-hash rows/table/names, constants, exceptions, superclass/bytecode buffers, allocation cleanup stack and scratch pools. Aligned backend prefix, calloc overflow/zeroing and matching normal/longjmp cleanup; VM UTF strings retain JVM_ReleaseUTF.",
   "thread_diagnostics": "019 confirms pthread_attr_init result 12 errno 0 type 2; earlier failure-stage logs retained in 020.",
   "thread_attributes_fix": "Exclusive real attribute leases in two separate 32-slot domains, initialized early. Stack-query results never reused for creation. Pool exhaustion falls back to ordinary local initialization with real failure propagation.",
-  "metaspace_alignment_fix": "020 console trace confirms at least one real exact-size 16 MiB aligned reservation. Later crash resolution not established."
+  "metaspace_alignment_fix": "020 console trace confirms at least one real exact-size 16 MiB aligned reservation. Later crash resolution not established.",
+  "console_validation": {
+    "reported_date": "2026-10-18",
+    "report": "after 10H of work! ALL PASS!",
+    "basis": "Human result for the immediately preceding delivered build01.000.058; duration refers to development effort, not endurance test."
+  },
+  "milestone": "Server_Start",
+  "release": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Server_Start-v01.000.058"
 }
