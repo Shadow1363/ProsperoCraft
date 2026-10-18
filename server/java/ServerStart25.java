@@ -8,7 +8,7 @@ public class ServerStart25 {
  private static native void checkpoint(String stage);
  private static void trace(String stage){if(Boolean.getBoolean("ps5.probe.dependencyTrace"))checkpoint("MC start: "+stage);}
  private static final class Observer extends OutputStream {
-  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors;
+  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;volatile long readyAt;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors,authErrors,playerJoins;
   OutputStream log;long logged;
   private void persist(byte[] bytes,int offset,int length){if(log==null)return;try{int n=(int)Math.min(length,32L*1024*1024-logged);if(n>0){log.write(bytes,offset,n);logged+=n;}if(n<length){log.write("\n[Log capped at 32 MiB]\n".getBytes(StandardCharsets.UTF_8));log.close();log=null;}else log.flush();}catch(IOException e){console.println("Probe console log write failed: "+e);try{log.close();}catch(IOException ignored){}log=null;}}
   public synchronized void close()throws IOException{if(log!=null){log.close();log=null;}}
@@ -18,7 +18,7 @@ public class ServerStart25 {
   private void record(String text){
    if(head.length()<4096)head.append(text,0,Math.min(text.length(),4096-head.length()));
    tail.append(text);
-   if(tail.indexOf("Done (")>=0&&tail.indexOf("For help, type")>=0)ready=true;
+   if(!ready&&tail.indexOf("Done (")>=0&&tail.indexOf("For help, type")>=0){readyAt=System.nanoTime();ready=true;}
    if(tail.length()>4096)tail.delete(0,tail.length()-4096);
    for(int i=0;i<text.length();i++){
     char c=text.charAt(i);
@@ -34,6 +34,8 @@ public class ServerStart25 {
     if(end>start)try{gameTime=Long.parseLong(reply.substring(start,end));timeReplies++;}catch(NumberFormatException ignored){}
    }
    if(reply.equals("Saved the game"))saveReplies++;
+   if(reply.endsWith(" joined the game"))playerJoins++;
+   if(value.contains("[User Authenticator ")&&value.contains("/ERROR]"))authErrors++;
    if(value.contains("[Server thread/ERROR]"))serverErrors++;
    if(errors.length()<4096&&!value.startsWith("at ")&&(value.contains("ERROR")||value.contains("Exception")||value.contains("Error")||value.contains("Caused by:")))errors.append(value,0,Math.min(value.length(),4096-errors.length())).append('\n');}
   synchronized String recent(){return "ERROR HEADINGS AND CAUSES:\n"+errors+"\nFIRST OUTPUT:\n"+head+"\nRECENT OUTPUT:\n"+tail;}
@@ -76,10 +78,12 @@ public class ServerStart25 {
  private static void endurance(Observer observer,PipedOutputStream commands,long seconds)throws Exception {
   if(seconds==0)return;
   long poll=setting("ps5.mc.endurancePollSeconds",30,1,300),saveInterval=setting("ps5.mc.enduranceSaveSeconds",300,1,3600),timeout=setting("ps5.mc.enduranceReplySeconds",120,1,600);
-  long begin=System.nanoTime(),deadline=begin+seconds*1_000_000_000L,nextSave=begin+saveInterval*1_000_000_000L;
+  long begin=observer.readyAt==0?System.nanoTime():observer.readyAt,deadline=begin+seconds*1_000_000_000L,nextSave=begin+saveInterval*1_000_000_000L;
+  if(System.nanoTime()-begin>poll*1_000_000_000L)throw new IOException("Endurance monitoring started too late after readiness");
   long last=-1,checks=0,saves=0,errors=observer.serverErrors;
   System.out.println("MC_ENDURANCE_BEGIN targetSeconds="+seconds+" pollSeconds="+poll+" saveSeconds="+saveInterval+" noPlayerAutoPause=false");
   do {
+   if(Boolean.getBoolean("ps5.mc.requireOnline")&&observer.authErrors>0)throw new IOException("Online login failure during endurance");
    if(serverThread()==null)throw new IOException("Server exited before endurance completed");
    long before=observer.timeReplies;command(commands,"time query gametime");awaitReply(observer,before,false,timeout);
    long current=observer.gameTime;
@@ -91,7 +95,7 @@ public class ServerStart25 {
    }
    if(observer.serverErrors>errors)throw new IOException("Server ERROR logged during endurance");
    Runtime memory=Runtime.getRuntime();
-   System.out.println("MC_ENDURANCE_HEALTH elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" targetSeconds="+seconds+" gameTime="+current+" checks="+checks+" saves="+saves+" heapUsed="+(memory.totalMemory()-memory.freeMemory())+" heapCommitted="+memory.totalMemory()+" heapMax="+memory.maxMemory());
+   System.out.println("MC_ENDURANCE_HEALTH elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" targetSeconds="+seconds+" gameTime="+current+" checks="+checks+" saves="+saves+" joins="+observer.playerJoins+" authErrors="+observer.authErrors+" heapUsed="+(memory.totalMemory()-memory.freeMemory())+" heapCommitted="+memory.totalMemory()+" heapMax="+memory.maxMemory());
    if(System.nanoTime()>=deadline)break;
    long remaining=deadline-System.nanoTime();Thread.sleep(Math.max(1,Math.min(poll*1000,remaining/1_000_000)));
   }while(true);
@@ -99,7 +103,8 @@ public class ServerStart25 {
   // than the periodic save interval. Stop/thread exit/file check follow.
   long before=observer.saveReplies;command(commands,"save-all flush");awaitReply(observer,before,true,timeout);
   if(observer.serverErrors>errors)throw new IOException("Server ERROR during final endurance save");
-  System.out.println("MC_ENDURANCE_COMPLETE elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" checks="+checks+" saves="+(saves+1));
+  if(Boolean.getBoolean("ps5.mc.requireOnline")&&observer.authErrors>0)throw new IOException("Online login failure during endurance");
+  System.out.println("MC_ENDURANCE_COMPLETE elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" checks="+checks+" saves="+(saves+1)+" joins="+observer.playerJoins+" authErrors="+observer.authErrors);
  }
  public static void main(String[] args)throws Exception {
   long enduranceSeconds=setting("ps5.mc.enduranceSeconds",0,0,86400);
@@ -119,6 +124,10 @@ public class ServerStart25 {
   try(PrintStream captured=new PrintStream(observer,true,StandardCharsets.UTF_8)) {
    System.setOut(captured);System.setErr(captured);System.setIn(input);
    try {
+    if(Boolean.getBoolean("ps5.mc.requireOnline")) {
+     stage="verify online DNS/HTTPS discovery, account profile and whitelist";trace(stage);
+     Class.forName("ServerOnline25").getMethod("prepare",Path.class).invoke(null,root);
+    }
     stage="initialize and invoke server nogui with PS5 diagnostic adaptation";trace(stage);
     Class<?> main=Class.forName("net.minecraft.server.Main",true,ClassLoader.getSystemClassLoader());
     main.getMethod("main",String[].class).invoke(null,(Object)new String[]{"--nogui","--universe",root.toString(),"--world","world"});

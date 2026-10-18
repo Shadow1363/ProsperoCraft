@@ -1,4 +1,4 @@
-# Two-hour PS5 server endurance probe — build01.000.059
+# Online two-hour PS5 server endurance probe — build01.000.060
 
 This development build extends the passing058 startup/save/stop fixture. The
 Server_Start snapshot and exact passing package remain frozen. Runtime pin,
@@ -29,10 +29,11 @@ the native row returning PASS, followed by VM destruction. Heap usage is Java
 memory, not available native memory. A running menu or elapsed clock alone is
 not proof of healthy ticks or a passing run.
 
-This is an unattended no-player server test with low-distance flat-world
-settings. It does not generate player activity or establish loaded-chunk,
-network-client, gameplay performance or multiplayer endurance. Forced chunk
-loading is not added. No preset device IP or client filter is embedded.
+The baseline workload uses low-distance flat-world settings without simulated
+players. Build060 allows the configured account to join and records successful
+join counts; it does not require a client to stay connected for the full run.
+Loaded-chunk/client gameplay performance and multiplayer endurance need actual
+client observations. Forced chunk loading is not added. No preset device IP or client filter is embedded.
 
 For a short host regression after preparation:
 
@@ -62,3 +63,42 @@ whitelist, resolver settings or active console run were changed. The collected
 snapshot shows real game-time progression through120seconds and the worker
 remains RUN; the full two-hour outcome remains pending. Failed login is separate
 from server-thread endurance checks and does not establish multiplayer support.
+
+
+## Build060 online setup
+
+Package with --join-player YOUR_ACCOUNT. The local app contains only that
+account-name setting in a generated join-player.txt asset; the name is not in
+source Git. Before server launch the fixture requires genuine DNS and verified
+HTTPS responses from discovery/profile/session-profile/public-key services,
+then merges the verified account into whitelist.json. Existing entries remain.
+Online authentication and certificate validation remain enabled. This preflight
+checks service reachability and profile identity, not a successful hasJoined
+exchange; real admission is proved only when a client actually joins.
+
+Install the complete060 folder with the current probe closed, then run rows in
+order. After successful preflight and Done readiness, the7200-second timer
+starts automatically. The configured account can try joining with the matching
+Minecraft Java26.3 client. Whitelisting occurs before launch. Watch the console
+log for MC_ONLINE_PREFLIGHT_OK and later actual player-join output. A preflight
+failure reports DNS, HTTP/TLS or profile validation context and leaves the
+native resolver stages available in vm-trace.log. No guessed endpoint IP,
+offline identity or permissive TLS behavior is used.
+
+Host integration can exercise real online preflight plus a short endurance:
+
+```sh
+python3 tools/test_server_start.py --endurance-seconds 75 --online-player YOUR_ACCOUNT
+```
+
+Host success cannot establish the PS5 resolver repair or authenticated client
+admission. All060 console rows and the actual two-hour result remain pending.
+
+
+Build060 also fails an online-enabled run if an authentication-thread ERROR is
+observed; join/authentication-error counts are logged with health reports.
+Monitoring that starts more than one poll interval after readiness is rejected,
+so an unobserved readiness interval cannot silently count toward a pass.
+The final host integration passes online preflight plus75seconds of live ticks,
+36 checks,18 flushes, clean stop and saved metadata, with zero simulated joins.
+Actual PS5 online admission and7200seconds remain unvalidated.

@@ -98,9 +98,9 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: two-hour endurance probe 01.000.059
+## Current development: online two-hour endurance probe 01.000.060
 
-The passing058 snapshot remains [Server_Start](Server_Start). Build059 adds the requested7200-second no-player endurance phase with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all059 PS5 rows remain pending.
+The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all060 PS5 rows remain pending.
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -111,7 +111,7 @@ The world and configuration live under the application-visible `/download0/mc-se
 With the pinned Java port/toolchain available:
 
 ```sh
-python3 tools/package_server_probe.py --runtime-workspace /path/to/PS5_Homebrew
+python3 tools/package_server_probe.py --runtime-workspace /path/to/PS5_Homebrew --join-player YOUR_ACCOUNT
 python3 tools/test_server_start.py
 ```
 
@@ -1042,3 +1042,32 @@ SESSION/verify endpoint unavailable. This does not establish an authentication
 service outage. Native DNS cause and whitelisted online admission remain
 unresolved. The collected snapshot shows advancing ticks through120seconds;
 the full two-hour result remains pending. See [endurance notes](docs/endurance.md).
+
+
+### Build060: online readiness before the two-hour run
+
+Build059's login attempt exposed a discovery DNS failure. Build060 adds scoped
+SDK DNS result allocation fallback and native resolver-stage diagnostics. The
+exact059 native failure was not captured, so this is a candidate repair that
+still needs PS5 validation. It retains all real resolver errors, normal
+certificate checks, online-mode=true and the whitelist.
+
+Before launching the server, a new preflight verifies HTTPS discovery, the
+configured account's official profile, the session-profile endpoint and
+nonempty authentication public keys. It provisions that verified UUID/name in
+the whitelist while preserving existing entries. If these checks fail, the row
+fails with the exact stage instead of starting an unjoinable endurance run.
+A real authenticated player join is still required to validate admission.
+
+The account name is supplied to the local packager using --join-player, written
+into an ignored generated asset and excluded from source Git. The delivered
+local package is provisioned for the account observed in the user's login.
+The two-hour clock starts at real server readiness as requested, whether or
+not a player has joined. Tick/save/deadline/clean-stop checks remain in place.
+An occupied run can be recorded as player-connected only with actual join
+evidence; client load/performance is not established by startup alone.
+
+**All060 PS5 rows, online authentication/admission and the full two-hour result
+remain pending.** The passing058 milestone and original package stay frozen.
+
+Build060 pins runtime `8114dc2547966ea998cce13fade563594ba638aa`. Package SHA-256: `522c0d6252e769e2a92b285038131a837d0dffac481468f540f4d2f3f247f1a9`. Native sanitizer/target/package checks and real host online preflight plus75second endurance pass; authenticated PS5 joining and7200seconds remain pending.

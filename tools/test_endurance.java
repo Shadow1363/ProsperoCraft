@@ -23,8 +23,11 @@ public class test_endurance {
   Thread stalled=new Thread(()->{try(var reader=new BufferedReader(new InputStreamReader(input,StandardCharsets.UTF_8))){for(String command;(command=reader.readLine())!=null;){stream.write("[00:00:00] [Server thread/INFO]: System chat: The game time is 123 tick(s)\n".getBytes(StandardCharsets.UTF_8));}}catch(IOException ignored){}},"Server thread");
   var endurance=ServerStart25.class.getDeclaredMethod("endurance",c,PipedOutputStream.class,long.class);endurance.setAccessible(true);
   stalled.start();try{failed(endurance,o,commands,1L);}finally{commands.close();stalled.join(2000);if(stalled.isAlive())throw new AssertionError("test command reader stuck");}
+  var errors=c.getDeclaredField("authErrors");errors.setAccessible(true);errors.setLong(o,1);System.setProperty("ps5.mc.requireOnline","true");
+  var fakeCommands=new PipedOutputStream();failed(endurance,o,fakeCommands,1L);fakeCommands.close();System.clearProperty("ps5.mc.requireOnline");
+  var readyAt=c.getDeclaredField("readyAt");readyAt.setAccessible(true);readyAt.setLong(o,System.nanoTime()-3_000_000_000L);failed(endurance,o,new PipedOutputStream(),1L);readyAt.setLong(o,0L);
   System.setProperty("ps5.mc.testSetting","0");if(ServerStart25.setting("ps5.mc.testSetting",4,0,10)!=0)throw new AssertionError();
   System.setProperty("ps5.mc.testSetting","-1");try{ServerStart25.setting("ps5.mc.testSetting",4,0,10);throw new AssertionError();}catch(IllegalArgumentException expected){}
-  stream.close();System.out.println("PASS: real observer split replies/malformed/unrelated lines, saved acknowledgement vs saving, error count; command gate dead/unresponsive and repeated game-time failures; config bounds");
+  stream.close();System.out.println("PASS: real observer split replies/malformed/unrelated lines, saved acknowledgement vs saving, error count; command gate dead/unresponsive and repeated game-time, authentication-error and late-monitor failures; config bounds");
  }
 }
