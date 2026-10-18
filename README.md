@@ -98,7 +98,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: gameplay optimization probe 01.000.067
+## Current development: gameplay optimization probe 01.000.068
 
 The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all065 PS5 rows remain pending.
 
@@ -1283,3 +1283,39 @@ player persistence and the full two-hour phase still need validation. Frozen
 
 067 runtime pin: `69271a6058c45c44bf50a89ad32188dd2b4870bb`.
 Package SHA-256: `354464f68b299277716fc8c2813247b8d8fb0c133d3fc65ff3b64f51dfa1e183`.
+
+
+### Build 068: C1 native memory and code-cache pressure
+
+067 passes management verification and reaches authenticated gameplay, then
+aborts after the user reports less than ten seconds of laggy play. The fatal
+report names C1 CompilerThread0: a 32,664-byte Chunk::new allocation and its
+32,768-byte mapped fallback both fail. Native resource maxrss_raw reaches
+512096; exact units and the title ceiling remain unconfirmed. This is a VM
+native-allocation abort. The client's connection reset is its consequence.
+
+The 8 MiB cache has 6,576 KiB used and full_count=0, but its GC threshold causes
+repeated full collections. The last joined sample averages 20 TPS while spending
+4.292 seconds in GC across the interval, so average TPS hides interruptions.
+Food samples show hunger16 and a changed main-hand stack, but no active-use
+transition or hunger restoration; eating remains unresolved.
+
+Runtime0091 retains at most eight unused chunks per standard arena size class,
+frees excess immediately and clears unused pools before one real allocation
+retry. Live chunks remain intact. The previous cache retained arbitrary bursts
+until its five-second sweep; its exact contribution to this crash is not
+measured. 068 also uses a 16 MiB code cache, compilation threshold scaling4 and
+a 2 MiB per-compilation arena limit with level1/one compiler. Heap144MiB and
+Java stacks512KiB stay the same. GC/code-cache reasons join the JIT log.
+This is a candidate mitigation, not a demonstrated fit in the console budget.
+
+Actual pool-path ASan/UBSan tests, existing native allocator/NMT/layout tests,
+target rebuild, full host C1 preflight and derivative audit pass. The new host
+configuration runs60seconds with49forcedchunks,28checks,14saves,online preflight
+and clean stop. Host code-cache peak is6391KiB with one threshold-GC event.
+No host player joined; these results do not validate PS5 latency or consumption.
+All068 console rows, hungry chicken/mutton use, native peaks, player persistence
+and full two-hour completion remain pending. Frozen058 is preserved.
+
+068 runtime pin: `056d6a7084fadf35a51d2d5d5069d05be925a7dc`.
+Package SHA-256: `8f2097509fd7942122341578c593aa3e83d2f8130f2ee6b803b85c040899bf82`.

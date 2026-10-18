@@ -207,3 +207,18 @@ Install067 and run the rows in order. Preserve failed reports if any row fails.
 Only after verification passes, run the server row and test chicken/mutton below
 full hunger, then inspect MC_ITEM_USE/TPS/GC. The configured two-hour timer still
 starts at readiness; neither066 nor067 has a console endurance pass.
+
+
+## Build 068: compiler/native pressure retest
+
+067 gets past verification and admits the client, then C1 aborts on native arena
+allocation at66.53seconds VM uptime. Its8MiB cache has space left but repeatedly
+requests full GC at its threshold. 068 bounds unused arena chunk caches/reclaims
+on refusal, uses16MiBcache, scaling4 and a2MiB per-compilation arena limit. Heap
+remains144MiB. Host60second/49chunk/28check/14save test passes with no player.
+
+Run068 rows in order, then join and compare gameplay interruptions, GC reasons
+and native resource growth. Hungry chicken/mutton tests still need an active
+MC_ITEM_USE transition, completed stack decrement and hunger restoration.
+Preserve crash reports on any failure. The two-hour timer still begins at real
+readiness; short startup/join success does not establish the endurance result.
