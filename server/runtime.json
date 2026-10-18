@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "b990691af0d1e5067928dc056eee09697c53b88a",
+  "commit": "b9b4cfe783a111d85ee1a278745bae0bfe07a9c9",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
   "execution_mode": "-Xint",

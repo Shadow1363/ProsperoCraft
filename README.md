@@ -98,9 +98,9 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: online two-hour endurance probe 01.000.061
+## Current development: online two-hour endurance probe 01.000.062
 
-The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all061 PS5 rows remain pending.
+The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all062 PS5 rows remain pending.
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -1097,3 +1097,29 @@ identity/integrity checks pass. **All061 PS5 rows, authenticated admission and
 the full two-hour result remain pending.** The058 snapshot/package stay frozen.
 
 Build061 runtime pin: `b990691af0d1e5067928dc056eee09697c53b88a`. Package SHA-256: `372ad9df77581d719a4e72a85d80e8857d4ff376cff3572eaa4339f240ba112e`.
+
+
+### Build062: retain the native DNS pool for authentication discovery
+
+Build061 confirms111 trusted roots, verified HTTPS preflight, real server
+readiness and the first tick check. Minecraft's own discovery thread then
+fails DNS; joining receives the authentication-servers-down message. Native
+trace records late SceNetPoolCreate ENOMEM. No completed061 endurance or
+clean final stop was captured; the retrieved session still reported RUN.
+
+Build062 retains one real16KiB DNS pool/resolver pair from early preflight
+until app exit. Serialized leases reuse it for fresh platform DNS queries,
+avoiding late native pool allocation. Real query and initialization errors
+remain failures. This introduces no preset addresses or answer cache.
+The harness also rejects Minecraft discovery failures before the timed phase
+and during health/final checks, including when nobody attempts to join.
+
+The runtime400-query allocation-denial/concurrency regression passes ASan/UBSan.
+The real host online40second test passes20 advancing checks,10 flushed saves
+and clean stop at160MiB with zero discovery/auth errors and zero player joins.
+Target compilation, package identity/integrity and preserved058 checks pass.
+**All062 console rows, authenticated player admission and the full7200second
+result remain pending.** Online authentication, certificate validation and
+whitelisting remain enabled; the timer still begins at actual server readiness.
+
+Runtime pin: `b9b4cfe783a111d85ee1a278745bae0bfe07a9c9`. Package SHA-256: `a1f139c46e5187cadadcc335a476599f15f80a2e741bb86ca98d0112f726639f`.

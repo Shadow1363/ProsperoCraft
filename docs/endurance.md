@@ -1,4 +1,4 @@
-# Online two-hour PS5 server endurance probe — build01.000.061
+# Online two-hour PS5 server endurance probe — build01.000.062
 
 This development build extends the passing058 startup/save/stop fixture. The
 Server_Start snapshot and exact passing package remain frozen. Runtime pin,
@@ -113,3 +113,18 @@ and MC_TLS_TRUST_OK acceptedIssuers before MC_ONLINE_PREFLIGHT_OK. All certifica
 and online-identity checks remain standard. The real host HTTPS preflight
 passes under injected desktop metadata denial with the target111-root store;
 console TLS/admission and the full7200second outcome remain pending.
+
+
+## Build062 authentication discovery DNS repair
+
+061 gets through standard TLS trust/preflight and real readiness, then its
+Minecraft discovery thread cannot allocate a new DNS pool.062 retains one
+bounded real pool/resolver pair from preflight and serializes fresh queries.
+Expect DNS pool/resolver reuse stages in native trace. The harness now rejects
+Minecraft discovery failures before the timed phase and checks discoveryErrors
+alongside login errors afterward. This prevents a no-player endurance run
+from passing after an observed discovery failure. A zero join count still does
+not validate actual player admission. Host40second online readiness/save/stop
+passes; PS5 admission and the full two-hour result remain pending. Install062,
+run the normal rows and join after readiness; do not treat preflight or package
+checks as a console pass. The frozen058 milestone is unchanged.
