@@ -98,7 +98,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: gameplay optimization probe 01.000.066
+## Current development: gameplay optimization probe 01.000.067
 
 The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all065 PS5 rows remain pending.
 
@@ -1249,3 +1249,37 @@ readiness. Frozen 058 remains preserved.
 
 066 runtime pin: `335443815712c132db69f36e6d4e099490e6c20b`.
 Package SHA-256: `93a41b45355fb2ee7cd6d06d7c775b166d77201ee2f885b9a807e458b0e30bb4`.
+
+
+### Build 067: native library allocation during management verification
+
+066 fails verification with a bare OutOfMemoryError at the combined management
+check. It does create the VM and record about 800 C1/native compilations, but
+never completes the explicit correctness gate, starts the server or begins the
+timer. The trace stops before management implementation classes load, immediately
+beside a 17-byte platform-string fallback consistent with libmanagement.so.
+The exact failing allocation is not captured.
+
+Runtime patch0090 repairs a concrete remaining weakness in that path: the
+library-name copy and JNI symbol-name buffers still used raw malloc and threw
+a message-less OOM on refusal. Scoped PS5 allocation now falls back to mapped
+scratch storage and releases the correct backend. Library/symbol lookup and
+JNI initialization/version validation stay intact. If both allocation backends
+fail, the error remains. This is a candidate repair pending the console retest.
+
+The actual JNI regression exercises allocation/mapping failures for both buffers,
+unknown/short/oversized/null names, Java-string failure, load/unload symbols and
+512 lifetimes without leaks under -Xcheck:jni/UBSan. The unchanged desktop body
+reproduces bare OOM with malloc denied. Target native rebuild, full host C1
+preflight through real management and compiled-kernel checks, official --help,
+derivative audit and exact-package checks pass. The host symbol resolver is a
+fixture; it does not establish PS5 library discovery or ABI correctness.
+
+067 reports separate checkpoints for management native-library initialization,
+heap, nonheap, runtime flags and C1 warmup. Gameplay traces and all C1/memory/
+online settings remain. All console rows, hungry eating/mob performance,
+player persistence and the full two-hour phase still need validation. Frozen
+058 is unchanged.
+
+067 runtime pin: `69271a6058c45c44bf50a89ad32188dd2b4870bb`.
+Package SHA-256: `354464f68b299277716fc8c2813247b8d8fb0c133d3fc65ff3b64f51dfa1e183`.

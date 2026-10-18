@@ -193,3 +193,17 @@ failed, not that consumption succeeded. Host C1 startup/30-second save/stop and
 observer initialization pass, with no player. PS5 JIT, food/mob performance,
 persistence and full7200seconds remain pending. Readiness starts the timer;
 a failed run does not qualify as an endurance pass.
+
+
+## Build 067: retry verification before gameplay
+
+066 records C1 compilations but fails at the combined management stage with
+bare OOM before the explicit warmup or server readiness. 067 adds scoped native
+library-name/symbol allocation fallback and separate management checkpoints.
+The exact console allocation cause and repair remain pending. Host native fault
+regressions, target rebuild, full C1 preflight and package checks pass.
+
+Install067 and run the rows in order. Preserve failed reports if any row fails.
+Only after verification passes, run the server row and test chicken/mutton below
+full hunger, then inspect MC_ITEM_USE/TPS/GC. The configured two-hour timer still
+starts at readiness; neither066 nor067 has a console endurance pass.

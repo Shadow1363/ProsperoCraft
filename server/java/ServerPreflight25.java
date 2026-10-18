@@ -56,12 +56,15 @@ public class ServerPreflight25 {
    for(String name:new String[]{"org.xml.sax.SAXException","java.util.logging.Logger","java.lang.management.ManagementFactory","sun.misc.Unsafe","org.slf4j.Logger","org.apache.logging.log4j.core.LoggerContext","joptsimple.OptionParser","io.netty.channel.nio.NioEventLoopGroup","com.google.gson.Gson","net.minecraft.server.Main"}) {
     stage="resolve "+name;trace(stage);Class.forName(name,false,loader);
    }
-   stage="query real JVM management memory and flags";trace(stage);
+   stage="initialize real memory MXBean and management native library";trace(stage);
    var memory=java.lang.management.ManagementFactory.getMemoryMXBean();
+   stage="query real heap memory usage";trace(stage);
    if(memory.getHeapMemoryUsage().getMax()!=Runtime.getRuntime().maxMemory())throw new AssertionError("JVM heap management mismatch");
+   stage="query real non-heap memory usage";trace(stage);
    if(memory.getNonHeapMemoryUsage().getUsed()<0)throw new AssertionError("Non-heap management unavailable");
+   stage="query actual runtime VM flags";trace(stage);
    var flags=java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments();
-   if(Boolean.getBoolean("ps5.probe.requireC1")){ps5probe.JitWarmup25.check();}
+   if(Boolean.getBoolean("ps5.probe.requireC1")){stage="verify actual C1 compiled results";trace(stage);ps5probe.JitWarmup25.check();}
    else if(!flags.contains("-Xint"))throw new AssertionError("Missing actual interpreter control flag");
    System.out.println("MC_MANAGEMENT_OK actual heap, non-heap and VM flags");
    System.out.println("MC_PREFLIGHT_OK 26.3 / Java25 / 40 verified JARs");
