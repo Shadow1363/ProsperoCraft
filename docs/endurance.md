@@ -45,3 +45,20 @@ replies and flushes are exercised, including more than the usual60-second
 empty-server pause threshold. It does not establish the requested two-hour
 PS5 pass. Saved-world reload, player joins and longer performance/endurance
 coverage remain separate validation work.
+
+
+## Online login observation during059
+
+The current059 console confirms that a LAN client reaches the listening server,
+but discovery.minecraftservices.com fails with UnknownHostException. Authlib
+then has no SESSION/verify endpoint and rejects login with its generic
+Authentication servers are down message. This does not establish a global
+service outage. The screenshot's server entry demonstrates status discovery,
+not successful authenticated admission. Whitelist is also enabled.
+
+The exact native resolver error is not present in the collected Java report;
+that cause must be localized before claiming a DNS repair. No authentication,
+whitelist, resolver settings or active console run were changed. The collected
+snapshot shows real game-time progression through120seconds and the worker
+remains RUN; the full two-hour outcome remains pending. Failed login is separate
+from server-thread endurance checks and does not establish multiplayer support.

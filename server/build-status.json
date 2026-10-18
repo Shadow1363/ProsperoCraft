@@ -33,7 +33,7 @@
   "probe_jar_sha256": "edbae9b21347b27629a5218b6dc698bfa646f4df2da756c6b648e8fe8c6ed9f2",
   "diagnostics": "MC_ENDURANCE_BEGIN/HEALTH/COMPLETE in shared server.log; MC_SERVER_ENDURANCE_OK after final stop/save verification. Native menu elapsed includes startup; Java phase uses monotonic time.",
   "reserved_code_cache_mib": 8,
-  "known_failures": "All059 PS5 rows and full two-hour no-player endurance. Player joins/loaded-chunk/gameplay performance unvalidated; mount capacity unavailable, separate DNS repair unconfirmed.058 startup/save/stop remains ALL PASS.",
+  "known_failures": "059 online login blocked by observed discovery DNS failure; exact native resolver error unknown. Whitelist remains enabled. Full two-hour run is still pending;058 startup/save/stop stays frozen ALL PASS.",
   "diagnostic_adapter": "Local unsigned derivative of hash-verified official server JAR; only optional SystemReport hardware/software telemetry is wrapped; original desktop methods retained; gameplay classes/resources unchanged; no global signature checks disabled",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
@@ -61,5 +61,6 @@
     "version": "01.000.058",
     "milestone": "Server_Start",
     "console": "ALL PASS human report2026-10-18"
-  }
+  },
+  "login_diagnostics": "Run01.000.059-1792318321-655388051 remains RUN server worker. Current full server console downloaded during active endurance: real Done readiness; advancing game time4/608/1210/1812/2414 at0/30/60/90/120seconds, Java heap fluctuates under160MiB ceiling. Client reaches listener but login fails: UnknownHostException discovery.minecraftservices.com prevents discovery, SESSION/verify endpoint unavailable, authenticator disconnects with Authentication servers are down. This is a local name-resolution failure, not evidence of a global service outage. Native resolver error/substage not captured; root cause unresolved. Whitelist remains enabled and account admission unvalidated. Two-hour result and later save cycles pending; no current-run crash inferred. Raw reports/client identity/address remain local."
 }

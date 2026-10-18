@@ -1034,3 +1034,11 @@ the full two-hour result remain pending.** The passing058 source/package and
 release remain frozen.
 
 Build059 package SHA-256: `594da5c2eb0ce9b20d936cedfb5e263008e89fe3e15f4eeec9a91b8370b01bb9`. Host75-second regression passes36 advancing game-time checks and18 flushed saves with clean stop/persisted metadata; full two-hour PS5 validation remains pending.
+
+
+During059's active run, a LAN join reaches the server but is rejected because
+discovery.minecraftservices.com raises UnknownHostException, leaving the
+SESSION/verify endpoint unavailable. This does not establish an authentication
+service outage. Native DNS cause and whitelisted online admission remain
+unresolved. The collected snapshot shows advancing ticks through120seconds;
+the full two-hour result remains pending. See [endurance notes](docs/endurance.md).

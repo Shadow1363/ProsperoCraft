@@ -559,12 +559,13 @@
     },
     {
       "app_version": "01.000.059",
-      "console": "pending",
+      "console": "RUN: endurance worker active at collection; two-hour completion not reported. Separate online-login attempt rejected.",
       "changes": "Consumer endurance fixture after real readiness runs7200seconds, disables empty-server pause, requires fresh advancing time query gametime replies every30seconds and acknowledged save-all flush every300seconds.120second command deadline, server liveness and new server-thread ERROR failure. Final acknowledged flush plus existing clean stop/thread exit/nonempty saved level.dat. Logs elapsed/check/save counts and actual Java heap.160MiB heap/8MiB worker/runtime pin retained; no players or forced chunk workload. Existing isolated world retained.058 snapshot/release untouched.",
       "checks": "PASS: actual real-server75-second interpreter/160MiB host endurance with advancing game time past empty-pause threshold,36 acknowledged time checks,18 acknowledged flushed saves, clean stop/server-thread exit and nonempty saved level.dat. Observer regression: split System chat replies, unrelated/malformed lines, save completion vs start, server errors, dead/unresponsive command deadlines, repeated game-time failure and setting bounds. Target package build, signed containers and identity checks recorded separately. Two-hour PS5 result pending. Package verification PASS: ZIP CRC/version059, embedded7200second/160MiB flags, updated probe JAR and reply parser,5 target native libraries and linked modules byte identity, both signed containers, retained059 symbols and matching copies; frozen058 full-package checksum preserved.",
       "max_heap_mib": 160,
       "package_sha256": "594da5c2eb0ce9b20d936cedfb5e263008e89fe3e15f4eeec9a91b8370b01bb9",
-      "pending": "All059 PS5 rows and full two-hour no-player endurance. Player joins/loaded-chunk/gameplay performance unvalidated; mount capacity unavailable, separate DNS repair unconfirmed.058 startup/save/stop remains ALL PASS."
+      "pending": "All059 PS5 rows and full two-hour no-player endurance. Player joins/loaded-chunk/gameplay performance unvalidated; mount capacity unavailable, separate DNS repair unconfirmed.058 startup/save/stop remains ALL PASS.",
+      "evidence": "Run01.000.059-1792318321-655388051 remains RUN server worker. Current full server console downloaded during active endurance: real Done readiness; advancing game time4/608/1210/1812/2414 at0/30/60/90/120seconds, Java heap fluctuates under160MiB ceiling. Client reaches listener but login fails: UnknownHostException discovery.minecraftservices.com prevents discovery, SESSION/verify endpoint unavailable, authenticator disconnects with Authentication servers are down. This is a local name-resolution failure, not evidence of a global service outage. Native resolver error/substage not captured; root cause unresolved. Whitelist remains enabled and account admission unvalidated. Two-hour result and later save cycles pending; no current-run crash inferred. Raw reports/client identity/address remain local."
     }
   ]
 }
