@@ -98,7 +98,9 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Latest passing milestone: server start probe 01.000.058
+## Current development: two-hour endurance probe 01.000.059
+
+The passing058 snapshot remains [Server_Start](Server_Start). Build059 adds the requested7200-second no-player endurance phase with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all059 PS5 rows remain pending.
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -1013,3 +1015,22 @@ omits official/game-derived JARs while preserving all remaining tested bytes.
 Provision locally using the frozen README instructions. No saved-world reload,
 player join, performance or endurance pass is claimed; mount discovery/capacity
 remain unavailable and discovery DNS is not separately confirmed repaired.
+
+
+### Build059: two-hour server endurance
+
+The human requested a two-hour run after058 ALL PASS. This development build
+retains the validated runtime and memory limits, disables empty-server pause,
+checks fresh advancing game-time replies every30 seconds and requests an
+acknowledged flushed save every five minutes. After7200 seconds it requires a
+final flush, clean stop/thread exit, nonempty saved level.dat and VM destruction.
+New server-thread errors, timeouts, stalled ticks and early exits fail the row.
+Java heap/elapsed/check/save counters are persisted in the existing shared
+console log. The menu timer includes startup; the endurance phase starts at
+readiness. This no-player test does not establish client/gameplay performance.
+
+[Run instructions and limitations](docs/endurance.md). **All059 PS5 rows and
+the full two-hour result remain pending.** The passing058 source/package and
+release remain frozen.
+
+Build059 package SHA-256: `594da5c2eb0ce9b20d936cedfb5e263008e89fe3e15f4eeec9a91b8370b01bb9`. Host75-second regression passes36 advancing game-time checks and18 flushed saves with clean stop/persisted metadata; full two-hour PS5 validation remains pending.

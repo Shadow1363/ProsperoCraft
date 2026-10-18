@@ -8,7 +8,7 @@ public class ServerStart25 {
  private static native void checkpoint(String stage);
  private static void trace(String stage){if(Boolean.getBoolean("ps5.probe.dependencyTrace"))checkpoint("MC start: "+stage);}
  private static final class Observer extends OutputStream {
-  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;
+  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors;
   OutputStream log;long logged;
   private void persist(byte[] bytes,int offset,int length){if(log==null)return;try{int n=(int)Math.min(length,32L*1024*1024-logged);if(n>0){log.write(bytes,offset,n);logged+=n;}if(n<length){log.write("\n[Log capped at 32 MiB]\n".getBytes(StandardCharsets.UTF_8));log.close();log=null;}else log.flush();}catch(IOException e){console.println("Probe console log write failed: "+e);try{log.close();}catch(IOException ignored){}log=null;}}
   public synchronized void close()throws IOException{if(log!=null){log.close();log=null;}}
@@ -25,7 +25,17 @@ public class ServerStart25 {
     if(c=='\n'){note();line.setLength(0);}else if(line.length()<4096)line.append(c=='\t'?' ':c);
    }
   }
-  private void note(){String value=line.toString().trim();if(errors.length()<4096&&!value.startsWith("at ")&&(value.contains("ERROR")||value.contains("Exception")||value.contains("Error")||value.contains("Caused by:")))errors.append(value,0,Math.min(value.length(),4096-errors.length())).append('\n');}
+  private void note(){String value=line.toString().trim();
+   String prefix="[Server thread/INFO]: ";int at=value.indexOf(prefix);
+   String reply=at<0?"":value.substring(at+prefix.length());
+   if(reply.startsWith("System chat: "))reply=reply.substring("System chat: ".length());
+   if(reply.startsWith("The game time is ")) {
+    int start="The game time is ".length(),end=reply.indexOf(" tick(s)",start);
+    if(end>start)try{gameTime=Long.parseLong(reply.substring(start,end));timeReplies++;}catch(NumberFormatException ignored){}
+   }
+   if(reply.equals("Saved the game"))saveReplies++;
+   if(value.contains("[Server thread/ERROR]"))serverErrors++;
+   if(errors.length()<4096&&!value.startsWith("at ")&&(value.contains("ERROR")||value.contains("Exception")||value.contains("Error")||value.contains("Caused by:")))errors.append(value,0,Math.min(value.length(),4096-errors.length())).append('\n');}
   synchronized String recent(){return "ERROR HEADINGS AND CAUSES:\n"+errors+"\nFIRST OUTPUT:\n"+head+"\nRECENT OUTPUT:\n"+tail;}
  }
  private static String describe(Throwable error){StringBuilder result=new StringBuilder();for(int i=0;error!=null&&i<8;i++,error=error.getCause()){if(i>0)result.append(" | caused by: ");result.append(error);}return result.toString();}
@@ -50,7 +60,49 @@ public class ServerStart25 {
    catch(NoSuchFileException absent){/* The official server creates a missing world. */}
   }catch(IOException failure){throw new IOException("World metadata preflight (NOFOLLOW_LINKS): "+failure,failure);}
  }
+ static long setting(String name,long fallback,long min,long max) {
+  String text=System.getProperty(name);long value=text==null?fallback:Long.parseLong(text);
+  if(value<min||value>max)throw new IllegalArgumentException(name+" outside "+min+".."+max);return value;
+ }
+ private static void command(PipedOutputStream commands,String text)throws IOException{commands.write((text+"\n").getBytes(StandardCharsets.UTF_8));commands.flush();}
+ private static void awaitReply(Observer observer,long previous,boolean save,long timeoutSeconds)throws Exception {
+  long deadline=System.nanoTime()+timeoutSeconds*1_000_000_000L;
+  while((save?observer.saveReplies:observer.timeReplies)<=previous) {
+   if(serverThread()==null)throw new IOException("Server thread exited during endurance command");
+   if(System.nanoTime()>=deadline)throw new IOException("No server acknowledgement for "+(save?"save-all flush":"time query gametime"));
+   Thread.sleep(100);
+  }
+ }
+ private static void endurance(Observer observer,PipedOutputStream commands,long seconds)throws Exception {
+  if(seconds==0)return;
+  long poll=setting("ps5.mc.endurancePollSeconds",30,1,300),saveInterval=setting("ps5.mc.enduranceSaveSeconds",300,1,3600),timeout=setting("ps5.mc.enduranceReplySeconds",120,1,600);
+  long begin=System.nanoTime(),deadline=begin+seconds*1_000_000_000L,nextSave=begin+saveInterval*1_000_000_000L;
+  long last=-1,checks=0,saves=0,errors=observer.serverErrors;
+  System.out.println("MC_ENDURANCE_BEGIN targetSeconds="+seconds+" pollSeconds="+poll+" saveSeconds="+saveInterval+" noPlayerAutoPause=false");
+  do {
+   if(serverThread()==null)throw new IOException("Server exited before endurance completed");
+   long before=observer.timeReplies;command(commands,"time query gametime");awaitReply(observer,before,false,timeout);
+   long current=observer.gameTime;
+   if(last>=0&&current<=last)throw new IOException("Game time did not advance: "+last+" -> "+current);
+   last=current;checks++;
+   if(System.nanoTime()>=nextSave) {
+    before=observer.saveReplies;command(commands,"save-all flush");awaitReply(observer,before,true,timeout);saves++;
+    nextSave=System.nanoTime()+saveInterval*1_000_000_000L;
+   }
+   if(observer.serverErrors>errors)throw new IOException("Server ERROR logged during endurance");
+   Runtime memory=Runtime.getRuntime();
+   System.out.println("MC_ENDURANCE_HEALTH elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" targetSeconds="+seconds+" gameTime="+current+" checks="+checks+" saves="+saves+" heapUsed="+(memory.totalMemory()-memory.freeMemory())+" heapCommitted="+memory.totalMemory()+" heapMax="+memory.maxMemory());
+   if(System.nanoTime()>=deadline)break;
+   long remaining=deadline-System.nanoTime();Thread.sleep(Math.max(1,Math.min(poll*1000,remaining/1_000_000)));
+  }while(true);
+  // A final flushed save is required even when the requested run is shorter
+  // than the periodic save interval. Stop/thread exit/file check follow.
+  long before=observer.saveReplies;command(commands,"save-all flush");awaitReply(observer,before,true,timeout);
+  if(observer.serverErrors>errors)throw new IOException("Server ERROR during final endurance save");
+  System.out.println("MC_ENDURANCE_COMPLETE elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" checks="+checks+" saves="+(saves+1));
+ }
  public static void main(String[] args)throws Exception {
+  long enduranceSeconds=setting("ps5.mc.enduranceSeconds",0,0,86400);
   Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
   if(!Boolean.getBoolean("ps5.mc.eulaAccepted"))throw new IllegalStateException("Human EULA acceptance is required before this test");
   Path root=Path.of(System.getProperty("ps5.mc.workdir",System.getProperty("user.dir"))).toAbsolutePath();
@@ -60,6 +112,7 @@ public class ServerStart25 {
   checkWorldMetadata(root);
   Files.writeString(root.resolve("eula.txt"),"# Human accepted Minecraft EULA for this test\neula=true\n");
   Files.writeString(root.resolve("server.properties"),"level-name=world\nlevel-type=minecraft:flat\ngenerator-settings={\"biome\":\"minecraft:plains\",\"layers\":[{\"block\":\"minecraft:bedrock\",\"height\":1},{\"block\":\"minecraft:dirt\",\"height\":2},{\"block\":\"minecraft:grass_block\",\"height\":1}]}\ngenerate-structures=false\nspawn-chunk-radius=0\nview-distance=2\nsimulation-distance=2\nmax-players=1\nonline-mode=true\nserver-ip=\nserver-port=25565\nenable-query=false\nenable-rcon=false\nwhite-list=true\nmax-tick-time=-1\n");
+  if(enduranceSeconds>0)Files.writeString(root.resolve("server.properties"),"pause-when-empty-seconds=0\n",StandardOpenOption.APPEND);
   PrintStream originalOut=System.out,originalErr=System.err;InputStream originalIn=System.in;
   Observer observer=new Observer(originalOut);PipedInputStream input=new PipedInputStream();PipedOutputStream commands=new PipedOutputStream(input);
   boolean stopped=false;Throwable failure=null;
@@ -73,12 +126,15 @@ public class ServerStart25 {
     long deadline=System.nanoTime()+600_000_000_000L;
     while(!observer.ready&&System.nanoTime()<deadline){if(serverThread()==null)break;Thread.sleep(200);}
     if(!observer.ready)throw new IOException("Server did not report ready; thread exited or deadline elapsed");
+    stage="endurance: tick progress, periodic flushed saves and server liveness";trace(stage);
+    endurance(observer,commands,enduranceSeconds);
     stage="send stop and await real server thread exit";trace(stage);
     commands.write("stop\n".getBytes(StandardCharsets.UTF_8));commands.flush();
     Thread thread=serverThread();if(thread!=null)thread.join(120000);
     if(serverThread()!=null)throw new IOException("Server did not stop within 120 seconds");stopped=true;
     stage="verify persisted world level.dat after stop";trace(stage);
     try(InputStream saved=Files.newInputStream(root.resolve("world/level.dat"))){if(saved.read()<0)throw new IOException("Empty saved world level.dat");}
+    if(enduranceSeconds>0)originalOut.println("MC_SERVER_ENDURANCE_OK targetSeconds="+enduranceSeconds+" real tick progress, flushed saves, stop/thread exit and saved level.dat");
     originalOut.println("MC_SERVER_START_OK real Done readiness, stop, thread exit and saved level.dat");
    }catch(Throwable error){failure=error instanceof InvocationTargetException&&error.getCause()!=null?error.getCause():error;}
    finally {

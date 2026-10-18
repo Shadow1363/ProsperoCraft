@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.058",
+  "app_version": "01.000.059",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "2dc0dd46c2238aa8cfa1136f0ab291650736229d180370e9754697fd22c7e5bb",
-  "console": "ALL PASS: human user report for01.000.058 on2026-10-18; all five PS5 rows including real readiness, saved level.dat, server thread exit and VM destruction.",
-  "host": "PASS: actual native helper/fileOpen/handleOpen/mount/end bodies, real JNI -Xcheck:jni and UBSan, PS5+desktop controls, relative/absolute/read/write/append/rw/dot-parent/empty/missing-parent errors with cwd different from user.dir. Host platform-string transport uses JNI UTF for ASCII fixtures; mount syscalls injected and test UnixException transport replaced with IOException. PS5 mount branch invokes zero syscalls/diagnostic allocations and reports ENOSYS; desktop success/query/allocation failure and cleanup checked. Target HotSpot/java.base-libs; target mount object has no getfsstat/malloc dependency. Two signed integrities, ZIP CRC/version058/160MiB, five target libs incl libnio, generated-resource image/audit identity, retained058 symbols/matching copies. Consumer Java unchanged from047 host160MiB ready/save/stop. Console pending.",
-  "package": "PASS: actual native helper/fileOpen/handleOpen/mount/end bodies, real JNI -Xcheck:jni and UBSan, PS5+desktop controls, relative/absolute/read/write/append/rw/dot-parent/empty/missing-parent errors with cwd different from user.dir. Host platform-string transport uses JNI UTF for ASCII fixtures; mount syscalls injected and test UnixException transport replaced with IOException. PS5 mount branch invokes zero syscalls/diagnostic allocations and reports ENOSYS; desktop success/query/allocation failure and cleanup checked. Target HotSpot/java.base-libs; target mount object has no getfsstat/malloc dependency. Two signed integrities, ZIP CRC/version058/160MiB, five target libs incl libnio, generated-resource image/audit identity, retained058 symbols/matching copies. Consumer Java unchanged from047 host160MiB ready/save/stop. Console pending.",
+  "package_sha256": "594da5c2eb0ce9b20d936cedfb5e263008e89fe3e15f4eeec9a91b8370b01bb9",
+  "console": "pending: All059 PS5 rows and full two-hour no-player endurance. Player joins/loaded-chunk/gameplay performance unvalidated; mount capacity unavailable, separate DNS repair unconfirmed.058 startup/save/stop remains ALL PASS.",
+  "host": "PASS: actual real-server75-second interpreter/160MiB host endurance with advancing game time past empty-pause threshold,36 acknowledged time checks,18 acknowledged flushed saves, clean stop/server-thread exit and nonempty saved level.dat. Observer regression: split System chat replies, unrelated/malformed lines, save completion vs start, server errors, dead/unresponsive command deadlines, repeated game-time failure and setting bounds. Target package build, signed containers and identity checks recorded separately. Two-hour PS5 result pending. Package verification PASS: ZIP CRC/version059, embedded7200second/160MiB flags, updated probe JAR and reply parser,5 target native libraries and linked modules byte identity, both signed containers, retained059 symbols and matching copies; frozen058 full-package checksum preserved.",
+  "package": "PASS: actual real-server75-second interpreter/160MiB host endurance with advancing game time past empty-pause threshold,36 acknowledged time checks,18 acknowledged flushed saves, clean stop/server-thread exit and nonempty saved level.dat. Observer regression: split System chat replies, unrelated/malformed lines, save completion vs start, server errors, dead/unresponsive command deadlines, repeated game-time failure and setting bounds. Target package build, signed containers and identity checks recorded separately. Two-hour PS5 result pending. Package verification PASS: ZIP CRC/version059, embedded7200second/160MiB flags, updated probe JAR and reply parser,5 target native libraries and linked modules byte identity, both signed containers, retained059 symbols and matching copies; frozen058 full-package checksum preserved.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -27,18 +27,18 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "Frozen Server_Start milestone: flat-world startup, real Done readiness, stop/thread exit and nonempty persisted world/level.dat. No reload/player/endurance claim.",
+  "scope": "Development two-hour no-player server endurance after real readiness; final flush/stop/persisted metadata and VM lifecycle.058 baseline remains frozen.",
   "max_heap_mib": 160,
   "runtime_adaptation": "PS5 BsdNativeDispatcher.getfsstat throws real UnixException(ENOSYS) before iterator allocation or unvalidated desktop syscall395; no fabricated mounts/capacity, desktop branch retained. Existing Java mount lookup may report IOException; consumer handling needs console test. Common PS5 java.io native fileOpen resolves nonempty relative paths with File.getAbsolutePath/user.dir before platform-string conversion; absolute/empty paths and original error filename retained. Input/output/random-access opens share path; descriptor constructors unchanged.160MiB heap/8MiB worker/network fixes retained.",
   "probe_jar_sha256": "edbae9b21347b27629a5218b6dc698bfa646f4df2da756c6b648e8fe8c6ed9f2",
-  "diagnostics": "057 route flag fallback works, server reports Done; native trace ends at getfsstat preparation. No exact final fault PC or complete save/stop proof.",
+  "diagnostics": "MC_ENDURANCE_BEGIN/HEALTH/COMPLETE in shared server.log; MC_SERVER_ENDURANCE_OK after final stop/save verification. Native menu elapsed includes startup; Java phase uses monotonic time.",
   "reserved_code_cache_mib": 8,
-  "known_failures": "Mount enumeration/free capacity remain unavailable; discovery DNS previously failed and is not separately confirmed repaired. Player join, saved-world reload and endurance remain unvalidated.",
+  "known_failures": "All059 PS5 rows and full two-hour no-player endurance. Player joins/loaded-chunk/gameplay performance unvalidated; mount capacity unavailable, separate DNS repair unconfirmed.058 startup/save/stop remains ALL PASS.",
   "diagnostic_adapter": "Local unsigned derivative of hash-verified official server JAR; only optional SystemReport hardware/software telemetry is wrapped; original desktop methods retained; gameplay classes/resources unchanged; no global signature checks disabled",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "Run01.000.057-1792256201-182793185. Human reports crash/relaunch; saved session remains RUN server worker, previous archive OK. Full native/server reports collected. Ten flag ioctls fail EACCES and ten live route flag resolutions succeed. Server reaches real Done (2.070s), then starts saving chunks for overworld/end/nether; no MC_SERVER_START_OK or verified stop/thread exit/save. Four relative java.io ban/ops/whitelist opens report Invalid argument. Trace ends on server-thread BsdNativeDispatcher.getfsstat lookup/signature complete; exact057 ELF plus0x400000 matches target, linked body uses raw desktop syscall395. No final fault PC/native termination captured; this is an unvalidated API at interruption boundary, not exact syscall-crash proof. Three earlier signals resume; zero captured VM ABORT/native fatal allocation markers. Separate fatal report not retrieved. DNS persists; raw reports stay local.",
+  "crash_evidence": "No059 PS5 run reported yet.058 ALL PASS is frozen in Server_Start. The initial059 host attempt exposed System chat prefix handling; parser corrected and75second regression passes.",
   "native_heap_fix": "Libc-first raw backend beneath HotSpot os APIs and NMT pre-init bridges; eight small-block classes share 64 KiB mappings; no Java heap-size increase. Both backend failures still return real failure. Host NMT checks use a contract model, not actual host JMM.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -46,11 +46,20 @@
   "thread_diagnostics": "019 confirms pthread_attr_init result 12 errno 0 type 2; earlier failure-stage logs retained in 020.",
   "thread_attributes_fix": "Exclusive real attribute leases in two separate 32-slot domains, initialized early. Stack-query results never reused for creation. Pool exhaustion falls back to ordinary local initialization with real failure propagation.",
   "metaspace_alignment_fix": "020 console trace confirms at least one real exact-size 16 MiB aligned reservation. Later crash resolution not established.",
-  "console_validation": {
-    "reported_date": "2026-10-18",
-    "report": "after 10H of work! ALL PASS!",
-    "basis": "Human result for the immediately preceding delivered build01.000.058; duration refers to development effort, not endurance test."
+  "endurance": {
+    "requested_seconds": 7200,
+    "poll_seconds": 30,
+    "flushed_save_seconds": 300,
+    "reply_timeout_seconds": 120,
+    "host_test_seconds": 75,
+    "host_checks": 36,
+    "host_flushed_saves": 18,
+    "console": "pending"
   },
-  "milestone": "Server_Start",
-  "release": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Server_Start-v01.000.058"
+  "consumer_changes": "Consumer endurance fixture after real readiness runs7200seconds, disables empty-server pause, requires fresh advancing time query gametime replies every30seconds and acknowledged save-all flush every300seconds.120second command deadline, server liveness and new server-thread ERROR failure. Final acknowledged flush plus existing clean stop/thread exit/nonempty saved level.dat. Logs elapsed/check/save counts and actual Java heap.160MiB heap/8MiB worker/runtime pin retained; no players or forced chunk workload. Existing isolated world retained.058 snapshot/release untouched.",
+  "baseline": {
+    "version": "01.000.058",
+    "milestone": "Server_Start",
+    "console": "ALL PASS human report2026-10-18"
+  }
 }
