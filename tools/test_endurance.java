@@ -36,6 +36,9 @@ public class test_endurance {
   var readyAt=c.getDeclaredField("readyAt");readyAt.setAccessible(true);readyAt.setLong(o,System.nanoTime()-3_000_000_000L);failed(endurance,o,new PipedOutputStream(),1L);readyAt.setLong(o,0L);
   System.setProperty("ps5.mc.testSetting","0");if(ServerStart25.setting("ps5.mc.testSetting",4,0,10)!=0)throw new AssertionError();
   System.setProperty("ps5.mc.testSetting","-1");try{ServerStart25.setting("ps5.mc.testSetting",4,0,10);throw new AssertionError();}catch(IllegalArgumentException expected){}
-  stream.close();System.out.println("PASS: real observer split replies/malformed/unrelated lines, saved acknowledgement vs saving, error count; command gate dead/unresponsive and repeated game-time, packet/authentication/discovery-error and late-monitor failures; config bounds");
+  if(!ServerPerformance25.rate(100,430,1_000_000_000L,31_000_000_000L).equals("observedTps=11.00"))throw new AssertionError("Tick rate calculation");
+  if(!ServerPerformance25.rate(-1,1,0,1).equals("observedTps=unavailable"))throw new AssertionError("Fake initial rate");
+  var perf=new ServerPerformance25();String counters=perf.sample();if(!counters.contains("gcCollections=")&&!counters.equals("gc=unavailable"))throw new AssertionError(counters);
+  stream.close();System.out.println("PASS: real observer split replies/malformed/unrelated lines, saved acknowledgement vs saving, error count; command gate dead/unresponsive and repeated game-time, packet/authentication/discovery-error and late-monitor failures; config bounds; real GC counter format and11TPS/first-sample rate calculation");
  }
 }

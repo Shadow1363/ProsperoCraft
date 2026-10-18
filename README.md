@@ -98,9 +98,9 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: online two-hour endurance probe 01.000.063
+## Current development: gameplay optimization probe 01.000.064
 
-The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all063 PS5 rows remain pending.
+The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all064 PS5 rows remain pending.
 
 The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
 
@@ -1152,3 +1152,36 @@ starts at real server readiness. Frozen build 058 remains unchanged.
 
 Package SHA-256: `f80168f2fdb82487ba37d98a131cf36b0eabeb9094cb73f6e31ac8169556a3f3`.
 Runtime pin: `b9b4cfe783a111d85ee1a278745bae0bfe07a9c9`.
+
+
+### Build 064: reduce native allocation/tracing overhead; measure gameplay
+
+Build 063 confirms authenticated world entry and gameplay. Its measured rate
+falls to about 11 ticks/second, with overload warnings over 13 seconds. The
+human reports eating repeatedly animates with hunger below full, without
+consuming food or displaying an error. The captured log has no food-specific
+exception. A player-data save warning on disconnect also remains unresolved.
+This is partial admission validation, **not ALL PASS or an endurance milestone**.
+
+064 reuses at most one idle native slab per class (512 KiB bound), trims idle
+pages under mapping pressure and samples successful phase logs while preserving
+failure/crash context. Memory-call tracing resolves each thread context once
+per entry/exit while keeping every call record. Actual-header/wrapper sanitizer
+tests pass: 10,000 short allocation lifetimes use one mapping, pressure cleanup
+and failure semantics remain intact, and quiet memcpy uses two identity lookups.
+Target HotSpot/native compilation and package integrity checks pass.
+
+Health output now includes observed tick rate and actual GC counter deltas.
+Read-only vanilla commands record connected players' hunger, saturation and
+exhaustion; these remain in local console logs. They do not modify food rules.
+The host 40-second online test with nine forced flat chunks passes 18 tick
+checks, nine saves, telemetry/command dispatch, persisted region data and clean
+stop. **Eating is not yet fixed or validated, and no PS5 speedup is claimed.**
+The runtime still uses `-Xint`; JIT performance remains unvalidated.
+
+Retest ordinary gameplay and eating first, with hunger below full, and leave the
+probe open for log collection. The configured 7,200-second readiness-anchored
+phase is retained, but a full-duration pass is not the immediate acceptance
+criterion. Keep the frozen 058 snapshot/package unchanged.
+
+064 runtime pin: `bf394d0a8ca3dba37cae7b61277b8b1f728dd6d7`. Package SHA-256: `bf31e0effa895f0b2f24dd543c03c475c45a1916b4a93f499ca95a24617ebf0d`.

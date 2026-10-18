@@ -9,7 +9,7 @@ assets=ROOT/'build/assets/java25';lock=json.loads((ROOT/'server/26.3.lock.json')
 # Run entirely from the prepared probe JAR; no loose-class directory fallback.
 cp=str(assets/'jars/ps5-server-probe.jar')+':'+str(assets/'jars/ps5-platform-diagnostics.jar')+':'+':'.join(str(assets/'jars'/r['file']) for r in lock['jars'] if r['file']!='server-26.3.jar')
 with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
- command=[str(JDK/'bin/java'),'-Xint','-Xss512k',f'-Xmx{args.heap_mib}m','-Dio.netty.allocator.type=unpooled','-Dps5.mc.checkNetworkMemory=true',f'-Dps5.mc.validationChunkRadius={args.chunk_radius}','-XX:+UseSerialGC','-XX:ReservedCodeCacheSize=8m','-XX:+PrintCodeCache','-XX:ActiveProcessorCount=2','-Dps5.probe.serverLogPath='+str(Path(directory)/'server-console.log'),'-Dps5.mc.eulaAccepted=true',*(['-Dps5.mc.requireOnline=true','-Dps5.mc.joinPlayer='+args.online_player] if args.online_player else []),f'-Dps5.mc.enduranceSeconds={args.endurance_seconds}','-Dps5.mc.endurancePollSeconds=2','-Dps5.mc.enduranceSaveSeconds=4','-Dps5.mc.enduranceReplySeconds=120','-Dps5.mc.workdir='+directory,'-Duser.dir='+directory,'-Dlog4j2.disableJmx=true','-Dlog4j2.configurationFile=jar:'+ (assets/'jars/ps5-server-probe.jar').as_uri()+'!/log4j2-ps5.xml','--limit-modules',','.join(lock['modules']),'-cp',cp,'ServerStart25']
+ command=[str(JDK/'bin/java'),'-Xint','-Xss512k',f'-Xmx{args.heap_mib}m','-Dio.netty.allocator.type=unpooled','-Dps5.mc.checkNetworkMemory=true','-Dps5.mc.gameplayDiagnostics=true',f'-Dps5.mc.validationChunkRadius={args.chunk_radius}','-XX:+UseSerialGC','-XX:ReservedCodeCacheSize=8m','-XX:+PrintCodeCache','-XX:ActiveProcessorCount=2','-Dps5.probe.serverLogPath='+str(Path(directory)/'server-console.log'),'-Dps5.mc.eulaAccepted=true',*(['-Dps5.mc.requireOnline=true','-Dps5.mc.joinPlayer='+args.online_player] if args.online_player else []),f'-Dps5.mc.enduranceSeconds={args.endurance_seconds}','-Dps5.mc.endurancePollSeconds=2','-Dps5.mc.enduranceSaveSeconds=4','-Dps5.mc.enduranceReplySeconds=120','-Dps5.mc.workdir='+directory,'-Duser.dir='+directory,'-Dlog4j2.disableJmx=true','-Dlog4j2.configurationFile=jar:'+ (assets/'jars/ps5-server-probe.jar').as_uri()+'!/log4j2-ps5.xml','--limit-modules',','.join(lock['modules']),'-cp',cp,'ServerStart25']
  if args.worker_runner:
   # JNI invocation takes VM properties, not launcher -cp arguments.
   options=command[1:-3]
@@ -22,6 +22,7 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
   assert 'MC_SERVER_ENDURANCE_OK' in output and 'MC_ENDURANCE_COMPLETE' in output,output[-12000:]
   health=re.findall(r'MC_ENDURANCE_HEALTH elapsedSeconds=(\d+).*?gameTime=(\d+).*?checks=(\d+).*?saves=(\d+)',output)
   assert len(health)>=2 and int(health[-1][0])>=args.endurance_seconds and int(health[-1][1])>int(health[0][1]),health
+  assert 'observedTps=' in output and 'intervalGcMillis=' in output and 'MC_GAMEPLAY_SAMPLE' in output,output[-12000:]
   assert 'pause-when-empty-seconds=0' in (Path(directory)/'server.properties').read_text()
   assert 'Saved the game' in output,output[-12000:]
  if args.online_player:

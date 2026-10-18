@@ -1,4 +1,4 @@
-# Online two-hour PS5 server endurance probe — build01.000.063
+# Online two-hour PS5 server endurance probe — build01.000.064
 
 This development build extends the passing058 startup/save/stop fixture. The
 Server_Start snapshot and exact passing package remain frozen. Runtime pin,
@@ -143,3 +143,22 @@ console's process memory ceiling or player connection. All063 console rows,
 complete authenticated world entry and two-hour completion remain pending.
 The console still uses real player chunk loading; validationChunkRadius is an
 optional host stress setting and is absent from native launch options.
+
+
+## Build 064: gameplay checks before sustained-load validation
+
+063 reaches authenticated gameplay but drops to about 11 observed TPS. The
+human reports repeating food-use animation below full hunger without food
+consumption or an error. No specific food exception is captured, so lag remains
+a candidate explanation rather than an established diagnosis.
+
+064 reduces native slab churn, repeated native trace-context lookup and
+successful-phase disk logging. It retains 144 MiB heap, 512 KiB Java stacks,
+unpooled buffers and interpreter mode. Health logs include observedTps and real
+GC totals/deltas. MC_GAMEPLAY_SAMPLE precedes read-only vanilla foodLevel,
+foodSaturationLevel and foodExhaustionLevel queries for connected players.
+No hunger/game rules are changed. Retest eating and responsiveness for roughly
+a minute while leaving the probe open; collect those reports before a full
+sustained-load attempt. The configured 7,200-second phase remains available.
+PS5 performance/eating, player-data save warning cause and full completion
+remain pending. Host telemetry/forced-chunk tests do not validate player eating.

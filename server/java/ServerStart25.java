@@ -88,7 +88,8 @@ public class ServerStart25 {
   long poll=setting("ps5.mc.endurancePollSeconds",30,1,300),saveInterval=setting("ps5.mc.enduranceSaveSeconds",300,1,3600),timeout=setting("ps5.mc.enduranceReplySeconds",120,1,600);
   long begin=observer.readyAt==0?System.nanoTime():observer.readyAt,deadline=begin+seconds*1_000_000_000L,nextSave=begin+saveInterval*1_000_000_000L;
   if(System.nanoTime()-begin>poll*1_000_000_000L)throw new IOException("Endurance monitoring started too late after readiness");
-  long last=-1,checks=0,saves=0,errors=observer.serverErrors;
+  long last=-1,lastReplyAt=0,checks=0,saves=0,errors=observer.serverErrors;
+  var performance=new ServerPerformance25();
   System.out.println("MC_ENDURANCE_BEGIN targetSeconds="+seconds+" pollSeconds="+poll+" saveSeconds="+saveInterval+" noPlayerAutoPause=false");
   do {
    checkOnline(observer);
@@ -96,14 +97,19 @@ public class ServerStart25 {
    long before=observer.timeReplies;command(commands,"time query gametime");awaitReply(observer,before,false,timeout);
    long current=observer.gameTime;
    if(last>=0&&current<=last)throw new IOException("Game time did not advance: "+last+" -> "+current);
-   last=current;checks++;
+   long replyAt=System.nanoTime();String rate=ServerPerformance25.rate(last,current,lastReplyAt,replyAt);
+   last=current;lastReplyAt=replyAt;checks++;
    if(System.nanoTime()>=nextSave) {
     before=observer.saveReplies;command(commands,"save-all flush");awaitReply(observer,before,true,timeout);saves++;
     nextSave=System.nanoTime()+saveInterval*1_000_000_000L;
    }
    if(observer.serverErrors>errors)throw new IOException("Server ERROR logged during endurance");
    Runtime memory=Runtime.getRuntime();
-   System.out.println("MC_ENDURANCE_HEALTH elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" targetSeconds="+seconds+" gameTime="+current+" checks="+checks+" saves="+saves+" joins="+observer.playerJoins+" authErrors="+observer.authErrors+" discoveryErrors="+observer.discoveryErrors+" networkErrors="+observer.networkErrors+" heapUsed="+(memory.totalMemory()-memory.freeMemory())+" heapCommitted="+memory.totalMemory()+" heapMax="+memory.maxMemory());
+   System.out.println("MC_ENDURANCE_HEALTH elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" targetSeconds="+seconds+" gameTime="+current+" checks="+checks+" saves="+saves+" joins="+observer.playerJoins+" authErrors="+observer.authErrors+" discoveryErrors="+observer.discoveryErrors+" networkErrors="+observer.networkErrors+" "+rate+" "+performance.sample()+" heapUsed="+(memory.totalMemory()-memory.freeMemory())+" heapCommitted="+memory.totalMemory()+" heapMax="+memory.maxMemory());
+   if(Boolean.getBoolean("ps5.mc.gameplayDiagnostics")) {
+    System.out.println("MC_GAMEPLAY_SAMPLE read-only player hunger/saturation/exhaustion; replies follow in server.log");
+    for(String field:new String[]{"foodLevel","foodSaturationLevel","foodExhaustionLevel"})command(commands,"execute as @a run data get entity @s "+field);
+   }
    if(System.nanoTime()>=deadline)break;
    long remaining=deadline-System.nanoTime();Thread.sleep(Math.max(1,Math.min(poll*1000,remaining/1_000_000)));
   }while(true);
