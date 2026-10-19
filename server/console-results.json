@@ -759,12 +759,22 @@
     },
     {
       "app_version": "01.000.079",
-      "console": "Pending actualPS5VerifyJARs/startup/readlatency/nativeheadroom.",
+      "console": "PARTIAL: readiness/joinworks; userreports morefrequent shorterfreezes, notALLPASS.",
       "changes": "Runtime0100alignsJavaBasicImageReaderPS5index/channelmodewith0099nativeindex-onlymap, evenmap.all=true. Desktopbehaviorunchanged, allmodules/memorysaving retained. Consumerpreflightreports retainup to8nestedcauses.079version/runtimepin; no game derivative/heap/GC/C1/world/securitypolicychanges.",
       "checks": "PASS: realJava/native/ZIP/JNIreader integration underUBSan with normalJVMsignalhandling. OldMAP_ALLbehavior reproduces JarFileinputstreaminitializerfailure withUnicodeNFKCbufferbounds. FixedPS5mode withforcedmap.all=true andordinarydesktopJNIcontrol pass; exactObject/Unicode/HTTPS/DTLS/JFRbytes. ActualnativeASan/UBSanreader partial/EINTR/EIO/EOF/inputoutputallocation/cleanup/recovery controls pass withUnicodeidentityadded. TargetHotSpot/java.baseJava/native rebuild and0100exactpatchapplication pass. No newfullhostgame run: the actualJarFileoperation iscovered byintegration. PASS: exact079ZIP CRC/version/176MiB/NewRatio15/C1/compactheaders/7200s/online/OPflags; preflightcausechainmarker and save/HTTPShelpers retained. LinkedBasicImageReaderPS5guard/code matches debug-strippedtargetclass; seven targetnative libraries/modules byteidentity. Image28085822/index1000498bytes,16KiBpage-roundedpersistentcopyreduction27082752bytes. Two signedcontainers, matchingZIP/symbolcopies, frozen058checksum andfailed078packagechecksum preserved. Game derivative entries identicalto071-078.",
       "max_heap_mib": 176,
       "package_sha256": "fda10904dc0655d12907ae06dbb6126ea0c0a68afc8e84ce6992513ba40eadcc",
-      "pending": "079actualPS5VerifyJARs/realstartup, Javaresourcechannel/readlatency, joinednativeheadroom/GC/mobdamage/respawn/food/playerpersistence and7200seconds pending. NativeOOMfatalbehavior remainsifmemoryexhausted; no20playercapacity/optimalperformanceclaim."
+      "pending": "080existingcode-cachethresholdtuningpendingPS5pausecomparison; laterheap/native/codecachepressureandenduranceunvalidated.",
+      "evidence": "079RUN at49sJVMcapture; userreports shorter/morefrequent freezes andprefersnone. Normalworldreadiness/NBTsavecheck/oneauthenticatedjoin; health30s/2checks/0saves/20TPS. FiveCodeCacheGCThreshold fullGCs at16.385,22.931,24.802,26.239,33.534s, total1029.431ms,max269.367ms, cachetriggeroccupancy37.117-57.227percent. Young521events1269.837ms,max8.245ms; metadata3fullGC134.402ms,max98.226ms. Shortcaptureprimarilystartup/join; latercausesnotexcluded. Rawlogsprivate."
+    },
+    {
+      "app_version": "01.000.080",
+      "console": "Pending actualPS5pausefrequency/nativeheadroom/endurance; nofreeze-freeclaim.",
+      "changes": "080usesexistingSweeperThreshold50.0 instead ofdefault15, keeping16MiBcache/176MiBheap/NewRatio15/C1limits/index-onlyJavaimagerepair. Near-fullStartAggressiveSweepingAt10/UseCodeCacheFlushingtrue retained. No game derivative/consumerJava/world/view/player/OP/security/timerpolicychanges. Hosthelper accepts15/50 comparison; notfreeze-freeproof.",
+      "checks": "PASS: sequentialC1flatworld81chunk20secondcontrols, both10checks/5saves, vanillaNBTsavecheck and cleanstop. Threshold15:2CodeCacheGCThresholdfulls212.348ms,6fullGCs,1113.055msallGC,max130.067msGC,760msinitialtickgap. Threshold50:0code-triggerGCs,5fullGCs,1049.508msallGC,max133.172msGC,699msinitialtickgap. Nojoinedplayer; shortcontrolsnotstrictPS5latencybenchmark. Hostflagparse confirmsSweeper50,aggressive10/flushingtrue. Existing079Java/native/JNI/ASan/UBSanrepairstests retained; no runtimesource/nativebinarychange requiresnewtargetrebuild. PASS: exact080ZIP CRC/version/SweeperThreshold50/176MiB/NewRatio15/C1/compactheaders/7200s/online/OPflags; optionarraycountusesactualsizeof, unknownflagsrejected. Seven targetnative libraries/modules match, linkedBasicImageReaderPS5code and save/HTTPS/causechainhelpers retained. Index-onlysaving27082752bytes unchanged. Two signedcontainersvalid; ZIP/symbolcopiesmatch; frozen058/failed078/079comparison packagechecksums preserved. Game derivative entries identicalto071-079; sourcehasnocleanupdisable/aggressivethresholdoverride.",
+      "max_heap_mib": 176,
+      "package_sha256": "bb558cc1aa1d26e445cf7fd2c422fa8fa4606e7e0e83ae630e78b4100ddc8fa7",
+      "pending": "080actualPS5pausefrequency/maxgaps/GCcauses versus079, postjoin/native/codecacheheadroom, laterheap/metadata/IOstalls, playersave/rejoin/respawn/food/mobdamage,7200seconds and20playercapacitypending. Only49s079captureavailable; freeze-freeoperationnotproven."
     }
   ]
 }

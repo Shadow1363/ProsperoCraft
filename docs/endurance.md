@@ -358,3 +358,12 @@ map while the native reader supplies only its index.079aligns Java's PS5mode,
 retains the memorysaving and records nested causes. Require verify-row success
 and realstartup before joinedchunk-loading/save/rejoin checks. Actualnative
 headroom and7200second stability remain pending. See[details](image-reader-078.md).
+
+## Build080: measure pause frequency, not only peak duration
+
+079has repeated code-cache-triggered SerialfullGCs before the cache is full.080
+defers that heuristic with SweeperThreshold50, preserving10percentfreeaggressive
+cleanup and existing budgets. Host code-triggerGCcount falls2to0, but other
+pauses remain. Compare actualPS5postjoin pausefrequency, worsttickgaps, GCcauses
+and memoryheadroom before7200seconds. See[measurements](pauses-079.md). Do not
+claim freeze-free operation from average20TPS or a shorthostrun.

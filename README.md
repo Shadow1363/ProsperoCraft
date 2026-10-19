@@ -98,23 +98,22 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Java/native image-reader alignment 01.000.079
+## Current development: reduce repeated full-GC pauses 01.000.080
 
-078 passes all40official JAR checksums, then fails during JarFile bytecode-read
-initialization. Its native reader exposes only the module-image index, while
-Java's reader still assumes a full mapping on64bit systems. Native-only tests
-missed this handoff. The console report omitted the nested cause.
+079 reaches normal-world readiness and admits a player, but the user reports
+shorter, more frequent freezes. The short console capture identifies five full
+GCs triggered by code-cache growth, each178–269ms, while the cache is only
+37–57percent occupied.20TPS averages do not mean smooth gameplay.
 
-Runtime0100 aligns Java's reader with the PS5 index-only map and retains the
-native memory saving. A real Java/native/JNI test reproduces the old JarFile
-initializer failure, then passes the fixed reader and desktop control, including
-Unicode/HTTPS/DTLS/JFR resource bytes. Native sanitizer and target rebuild checks
-pass.079also preserves nested preflight causes in reports. Actual PS5 verify,
-startup and gameplay remain pending. See[details](docs/image-reader-078.md).
+080 adjusts the existing code-cache sweep threshold from15to50, retaining the
+16MiBcache,176MiBheap and aggressive near-full cleanup. Short sequential host
+controls reduce code-triggerGCs from2to0; other pauses remain. This targets a
+measured source of repeated freezes and does not establish freeze-free PS5play.
+See[measurements, controls and limits](docs/pauses-079.md).
 
-The176MiBheap/NewRatio15/C1/world/view/player/OP/security settings and existing
-game derivative are unchanged. Sustained native headroom and the two-hour test
-still need console validation.
+Index-onlymemorysavings, Java/native reader repair, allmodules, savechecks and
+existing game derivative/world/view/player/OP/security policies are retained.
+Actual console pausefrequency/nativeheadroom and two-hour stability are pending.
 
 
 072captured a null function call through its new OS-random service import.
@@ -154,7 +153,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-079 is an image-reader repair candidate; PS5 verification, gameplay and endurance remain pending.
+080 is a pause-frequency tuning candidate; PS5 smoothness and endurance remain pending.
 
 ### Build and verify
 
@@ -1642,3 +1641,16 @@ rebuild pass.079includes up to8nested causes in future preflight reports.
 Memory saving, allmodules, JARverification and existing gameplayconfiguration
 remain. No game-JAR transformation is added. PS5verification/startup/native
 headroom/gameplay/savepersistence/full7200seconds remain pending.
+
+### Build080: defer premature code-cache-triggered full GC
+
+079fixes verification and admits a player, but repeated full-GCpauses remain.
+The capturedCodeCacheGCThreshold pauses occur five times within17.149seconds
+and total1.029seconds, at37–57percent codecacheoccupation.080sets the existing
+SweeperThreshold50flag while retaining aggressive10percentfreecleanup and
+flushing. Heap/codecache sizes and all gameplay/security settings are unchanged.
+
+Two sequential short hostcontrols pass world/NBTsave/tickmonitor/stop checks,
+with code-triggerGCs2to0. OtherGCpauses and initialgenerationstalls remain; this
+is not proof of freeze-freeplay. ActualPS5pausefrequency/maximumtickgaps,
+nativeheadroom and7200seconds require validation. See[review](docs/pauses-079.md).

@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "3fda3932c483329c8fbb2b20ebecd35edf93a02e",
+  "commit": "4052e8019fc5a5d81cb3ea13a091c2296595e03d",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
   "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at176MiB max heap; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
@@ -9,5 +9,6 @@
   "image_decode": "074console: DTLSInputRecord loads and default TLS factory completes.0097host checks pass; later HTTPS setup crash unresolved.",
   "image_resource_buffers": "0098:076console completes TLS/online preflight/normalworld readiness and admits authenticated player; not ALLPASS or completed endurance.077retains runtime repair.",
   "image_residency": "0099PS5index-onlyanonymouscopy/on-demandresourcepread, allmodulesretained; currentpersistentcopy saves27082752bytes(25.8MiB). Short/EINTR/error/EOF handling checked. Target/nativeASan/UBSanpass;078PS5headroom/readlatency/stabilitypending. No compilerOOMbailout.",
-  "java_image_reader": "0100forces Java BasicImageReader index/channel mode foros.namePS5, matching0099nativeindexmap evenwithmap.all=true. ActualJava/native/JNIJarFile/Unicodefailure reproducedandfixedunderhostUBSan; desktopcontrolpasses.079consoleverificationpending."
+  "java_image_reader": "0100forces Java BasicImageReader index/channel mode foros.namePS5, matching0099nativeindexmap evenwithmap.all=true. ActualJava/native/JNIJarFile/Unicodefailure reproducedandfixedunderhostUBSan; desktopcontrolpasses.079consoleverificationpending.",
+  "code_cache_tuning": "Consumer080usesexistingSweeperThreshold50.0 with16MiBcodecache; default15causesrepeatedSerialfullGCwellbelowcacheexhaustion. StartAggressiveSweepingAt10/UseCodeCacheFlushingtrue retained. Hostcode-triggerGCcount2to0inshortflatcontrols;PS5smoothness/memorypending."
 }
