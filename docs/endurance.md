@@ -298,3 +298,13 @@ and actual server readiness before a short gameplay/respawn check and full run.
 A kernel-query error must now produce ProviderException, rather than a null
 call. Actual console query/TLS acceptance and the earlier071cause are pending.
 The existing game derivative and Minecraft harness are unchanged.
+
+
+## Build074: native image loading confirmation
+
+073completes DRBG but fails loading DTLSInputRecord during TLS factory setup.
+074repairs native image ZIP allocation and error handling; Minecraft Java/game
+classes remain unchanged. Confirm MC_TLS_RANDOM_OK, MC_TLS_FACTORY_OK, real
+online preflight and Done before a short join/respawn check and full run.
+Image decode failures should now return an explicit resource error instead of
+parsing failed temporary bytes. Actual PS5 acceptance remains pending.

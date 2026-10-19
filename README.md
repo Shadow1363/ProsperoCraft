@@ -98,7 +98,14 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: kernel entropy repair probe 01.000.073
+## Current development: runtime image repair probe 01.000.074
+
+073now completes DRBG initialization and returns a controlled failure during TLS
+factory setup: a Java runtime DTLS class has an invalid class header.074repairs
+the native image inflater's missing PS5 allocation adapter and propagates decode
+failures into checked resource errors. Actual PS5 TLS/startup is still pending.
+No game-JAR or Minecraft Java harness changes are added.
+
 
 072captured a null function call through its new OS-random service import.
 073fixes that concrete runtime failure using checked kernel entropy queries,
@@ -137,7 +144,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-073 is a development candidate, with all console validation pending.
+074 is a development candidate, with all console validation pending.
 
 ### Build and verify
 
@@ -1515,3 +1522,35 @@ identity, retained seed JNI/kernel marker and checked kernel pointer, absence of
 the direct RNG import/module dependency, matching ZIP/symbol copies and both
 signed containers. Frozen058checksum and all game-derivative entry bytes remain
 unchanged. Actual PS5 startup is still pending.
+
+
+### Build074: native Java image decoding after DRBG success
+
+073fails without crashing: MC_TLS_RANDOM_OK confirms DRBG completion, followed
+by ClassFormatError for sun/security/ssl/DTLSInputRecord (magic0x07000f0c) during
+TLS factory setup. No real server readiness or endurance phase was reached.
+The exact inflate status was not logged, so a specific failed allocation is not
+proven. Source inspection identifies missing PS5 zlib callbacks in native full
+inflate and ignored image-decode errors in release builds.
+
+Runtime0097uses the existing matched libc/page-backed zlib adapter and checks
+complete/exact output. Image read/decode failure returns0 and HotSpot raises a
+resource-named IOException. Reader ownership now starts at refcount0; sanitizers
+exposed the uninitialized count during repeated open/close tests. The actual
+native ZIP body and release-mode reader pass ASan/UBSan for DTLS/SSL/JFR/desktop
+byte identity, libc fallback, both-backend refusal, corrupt/truncated/wrong-size
+errors, untouched caller bytes on compressed failure, cleanup and recovery.
+The previous image reader test used host libzip;074tests the native inflater.
+Target HotSpot/java.base native rebuild passes.
+
+Java harness and all game-derivative entries remain unchanged. Normal-world, OP,
+20-slot limit and7200seconds from readiness remain. Console image/TLS/startup,
+earlier071cause, gameplay/respawn, sustained performance and20-player capacity
+remain pending. Runtime pin: `82e1a264def3e0c3629d0ad7e4c6dc9756fcb1e5`.
+
+Final074package checks pass exact ZIP/version/flags, seven target native-library
+and module identities, embedded inflater/error markers, signed containers and
+matching ZIP/symbol copies. Frozen058hash and game-derivative entries remain
+unchanged. No additional host game run was performed: the Java harness is
+unchanged and the new native reader/inflater path is tested directly above.
+Actual PS5 TLS/server readiness and sustained gameplay remain pending.
