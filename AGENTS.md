@@ -33,3 +33,19 @@ recorded in server/eula-consent.json. Development server-start code lives
 in server/ and tools/. Retain passing full packages under ignored
 dist/milestones before replacing the current build. Public releases omit
 official game JARs and document local provisioning and separate checksums.
+
+## Unmodified Minecraft server JAR direction
+
+The user requires future compatibility fixes and features to live in the Java
+port or the separately maintained Minecraft harness/configuration. Do not add
+or expand server-JAR transformations, bytecode hooks or replacement game classes.
+Keep the official downloaded server JAR intact. Existing local derivative
+transformations are temporary migration debt, not the preferred architecture.
+
+Gradually remove the existing transformations as working replacements are
+implemented and validated. Move runtime compatibility into the Java port; use
+vanilla configuration, ops.json and supported administration mechanisms for
+Minecraft policy where possible. Do not silently remove required workarounds
+or claim an unmodified server while a derivative is still executed. Record
+each remaining transformation and console validation needed for its removal.
+Preserve frozen passing snapshots; migrate development only.
