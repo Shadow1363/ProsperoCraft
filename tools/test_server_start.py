@@ -9,7 +9,7 @@ if args.c1 and (args.worker_runner or args.file_list_runner):parser.error('C1 fi
 if args.worker_runner and args.file_list_runner:parser.error('Choose either the native worker runner or the file-list JNI runner')
 assets=ROOT/'build/assets/java25';lock=json.loads((ROOT/'server/26.3.lock.json').read_text())
 # Run entirely from the prepared probe JAR; no loose-class directory fallback.
-cp=str(assets/'jars/ps5-server-probe.jar')+':'+str(assets/'jars/ps5-platform-diagnostics.jar')+':'+':'.join(str(assets/'jars'/r['file']) for r in lock['jars'] if r['file']!='server-26.3.jar')
+cp=str(assets/'jars/ps5-server-probe.jar')+':'+':'.join(str(assets/'jars'/r['file']) for r in lock['jars'])
 with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
  world=Path(directory)/('world' if args.flat else 'world-normal-v1')
  if args.legacy_directory:(world/'players').mkdir(parents=True)
@@ -36,9 +36,9 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
  properties=(Path(directory)/'server.properties').read_text().replace('\\:',':');assert 'max-players=20' in properties and 'op-permission-level=4' in properties and 'online-mode=true' in properties and 'white-list=true' in properties
  if not args.flat:assert 'level-type=minecraft:normal' in properties and 'generate-structures=true' in properties and 'view-distance=4' in properties and 'simulation-distance=3' in properties and (Path(directory)/'world/keep-flat.txt').read_text()=='preserve flat world'
  assert 'MC_GAME_PROTOCOL_OK' in output,output[-12000:]
- if args.c1:assert 'JIT_WARMUP_OK level=1' in output and 'MC_ITEM_USE_READY' in output and 'MC_ITEM_USE_UNAVAILABLE' not in output,output[-12000:]
+ if args.c1:assert 'JIT_WARMUP_OK level=1' in output,output[-12000:]
+ assert 'MC_ITEM_USE_READY' not in output and 'MC_TICK_GAP' not in output,output[-12000:]
  if args.endurance_seconds:
-  if args.endurance_seconds>=10:assert 'MC_TICK_GAP' in output,output[-12000:]
   assert 'MC_SERVER_ENDURANCE_OK' in output and 'MC_ENDURANCE_COMPLETE' in output,output[-12000:]
   health=re.findall(r'MC_ENDURANCE_HEALTH elapsedSeconds=(\d+).*?gameTime=(\d+).*?checks=(\d+).*?saves=(\d+)',output)
   assert len(health)>=2 and int(health[-1][0])>=args.endurance_seconds and int(health[-1][1])>int(health[0][1]),health

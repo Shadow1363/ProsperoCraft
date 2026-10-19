@@ -367,3 +367,14 @@ cleanup and existing budgets. Host code-triggerGCcount falls2to0, but other
 pauses remain. Compare actualPS5postjoin pausefrequency, worsttickgaps, GCcauses
 and memoryheadroom before7200seconds. See[measurements](pauses-079.md). Do not
 claim freeze-free operation from average20TPS or a shorthostrun.
+
+## Build081: original-server acceptance before server mods
+
+081executes the original pinned signed server JAR and removes both gameclass
+transformations. Confirm verification/startup, vanilla ops.json level4/no bypass,
+player-save/rejoin, mob/damage/GC behavior and shortplay before7200seconds.
+Use vanilla tick/time/data outputs and JVM counters; injected per-tick/fooduse
+metrics are gone. Current startup-whitelist accounts get OP through ops.json;
+use vanilla op or restart after runtime whitelist additions. See[migration](vanilla-081.md).
+After the stable unmodified-server baseline, work proceeds to servermods, then
+clientgraphics/input. PS5_Vulkan is recorded as a later candidate.

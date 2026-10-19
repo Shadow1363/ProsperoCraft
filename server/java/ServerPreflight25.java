@@ -39,7 +39,7 @@ public class ServerPreflight25 {
     }
    }
    stage="canonicalize and mount vanilla assets through ZipFS";trace(stage);
-   Path assetsJar=root.resolve("jars/ps5-platform-diagnostics.jar").toRealPath();
+   Path assetsJar=root.resolve("jars/server-26.3.jar").toRealPath();
    stage="check readable vanilla asset JAR";trace(stage);
    assetsJar.getFileSystem().provider().checkAccess(assetsJar,AccessMode.READ);
    stage="enumerate packaged asset directory";trace(stage);

@@ -10,5 +10,6 @@
   "image_resource_buffers": "0098:076console completes TLS/online preflight/normalworld readiness and admits authenticated player; not ALLPASS or completed endurance.077retains runtime repair.",
   "image_residency": "0099PS5index-onlyanonymouscopy/on-demandresourcepread, allmodulesretained; currentpersistentcopy saves27082752bytes(25.8MiB). Short/EINTR/error/EOF handling checked. Target/nativeASan/UBSanpass;078PS5headroom/readlatency/stabilitypending. No compilerOOMbailout.",
   "java_image_reader": "0100forces Java BasicImageReader index/channel mode foros.namePS5, matching0099nativeindexmap evenwithmap.all=true. ActualJava/native/JNIJarFile/Unicodefailure reproducedandfixedunderhostUBSan; desktopcontrolpasses.079consoleverificationpending.",
-  "code_cache_tuning": "Consumer080usesexistingSweeperThreshold50.0 with16MiBcodecache; default15causesrepeatedSerialfullGCwellbelowcacheexhaustion. StartAggressiveSweepingAt10/UseCodeCacheFlushingtrue retained. Hostcode-triggerGCcount2to0inshortflatcontrols;PS5smoothness/memorypending."
+  "code_cache_tuning": "Consumer080usesexistingSweeperThreshold50.0 with16MiBcodecache; default15causesrepeatedSerialfullGCwellbelowcacheexhaustion. StartAggressiveSweepingAt10/UseCodeCacheFlushingtrue retained. Hostcode-triggerGCcount2to0inshortflatcontrols;PS5smoothness/memorypending.",
+  "consumer_execution": "081executesoriginalsignedhash-pinnedserverJAR; noactivegameJARtransforms/replacementgameclasses. OP usesvanillaops.json forstartupwhitelist; telemetrywarnings handledbyvanillareport. RuntimeJavaOSpatches retained."
 }

@@ -1,0 +1,11 @@
+{
+  "build": "01.000.081",
+  "server_jar": "server-26.3.jar",
+  "server_sha256": "a362163eec5d1612d520772bc16e5b39c09e3b234fdc045f56bf544284ee8ae6",
+  "mode": "original signed server JAR, all bytes pinned",
+  "active_game_transformations": [],
+  "replacement_game_classes": [],
+  "operators": "vanilla ops.json prepared from startup whitelist; current whitelist gets level4 and no player-limit bypass. Later runtime whitelist additions use vanilla op administration or restart.",
+  "monitoring": "vanilla time/tick/data/save/stop commands and JVM counters; no injected per-tick or food/use observer",
+  "console_validation": "pending actual081PS5; host original-JAR/OPS/report/preflight/normalworld save-stop checks pass"
+}

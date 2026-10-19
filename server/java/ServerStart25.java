@@ -109,6 +109,7 @@ public class ServerStart25 {
    if(observer.serverErrors>errors)throw new IOException("Server ERROR logged during endurance");
    Runtime memory=Runtime.getRuntime();
    System.out.println("MC_ENDURANCE_HEALTH elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" targetSeconds="+seconds+" gameTime="+current+" checks="+checks+" saves="+saves+" joins="+observer.playerJoins+" authErrors="+observer.authErrors+" discoveryErrors="+observer.discoveryErrors+" networkErrors="+observer.networkErrors+" "+rate+" "+performance.sample()+" heapUsed="+(memory.totalMemory()-memory.freeMemory())+" heapCommitted="+memory.totalMemory()+" heapMax="+memory.maxMemory());
+   command(commands,"tick query");
    if(Boolean.getBoolean("ps5.mc.gameplayDiagnostics")) {
     System.out.println("MC_GAMEPLAY_SAMPLE read-only player hunger/saturation/exhaustion; replies follow in server.log");
     for(String field:new String[]{"foodLevel","foodSaturationLevel","foodExhaustionLevel"})command(commands,"execute as @a run data get entity @s "+field);
@@ -159,7 +160,8 @@ public class ServerStart25 {
      stage="verify online DNS/HTTPS discovery, account profile and whitelist";trace(stage);
      Class.forName("ServerOnline25").getMethod("prepare",Path.class).invoke(null,root);
     }
-    stage="initialize and invoke server nogui with PS5 diagnostic adaptation";trace(stage);
+    stage="prepare authorized vanilla ops.json";trace(stage);ServerOperators25.prepare(root);
+    stage="initialize and invoke original server nogui";trace(stage);
     Class<?> main=Class.forName("net.minecraft.server.Main",true,ClassLoader.getSystemClassLoader());
     main.getMethod("main",String[].class).invoke(null,(Object)new String[]{"--nogui","--universe",root.toString(),"--world",worldName});
     stage="wait up to 10 minutes for real Done readiness message";trace(stage);

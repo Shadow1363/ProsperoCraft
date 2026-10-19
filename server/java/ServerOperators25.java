@@ -1,51 +1,36 @@
 import com.google.gson.*;
-import java.lang.reflect.*;
+import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
 
-/** Explicit user policy: level-4 OP for authenticated, whitelisted players. */
+/** Authorized policy via vanilla ops.json; no game-thread hook or replacement. */
 public final class ServerOperators25 {
- private static final boolean ENABLED=Boolean.getBoolean("ps5.mc.opAll");
- private static volatile boolean ready;private static volatile String failure;
- private static int steps;
- private static Method getList,getPlayers,getProfile,isOp,isAllowed,op,permissions;
- private static Constructor<?> fromProfile,fromIdentity;
- private static Object list;
- private static void grant(Object server,Object identity,boolean force)throws Exception {
-  if(!(boolean)isAllowed.invoke(list,identity))throw new IllegalStateException("OP policy refused non-whitelisted identity");
-  if(force||!(boolean)isOp.invoke(list,identity)){
-   op.invoke(list,identity,Optional.of(permissions.invoke(server)),Optional.of(false));
-   if(!(boolean)isOp.invoke(list,identity))throw new IllegalStateException("Vanilla OP grant did not persist");
-   System.out.println("MC_OP_GRANTED whitelisted identity; configured permission level; player-limit bypass=false");
+ private static volatile boolean ready;
+ public static void prepare(Path root)throws Exception {
+  if(!Boolean.getBoolean("ps5.mc.opAll"))return;
+  if(!Files.readString(root.resolve("server.properties")).contains("online-mode=true\n")||!Files.readString(root.resolve("server.properties")).contains("white-list=true\n"))throw new IOException("OP policy requires online authentication and whitelist");
+  Path whitelist=root.resolve("whitelist.json"),ops=root.resolve("ops.json");
+  if((Files.exists(whitelist)&&Files.size(whitelist)>262144)||(Files.exists(ops)&&Files.size(ops)>262144))throw new IOException("Policy file exceeds256KiB");
+  JsonArray admitted=Files.exists(whitelist)?JsonParser.parseString(Files.readString(whitelist)).getAsJsonArray():new JsonArray();
+  Map<UUID,JsonObject> entries=new LinkedHashMap<>();
+  if(Files.exists(ops))for(JsonElement value:JsonParser.parseString(Files.readString(ops)).getAsJsonArray()) {
+   JsonObject entry=value.getAsJsonObject();entries.put(UUID.fromString(entry.get("uuid").getAsString()),entry);
   }
+  for(JsonElement value:admitted) {
+   JsonObject source=value.getAsJsonObject();UUID id=UUID.fromString(source.get("uuid").getAsString());String name=source.get("name").getAsString();
+   if(!name.matches("[A-Za-z0-9_]{3,16}"))throw new IOException("Invalid whitelisted player name");
+   JsonObject entry=new JsonObject();entry.addProperty("uuid",id.toString());entry.addProperty("name",name);entry.addProperty("level",4);entry.addProperty("bypassesPlayerLimit",false);entries.put(id,entry);
+  }
+  JsonArray result=new JsonArray();entries.values().forEach(result::add);
+  Path temporary=Files.createTempFile(root,".ops-policy-",".json");
+  try {
+   Files.writeString(temporary,new GsonBuilder().setPrettyPrinting().create().toJson(result));
+   try{Files.move(temporary,ops,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);}
+   catch(AtomicMoveNotSupportedException unsupported){Files.move(temporary,ops,StandardCopyOption.REPLACE_EXISTING);}
+  }finally{Files.deleteIfExists(temporary);}
+  ready=true;System.out.println("MC_OP_READY level4 for startup whitelist via vanilla ops.json; player-limit bypass=false");
  }
- public static void tick(Object server){
-  if(!ENABLED||failure!=null)return;
-  try{
-   if(!ready){
-    Class<?> serverClass=Class.forName("net.minecraft.server.MinecraftServer"),listClass=Class.forName("net.minecraft.server.players.PlayerList"),identity=Class.forName("net.minecraft.server.players.NameAndId");
-    if(!(boolean)serverClass.getMethod("usesAuthentication").invoke(server))throw new IllegalStateException("OP policy requires online authentication");
-    getList=serverClass.getMethod("getPlayerList");list=getList.invoke(server);
-    if(!(boolean)listClass.getMethod("isUsingWhitelist").invoke(list))throw new IllegalStateException("OP policy requires whitelist");
-    isAllowed=listClass.getMethod("isWhiteListed",identity);isOp=listClass.getMethod("isOp",identity);
-    op=listClass.getMethod("op",identity,Optional.class,Optional.class);permissions=serverClass.getMethod("operatorUserPermissions");
-    getPlayers=listClass.getMethod("getPlayers");getProfile=Class.forName("net.minecraft.world.entity.player.Player").getMethod("getGameProfile");
-    fromProfile=identity.getConstructor(Class.forName("com.mojang.authlib.GameProfile"));fromIdentity=identity.getConstructor(UUID.class,String.class);
-    Path file=Path.of(System.getProperty("ps5.mc.workdir",System.getProperty("user.dir"))).resolve("whitelist.json");
-    if(Files.exists(file)){
-     if(Files.size(file)>262144)throw new IllegalStateException("Whitelist exceeds256KiB");
-     JsonArray entries=JsonParser.parseString(Files.readString(file)).getAsJsonArray();
-     for(JsonElement value:entries){JsonObject entry=value.getAsJsonObject();grant(server,fromIdentity.newInstance(UUID.fromString(entry.get("uuid").getAsString()),entry.get("name").getAsString()),true);}
-    }
-    ready=true;System.out.println("MC_OP_READY level4 policy for online whitelisted players; vanilla APIs/persistence");
-   }
-   if(++steps%20!=0)return;
-   for(Object player:(List<?>)getPlayers.invoke(list))grant(server,fromProfile.newInstance(getProfile.invoke(player)),false);
-  }catch(Throwable error){failure=error.toString();System.out.println("MC_OP_POLICY_FAILED "+failure);}
- }
- public static void requireReady()throws Exception{
-  if(!ENABLED)return;long deadline=System.nanoTime()+5_000_000_000L;
-  while(!ready&&failure==null&&System.nanoTime()<deadline)Thread.sleep(25);
-  if(!ready||failure!=null)throw new IllegalStateException("Operator policy unavailable: "+failure);
+ public static void requireReady()throws Exception {
+  if(Boolean.getBoolean("ps5.mc.opAll")&&!ready)throw new IOException("Vanilla ops.json was not prepared");
  }
 }

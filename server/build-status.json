@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.080",
+  "app_version": "01.000.081",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "bb558cc1aa1d26e445cf7fd2c422fa8fa4606e7e0e83ae630e78b4100ddc8fa7",
-  "console": "Pending080PS5pausefrequencycomparison;079userreportsfrequentfreezeswith5code-cache-triggerfullGCs inshortcapture.",
-  "host": "PASS: sequentialC1flatworld81chunk20secondcontrols, both10checks/5saves, vanillaNBTsavecheck and cleanstop. Threshold15:2CodeCacheGCThresholdfulls212.348ms,6fullGCs,1113.055msallGC,max130.067msGC,760msinitialtickgap. Threshold50:0code-triggerGCs,5fullGCs,1049.508msallGC,max133.172msGC,699msinitialtickgap. Nojoinedplayer; shortcontrolsnotstrictPS5latencybenchmark. Hostflagparse confirmsSweeper50,aggressive10/flushingtrue. Existing079Java/native/JNI/ASan/UBSanrepairstests retained; no runtimesource/nativebinarychange requiresnewtargetrebuild.",
-  "package": "PASS: exact080ZIP CRC/version/SweeperThreshold50/176MiB/NewRatio15/C1/compactheaders/7200s/online/OPflags; optionarraycountusesactualsizeof, unknownflagsrejected. Seven targetnative libraries/modules match, linkedBasicImageReaderPS5code and save/HTTPS/causechainhelpers retained. Index-onlysaving27082752bytes unchanged. Two signedcontainersvalid; ZIP/symbolcopiesmatch; frozen058/failed078/079comparison packagechecksums preserved. Game derivative entries identicalto071-079; sourcehasnocleanupdisable/aggressivethresholdoverride.",
+  "package_sha256": "3987b6b79a5502a5f827dcb437f30cc0075e4730a17c050935bf415c1a6b41a3",
+  "console": "Pending081original-serverPS5acceptance;080moblagstillincludesheapGCstalls.",
+  "host": "PASS: all40originalpins; originalsignedSystemReport/MinecraftServercode-sourceandcertificates. os.namePS5originalreporthandlesunsupportedOSHIwithvanillacatch. OpsJSONreadbyoriginalServerOpList(level4/nobypass),preserveunrelatedentries/idempotence/invalidUUIDfailureleavesoldfileintact. Preflight/ZipFS/null/ZIP/C1andoriginalhelp pass withnoEULA/worldsideeffects. Normalworld81chunk30secondC1test passesrealDone,NBTsaveprobe,9checks/6saves,vanillatickqueries,cleanstopandsavedlevel.dat; nojoinedhostplayer. Memory/GCsettingsunchanged; nofreezefixclaim.",
+  "package": "PASS: exact081ZIP CRC/version/176MiB/NewRatio15/Sweeper50/C1/compactheaders/7200s/online/OPflags. All40officialJARbytesmatchpins; no derivativeJar or net/minecraft replacementhelperclasses/ServerGameplay25; originalserverclasspath/auditandops.jsonhelperpresent. Seven targetnative libraries/modules match,0100Javaimagereader/entropy/imageguardsretained,25.8MiBcopyreductionunchanged. Two signedcontainersvalid; matchingZIP/symbolcopies; frozen058and080fallbackchecksums preserved.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -31,14 +31,14 @@
   "max_heap_mib": 176,
   "runtime_adaptation": "0097 applies existing PS5 libc/page-backed matched zlib callbacks to native full-inflate/image paths; require complete/exact decode, propagate failed reads viaJIMAGE0return/HotSpot resource-namedIOException, handle optional resource failure, initialize image-reader refcount.",
   "probe_jar_sha256": "36fa6373d31a71c504394aa583aa065c3d1193e9ebfbadfd839eb8a121d56224",
-  "diagnostics": "Actual first-player food/use samples, global100-tick wall-gap statistics, TPS/GC/codecache/nativeusage; OP policy independently checks all admitted players. Human070respawn crash is not a completed endurance result.",
+  "diagnostics": "Vanillatime/tick/data/save/stopcommands,JVMGC/TPS/nativeusage. Injectedfooduse/per-tickgapobserverremoved.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "080actualPS5pausefrequency/maxgaps/GCcauses versus079, postjoin/native/codecacheheadroom, laterheap/metadata/IOstalls, playersave/rejoin/respawn/food/mobdamage,7200seconds and20playercapacitypending. Only49s079captureavailable; freeze-freeoperationnotproven.",
-  "diagnostic_adapter": "Local unsigned derivative of verified original: SystemReport telemetry wrapper and one MinecraftServer final-tick hook; helper samples food/tick gaps and performs explicitly authorized OP policy via vanilla APIs. Other instructions/classes/resources retained except unsigned manifest.",
+  "known_failures": "081actualPS5VerifyJARs/originalsignedserverstartup/OSHIcatchbehavior/OPlevel/playersaveandrejoin/respawn/food/nativeheadroom/mobdamageGCstalls/7200seconds/20playercapacitypending. HeapallocationfullGCremainsunresolved; nofreezefreeclaim. Servermodsstartafterstableunmodifiedbaseline,clientafterservermods. PS5_Vulkancompatibilitynotvalidated.",
+  "diagnostic_adapter": "None: executesoriginalsignedhash-pinnedserverJAR; noactivetransformsorreplacementgameclasses. Historicalsnapshotsretained.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "079RUN at49sJVMcapture; userreports shorter/morefrequent freezes andprefersnone. Normalworldreadiness/NBTsavecheck/oneauthenticatedjoin; health30s/2checks/0saves/20TPS. FiveCodeCacheGCThreshold fullGCs at16.385,22.931,24.802,26.239,33.534s, total1029.431ms,max269.367ms, cachetriggeroccupancy37.117-57.227percent. Young521events1269.837ms,max8.245ms; metadata3fullGC134.402ms,max98.226ms. Shortcaptureprimarilystartup/join; latercausesnotexcluded. Rawlogsprivate.",
+  "crash_evidence": "080user requests moblagreview afterrestart. Currentcapture179sJVM,latesthealth151s/6checks/0saves/1join/near20TPS. Fortyallocation-failurefullGCs;1075allocationcollections13503.775ms,max352.364ms; onecodecacheGC217.478ms,fourmetadataGC388.105ms. Tickmax572ms. Remainingmob/damagelag consistentwithheapGCstalls, notfullyattributed; noRTTmeasurement. Native maxrss_raw497664units/hardcapnotestablished. Rawlogsprivate;notALLPASSor7200spass.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -51,15 +51,15 @@
     "poll_seconds": 30,
     "flushed_save_seconds": 300,
     "reply_timeout_seconds": 120,
-    "host_test_seconds": 20,
-    "host_checks": 10,
-    "host_flushed_saves": 5,
-    "console": "079health30s/2checks/0saves/1joinbefore49sJVMcaptureends;080pending, no7200spass.",
+    "host_test_seconds": 30,
+    "host_checks": 9,
+    "host_flushed_saves": 6,
+    "console": "080latesthealth151s/6checks/0saves/1join;081pending,no7200spass.",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0
   },
-  "consumer_changes": "080usesexistingSweeperThreshold50.0 instead ofdefault15, keeping16MiBcache/176MiBheap/NewRatio15/C1limits/index-onlyJavaimagerepair. Near-fullStartAggressiveSweepingAt10/UseCodeCacheFlushingtrue retained. No game derivative/consumerJava/world/view/player/OP/security/timerpolicychanges. Hosthelper accepts15/50 comparison; notfreeze-freeproof.",
+  "consumer_changes": "081executeshash-pinnedoriginalsignedserverJAR; zeroactivegameJARtransformations/replacementclasses. RemovesSystemReportwrappers/MinecraftServertickhook/ServerGameplay25andcurrenttransformtools. VanillaSystemReportcatchesunsupportedOSHI. Vanillaops.jsonlevel4/nobypassforstartupwhitelist, existingunrelatedentriespreserved; laterwhitelistchangesusevanillaoporrestartereapply. MonitoringviaJVMcounters/vanillatime/tick/data/savecommands; injectedfooduse/tickgapmetricsretired. Heap176/NewRatio15/C1/Sweeper50/world/view4/simulation3/max20/onlineTLS/7200sfromDoneunchanged. Persistentroadmapserverbaseline->servermods->client; PS5_Vulkanrecordedcandidate, notadopted.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -91,10 +91,10 @@
   "operators": {
     "enabled": true,
     "level": 4,
-    "policy": "all admitted authenticated whitelisted players",
-    "api": "vanilla PlayerList.op on server thread, persisted ops.json",
+    "policy": "allstartupwhitelistidentities;runtimeadditionsusevanillaoporrestartereapply",
+    "api": "vanilla ops.json generatedbeforestartup, loadedbyoriginalserver",
     "bypasses_player_limit": false,
-    "console": "076MC_OP_GRANTED/MC_OP_READY confirmed; actualplayer-savepersistence unresolved"
+    "console": "081hostvanillaOP-listloadpasses;PS5OPlevel/persistencepending"
   },
   "new_ratio": 15,
   "image_residency": {
@@ -104,5 +104,15 @@
     "persistent_copy_reduction_bytes": 27082752,
     "console": "079Java/nativeimagealignmentpendingPS5; copyreductionnotpeakRSSguarantee"
   },
-  "sweeper_threshold": 50.0
+  "sweeper_threshold": 50.0,
+  "work_order": [
+    "Stable unmodified vanilla server and persistence/endurance",
+    "Compatible server mod loaders and individually tested server mods",
+    "Client native/graphics/input integration"
+  ],
+  "graphics_candidate": {
+    "url": "https://github.com/mihawk-99/PS5_Vulkan",
+    "reviewed_main_commit": "f410e67a0241b3e8edcdbcd2a9b285dfc4a412ed",
+    "state": "researchcandidateonly; no dependencyadoptedorMinecraftclientcompatibilityvalidated"
+  }
 }

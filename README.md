@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/readme-banner.svg" alt="Minecraft Java on PS5 — server first, client next" width="1200">
+  <img src="docs/readme-banner.svg" alt="Minecraft Java on PS5 — server first, server mods next, client afterward" width="1200">
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
 
 # Minecraft Java on PS5
 
-A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a dedicated server, then working toward the client, controller support and mod compatibility.
+A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
 > **Status: flat-world server startup, save and stop pass on PS5.** Build **01.000.058** passes all five probe rows with Minecraft **26.3 / Java 25**, including real readiness, saved world metadata and VM destruction. Build069 admits an authenticated player and logs working chicken consumption with much faster reported gameplay; intermittent stalls and full endurance remain unvalidated.
 
@@ -22,8 +22,8 @@ Bring Java Edition's worlds and ecosystem to native PS5 homebrew through small, 
 | Direction | What we're aiming for |
 | :--- | :--- |
 | **Server first** | Start a vanilla server, create and reload a world, connect over the network and verify save integrity |
-| **Client next** | Bring up native dependencies, a window, rendering, audio and controller input |
-| **Mods later** | Validate Fabric and Forge against specific working game versions, then test individual mods |
+| **Server mods next** | Validate compatible server mod loaders and individual mods against pinned game versions |
+| **Client afterward** | Bring up native bindings, a window, rendering, audio and controller input |
 
 Graphics exploration includes OpenGL and Vulkan possibilities. Backend availability, native bindings and renderer-mod compatibility still need to be established on PS5.
 
@@ -64,23 +64,23 @@ The runtime now has **nine passing console milestones**, including inbound IPv4,
 - [x] Pass the first Minecraft server bootstrap probe on PS5.
 - [x] Launch a vanilla dedicated server and reach a ready state (observed in build057; the run then crashed during the save path).
 - [x] Start a flat test world, save metadata and stop cleanly (build058 ALL PASS).
+- [ ] Complete migration to the original signed server JAR and validate it on PS5.
 - [ ] Reload a saved world and verify persistence.
 - [ ] Connect from another device and verify sustained ticks and clean shutdown.
 
-### 2 · Bring up the client
+### 2 · Validate server mods
 
-- [ ] Port the required native libraries and window/input interfaces.
-- [ ] Establish a working rendering backend and audio path.
-- [ ] Reach the main menu and load a vanilla test world.
-- [ ] Add usable controller navigation and gameplay controls.
-- [ ] Measure performance, memory use and stability on the console.
+- [ ] Complete the unmodified-server baseline, save/rejoin checks and two-hour run.
+- [ ] Select compatible pinned server mod-loader/game versions; evaluate Fabric and Forge separately where supported.
+- [ ] Run individual server-side mods and verify joins, persistence, memory and latency.
+- [ ] Publish exact tested loader/mod versions and reproducible results before larger sets.
 
-### 3 · Explore the mod ecosystem
+### 3 · Bring up the client after server mods
 
-- [ ] Validate Fabric and Forge separately for selected game versions.
-- [ ] Check each mod's Java, native-library and graphics requirements.
-- [ ] Test individual mods before attempting larger mod sets.
-- [ ] Publish exact tested versions, results and reproducible builds.
+- [ ] Port native bindings and window/input interfaces for the selected client.
+- [ ] Evaluate [PS5_Vulkan](docs/graphics-candidate-ps5-vulkan.md) as a graphics foundation and verify a compatible renderer path.
+- [ ] Establish graphics/audio, reach the menu and load a vanilla test world.
+- [ ] Add usable controller navigation/gameplay and measure console performance.
 
 ## First server bootstrap probe
 
@@ -98,22 +98,28 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: reduce repeated full-GC pauses 01.000.080
+## Current development: original server-JAR candidate 01.000.081
 
-079 reaches normal-world readiness and admits a player, but the user reports
-shorter, more frequent freezes. The short console capture identifies five full
-GCs triggered by code-cache growth, each178–269ms, while the cache is only
-37–57percent occupied.20TPS averages do not mean smooth gameplay.
+080's remaining mob stalls correlate with heap-allocation full GCs:40collections
+in the captured179seconds, with pauses up to352ms. Code-cache tuning does not
+remove heap pressure.081 keeps the current heap/GC budget while removing the
+injected gameplay observer and optional telemetry wrappers.
 
-080 adjusts the existing code-cache sweep threshold from15to50, retaining the
-16MiBcache,176MiBheap and aggressive near-full cleanup. Short sequential host
-controls reduce code-triggerGCs from2to0; other pauses remain. This targets a
-measured source of repeated freezes and does not establish freeze-free PS5play.
-See[measurements, controls and limits](docs/pauses-079.md).
+Development now packages and executes the original hash-pinned signed Minecraft
+server JAR. Both SystemReport and MinecraftServer are original; there are zero
+active game-JAR transformations or replacement game classes. OP uses vanilla
+ops.json for the startup whitelist; monitoring uses vanilla commands and JVM
+counters. Injected per-tick/food diagnostics are gone. Historical frozen builds
+are preserved. This is an unmodified-JAR console candidate, not a new PS5pass.
 
-Index-onlymemorysavings, Java/native reader repair, allmodules, savechecks and
-existing game derivative/world/view/player/OP/security policies are retained.
-Actual console pausefrequency/nativeheadroom and two-hour stability are pending.
+Host checks pass original class signatures, vanilla unsupported-OSHI handling,
+OP-list loading, preflight/help and normal-world readiness/save/stop. Actual PS5
+startup, remaining mob/GC latency, player persistence and two-hour stability
+still need validation. See[the migration record](docs/vanilla-081.md).
+
+The requested order is stable unmodified server, server mods, then the client.
+[PS5_Vulkan](docs/graphics-candidate-ps5-vulkan.md) is recorded as a promising
+future graphics candidate; Java/native/renderer integration remains untested.
 
 
 072captured a null function call through its new OS-random service import.
@@ -153,7 +159,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-080 is a pause-frequency tuning candidate; PS5 smoothness and endurance remain pending.
+081 executes the original server JAR; actual PS5 acceptance, smoothness and endurance remain pending.
 
 ### Build and verify
 
@@ -1654,3 +1660,20 @@ Two sequential short hostcontrols pass world/NBTsave/tickmonitor/stop checks,
 with code-triggerGCs2to0. OtherGCpauses and initialgenerationstalls remain; this
 is not proof of freeze-freeplay. ActualPS5pausefrequency/maximumtickgaps,
 nativeheadroom and7200seconds require validation. See[review](docs/pauses-079.md).
+
+### Build081: remove the server-JAR derivative
+
+Both active transformations are removed: SystemReport telemetry wrappers and
+MinecraftServer tick injection. The original signed server JAR is the execution
+artifact; all40official pins and signatures are retained. OP policy now prepares
+vanilla ops.json before startup. Runtime whitelist changes need vanilla op
+administration or a restart; no hidden game hooks remain. Tick/data/time commands
+and JVM counters retain monitoring, while injected food-use/per-tick-gap metrics
+are intentionally retired. Frozen older adaptations remain historical.
+
+Host original-JAR, telemetry/error-handling, OP-policy/vanilla-list-load,
+preflight/help and normal-world81-chunk30second save/stop checks pass.080moblag
+still includes allocation-pressurefullGC; this migration is not a proven latency
+fix. Validate081onPS5before claiming vanilla-console acceptance or full endurance.
+Server mods precede client work, with PS5_Vulkan retained as an unvalidated
+client graphics candidate. See[migration](docs/vanilla-081.md).

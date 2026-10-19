@@ -49,3 +49,13 @@ Minecraft policy where possible. Do not silently remove required workarounds
 or claim an unmodified server while a derivative is still executed. Record
 each remaining transformation and console validation needed for its removal.
 Preserve frozen passing snapshots; migrate development only.
+
+## Work order requested on 2026-10-19
+
+Prioritize smooth, stable server gameplay and completion of the migration to
+the original unmodified server JAR. Establish actual PS5 startup, player save/
+rejoin persistence and the requested two-hour baseline. Then work on server-side
+mod loaders and individually validated mods for compatible pinned versions.
+Client graphics, native bindings and input come after server mods work.
+Track mihawk-99/PS5_Vulkan as a client graphics candidate; it is not an adopted
+or validated project dependency. Keep game/mod/client plans in this repository.

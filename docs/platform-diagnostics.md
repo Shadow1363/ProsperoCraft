@@ -1,3 +1,8 @@
+> Historical migration record: Development081removes this derivative and both
+> transformations. Its classpath executes the original pinned signed server JAR.
+> Frozen older snapshots remain as recorded.081PS5acceptance is pending; see
+> [the migration record](vanilla-081.md).
+
 # PS5 diagnostic compatibility
 
 Starting in probe 01.000.012, the runtime includes the real OpenJDK management
