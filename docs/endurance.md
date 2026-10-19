@@ -308,3 +308,14 @@ classes remain unchanged. Confirm MC_TLS_RANDOM_OK, MC_TLS_FACTORY_OK, real
 online preflight and Done before a short join/respawn check and full run.
 Image decode failures should now return an explicit resource error instead of
 parsing failed temporary bytes. Actual PS5 acceptance remains pending.
+
+## Build075: isolate HTTPS setup before endurance
+
+074 passes DRBG/TLS factory and DTLS class loading, then crashes after discovery
+DNS success. No fatal location was captured.075 emits MC_ONLINE_PHASE markers
+with phase, public host and Java heap values around URL/connection construction,
+configuration, response/body and cleanup. These diagnostics are not a crash fix.
+Keep the probe open after a failure so current-run reports can be retrieved.
+Do not begin the two-hour run until readiness and short gameplay/respawn checks
+are stable. The timer still starts at real Done; settings and existing game
+derivative remain unchanged.

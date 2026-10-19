@@ -9,15 +9,29 @@ import javax.net.ssl.HttpsURLConnection;
 public final class ServerOnline25 {
  static JsonObject object(JsonObject o,String key)throws IOException {if(!o.has(key)||!o.get(key).isJsonObject())throw new IOException("Missing discovery object: "+key);return o.getAsJsonObject(key);}
  static String text(JsonObject o,String key)throws IOException {if(!o.has(key)||!o.get(key).isJsonPrimitive()||!o.get(key).getAsJsonPrimitive().isString())throw new IOException("Missing discovery string: "+key);return o.get(key).getAsString();}
+ // Phase names and public endpoint hosts only: never log account URLs or bodies.
+ static void checkpoint(String phase,String host) {
+  Runtime vm=Runtime.getRuntime();
+  System.out.println("MC_ONLINE_PHASE phase="+phase+" host="+host+" heapTotal="+vm.totalMemory()+" heapFree="+vm.freeMemory()+" heapMax="+vm.maxMemory());
+  System.out.flush();
+ }
  static JsonObject read(String address)throws Exception {
   URI uri=URI.create(address);if(!"https".equals(uri.getScheme())||uri.getHost()==null||uri.getUserInfo()!=null)throw new IOException("HTTPS endpoint required");
   System.out.println("MC_ONLINE_CHECK host="+uri.getHost());
   try{if(InetAddress.getAllByName(uri.getHost()).length==0)throw new UnknownHostException(uri.getHost());}
   catch(UnknownHostException e){throw new IOException("Online DNS failed for "+uri.getHost()+"; inspect native DNS stages",e);}
-  HttpsURLConnection c=(HttpsURLConnection)uri.toURL().openConnection();c.setConnectTimeout(15000);c.setReadTimeout(15000);c.setInstanceFollowRedirects(false);
-  try{int status=c.getResponseCode();if(status!=200)throw new IOException("Online endpoint "+uri.getHost()+" returned HTTP "+status);
-   try(InputStream input=c.getInputStream()){byte[] bytes=input.readNBytes(262145);if(bytes.length>262144)throw new IOException("Online JSON exceeds256KiB");JsonElement value=JsonParser.parseString(new String(bytes,StandardCharsets.UTF_8));if(!value.isJsonObject())throw new IOException("Expected online JSON object");return value.getAsJsonObject();}
-  }finally{c.disconnect();}
+  checkpoint("dns_ok",uri.getHost());
+  checkpoint("url_begin",uri.getHost());
+  URL url=uri.toURL();
+  checkpoint("url_ok",uri.getHost());
+  checkpoint("connection_begin",uri.getHost());
+  HttpsURLConnection c=(HttpsURLConnection)url.openConnection();
+  checkpoint("connection_ok",uri.getHost());
+  c.setConnectTimeout(15000);c.setReadTimeout(15000);c.setInstanceFollowRedirects(false);
+  checkpoint("configured",uri.getHost());
+  try{checkpoint("response_begin",uri.getHost());int status=c.getResponseCode();checkpoint("response_ok",uri.getHost());if(status!=200)throw new IOException("Online endpoint "+uri.getHost()+" returned HTTP "+status);
+   try(InputStream input=c.getInputStream()){checkpoint("body_begin",uri.getHost());byte[] bytes=input.readNBytes(262145);checkpoint("body_ok",uri.getHost());if(bytes.length>262144)throw new IOException("Online JSON exceeds256KiB");JsonElement value=JsonParser.parseString(new String(bytes,StandardCharsets.UTF_8));if(!value.isJsonObject())throw new IOException("Expected online JSON object");return value.getAsJsonObject();}
+  }finally{checkpoint("disconnect_begin",uri.getHost());c.disconnect();checkpoint("disconnect_ok",uri.getHost());}
  }
  static String endpoint(JsonObject discovery,String service,String operation)throws IOException {return text(object(object(object(discovery,service),"endpoints"),operation),"uri");}
  static String uuid(String id)throws IOException {if(!id.matches("[0-9a-fA-F]{32}"))throw new IOException("Invalid online profile UUID");return id.substring(0,8)+"-"+id.substring(8,12)+"-"+id.substring(12,16)+"-"+id.substring(16,20)+"-"+id.substring(20);}

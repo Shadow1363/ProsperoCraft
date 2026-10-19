@@ -1,10 +1,10 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "82e1a264def3e0c3629d0ad7e4c6dc9756fcb1e5",
+  "commit": "6aedb49582beea9c1195916dcd1e1a83e8c6f3a1",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
   "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio7 at176MiB max heap; compressed resident image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
   "optional_native_services": "java.management is embedded with real JMM data; target console validation pending; jdk.management OS extensions remain unported",
-  "secure_seed": "0095/0096 NativeSeedGenerator uses checked PS5 kernel entropy queries, with bounded buffers, import/return/length failure propagation; direct RNG service dependency removed; actual PS5 validation pending",
-  "image_decode": "0097 uses existing PS5 zlib allocation callbacks for native image/full ZIP inflation, checked decode failure propagation and initialized image-reader ownership; PS5 TLS validation pending"
+  "secure_seed": "074console: real DRBG completes via checked kernel entropy; no substitute seed. Later HTTPS setup crash unresolved.",
+  "image_decode": "074console: DTLSInputRecord loads and default TLS factory completes.0097host checks pass; later HTTPS setup crash unresolved."
 }

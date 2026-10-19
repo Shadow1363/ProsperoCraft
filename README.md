@@ -98,13 +98,18 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: runtime image repair probe 01.000.074
+## Current development: HTTPS crash localization probe 01.000.075
 
-073now completes DRBG initialization and returns a controlled failure during TLS
-factory setup: a Java runtime DTLS class has an invalid class header.074repairs
-the native image inflater's missing PS5 allocation adapter and propagates decode
-failures into checked resource errors. Actual PS5 TLS/startup is still pending.
-No game-JAR or Minecraft Java harness changes are added.
+074 now loads DTLSInputRecord and completes default TLS factory creation. The
+user then reports a process crash during online discovery, after DNS succeeds.
+No final native crash address, abort or Java exception was captured. The exact
+cause remains unresolved; the server did not reach readiness.
+
+075 adds flushed phase markers and Java heap samples around URL creation,
+HTTPS connection construction, configuration, response, body read and cleanup.
+Only endpoint hostnames and phase/memory fields are logged; account paths and
+response bodies are omitted. Runtime options, authentication and certificate
+verification remain enabled. The existing game derivative is unchanged.
 
 
 072captured a null function call through its new OS-random service import.
@@ -144,7 +149,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-074 is a development candidate, with all console validation pending.
+075 is a diagnostic development candidate; PS5 startup and stability remain pending.
 
 ### Build and verify
 
@@ -1554,3 +1559,18 @@ matching ZIP/symbol copies. Frozen058hash and game-derivative entries remain
 unchanged. No additional host game run was performed: the Java harness is
 unchanged and the new native reader/inflater path is tested directly above.
 Actual PS5 TLS/server readiness and sustained gameplay remain pending.
+
+### Build075: locate the remaining HTTPS startup crash
+
+074 reports confirm real DRBG, default TLS factory and runtime DTLS class loading
+complete. DNS for discovery returns success; the last class load is
+HttpsURLConnection$DefaultHostnameVerifier. No fatal signal or exception was
+captured for the process exit, so this does not establish a C1, memory, network
+or class-decoder root cause. An earlier implicit-null signal was handled and
+execution continued. Raw logs remain local.
+
+075 adds flushed setup/request/body/cleanup phase markers with Java heap values.
+No game transformation, heap/JIT option, world/OP policy or TLS security change
+is introduced. Host checks and package verification are recorded in
+[build status](server/build-status.json). PS5 startup, short join/respawn and
+performance checks must precede the full two-hour run.
