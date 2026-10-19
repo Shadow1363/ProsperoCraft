@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.075",
+  "app_version": "01.000.076",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "f7b4c450f18cee10591c07ae42a033f746c4f7bf4505ac8c686f2e48566ccc34",
-  "console": "Pending075diagnostic test;074processcrash after TLSfactory and discoveryDNSsuccess.",
-  "host": "PASS: compiled actual harness; existing online schema/UUID/HTTPS-only/no-userinfo validation. Real certificate-verified public discovery GET completes all12phase markers and validates discovery JSON under176MiBcompactheaders on host. Host results do not prove PS5 stability. Previous072normal81-chunk30second save-stop passes with12663ms generation gap and no player; not rerun for diagnostic-only change.",
-  "package": "PASS: exact075ZIP CRC/version/176MiB/C1/compactheaders/7200s/online/OPflags and new12phase markers; seven target native libraries/modules byte identity, checked entropy/import guards and image-error markers retained. Both signed containers valid; ZIP/symbol copies match; frozen058checksum preserved. All game derivative entries identical to071/072/073/074.",
+  "package_sha256": "2c1cf8becdf4680fc34c174f24b0108179bfe45f1459ebbdcea91c8889e5978b",
+  "console": "Pending076actualPS5;075crash during HTTPSconnectionconstruction before request.",
+  "host": "PASS: actual native release-mode image reader under ASan/UBSan. Independent image-buffer libc refusal, real mapped fallback, total storage refusal returns0 and preserves caller sentinel, zero live mappings/recovery. Exact HTTPSdefaultverifier/delegate/DTLS/SSL/Object/String/JFR/desktop bytes; tiny terminal1/8/28byte outputs. Existing native zlib allocation/truncation/corruption controls pass.0098exact patch application and target HotSpot/java.base-libs rebuild pass. No new host game run for runtime-image-only change; previous072normal81chunks30second save/stop passes, initial12663ms generation gap, nohostplayer.",
+  "package": "PASS: exact076ZIP CRC/version/176MiB/C1/compactheaders/7200s/online/OPflags and075phase diagnostics; seven target native libraries/modules match. New image-resource-buffer failure marker embedded,0097checked error/entropy guards retained. Two signed container checks; matching ZIP/symbol copies; frozen058checksum preserved. Game derivative entries remain identical to071-075.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -33,12 +33,12 @@
   "probe_jar_sha256": "36fa6373d31a71c504394aa583aa065c3d1193e9ebfbadfd839eb8a121d56224",
   "diagnostics": "Actual first-player food/use samples, global100-tick wall-gap statistics, TPS/GC/codecache/nativeusage; OP policy independently checks all admitted players. Human070respawn crash is not a completed endurance result.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "075PS5: identify final HTTPS phase, reach real online preflight and Done; then short normalworld/join/respawn/food/mob-latency checks.074crash cause, earlier071cause, optimal speed,20-player capacity and full7200seconds remain unresolved/unvalidated.",
+  "known_failures": "076actualPS5 HTTPSconstruction/preflight/Done and allocation behavior pending.075crash exactcause not proven, earlier071cause unresolved; normal-world join/respawn/food/mob latency, optimal speed,20player capacity and7200seconds unvalidated.",
   "diagnostic_adapter": "Local unsigned derivative of verified original: SystemReport telemetry wrapper and one MinecraftServer final-tick hook; helper samples food/tick gaps and performs explicitly authorized OP policy via vanilla APIs. Other instructions/classes/resources retained except unsigned manifest.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "074current run: user reports process crash. DRBG providerSUN, default TLS factory and DTLSInputRecord load complete. Discovery DNS succeeds; last class load HttpsURLConnection$DefaultHostnameVerifier. No final fatal address, abort or Java exception captured. Earlier implicit-null signal was handled and execution continued. No server readiness or endurance. Raw logs remain local.",
+  "crash_evidence": "075currentrun: crash after MC_ONLINE_PHASE connection_begin, with dns_ok/url_ok. heapTotal63995904 heapFree51544168 heapMax182255616. TLSfactory completes, last class HttpsURLConnection$DefaultHostnameVerifier. No final fatal native address, abort or Java exception captured; exact crash cause unresolved. Raw logs remain local.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -54,12 +54,12 @@
     "host_test_seconds": 30,
     "host_checks": 8,
     "host_flushed_saves": 5,
-    "console": "075pending;074didnot reach server readiness; no7200second pass",
+    "console": "076pending;075didnot reach server readiness; no7200second pass",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0
   },
-  "consumer_changes": "075adds flushed HTTPS phase/hostname/Javaheap checkpoints around URL creation, connection construction, configuration, response/body reads and cleanup. No account URLs/bodies logged. Runtime binaries/options and existing game derivative unchanged from074. No crash root-cause repair claimed.",
+  "consumer_changes": "0098scoped libc-first/PS5pagefallback temporary image resource buffers with matched ownership, checked refusal and overflow guards; honor terminal decompressor flag.076version/runtimepin only; retain075HTTPSphase diagnostics and existing game derivative,176MiBcompactheaders/C1/worldnormal/view4/simulation3/max20/OP4/7200sfromDone/security settings.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -76,7 +76,7 @@
     "online_mode": true,
     "whitelist": true,
     "account_setting": "local generated join-player.txt; personal name/UUID omitted from source",
-    "console": "074TLSfactory and DNS pass; laterprocesscrash;075pending"
+    "console": "075TLSfactory/DNS/URLcreation pass, then processcrash constructing HTTPSconnection;076pending"
   },
   "world": {
     "type": "minecraft:normal",

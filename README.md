@@ -98,18 +98,20 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: HTTPS crash localization probe 01.000.075
+## Current development: image resource buffer repair probe 01.000.076
 
-074 now loads DTLSInputRecord and completes default TLS factory creation. The
-user then reports a process crash during online discovery, after DNS succeeds.
-No final native crash address, abort or Java exception was captured. The exact
-cause remains unresolved; the server did not reach readiness.
+075 narrows the crash to HTTPS connection construction (`connection_begin`),
+after DNS and URL creation, with about49MiB free in the Java heap. TLS factory
+creation completes. No fatal crash address or Java exception was captured, so
+the exact cause remains unresolved.
 
-075 adds flushed phase markers and Java heap samples around URL creation,
-HTTPS connection construction, configuration, response, body read and cleanup.
-Only endpoint hostnames and phase/memory fields are logged; account paths and
-response bodies are omitted. Runtime options, authentication and certificate
-verification remain enabled. The existing game derivative is unchanged.
+076 repairs a native allocation gap: compressed module resources still used
+ordinary C++ allocation for decoded bytes, outside the existing zlib fallback.
+Scoped PS5 libc/page-backed buffers now have matched cleanup and checked failure
+propagation. Terminal resources also stop without reading another header.
+Host ASan/UBSan and target build pass; this does not prove the075crash cause.
+The075phase diagnostics remain. Game derivative, world/OP/JIT/heap options,
+authentication and certificate verification are unchanged.
 
 
 072captured a null function call through its new OS-random service import.
@@ -149,7 +151,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-075 is a diagnostic development candidate; PS5 startup and stability remain pending.
+076 is a runtime repair candidate; PS5 startup and stability remain pending.
 
 ### Build and verify
 
@@ -1574,3 +1576,22 @@ No game transformation, heap/JIT option, world/OP policy or TLS security change
 is introduced. Host checks and package verification are recorded in
 [build status](server/build-status.json). PS5 startup, short join/respawn and
 performance checks must precede the full two-hour run.
+
+### Build076: scoped native image-resource buffers
+
+075stops at connection_begin after dns_ok/url_ok. Java heap sample is
+63995904committed,51544168free,182255616maximum. Last class load is the default
+HTTPS hostname verifier; no fatal location is captured. This does not identify
+a C1, OS memory or decoder crash cause.
+
+Runtime[patch0098](https://github.com/mateo-cogeanu/ps5-java25-homebrew/blob/main/Development/docs/java25-image-resource-buffer-allocation.md)
+extends checked PS5 allocation fallback to image-resource temporary buffers,
+previously ordinary C++ new[]. A terminal decode no longer speculatively reads
+another header. Actual release-reader ASan/UBSan tests cover independent buffer
+allocation refusal/fallback, unchanged caller output on failure, cleanup/recovery,
+exact HTTPS/DTLS/TLS/resource bytes and1/8/28byte terminal resources. Target
+HotSpot/java.base native rebuild passes. Existing zlib controls remain passing.
+
+076retains075HTTPS diagnostics and every existing game derivative entry. Actual
+PS5 startup, normal-world gameplay/respawn/food/mob latency and full7200seconds
+remain pending. No optimal-speed or20-player capacity claim is made.

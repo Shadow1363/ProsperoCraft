@@ -319,3 +319,12 @@ Keep the probe open after a failure so current-run reports can be retrieved.
 Do not begin the two-hour run until readiness and short gameplay/respawn checks
 are stable. The timer still starts at real Done; settings and existing game
 derivative remain unchanged.
+
+## Build076: resource-buffer fallback before readiness
+
+075stops constructing the HTTPS connection, before a request; no fatal native
+address was captured.076repairs ordinary native image output-buffer allocation
+with scoped PS5 fallback/checked refusal and terminal-header handling. This
+addresses a source gap; the crash cause is not proven. Confirm phase progress
+and actual Done, then short join/respawn/food/latency checks before7200seconds.
+Game derivative, world/view/simulation/OP/JIT/heap/security options stay unchanged.
