@@ -341,3 +341,12 @@ Compare PS5 post-join GC/tick gaps with076before claiming a speedup; host result
 do not demonstrate improvement. See[measurements](performance-076.md). The
 7200-second timer remains anchored to actual Done. Do not freeze a milestone
 until the human reports ALLPASS for the exact build.
+
+## Build078: native memory headroom before a full run
+
+077crashes at97.573s with confirmedC1nativearenaOOM, despite muchbetterreported
+gameplay.078uses a1MiBresidentJavaimageindex with on-demandresourcereads, saving
+25.8MiBofpersistentcopy and retaining176MiBheap/NewRatio15/C1/settings. Confirm
+the index-onlytrace, normalstartup and a shortjoinedchunk-loading session first.
+VanillaNBTfilecheckpassedon077; actualplayersave/rejoinpersistence is stillneeded.
+No full-durationpass or compilerOOMbailout is claimed. See[repairlimits](native-memory-077.md).

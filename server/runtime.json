@@ -1,11 +1,12 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "b03d17f7cb3ca7565a9669e6e092703ada62a53f",
+  "commit": "3c5d74a31cbdaeda4824a211b862d6833fa898ac",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
-  "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at176MiB max heap; compressed resident image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
+  "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at176MiB max heap; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
   "optional_native_services": "java.management is embedded with real JMM data; target console validation pending; jdk.management OS extensions remain unported",
   "secure_seed": "074console: real DRBG completes via checked kernel entropy; no substitute seed. Later HTTPS setup crash unresolved.",
   "image_decode": "074console: DTLSInputRecord loads and default TLS factory completes.0097host checks pass; later HTTPS setup crash unresolved.",
-  "image_resource_buffers": "0098:076console completes TLS/online preflight/normalworld readiness and admits authenticated player; not ALLPASS or completed endurance.077retains runtime repair."
+  "image_resource_buffers": "0098:076console completes TLS/online preflight/normalworld readiness and admits authenticated player; not ALLPASS or completed endurance.077retains runtime repair.",
+  "image_residency": "0099PS5index-onlyanonymouscopy/on-demandresourcepread, allmodulesretained; currentpersistentcopy saves27082752bytes(25.8MiB). Short/EINTR/error/EOF handling checked. Target/nativeASan/UBSanpass;078PS5headroom/readlatency/stabilitypending. No compilerOOMbailout."
 }

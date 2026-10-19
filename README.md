@@ -98,21 +98,24 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: GC and save checks 01.000.077
+## Current development: native memory headroom 01.000.078
 
-076 now reaches normal-world readiness and admits an authenticated player. The
-user reports much better gameplay. Captured health intervals average about20TPS,
-but74full GCs total18.657seconds across the captured JVM lifetime, with individual
-pauses up to354ms and tick gaps up to567ms. Player-data save warnings also need
-investigation; a world-save acknowledgement does not prove player persistence.
+077 delivers nearly perfect reported gameplay with some mob/damage lag, then
+aborts after97.573seconds: C1 cannot allocate a32KiBnative arena chunk while
+compiling chunk-loading code. This is captured native memory exhaustion; the
+Java heap and game-JAR transformations are unchanged in078.
 
-077 tries a larger old-generation share (NewRatio15) within the same176MiB heap.
-Host world/save/stop checks pass, but do not show an established speedup; actual
-PS5 comparison is needed. A new harness check exercises vanilla compressed NBT
-SYNC writes, replacement, backup and readback with named failure stages. Player
-save warnings now prevent endurance acceptance. Existing game transformations,
-world/view/player/OP policy and authentication remain unchanged. See the
-[performance review and limitations](docs/performance-076.md).
+Runtime0099 retains only the Java module-image lookup index and reads resource
+bytes on demand. For the current image, this removes25.8MiBof persistent
+anonymous memory without reducing the176MiBgame heap or dropping modules.
+Native reader ASan/UBSan and target build pass, including short/interrupted/error
+reads. Actual PS5 read latency, native headroom and sustained stability are still
+pending; this is no guarantee against every native allocation failure.
+
+077's vanilla NBT save-file check passes on PS5. Actual player serialization and
+save/rejoin persistence still need validation.078 retains that check, the save
+warning gate, NewRatio15/C1 settings and world/view/player/OP/security policies.
+See[the repair and limits](docs/native-memory-077.md).
 
 
 072captured a null function call through its new OS-random service import.
@@ -152,7 +155,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-077 is a tuning and save-diagnostic candidate; PS5 performance/save validation remains pending.
+078 is a native-memory repair candidate; PS5 headroom, latency and save validation remain pending.
 
 ### Build and verify
 
@@ -1611,3 +1614,19 @@ NBT SYNC file writes and safe replacement/backup/readback, printing a named
 phase and actual exception on failure. Player-save warnings fail acceptance
 even if Minecraft acknowledges a world save. No new game-JAR transformations
 are introduced. Frozen passing snapshots are unchanged.
+
+### Build078: index-only Java module image after native C1 OOM
+
+077's user reports near-perfect speed before a crash. The fatal report identifies
+C1CompilerThread0:32664native bytes for Chunk::new, method
+SerializableChunkData.read808bytes,97.573seconds elapsed. A32KiBfallback mapping
+fails with ENOMEM even after unused chunk pools are pruned. The generic JVM
+physical-memory summary and maxrss_raw do not establish a hard process limit.
+
+Runtime0099uses the upstream index-only image path on PS5, retaining all modules
+and verified compressed resources. It removes27082752bytes(25.8MiB) of persistent
+anonymous copy from the current image. Partial/EINTR/resource-read errors are
+checked. Native ASan/UBSan, exactresources/cleanup/refusal and target build pass.
+No consumer helper/game derivative changes are introduced;176MiBheap/NewRatio15/
+C1 settings remain. Actual PS5 latency, memory headroom, gameplay/save persistence
+and7200second stability are pending. See[details](docs/native-memory-077.md).
