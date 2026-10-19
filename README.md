@@ -98,24 +98,23 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: native memory headroom 01.000.078
+## Current development: Java/native image-reader alignment 01.000.079
 
-077 delivers nearly perfect reported gameplay with some mob/damage lag, then
-aborts after97.573seconds: C1 cannot allocate a32KiBnative arena chunk while
-compiling chunk-loading code. This is captured native memory exhaustion; the
-Java heap and game-JAR transformations are unchanged in078.
+078 passes all40official JAR checksums, then fails during JarFile bytecode-read
+initialization. Its native reader exposes only the module-image index, while
+Java's reader still assumes a full mapping on64bit systems. Native-only tests
+missed this handoff. The console report omitted the nested cause.
 
-Runtime0099 retains only the Java module-image lookup index and reads resource
-bytes on demand. For the current image, this removes25.8MiBof persistent
-anonymous memory without reducing the176MiBgame heap or dropping modules.
-Native reader ASan/UBSan and target build pass, including short/interrupted/error
-reads. Actual PS5 read latency, native headroom and sustained stability are still
-pending; this is no guarantee against every native allocation failure.
+Runtime0100 aligns Java's reader with the PS5 index-only map and retains the
+native memory saving. A real Java/native/JNI test reproduces the old JarFile
+initializer failure, then passes the fixed reader and desktop control, including
+Unicode/HTTPS/DTLS/JFR resource bytes. Native sanitizer and target rebuild checks
+pass.079also preserves nested preflight causes in reports. Actual PS5 verify,
+startup and gameplay remain pending. See[details](docs/image-reader-078.md).
 
-077's vanilla NBT save-file check passes on PS5. Actual player serialization and
-save/rejoin persistence still need validation.078 retains that check, the save
-warning gate, NewRatio15/C1 settings and world/view/player/OP/security policies.
-See[the repair and limits](docs/native-memory-077.md).
+The176MiBheap/NewRatio15/C1/world/view/player/OP/security settings and existing
+game derivative are unchanged. Sustained native headroom and the two-hour test
+still need console validation.
 
 
 072captured a null function call through its new OS-random service import.
@@ -155,7 +154,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-078 is a native-memory repair candidate; PS5 headroom, latency and save validation remain pending.
+079 is an image-reader repair candidate; PS5 verification, gameplay and endurance remain pending.
 
 ### Build and verify
 
@@ -1630,3 +1629,16 @@ checked. Native ASan/UBSan, exactresources/cleanup/refusal and target build pass
 No consumer helper/game derivative changes are introduced;176MiBheap/NewRatio15/
 C1 settings remain. Actual PS5 latency, memory headroom, gameplay/save persistence
 and7200second stability are pending. See[details](docs/native-memory-077.md).
+
+### Build079: complete the index-only image transition
+
+078passes all40pinned JAR checksums, then fails withExceptionInInitializerError
+when opening the server class stream. Runtime0100fixes the Java/native map-mode
+mismatch introduced by0099. Host integration with the actualJava/native/JNI
+reader reproduces the oldJarFile/Unicodeinitializer failure and passes the fixed
+reader and desktopcontrol. Native sanitizer controls and Java/native target
+rebuild pass.079includes up to8nested causes in future preflight reports.
+
+Memory saving, allmodules, JARverification and existing gameplayconfiguration
+remain. No game-JAR transformation is added. PS5verification/startup/native
+headroom/gameplay/savepersistence/full7200seconds remain pending.

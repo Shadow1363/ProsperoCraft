@@ -65,7 +65,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.078";
+constexpr const char *build_version="01.000.079";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -417,7 +417,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.078",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.079",42,rgb(238,242,250));
  c.label(103,163,"Minecraft 26.3 / Java 25. Two-hour endurance after readiness; saves every 5 minutes.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;

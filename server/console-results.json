@@ -749,12 +749,22 @@
     },
     {
       "app_version": "01.000.078",
-      "console": "Pending actualPS5nativeheadroom/readlatency/stability.",
+      "console": "FAIL: controlled VerifyJARs failure after40SHAchecks, atserverbytecodeJarFileread withExceptionInInitializerError.",
       "changes": "Runtime0099PS5index-onlyanonymousmoduleimagecopy with on-demandexplicit-offsetresourcepread, short/EINTR/EOF/errorhandling. Currentcopyreduction27082752bytes(25.8MiB); transientresourcebuffers/readsremain.078version/runtimepinonly; consumerJava/game derivative unchangedfrom077. Keep176MiBheap,NewRatio15,C1/2Mlimit/world/view4/simulation3/max20/OP4/onlineTLS/7200sfromDone. No compilerOOMbailoutimplemented.",
       "checks": "PASS: actualnative release-modeJIMAGE reader/inflater underASan/UBSan; anonymousindexunder2MiB, zerofilebackedmaps, exactObject/String/HTTPSdefaultverifier/delegate/DTLS/SSL/JFR/desktopresourcebytes. Short/EINTRpreadcompletion,EIO/EOFreturns0withoutpublishingcompressedresourcebytes; independentcompressedinput/outputbufferlibcrefusal/mapfallback/totalrefusal, cleanup/recovery,tinyterminal/ZIPcorrupt/truncatedcontrols.0099exactpatchapplication;targetHotSpot/java.base-libsrebuildpass. No newhostgame run:consumerJavaunchangedfrom077, priorhostworld/save/stopcontrolsretained. PASS: exact078ZIP CRC/version/176MiB/NewRatio15/C1/compactheaders/7200s/online/OPflags and retainedsave/HTTPShelpers. Seven targetnative libraries/modules byteidentity; newindex-onlytrace/0098buffer/0097decode/checkedentropyguards retained. Exactimage28085766/index1000498bytes, target16KiBpage-roundedcopyreduction27082752bytes. Two signedcontainersvalid, ZIP/symbolcopiesmatch, frozen058checksum and failed077packagechecksum preserved. Game derivative entries identicalto071-077.",
       "max_heap_mib": 176,
       "package_sha256": "7ee3a5e54c3f95a99cf3dd2aad3866c3b92677b731965982cc30b20e57ea200a",
-      "pending": "078PS5startup/index-onlypath/readlatency, nativeheadroomduringjoinedchunkloading, mob/damage/GCstutter, respawn/food, actualplayersave/rejoinpersistence, full7200seconds and20playercapacity pending. NativeOOMcanstillabortifheadroomexhausted; no compilerbailout or optimalperformanceguarantee."
+      "pending": "079Java/nativeimagemodealignmentandcausechaindiagnostics pendingconsole; startup/nativeheadroom/enduranceunvalidated.",
+      "evidence": "078controlledVerifyJARsFAIL, no reportedcrash. All40officialJAR SHA256checks complete; nextstage checkserverJava25bytecode returnsExceptionInInitializerError. Nativeindexcopy1000498bytes confirmed. Consolecausechainnotpreserved. HostactualJava/native/JNI reproducesoldMAP_ALLfailure inJarFilegetInputStream, withUnicodeNFKCresourcebufferbounds; fixedreaderpasses. Rawreportslocal."
+    },
+    {
+      "app_version": "01.000.079",
+      "console": "Pending actualPS5VerifyJARs/startup/readlatency/nativeheadroom.",
+      "changes": "Runtime0100alignsJavaBasicImageReaderPS5index/channelmodewith0099nativeindex-onlymap, evenmap.all=true. Desktopbehaviorunchanged, allmodules/memorysaving retained. Consumerpreflightreports retainup to8nestedcauses.079version/runtimepin; no game derivative/heap/GC/C1/world/securitypolicychanges.",
+      "checks": "PASS: realJava/native/ZIP/JNIreader integration underUBSan with normalJVMsignalhandling. OldMAP_ALLbehavior reproduces JarFileinputstreaminitializerfailure withUnicodeNFKCbufferbounds. FixedPS5mode withforcedmap.all=true andordinarydesktopJNIcontrol pass; exactObject/Unicode/HTTPS/DTLS/JFRbytes. ActualnativeASan/UBSanreader partial/EINTR/EIO/EOF/inputoutputallocation/cleanup/recovery controls pass withUnicodeidentityadded. TargetHotSpot/java.baseJava/native rebuild and0100exactpatchapplication pass. No newfullhostgame run: the actualJarFileoperation iscovered byintegration. PASS: exact079ZIP CRC/version/176MiB/NewRatio15/C1/compactheaders/7200s/online/OPflags; preflightcausechainmarker and save/HTTPShelpers retained. LinkedBasicImageReaderPS5guard/code matches debug-strippedtargetclass; seven targetnative libraries/modules byteidentity. Image28085822/index1000498bytes,16KiBpage-roundedpersistentcopyreduction27082752bytes. Two signedcontainers, matchingZIP/symbolcopies, frozen058checksum andfailed078packagechecksum preserved. Game derivative entries identicalto071-078.",
+      "max_heap_mib": 176,
+      "package_sha256": "fda10904dc0655d12907ae06dbb6126ea0c0a68afc8e84ce6992513ba40eadcc",
+      "pending": "079actualPS5VerifyJARs/realstartup, Javaresourcechannel/readlatency, joinednativeheadroom/GC/mobdamage/respawn/food/playerpersistence and7200seconds pending. NativeOOMfatalbehavior remainsifmemoryexhausted; no20playercapacity/optimalperformanceclaim."
     }
   ]
 }

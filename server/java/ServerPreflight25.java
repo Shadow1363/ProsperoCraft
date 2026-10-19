@@ -68,6 +68,12 @@ public class ServerPreflight25 {
    else if(!flags.contains("-Xint"))throw new AssertionError("Missing actual interpreter control flag");
    System.out.println("MC_MANAGEMENT_OK actual heap, non-heap and VM flags");
    System.out.println("MC_PREFLIGHT_OK 26.3 / Java25 / 40 verified JARs");
-  }catch(Throwable error){throw new Exception("MC preflight stage "+stage+": "+error,error);}
+  }catch(Throwable error){
+   StringBuilder causes=new StringBuilder();Throwable cause=error;
+   for(int depth=0;cause!=null&&depth<8;depth++,cause=cause.getCause()) {
+    if(depth>0)causes.append(" | caused by: ");causes.append(cause);
+   }
+   throw new Exception("MC preflight stage "+stage+": "+causes,error);
+  }
  }
 }

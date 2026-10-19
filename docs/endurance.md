@@ -350,3 +350,11 @@ gameplay.078uses a1MiBresidentJavaimageindex with on-demandresourcereads, saving
 the index-onlytrace, normalstartup and a shortjoinedchunk-loading session first.
 VanillaNBTfilecheckpassedon077; actualplayersave/rejoinpersistence is stillneeded.
 No full-durationpass or compilerOOMbailout is claimed. See[repairlimits](native-memory-077.md).
+
+## Build079: require Java/native image-reader agreement
+
+078failsverification after all40JARhashchecks because Java still expects a full
+map while the native reader supplies only its index.079aligns Java's PS5mode,
+retains the memorysaving and records nested causes. Require verify-row success
+and realstartup before joinedchunk-loading/save/rejoin checks. Actualnative
+headroom and7200second stability remain pending. See[details](image-reader-078.md).
