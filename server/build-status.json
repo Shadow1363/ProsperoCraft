@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.076",
+  "app_version": "01.000.077",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "2c1cf8becdf4680fc34c174f24b0108179bfe45f1459ebbdcea91c8889e5978b",
-  "console": "Pending076actualPS5;075crash during HTTPSconnectionconstruction before request.",
-  "host": "PASS: actual native release-mode image reader under ASan/UBSan. Independent image-buffer libc refusal, real mapped fallback, total storage refusal returns0 and preserves caller sentinel, zero live mappings/recovery. Exact HTTPSdefaultverifier/delegate/DTLS/SSL/Object/String/JFR/desktop bytes; tiny terminal1/8/28byte outputs. Existing native zlib allocation/truncation/corruption controls pass.0098exact patch application and target HotSpot/java.base-libs rebuild pass. No new host game run for runtime-image-only change; previous072normal81chunks30second save/stop passes, initial12663ms generation gap, nohostplayer.",
-  "package": "PASS: exact076ZIP CRC/version/176MiB/C1/compactheaders/7200s/online/OPflags and075phase diagnostics; seven target native libraries/modules match. New image-resource-buffer failure marker embedded,0097checked error/entropy guards retained. Two signed container checks; matching ZIP/symbol copies; frozen058checksum preserved. Game derivative entries remain identical to071-075.",
+  "package_sha256": "44ba355472d4ae0cee2124e5e1440ea8a4ac2990684c508969cf55669b6a6ed6",
+  "console": "Pending077tuning/savechecks;076joinsandplayswithGCstutterandplayersavewarnings, notALLPASS.",
+  "host": "PASS: two sequential freshnormalworld81-chunk30s host runs at176MiB/C1/compactheaders; vanillaNBTtwo-revision save/backup/readback succeeds. Ratio15:9checks/5saves,20fullGCs,3080.1ms allGC,max185.975ms,maxinitialtickgap11231ms. Ratio7control:12checks/7saves,14fullGCs,2158.6ms allGC,max159.432ms,maxinitialgap6554ms. Differentfreshworlds/nojoinedplayer: notcontrolledcomparativebenchmark; noimprovementestablished. PASS: actualObserver persistence/readiness/errorretention and player-savewarningblocksacceptance. Finalstop now also checkswarnings.",
+  "package": "PASS: exact077ZIP CRC/version/176MiB/NewRatio15/C1/compactheaders/7200s/online/OPflags, newNBTsavehelper/gates and075HTTPSmarkers. Seven targetnative libraries/modules match,0098buffererror/0097decode/checkedentropyguards retained. Two signedcontainers valid; matchingZIP/symbolcopies; frozen058checksumunchanged. Every game derivative entry remains identical to071-076.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -33,12 +33,12 @@
   "probe_jar_sha256": "36fa6373d31a71c504394aa583aa065c3d1193e9ebfbadfd839eb8a121d56224",
   "diagnostics": "Actual first-player food/use samples, global100-tick wall-gap statistics, TPS/GC/codecache/nativeusage; OP policy independently checks all admitted players. Human070respawn crash is not a completed endurance result.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "076actualPS5 HTTPSconstruction/preflight/Done and allocation behavior pending.075crash exactcause not proven, earlier071cause unresolved; normal-world join/respawn/food/mob latency, optimal speed,20player capacity and7200seconds unvalidated.",
+  "known_failures": "077PS5startup/MC_SAVE_CHECK_OK, actualplayer inventory/location persistence acrossrejoin, postjoinGC/tickgapcomparison, respawn/food/mobs/chunkdelivery and7200s pending. Player-savewarningcauseunresolved; NewRatio15notprovenbetter. Earlieruncapturedcrashcauses/optimalperformance/20playercapacity remainunproven.",
   "diagnostic_adapter": "Local unsigned derivative of verified original: SystemReport telemetry wrapper and one MinecraftServer final-tick hook; helper samples food/tick gaps and performs explicitly authorized OP policy via vanilla APIs. Other instructions/classes/resources retained except unsigned manifest.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "075currentrun: crash after MC_ONLINE_PHASE connection_begin, with dns_ok/url_ok. heapTotal63995904 heapFree51544168 heapMax182255616. TLSfactory completes, last class HttpsURLConnection$DefaultHostnameVerifier. No final fatal native address, abort or Java exception captured; exact crash cause unresolved. Raw logs remain local.",
+  "crash_evidence": "076user reports much better gameplay with remaining sluggishness. Currentrun reaches normalworld Done, OPpolicy and one authenticated join. Latesthealth332s,12checks,1worldsave, noauth/discovery/networkerrors.70tickwindows/7000intervals,72over100ms,max567ms. CapturedJVMlifetime74fullGCs18657.002ms; allGC20919.409ms,maxGC353.761ms. Repeatedfulls retain146-157MiB. Three player-save warnings; no captured underlyingcause. User restarted; noALLPASS/completed7200s. Raw identity/address reports remain local.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -52,14 +52,14 @@
     "flushed_save_seconds": 300,
     "reply_timeout_seconds": 120,
     "host_test_seconds": 30,
-    "host_checks": 8,
+    "host_checks": 9,
     "host_flushed_saves": 5,
-    "console": "076pending;075didnot reach server readiness; no7200second pass",
+    "console": "076latesthealth332s/12checks/1save/1join;playersavewarnings;notcompleted7200s.077pending.",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0
   },
-  "consumer_changes": "0098scoped libc-first/PS5pagefallback temporary image resource buffers with matched ownership, checked refusal and overflow guards; honor terminal decompressor flag.076version/runtimepin only; retain075HTTPSphase diagnostics and existing game derivative,176MiBcompactheaders/C1/worldnormal/view4/simulation3/max20/OP4/7200sfromDone/security settings.",
+  "consumer_changes": "077tries SerialGC NewRatio15 within same176MiBheap; oldgenerationgets largershare atcostofsmallernursery. New ServerSave25 harness uses vanilla compressedNBT SYNCwrite/safeReplaceFile/backup/readback inprobeowneddirectory. Player-savewarnings fail endurance and final-stop acceptance. Existinggame derivative/world/view4/simulation3/max20/OP4/C1/security/timerfromDone unchanged. Not a demonstratedspeedup or provenplayer-savefix.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -76,7 +76,7 @@
     "online_mode": true,
     "whitelist": true,
     "account_setting": "local generated join-player.txt; personal name/UUID omitted from source",
-    "console": "075TLSfactory/DNS/URLcreation pass, then processcrash constructing HTTPSconnection;076pending"
+    "console": "076defaultTLS/verifiedonlinepreflight/playeradmission confirmed;077pending"
   },
   "world": {
     "type": "minecraft:normal",
@@ -94,6 +94,7 @@
     "policy": "all admitted authenticated whitelisted players",
     "api": "vanilla PlayerList.op on server thread, persisted ops.json",
     "bypasses_player_limit": false,
-    "console": "pending"
-  }
+    "console": "076MC_OP_GRANTED/MC_OP_READY confirmed; actualplayer-savepersistence unresolved"
+  },
+  "new_ratio": 15
 }

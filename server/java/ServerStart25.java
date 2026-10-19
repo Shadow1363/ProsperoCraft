@@ -8,7 +8,7 @@ public class ServerStart25 {
  private static native void checkpoint(String stage);
  private static void trace(String stage){if(Boolean.getBoolean("ps5.probe.dependencyTrace"))checkpoint("MC start: "+stage);}
  private static final class Observer extends OutputStream {
-  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;volatile long readyAt;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors,authErrors,discoveryErrors,networkErrors,playerJoins;
+  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;volatile long readyAt;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors,authErrors,discoveryErrors,networkErrors,playerJoins,playerSaveErrors;
   OutputStream log;long logged;
   private void persist(byte[] bytes,int offset,int length){if(log==null)return;try{int n=(int)Math.min(length,32L*1024*1024-logged);if(n>0){log.write(bytes,offset,n);logged+=n;}if(n<length){log.write("\n[Log capped at 32 MiB]\n".getBytes(StandardCharsets.UTF_8));log.close();log=null;}else log.flush();}catch(IOException e){console.println("Probe console log write failed: "+e);try{log.close();}catch(IOException ignored){}log=null;}}
   public synchronized void close()throws IOException{if(log!=null){log.close();log=null;}}
@@ -38,6 +38,7 @@ public class ServerStart25 {
    if(value.contains("[User Authenticator ")&&value.contains("/ERROR]"))authErrors++;
    if(value.contains("[Minecraft Services Discovery/WARN]")&&(value.contains("Failed to connect")||value.contains("Services are unavailable")))discoveryErrors++;
    if(value.contains("[Netty ")&&value.contains("/ERROR]"))networkErrors++;
+   if(value.contains("Failed to save player data for "))playerSaveErrors++;
    if(value.contains("[Server thread/ERROR]")||value.contains("MC_OP_POLICY_FAILED"))serverErrors++;
    if(errors.length()<4096&&!value.startsWith("at ")&&(value.contains("ERROR")||value.contains("Exception")||value.contains("Error")||value.contains("Caused by:")))errors.append(value,0,Math.min(value.length(),4096-errors.length())).append('\n');}
   synchronized String recent(){return "ERROR HEADINGS AND CAUSES:\n"+errors+"\nFIRST OUTPUT:\n"+head+"\nRECENT OUTPUT:\n"+tail;}
@@ -79,6 +80,7 @@ public class ServerStart25 {
   }
  }
  private static void checkOnline(Observer observer)throws IOException {
+  if(observer.playerSaveErrors>0)throw new IOException("Player data save failed; inspect MC_SAVE_CHECK and server.log before endurance acceptance");
   if(observer.networkErrors>0)throw new IOException("Network packet failure during endurance; inspect server.log");
   if(!Boolean.getBoolean("ps5.mc.requireOnline"))return;
   if(observer.discoveryErrors>0)throw new IOException("Minecraft authentication discovery failed; inspect server.log and native DNS stages");
@@ -165,6 +167,7 @@ public class ServerStart25 {
     while(!observer.ready&&System.nanoTime()<deadline){if(serverThread()==null)break;Thread.sleep(200);}
     if(!observer.ready)throw new IOException("Server did not report ready; thread exited or deadline elapsed");
     checkOnline(observer);
+    stage="verify vanilla compressed NBT player-save file operations";trace(stage);ServerSave25.check(root.resolve(worldName));
     stage="initialize real gameplay protocol templates after readiness";trace(stage);ServerProtocol25.check();ServerOperators25.requireReady();
     // Optional host stress fixture, absent from console launch options.
     long chunks=setting("ps5.mc.validationChunkRadius",0,0,6);
@@ -175,6 +178,7 @@ public class ServerStart25 {
     commands.write("stop\n".getBytes(StandardCharsets.UTF_8));commands.flush();
     Thread thread=serverThread();if(thread!=null)thread.join(120000);
     if(serverThread()!=null)throw new IOException("Server did not stop within 120 seconds");stopped=true;
+    checkOnline(observer);
     stage="verify persisted world level.dat after stop";trace(stage);
     try(InputStream saved=Files.newInputStream(root.resolve(worldName+"/level.dat"))){if(saved.read()<0)throw new IOException("Empty saved world level.dat");}
     if(enduranceSeconds>0)originalOut.println("MC_SERVER_ENDURANCE_OK targetSeconds="+enduranceSeconds+" real tick progress, flushed saves, stop/thread exit and saved level.dat");

@@ -729,12 +729,22 @@
     },
     {
       "app_version": "01.000.076",
-      "console": "Pending actual PS5 test; repairs specific native allocation gap, exact075crash cause not proven.",
+      "console": "PARTIAL: user reports muchbetter gameplay; loggednormalworldreadinessandplayerjoin, GCstutter and player-savewarnings. NotALLPASS or2hourpass.",
       "changes": "0098scoped libc-first/PS5pagefallback temporary image resource buffers with matched ownership, checked refusal and overflow guards; honor terminal decompressor flag.076version/runtimepin only; retain075HTTPSphase diagnostics and existing game derivative,176MiBcompactheaders/C1/worldnormal/view4/simulation3/max20/OP4/7200sfromDone/security settings.",
       "checks": "PASS: actual native release-mode image reader under ASan/UBSan. Independent image-buffer libc refusal, real mapped fallback, total storage refusal returns0 and preserves caller sentinel, zero live mappings/recovery. Exact HTTPSdefaultverifier/delegate/DTLS/SSL/Object/String/JFR/desktop bytes; tiny terminal1/8/28byte outputs. Existing native zlib allocation/truncation/corruption controls pass.0098exact patch application and target HotSpot/java.base-libs rebuild pass. No new host game run for runtime-image-only change; previous072normal81chunks30second save/stop passes, initial12663ms generation gap, nohostplayer. PASS: exact076ZIP CRC/version/176MiB/C1/compactheaders/7200s/online/OPflags and075phase diagnostics; seven target native libraries/modules match. New image-resource-buffer failure marker embedded,0097checked error/entropy guards retained. Two signed container checks; matching ZIP/symbol copies; frozen058checksum preserved. Game derivative entries remain identical to071-075.",
       "max_heap_mib": 176,
       "package_sha256": "2c1cf8becdf4680fc34c174f24b0108179bfe45f1459ebbdcea91c8889e5978b",
-      "pending": "076actualPS5 HTTPSconstruction/preflight/Done and allocation behavior pending.075crash exactcause not proven, earlier071cause unresolved; normal-world join/respawn/food/mob latency, optimal speed,20player capacity and7200seconds unvalidated."
+      "pending": "077PS5startup/MC_SAVE_CHECK_OK, actualplayer inventory/location persistence acrossrejoin, postjoinGC/tickgapcomparison, respawn/food/mobs/chunkdelivery and7200s pending. Player-savewarningcauseunresolved; NewRatio15notprovenbetter. Earlieruncapturedcrashcauses/optimalperformance/20playercapacity remainunproven.",
+      "evidence": "076user reports much better gameplay with remaining sluggishness. Currentrun reaches normalworld Done, OPpolicy and one authenticated join. Latesthealth332s,12checks,1worldsave, noauth/discovery/networkerrors.70tickwindows/7000intervals,72over100ms,max567ms. CapturedJVMlifetime74fullGCs18657.002ms; allGC20919.409ms,maxGC353.761ms. Repeatedfulls retain146-157MiB. Three player-save warnings; no captured underlyingcause. User restarted; noALLPASS/completed7200s. Raw identity/address reports remain local."
+    },
+    {
+      "app_version": "01.000.077",
+      "console": "Pending actualPS5GCcomparisonandsavechecks; noestablishedspeedup.",
+      "changes": "077tries SerialGC NewRatio15 within same176MiBheap; oldgenerationgets largershare atcostofsmallernursery. New ServerSave25 harness uses vanilla compressedNBT SYNCwrite/safeReplaceFile/backup/readback inprobeowneddirectory. Player-savewarnings fail endurance and final-stop acceptance. Existinggame derivative/world/view4/simulation3/max20/OP4/C1/security/timerfromDone unchanged. Not a demonstratedspeedup or provenplayer-savefix.",
+      "checks": "PASS: two sequential freshnormalworld81-chunk30s host runs at176MiB/C1/compactheaders; vanillaNBTtwo-revision save/backup/readback succeeds. Ratio15:9checks/5saves,20fullGCs,3080.1ms allGC,max185.975ms,maxinitialtickgap11231ms. Ratio7control:12checks/7saves,14fullGCs,2158.6ms allGC,max159.432ms,maxinitialgap6554ms. Differentfreshworlds/nojoinedplayer: notcontrolledcomparativebenchmark; noimprovementestablished. PASS: actualObserver persistence/readiness/errorretention and player-savewarningblocksacceptance. Finalstop now also checkswarnings. PASS: exact077ZIP CRC/version/176MiB/NewRatio15/C1/compactheaders/7200s/online/OPflags, newNBTsavehelper/gates and075HTTPSmarkers. Seven targetnative libraries/modules match,0098buffererror/0097decode/checkedentropyguards retained. Two signedcontainers valid; matchingZIP/symbolcopies; frozen058checksumunchanged. Every game derivative entry remains identical to071-076.",
+      "max_heap_mib": 176,
+      "package_sha256": "44ba355472d4ae0cee2124e5e1440ea8a4ac2990684c508969cf55669b6a6ed6",
+      "pending": "077PS5startup/MC_SAVE_CHECK_OK, actualplayer inventory/location persistence acrossrejoin, postjoinGC/tickgapcomparison, respawn/food/mobs/chunkdelivery and7200s pending. Player-savewarningcauseunresolved; NewRatio15notprovenbetter. Earlieruncapturedcrashcauses/optimalperformance/20playercapacity remainunproven."
     }
   ]
 }

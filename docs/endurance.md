@@ -328,3 +328,16 @@ with scoped PS5 fallback/checked refusal and terminal-header handling. This
 addresses a source gap; the crash cause is not proven. Confirm phase progress
 and actual Done, then short join/respawn/food/latency checks before7200seconds.
 Game derivative, world/view/simulation/OP/JIT/heap/security options stay unchanged.
+
+## Build077: GC comparison and player-save gate
+
+076admits a player and averages near20TPS in health samples, but full-GC pauses
+and repeated player-save warnings remain.077tries NewRatio15 at the same176MiB
+cap and runs a vanilla NBT SYNC-write/replacement/backup/readback check. Require
+MC_SAVE_CHECK_OK and no player-save warning; validate actual inventory/location
+persistence after rejoin. A successful file probe cannot prove player
+serialization works. Save warnings now fail the monitor and final-stop checks.
+Compare PS5 post-join GC/tick gaps with076before claiming a speedup; host results
+do not demonstrate improvement. See[measurements](performance-076.md). The
+7200-second timer remains anchored to actual Done. Do not freeze a milestone
+until the human reports ALLPASS for the exact build.

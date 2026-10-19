@@ -98,20 +98,21 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: image resource buffer repair probe 01.000.076
+## Current development: GC and save checks 01.000.077
 
-075 narrows the crash to HTTPS connection construction (`connection_begin`),
-after DNS and URL creation, with about49MiB free in the Java heap. TLS factory
-creation completes. No fatal crash address or Java exception was captured, so
-the exact cause remains unresolved.
+076 now reaches normal-world readiness and admits an authenticated player. The
+user reports much better gameplay. Captured health intervals average about20TPS,
+but74full GCs total18.657seconds across the captured JVM lifetime, with individual
+pauses up to354ms and tick gaps up to567ms. Player-data save warnings also need
+investigation; a world-save acknowledgement does not prove player persistence.
 
-076 repairs a native allocation gap: compressed module resources still used
-ordinary C++ allocation for decoded bytes, outside the existing zlib fallback.
-Scoped PS5 libc/page-backed buffers now have matched cleanup and checked failure
-propagation. Terminal resources also stop without reading another header.
-Host ASan/UBSan and target build pass; this does not prove the075crash cause.
-The075phase diagnostics remain. Game derivative, world/OP/JIT/heap options,
-authentication and certificate verification are unchanged.
+077 tries a larger old-generation share (NewRatio15) within the same176MiB heap.
+Host world/save/stop checks pass, but do not show an established speedup; actual
+PS5 comparison is needed. A new harness check exercises vanilla compressed NBT
+SYNC writes, replacement, backup and readback with named failure stages. Player
+save warnings now prevent endurance acceptance. Existing game transformations,
+world/view/player/OP policy and authentication remain unchanged. See the
+[performance review and limitations](docs/performance-076.md).
 
 
 072captured a null function call through its new OS-random service import.
@@ -151,7 +152,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-076 is a runtime repair candidate; PS5 startup and stability remain pending.
+077 is a tuning and save-diagnostic candidate; PS5 performance/save validation remains pending.
 
 ### Build and verify
 
@@ -1595,3 +1596,18 @@ HotSpot/java.base native rebuild passes. Existing zlib controls remain passing.
 076retains075HTTPS diagnostics and every existing game derivative entry. Actual
 PS5 startup, normal-world gameplay/respawn/food/mob latency and full7200seconds
 remain pending. No optimal-speed or20-player capacity claim is made.
+
+### Build077: address stutter and expose player-save failures
+
+076 progresses through TLS, online discovery, real readiness and authenticated
+player admission; the human reports much better gameplay. The current
+[performance review](docs/performance-076.md) records74full GCs,354ms maximum
+GC pause,567ms maximum tick gap, near20TPS interval averages and three player-save
+warnings. None establishes completed endurance or20-player capacity.
+
+077tries NewRatio15 with the same176MiB cap; host results do not establish an
+improvement and PS5 comparison is required. Its harness tests vanilla compressed
+NBT SYNC file writes and safe replacement/backup/readback, printing a named
+phase and actual exception on failure. Player-save warnings fail acceptance
+even if Minecraft acknowledges a world save. No new game-JAR transformations
+are introduced. Frozen passing snapshots are unchanged.
