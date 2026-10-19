@@ -6,7 +6,8 @@ public final class ServerGameplay25 {
  private static final boolean ENABLED=Boolean.getBoolean("ps5.mc.gameplayDiagnostics");
  private static boolean failed,wasUsing;
  private static Object previousPlayer;
- private static long started;
+ private static long started,previousTickAt,gapTotal,gapMax;
+ private static int gapSamples,slowGaps;
  private static int startTick,lastCount=-1,lastFood=-1;
  private static Method playerList,players,tick,using,remaining,use,main,off,food,foodLevel,saturation,count,item;
  private static Method method(String owner,String name)throws Exception{return Class.forName(owner).getMethod(name);}
@@ -20,9 +21,17 @@ public final class ServerGameplay25 {
   System.out.println("MC_ITEM_USE_READY read-only server-thread hook");
  }
  private static String stack(Object stack)throws Exception{return item.invoke(stack)+"x"+count.invoke(stack);}
+ private static void sampleTickGap() {
+  long now=System.nanoTime();
+  if(previousTickAt!=0){long gap=now-previousTickAt;gapTotal+=gap;gapMax=Math.max(gapMax,gap);if(gap>100_000_000L)slowGaps++;
+   if(++gapSamples==100){System.out.println("MC_TICK_GAP samples="+gapSamples+" meanMicros="+(gapTotal/gapSamples/1000)+" maxMillis="+(gapMax/1_000_000)+" over100Millis="+slowGaps);gapSamples=slowGaps=0;gapTotal=gapMax=0;}
+  }
+  previousTickAt=now;
+ }
  public static void tick(Object server) {
   if(!ENABLED||failed)return;
   try {
+   sampleTickGap();
    if(playerList==null)initialize();
    List<?> list=(List<?>)players.invoke(playerList.invoke(server));
    if(list.isEmpty()){previousPlayer=null;wasUsing=false;return;}

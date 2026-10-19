@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a dedicated server, then working toward the client, controller support and mod compatibility.
 
-> **Status: flat-world server startup, save and stop pass on PS5.** Build **01.000.058** passes all five probe rows with Minecraft **26.3 / Java 25**, including real readiness, saved world metadata and VM destruction. Later development builds admit an authenticated player, but gameplay is slow and eating fails; full endurance remains unvalidated.
+> **Status: flat-world server startup, save and stop pass on PS5.** Build **01.000.058** passes all five probe rows with Minecraft **26.3 / Java 25**, including real readiness, saved world metadata and VM destruction. Build069 admits an authenticated player and logs working chicken consumption with much faster reported gameplay; intermittent stalls and full endurance remain unvalidated.
 
 ## The goal
 
@@ -98,7 +98,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: gameplay optimization probe 01.000.069
+## Current development: gameplay optimization probe 01.000.070
 
 The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all065 PS5 rows remain pending.
 
@@ -1353,3 +1353,36 @@ pending. Frozen058 stays preserved.
 
 069 runtime pin: `1c5bb584b9ddb8a1f1a148d463601b66cef7d443`.
 Package SHA-256: `8332caa2965f5e8002e7aa7b7c29e184963867551edab80f708ad56e560f8820`.
+
+
+### Build 070: reduce promotion pressure after working food in 069
+
+069 is a partial gameplay success: the human reports much faster play and
+working food. The actual use trace confirms two chicken consumptions, count2->1
+and1->0 while hunger rises15->17->19. This is not an ALLPASS or two-hour result.
+The user reports a recovered freeze aroundfive seconds and remaining lag.
+
+GC remains expensive: one30second interval spends9.639seconds across45collections.
+The captured individual maximum is273.684ms, so these reports do not establish
+the exact cause of the five-second freeze. Repeated full Allocation Failure
+collections retain117–121MiB. This is consistent with old-generation pressure under the existing layout;
+the occupancy model below tests that explanation.
+
+070 uses SerialGC NewRatio7 under the same144MiB Xmx cap to give the old generation
+more room. Nursery size and usable survivor geometry change; total configured
+heap does not grow. An explicit host occupancy model with108MiBlong-lived arrays
+and512MiBtransient churn hits heapOOM at NewRatio2 but completes with preserved
+data and onefullcollection at NewRatio7. This supports testing the layout;
+it is not a player workload or PS5 performance result.
+
+MC_TICK_GAP samples end-of-tick wall gaps every100ticks, reporting meanMicroseconds,
+maximumMilliseconds and gaps over100ms. These include scheduler/GC/IO/CPU time;
+they help separate server stalls from client/network symptoms. The existing
+read-only hook changes no game rules. Host60second/49chunk/29check/14save run,
+real protocol preparation, tickgap output, preflight and packagechecks pass.
+No host player joined. All070 console performance, freeze diagnosis, otherfoods,
+playerpersistence and full two-hour completion remain pending. Frozen058 stays
+preserved;069 remains a partial result. The069 console run was not interrupted.
+
+070 uses unchanged runtime pin `1c5bb584b9ddb8a1f1a148d463601b66cef7d443`.
+Package SHA-256: `8b8b5005c48c62c17af76398ff1b7e9db3b7ee7d8cd09dffebc03999d257f9e0`.

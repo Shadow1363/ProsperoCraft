@@ -237,3 +237,18 @@ Retest069 rows in order and join. Preserve the reports on any failure. PS5
 metadata/encoding/nativebudget, hungry chicken/mutton consumption, mob latency,
 player persistence and7200second completion remain pending. The new4MiB root
 also bounds individual metadata allocations to4MiB; total space grows in nodes.
+
+
+## Build 070: short gameplay/GC check before full endurance
+
+069 confirms actual chicken consumption/hunger increases and much faster human
+reported gameplay, with remaininglag andone~5second recoveredfreeze. Its logs
+show many full allocation-failure GCs, but no individual pause above274ms.
+070 changes only the generation ratio under the same144MiBcap and adds100tick
+wallgap maxima. Runtime4MiBroots and the069food behavior remain. The previous
+069run was left alone; no full-duration test was requested or claimed now.
+
+On the next short gameplay check compare GC counts/time and MC_TICK_GAP maxima
+alongside food/mobs. A near20TPS average can hide pauses followed by catchup.
+Host occupancycontrol and60second/49chunk/29check/14save run pass without a
+player. PS5layout tradeoffs/freeze cause and the full7200seconds remain pending.

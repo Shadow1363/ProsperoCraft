@@ -13,7 +13,7 @@ cp=str(assets/'jars/ps5-server-probe.jar')+':'+str(assets/'jars/ps5-platform-dia
 with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
  if args.legacy_directory:(Path(directory)/'world/players').mkdir(parents=True)
  if args.file_list_runner:cp=str(args.file_list_runner.resolve())+':'+cp
- command=[str(JDK/'bin/java'),'-Xint','-Xss512k',f'-Xmx{args.heap_mib}m','-Dio.netty.allocator.type=unpooled','-Dps5.mc.checkNetworkMemory=true','-Dps5.mc.gameplayDiagnostics=true',f'-Dps5.mc.validationChunkRadius={args.chunk_radius}','-XX:+UseSerialGC','-XX:ReservedCodeCacheSize=8m','-XX:+PrintCodeCache','-XX:ActiveProcessorCount=2','-Dps5.probe.serverLogPath='+str(Path(directory)/'server-console.log'),'-Dps5.mc.eulaAccepted=true',*(['-Dps5.mc.requireOnline=true','-Dps5.mc.joinPlayer='+args.online_player] if args.online_player else []),f'-Dps5.mc.enduranceSeconds={args.endurance_seconds}','-Dps5.mc.endurancePollSeconds=2','-Dps5.mc.enduranceSaveSeconds=4','-Dps5.mc.enduranceReplySeconds=120','-Dps5.mc.workdir='+directory,'-Duser.dir='+directory,'-Dlog4j2.disableJmx=true','-Dlog4j2.configurationFile=jar:'+ (assets/'jars/ps5-server-probe.jar').as_uri()+'!/log4j2-ps5.xml','--limit-modules',','.join(lock['modules']),'-cp',cp,'ServerStart25']
+ command=[str(JDK/'bin/java'),'-Xint','-Xms16m','-Xss512k',f'-Xmx{args.heap_mib}m','-Dio.netty.allocator.type=unpooled','-Dps5.mc.checkNetworkMemory=true','-Dps5.mc.gameplayDiagnostics=true',f'-Dps5.mc.validationChunkRadius={args.chunk_radius}','-XX:+UseSerialGC','-XX:ReservedCodeCacheSize=8m','-XX:+PrintCodeCache','-XX:ActiveProcessorCount=2','-Dps5.probe.serverLogPath='+str(Path(directory)/'server-console.log'),'-Dps5.mc.eulaAccepted=true',*(['-Dps5.mc.requireOnline=true','-Dps5.mc.joinPlayer='+args.online_player] if args.online_player else []),f'-Dps5.mc.enduranceSeconds={args.endurance_seconds}','-Dps5.mc.endurancePollSeconds=2','-Dps5.mc.enduranceSaveSeconds=4','-Dps5.mc.enduranceReplySeconds=120','-Dps5.mc.workdir='+directory,'-Duser.dir='+directory,'-Dlog4j2.disableJmx=true','-Dlog4j2.configurationFile=jar:'+ (assets/'jars/ps5-server-probe.jar').as_uri()+'!/log4j2-ps5.xml','--limit-modules',','.join(lock['modules']),'-cp',cp,'ServerStart25']
  if args.file_list_runner:
   command[1:1]=['--enable-native-access=ALL-UNNAMED','-Xcheck:jni']
   command[-1:]=['FileListCheck',str(args.file_list_runner.resolve()/'ps5.dylib'),'true','ServerStart25']
@@ -23,7 +23,7 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
   index=options.index('--limit-modules');options[index:index+2]=['--limit-modules='+options[index+1]]
   command=[str(args.worker_runner.resolve()),'ServerStart25',*options,'-Djava.class.path='+cp]
  if args.c1:
-  command.remove('-Xint');command[command.index('-XX:ReservedCodeCacheSize=8m')]='-XX:ReservedCodeCacheSize='+str(args.code_cache_mib)+'m';command[1:1]=['-Xmixed','-XX:CompileThresholdScaling=4.0','-XX:CompileCommand=MemLimit,*.*,2M','-XX:TieredStopAtLevel=1','-XX:CICompilerCount=1','-Dps5.probe.requireC1=true','-Dps5.probe.jitLog='+str(Path(directory)/'jit.log'),'-Xlog:jit+compilation=debug,codecache=info,gc=info:file='+str(Path(directory)/'jit.log')+':uptime,level,tags:filecount=0']
+  command.remove('-Xint');command[command.index('-XX:ReservedCodeCacheSize=8m')]='-XX:ReservedCodeCacheSize='+str(args.code_cache_mib)+'m';command[1:1]=['-Xmixed','-XX:NewRatio=7','-XX:CompileThresholdScaling=4.0','-XX:CompileCommand=MemLimit,*.*,2M','-XX:TieredStopAtLevel=1','-XX:CICompilerCount=1','-Dps5.probe.requireC1=true','-Dps5.probe.jitLog='+str(Path(directory)/'jit.log'),'-Xlog:jit+compilation=debug,codecache=info,gc=info:file='+str(Path(directory)/'jit.log')+':uptime,level,tags:filecount=0']
   command[-1:]=['ServerC1Start25']
  result=subprocess.run(command,cwd=directory,capture_output=True,text=True,timeout=780+args.endurance_seconds)
  if args.c1:(ROOT/'build/host-codecache.log').write_text((Path(directory)/'jit.log').read_text())
@@ -32,6 +32,7 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
  assert result.returncode==0 and 'MC_SERVER_START_OK' in output,output[-12000:]
  if args.c1:assert 'JIT_WARMUP_OK level=1' in output and 'MC_ITEM_USE_READY' in output and 'MC_ITEM_USE_UNAVAILABLE' not in output,output[-12000:]
  if args.endurance_seconds:
+  if args.endurance_seconds>=10:assert 'MC_TICK_GAP' in output,output[-12000:]
   assert 'MC_SERVER_ENDURANCE_OK' in output and 'MC_ENDURANCE_COMPLETE' in output,output[-12000:]
   health=re.findall(r'MC_ENDURANCE_HEALTH elapsedSeconds=(\d+).*?gameTime=(\d+).*?checks=(\d+).*?saves=(\d+)',output)
   assert len(health)>=2 and int(health[-1][0])>=args.endurance_seconds and int(health[-1][1])>int(health[0][1]),health
