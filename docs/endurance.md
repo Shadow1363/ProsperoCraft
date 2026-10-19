@@ -222,3 +222,18 @@ and native resource growth. Hungry chicken/mutton tests still need an active
 MC_ITEM_USE transition, completed stack decrement and hunger restoration.
 Preserve crash reports on any failure. The two-hour timer still begins at real
 readiness; short startup/join success does not establish the endurance result.
+
+
+## Build 069: metadata growth during join
+
+068 aborts before admission while the real gameplayprotocol classes need a
+new16MiB non-class metadata region. 069 uses4MiB PS5 roots/nodes and explicitly
+loads the actual serverbound/clientbound templates after readiness. Look for
+MC_GAME_PROTOCOL_OK; this is protocol preparation, not proof of admission.
+The timer continues from the original Done timestamp. Host protocol preparation
+and60second/49chunk/28check/14save test pass without a player, on desktop geometry.
+
+Retest069 rows in order and join. Preserve the reports on any failure. PS5
+metadata/encoding/nativebudget, hungry chicken/mutton consumption, mob latency,
+player persistence and7200second completion remain pending. The new4MiB root
+also bounds individual metadata allocations to4MiB; total space grows in nodes.

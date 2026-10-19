@@ -159,6 +159,7 @@ public class ServerStart25 {
     while(!observer.ready&&System.nanoTime()<deadline){if(serverThread()==null)break;Thread.sleep(200);}
     if(!observer.ready)throw new IOException("Server did not report ready; thread exited or deadline elapsed");
     checkOnline(observer);
+    stage="initialize real gameplay protocol templates after readiness";trace(stage);ServerProtocol25.check();
     // Optional host stress fixture, absent from console launch options.
     long chunks=setting("ps5.mc.validationChunkRadius",0,0,4);
     if(chunks>0){long edge=chunks*16;command(commands,"forceload add "+(-edge)+" "+(-edge)+" "+edge+" "+edge);}

@@ -28,6 +28,7 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
  result=subprocess.run(command,cwd=directory,capture_output=True,text=True,timeout=780+args.endurance_seconds)
  if args.c1:(ROOT/'build/host-codecache.log').write_text((Path(directory)/'jit.log').read_text())
  output=result.stdout+result.stderr;(ROOT/'build/host-ServerStart25.log').write_text(output)
+ assert 'MC_GAME_PROTOCOL_OK' in output,output[-12000:]
  assert result.returncode==0 and 'MC_SERVER_START_OK' in output,output[-12000:]
  if args.c1:assert 'JIT_WARMUP_OK level=1' in output and 'MC_ITEM_USE_READY' in output and 'MC_ITEM_USE_UNAVAILABLE' not in output,output[-12000:]
  if args.endurance_seconds:

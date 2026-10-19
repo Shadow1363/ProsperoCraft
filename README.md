@@ -98,7 +98,7 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: gameplay optimization probe 01.000.068
+## Current development: gameplay optimization probe 01.000.069
 
 The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all065 PS5 rows remain pending.
 
@@ -1319,3 +1319,37 @@ and full two-hour completion remain pending. Frozen058 is preserved.
 
 068 runtime pin: `056d6a7084fadf35a51d2d5d5069d05be925a7dc`.
 Package SHA-256: `8f2097509fd7942122341578c593aa3e83d2f8130f2ee6b803b85c040899bf82`.
+
+
+### Build 069: smaller metadata reservations at gameplay protocol setup
+
+068 reaches readiness and online authentication but aborts while completing
+configuration before player admission. The server thread cannot reserve16MiB
+for non-class metadata while initializing GameProtocols. Non-class metadata
+has79.06MiBused in80MiBreserved; the separate class region has17MiBused of32MiB.
+Its last idle sample is20.03TPS with one173msGC. This does not establish joined
+performance, but the earlier repeated code-cache GC storm is not seen there.
+No logged-in player or active food-use transition is recorded.
+
+Runtime0092 uses a PS5-only4MiB metadata root and13 buddy levels down to the
+same1KiB leaf. Non-class metadata grows in4MiB nodes with4MiB alignment instead
+of16MiB reservations. Actual byte sizes in the growth policies are preserved.
+Single PS5 metadata allocations are now limited to4MiB; total space still grows
+across nodes. Desktop geometry stays16MiB/15levels. This avoids a large growth
+cliff but does not prove the full workload fits the native budget.
+
+The harness also initializes the real serverbound/clientbound GameProtocols
+templates after Done and reports MC_GAME_PROTOCOL_OK. It loads the exact path
+from the fatal stack during host testing without claiming a client joined.
+The readiness timer is not reset. Existing memory, C1, online and gameplay
+trace settings remain.
+
+Actual geometry/level-fitting/settings checks, reservation-path tests,
+ASan/UBSan and target rebuild pass. Host gameplayprotocol initialization and
+60seconds with49forcedchunks,28checks,14saves andcleanstop pass. The host JVM
+uses desktop geometry and no player joins; PS5 metadata behavior, native peaks,
+food/mob performance, player persistence and full two-hour completion remain
+pending. Frozen058 stays preserved.
+
+069 runtime pin: `1c5bb584b9ddb8a1f1a148d463601b66cef7d443`.
+Package SHA-256: `8332caa2965f5e8002e7aa7b7c29e184963867551edab80f708ad56e560f8820`.
