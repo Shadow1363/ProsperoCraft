@@ -98,13 +98,32 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: gameplay optimization probe 01.000.070
+## Current development: normal-world and respawn probe 01.000.071
 
-The passing058 snapshot remains [Server_Start](Server_Start). Build060 adds online preflight and account whitelisting to the requested7200-second endurance phase, with live game-time checks and periodic flushed saves. Follow the [endurance instructions](docs/endurance.md); all065 PS5 rows remain pending.
+Build070 crashed after respawn: the VM thread could not allocate4088native bytes
+during GC, and even the minimum16KiB fallback mapping failed. Build071 reduces
+native allocation bookkeeping and compresses the resident Java module image
+(65562247 to28170800bytes) while retaining all modules. It enables Java25 compact
+object headers and uses a176MiB heap, guarded C1 and SerialGC NewRatio7.
+These changes require PS5 validation; they do not establish optimal latency.
 
-The five rows initialize the runtime, create a 160 MiB interpreter VM, check official artifacts, Java null recovery and vanilla asset ZipFS, start/save/stop a flat test world, and destroy the VM. Human EULA acceptance for this test is [recorded](server/eula-consent.json); the wrapper writes `eula=true` only when its explicit acceptance property is enabled.
+The new normal terrain world, with structures, lives at
+`/download0/mc-server-start/world-normal-v1`. The previous flat `world` folder is
+preserved. View distance is4chunks and simulation distance3; the configured
+player limit is20. Twenty-player capacity has not been tested. Online
+authentication and the whitelist remain enabled. The explicitly requested
+operator policy grants level4OP to all admitted whitelisted accounts through
+vanilla APIs, preserving the20-player limit. Use `/gamemode creative` to avoid
+mob damage, or `/difficulty peaceful` to remove hostile mobs.
 
-The world and configuration live under the application-visible `/download0/mc-server-start`. The test preserves that directory across launches, writes its controlled low-distance server properties, listens on available interfaces without a preset IP, waits up to ten minutes for the real `Done` message, sends `stop`, awaits server-thread exit and reads the saved `world/level.dat`. Row 4 runs on a dedicated JNI-attached native worker with an 8 MiB stack. The menu redraws elapsed seconds while test selection and VM destruction remain disabled until the worker joins. The ten-minute readiness deadline starts after the synchronous server main method returns; it does not bound that initial call. The current host readiness/save/stop test passes at 160 MiB (earlier runs passed at 192 MiB); **PS5 startup/save/stop passes in build058, confirmed by the human on 2026-10-18**. Build 01.000.003 failed during JVM creation after a 64 MiB native reservation returned ENOMEM with its 256 MiB heap setting. A host attempt at 128 MiB exhausted Java heap during world generation. Build 01.000.004 also failed at JVM creation with an 80 MiB reservation failure. Build 01.000.005 retains the 192 MiB Java heap and includes a PS5 runtime adaptation: non-class metaspace reserves 16 MiB nodes instead of 64 MiB, growing through the existing allocator as needed. Build 01.000.005 now passes real VM creation at 192 MiB, official JAR checks and VM destruction on PS5. The server row then failed on `ServerStart25$Observer` lookup before execution. Build 01.000.006 puts all consumer probe classes in `ps5-server-probe.jar` on the system class path; the matching JNI lookup regression and real host readiness/save/stop test pass. The console memory limit and earlier signal cause remain unestablished. Build 01.000.006 executes the wrapper, but did not reach ready and exposed a partial Log4j initialization stack. Build 01.000.007 uses headless console-only logging and preserves error headings, cause chains, initial output and recent output separately. Native text capacity now holds the report instead of truncating it to 1.5 KiB. Its host readiness/save/stop and long-error diagnostic tests pass; the actual prior exception is not yet identified. This development build includes target-built `jdk.zipfs` for Minecraft datapacks, in addition to the bootstrap module set. It does not establish player-join support or sustained performance.
+The five rows initialize/create the VM, verify official artifacts and actual C1
+results, start the server, monitor actual tick progress/saves, then destroy the
+VM. The7200-second timer starts at the real `Done` readiness message, with checks
+every30seconds and flushed saves every300seconds. A short gameplay/respawn check
+comes before a full run. Follow the [endurance instructions](docs/endurance.md).
+The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
+[Server_Start058](Server_Start) snapshot remains the last passing milestone;
+071 is a development candidate, with all console validation pending.
 
 ### Build and verify
 
@@ -1386,3 +1405,40 @@ preserved;069 remains a partial result. The069 console run was not interrupted.
 
 070 uses unchanged runtime pin `1c5bb584b9ddb8a1f1a148d463601b66cef7d443`.
 Package SHA-256: `8b8b5005c48c62c17af76398ff1b7e9db3b7ee7d8cd09dffebc03999d257f9e0`.
+
+
+### Build071: native headroom, compact objects and normal terrain
+
+The retrieved070 run aborts184seconds after VM startup during
+SerialCollectForAllocation. It follows player death/respawn; exact native GC
+subcaller and any fixed title memory ceiling are not established. Native
+4088byte allocation and minimum16KiB anonymous mapping both fail.070 does reduce
+observed GC time versus069, but average20TPS still hides individual gaps.
+
+Runtime0093 reduces the raw allocator prefix to16aligned bytes. Actual allocator
+regression/profile models pass under ASan/UBSan; the16-byte alignment model
+saves4MiB for261080live blocks, not a console savings guarantee.0094 makes the
+ZIP decoder available to the PS5 resident image reader and links its standalone
+target dependency. The module image saves37391447resident bytes before decoding
+individual resources. Actual reader/TLS/JFR/desktop byte-identity, failure
+controls, target rebuild and target-JFR host checks pass. Compression adds decode
+CPU work; console startup/memory tradeoffs remain unmeasured.
+
+Normal-world force-load attempts at169chunks/144and160MiB and81chunks/160and176MiB
+without compact object headers fail with JavaheapOOM on the host. These are
+recorded failures, not console results.071 enables Java25 compact object headers
+with176MiB, view4/simulation3, a separate normal world with structures, max20and
+the user's explicit level4OP-for-admitted-players policy. OP is applied on the
+server thread through vanilla APIs, persisted to ops.json, and never bypasses
+the configured player limit. The tick hook is therefore no longer wholly
+read-only. Authentication/TLS/whitelist and the real readiness-based7200seconds
+remain. Twenty-player load, console respawn/food/mob latency and full endurance
+remain pending. Current checks are recorded in [build status](server/build-status.json).
+
+Final071host check: normal terrain/structures at176MiB with compact headers,
+81forcedchunks,60seconds from readiness,26advancing checks,14flushed saves and
+clean persisted-world stop pass. Actual ops.json grants level4without player
+limit bypass; old-flat-world sentinel survives. No player joined. Initial chunk
+generation still records a5897ms gap before approximately20TPS steady ticks, so
+optimal speed is not established. Package integrity/identity and frozen058hash
+checks pass. Runtime pin: `8686aee246e3c1928f5fb3f52ab1a3e05c567e8f`.

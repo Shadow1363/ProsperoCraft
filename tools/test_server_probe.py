@@ -19,7 +19,7 @@ assets=ROOT/'build/assets/java25';lock=json.loads((ROOT/'server/26.3.lock.json')
 with tempfile.TemporaryDirectory() as directory:
     for fixture,marker in [('ServerPreflight25','MC_PREFLIGHT_OK'),('ServerHelp25','MC_SERVER_HELP_OK')]:
         mode=['-Xmixed','-XX:NewRatio=7','-XX:TieredStopAtLevel=1','-XX:CICompilerCount=1','-XX:ReservedCodeCacheSize=16m','-XX:CompileThresholdScaling=4.0','-XX:CompileCommand=MemLimit,*.*,2M','-Dps5.probe.requireC1=true','-Dps5.probe.jitLog='+str(Path(directory)/(fixture+'-jit.log')),'-Xlog:jit+compilation=debug,codecache=info,gc=info:file='+str(Path(directory)/(fixture+'-jit.log'))+':uptime,level,tags:filecount=0'] if args.c1 else ['-Xint']
-        result=subprocess.run([str(JDK/'bin/java'),*mode,'-Xmx128m',*module_options,'-Dlog4j2.disableJmx=true','-Dps5.mc.assets='+str(assets),'-cp',cp,fixture],cwd=directory,capture_output=True,text=True,timeout=90)
+        result=subprocess.run([str(JDK/'bin/java'),*mode,'-Xmx128m','-XX:+UseCompactObjectHeaders',*module_options,'-Dlog4j2.disableJmx=true','-Dps5.mc.assets='+str(assets),'-cp',cp,fixture],cwd=directory,capture_output=True,text=True,timeout=90)
         output=result.stdout+result.stderr;(ROOT/'build'/('host-'+fixture+'.log')).write_text(output)
         assert result.returncode==0 and marker in output,output[-5000:]
         if fixture=='ServerPreflight25':

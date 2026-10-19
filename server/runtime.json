@@ -1,8 +1,8 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "1c5bb584b9ddb8a1f1a148d463601b66cef7d443",
+  "commit": "8686aee246e3c1928f5fb3f52ab1a3e05c567e8f",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
-  "execution_mode": "Guarded mixed C1 level1, onecompiler, threshold scaling4, per-compilation arena limit2MiB,16MiBcode cache, SerialGC NewRatio7 at144MiB max heap; PS5 performance retest pending",
+  "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio7 at176MiB max heap; compressed resident image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
   "optional_native_services": "java.management is embedded with real JMM data; target console validation pending; jdk.management OS extensions remain unported"
 }

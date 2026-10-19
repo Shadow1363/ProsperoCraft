@@ -4,7 +4,7 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.zip.*;
 
-/** Local build transform: optional OSHI telemetry and a read-only server tick observer. */
+/** Local build transform: optional OSHI telemetry and a server tick hook for diagnostics and authorized operator policy. */
 public class PreparePlatformDiagnostics {
  public static void main(String[] args)throws Exception {
   String entry="net/minecraft/SystemReport.class",tickEntry="net/minecraft/server/MinecraftServer.class";byte[] original,tickOriginal;
@@ -59,6 +59,6 @@ public class PreparePlatformDiagnostics {
   String after=HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(adapted));
   String tickBefore=HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(tickOriginal));
   String tickAfter=HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(tickAdapted));
-  Files.writeString(Path.of(args[2]),"{\"scope\":\"Local unsigned derivative of hash-verified server JAR; SystemReport optional PS5 OSHI telemetry and one read-only MinecraftServer tick return observer; desktop telemetry methods preserved; do not redistribute as official\",\"original_class_sha256\":\""+before+"\",\"adapted_class_sha256\":\""+after+"\",\"original_tick_class_sha256\":\""+tickBefore+"\",\"adapted_tick_class_sha256\":\""+tickAfter+"\"}\n");
+  Files.writeString(Path.of(args[2]),"{\"scope\":\"Local unsigned derivative of hash-verified server JAR; SystemReport optional PS5 OSHI telemetry and one MinecraftServer tick hook for diagnostics and authorized operator policy; desktop telemetry methods preserved; do not redistribute as official\",\"original_class_sha256\":\""+before+"\",\"adapted_class_sha256\":\""+after+"\",\"original_tick_class_sha256\":\""+tickBefore+"\",\"adapted_tick_class_sha256\":\""+tickAfter+"\"}\n");
  }
 }

@@ -38,7 +38,7 @@ public class ServerStart25 {
    if(value.contains("[User Authenticator ")&&value.contains("/ERROR]"))authErrors++;
    if(value.contains("[Minecraft Services Discovery/WARN]")&&(value.contains("Failed to connect")||value.contains("Services are unavailable")))discoveryErrors++;
    if(value.contains("[Netty ")&&value.contains("/ERROR]"))networkErrors++;
-   if(value.contains("[Server thread/ERROR]"))serverErrors++;
+   if(value.contains("[Server thread/ERROR]")||value.contains("MC_OP_POLICY_FAILED"))serverErrors++;
    if(errors.length()<4096&&!value.startsWith("at ")&&(value.contains("ERROR")||value.contains("Exception")||value.contains("Error")||value.contains("Caused by:")))errors.append(value,0,Math.min(value.length(),4096-errors.length())).append('\n');}
   synchronized String recent(){return "ERROR HEADINGS AND CAUSES:\n"+errors+"\nFIRST OUTPUT:\n"+head+"\nRECENT OUTPUT:\n"+tail;}
  }
@@ -57,10 +57,11 @@ public class ServerStart25 {
   throw new IllegalStateException("Server thread enumeration exceeded 4096 platform threads");
  }
  // Check the exact nofollow operation used by DirectoryValidator before loading the server.
- static void checkWorldMetadata(Path root)throws IOException {
+ static void checkWorldMetadata(Path root)throws IOException {checkWorldMetadata(root,"world");}
+ static void checkWorldMetadata(Path root,String worldName)throws IOException {
   try {
    Files.readAttributes(root,java.nio.file.attribute.BasicFileAttributes.class,LinkOption.NOFOLLOW_LINKS);
-   try{Files.readAttributes(root.resolve("world"),java.nio.file.attribute.BasicFileAttributes.class,LinkOption.NOFOLLOW_LINKS);}
+   try{Files.readAttributes(root.resolve(worldName),java.nio.file.attribute.BasicFileAttributes.class,LinkOption.NOFOLLOW_LINKS);}
    catch(NoSuchFileException absent){/* The official server creates a missing world. */}
   }catch(IOException failure){throw new IOException("World metadata preflight (NOFOLLOW_LINKS): "+failure,failure);}
  }
@@ -125,12 +126,17 @@ public class ServerStart25 {
   Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
   if(!Boolean.getBoolean("ps5.mc.eulaAccepted"))throw new IllegalStateException("Human EULA acceptance is required before this test");
   Path root=Path.of(System.getProperty("ps5.mc.workdir",System.getProperty("user.dir"))).toAbsolutePath();
-  String stage="write authorized EULA and isolated flat-world configuration";trace(stage);
+  boolean flat=Boolean.getBoolean("ps5.mc.validationFlat");
+  String worldName=flat?"world":"world-normal-v1";
+  int view=(int)setting("ps5.mc.viewDistance",flat?2:4,2,12),simulation=(int)setting("ps5.mc.simulationDistance",flat?2:3,2,view);
+  String stage="write authorized EULA and isolated world configuration";trace(stage);
   Files.createDirectories(root);
   stage="verify world metadata without following final symlinks";trace(stage);
-  checkWorldMetadata(root);
+  checkWorldMetadata(root,worldName);
   Files.writeString(root.resolve("eula.txt"),"# Human accepted Minecraft EULA for this test\neula=true\n");
-  Files.writeString(root.resolve("server.properties"),"level-name=world\nlevel-type=minecraft:flat\ngenerator-settings={\"biome\":\"minecraft:plains\",\"layers\":[{\"block\":\"minecraft:bedrock\",\"height\":1},{\"block\":\"minecraft:dirt\",\"height\":2},{\"block\":\"minecraft:grass_block\",\"height\":1}]}\ngenerate-structures=false\nspawn-chunk-radius=0\nview-distance=2\nsimulation-distance=2\nmax-players=1\nonline-mode=true\nserver-ip=\nserver-port=25565\nenable-query=false\nenable-rcon=false\nwhite-list=true\nmax-tick-time=-1\n");
+  String terrain=flat?"level-type=minecraft:flat\ngenerator-settings={\"biome\":\"minecraft:plains\",\"layers\":[{\"block\":\"minecraft:bedrock\",\"height\":1},{\"block\":\"minecraft:dirt\",\"height\":2},{\"block\":\"minecraft:grass_block\",\"height\":1}]}\ngenerate-structures=false\n":"level-type=minecraft:normal\ngenerator-settings={}\ngenerate-structures=true\n";
+  Files.writeString(root.resolve("server.properties"),"level-name="+worldName+"\n"+terrain+"spawn-chunk-radius=0\nview-distance="+view+"\nsimulation-distance="+simulation+"\nmax-players=20\nop-permission-level=4\nonline-mode=true\nserver-ip=\nserver-port=25565\nenable-query=false\nenable-rcon=false\nwhite-list=true\nmax-tick-time=-1\n");
+  System.out.println("MC_WORLD_CONFIG world="+worldName+" flat="+flat+" viewDistance="+view+" simulationDistance="+simulation+" maxPlayers=20");
   if(enduranceSeconds>0)Files.writeString(root.resolve("server.properties"),"pause-when-empty-seconds=0\n",StandardOpenOption.APPEND);
   PrintStream originalOut=System.out,originalErr=System.err;InputStream originalIn=System.in;
   Observer observer=new Observer(originalOut);PipedInputStream input=new PipedInputStream();PipedOutputStream commands=new PipedOutputStream(input);
@@ -140,7 +146,7 @@ public class ServerStart25 {
    try {
     stage="verify legacy-player directory listing";trace(stage);
     // Match the legacy converter's java.io listing before the server consumes it.
-    File oldPlayers=root.resolve("world/players").toFile();
+    File oldPlayers=root.resolve(worldName+"/players").toFile();
     if(oldPlayers.exists()&&oldPlayers.isDirectory()) {
      File[] entries=oldPlayers.listFiles();
      if(entries==null)throw new IOException("Legacy-player directory listing failed; inspect PS5 java.io list native error");
@@ -153,15 +159,15 @@ public class ServerStart25 {
     }
     stage="initialize and invoke server nogui with PS5 diagnostic adaptation";trace(stage);
     Class<?> main=Class.forName("net.minecraft.server.Main",true,ClassLoader.getSystemClassLoader());
-    main.getMethod("main",String[].class).invoke(null,(Object)new String[]{"--nogui","--universe",root.toString(),"--world","world"});
+    main.getMethod("main",String[].class).invoke(null,(Object)new String[]{"--nogui","--universe",root.toString(),"--world",worldName});
     stage="wait up to 10 minutes for real Done readiness message";trace(stage);
     long deadline=System.nanoTime()+600_000_000_000L;
     while(!observer.ready&&System.nanoTime()<deadline){if(serverThread()==null)break;Thread.sleep(200);}
     if(!observer.ready)throw new IOException("Server did not report ready; thread exited or deadline elapsed");
     checkOnline(observer);
-    stage="initialize real gameplay protocol templates after readiness";trace(stage);ServerProtocol25.check();
+    stage="initialize real gameplay protocol templates after readiness";trace(stage);ServerProtocol25.check();ServerOperators25.requireReady();
     // Optional host stress fixture, absent from console launch options.
-    long chunks=setting("ps5.mc.validationChunkRadius",0,0,4);
+    long chunks=setting("ps5.mc.validationChunkRadius",0,0,6);
     if(chunks>0){long edge=chunks*16;command(commands,"forceload add "+(-edge)+" "+(-edge)+" "+edge+" "+edge);}
     stage="endurance: tick progress, periodic flushed saves and server liveness";trace(stage);
     endurance(observer,commands,enduranceSeconds);
@@ -170,7 +176,7 @@ public class ServerStart25 {
     Thread thread=serverThread();if(thread!=null)thread.join(120000);
     if(serverThread()!=null)throw new IOException("Server did not stop within 120 seconds");stopped=true;
     stage="verify persisted world level.dat after stop";trace(stage);
-    try(InputStream saved=Files.newInputStream(root.resolve("world/level.dat"))){if(saved.read()<0)throw new IOException("Empty saved world level.dat");}
+    try(InputStream saved=Files.newInputStream(root.resolve(worldName+"/level.dat"))){if(saved.read()<0)throw new IOException("Empty saved world level.dat");}
     if(enduranceSeconds>0)originalOut.println("MC_SERVER_ENDURANCE_OK targetSeconds="+enduranceSeconds+" real tick progress, flushed saves, stop/thread exit and saved level.dat");
     originalOut.println("MC_SERVER_START_OK real Done readiness, stop, thread exit and saved level.dat");
    }catch(Throwable error){failure=error instanceof InvocationTargetException&&error.getCause()!=null?error.getCause():error;}

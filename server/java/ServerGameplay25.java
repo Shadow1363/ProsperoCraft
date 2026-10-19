@@ -29,13 +29,14 @@ public final class ServerGameplay25 {
   previousTickAt=now;
  }
  public static void tick(Object server) {
+  ServerOperators25.tick(server);
   if(!ENABLED||failed)return;
   try {
    sampleTickGap();
    if(playerList==null)initialize();
    List<?> list=(List<?>)players.invoke(playerList.invoke(server));
    if(list.isEmpty()){previousPlayer=null;wasUsing=false;return;}
-   Object player=list.get(0); // Probe is limited to one admitted player.
+   Object player=list.get(0); // Sample one player to bound diagnostic overhead; OP policy checks every admitted player.
    if(player!=previousPlayer){previousPlayer=player;wasUsing=false;lastCount=-1;lastFood=-1;}
    boolean active=(boolean)using.invoke(player);int now=(int)tick.invoke(server);
    boolean transition=active!=wasUsing;

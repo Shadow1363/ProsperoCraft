@@ -29,6 +29,6 @@ public class AuditTickObserver {
    }
   }
   if(observed!=1)throw new AssertionError("Expected one observed method");
-  System.out.println("PASS: method inventory/flags and every opcode/invocation preserved; only final tick return gets read-only observer");
+  System.out.println("PASS: method inventory/flags and every opcode/invocation preserved; only final tick return gets diagnostic/operator policy hook");
  }
 }

@@ -252,3 +252,27 @@ On the next short gameplay check compare GC counts/time and MC_TICK_GAP maxima
 alongside food/mobs. A near20TPS average can hide pauses followed by catchup.
 Host occupancycontrol and60second/49chunk/29check/14save run pass without a
 player. PS5layout tradeoffs/freeze cause and the full7200seconds remain pending.
+
+
+## Build071: normal terrain and short respawn check first
+
+Install the complete071folder with the probe closed. Start the five-row sequence
+as usual. Row4 uses a separate normal world `world-normal-v1`, with structures,
+view4chunks, simulation3and max20players. The old flat `world` is preserved.
+Use the same authenticated whitelisted account; it receives persisted level4OP
+before joining. All admitted whitelisted players receive OP through vanilla
+permission APIs. `/gamemode creative` prevents hostile-mob damage; alternatively
+`/difficulty peaceful` removes hostile mobs. Neither command is auto-applied.
+
+Check food consumption, mob motion, travel and death/respawn briefly before
+committing to a full run. Console071startup/decode/compact-header C1/GC behavior,
+normal generation, respawn stability and latency remain unvalidated. A20-player
+configured limit is not proof of20-player performance. Four chunks is a
+conservative initial view distance for the current memory budget, not a claim
+of desktop render distance or optimal speed. Host normal-world attempts without
+compact headers hit JavaheapOOM; the final host checks are in build status.
+
+The timer still starts at real server readiness, including any subsequent chunk
+generation pauses. Do not treat a successful join or short run as a7200-second
+pass. Preserve current-run logs if startup or respawn fails. Frozen058remains
+unchanged; no new passing snapshot is created for071.

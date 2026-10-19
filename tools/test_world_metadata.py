@@ -10,6 +10,9 @@ public class WorldMetadataTest {
   try {
    ServerStart25.checkWorldMetadata(root); // Missing world is allowed, not fabricated as an existing directory.
    if(Files.exists(root.resolve("world")))throw new AssertionError("Preflight created world");
+   ServerStart25.checkWorldMetadata(root,"world-normal-v1");
+   if(Files.exists(root.resolve("world-normal-v1")))throw new AssertionError("Preflight created normal world");
+   Files.createDirectory(root.resolve("world-normal-v1"));ServerStart25.checkWorldMetadata(root,"world-normal-v1");Files.delete(root.resolve("world-normal-v1"));
    Files.createDirectory(root.resolve("world"));ServerStart25.checkWorldMetadata(root);Files.delete(root.resolve("world"));
    Files.writeString(root.resolve("world"),"file");ServerStart25.checkWorldMetadata(root);Files.delete(root.resolve("world")); // Official server retains validation policy.
    Files.createSymbolicLink(root.resolve("world"),Path.of("absent"));ServerStart25.checkWorldMetadata(root);Files.delete(root.resolve("world")); // Host lstat returns real link attributes.
@@ -19,4 +22,5 @@ public class WorldMetadataTest {
   }finally{Files.deleteIfExists(root.resolve("world"));Files.delete(root);}
  }
 }''')
-jdk='/opt/homebrew/opt/openjdk@25/bin/';subprocess.run([jdk+'javac','-d',str(w),str(r/'server/java/ServerStart25.java'),str(p)],check=True);subprocess.run([jdk+'java','-cp',str(w),'WorldMetadataTest'],check=True)
+cp=':'.join(str(p) for p in sorted((r/'build/assets/java25/jars').glob('*.jar')))
+jdk='/opt/homebrew/opt/openjdk@25/bin/';subprocess.run([jdk+'javac','-cp',cp,'-d',str(w),str(r/'server/java/ServerStart25.java'),str(p)],check=True);subprocess.run([jdk+'java','-cp',str(w)+':'+cp,'WorldMetadataTest'],check=True)

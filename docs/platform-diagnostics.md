@@ -21,10 +21,17 @@ and the Class-File verifier validates the generated class.
 The verified original `server-26.3.jar` is left intact. Signed Java packages cannot
 contain a separately unsigned replacement class, so preparation creates a complete
 **local unsigned diagnostic derivative**, `ps5-platform-diagnostics.jar`. It
+also inserts one call to ServerGameplay25.tick(this) immediately before the final
+return of MinecraftServer.tickServer. Every original instruction and method
+remains intact; an opcode/invocation audit checks this. The helper samples
+item-use and tick gaps, and build071 explicitly enables the user-requested
+operator policy through vanilla PlayerList APIs on the server thread. It
 preserves every other server class/resource byte-for-byte; the changed manifest
 and removed signing metadata explicitly identify an unsigned derivative. No JVM
-signature verification is disabled. Gameplay, registries, world generation,
-networking, authentication and save code are not transformed.
+signature verification is disabled. Existing gameplay, registry, world generation,
+network, authentication and save instructions remain unchanged. The tick hook
+now also changes operator permissions by explicit policy, so it is not entirely
+read-only. Authentication and whitelist enforcement remain enabled.
 
 This is an adapted server runtime, not a claim that the executed server artifact
 is Mojang's unmodified signed JAR. Both the original and generated class hashes

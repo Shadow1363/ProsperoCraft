@@ -65,7 +65,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.070";
+constexpr const char *build_version="01.000.071";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -243,7 +243,8 @@ void run_test(int i) {
    {const_cast<char *>("-XX:UseAVX=0"),nullptr},
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
    {const_cast<char *>("-Xms16m"),nullptr},
-   {const_cast<char *>("-Xmx144m"),nullptr},
+   {const_cast<char *>("-XX:+UseCompactObjectHeaders"),nullptr},
+   {const_cast<char *>("-Xmx176m"),nullptr},
    {const_cast<char *>("-Xss512k"),nullptr},
    // Reserve more of the native title budget for metadata, sockets and joining.
    {const_cast<char *>("-Dio.netty.allocator.type=unpooled"),nullptr},
@@ -270,6 +271,7 @@ void run_test(int i) {
    {const_cast<char *>("-Dps5.mc.requireOnline=true"),nullptr},
    {const_cast<char *>("-Dps5.mc.checkNetworkMemory=true"),nullptr},
    {const_cast<char *>("-Dps5.mc.gameplayDiagnostics=true"),nullptr},
+   {const_cast<char *>("-Dps5.mc.opAll=true"),nullptr},
    {const_cast<char *>("-Dps5.mc.joinPlayerFile=/app0/assets/java25/join-player.txt"),nullptr},
    // Always resolve relative paths against user.dir. UnixFileSystem then
    // skips its desktop getcwd comparison in the native title sandbox.
@@ -301,7 +303,7 @@ void run_test(int i) {
   if(startup_log) {std::fprintf(startup_log,"JNI_CreateJavaVM returned %d\n",rc);std::fflush(startup_log);}
   if(rc==JNI_OK && (!java_vm||!java_env)) rc=-1302;
   if(rc!=JNI_OK) {java_vm=nullptr;java_env=nullptr;skip_vm_dependents();read_previous_log();}
-  result(i,rc,"Real JNI_CreateJavaVM, C1 level 1, 144 MiB max heap");
+  result(i,rc,"Real JNI_CreateJavaVM, C1 level 1, 176 MiB max heap");
  } else if(!java_vm||!java_env) {
   result(i,-1303,"Create the VM first; relaunch to retry");
  } else if(i>=2 && i<=3) {
@@ -415,7 +417,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.070",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.071",42,rgb(238,242,250));
  c.label(103,163,"Minecraft 26.3 / Java 25. Two-hour endurance after readiness; saves every 5 minutes.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
