@@ -98,7 +98,14 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: TLS startup repair probe 01.000.072
+## Current development: kernel entropy repair probe 01.000.073
+
+072captured a null function call through its new OS-random service import.
+073fixes that concrete runtime failure using checked kernel entropy queries,
+including return/count validation and a missing-API guard. The existing harness
+and game derivative are unchanged. Actual PS5 kernel RNG/TLS/server startup and
+the earlier071cause remain pending.
+
 
 Build071failed before Minecraft initialization, during the first HTTPS/TLS setup.
 072repairs the observed Unix-device entropy fallback by using the real PS5 OS
@@ -130,7 +137,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-072 is a development candidate, with all console validation pending.
+073 is a development candidate, with all console validation pending.
 
 ### Build and verify
 
@@ -1479,3 +1486,32 @@ Package checks confirm OS-service dependency/new JNI/linked seed code, all
 target artifacts, both signed containers and frozen058checksum. The existing
 game derivative's entries remain byte-identical to071. Console OS entropy/TLS
 startup and the original crash cause remain unvalidated.
+
+
+### Build073: captured RNG import failure and kernel entropy repair
+
+072stops at MC_TLS_RANDOM_BEGIN before server initialization. The recorded
+SIGSEGV has PC0. Matching-ELF signal anchor and stack return identify the
+instruction immediately after the direct sceRandomGetRandomNumber call; its
+GOT relocation identifies the unresolved import. This establishes the072cause,
+not the earlier071cause or a Javaheap shortage.
+
+Runtime0096uses kern.rng_pseudo through the kernel sysctl interface with bounded
+64-byte scratch storage. Return code and actual byte count are checked before
+Java transfer; missing API, failed/insufficient/oversized responses throw
+ProviderException. Scratch is cleared through volatile writes. No optional RNG
+service import/module dependency remains. Actual Java/JNI concurrency, batching,
+DRBG, errors/null-import and desktop-control tests pass with JNI checking and
+UBSan against a mocked kernel boundary. Target native rebuild passes.
+
+The Minecraft Java harness and all game-derivative entries remain unchanged
+from072; the consumer change is version/runtime pin and status only. Actual PS5
+kernel entropy/TLS/startup, earlier071cause, normal-world/respawn, optimal latency,
+20-player capacity and the full7200seconds remain pending.
+Runtime pin: `83453c5db0cdd89c4795b4e53cbcd8fa8e2440c7`.
+
+Final073package verification passes CRC/version/flags, exact target native/module
+identity, retained seed JNI/kernel marker and checked kernel pointer, absence of
+the direct RNG import/module dependency, matching ZIP/symbol copies and both
+signed containers. Frozen058checksum and all game-derivative entry bytes remain
+unchanged. Actual PS5 startup is still pending.

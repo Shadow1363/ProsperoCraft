@@ -287,3 +287,14 @@ check. A process crash without fatal/Java/signal evidence is not proven repaired
 by the seed-source change. Normal-world/OP settings and the7200second timer from
 real Done remain unchanged. The existing game-JAR derivative receives no new
 transformations. All072console checks and sustained performance remain pending.
+
+
+## Build073: kernel RNG confirmation
+
+072crashes at an unresolved direct RNG import.073repairs that runtime call using
+checked kernel entropy and preserves all existing world/OP/timer settings.
+Confirm PS5_OS_ENTROPY_OK kernel source, MC_TLS_RANDOM_OK, MC_TLS_FACTORY_OK
+and actual server readiness before a short gameplay/respawn check and full run.
+A kernel-query error must now produce ProviderException, rather than a null
+call. Actual console query/TLS acceptance and the earlier071cause are pending.
+The existing game derivative and Minecraft harness are unchanged.
