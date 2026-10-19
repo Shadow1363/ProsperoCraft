@@ -98,7 +98,14 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: normal-world and respawn probe 01.000.071
+## Current development: TLS startup repair probe 01.000.072
+
+Build071failed before Minecraft initialization, during the first HTTPS/TLS setup.
+072repairs the observed Unix-device entropy fallback by using the real PS5 OS
+random service and adds explicit DRBG/TLS-factory gates. The exact process-crash
+cause remains unresolved; all072console validation is pending. The existing
+server derivative has no further bytecode changes in072.
+
 
 Build070 crashed after respawn: the VM thread could not allocate4088native bytes
 during GC, and even the minimum16KiB fallback mapping failed. Build071 reduces
@@ -123,7 +130,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-071 is a development candidate, with all console validation pending.
+072 is a development candidate, with all console validation pending.
 
 ### Build and verify
 
@@ -1442,3 +1449,33 @@ limit bypass; old-flat-world sentinel survives. No player joined. Initial chunk
 generation still records a5897ms gap before approximately20TPS steady ticks, so
 optimal speed is not established. Package integrity/identity and frozen058hash
 checks pass. Runtime pin: `8686aee246e3c1928f5fb3f52ab1a3e05c567e8f`.
+
+
+### Build072: real OS entropy and explicit early TLS stages
+
+Current071reports stop before Minecraft Main/listening/Done, with no Java
+exception, abort/fatal report or signal trace. Trust initialization and DNS pass;
+seeding falls back to ThreadedSeedGenerator with repeated native thread creation
+and about8seconds of work, then TLS factory class progress stops. These logs do
+not establish a memory failure or the precise process-crash cause.
+
+Runtime0095 supplies NativeSeedGenerator with the actual PS5 system random
+service in bounded64-byte stack batches. A native OS failure throws and never
+accepts substitute seed material. Other Unix platforms retain URL seeding.
+The actual Java/JNI routing, batches, failures and real DRBG pass host JNI/UBSan
+checks against a mocked OS boundary; actual console service/ABI remains pending.
+The harness now marks real DRBG initialization and verified default TLS factory/
+unconnected socket initialization separately before HTTPS discovery. Certificate
+validation, authentication, whitelist and071world/OP/heap settings remain.
+No additional game-JAR transformations are added. Exact original crash cause,
+normal-world startup/respawn and full endurance remain unresolved until retest.
+Runtime pin: `584cde37723c3b7863d6349632c1215565ab5b70`.
+
+Final072host actual DRBG/TLS-factory/HTTPS, C1preflight/help, derivative opcode
+audit, compressed image resource/JFR checks pass. Normal-world81-chunk30second
+run completes8checks/5flushed saves and clean stop with no hostplayer. Initial
+generation still shows12663ms max tick gap; this is not optimal performance.
+Package checks confirm OS-service dependency/new JNI/linked seed code, all
+target artifacts, both signed containers and frozen058checksum. The existing
+game derivative's entries remain byte-identical to071. Console OS entropy/TLS
+startup and the original crash cause remain unvalidated.

@@ -276,3 +276,14 @@ The timer still starts at real server readiness, including any subsequent chunk
 generation pauses. Do not treat a successful join or short run as a7200-second
 pass. Preserve current-run logs if startup or respawn fails. Frozen058remains
 unchanged; no new passing snapshot is created for071.
+
+
+## Build072: early TLS repair before a timed run
+
+071failed before server readiness.072uses runtime OS entropy seeding and emits
+MC_TLS_RANDOM_BEGIN/OK and MC_TLS_FACTORY_BEGIN/OK before network discovery.
+First confirm these stages, actual server readiness and a short join/respawn
+check. A process crash without fatal/Java/signal evidence is not proven repaired
+by the seed-source change. Normal-world/OP settings and the7200second timer from
+real Done remain unchanged. The existing game-JAR derivative receives no new
+transformations. All072console checks and sustained performance remain pending.

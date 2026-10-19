@@ -46,6 +46,8 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
   assert 'pause-when-empty-seconds=0' in (Path(directory)/'server.properties').read_text()
   assert 'Saved the game' in output,output[-12000:]
  if args.online_player:
+  for marker in ['MC_TLS_RANDOM_BEGIN','MC_TLS_RANDOM_OK','MC_TLS_FACTORY_BEGIN','MC_TLS_FACTORY_OK']:assert marker in output,output[-12000:]
+  assert output.index('MC_TLS_RANDOM_OK')<output.index('MC_TLS_FACTORY_OK')<output.index('MC_ONLINE_CHECK')
   assert 'MC_ONLINE_PREFLIGHT_OK' in output,output[-12000:]
   assert any(v['name'].lower()==args.online_player.lower() for v in json.loads((Path(directory)/'whitelist.json').read_text()))
   ops=json.loads((Path(directory)/'ops.json').read_text());assert any(v['name'].lower()==args.online_player.lower() and v['level']==4 and v['bypassesPlayerLimit']==False for v in ops),ops

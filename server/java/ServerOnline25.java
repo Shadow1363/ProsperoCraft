@@ -31,6 +31,15 @@ public final class ServerOnline25 {
  }
  public static void prepare(Path root)throws Exception {
   checkTrust();
+  System.out.println("MC_TLS_RANDOM_BEGIN real DRBG initialization");
+  var random=java.security.SecureRandom.getInstance("DRBG");byte[] sample=new byte[64];
+  random.nextBytes(sample);java.util.Arrays.fill(sample,(byte)0);
+  System.out.println("MC_TLS_RANDOM_OK provider="+random.getProvider().getName());
+  System.out.println("MC_TLS_FACTORY_BEGIN default verified TLS factory and unconnected socket");
+  try(var socket=(javax.net.ssl.SSLSocket)javax.net.ssl.SSLSocketFactory.getDefault().createSocket()) {
+   if(socket.getEnabledProtocols().length==0)throw new IOException("No enabled TLS protocols");
+  }
+  System.out.println("MC_TLS_FACTORY_OK default TLS initialization");
   String name=System.getProperty("ps5.mc.joinPlayer");
   if(name==null){Path file=Path.of(System.getProperty("ps5.mc.joinPlayerFile","/app0/assets/java25/join-player.txt"));if(Files.size(file)>64)throw new IOException("Join-player file too large");name=Files.readString(file).trim();}
   if(!name.matches("[A-Za-z0-9_]{3,16}"))throw new IOException("Join-player file must contain one Minecraft account name");
