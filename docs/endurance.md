@@ -406,3 +406,12 @@ work. This is not a completed endurance result or ALL PASS. Preserve083vanilla.
 084is a short loader/mod compatibility play test in world-fabric-v1. Its monitor
 can remain open up to7200seconds with300-second saves, but a short session does
 not establish that result. See [Fabric instructions](fabric-084.md).
+
+## Build085: native C1 allocation follow-up
+
+084Fabric/mod/world/join work on PS5, then a32KiB native C1 arena allocation
+aborts the VM at124.632s.085uses runtime0101bounded direct-memory fallback for
+raw anonymous-map ENOMEM, retaining192MiB heap and all084JARs. First validate
+kernel mapping/release counters and short joined play. Heap/metaspace/codecache
+mapping is unchanged; other allocators can still fail. No full two-hour result.
+See [evidence and limitations](native-memory-084.md).

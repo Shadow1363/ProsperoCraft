@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "34a3198409fa09807a653173448d1ce8eefb669e",
+  "commit": "3d2249fad0eaf5e3483ee5fddaa41f8d831654d7",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
   "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at192MiB max heap; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
@@ -11,7 +11,8 @@
   "image_residency": "0099PS5index-onlyanonymouscopy/on-demandresourcepread, allmodulesretained; currentpersistentcopy saves27082752bytes(25.8MiB). Short/EINTR/error/EOF handling checked. Target/nativeASan/UBSanpass;078PS5headroom/readlatency/stabilitypending. No compilerOOMbailout.",
   "java_image_reader": "0100forces Java BasicImageReader index/channel mode foros.namePS5, matching0099nativeindexmap evenwithmap.all=true. ActualJava/native/JNIJarFile/Unicodefailure reproducedandfixedunderhostUBSan; desktopcontrolpasses.079consoleverificationpending.",
   "code_cache_tuning": "Consumer080usesexistingSweeperThreshold50.0 with16MiBcodecache; default15causesrepeatedSerialfullGCwellbelowcacheexhaustion. StartAggressiveSweepingAt10/UseCodeCacheFlushingtrue retained. Hostcode-triggerGCcount2to0inshortflatcontrols;PS5smoothness/memorypending.",
-  "consumer_execution": "084 underlying Mojang server JAR stays original/signed/hash-pinned; Fabric0.19.5 standard Knot/Mixin runtime loading is now authorized, with no project game-JAR rewrites/replacement classes. Explicit vanilla path retained; NBT/protocol checks use selected target loader. Runtime source/binaries unchanged from083.",
+  "consumer_execution": "084 underlying Mojang server JAR stays original/signed/hash-pinned; Fabric0.19.5 standard Knot/Mixin runtime loading is now authorized, with no project game-JAR rewrites/replacement classes. Explicit vanilla path retained; NBT/protocol checks use selected target loader. 085 retains all084game/loader/probe/mod bytes; runtime0101 adds native data fallback.",
   "metadata_gc_tuning": "082 uses existing MetaspaceSize=128m initial metadata GC threshold; commits remain on demand, not a cap or preallocation. Other memory/GC settings unchanged; PS5 pauses/headroom pending.",
-  "process_memory_limits": "083 samples read-only RLIMIT_DATA/AS/RSS results and raw soft/hard/infinity fields at startup/every60s, alongside raw rusage. No available-memory/hard-container-budget claim or limit changes; PS5 values pending."
+  "process_memory_limits": "083 samples read-only RLIMIT_DATA/AS/RSS results and raw soft/hard/infinity fields at startup/every60s, alongside raw rusage. No available-memory/hard-container-budget claim or limit changes; PS5 values pending.",
+  "native_direct_fallback": "0101: raw native allocator retries anonymous-page ENOMEM using bounded PS5 direct memory (2048slots/128MiB held budget). CPU RW/no fixed mapping; exact ownership/unmap-before-release and retained budget on cleanup failure. Heap/metaspace/codecache mapping unchanged. HostASan/UBSan/targetHotSpot pass; kernel/cache/headroom/stability pending085PS5. No C1 OOM bailout."
 }

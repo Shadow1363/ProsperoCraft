@@ -98,28 +98,27 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Fabric server candidate 01.000.084
+## Current development: Fabric native-memory candidate 01.000.085
 
-The user reports lag-free joined gameplay on083 and explicitly defers the full
-two-hour run until later.083 is preserved as the vanilla fallback; this report
-is not ALL PASS or a completed endurance milestone.
+084 confirms Fabric Loader0.19.5, the real test-mod entrypoint, world readiness,
+NBT file validation and an authenticated player joining on PS5. It then aborts
+in C1 after124.632seconds when a32KiB native arena allocation fails. This is
+partial compatibility, not ALL PASS. See [the report and repair](docs/native-memory-084.md).
 
-084 adds Fabric Loader0.19.5 for Minecraft26.3 and a tiny server-only test mod.
-The host verifies47pinned JARs, starts through Fabric's Knot classloader, executes
-the real mod entrypoint, then checks readiness, saves and clean shutdown. The
-same preflight/start sequence used by the console passes. PS5 loader/mod startup
-and joined play are pending. No arbitrary third-party mod or Fabric API support
-is claimed yet. See [Fabric validation and instructions](docs/fabric-084.md).
+085 retains the192MiB heap and every game/loader/probe/mod JAR byte from084.
+Runtime0101 adds a bounded direct-memory fallback only when the raw native
+allocator's anonymous mapping returns ENOMEM. It uses CPU RW mappings and
+matched physical ownership/cleanup, with2048slots/128MiB held budget. It does
+not allocate128MiB up front or change Java heap/metaspace/code-cache mapping.
+Host allocator/fault/concurrency checks and target packaging pass; actual PS5
+kernel/cache behavior and joined-load stability remain pending.
 
-The downloaded Mojang server JAR remains original. Standard Fabric/Mixin runtime
-class transformations are part of the authorized loader experiment; there are
-no project game-JAR rewrites or replacement game classes. Fabric uses a separate
-world-fabric-v1. The192MiB heap and083runtime/security/world-distance settings
-are retained. Do a short compatibility/play check first.
-
-The requested order is now Fabric/mods, then Paper/plugins, then client work.
-Paper26.3build207 is recorded as a researched candidate; it has not been built
-or validated on PS5. The two-hour vanilla baseline remains deferred, not passed.
+The underlying Mojang server JAR remains original; standard Fabric/Mixin loading
+is disclosed separately from project game-JAR rewrites (there are none). Fabric
+uses world-fabric-v1, preserving vanilla world-normal-v1.083remains the lag-free
+human-reported vanilla fallback. The two-hour run is explicitly deferred, not
+passed. Continue with a short085Fabric play test, then Paper/plugins, then client
+work. No new passing milestone or20-player capacity claim.
 
 
 072captured a null function call through its new OS-random service import.
@@ -159,7 +158,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-084 keeps the original server JAR on disk and adds standard Fabric loading; PS5 mod compatibility, native headroom, persistence and endurance remain pending.
+085 keeps the original server JAR on disk and standard Fabric loading; native direct-memory behavior, stability, persistence and endurance remain pending.
 
 ### Build and verify
 
@@ -1707,3 +1706,12 @@ that loader. Original game artifacts and the vanilla fallback remain intact.
 Host preflight/readiness/save/stop checks pass; PS5 startup/mod execution/joined
 play and real third-party mods remain pending. No ALL PASS milestone or sustained
 capacity claim. See [Fabric details](docs/fabric-084.md).
+
+### Build085: bounded native direct-memory fallback
+
+084executes Fabric/mod entrypoints and admits a player on PS5, then aborts in C1
+with a refused32KiB native allocation.085adopts runtime0101 while keeping all
+084game/loader/probe/mod bytes and192MiB heap/C1 policies unchanged. Actual raw
+allocator/direct-ledger host fault tests and exact target package checks pass;
+PS5 kernel/cache/headroom/stability remain pending. No C1 OOM bailout or universal
+native-allocation guarantee. See [evidence and limits](docs/native-memory-084.md).

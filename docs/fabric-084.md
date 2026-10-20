@@ -1,5 +1,9 @@
 # Fabric server candidate 01.000.084
 
+Update:084 PS5 loader/mod/readiness/join are confirmed, followed by a native C1
+allocation abort. See [085 follow-up](native-memory-084.md); pending sections below
+record the original084plan and are superseded by that measured result.
+
 The user reports absolutely no lag during083joined gameplay and defers the full
 two-hour run until later. Preserve the local083vanilla package and its source
 commit35f45706c00e4e562531f70f43cc29b301f73264. This is a human gameplay report,
