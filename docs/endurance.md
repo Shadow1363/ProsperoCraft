@@ -424,3 +424,11 @@ ledger with native ZIP/image buffers, retaining all game artifacts and192MiB
 heap/settings. Validate short joined play plus actual player/world saves/rejoin.
 The row is called Server play test; full7200seconds remains deferred, not passed.
 See [evidence and limits](save-memory-085.md).
+
+## Build087: player-save cause and spawn building
+
+086 fails after disconnect with a player-save warning; no current VM abort is
+established.087 disables spawn protection, tests the exact players/data directory
+and captures bounded standard VM exception logs. Save repair is not yet proven;
+short building/leave/rejoin checks come first. Full7200seconds remains deferred.
+See [evidence and diagnostic limits](player-save-086.md).

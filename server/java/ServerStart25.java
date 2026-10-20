@@ -142,8 +142,8 @@ public class ServerStart25 {
   checkWorldMetadata(root,worldName);
   Files.writeString(root.resolve("eula.txt"),"# Human accepted Minecraft EULA for this test\neula=true\n");
   String terrain=flat?"level-type=minecraft:flat\ngenerator-settings={\"biome\":\"minecraft:plains\",\"layers\":[{\"block\":\"minecraft:bedrock\",\"height\":1},{\"block\":\"minecraft:dirt\",\"height\":2},{\"block\":\"minecraft:grass_block\",\"height\":1}]}\ngenerate-structures=false\n":"level-type=minecraft:normal\ngenerator-settings={}\ngenerate-structures=true\n";
-  Files.writeString(root.resolve("server.properties"),"level-name="+worldName+"\n"+terrain+"spawn-chunk-radius=0\nview-distance="+view+"\nsimulation-distance="+simulation+"\nmax-players=20\nop-permission-level=4\nonline-mode=true\nserver-ip=\nserver-port=25565\nenable-query=false\nenable-rcon=false\nwhite-list=true\nmax-tick-time=-1\n");
-  System.out.println("MC_WORLD_CONFIG world="+worldName+" flat="+flat+" viewDistance="+view+" simulationDistance="+simulation+" maxPlayers=20");
+  Files.writeString(root.resolve("server.properties"),"level-name="+worldName+"\n"+terrain+"spawn-chunk-radius=0\nspawn-protection=0\nview-distance="+view+"\nsimulation-distance="+simulation+"\nmax-players=20\nop-permission-level=4\nonline-mode=true\nserver-ip=\nserver-port=25565\nenable-query=false\nenable-rcon=false\nwhite-list=true\nmax-tick-time=-1\n");
+  System.out.println("MC_WORLD_CONFIG world="+worldName+" flat="+flat+" viewDistance="+view+" simulationDistance="+simulation+" maxPlayers=20 spawnProtection=0");
   if(enduranceSeconds>0)Files.writeString(root.resolve("server.properties"),"pause-when-empty-seconds=0\n",StandardOpenOption.APPEND);
   PrintStream originalOut=System.out,originalErr=System.err;InputStream originalIn=System.in;
   Observer observer=new Observer(originalOut);PipedInputStream input=new PipedInputStream();PipedOutputStream commands=new PipedOutputStream(input);

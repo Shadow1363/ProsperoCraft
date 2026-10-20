@@ -18,7 +18,7 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
  if not args.flat:
   (Path(directory)/'world').mkdir();(Path(directory)/'world/keep-flat.txt').write_text('preserve flat world')
  if args.file_list_runner:cp=str(args.file_list_runner.resolve())+':'+cp
- command=[str(JDK/'bin/java'),'-Xint','-Dps5.mc.serverFlavor='+args.flavor,'-Dps5.probe.preflightBeforeStart='+str(args.flavor=='fabric').lower(),'-Dps5.mc.assets='+str(assets),'-Xms16m','-XX:+UseCompactObjectHeaders','-Xss512k',f'-Xmx{args.heap_mib}m','-Dio.netty.allocator.type=unpooled','-Dps5.mc.checkNetworkMemory=true','-Dps5.mc.gameplayDiagnostics=true','-Dps5.mc.opAll=true','-Dps5.mc.validationFlat='+str(args.flat).lower(),f'-Dps5.mc.validationChunkRadius={args.chunk_radius}','-XX:+UseSerialGC','-XX:ReservedCodeCacheSize=8m','-XX:+PrintCodeCache','-XX:ActiveProcessorCount=2','-Dps5.probe.serverLogPath='+str(Path(directory)/'server-console.log'),'-Dps5.mc.eulaAccepted=true',*(['-Dps5.mc.requireOnline=true','-Dps5.mc.joinPlayer='+args.online_player] if args.online_player else []),f'-Dps5.mc.enduranceSeconds={args.endurance_seconds}','-Dps5.mc.endurancePollSeconds=2','-Dps5.mc.enduranceSaveSeconds=4','-Dps5.mc.enduranceReplySeconds=120','-Dps5.mc.workdir='+directory,'-Duser.dir='+directory,'-Dlog4j2.disableJmx=true','-Dlog4j2.configurationFile=jar:'+ (assets/'jars/ps5-server-probe.jar').as_uri()+'!/log4j2-ps5.xml','--limit-modules',','.join(lock['modules']),'-cp',cp,'ServerStart25']
+ command=[str(JDK/'bin/java'),'-Xlog:exceptions=info:file='+str(Path(directory)/'java25-exceptions.log')+':uptime,tid,level,tags:filesize=8M,filecount=1','-Xint','-Dps5.mc.serverFlavor='+args.flavor,'-Dps5.probe.preflightBeforeStart='+str(args.flavor=='fabric').lower(),'-Dps5.mc.assets='+str(assets),'-Xms16m','-XX:+UseCompactObjectHeaders','-Xss512k',f'-Xmx{args.heap_mib}m','-Dio.netty.allocator.type=unpooled','-Dps5.mc.checkNetworkMemory=true','-Dps5.mc.gameplayDiagnostics=true','-Dps5.mc.opAll=true','-Dps5.mc.validationFlat='+str(args.flat).lower(),f'-Dps5.mc.validationChunkRadius={args.chunk_radius}','-XX:+UseSerialGC','-XX:ReservedCodeCacheSize=8m','-XX:+PrintCodeCache','-XX:ActiveProcessorCount=2','-Dps5.probe.serverLogPath='+str(Path(directory)/'server-console.log'),'-Dps5.mc.eulaAccepted=true',*(['-Dps5.mc.requireOnline=true','-Dps5.mc.joinPlayer='+args.online_player] if args.online_player else []),f'-Dps5.mc.enduranceSeconds={args.endurance_seconds}','-Dps5.mc.endurancePollSeconds=2','-Dps5.mc.enduranceSaveSeconds=4','-Dps5.mc.enduranceReplySeconds=120','-Dps5.mc.workdir='+directory,'-Duser.dir='+directory,'-Dlog4j2.disableJmx=true','-Dlog4j2.configurationFile=jar:'+ (assets/'jars/ps5-server-probe.jar').as_uri()+'!/log4j2-ps5.xml','--limit-modules',','.join(lock['modules']),'-cp',cp,'ServerStart25']
  if args.file_list_runner:
   command[1:1]=['--enable-native-access=ALL-UNNAMED','-Xcheck:jni']
   command[-1:]=['FileListCheck',str(args.file_list_runner.resolve()/'ps5.dylib'),'true','ServerStart25']
@@ -32,6 +32,7 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
   command[-1:]=['ServerC1Start25']
  result=subprocess.run(command,cwd=directory,capture_output=True,text=True,timeout=780+args.endurance_seconds)
  if args.c1:(ROOT/'build/host-codecache.log').write_text((Path(directory)/'jit.log').read_text())
+ assert (Path(directory)/'java25-exceptions.log').is_file(),'Exception diagnostic option did not create output'
  output=result.stdout+result.stderr;(ROOT/'build/host-ServerStart25.log').write_text(output)
  if args.flavor=='fabric':
   assert 'PS5_FABRIC_SMOKE_OK' in output and 'MC_FABRIC_LOADER_OK' in output,output[-12000:]
@@ -57,6 +58,9 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
   assert any(v['name'].lower()==args.online_player.lower() for v in json.loads((Path(directory)/'whitelist.json').read_text()))
   ops=json.loads((Path(directory)/'ops.json').read_text());assert any(v['name'].lower()==args.online_player.lower() and v['level']==4 and v['bypassesPlayerLimit']==False for v in ops),ops
  if args.legacy_directory:assert 'MC_LEGACY_DIRECTORY_OK entries=0' in output,output[-12000:]
+ assert 'MC_PLAYER_SAVE_DIRECTORY_OK' in output and (world/'players/data').is_dir(),output[-12000:]
+ assert not list((world/'players/data').glob('.ps5-save-check-*')),'Probe files leaked'
+ assert 'spawn-protection=0' in properties
  assert 'MC_SAVE_CHECK_OK' in output,output[-12000:]
  assert 'MC_NETWORK_MEMORY_OK' in output,output[-12000:]
  if args.chunk_radius:

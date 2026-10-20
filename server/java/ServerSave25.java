@@ -12,7 +12,13 @@ public final class ServerSave25 {
  public static void check(Path world,ClassLoader loader)throws Exception {
   String stage="directory";Path directory=null;
   try {
-   directory=Files.createTempDirectory(world,".ps5-save-check-");
+   // PlayerDataStorage uses java.io mkdirs and then NIO temp files in this
+   // 26.3 directory. Exercise that same directory, without touching player files.
+   Path playerDirectory=world.resolve("players/data");
+   File playerFile=playerDirectory.toFile();
+   if(!playerFile.mkdirs()&&!playerFile.isDirectory())throw new IOException("Player save directory unavailable: "+playerDirectory);
+   directory=Files.createTempDirectory(playerDirectory,".ps5-save-check-");
+   System.out.println("MC_PLAYER_SAVE_DIRECTORY_OK java.io mkdirs/isDirectory and NIO temp directory");
    Class<?> tag=Class.forName("net.minecraft.nbt.CompoundTag",true,loader),io=Class.forName("net.minecraft.nbt.NbtIo",true,loader),util=Class.forName("net.minecraft.util.Util",true,loader),account=Class.forName("net.minecraft.nbt.NbtAccounter",true,loader);
    Method write=io.getMethod("writeCompressed",tag,Path.class),replace=util.getMethod("safeReplaceFile",Path.class,Path.class,Path.class);
    Path current=directory.resolve("probe.dat"),backup=directory.resolve("probe.dat_old");

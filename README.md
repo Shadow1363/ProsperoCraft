@@ -98,28 +98,26 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Fabric save-memory candidate 01.000.086
+## Current development: Fabric save diagnostics 01.000.087
 
-085loads Fabric/the test mod and admits a player, but native Deflater allocation
-fails while saving chunks. The server closes the client connection and the probe
-fails its save checks. Prism exits normally. Raw direct mapping/release works
-in this run (2064maps/2000releases and0reported failures); native ZIP/image paths
-still needed the shared fallback. See [evidence and repair](docs/save-memory-085.md).
+086 runs joined gameplay, then a player-save warning on disconnect makes the
+harness stop and fail. Its capture no longer shows085's Deflater/image errors.
+Block corrections near spawn also remain under investigation. See
+[evidence and087changes](docs/player-save-086.md).
 
-086adopts runtime0102: native ZIP/zlib and temporary image buffers share0101's
-bounded VM direct-memory ledger after ordinary allocation refusal. Backend tags
-preserve matched frees; no independent per-library budget is created. The192MiB
-heap/C1/GC settings and every game/loader/probe/mod JAR byte from085are unchanged.
-Actual ZIP JNI/ZipFS/shared-ledger tests, image byte-identity/failure controls,
-Java/native image handoff and target builds pass. PS5 compression/image pressure,
-player/world persistence and sustained stability remain pending.
+087 disables vanilla spawn protection for unrestricted test-world building,
+checks the actual26.3 player-save directory with java.io and the original NBT
+file pipeline, and captures bounded HotSpot thrown-exception logs so the cause
+hidden by vanilla's catch can be identified. A player-save fix is not yet
+established. Diagnostic logging can affect performance. Host Fabric readiness,
+save/stop and artifact checks are recorded separately from pending PS5 tests.
 
-The menu now calls this a Server play test; the full two-hour run remains
-explicitly deferred. The original Mojang JAR stays intact, with standard Fabric/
-Mixin loading disclosed and no project game-JAR rewrites. Fabric world isolation,
-authentication/OP policy and the083vanilla fallback are preserved. Continue short
-Fabric validation before Paper/plugins and later client work. No new passing
-milestone or20-player capacity claim.
+The original Mojang JAR stays intact, with standard Fabric/Mixin loading and no
+project game-JAR rewrites. Authentication, whitelist, level4 ops policy,192MiB
+heap and Fabric world isolation remain.058frozen and083vanilla fallback are
+preserved. Validate short Fabric building/save/rejoin before Paper/plugins and
+later client work. Full two-hour run is deferred; no new ALL PASS milestone or
+20-player capacity claim.
 
 
 072captured a null function call through its new OS-random service import.
@@ -159,7 +157,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-086 keeps original game artifacts and standard Fabric loading; native ZIP/image pressure, stability, persistence and endurance remain pending.
+087 keeps original game artifacts and standard Fabric loading; player-save cause, building corrections, stability and persistence remain pending. Full endurance is deferred.
 
 ### Build and verify
 
