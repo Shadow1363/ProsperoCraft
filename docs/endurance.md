@@ -432,3 +432,11 @@ established.087 disables spawn protection, tests the exact players/data director
 and captures bounded standard VM exception logs. Save repair is not yet proven;
 short building/leave/rejoin checks come first. Full7200seconds remains deferred.
 See [evidence and diagnostic limits](player-save-086.md).
+
+## Build088: native thread headroom control
+
+087 admits the player then fails native worker creation during chunk generation.
+088 tests176MiB heap instead of192MiB and adds standard VM thread diagnostics.
+It does not guarantee a native reserve; GC/heap tradeoffs and actual PS5 join,
+movement/save/rejoin need validation. Full7200seconds remains deferred.
+See [evidence and limitations](native-thread-087.md).
