@@ -387,3 +387,13 @@ metadata trigger; allocation is still on demand. Compare joined-play GC causes,
 frequency, longest pauses and native usage. The heap remains176MiB. Require
 save/rejoin checks before the full two-hour test; this tuning is not ALL PASS.
 See[the current review](pauses-081.md).
+
+## Build083: heap-pressure follow-up
+
+082joined play reaches repeated near-full live heaps and spends15seconds of one
+30-second interval in GC.083tries192MiB maximum heap with other GC/C1 policies
+unchanged, plus read-only process-policy limit sampling. The original server JAR
+remains intact. First validate startup and short joined play/native headroom;
+do not treat the60-second host81-chunk save-stop pass as a console or two-hour
+pass. Full GCs and world-generation stalls still require investigation.
+See [evidence and tradeoffs](pauses-082.md).

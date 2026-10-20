@@ -1,9 +1,9 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "4052e8019fc5a5d81cb3ea13a091c2296595e03d",
+  "commit": "34a3198409fa09807a653173448d1ce8eefb669e",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
-  "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at176MiB max heap; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
+  "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at192MiB max heap; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
   "optional_native_services": "java.management is embedded with real JMM data; target console validation pending; jdk.management OS extensions remain unported",
   "secure_seed": "074console: real DRBG completes via checked kernel entropy; no substitute seed. Later HTTPS setup crash unresolved.",
   "image_decode": "074console: DTLSInputRecord loads and default TLS factory completes.0097host checks pass; later HTTPS setup crash unresolved.",
@@ -12,5 +12,6 @@
   "java_image_reader": "0100forces Java BasicImageReader index/channel mode foros.namePS5, matching0099nativeindexmap evenwithmap.all=true. ActualJava/native/JNIJarFile/Unicodefailure reproducedandfixedunderhostUBSan; desktopcontrolpasses.079consoleverificationpending.",
   "code_cache_tuning": "Consumer080usesexistingSweeperThreshold50.0 with16MiBcodecache; default15causesrepeatedSerialfullGCwellbelowcacheexhaustion. StartAggressiveSweepingAt10/UseCodeCacheFlushingtrue retained. Hostcode-triggerGCcount2to0inshortflatcontrols;PS5smoothness/memorypending.",
   "consumer_execution": "081executesoriginalsignedhash-pinnedserverJAR; noactivegameJARtransforms/replacementgameclasses. OP usesvanillaops.json forstartupwhitelist; telemetrywarnings handledbyvanillareport. RuntimeJavaOSpatches retained.",
-  "metadata_gc_tuning": "082 uses existing MetaspaceSize=128m initial metadata GC threshold; commits remain on demand, not a cap or preallocation. Other memory/GC settings unchanged; PS5 pauses/headroom pending."
+  "metadata_gc_tuning": "082 uses existing MetaspaceSize=128m initial metadata GC threshold; commits remain on demand, not a cap or preallocation. Other memory/GC settings unchanged; PS5 pauses/headroom pending.",
+  "process_memory_limits": "083 samples read-only RLIMIT_DATA/AS/RSS results and raw soft/hard/infinity fields at startup/every60s, alongside raw rusage. No available-memory/hard-container-budget claim or limit changes; PS5 values pending."
 }

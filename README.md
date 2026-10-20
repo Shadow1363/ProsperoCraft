@@ -98,24 +98,24 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: metadata GC threshold candidate 01.000.082
+## Current development: heap-headroom candidate 01.000.083
 
-081 reports confirm original-JAR startup, OP setup, the vanilla NBT file check
-and an authenticated player joining. Remaining pauses include five heap-pressure
-full GCs up to338ms, four metadata-triggered collections up to283ms and one
-code-cache collection. Average20TPS does not establish smooth gameplay.
+082 starts well, but joined gameplay fills its176MiB heap:79allocation-failure
+full GCs include pauses up to361ms, with15seconds spent collecting in one
+30-second interval. Metadata-triggered collections are absent in this capture.
+See [the console measurements and tradeoff](docs/pauses-082.md).
 
-082 defers metadata-triggered GC with MetaspaceSize=128m. This adjusts the initial
-collection threshold; metadata still commits on demand. Heap size, GC type,
-code-cache policy and the original server JAR are unchanged. Heap-pressure pauses
-remain unresolved; this is a targeted comparison, not a freeze-free claim.
-The light host test passes, but an 81-chunk fresh-world stress test exhausted
-the Java heap. This candidate is not ready for a two-hour run.
-See [the measurements and tradeoff](docs/pauses-081.md).
+083 raises the heap cap to192MiB, keeping the original signed server JAR,
+collector/C1 settings and world policies unchanged. This uses16MiB more potential
+memory and needs actual PS5 native-headroom validation. Shared read-only process
+limit diagnostics report policy values; they do not measure available memory.
 
-Actual082PS5 pause frequency, native headroom, player persistence and the full
-two-hour run remain pending. The work order stays stable vanilla server, server
-mods, then the client.
+A60-second host normal-world/81-chunk test passes25checks/13saves and clean stop,
+but full GCs and an initial world-generation tick outlier remain. The seed differs
+from082's failed stress test, so this is not a controlled performance comparison.
+Short joined-play console validation comes before the requested two-hour run.
+Persistence/rejoin, respawn/food and20-player capacity remain unvalidated. The
+work order stays stable vanilla server, server mods, then the client.
 
 
 072captured a null function call through its new OS-random service import.
@@ -155,7 +155,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-082 retains the original server JAR; smoothness, persistence and endurance remain pending.
+083 retains the original server JAR; smoothness, native headroom, persistence and endurance remain pending.
 
 ### Build and verify
 
@@ -1682,3 +1682,13 @@ the initial metadata GC threshold to128MiB, without preallocating that amount or
 changing the game heap. The original signed server JAR and policy remain intact.
 See[measurements and limitations](docs/pauses-081.md). Further heap-pressure and
 code-cache pauses, persistence and two-hour stability remain unvalidated.
+
+### Build 083: more heap headroom after joined-play GC saturation
+
+The082capture has79heap-pressure full GCs, with repeated164–170MiB retained
+inside an approximately174MiB effective heap.083tries192MiB maximum heap and
+adds shared read-only process-limit reports. Original game bytes and policies
+remain unchanged. Host81-chunk/60-second save-stop validation passes, with full
+GCs and an initial chunk-generation stall still present. Actual PS5 memory and
+latency comparison remains pending; no new passing milestone or two-hour pass.
+See [measurements and limitations](docs/pauses-082.md).
