@@ -98,27 +98,28 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Fabric native-memory candidate 01.000.085
+## Current development: Fabric save-memory candidate 01.000.086
 
-084 confirms Fabric Loader0.19.5, the real test-mod entrypoint, world readiness,
-NBT file validation and an authenticated player joining on PS5. It then aborts
-in C1 after124.632seconds when a32KiB native arena allocation fails. This is
-partial compatibility, not ALL PASS. See [the report and repair](docs/native-memory-084.md).
+085loads Fabric/the test mod and admits a player, but native Deflater allocation
+fails while saving chunks. The server closes the client connection and the probe
+fails its save checks. Prism exits normally. Raw direct mapping/release works
+in this run (2064maps/2000releases and0reported failures); native ZIP/image paths
+still needed the shared fallback. See [evidence and repair](docs/save-memory-085.md).
 
-085 retains the192MiB heap and every game/loader/probe/mod JAR byte from084.
-Runtime0101 adds a bounded direct-memory fallback only when the raw native
-allocator's anonymous mapping returns ENOMEM. It uses CPU RW mappings and
-matched physical ownership/cleanup, with2048slots/128MiB held budget. It does
-not allocate128MiB up front or change Java heap/metaspace/code-cache mapping.
-Host allocator/fault/concurrency checks and target packaging pass; actual PS5
-kernel/cache behavior and joined-load stability remain pending.
+086adopts runtime0102: native ZIP/zlib and temporary image buffers share0101's
+bounded VM direct-memory ledger after ordinary allocation refusal. Backend tags
+preserve matched frees; no independent per-library budget is created. The192MiB
+heap/C1/GC settings and every game/loader/probe/mod JAR byte from085are unchanged.
+Actual ZIP JNI/ZipFS/shared-ledger tests, image byte-identity/failure controls,
+Java/native image handoff and target builds pass. PS5 compression/image pressure,
+player/world persistence and sustained stability remain pending.
 
-The underlying Mojang server JAR remains original; standard Fabric/Mixin loading
-is disclosed separately from project game-JAR rewrites (there are none). Fabric
-uses world-fabric-v1, preserving vanilla world-normal-v1.083remains the lag-free
-human-reported vanilla fallback. The two-hour run is explicitly deferred, not
-passed. Continue with a short085Fabric play test, then Paper/plugins, then client
-work. No new passing milestone or20-player capacity claim.
+The menu now calls this a Server play test; the full two-hour run remains
+explicitly deferred. The original Mojang JAR stays intact, with standard Fabric/
+Mixin loading disclosed and no project game-JAR rewrites. Fabric world isolation,
+authentication/OP policy and the083vanilla fallback are preserved. Continue short
+Fabric validation before Paper/plugins and later client work. No new passing
+milestone or20-player capacity claim.
 
 
 072captured a null function call through its new OS-random service import.
@@ -158,7 +159,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-085 keeps the original server JAR on disk and standard Fabric loading; native direct-memory behavior, stability, persistence and endurance remain pending.
+086 keeps original game artifacts and standard Fabric loading; native ZIP/image pressure, stability, persistence and endurance remain pending.
 
 ### Build and verify
 
@@ -1715,3 +1716,13 @@ with a refused32KiB native allocation.085adopts runtime0101 while keeping all
 allocator/direct-ledger host fault tests and exact target package checks pass;
 PS5 kernel/cache/headroom/stability remain pending. No C1 OOM bailout or universal
 native-allocation guarantee. See [evidence and limits](docs/native-memory-084.md).
+
+### Build086: native ZIP/image allocation during saves
+
+085raw direct mapping/release works on PS5, but chunk-save Deflater native
+allocation fails and the server stops. Player-save and cold image decode errors
+follow.086uses runtime0102shared-ledger fallback for ZIP/image buffers, with
+unchanged heap/C1/game/loader/probe/mod artifacts. Actual JNI/ZipFS/shared-direct
+and image controls pass on host; actual PS5 save/rejoin/stability remains pending.
+The menu labels short compatibility work as Server play test, while full
+endurance stays deferred. See [details](docs/save-memory-085.md).

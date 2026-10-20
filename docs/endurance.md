@@ -415,3 +415,12 @@ raw anonymous-map ENOMEM, retaining192MiB heap and all084JARs. First validate
 kernel mapping/release counters and short joined play. Heap/metaspace/codecache
 mapping is unchanged; other allocators can still fail. No full two-hour result.
 See [evidence and limitations](native-memory-084.md).
+
+## Build086: shared native ZIP/image save allocation
+
+085direct mapping/release is observed on PS5, then a chunk-save Deflater native
+allocation fails and the server closes the client connection.086shares the VM
+ledger with native ZIP/image buffers, retaining all game artifacts and192MiB
+heap/settings. Validate short joined play plus actual player/world saves/rejoin.
+The row is called Server play test; full7200seconds remains deferred, not passed.
+See [evidence and limits](save-memory-085.md).

@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.085",
+  "app_version": "01.000.086",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "90d7818c95f2e7576f662f72b4dcf0bea48b56668947f92e3ddb34be6651e879",
-  "console": "084 FAIL: Fabric/mod/readiness/NBT and authenticated join succeed, then native C1 arena OOM at124.632s.085 direct-memory fallback pending PS5; no ALL PASS.",
-  "host": "PASS: actual raw allocator/direct ledger ASan/UBSan with real aligned storage and simulated kernel calls: exact32KiB fallback, preserved-data growth/failure, slabs, allocation/map/rollback/unmap/release faults,128MiB budget/2048slot exhaustion and4000concurrent lifetimes. Existing os.cpp NMT/preinit and prefix footprint controls pass with direct backend unavailable. Exact0101forward application matches source; targetHotSpot rebuild passes. No new host game run:085game/loader/probe/mod JARs exactly match084, whose host preflight/mod/readiness/30s/15checks/7saves/stop evidence remains applicable to unchanged Java code; it cannot validate target kernel behavior.",
-  "package": "PASS: exact085 ZIP CRC/version/192MiB/Fabric/C1/GC/security/OP/7200s flags; all47pins, smoke-mod manifest/hash and same game/loader/probe/mod bytes as084. Matching seven target native libraries/modules and linked Java image reader/entropy/image guards; direct diagnostic markers/all5kernel imports/exactly one linked ledger present. Two signed containers valid; matching ZIP/symbol copies, frozen058 and083/084fallback checksums preserved.27082752-byte image copy reduction retained.",
+  "package_sha256": "93a5231dccd7ae03657e41728930f3a9217b9821a8dbe0cac056a0638f20fd93",
+  "console": "085 FAIL without currentVMabort: joined play stops after native Deflater.init allocation failure in chunk save; player-save/image decode errors follow. Raw direct backend mapping/release observed.086 ZIP/image extension pending PS5; no ALL PASS.",
+  "host": "PASS: actual complete ZIP JNI with actual VM ABI/shared ledger over real aligned controlled-kernel storage; refused libc/anonymous pages then raw/wrapped roundtrips and compressed ZipFS create/read via direct memory; partial-init direct refusal preserves genuine OOM and cleanup. Actual ZIP allocatorASan/UBSan zeroing/alignment/overflow/errno/1024zlib lifetimes. Actual image/ZIP ASan/UBSan direct input-output/zlib buffers, partial budgets/no byte publication, exact Path$1/HTTPS/DTLS identity plus earlier short/EINTR/EIO/EOF/corrupt/truncated/index-only controls. Actual Java/native/JNI correctedPS5 anddesktop handoff passes, oldfailure reproduces. Exact0102patch and HotSpot/java.base native builds/twoexports pass. Unchanged game/loader/probe/mod JARs retain084host Fabric preflight/readiness/save-stop evidence; no new host game run can validate targetkernel persistence.",
+  "package": "PASS: exact086 ZIP CRC/version/Fabric/192MiB/C1/GC/security/OP/7200s flags and play-test label. All47pinned JARs and all game/loader/probe/mod bytes match085; smoke manifest/hash/target-loader gates retained. Seven target native libraries/modules match, image/entropy guards/copy reduction retained. Both shared VM exports are linked and referenced by targetZIP/JIMAGE, one ledger/all5kernel imports. Two signed containers valid, ZIP/symbol copies match; frozen058 and083/084/085fallback checksums preserved.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -27,18 +27,18 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "Runtime0101 native data allocation fallback; consumer runtime pin/version only, with all084game/loader/probe/mod JAR bytes unchanged.",
+  "scope": "Runtime0102 shares native direct fallback with ZIP/zlib and temporary image buffers; consumer version/runtime pin and play-test label only. All game/loader/probe/mod bytes unchanged.",
   "max_heap_mib": 192,
-  "runtime_adaptation": "0101 raw HotSpot native allocator retries anonymous-map ENOMEM through bounded PS5 direct memory; Java heap/metaspace/executable mapping untouched. Earlier image/resource/entropy/OS fixes retained.",
+  "runtime_adaptation": "0102 two PS5 VM C ABI helpers share0101ledger/budget with native ZIP and image buffers on anonymous-map ENOMEM. Aligned backend tags/matched frees/zeroing/overflow/errno/decode contracts retained; heap/metaspace/code-cache mapping untouched.",
   "probe_jar_sha256": "36fa6373d31a71c504394aa583aa065c3d1193e9ebfbadfd839eb8a121d56224",
   "diagnostics": "Vanillatime/tick/data/save/stopcommands,JVMGC/TPS/nativeusage. Injectedfooduse/per-tickgapobserverremoved.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "085 PS5 direct kernel allocation/map/release, CPU memory type/cache behavior and joined-load stability unvalidated. Other allocators and heap/metaspace/executable commitments can still fail. Direct budget/slot/API exhaustion retains real failure; cleanup refusal retains ledger ownership/budget and may leak until process exit. No C1 compiler OOM bailout.084native fatal remains recorded; full7200s deferred, player save/rejoin/food/respawn/20-player capacity and arbitrary third-party mods pending.",
+  "known_failures": "086 actualPS5 native compression/image pressure, player/world saves/rejoin and sustained stability unvalidated.085 recorded player-save failures; no persistence success claim. Other native allocators and Javaheap/metaspace/executable commitment can still fail; shared pool/budget/cleanup failures retain original refusal/ownership contracts. No C1 compiler bailout or universal OOM fix. Full7200s deferred, arbitrary mods/Paper/plugins/20player capacity pending.",
   "diagnostic_adapter": "External harness only; underlying Mojang server JAR remains hash-pinned and signed. Fabric standard runtime transformations may occur; zero project game-JAR rewrites or replacement game classes.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "084 current-runVMABORT:124.631688s C1CompilerThread0, MessageToMessageEncoder.write295bytes, native malloc32664bytes in Chunk::new. Raw32KiB mapping errno12 before/after pool cleanup. Fabric0.19.5/Knot/smoke marker/readiness/NBT validation/authenticatedjoin confirmed. Lasthealth91s afterreadiness/4checks/0scheduledsaves/1join. Tenured95percentused; metadata112212KiBused/113216KiBcommitted; cache11512KiBusedof16MiB. maxrss_raw524304units/hardcapunproven. RLIMIT_DATA32GiB;AS/RSSunlimited,not available memory. Raw reports private.",
+  "crash_evidence": "085current-runFAIL: IO worker native Deflater.init OOM creating RegionFile chunk-save compression; server stops and closes connection, then player-save warnings and stats/advancement Path$1 image read/decode failure. Lasthealth91s afterreadiness/4checks/0scheduledsaves/1authenticatedjoin. No current fatal/abortreport. Rawdirect trace last2064maps/2000releases/3309568heldbytes,peakobserved10059776held,0reportedfailures. PrismreportsServerclosed thenConnectionrefused, exitscode0; rawlogsprivate.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -54,13 +54,13 @@
     "host_test_seconds": 30,
     "host_checks": 15,
     "host_flushed_saves": 7,
-    "console": "084 lasthealth91s/4checks/0scheduledsaves/1join beforeC1nativeabort.085pending; full7200s deferred/notpassed.",
+    "console": "085 lasthealth91s/4checks/0scheduledsaves/1join before native ZIP save failure;086PS5pending. Full7200s deferred/notpassed.",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0,
     "host_version": "01.000.084 unchanged Java harness"
   },
-  "consumer_changes": "085 uses runtime0101 native direct fallback with unchanged192MiB heap and084C1/GC/cache/Fabric/world/security/OP policies. All original game/loader/probe/smoke JAR bytes unchanged; no game-JAR rewrite/signature stripping/replacement class. Paper follows stable Fabric; full two-hour run remains deferred.",
+  "consumer_changes": "086 adopts runtime0102 for native ZIP/image allocations while retaining192MiB heap, all085Fabric/game/probe/mod JAR bytes and GC/C1/cache/world/security/OP policies. Menu row/activity sayServerplaytest to reflect short compatibility work;7200smaximum/readiness anchor/300saves unchanged. No client change, game-JAR rewrite or Fabric transformation added. Paper follows stable Fabric; full2hour test deferred.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -118,7 +118,7 @@
     "state": "researchcandidateonly; no dependencyadoptedorMinecraftclientcompatibilityvalidated"
   },
   "metaspace_initial_threshold_mib": 128,
-  "process_limits": "Read-only RLIMIT_DATA/AS/RSS at startup/every60s; return/errno/raw limits/infinity fields. No physical-pool availability or hard-container-budget inference;083 PS5 values pending.",
+  "process_limits": "085observed read-only DATA32GiB andunlimitedAS/RSS; process policy only, not available pool memory. No limits changed.",
   "server_flavor": "fabric",
   "loader": {
     "name": "Fabric Loader",
@@ -126,7 +126,7 @@
     "pinned_artifacts": 7,
     "server_mod": "ps5-fabric-smoke 1.0.0",
     "fabric_api": "not included or validated",
-    "console": "084 actualPS5loader/mod/Knot/readiness/authenticatedjoin confirmed, followed bynative C1 OOM.085stabilitypending."
+    "console": "085 actualPS5loader/mod/readiness/authenticatedjoin confirmed; native ZIP chunk-save allocation stops server.086save/stabilitypending."
   },
   "vanilla_fallback": {
     "version": "01.000.083",
@@ -141,6 +141,12 @@
     "ledger_slots": 2048,
     "allocation": "on-demand only after raw native anonymous map returns ENOMEM; CPU RW/no fixed map;16KiB granules/type12",
     "cleanup": "exact offset/length;unmap before physical release;retain ownership/budget on failure",
-    "console": "085kernel/cache/headroom/stability pending; no compiler bailout"
+    "console": "085observed2064maps/2000releases/3309568lastheld/10059776peakobservedheldbytes,0reportedfailures; not universal stability/cache/capacity proof."
+  },
+  "zip_image_direct_fallback": {
+    "patch": "0102",
+    "budget": "same0101ledger:2048slots/128MiB held; no per-library duplication/preallocation",
+    "scope": "ZIP stream/zlib callbacks and temporary image buffers after anonymous-map ENOMEM; exact backend tags/matched frees",
+    "console": "086compression/imagepressure/player-world persistence/stability pending"
   }
 }

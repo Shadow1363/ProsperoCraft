@@ -1,5 +1,9 @@
 # Fabric084 native allocation abort and085candidate
 
+Update:085 confirms raw direct mapping/release, then native ZIP allocation stops
+the server during a chunk save. See [086follow-up](save-memory-085.md); pending
+sections below describe the original085candidate.
+
 The current084run retrieved on2026-10-20 confirms actualPS5 Fabric Loader0.19.5,
 the ps5-fabric-smoke entrypoint and Knot target loader. The original underlying
 server artifact starts world-fabric-v1, reports real Done readiness, passes the

@@ -52,7 +52,7 @@ namespace {
 using ps5::demo::Canvas;
 constexpr std::uint32_t rgb(unsigned r,unsigned g,unsigned b) {return 0xff000000u|r|(g<<8)|(b<<16);}
 constexpr int test_count=5;
-const char *names[]={"Initialize embedded core runtime","Create Java 25 VM (guarded C1 mode)","Verify JARs, Java exceptions and vanilla assets","2-hour endurance: live ticks, periodic saves, clean stop","Destroy Java VM"};
+const char *names[]={"Initialize embedded core runtime","Create Java 25 VM (guarded C1 mode)","Verify JARs, Java exceptions and vanilla assets","Server play test: live ticks, periodic saves, clean stop","Destroy Java VM"};
 int status[test_count]{}; // 0 untested, 1 pass, -1 fail, 2 running
 char messages[test_count][104]{};
 int selected=0,pending=-1,pad=-1;
@@ -65,7 +65,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.085";
+constexpr const char *build_version="01.000.086";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -420,7 +420,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.085",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.086",42,rgb(238,242,250));
  c.label(103,163,SERVER_FLAVOR_LABEL " / Minecraft 26.3 / Java 25. Compatibility play test; saves every 5 minutes.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
@@ -437,7 +437,7 @@ void draw(Canvas &c) noexcept {
   c.label(103,736,audio_error,20,rgb(230,176,91));
  }
  if(server_job_started) {
-  char activity[160];std::snprintf(activity,sizeof(activity),"2-hour test: %lld seconds since worker start. Progress: http://<PS5-IP>:8765/server.log",static_cast<long long>(time(nullptr)-server_started_at));
+  char activity[160];std::snprintf(activity,sizeof(activity),"Server play: %lld seconds since worker start. Progress: http://<PS5-IP>:8765/server.log",static_cast<long long>(time(nullptr)-server_started_at));
   c.label(103,768,activity,24,rgb(139,153,178));
  } else if(exception_detail[0]) {
   c.label(103,768,"Java exception (full message):",24,rgb(230,176,91));
