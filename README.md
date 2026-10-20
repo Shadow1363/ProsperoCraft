@@ -98,22 +98,27 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Fabric native-thread candidate 01.000.088
+## Current development: Fabric GC/headroom candidate 01.000.089
 
-087 admits the player, then stops after native worker creation fails during
-chunk generation. The OS reports repeated pthread creation refusal with an
-out-of-memory indication; Java heap space is still available. See
-[evidence and088tradeoff](docs/native-thread-087.md).
+088 admits the player but becomes severely GC-bound: one30-second interval
+spends29.072seconds in garbage collection, while tick progress falls to about
+10TPS. Repeated full collections reclaim almost nothing from the176MiB heap.
+This fits delayed damage, grass updates and chunk delivery. See
+[evidence and089changes](docs/gc-pressure-088.md).
 
-088 reduces the Java heap cap from192MiB to176MiB to leave more potential native
-headroom, and adds thread diagnostics to the existing bounded exception log.
-This is a controlled candidate, not a proven pthread allocation repair; a smaller
-heap can increase GC pressure. Native runtime/game/loader/smoke artifacts remain
-unchanged, with standard Fabric/Mixin loading and no project game-JAR rewrites.
-Spawn protection remains disabled and the actual player-directory NBT check is
-retained. Real block breaking, OP permissions, player saves/rejoin and stable
-joined PS5 play remain pending. Full two-hour run is deferred. Preserve058frozen
-and083vanilla fallback; no new ALL PASS or20-player capacity claim.
+089 raises the Java heap cap to224MiB. Runtime0103limits VM-owned libc storage
+to2MiB before using existing page/slab/direct backends, to reduce competition
+with SDK services such as thread creation. It guarantees neither SDK headroom
+nor a performance fix; actual PS5 validation remains pending. Verbose expected
+packet-exception logging is disabled, while bounded native-thread diagnostics
+remain. Original game/probe/loader/smoke JARs are unchanged, with standard Fabric/
+Mixin loading and no project game rewrites or replacement classes.
+
+Normal world, view4/simulation3, spawn-protection0, online whitelist/level4ops and
+20configured slots remain. Validate short joined exploration, responsive damage/
+block updates and save/rejoin before later loader/plugin/client work. Full two-
+hour run remains deferred. Preserve058frozen and083vanilla fallback; no new
+ALL PASS or20-player capacity claim.
 
 
 072captured a null function call through its new OS-random service import.
@@ -153,7 +158,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-088 keeps original game artifacts and standard Fabric loading; native-thread headroom, player-save cause, building corrections, stability and persistence remain pending. Full endurance is deferred.
+089 keeps original game artifacts and standard Fabric loading; GC/native-thread headroom, building responsiveness, stability and player persistence remain pending. Full endurance is deferred.
 
 ### Build and verify
 

@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.088",
+  "app_version": "01.000.089",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "76571e17a93fbca03443afd0efad553860fa79f6e820a7b5f36d3f4b72378619",
-  "console": "087FAIL: join admitted then native worker creation fails during chunk generation; server stops.088heap budget control pending PS5; no ALL PASS.",
-  "host": "PASS: Fabric/smoke/preflight/readiness at176MiB guarded C1; normal world with25forced chunks (radius2),30seconds/13tickchecks/7flushedsaves/cleanstop, nonempty level.dat and persisted region data. Actual players/data java.io directory gate and original compressedNBT pipeline/cleanup pass. Standard exceptions+os/thread log option accepted. No host player joined; target SDK refusal, joined performance and player serialization/persistence remain unvalidated.",
-  "package": "PASS: exact088 ZIP CRC/version/176MiB heap, unchanged512KiB stacks/CPU2/C1/GC/security/OP/7200s settings and bounded exceptions+os/thread option/routes. All47pins and every game/loader/probe/smoke JAR/native library/modules byte match087; zero project game rewrites/replacement classes. Both signed containers valid, ZIP/symbol copies match; frozen058 and083/084/085/086/087fallback hashes preserved.",
+  "package_sha256": "a30ae767c41ff12c01204b0a2ab2322da347cfc6b9332e8d3d9894ef78cfb678",
+  "console": "088joined play severelyGC-bound: intervalGC29.072s/30s at9.97TPS, repeated fullGC minimalreclaim. No current thread crash/savewarning in capture.089heap/nativebudget candidate pendingPS5; no ALLPASS.",
+  "host": "PASS: actual Fabric/smoke/preflight/readiness at224MiB guarded C1; normalworld25forced chunks(radius2),60seconds/27tickchecks/14flushedsaves/cleanstop/nonempty level.dat/persistedregions; no playerjoined. HostGC log has2Allocation Failure fullpauses; not console performance proof. Actual raw allocator/os.cpp NMT/pre-init ASan/UBSan2MiB budget/boundary/shrink/grow/migrate/rollback/refusal/concurrentreservations/cleanup, existing actual direct ledger/fault/4000concurrentlifetimes and historicalprefixcontrols pass. Exact0103forwardpatch and targetHotSpot build pass.",
+  "package": "PASS: exact089 ZIP CRC/version/224MiB heap/C1/GC/cache/CPU2/512KiB/security/OP/7200s settings; bounded os/thread logging with verbose packet exceptions absent. New native libc budget marker and exactly one linked libc-held counter, existing shared direct ledger/twoexports/all5kernelimports intact. All47pinned game/loader artifacts, probe/smoke JARs and module image match088. Targetnativefiles match currentbuild; seven nonVMlibraries differ from088only GNU build-ID notes; libjvm carries0103. Two signed containers valid; ZIP/symbol copies match; frozen058 and083/084/085/086/087/088fallback hashes preserved.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -27,18 +27,18 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "088 consumer-only176MiB heap cap versus192MiB to leave potential native headroom, standard os+thread=info added to bounded exceptions log. Native runtime/game/loader/smoke artifacts unchanged.",
-  "max_heap_mib": 176,
-  "runtime_adaptation": "0102 two PS5 VM C ABI helpers share0101ledger/budget with native ZIP and image buffers on anonymous-map ENOMEM. Aligned backend tags/matched frees/zeroing/overflow/errno/decode contracts retained; heap/metaspace/code-cache mapping untouched.",
+  "scope": "089 runtime0103bounded2MiB VM-owned libc allocation plus224MiB Java heap; disable verbose expected packet-exception logs, retain bounded standard native-thread diagnostics. Original game/loader/probe/smoke JARs unchanged.",
+  "max_heap_mib": 224,
+  "runtime_adaptation": "0103atomicprefix/inflight-inclusive2MiB VM libc cap with precise shrink/grow/failure/migration/free accounting, existing slabs/pages/shared direct fallback; no SDK interposition or native reserve guarantee, heap/metaspace/codecache mapping unchanged.",
   "probe_jar_sha256": "0cefd43a40f97f598a4b3d0b54a09f8f689bd0d15b269ba0ade30bb1996025be",
-  "diagnostics": "Standard exceptions=info,os+thread=info in8MiB active plus one8MiB rotated file, fixed read-only routes/archive; expected exceptions and I/O overhead possible, alongside vanilla commands/GC/TPS/nativeusage.",
+  "diagnostics": "Bounded os+thread=info only in legacy exceptions.log route pair (8MiBactive/one8MiBrotated), plus vanilla commands/GC/TPS/nativeusage. Verbose packet control-flow exceptions omitted. Future player-save warning may need focused logging.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "087pthread_create result35/EAGAIN errno12 at512KiB stack during chunk generation; exact failing SDK allocation unresolved.088smaller heap is a control, not guaranteed native reserve/fix; may increaseGC pressure or realheapOOM. Player-save cause and actual building/OP/save/rejoin/stability unresolved. Full7200s deferred; Paper/plugins/arbitrarymods/20playerload pending.",
+  "known_failures": "089actualPS5GC/speed/nativeSDKthreadheadroom/page/directpressure/save/rejoin/grass/damage/chunk responsiveness unvalidated.2MiB VM libc cap is not a guaranteed SDK reserve; other native/map/resource/heap limits may still refuse.088GCthrash established,087SDKpthreadallocationexactcause unresolved. Player-save/blockcorrection acceptance and OPpermissions pending. Full7200s deferred; arbitrarymods/Paper/plugins/20playerload pending.",
   "diagnostic_adapter": "External harness only; underlying Mojang server JAR remains hash-pinned and signed. Fabric standard runtime transformations may occur; zero project game-JAR rewrites or replacement game classes.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "ForkJoinPool compensation waiting in IOWorker.isOldChunkAround. Native trace38successful pthread_create calls and8failed attempts; result35/EAGAIN,errno12,512KiB stack; attributes acquired. Exact SDK allocation unknown. Java heap free about30.5million bytes after failure.",
+  "crash_evidence": "176MiB cap/effective174MiB full: repeated173M->171M collections.259fullpauses/72.839s total/max373.038ms;258Allocation Failure,1CodeCache threshold. At91s health9.97TPS and29.072s intervalGC; server13.817sbehind. Exact SDK thread capacity/persistence not established.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -51,16 +51,16 @@
     "poll_seconds": 30,
     "flushed_save_seconds": 300,
     "reply_timeout_seconds": 120,
-    "host_test_seconds": 30,
-    "host_checks": 13,
-    "host_flushed_saves": 7,
-    "console": "087lasthealth241s/9checks/0scheduledsaves/0joins; joins at243s thenworkerfailure.088PS5pending. Full7200sdeferred/notpassed.",
+    "host_test_seconds": 60,
+    "host_checks": 27,
+    "host_flushed_saves": 14,
+    "console": "088lasthealth121s/5checks/0scheduledsaves/1join withGCthrash; captureRUN, no completedendurance.089pendingPS5. Full7200s deferred/notpassed.",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0,
-    "host_version": "01.000.088"
+    "host_version": "01.000.089"
   },
-  "consumer_changes": "088 reduces Java heap cap16MiB to176MiB and adds standard thread creation/failure diagnostics in bounded VM log.512KiB stacks, CPU2, C1/SerialGC/cache/direct ledger settings unchanged; original game/loader/smoke bytes retained. Existing spawn-protection0 and actual player-directory preflight remain; no project game-JAR rewrite/replacement.",
+  "consumer_changes": "089 uses224MiB Java heap (48MiB above088), runtime0103atomic2MiB prefix/inflight-inclusive VM libc budget with matched resize/cleanup and existing page/slab/direct fallback. Retains512KiB stacks,CPU2,C1/SerialGC/NewRatio15/cache/world/view4/simulation3/security/OP. Standard verbose thrown-exception logging disabled; boundedos/thread diagnostics retained. Game/loader/probe/smoke bytes unchanged; no game rewrite/replacement/error suppression.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -127,7 +127,7 @@
     "pinned_artifacts": 7,
     "server_mod": "ps5-fabric-smoke 1.0.0",
     "fabric_api": "not included or validated",
-    "console": "087 loader/mod/readiness/authenticatedjoin confirmed, then native thread creation failure.088joinedPS5pending."
+    "console": "088Fabric/mod/readiness/authenticatedjoin works, severeGCpressureunderplay.089PS5pending."
   },
   "vanilla_fallback": {
     "version": "01.000.083",
@@ -153,15 +153,16 @@
   "player_save_diagnostics": {
     "directory": "players/data",
     "preflight": "java.io mkdirs/isDirectory plus existing compressedNBT pipeline in probe-owned temporary child; never edits player files",
-    "logging": "standard HotSpot exceptions=info;8MiB active/one8MiB rotated, read-only routes and archive; diagnostic overhead possible",
-    "console": "087 exact directory/NBTpreflight passes; actual player persistence remains unresolved.088pending."
+    "logging": "089bounded native-thread only; verbose thrown-exception logging disabled to avoid expected packet exception I/O; re-enable focused diagnostics if warning recurs.",
+    "console": "088actual players/data NBTpreflight passes; no player-save warning onleave in capture. Actual rejoin persistence still unvalidated."
   },
   "native_thread_budget": {
-    "before_heap_mib": 192,
-    "heap_mib": 176,
-    "native_headroom": "16MiB more potential memory when Java would expand to oldcap; no preallocation/guarantee",
+    "before_heap_mib": 176,
+    "heap_mib": 224,
+    "runtime_patch": "0103",
+    "vm_libc_cap_bytes": 2097152,
+    "policy": "atomicprefix/inflight-inclusive VM libc budget then existing page/slab/direct backend; no SDKreserve/interposition/threadlifecycle or heapmappingchange",
     "stacks_kib": 512,
-    "runtime_change": "none; thread lifecycle/error propagation unchanged",
-    "console": "088pending; exact SDK allocation and effectiveness unresolved"
+    "console": "089pending; nativeSDKheadroom/mapping/GC/performance tradeoffs unvalidated"
   }
 }

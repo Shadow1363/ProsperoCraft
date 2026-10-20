@@ -1,9 +1,9 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "e7af651f25c62008ab76c19f38d521314aa7e44c",
+  "commit": "477f86cd51e46f77f9a20b2cd40fb56bd0ba9dc8",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
-  "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at176MiB max heap in088; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
+  "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at224MiB max heap in089; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
   "optional_native_services": "java.management is embedded with real JMM data; target console validation pending; jdk.management OS extensions remain unported",
   "secure_seed": "074console: real DRBG completes via checked kernel entropy; no substitute seed. Later HTTPS setup crash unresolved.",
   "image_decode": "074console: DTLSInputRecord loads and default TLS factory completes.0097host checks pass; later HTTPS setup crash unresolved.",
@@ -16,6 +16,6 @@
   "process_memory_limits": "083 samples read-only RLIMIT_DATA/AS/RSS results and raw soft/hard/infinity fields at startup/every60s, alongside raw rusage. No available-memory/hard-container-budget claim or limit changes; PS5 values pending.",
   "native_direct_fallback": "0101: raw native allocator retries anonymous-page ENOMEM using bounded PS5 direct memory (2048slots/128MiB held budget). CPU RW/no fixed mapping; exact ownership/unmap-before-release and retained budget on cleanup failure. Heap/metaspace/codecache mapping unchanged. HostASan/UBSan/targetHotSpot pass; kernel/cache/headroom/stability pending085PS5. No C1 OOM bailout.",
   "zip_image_direct_fallback": "0102 exposes shared VM C ABI to native ZIP stream/zlib and temporary image buffers after anonymous-map ENOMEM, retaining exact tagged ownership/free/zeroing/errno/decode behavior. Same0101ledger and128MiB budget, not separate per-library pools. Hostactual JNI/bridge/ledger/ZipFS/image ASan/UBSan/Java-native handoff and target rebuild pass;086PS5compression/imagepressure/persistence/stability pending.",
-  "exception_diagnostics": "087 standard HotSpot thrown-exception logger:8MiB active plus one8MiB rotated file, fixed read-only routes/collector/archive; diagnostic overhead possible. No runtime exception semantics change.",
-  "native_thread_budget": "088 consumer-only cap176MiB versus192MiB to leave potential native headroom after087pthread_create result35/errno12 at512KiB stack; no guarantee/reserve, no runtime thread lifecycle change. os+thread=info added to bounded exception log; PS5join/GC/persistence pending."
+  "exception_diagnostics": "089 bounded os+thread=info only in legacy exceptions.log route pair; verbose expected packet exception logging disabled.8MiB active/one8MiB rotated, fixed read-only routes/archive. Actual future player-save warnings may require focused diagnostics.",
+  "native_thread_budget": "089 runtime0103limits VM-owned libc allocation/in-flight requests to2MiB with exact ownership/resize accounting and existing pages/slabs/direct fallback. No SDK interposition or headroom guarantee; thread lifecycle/stacks/heap mapping unchanged. Consumer224MiB heap restores Java headroom after088GCthrash; actualPS5pending."
 }

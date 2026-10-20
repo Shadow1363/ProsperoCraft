@@ -440,3 +440,12 @@ See [evidence and diagnostic limits](player-save-086.md).
 It does not guarantee a native reserve; GC/heap tradeoffs and actual PS5 join,
 movement/save/rejoin need validation. Full7200seconds remains deferred.
 See [evidence and limitations](native-thread-087.md).
+
+## Build089: heap headroom with bounded VM libc use
+
+088joined gameplay suffers repeated full GC (29.072seconds in one30-second
+interval), matching delayed updates.089uses224MiB heap plus runtime0103VM-owned
+libc budget, retaining view4/simulation3 and normal world. Expected packet
+exception logging is disabled; native thread diagnostics remain bounded. Actual
+PS5 performance/thread headroom/save/rejoin pending. Full7200seconds deferred.
+See [evidence and limits](gc-pressure-088.md).

@@ -65,7 +65,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.088";
+constexpr const char *build_version="01.000.089";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -240,13 +240,13 @@ void run_test(int i) {
    {const_cast<char *>("-XX:CompileCommand=MemLimit,*.*,2M"),nullptr},
    {const_cast<char *>("-Dps5.probe.requireC1=true"),nullptr},
    {const_cast<char *>("-Xlog:jit+compilation=debug,codecache=info,gc=info:file=/download0/java25-jit.log:uptime,level,tags:filecount=0"),nullptr},
-   // Bounded diagnostic capture: vanilla player-save catch omits its cause.
-   {const_cast<char *>("-Xlog:exceptions=info,os+thread=info:file=/download0/java25-exceptions.log:uptime,tid,level,tags:filesize=8M,filecount=1"),nullptr},
+   // Keep bounded native-thread diagnostics; omit noisy expected packet exceptions.
+   {const_cast<char *>("-Xlog:os+thread=info:file=/download0/java25-exceptions.log:uptime,tid,level,tags:filesize=8M,filecount=1"),nullptr},
    {const_cast<char *>("-XX:UseAVX=0"),nullptr},
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
    {const_cast<char *>("-Xms16m"),nullptr},
    {const_cast<char *>("-XX:+UseCompactObjectHeaders"),nullptr},
-   {const_cast<char *>("-Xmx176m"),nullptr},
+   {const_cast<char *>("-Xmx224m"),nullptr},
    {const_cast<char *>("-Xss512k"),nullptr},
    // Keep native headroom for Fabric worker stacks and pthread bookkeeping.
    {const_cast<char *>("-Dio.netty.allocator.type=unpooled"),nullptr},
@@ -422,7 +422,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.088",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.089",42,rgb(238,242,250));
  c.label(103,163,SERVER_FLAVOR_LABEL " / Minecraft 26.3 / Java 25. Compatibility play test; saves every 5 minutes.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
