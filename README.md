@@ -98,28 +98,24 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: original server-JAR candidate 01.000.081
+## Current development: metadata GC threshold candidate 01.000.082
 
-080's remaining mob stalls correlate with heap-allocation full GCs:40collections
-in the captured179seconds, with pauses up to352ms. Code-cache tuning does not
-remove heap pressure.081 keeps the current heap/GC budget while removing the
-injected gameplay observer and optional telemetry wrappers.
+081 reports confirm original-JAR startup, OP setup, the vanilla NBT file check
+and an authenticated player joining. Remaining pauses include five heap-pressure
+full GCs up to338ms, four metadata-triggered collections up to283ms and one
+code-cache collection. Average20TPS does not establish smooth gameplay.
 
-Development now packages and executes the original hash-pinned signed Minecraft
-server JAR. Both SystemReport and MinecraftServer are original; there are zero
-active game-JAR transformations or replacement game classes. OP uses vanilla
-ops.json for the startup whitelist; monitoring uses vanilla commands and JVM
-counters. Injected per-tick/food diagnostics are gone. Historical frozen builds
-are preserved. This is an unmodified-JAR console candidate, not a new PS5pass.
+082 defers metadata-triggered GC with MetaspaceSize=128m. This adjusts the initial
+collection threshold; metadata still commits on demand. Heap size, GC type,
+code-cache policy and the original server JAR are unchanged. Heap-pressure pauses
+remain unresolved; this is a targeted comparison, not a freeze-free claim.
+The light host test passes, but an 81-chunk fresh-world stress test exhausted
+the Java heap. This candidate is not ready for a two-hour run.
+See [the measurements and tradeoff](docs/pauses-081.md).
 
-Host checks pass original class signatures, vanilla unsupported-OSHI handling,
-OP-list loading, preflight/help and normal-world readiness/save/stop. Actual PS5
-startup, remaining mob/GC latency, player persistence and two-hour stability
-still need validation. See[the migration record](docs/vanilla-081.md).
-
-The requested order is stable unmodified server, server mods, then the client.
-[PS5_Vulkan](docs/graphics-candidate-ps5-vulkan.md) is recorded as a promising
-future graphics candidate; Java/native/renderer integration remains untested.
+Actual082PS5 pause frequency, native headroom, player persistence and the full
+two-hour run remain pending. The work order stays stable vanilla server, server
+mods, then the client.
 
 
 072captured a null function call through its new OS-random service import.
@@ -159,7 +155,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-081 executes the original server JAR; actual PS5 acceptance, smoothness and endurance remain pending.
+082 retains the original server JAR; smoothness, persistence and endurance remain pending.
 
 ### Build and verify
 
@@ -1677,3 +1673,12 @@ still includes allocation-pressurefullGC; this migration is not a proven latency
 fix. Validate081onPS5before claiming vanilla-console acceptance or full endurance.
 Server mods precede client work, with PS5_Vulkan retained as an unvalidated
 client graphics candidate. See[migration](docs/vanilla-081.md).
+
+### Build 082: defer metadata-triggered collections
+
+081 now has console evidence of original-server readiness and authenticated
+admission. The current capture still has visible full-GC pauses.082 changes only
+the initial metadata GC threshold to128MiB, without preallocating that amount or
+changing the game heap. The original signed server JAR and policy remain intact.
+See[measurements and limitations](docs/pauses-081.md). Further heap-pressure and
+code-cache pauses, persistence and two-hour stability remain unvalidated.

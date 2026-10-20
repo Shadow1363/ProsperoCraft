@@ -378,3 +378,12 @@ metrics are gone. Current startup-whitelist accounts get OP through ops.json;
 use vanilla op or restart after runtime whitelist additions. See[migration](vanilla-081.md).
 After the stable unmodified-server baseline, work proceeds to servermods, then
 clientgraphics/input. PS5_Vulkan is recorded as a later candidate.
+
+## Build 082: isolate metadata-triggered pauses
+
+081 starts the original server and admits a player, but metadata, heap and
+code-cache full-GC pauses remain.082 uses MetaspaceSize=128m to defer only the
+metadata trigger; allocation is still on demand. Compare joined-play GC causes,
+frequency, longest pauses and native usage. The heap remains176MiB. Require
+save/rejoin checks before the full two-hour test; this tuning is not ALL PASS.
+See[the current review](pauses-081.md).

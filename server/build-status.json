@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.081",
+  "app_version": "01.000.082",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "3987b6b79a5502a5f827dcb437f30cc0075e4730a17c050935bf415c1a6b41a3",
-  "console": "Pending081original-serverPS5acceptance;080moblagstillincludesheapGCstalls.",
-  "host": "PASS: all40originalpins; originalsignedSystemReport/MinecraftServercode-sourceandcertificates. os.namePS5originalreporthandlesunsupportedOSHIwithvanillacatch. OpsJSONreadbyoriginalServerOpList(level4/nobypass),preserveunrelatedentries/idempotence/invalidUUIDfailureleavesoldfileintact. Preflight/ZipFS/null/ZIP/C1andoriginalhelp pass withnoEULA/worldsideeffects. Normalworld81chunk30secondC1test passesrealDone,NBTsaveprobe,9checks/6saves,vanillatickqueries,cleanstopandsavedlevel.dat; nojoinedhostplayer. Memory/GCsettingsunchanged; nofreezefixclaim.",
-  "package": "PASS: exact081ZIP CRC/version/176MiB/NewRatio15/Sweeper50/C1/compactheaders/7200s/online/OPflags. All40officialJARbytesmatchpins; no derivativeJar or net/minecraft replacementhelperclasses/ServerGameplay25; originalserverclasspath/auditandops.jsonhelperpresent. Seven targetnative libraries/modules match,0100Javaimagereader/entropy/imageguardsretained,25.8MiBcopyreductionunchanged. Two signedcontainersvalid; matchingZIP/symbolcopies; frozen058and080fallbackchecksums preserved.",
+  "package_sha256": "53419fdd40a7b7b93d0e3b7465374f48564279f4382cb64778e9d8279e771131",
+  "console": "082 pending console comparison; 081 original signed server reaches readiness and authenticated joined play. No ALL PASS.",
+  "host": "MIXED: 082 fresh normal-world 81-chunk C1 stress exhausted the 176 MiB Java heap and required termination. Cause relative to metadata threshold unproven. Initial light invocation invalid due to previous process holding port. Retried light normal-world C1 test with no forced chunks/player passes readiness, vanilla NBT file check, 20 seconds, 11 checks, 5 saves and clean stop. Zero metadata/code-cache full GCs; one allocation full GC 115.742 ms. Host flags parse. See docs/pauses-081.md; no sustained-load pass.",
+  "package": "PASS: exact082 ZIP CRC/version/MetaspaceSize128m/176MiB/NewRatio15/Sweeper50/C1/compactheaders/7200s/online/OPflags. All40 official JAR bytes match pins; original-server execution audit, no derivative or replacement game classes. Seven target native libraries/modules match; linked PS5 Java image-reader, entropy/image guards and 27082752-byte copy reduction retained. Two signed containers valid; ZIP/symbol copies match; frozen058 and prior081 fallback checksums preserved.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -27,18 +27,18 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "Repair native image inflater allocation and checked resource errors after073DRBG success/runtime DTLS class-format failure; no game JAR/harness changes.",
+  "scope": "Consumer launch-option metadata GC threshold experiment; original Minecraft JAR and Java runtime source unchanged.",
   "max_heap_mib": 176,
   "runtime_adaptation": "0097 applies existing PS5 libc/page-backed matched zlib callbacks to native full-inflate/image paths; require complete/exact decode, propagate failed reads viaJIMAGE0return/HotSpot resource-namedIOException, handle optional resource failure, initialize image-reader refcount.",
   "probe_jar_sha256": "36fa6373d31a71c504394aa583aa065c3d1193e9ebfbadfd839eb8a121d56224",
   "diagnostics": "Vanillatime/tick/data/save/stopcommands,JVMGC/TPS/nativeusage. Injectedfooduse/per-tickgapobserverremoved.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "081actualPS5VerifyJARs/originalsignedserverstartup/OSHIcatchbehavior/OPlevel/playersaveandrejoin/respawn/food/nativeheadroom/mobdamageGCstalls/7200seconds/20playercapacitypending. HeapallocationfullGCremainsunresolved; nofreezefreeclaim. Servermodsstartafterstableunmodifiedbaseline,clientafterservermods. PS5_Vulkancompatibilitynotvalidated.",
+  "known_failures": "082 host 81-chunk fresh normal-world stress failed with Java heap OOM at176MiB. Heap full-GC bursts and code-cache GC remain unresolved; metadata threshold does not fix those. 082 console startup/join/native pressure/pauses/persistence/rejoin/food/respawn and full7200s pending. No20-player capacity validation or freeze-free claim.",
   "diagnostic_adapter": "None: executesoriginalsignedhash-pinnedserverJAR; noactivetransformsorreplacementgameclasses. Historicalsnapshotsretained.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "080user requests moblagreview afterrestart. Currentcapture179sJVM,latesthealth151s/6checks/0saves/1join/near20TPS. Fortyallocation-failurefullGCs;1075allocationcollections13503.775ms,max352.364ms; onecodecacheGC217.478ms,fourmetadataGC388.105ms. Tickmax572ms. Remainingmob/damagelag consistentwithheapGCstalls, notfullyattributed; noRTTmeasurement. Native maxrss_raw497664units/hardcapnotestablished. Rawlogsprivate;notALLPASSor7200spass.",
+  "crash_evidence": "081 current-run capture about151s JVM uptime; latest health121s after readiness,5checks/0scheduledsaves/1authenticatedjoin. TPS intervals19.84\u201320.17; tick-query means0.1\u201313.4ms cannot rule out stalls. Allocation failure560collections including5full,3035.822ms total,max338.456ms; metadata4full487.907ms,max283.445ms; code-cache1full231.542ms. No player-save warning in capture; no completed save/rejoin proof. maxrss_raw492720 units/hardcap unestablished. No RTT measurement. Raw reports private.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -51,15 +51,15 @@
     "poll_seconds": 30,
     "flushed_save_seconds": 300,
     "reply_timeout_seconds": 120,
-    "host_test_seconds": 30,
-    "host_checks": 9,
-    "host_flushed_saves": 6,
-    "console": "080latesthealth151s/6checks/0saves/1join;081pending,no7200spass.",
+    "host_test_seconds": 20,
+    "host_checks": 11,
+    "host_flushed_saves": 5,
+    "console": "081 latest health121s/5checks/0scheduledsaves/1join;082 pending. No7200s pass.",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0
   },
-  "consumer_changes": "081executeshash-pinnedoriginalsignedserverJAR; zeroactivegameJARtransformations/replacementclasses. RemovesSystemReportwrappers/MinecraftServertickhook/ServerGameplay25andcurrenttransformtools. VanillaSystemReportcatchesunsupportedOSHI. Vanillaops.jsonlevel4/nobypassforstartupwhitelist, existingunrelatedentriespreserved; laterwhitelistchangesusevanillaoporrestartereapply. MonitoringviaJVMcounters/vanillatime/tick/data/savecommands; injectedfooduse/tickgapmetricsretired. Heap176/NewRatio15/C1/Sweeper50/world/view4/simulation3/max20/onlineTLS/7200sfromDoneunchanged. Persistentroadmapserverbaseline->servermods->client; PS5_Vulkanrecordedcandidate, notadopted.",
+  "consumer_changes": "082 raises existing MetaspaceSize initial GC threshold to128MiB; commits on demand, neither preallocation nor cap. May retain more dead metadata; native pressure unvalidated. Keeps original signed hash-pinned server, zero transformations/replacements, vanilla ops.json level4/no bypass, authentication, normal world/view4/simulation3/max20,176MiB heap/NewRatio15/C1/16MiB code cache/Sweeper50 and7200s from readiness. Host comparison helper accepts21/128MiB threshold.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -76,7 +76,7 @@
     "online_mode": true,
     "whitelist": true,
     "account_setting": "local generated join-player.txt; personal name/UUID omitted from source",
-    "console": "076defaultTLS/verifiedonlinepreflight/playeradmission confirmed;077pending"
+    "console": "081 authenticated joined play confirmed."
   },
   "world": {
     "type": "minecraft:normal",
@@ -94,7 +94,7 @@
     "policy": "allstartupwhitelistidentities;runtimeadditionsusevanillaoporrestartereapply",
     "api": "vanilla ops.json generatedbeforestartup, loadedbyoriginalserver",
     "bypasses_player_limit": false,
-    "console": "081hostvanillaOP-listloadpasses;PS5OPlevel/persistencepending"
+    "console": "081 MC_OP_READY and joined play; actual operator command/persistence validation still pending."
   },
   "new_ratio": 15,
   "image_residency": {
@@ -114,5 +114,6 @@
     "url": "https://github.com/mihawk-99/PS5_Vulkan",
     "reviewed_main_commit": "f410e67a0241b3e8edcdbcd2a9b285dfc4a412ed",
     "state": "researchcandidateonly; no dependencyadoptedorMinecraftclientcompatibilityvalidated"
-  }
+  },
+  "metaspace_initial_threshold_mib": 128
 }
