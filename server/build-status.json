@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.083",
+  "app_version": "01.000.084",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "ffaa2dba25de91f8d83053ecfb3063ab33e634b356cce2610b7e9ec85bc82e1c",
-  "console": "083 pending PS5 startup and short joined-play heap/native-headroom comparison;082 starts better then severe heap-GC saturation. No ALL PASS.",
-  "host": "PASS functional check:192MiB C1 fresh normal world/81forced chunks/60seconds,25progress checks/13flushed saves, vanilla NBT validation, clean stop and saved level.dat. No host player. GC769allocation collections including7full,1915.151ms total,max166.546ms; zero metadata/code-cache fulls. Initial generation has multi-second tick outlier. Different seed from failed082176MiB stress: not isolated performance comparison. Native report/HTTP/collector ASan/UBSan passes real and injected-failure limit queries, errno preservation and failed output paths.",
-  "package": "PASS: exact083 ZIP CRC/version/192MiB heap/MetaspaceSize128m/NewRatio15/Sweeper50/C1/compactheaders/7200s/online/OPflags. All40 official JAR bytes match pins; original-server classpath/audit, zero derivative/replacement game classes. Read-only limit sampler marker/getrlimit import present. Seven target native libraries/modules match, PS5 linked Java image reader/entropy/image guards retained;27082752-byte copy reduction unchanged. Two signed containers valid, ZIP/symbol copies match; frozen058 and082 local fallback checksums preserved.",
+  "package_sha256": "f15d5b3fe4a477602f3aec104199c5fe6f8e2650f63d7dd25733f9c4a3498c73",
+  "console": "084 Fabric PS5 acceptance pending. User reports absolutely no lag in083joined gameplay and defers full two-hour run. No new ALL PASS milestone.",
+  "host": "PASS: exact preflight-then-start C1 sequence at192MiB:47pinned JAR checks, original Java25 server bytecode/ZipFS, Fabric0.19.5/Knot target loader, real server-only mod entrypoint, readiness/NBT/protocol checks,30seconds/15tick checks/7flushed saves/clean stop and saved level.dat; no joined host player. GC389allocation collections including1full,529.192ms total,max75.333ms;1code-cache full173.630ms; no metadata full. Original40JAR signatures/code-source/OSHI handling/ops.json controls pass. Vanilla C1 launch regression passes20seconds/readiness/save/stop. Host does not establish PS5 performance.",
+  "package": "PASS: exact084 ZIP CRC/version/Fabric flag and label/192MiB/Metaspace128/NewRatio15/Sweeper50/C1/compactheaders/security/OP/7200s flags. All40 official game/library JARs and7Fabric artifacts match pins. Separate smoke mod SHA-256/manifest/server entrypoint and loader/marker gates present, isolated world marker and matched original-JAR execution audit. No project game replacements/derivative JAR. Seven target native libraries/modules match; Java image reader/entropy/image guards and27082752-byte copy reduction retained. Read-only limit sampler/getrlimit import retained. Two signed containers valid; ZIP/symbol copies match; frozen058 and083vanilla fallback checksums preserved.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -27,14 +27,14 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "Consumer176-to192MiB heap-headroom experiment; shared runtime probe adds read-only process limit diagnostics. Original Minecraft JAR intact.",
+  "scope": "First Fabric loader/server-only mod compatibility candidate; keep083vanilla fallback and isolated Fabric world. No Java runtime source or project game-JAR transformation changes.",
   "max_heap_mib": 192,
   "runtime_adaptation": "0097 applies existing PS5 libc/page-backed matched zlib callbacks to native full-inflate/image paths; require complete/exact decode, propagate failed reads viaJIMAGE0return/HotSpot resource-namedIOException, handle optional resource failure, initialize image-reader refcount.",
   "probe_jar_sha256": "36fa6373d31a71c504394aa583aa065c3d1193e9ebfbadfd839eb8a121d56224",
   "diagnostics": "Vanillatime/tick/data/save/stopcommands,JVMGC/TPS/nativeusage. Injectedfooduse/per-tickgapobserverremoved.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "083 console native allocation headroom and joined-play pause reduction unvalidated. Extra16MiB potential heap use may increase native pressure;077 compiler native OOM remains relevant. Full GCs and initial host chunk-generation stall persist. Prior082176MiB stress Java heap OOM retained. Persistence/rejoin, respawn/food,20-player capacity and7200seconds pending; no freeze-free claim.",
-  "diagnostic_adapter": "None: executesoriginalsignedhash-pinnedserverJAR; noactivetransformsorreplacementgameclasses. Historicalsnapshotsretained.",
+  "known_failures": "084 Fabric/Knot nested-JAR/cache/ZipFS/runtime overhead onPS5 unvalidated. Arbitrary third-party mods, Fabric API, native mods and Paper/plugins not validated. Full GC/native allocation risk remains;192MiB heap unchanged. User defers full7200s. Actual player save/rejoin, food/respawn and20-player capacity pending. No freeze-free guarantee or ALL PASS.",
+  "diagnostic_adapter": "External harness only; underlying Mojang server JAR remains hash-pinned and signed. Fabric standard runtime transformations may occur; zero project game-JAR rewrites or replacement game classes.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
@@ -51,15 +51,15 @@
     "poll_seconds": 30,
     "flushed_save_seconds": 300,
     "reply_timeout_seconds": 120,
-    "host_test_seconds": 60,
-    "host_checks": 25,
-    "host_flushed_saves": 13,
-    "console": "082 latest health181s/7checks/0scheduledsaves/1join;083 pending. No7200s pass.",
+    "host_test_seconds": 30,
+    "host_checks": 15,
+    "host_flushed_saves": 7,
+    "console": "083 user reports lag-free joined play; full7200s explicitly deferred.084 Fabric PS5 pending; no completed two-hour result.",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0
   },
-  "consumer_changes": "083 raises max Java heap176->192MiB, other GC/C1/codecache/metadata flags unchanged. Original signed hash-pinned JAR, zero active transforms/replacement game classes; vanilla ops.json, normalworld/view4/simulation3/max20, onlineTLS/whitelist and7200s from readiness retained. Shared runtime process sampler adds read-only RLIMIT_DATA/AS/RSS success/failure/raw limits/infinity fields startup/every60s; these are process policy, not currently available memory. No limit changes.",
+  "consumer_changes": "084adds explicit vanilla/fabric flavor packaging, pins Fabric0.19.5 plus ASM/Mixin dependencies,47-JAR preflight and separate hash-verified server-only smoke mod. Launches upstream KnotServer; require target loader for MinecraftServer and actual smoke entrypoint marker. NBT/protocol checks use same target loader. No project game-JAR rewrites/signature stripping/replacement game classes; standard Fabric/Mixin in-memory transformations explicitly disclosed. Fabric world-fabric-v1 isolated from vanilla world-normal-v1. Keeps083192MiB/C1/GC/cache/security/OP/world-distance/player settings. User order Fabric/mods->Paper/plugins->client; full vanilla two-hour run deferred.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -80,13 +80,14 @@
   },
   "world": {
     "type": "minecraft:normal",
-    "directory": "world-normal-v1",
+    "directory": "world-fabric-v1",
     "structures": true,
     "preserve_flat_directory": "world",
     "view_distance": 4,
     "simulation_distance": 3,
     "max_players": 20,
-    "twenty_player_load": "not tested"
+    "twenty_player_load": "not tested",
+    "preserve_vanilla_directory": "world-normal-v1"
   },
   "operators": {
     "enabled": true,
@@ -106,8 +107,8 @@
   },
   "sweeper_threshold": 50.0,
   "work_order": [
-    "Stable unmodified vanilla server and persistence/endurance",
-    "Compatible server mod loaders and individually tested server mods",
+    "Fabric loader and individually validated server mods",
+    "Paper server and individually validated plugins",
     "Client native/graphics/input integration"
   ],
   "graphics_candidate": {
@@ -116,5 +117,21 @@
     "state": "researchcandidateonly; no dependencyadoptedorMinecraftclientcompatibilityvalidated"
   },
   "metaspace_initial_threshold_mib": 128,
-  "process_limits": "Read-only RLIMIT_DATA/AS/RSS at startup/every60s; return/errno/raw limits/infinity fields. No physical-pool availability or hard-container-budget inference;083 PS5 values pending."
+  "process_limits": "Read-only RLIMIT_DATA/AS/RSS at startup/every60s; return/errno/raw limits/infinity fields. No physical-pool availability or hard-container-budget inference;083 PS5 values pending.",
+  "server_flavor": "fabric",
+  "loader": {
+    "name": "Fabric Loader",
+    "version": "0.19.5",
+    "pinned_artifacts": 7,
+    "server_mod": "ps5-fabric-smoke 1.0.0",
+    "fabric_api": "not included or validated",
+    "console": "pending084"
+  },
+  "vanilla_fallback": {
+    "version": "01.000.083",
+    "source_commit": "35f45706c00e4e562531f70f43cc29b301f73264",
+    "package_sha256": "ffaa2dba25de91f8d83053ecfb3063ab33e634b356cce2610b7e9ec85bc82e1c",
+    "console": "User reports absolutely no lag in joined gameplay; not ALL PASS/endurance/capacity proof."
+  },
+  "deferred_validation": "User explicitly defers the full two-hour vanilla baseline until later; not a pass."
 }

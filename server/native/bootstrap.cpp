@@ -65,7 +65,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.083";
+constexpr const char *build_version="01.000.084";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -261,6 +261,7 @@ void run_test(int i) {
    {const_cast<char *>("-XX:ErrorFile=/download0/hs_err_java25.log"),nullptr},
    {const_cast<char *>("-Xlog:class+load=info:file=/download0/java25-class-load.log:uptime,tid:filecount=0"),nullptr},
    {const_cast<char *>(SERVER_CLASSPATH_OPTION),nullptr},
+   {const_cast<char *>(SERVER_FLAVOR_OPTION),nullptr},
    {const_cast<char *>("-Djava.io.tmpdir=/download0"),nullptr},
    {const_cast<char *>("-Duser.home=/download0"),nullptr},
    {const_cast<char *>("-Duser.dir=/download0/mc-server-start"),nullptr},
@@ -305,7 +306,7 @@ void run_test(int i) {
   if(startup_log) {std::fprintf(startup_log,"JNI_CreateJavaVM returned %d\n",rc);std::fflush(startup_log);}
   if(rc==JNI_OK && (!java_vm||!java_env)) rc=-1302;
   if(rc!=JNI_OK) {java_vm=nullptr;java_env=nullptr;skip_vm_dependents();read_previous_log();}
-  result(i,rc,"Real JNI_CreateJavaVM, C1 level 1, 176 MiB max heap");
+  result(i,rc,"Real JNI_CreateJavaVM, C1 level 1, 192 MiB max heap");
  } else if(!java_vm||!java_env) {
   result(i,-1303,"Create the VM first; relaunch to retry");
  } else if(i>=2 && i<=3) {
@@ -419,8 +420,8 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft Server Start Probe 01.000.083",42,rgb(238,242,250));
- c.label(103,163,"Minecraft 26.3 / Java 25. Two-hour endurance after readiness; saves every 5 minutes.",24,rgb(139,153,178));
+ c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.084",42,rgb(238,242,250));
+ c.label(103,163,SERVER_FLAVOR_LABEL " / Minecraft 26.3 / Java 25. Compatibility play test; saves every 5 minutes.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
   if(selected==i) c.rounded(95,y-4,1730,76,22,rgb(109,156,255));

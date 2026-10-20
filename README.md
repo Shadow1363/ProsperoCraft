@@ -98,24 +98,28 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: heap-headroom candidate 01.000.083
+## Current development: Fabric server candidate 01.000.084
 
-082 starts well, but joined gameplay fills its176MiB heap:79allocation-failure
-full GCs include pauses up to361ms, with15seconds spent collecting in one
-30-second interval. Metadata-triggered collections are absent in this capture.
-See [the console measurements and tradeoff](docs/pauses-082.md).
+The user reports lag-free joined gameplay on083 and explicitly defers the full
+two-hour run until later.083 is preserved as the vanilla fallback; this report
+is not ALL PASS or a completed endurance milestone.
 
-083 raises the heap cap to192MiB, keeping the original signed server JAR,
-collector/C1 settings and world policies unchanged. This uses16MiB more potential
-memory and needs actual PS5 native-headroom validation. Shared read-only process
-limit diagnostics report policy values; they do not measure available memory.
+084 adds Fabric Loader0.19.5 for Minecraft26.3 and a tiny server-only test mod.
+The host verifies47pinned JARs, starts through Fabric's Knot classloader, executes
+the real mod entrypoint, then checks readiness, saves and clean shutdown. The
+same preflight/start sequence used by the console passes. PS5 loader/mod startup
+and joined play are pending. No arbitrary third-party mod or Fabric API support
+is claimed yet. See [Fabric validation and instructions](docs/fabric-084.md).
 
-A60-second host normal-world/81-chunk test passes25checks/13saves and clean stop,
-but full GCs and an initial world-generation tick outlier remain. The seed differs
-from082's failed stress test, so this is not a controlled performance comparison.
-Short joined-play console validation comes before the requested two-hour run.
-Persistence/rejoin, respawn/food and20-player capacity remain unvalidated. The
-work order stays stable vanilla server, server mods, then the client.
+The downloaded Mojang server JAR remains original. Standard Fabric/Mixin runtime
+class transformations are part of the authorized loader experiment; there are
+no project game-JAR rewrites or replacement game classes. Fabric uses a separate
+world-fabric-v1. The192MiB heap and083runtime/security/world-distance settings
+are retained. Do a short compatibility/play check first.
+
+The requested order is now Fabric/mods, then Paper/plugins, then client work.
+Paper26.3build207 is recorded as a researched candidate; it has not been built
+or validated on PS5. The two-hour vanilla baseline remains deferred, not passed.
 
 
 072captured a null function call through its new OS-random service import.
@@ -155,14 +159,14 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-083 retains the original server JAR; smoothness, native headroom, persistence and endurance remain pending.
+084 keeps the original server JAR on disk and adds standard Fabric loading; PS5 mod compatibility, native headroom, persistence and endurance remain pending.
 
 ### Build and verify
 
 With the pinned Java port/toolchain available:
 
 ```sh
-python3 tools/package_server_probe.py --runtime-workspace /path/to/PS5_Homebrew --join-player YOUR_ACCOUNT
+python3 tools/package_server_probe.py --runtime-workspace /path/to/PS5_Homebrew --join-player YOUR_ACCOUNT --flavor fabric
 python3 tools/test_server_start.py
 ```
 
@@ -1692,3 +1696,14 @@ remain unchanged. Host81-chunk/60-second save-stop validation passes, with full
 GCs and an initial chunk-generation stall still present. Actual PS5 memory and
 latency comparison remains pending; no new passing milestone or two-hour pass.
 See [measurements and limitations](docs/pauses-082.md).
+
+### Build084: first Fabric loader/mod candidate
+
+User reports lag-free083play and asks to try Fabric, then Paper, before the client,
+with the two-hour run deferred.084packages hash-pinned Fabric Loader0.19.5 and
+its dependencies plus a separate server-only smoke mod. Require actual mod
+entrypoint execution and the Fabric target classloader; NBT/protocol checks use
+that loader. Original game artifacts and the vanilla fallback remain intact.
+Host preflight/readiness/save/stop checks pass; PS5 startup/mod execution/joined
+play and real third-party mods remain pending. No ALL PASS milestone or sustained
+capacity claim. See [Fabric details](docs/fabric-084.md).

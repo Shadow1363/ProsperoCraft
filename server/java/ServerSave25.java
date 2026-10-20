@@ -8,11 +8,12 @@ public final class ServerSave25 {
  static Object call(Method method,Object target,Object...args)throws Exception {
   try{return method.invoke(target,args);}catch(InvocationTargetException e){if(e.getCause() instanceof Exception x)throw x;throw e;}
  }
- public static void check(Path world)throws Exception {
+ public static void check(Path world)throws Exception {check(world,ClassLoader.getSystemClassLoader());}
+ public static void check(Path world,ClassLoader loader)throws Exception {
   String stage="directory";Path directory=null;
   try {
    directory=Files.createTempDirectory(world,".ps5-save-check-");
-   Class<?> tag=Class.forName("net.minecraft.nbt.CompoundTag"),io=Class.forName("net.minecraft.nbt.NbtIo"),util=Class.forName("net.minecraft.util.Util"),account=Class.forName("net.minecraft.nbt.NbtAccounter");
+   Class<?> tag=Class.forName("net.minecraft.nbt.CompoundTag",true,loader),io=Class.forName("net.minecraft.nbt.NbtIo",true,loader),util=Class.forName("net.minecraft.util.Util",true,loader),account=Class.forName("net.minecraft.nbt.NbtAccounter",true,loader);
    Method write=io.getMethod("writeCompressed",tag,Path.class),replace=util.getMethod("safeReplaceFile",Path.class,Path.class,Path.class);
    Path current=directory.resolve("probe.dat"),backup=directory.resolve("probe.dat_old");
    for(int revision=1;revision<=2;revision++) {

@@ -59,3 +59,17 @@ mod loaders and individually validated mods for compatible pinned versions.
 Client graphics, native bindings and input come after server mods work.
 Track mihawk-99/PS5_Vulkan as a client graphics candidate; it is not an adopted
 or validated project dependency. Keep game/mod/client plans in this repository.
+
+## User work-order update on 2026-10-20
+
+The user reports lag-free joined gameplay on083 and explicitly defers the
+full two-hour run until later. Proceed with Fabric server/mod validation, then
+Paper server/plugin validation, before client work. This overrides the earlier
+requirement to finish the two-hour run before beginning server loaders. Keep
+083 as a vanilla fallback and keep endurance/persistence limitations explicit.
+Fabric/Paper are separate server flavors; use isolated worlds and pinned upstream
+distributions. Do not add project-specific game-JAR rewrites or game replacement
+classes. Standard upstream loader/Mixin behavior is part of the authorized mod
+experiment and must be disclosed. Paper executes its own upstream server rather
+than claiming to execute an unmodified Mojang server. No new passing milestone
+is established by the083performance report alone.

@@ -8,7 +8,7 @@ public class ServerStart25 {
  private static native void checkpoint(String stage);
  private static void trace(String stage){if(Boolean.getBoolean("ps5.probe.dependencyTrace"))checkpoint("MC start: "+stage);}
  private static final class Observer extends OutputStream {
-  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready;volatile long readyAt;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors,authErrors,discoveryErrors,networkErrors,playerJoins,playerSaveErrors;
+  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready,fabricModReady;volatile long readyAt;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors,authErrors,discoveryErrors,networkErrors,playerJoins,playerSaveErrors;
   OutputStream log;long logged;
   private void persist(byte[] bytes,int offset,int length){if(log==null)return;try{int n=(int)Math.min(length,32L*1024*1024-logged);if(n>0){log.write(bytes,offset,n);logged+=n;}if(n<length){log.write("\n[Log capped at 32 MiB]\n".getBytes(StandardCharsets.UTF_8));log.close();log=null;}else log.flush();}catch(IOException e){console.println("Probe console log write failed: "+e);try{log.close();}catch(IOException ignored){}log=null;}}
   public synchronized void close()throws IOException{if(log!=null){log.close();log=null;}}
@@ -26,6 +26,7 @@ public class ServerStart25 {
    }
   }
   private void note(){String value=line.toString().trim();
+   if(value.contains("PS5_FABRIC_SMOKE_OK id=ps5-fabric-smoke version=1.0.0"))fabricModReady=true;
    String prefix="[Server thread/INFO]: ";int at=value.indexOf(prefix);
    String reply=at<0?"":value.substring(at+prefix.length());
    if(reply.startsWith("System chat: "))reply=reply.substring("System chat: ".length());
@@ -130,7 +131,10 @@ public class ServerStart25 {
   if(!Boolean.getBoolean("ps5.mc.eulaAccepted"))throw new IllegalStateException("Human EULA acceptance is required before this test");
   Path root=Path.of(System.getProperty("ps5.mc.workdir",System.getProperty("user.dir"))).toAbsolutePath();
   boolean flat=Boolean.getBoolean("ps5.mc.validationFlat");
-  String worldName=flat?"world":"world-normal-v1";
+  String flavor=System.getProperty("ps5.mc.serverFlavor","vanilla");
+  if(!flavor.equals("vanilla")&&!flavor.equals("fabric"))throw new IllegalArgumentException("Unsupported server flavor: "+flavor);
+  boolean fabric=flavor.equals("fabric");
+  String worldName=fabric?"world-fabric-v1":flat?"world":"world-normal-v1";
   int view=(int)setting("ps5.mc.viewDistance",flat?2:4,2,12),simulation=(int)setting("ps5.mc.simulationDistance",flat?2:3,2,view);
   String stage="write authorized EULA and isolated world configuration";trace(stage);
   Files.createDirectories(root);
@@ -162,15 +166,18 @@ public class ServerStart25 {
     }
     stage="prepare authorized vanilla ops.json";trace(stage);ServerOperators25.prepare(root);
     stage="initialize and invoke original server nogui";trace(stage);
-    Class<?> main=Class.forName("net.minecraft.server.Main",true,ClassLoader.getSystemClassLoader());
-    main.getMethod("main",String[].class).invoke(null,(Object)new String[]{"--nogui","--universe",root.toString(),"--world",worldName});
+    ClassLoader gameLoader=ClassLoader.getSystemClassLoader();
+    String[] launchArgs={"--nogui","--universe",root.toString(),"--world",worldName};
+    if(fabric){ServerFabric25.prepare(root);gameLoader=ServerFabric25.launch(launchArgs);}
+    else {Class<?> main=Class.forName("net.minecraft.server.Main",true,gameLoader);main.getMethod("main",String[].class).invoke(null,(Object)launchArgs);}
     stage="wait up to 10 minutes for real Done readiness message";trace(stage);
     long deadline=System.nanoTime()+600_000_000_000L;
     while(!observer.ready&&System.nanoTime()<deadline){if(serverThread()==null)break;Thread.sleep(200);}
     if(!observer.ready)throw new IOException("Server did not report ready; thread exited or deadline elapsed");
+    if(fabric&&!observer.fabricModReady)throw new IOException("Fabric server test mod entrypoint did not execute");
     checkOnline(observer);
-    stage="verify vanilla compressed NBT player-save file operations";trace(stage);ServerSave25.check(root.resolve(worldName));
-    stage="initialize real gameplay protocol templates after readiness";trace(stage);ServerProtocol25.check();ServerOperators25.requireReady();
+    stage="verify vanilla compressed NBT player-save file operations";trace(stage);ServerSave25.check(root.resolve(worldName),gameLoader);
+    stage="initialize real gameplay protocol templates after readiness";trace(stage);ServerProtocol25.check(gameLoader);ServerOperators25.requireReady();
     // Optional host stress fixture, absent from console launch options.
     long chunks=setting("ps5.mc.validationChunkRadius",0,0,6);
     if(chunks>0){long edge=chunks*16;command(commands,"forceload add "+(-edge)+" "+(-edge)+" "+edge+" "+edge);}

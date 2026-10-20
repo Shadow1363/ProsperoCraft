@@ -23,7 +23,8 @@ public class ServerPreflight25 {
    System.out.println("MC_ZIP_STREAM_OK native deflate/inflate allocations and content verified");
    Path root=Path.of(System.getProperty("ps5.mc.assets","/app0/assets/java25"));
    Properties inventory=new Properties();try(var input=Files.newInputStream(root.resolve("server-inventory.properties"))){inventory.load(input);}
-   if(inventory.size()!=40)throw new AssertionError("Expected 40 pinned JARs");
+   int expected=System.getProperty("ps5.mc.serverFlavor","vanilla").equals("fabric")?47:40;
+   if(inventory.size()!=expected)throw new AssertionError("Expected "+expected+" pinned JARs");
    for(String file:new TreeSet<>(inventory.stringPropertyNames())) {
     if(file.contains("/")||file.contains("\\")||!file.endsWith(".jar"))throw new AssertionError("Invalid inventory path");
     stage="verify JAR SHA-256 "+file;trace(stage);
@@ -67,7 +68,7 @@ public class ServerPreflight25 {
    if(Boolean.getBoolean("ps5.probe.requireC1")){stage="verify actual C1 compiled results";trace(stage);ps5probe.JitWarmup25.check();}
    else if(!flags.contains("-Xint"))throw new AssertionError("Missing actual interpreter control flag");
    System.out.println("MC_MANAGEMENT_OK actual heap, non-heap and VM flags");
-   System.out.println("MC_PREFLIGHT_OK 26.3 / Java25 / 40 verified JARs");
+   System.out.println("MC_PREFLIGHT_OK 26.3 / Java25 / "+expected+" verified JARs");
   }catch(Throwable error){
    StringBuilder causes=new StringBuilder();Throwable cause=error;
    for(int depth=0;cause!=null&&depth<8;depth++,cause=cause.getCause()) {

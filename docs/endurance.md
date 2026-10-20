@@ -397,3 +397,12 @@ remains intact. First validate startup and short joined play/native headroom;
 do not treat the60-second host81-chunk save-stop pass as a console or two-hour
 pass. Full GCs and world-generation stalls still require investigation.
 See [evidence and tradeoffs](pauses-082.md).
+
+## User deferral and Fabric084
+
+On2026-10-20 the user reports no lag in083joined play and defers the full two-hour
+run until later. Continue with Fabric/mods, then Paper/plugins, before client
+work. This is not a completed endurance result or ALL PASS. Preserve083vanilla.
+084is a short loader/mod compatibility play test in world-fabric-v1. Its monitor
+can remain open up to7200seconds with300-second saves, but a short session does
+not establish that result. See [Fabric instructions](fabric-084.md).

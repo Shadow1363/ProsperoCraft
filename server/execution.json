@@ -1,5 +1,5 @@
 {
-  "build": "01.000.083",
+  "build": "01.000.084",
   "server_jar": "server-26.3.jar",
   "server_sha256": "a362163eec5d1612d520772bc16e5b39c09e3b234fdc045f56bf544284ee8ae6",
   "mode": "original signed server JAR, all bytes pinned",
@@ -7,5 +7,5 @@
   "replacement_game_classes": [],
   "operators": "vanilla ops.json prepared from startup whitelist; current whitelist gets level4 and no player-limit bypass. Later runtime whitelist additions use vanilla op administration or restart.",
   "monitoring": "vanilla time/tick/data/save/stop commands and JVM counters; no injected per-tick or food/use observer",
-  "console_validation": "081/082 original-server readiness and authenticated joined play confirmed;083 heap/native-headroom experiment pending PS5. No ALL PASS or completed two-hour run."
+  "console_validation": "083 user reports lag-free joined gameplay; full two-hour test deferred.084 Fabric loader/mod PS5 acceptance pending; no new ALL PASS milestone."
 }

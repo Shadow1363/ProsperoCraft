@@ -1,0 +1,13 @@
+{
+  "state": "researched next stage; not built or PS5 validated",
+  "observed_date": "2026-10-20",
+  "minecraft": "26.3",
+  "build": 207,
+  "channel": "STABLE",
+  "metadata_url": "https://fill.papermc.io/v3/projects/paper/versions/26.3/builds/207",
+  "file": "paper-26.3-207.jar",
+  "url": "https://fill-data.papermc.io/v1/objects/2df3b846f70716907d380915cc026667a9cadedf99b1ec680b0c5ff0e6132526/paper-26.3-207.jar",
+  "size": 55244868,
+  "sha256": "2df3b846f70716907d380915cc026667a9cadedf99b1ec680b0c5ff0e6132526",
+  "next": "After Fabric PS5 loader/mod validation, integrate upstream Paper in its own world and test plugins; no project game rewrites."
+}

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id": "ps5-fabric-smoke",
+  "version": "1.0.0",
+  "name": "PS5 Fabric Server Smoke Test",
+  "environment": "server",
+  "entrypoints": {"main": ["ps5fabric.SmokeMod"]},
+  "depends": {"fabricloader": "0.19.5", "minecraft": "26.3", "java": ">=25"},
+  "license": "GPL-3.0-or-later"
+}
