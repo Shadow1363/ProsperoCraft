@@ -100,19 +100,21 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Paper native-memory candidate 01.000.101
+## Current development: Paper DNS-recovery candidate 01.000.102
 
-100 passes online preflight and Paper's Java policy, then aborts on a 4 MiB
-metadata reservation as the runtime's 128 MiB shared direct-memory allowance
-fills. 101 raises that bounded, on-demand allowance to 256 MiB and reports policy
-refusals separately from kernel errors. See [evidence and validation](docs/native-memory-failure-100.md).
+101 fails on its first online DNS query, before Paper starts. The early resolver
+pair exists, and the direct-memory counters show no failures or policy refusals.
+102 retries a completed DNS timeout up to three times within that same lease,
+then preserves the real failure if resolution still fails. See
+[evidence and validation](docs/dns-timeout-failure-101.md).
 
-Paper/game/probe/plugin JARs, the module image and Java heap settings are
-unchanged. Host allocation/ownership checks and target rebuild pass. Actual PS5
-Paper startup, joining, plugins, memory pressure and persistence remain pending.
-Try CreateVM, VerifyJARs, then Play. Circle requests save/stop once running;
-reopen after expected app exit for logs. Full two-hour test stays deferred;
-release after console acceptance, then client.
+Paper/game/probe/plugin JARs, the module image and HotSpot are unchanged from 101.
+The 256 MiB native-memory allowance remains; 101 did not reach Paper to validate it.
+Host resolver/fault/cleanup checks pass. Try CreateVM, VerifyJARs, then Play.
+Actual PS5 DNS recovery, Paper startup, joining, plugins and persistence remain
+pending. Circle requests save/stop once running; reopen after expected app exit
+for logs. Full two-hour test stays deferred; release after console acceptance,
+then client.
 
 
 072captured a null function call through its new OS-random service import.

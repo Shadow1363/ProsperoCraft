@@ -966,10 +966,19 @@
     {
       "app_version": "01.000.101",
       "package_sha256": "fce762198ad30b30a371ade52828323696127af1f0ad66954139d8fe47696b9c",
-      "console": "pending",
+      "console": "FAIL first online discovery DNS lookup; no VM abort in current-run session",
       "changes": "Runtime0111 increases shared native direct held allowance128MiB->256MiB with separate policy-refusal counter; same2048slots and exact/inflight/failedcleanup ownership; no preallocation, heap or stack-owner cap increase. No game/probe/plugin/moduleimage changes.",
       "checks": "PASS actual allocator/ledger ASan/UBSan mixed data/metadata beyond128MiB, exact256MiB cap, refusal without kernel call, release/reuse, faults/slots/concurrent lifetimes; metadata/class-space/attached-stack ABI/compiler-stack and ZIP regressions. Target HotSpot build/exact patch pass. Package CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/symbols/silence/singleledger/fallbackhashes pass. Exact100 game/probe/plugin/moduleimage/othernativecode retained.",
-      "pending": "Actual PS5 backing availability, class loading/GC/thread lifecycle, Paper readiness, plugin enable/scheduler/command, joined gameplay/save/stop/reload. Full7200s deferred; no ALL PASS or release."
+      "pending": "102 bounded timeout retries; PS5 recovery and Paper memory/readiness/join/plugin/persistence remain pending. Full7200s deferred.",
+      "evidence": "Current101 reports retrieved2026-10-21: early pool/resolver preparation succeeds; reusehandles then query0x804101E2/neterrno226; SDK EAI_FAIL, Java UnknownHostException. Trust111issuers/DRBG/TLSfactory complete. Direct256MiB trace reports zero policy/kernel failures; Paper not reached. Raw logs local."
+    },
+    {
+      "app_version": "01.000.102",
+      "package_sha256": "1fa7542b96c8598bdfc870305a6b034773515e9d2769098342ecb25dc202557c",
+      "console": "pending",
+      "changes": "Reusable scoped DNS adapter retries completed default-policy timeout226 at most3 times within same lease; nondefault calls unchanged, actual answers/finalerrors retained. HotSpot/shared256MiB/game/probe/plugin/moduleimage/native libraries unchanged from101.",
+      "checks": "PASS actual scoped adapter+SHA-pinned SDK lookup/conversion/cleanup ASan/UBSan recovery2/3, exact3 persistent timeout, timeout->permanent error, permanent no-retry, explicit timeout/asyncflags passthrough, errno/failed-answer isolation/lease recovery and400 cross-thread fresh queries with late allocation refusal. PASS102 ZIPCRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/symbols/silence/singleledger/fallbackhashes; exact101 game/probe/plugin/moduleimage/ALLnative libraries retained. Onlyapplication adapter/buildlabel changes; retry diagnostic linked. No newhostgame run; unchanged100 hostPaper evidence remains separate.",
+      "pending": "Actual PS5 DNS recovery/online preflight/Paperreadiness/plugin lifecycle/joinedplay/save/stop/reload/nativeheadroom. Full7200s deferred; noALLPASS/release."
     }
   ]
 }

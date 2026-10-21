@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.101",
+  "app_version": "01.000.102",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "fce762198ad30b30a371ade52828323696127af1f0ad66954139d8fe47696b9c",
-  "console": "100 native metadata reservation abort at shared128MiB allowance;101 pending PS5.",
-  "host": "PASS actual allocator/ledger ASan/UBSan mixed data/metadata beyond128MiB, exact256MiB cap, refusal without kernel call, release/reuse, faults/slots/concurrent lifetimes; metadata/class-space/attached-stack ABI/compiler-stack and ZIP regressions. Target HotSpot build/exact patch pass. Package CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/symbols/silence/singleledger/fallbackhashes pass. Exact100 game/probe/plugin/moduleimage/othernativecode retained.",
-  "package": "PASS101 current target HotSpot and linked policy diagnostic; exact100 game/probe/plugin/moduleimage/othernativecode retained; signatures/CRC/pins/config/fallbacks verified.",
+  "package_sha256": "1fa7542b96c8598bdfc870305a6b034773515e9d2769098342ecb25dc202557c",
+  "console": "101 normalFAIL first online DNSquery0x804101E2/neterrno226; Paper not launched.102 PS5pending.",
+  "host": "PASS actual scoped adapter+SHA-pinned SDK lookup/conversion/cleanup ASan/UBSan recovery2/3, exact3 persistent timeout, timeout->permanent error, permanent no-retry, explicit timeout/asyncflags passthrough, errno/failed-answer isolation/lease recovery and400 cross-thread fresh queries with late allocation refusal. PASS102 ZIPCRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/symbols/silence/singleledger/fallbackhashes; exact101 game/probe/plugin/moduleimage/ALLnative libraries retained. Onlyapplication adapter/buildlabel changes; retry diagnostic linked. No newhostgame run; unchanged100 hostPaper evidence remains separate.",
+  "package": "PASS102 exact101 game/probe/plugin/moduleimage/ALLnative libraries; updated scoped adapter/buildlabel linked. CRC/signatures/pins/config/fallbacks verified.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -30,18 +30,18 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "101 reusable runtime0111 shared native direct headroom256MiB and separate policy-refusal counter; no game JAR transformations.",
+  "scope": "102 reusable scoped SDK DNS adapter retries completed timeout226 at most3 times using same lease. Nondefault policy and final errors retained; no game JAR/security changes.",
   "max_heap_mib": 384,
-  "runtime_adaptation": "Runtime545ddc9 includes0111, shared on-demand native direct budget256MiB; other memory/stack/heap policy unchanged.",
+  "runtime_adaptation": "Runtime5083320: bounded scoped DNS timeout retries; HotSpot0111/direct256MiB and allnative libraries unchanged from101.",
   "probe_jar_sha256": "085b80a9786926150fcc3b614dcf05d8819b48ae969c4cf53176356a0841f3a6",
   "diagnostics": "Bounded os+thread=info only in legacy exceptions.log route pair (8MiBactive/one8MiBrotated), plus vanilla commands/GC/TPS/nativeusage. Verbose packet control-flow exceptions omitted. Future player-save warning may need focused logging.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "100 metadata native OOM as128MiB shared ledger fills.101 increased allowance pending console backing availability/startup/join/plugin/persistence; full2h deferred.",
+  "known_failures": "101 first discovery query timeout;102 retries pending actualPS5 recovery. Paper readiness/nativepressure/join/plugin/persistence remain unvalidated; full2h deferred.",
   "diagnostic_adapter": "External harness andseparatePaperplugin only. Runs upstreamPaper prepared byoriginalPaperclip; no projectgameJARrewrites/replacements. OriginalMojangbundle isunchanged incache; vanilla/Fabric retained separately.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8MiBrequested,earlycachedattrs beforeVM;ordinarycreatefirst,PS5EAGAIN/ENOMEM->sharedVMABIownedstack;realAttach/workerJNIEnv/Detach andjoinTLS-before-free. Launchphase/code savedto startupandcurrent/pertestexceptionroutes. Failedjoin/release retainsownership. ActualPS5pending.",
-  "crash_evidence": "100 current-run reports: online preflight and experimental Java opt-in complete; Paper initializes one plugin inventory, then native fatal OOM reserving4MiB metadata while loading EntityType. Shared direct ledger held0x7dd8000 against128MiB immediately before failure, zero recorded kernel failures; budget refusal was not separately counted. Raw logs local.",
+  "crash_evidence": "101 reports: early DNS pair exists/reused, query0x804101E2/neterrno226; EAI_FAIL/UnknownHostException beforePaper. Current session FAIL ratherthanVMabort; direct256MiBtrace no policy/kernel failures. Raw logs local.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -272,5 +272,12 @@
     "slots": 2048,
     "console": "pending",
     "behavior": "on-demand shared cap only; failed cleanup/inflight charges and stack-owner limits retained; policy_rejections separate from kernel failures."
+  },
+  "dns_timeout_retries": {
+    "source": "java25/probe/netdb_alloc.cpp",
+    "max_default_attempts": 3,
+    "retry_error": 226,
+    "console": "pending",
+    "scope": "Completed default synchronous timeouts only; same pool/resolver lease; actual answers/errors, no preset/cache/newresources; explicit timeout/retry/flags unchanged."
   }
 }
