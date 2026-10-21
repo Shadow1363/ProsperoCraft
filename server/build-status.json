@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.095",
+  "app_version": "01.000.096",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "858d488c8883273491bdd2efb2f9e8062c44331318f29bbcc9b59b56bcc97390",
-  "console": "Fabric satisfaction reported byuser after094candidate; exactALLPASS/full7200s notreported.095Paper pendingPS5.",
-  "host": "PASS final095Paper actualhost/C1/384MiB/normalworld/25forcedchunks,105JARpreflight,pluginenable/scheduler/command,NBT/protocol,60seconds/28checks/14flushedsaves/normalexit0; separateearlystop12s/4checks/3saves. NativeclassifierASan/UBSan+actualshutdownlogreplay andPaperobserverERRORcontrols PASS. Nojoinedhostplayers.224MiBstructuregenerationOOM recorded. Existing monitor/output/HTTPS/identity/rate-limit regression tests PASS against finalprobe.",
-  "package": "PASS095 ZIPCRC/version/384MiB/C1/security/options,105upstreampins/audit/noFabriccontamination,pluginhash/lifecycle/commandmarkers,normalexitclassifier/Circle/shortlabel,8currentnativefiles/linkedexports/singleVMledger/stackowner/libccounter,targetmoduleclasses,image/signatures/copies/symbols,silence; exactFabric094/093,vanilla083,frozen058 retained.",
+  "package_sha256": "ce96d3ad3aee39dcc11476f97e9f3b9d41e9c4971e9afee8d93561a55d190497",
+  "console": "095VMcreationABORT: Couldnotallocatecompressedclassspace33554432bytes; traceordinary32MiBreserveENOMEM. NoPaper/gamecode starts.096pending.",
+  "host": "PASS actual0108compactclassreservation/sharedledger/releaseASan/UBSan32MiB/4MiBalignment/mtClassNMT/protection/zero/subrange/error/header/range/budget/rollback/cleanup; earliermetadataregressions+targetHotSpot+exactpatch. No newhostgame run:game/probe/loader/pluginunchanged;095hostPaper60s/28checks/14saves andshortenedpath evidence retainedseparately.",
+  "package": "PASS096 ZIPCRC/version/384MiB/C1/security/options/105pins/plugin/audit/noFabric,8targetnativefiles/modules/signatures/copies/symbols/silence/singleledger/stack/libccounter/earlierexports;0108classmarker inlibjvm+linkedELF. Exact095game/probe/plugin/moduleimage/othernativecode unchanged. Failed095,Fabric094,vanilla083,frozen058 hashes retained.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -30,18 +30,18 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "095 pinned upstream Paper207,isolatedworld/plugin,384MiB,additionaltargetmoduleclasses,Paperconsolebridge,normalSystem.exit classification andCircle shortenedplaycheck; PS5 pending.",
+  "scope": "096runtime0108compressedclassdirectfallback; consumerver/runtimepin only.095Paper384MiB/config/plugin/exitbehavior/moduleimage/game/probe unchanged.",
   "max_heap_mib": 384,
   "runtime_adaptation": "Runtime source unchanged atd56aaab; retains0101..0107 native memory/thread/selector repairs. Paper consumer requestsjava.net.http/jdk.security.auth moduleclosure classes, no addednativeJAAS/GSS support.",
   "probe_jar_sha256": "af74559fe3f8568a965b7f7bcdda654389e6b4e066ebb46c4c6d8ab8ad23a8a0",
   "diagnostics": "Bounded os+thread=info only in legacy exceptions.log route pair (8MiBactive/one8MiBrotated), plus vanilla commands/GC/TPS/nativeusage. Verbose packet control-flow exceptions omitted. Future player-save warning may need focused logging.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "224MiB normalPaperworldgen hostOOM;384MiB hostcontrols pass. ActualPS5heapreservation/nativeheadroom/modules/Paperstartup/joins/latency/respawn/playerpersistence/stop unvalidated. Arbitraryplugins/20playerload/client pending; full7200s deferred.",
+  "known_failures": "095compressedclass32MiBordinaryreserveENOMEM abort;0108candidatepending.384MiBPaperheap/shared128MiBdirectbudgetmaystilllacknativeheadroom. ActualPS5module/Paper/plugin/join/latency/persistence/normalshutdown unvalidated. Full7200sdeferred;releaseafterexactconsoleacceptance.",
   "diagnostic_adapter": "External harness andseparatePaperplugin only. Runs upstreamPaper prepared byoriginalPaperclip; no projectgameJARrewrites/replacements. OriginalMojangbundle isunchanged incache; vanilla/Fabric retained separately.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "Prior093 preflight HTTP429 before selectorbackend;094user Fabric satisfaction report.095 nottested onPS5. Paper224MiBhostJavaheapOOM inNBT structures, repairedhostcandidate384MiB.",
+  "crash_evidence": "Current095session+abort+native startup/trace retrieved2026-10-21:JNI_CreateJavaVM reaches ordinary32MiBcompressedclassreservation withrepeatedENOMEM thenVMABORT. LargerPaperheap384MiBrequested; thisdoesnotmeasureglobalfreephysicalmemory. Previousstartuphistory containsolderruns andisnot095gameplayevidence.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -57,13 +57,13 @@
     "host_test_seconds": 60,
     "host_checks": 28,
     "host_flushed_saves": 14,
-    "console": "095Paper pending; Fabric satisfactionreported094.7200s deferred/notpassed.",
+    "console": "095abortsVMcreation;096pending.7200sdeferred/notpassed.",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0,
     "host_version": "01.000.095"
   },
-  "consumer_changes": "095 pinned upstream Paper207,isolatedworld/plugin,384MiB,additionaltargetmoduleclasses,Paperconsolebridge,normalSystem.exit classification andCircle shortenedplaycheck; PS5 pending.",
+  "consumer_changes": "096runtime0108compressedclassdirectfallback; consumerver/runtimepin only.095Paper384MiB/config/plugin/exitbehavior/moduleimage/game/probe unchanged.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -221,12 +221,20 @@
     "world": "world-paper-v1",
     "plugin": "PS5PaperSmoke1.0.0 lifecycle/scheduler/ps5probe command; no gameplaychanges",
     "shutdown": "upstreamSystem.exit0 normal. Circle request->liveprogress/finalflush->armed currentrun marker->nativecallback checks plugindisable/dimensionI/O/finalRegionIO/level.dat/code0. App exitsnormally; reopenforreports. Shortcheck isnot fullendurance.",
-    "console": "pending"
+    "console": "095failsVMcreatebeforegame;096pending"
   },
   "fabric_fallback": {
     "version": "01.000.094",
     "source_commit": "d43c3bd2fa044e40ce334a70a41769770b3244d7",
     "package_sha256": "97ec74c40b9c495884130f9dae0ab10bf393e521265cbe82177f06190176df2d",
     "console": "User satisfied; formalexactALLPASS/fullendurance notexplicitlyreported. Notfrozenmilestone."
+  },
+  "compact_class_space_direct": {
+    "runtime_patch": "0108",
+    "ordinary_first": true,
+    "gates": "PS5AMD64,compactheaders,ENOMEM,range<=max_klass_range_size",
+    "backing": "existing128MiB/2048slotsharedledger;32MiBclassspaceimmediatecharge",
+    "lifecycle": "metadataowner,zero/PROT_NONE,mtClassNMT,normalencodinginit/commit/protectionzone/subrangeuncommit/exactrelease",
+    "console": "096pendingVMcreation/classloading/C1/GC/nativeheadroom/Paper"
   }
 }

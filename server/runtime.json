@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "d56aaab15b4ba20fca8dbbef4f870da9e2acdfc0",
+  "commit": "0723916f9031e3bc46e8ee1ee367b6cb23963a99",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
   "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at224MiB max heap in089; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled Paper095 uses384MiB maxheap after224MiB normalworldgen hostOOM. Fabric retains224MiB. PaperPS5nativeheadroom pending.",
@@ -21,5 +21,6 @@
   "direct_metaspace": "0104: ordinary non-fixed/nonexec mtMetaspace ENOMEM can use existing shared128MiB/2048slot direct ledger with requested alignment, zeroed PROT_NONE reservation/NMT event, existing RWcommit, zero+NONE logicaluncommit retaining physicalbudget and exactwhole release. Java heap/classspace/exec excluded. Target/hosttests pass;090PS5pending.",
   "direct_thread_stacks": "0105: after final Java-thread EAGAIN/errnoENOMEM only, explicit direct-backed stack with dedicatedjoinableattributes and early128KiB native reaper; join-before-release includesTLSdestructors.64owner slots/32MiB stackbudget share128MiBdirectpool. Guarduncommit retainsownedbacking. Ordinary paths/stacksize remain; SDKsuccessnotguaranteed. Host/targetchecks pass;091PS5pending.",
   "directory_direct_memory": "0106PS5directorycontext/recordbuffers ordinarymapENOMEM use existing sharedVM ABI/ledger with separatebackendownership/exactcleanup; stagefd/context/buffer diagnostics andPS5libnioVMdependency. No fdallocationfix/empty-on-error/newpool. ActualJNI/bridge/ledger/parser/targetchecks pass;092PS5pending. 092 reaches readiness; prior directory failure does not recur. Full persistence/lifecycle pending.",
-  "selector_user_wakeup": "0107 PS5 pre-registered EVFILT_USER/EV_CLEAR + NOTE_TRIGGER avoids observed IOUtil.write1 ENOMEM. Existing lock/coalescing/close and error propagation retained; explicit unsupported fallback uses pipe. Host actual selector/JNI/kqueue concurrency/readiness/fault controls and target classes/native build pass; PS5 event availability/joined stability pending."
+  "selector_user_wakeup": "0107 PS5 pre-registered EVFILT_USER/EV_CLEAR + NOTE_TRIGGER avoids observed IOUtil.write1 ENOMEM. Existing lock/coalescing/close and error propagation retained; explicit unsupported fallback uses pipe. Host actual selector/JNI/kqueue concurrency/readiness/fault controls and target classes/native build pass; PS5 event availability/joined stability pending.",
+  "compact_class_space_direct": "0108PS5AMD64compactheaders class-space ordinaryENOMEM->existingdirectmetadatapool; rangegate,zero/PROT_NONE/mtClassNMT,normalencodinginit/subrangeuncommit/exactrelease. Shared128MiBunchanged,32MiBimmediatephysicalclasscharge; actualPS5VMcreate/nativeheadroom pending. Hostactualreservation/ledger/releaseASan/UBSan+targetHotSpot pass."
 }

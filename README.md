@@ -100,25 +100,23 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Paper candidate 01.000.095
+## Current development: Paper VM-creation candidate 01.000.096
 
-The user is satisfied with Fabric; its094 package/source remain a fallback.
-095 starts the Paper stage with pinned upstream Paper26.3build207, an isolated
-normal world and a separate plugin for lifecycle, scheduler and `/ps5probe`
-checks. Paper executes its upstream server distribution. No project game-JAR
-rewrites or replacement classes are introduced. Music stays off.
+095 aborts during VM creation because its32MiB compressed class space cannot be
+reserved through ordinary memory mapping. Paper itself never starts.096 adopts
+runtime0108: a PS5 compact-header class-space fallback through the existing
+bounded direct-memory backend, preserving normal class encoding and lifecycle.
+The384MiB heap and shared128MiB direct budget remain unchanged. ActualPS5 native
+headroom and VM creation still need testing. See
+[evidence and validation](docs/class-space-failure-095.md).
 
-Host startup/plugin/60-second tick/save/normal-exit checks pass at384MiB after
-224MiB world-generation heap exhaustion. An early-stop fixture also passes.
-The runtime source is unchanged; Paper adds target module classes. ActualPS5
-memory, startup, joining, plugins and persistence still need validation. See
-[the candidate, stop behavior and release gate](docs/paper-candidate-095.md).
-
-Press **Circle** in the probe after playing to request a flushed save and stop.
-Paper normally exits the JVM and closes the app; reopen it for reports. A short
-play check is recorded separately from the deferred two-hour run. Keep the
-vanilla083 fallback and frozen058 snapshot. After exact Paper console acceptance,
-freeze and publish the server release before beginning client work.
+Native reservation/ownership fault tests, targetHotSpot build and patch checks
+pass. Paper/game/probe/plugin/moduleimage/config stay unchanged. The earlier
+095 hostPaper startup/plugin/60s/save/normal-exit tests remain host evidence, not
+console proof. Fabric094 remains a fallback; music is off. After VM creation,
+verify/start/join and try `/ps5probe`. Circle requests a save/stop; Paper normally
+closes the app, so reopen for reports. Full two-hour run stays deferred. Freeze
+and publish the exact accepted server release before client work.
 
 
 072captured a null function call through its new OS-random service import.
@@ -159,7 +157,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-Fabric satisfaction is reported after094. Paper095 is pending actualPS5 validation; no new frozen milestone or completed two-hour run is claimed.
+Fabric satisfaction is reported after094. Paper096 is pending actualPS5 validation; no new frozen milestone or completed two-hour run is claimed.
 
 ### Build and verify
 

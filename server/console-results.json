@@ -912,10 +912,19 @@
     {
       "app_version": "01.000.095",
       "package_sha256": "858d488c8883273491bdd2efb2f9e8062c44331318f29bbcc9b59b56bcc97390",
-      "console": "pending",
+      "console": "FAIL VMcreation/ABORT beforePaperstartup",
       "changes": "Paper26.3build207 pins105upstreamJARs,hostoriginalPaperclip preparation. No projectgamebytecode changes. Isolatedworld-paper-v1 andPS5PaperSmoke1.0.0 plugin,105pinpreflight,Paperlogging withoutrecursiveconsolebridge,384MiBheap vs224MiBFabric afterhostOOM. java.net.http/jdk.security.auth classes added; jaasnativeunported,optionalupstreamrootcheckhandlesmissingnative. Nativecurrentrun cleanexitclassification/Circle shortenedplaycheck; full7200s notclaimed.",
       "checks": "PASS105upstreamJARinventory/originalPaperclip preparation/plugin compilation; host384MiBPaper60s/plugin/NBT/protocol/25forcedchunks/28healthchecks/14saves/exit0; shortened12s/4checks/3saves/controller-style path separately. Actualnativeexitclassifier ASan/UBSan+realshutdownlog replay,actualobserverPaperERROR/pluginmarker checks. PackageCRC/version/options/105pins/audit/noFabric/8nativefiles/moduleclasses/image/symbols/signatures/silence/fallbackhashes pass. No hostplayers.224MiBhostOOM recorded. Existing monitor/output/HTTPS/identity/rate-limit regression tests pass against finalprobe; nativeclassifier also rejectssavewarnings.",
-      "pending": "ActualPS5newmoduleloading/heap/nativepressure/Paperstartup/onlinejoin/plugincommands/movement/damage/food/grass/chunks/playerpersistence/normalshutdown. Full7200sdeferred; arbitraryplugins/20playerload/clientunvalidated. Freeze/releaseonlyafterexactconsolepass; noALLPASSclaim."
+      "pending": "096runtime0108classreservationcandidate; nativeheadroom/VMcreate/Paperstartup/join/plugins/persistence/stop unvalidated. Full7200sdeferred.",
+      "evidence": "Current095session/abort/startuptail/nativetrace retrieved2026-10-21. Couldnotallocatecompressedclassspace33554432bytes; repeatedordinary32MiBreserveENOMEM,finalaligned37,748,736-byteattemptENOMEM.384MiBheaprequested. No currentPaper/gameexecution. Rawlogslocal."
+    },
+    {
+      "app_version": "01.000.096",
+      "package_sha256": "ce96d3ad3aee39dcc11476f97e9f3b9d41e9c4971e9afee8d93561a55d190497",
+      "console": "pending",
+      "changes": "Runtime0108PS5AMD64compactclassspace ordinaryENOMEM fallback toexistingsharedbounded directmetadataownership;normalclassencoding/NMT/protection/commit/release retained. Noheap/poolbudgetincrease. Game/Paper/probe/plugin/moduleimage/config384MiB/OP/security/silence unchanged.",
+      "checks": "PASSactualclassreservation/sharedledger/releaseASan/UBSan32MiB/4MiBalignment,zero/protect/subrange/error/header/range/budget/rollback/cleanup;targetHotSpot/exactpatch. Nonewhostgame test;095evidence retainedseparately. PASS096 ZIPCRC/version/384MiB/C1/security/options/105pins/plugin/audit/noFabric,8targetnativefiles/modules/signatures/copies/symbols/silence/singleledger/stack/libccounter/earlierexports;0108classmarker inlibjvm+linkedELF. Exact095game/probe/plugin/moduleimage/othernativecode unchanged. Failed095,Fabric094,vanilla083,frozen058 hashes retained.",
+      "pending": "ActualPS5VMcreate/classload/C1/GC/encoding/protectionzone/nativepoolpressure,thenPaperplugins/joinedplay/save/rejoin/stop. Shared128MiBstillrefusable;32MiBclassbackingphysicalcharge. Full7200sdeferred;noALLPASS/releaseyet."
     }
   ]
 }

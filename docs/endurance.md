@@ -500,3 +500,11 @@ final save/stop. Paper normally calls System.exit0; the native callback validate
 current-run/plugin/dimension I/O/level evidence before recording success. Reopen
 the app for reports. Shortened checks print MC_PLAY_CHECK_COMPLETE and do not
 claim full7200s. See [candidate details and release gate](paper-candidate-095.md).
+
+## Paper096 VM creation repair
+
+095 aborts before game startup on ordinary32MiB compressed class reservation
+ENOMEM.096 adopts runtime0108 compact-header direct metadata fallback with
+unchanged sharedbudget/384MiBheap/game/config. VMcreation/classloading/native
+headroom/Paperplay remain pending.7200s deferred. See
+[evidence and limits](class-space-failure-095.md).
