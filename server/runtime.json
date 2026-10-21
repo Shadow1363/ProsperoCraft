@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "ddd42100eca0df129423a6c50ef7b9d795b24eb0",
+  "commit": "545ddc910128a2d1b7aca838bad21b8dd46b6bb2",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
   "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at224MiB max heap in089; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled Paper095 uses384MiB maxheap after224MiB normalworldgen hostOOM. Fabric retains224MiB. PaperPS5nativeheadroom pending.",
@@ -25,5 +25,6 @@
   "compact_class_space_direct": "0108PS5AMD64compactheaders class-space ordinaryENOMEM->existingdirectmetadatapool; rangegate,zero/PROT_NONE/mtClassNMT,normalencodinginit/subrangeuncommit/exactrelease. Shared128MiBunchanged,32MiBimmediatephysicalclasscharge; actualPS5VMcreate/nativeheadroom pending. Hostactualreservation/ledger/releaseASan/UBSan+targetHotSpot pass. 096PS5classdirect32MiB/4MiBalignment succeeds; fullclasslifecyclepending.",
   "compiler_thread_owned_stack": "0109extendsfinalEAGAIN/ENOMEM owned-stack fallback tocompiler_thread retaining1MiBrequestedsize/normalentry/guards/joinTLSreap/exactrelease. Existing32MiBstack/128MiBsharedbudgets andC1settingsunchanged. Actualgate/1MiBownerASan/UBSan+512KiBregression+targetbuildpass;097PS5pending.",
   "jni_worker_stack": "ReusableJNIworkerprepare cachesattrs beforeVMpressure,ordinary8MiBfirst; PS5pthreadcreateEAGAIN/ENOMEM->0110existingVMstack-purposeABI ownedexplicitstack<=8MiB;joinTLSbeforeunmap/failedcleanupretained/stagedfailures. Hostactualheader/realJVM/pthreadcontrolsPASS.097playfailurebeforecallback exactcauseunknown;098pendingPS5.",
-  "early_dns_pair": "ps5_dns_prepare beforeVMpressure:existing16KiB pool/resolver,noquery/cache/extra pair;idempotent/partialfailureleasecleanup/errors. Actualadapter+SDK/JDKASanUBSan/concurrency/preparechecksPASS;099PS5pending."
+  "early_dns_pair": "ps5_dns_prepare beforeVMpressure:existing16KiB pool/resolver,noquery/cache/extra pair;idempotent/partialfailureleasecleanup/errors. Actualadapter+SDK/JDKASanUBSan/concurrency/preparechecksPASS;099PS5pending.",
+  "native_direct_headroom": "0111 raises shared on-demand native direct ledger ceiling128MiB->256MiB;2048slots,ownership,inflight/failedcleanup accounting unchanged. Separate policy_rejections diagnostic. Dedicated stack caps unchanged; PS5 backing availability/classloading/stability pending."
 }

@@ -957,10 +957,19 @@
     {
       "app_version": "01.000.100",
       "package_sha256": "79879fbddcadb64b2aba01358ca2bfb20179cc4093f20aed33e8d13851fde883",
-      "console": "pending",
+      "console": "CRASH native4MiB metadata reservation while loading Paper/Bukkit classes",
       "changes": "PaperexplicitIgnoreJavaVersionoptin foractualJava25internal/prereleaselabels;realidentityandfeaturegatemaintained,experimentalmessage. No gameJAR/runtimeidentity/security/memoryrewrite.",
       "checks": "PASSactualpolicyGA/internal/identity/feature25;actualPaperhostinternal-label15s/7checks/4flushedsaves/25forcedchunks/plugin/NBT/protocol/normalexit0/persistedworld;0joins. PASS100ZIPCRC/version/options/105Paperpins/plugin/audit/noFabric,8targetnativefiles/moduleimage/signatures/copies/symbols/silence/singleownershiptables/fallbackhashes. OnlyServerPaper25probeclass changesfrom099;optin/featuregate/experimentallog present;hostfixturesexcluded;runtime/moduleimage/game/plugin unchanged.",
-      "pending": "ActualPS5Paperstartup/join/plugin/memorypressure/gameplay/persistence/stop.7200sdeferred;noALLPASS/releaseyet."
+      "pending": "101 larger bounded native direct allowance; actual Paper readiness/join/plugin/persistence pending.7200s deferred.",
+      "evidence": "100 current-run reports: online preflight and experimental Java opt-in complete; Paper initializes one plugin inventory, then native fatal OOM reserving4MiB metadata while loading EntityType. Shared direct ledger held0x7dd8000 against128MiB immediately before failure, zero recorded kernel failures; budget refusal was not separately counted. Raw logs local."
+    },
+    {
+      "app_version": "01.000.101",
+      "package_sha256": "fce762198ad30b30a371ade52828323696127af1f0ad66954139d8fe47696b9c",
+      "console": "pending",
+      "changes": "Runtime0111 increases shared native direct held allowance128MiB->256MiB with separate policy-refusal counter; same2048slots and exact/inflight/failedcleanup ownership; no preallocation, heap or stack-owner cap increase. No game/probe/plugin/moduleimage changes.",
+      "checks": "PASS actual allocator/ledger ASan/UBSan mixed data/metadata beyond128MiB, exact256MiB cap, refusal without kernel call, release/reuse, faults/slots/concurrent lifetimes; metadata/class-space/attached-stack ABI/compiler-stack and ZIP regressions. Target HotSpot build/exact patch pass. Package CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/symbols/silence/singleledger/fallbackhashes pass. Exact100 game/probe/plugin/moduleimage/othernativecode retained.",
+      "pending": "Actual PS5 backing availability, class loading/GC/thread lifecycle, Paper readiness, plugin enable/scheduler/command, joined gameplay/save/stop/reload. Full7200s deferred; no ALL PASS or release."
     }
   ]
 }

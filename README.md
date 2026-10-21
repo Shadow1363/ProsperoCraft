@@ -100,20 +100,19 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Paper experimental-Java candidate 01.000.100
+## Current development: Paper native-memory candidate 01.000.101
 
-099 passes DNS and verified online preflight, but Paper rejects our real
-`25.0.4-internal` runtime label before startup.100 uses Paper's explicit
-experimental-Java opt-in while retaining the actualJava25 requirement and
-visible runtime identity. No official GA support is claimed. See
-[evidence and validation](docs/java-label-failure-099.md).
+100 passes online preflight and Paper's Java policy, then aborts on a 4 MiB
+metadata reservation as the runtime's 128 MiB shared direct-memory allowance
+fills. 101 raises that bounded, on-demand allowance to 256 MiB and reports policy
+refusals separately from kernel errors. See [evidence and validation](docs/native-memory-failure-100.md).
 
-The upstreamPaper/game/plugin JARs, runtime native code, moduleimage and existing
-memory/security/C1 settings remain unchanged. A controlled host fixture tests
-the internal version label against real Paper. ActualPS5 Paper startup/joining/
-plugin/persistence remain pending. Try CreateVM, VerifyJARs, then Play. Circle
-requests normal save/stop once running; reopen after expected app exit for logs.
-Full two-hour test stays deferred; release after console acceptance, then client.
+Paper/game/probe/plugin JARs, the module image and Java heap settings are
+unchanged. Host allocation/ownership checks and target rebuild pass. Actual PS5
+Paper startup, joining, plugins, memory pressure and persistence remain pending.
+Try CreateVM, VerifyJARs, then Play. Circle requests save/stop once running;
+reopen after expected app exit for logs. Full two-hour test stays deferred;
+release after console acceptance, then client.
 
 
 072captured a null function call through its new OS-random service import.
@@ -1653,7 +1652,7 @@ flushing. Heap/codecache sizes and all gameplay/security settings are unchanged.
 
 Two sequential short hostcontrols pass world/NBTsave/tickmonitor/stop checks,
 with code-triggerGCs2to0. OtherGCpauses and initialgenerationstalls remain; this
-is not proof of freeze-freeplay. ActualPS5pausefrequency/maximumtickgaps,
+is not proof of freeze-freeplay. Actual PS5pausefrequency/maximumtickgaps,
 nativeheadroom and7200seconds require validation. See[review](docs/pauses-079.md).
 
 ### Build081: remove the server-JAR derivative
