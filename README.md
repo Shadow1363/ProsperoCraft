@@ -100,22 +100,21 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Paper worker-entry candidate 01.000.098
+## Current development: Paper early-DNS candidate 01.000.099
 
-097 completes VM creation and C1 verification, then the play row fails before
-its native worker callback enters Java. The saved report lacks the launch error
-stage/code, so the precise cause is unknown.098 prepares worker attributes before
-VM pressure, adds a bounded stack fallback for native-create ENOMEM and saves
-stage-specific failure reports. Runtime0110 marks attached stacks for safe guard
-cleanup. See [evidence and validation](docs/worker-entry-failure-097.md).
+098's worker enters Java and completes TLS initialization, then its first online
+DNS lookup fails creating the native resolver pool under memory pressure.099
+prepares the existing16KiB pool/resolver before VM creation. It makes no query
+or answer cache; later online DNS/TLS/login checks remain required. See
+[evidence and validation](docs/dns-pool-failure-098.md).
 
-Actual worker/realJVM/pthread fault/TLS tests, actualVMABI/sharedledger guard/
-release tests and targetHotSpot compilation pass. Paper/game/probe/plugin/module
-image stay unchanged. ActualPS5 worker entry/nativeheadroom/Paperplay still need
-validation. Try CreateVM, VerifyJARs, then Play. If it starts, join and try
-`/ps5probe`. Circle requests save/stop; Paper normally exits, so reopen for logs.
-Fabric094/vanilla083 fallbacks,384MiB Paperheap/C1/config/silence remain. The full
-two-hour run is deferred. Freeze/publish the accepted server release before client.
+Actual adapter/SDK/JDK preparation/fault/concurrency ASanUBSan tests pass. Paper/
+game/probe/plugin/moduleimage and nativeHotSpot remain unchanged. ActualPS5
+early resolver availability, nativeheadroom and Paper startup/play are pending.
+Try CreateVM, VerifyJARs, then Play. Circle requests normal save/stop once Paper
+is running; reopen after its expected app exit for reports. Fabric094/vanilla083
+fallbacks,C1/384MiB/config/silence remain. Full two-hour run stays deferred;
+freeze/publish accepted server release before client work.
 
 
 072captured a null function call through its new OS-random service import.
@@ -156,7 +155,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-Fabric satisfaction is reported after094. Paper098 is pending actualPS5 validation; no new frozen milestone or completed two-hour run is claimed.
+Fabric satisfaction is reported after094. Paper099 is pending actualPS5 validation; no new frozen milestone or completed two-hour run is claimed.
 
 ### Build and verify
 

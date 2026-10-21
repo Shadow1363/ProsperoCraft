@@ -522,3 +522,10 @@ pending;7200sdeferred. See [evidence](compiler-thread-failure-096.md).
 stage/code.098earlyattrs/boundedownedworkerstack+0110stack-purposeABI andsaved
 launchphase diagnostics;PS5entry/guards/attach/lifecycle/Paperpending.7200sdeferred.
 See [evidence](worker-entry-failure-097.md).
+
+## Paper099 earlyDNS pair
+
+098workerJavaentry/TLSinit succeeds,firstlookup nativeDNS poolcreatefailsbefore
+query.099prepares existing16KiBpool/resolver beforeVM;noquery/cache/extra pair.
+ActualPS5earlyavailability/lateDNS/TLS/Paperpending;7200sdeferred. See
+[evidence](dns-pool-failure-098.md).

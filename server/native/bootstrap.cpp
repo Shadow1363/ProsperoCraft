@@ -25,6 +25,7 @@ extern "C" Initializer __jvm_init_array_start[],__jvm_init_array_end[];
 #include <netinet/in.h>
 #include <time.h>
 #include <unistd.h>
+extern "C" int ps5_dns_prepare();
 extern "C" std::uint64_t sceKernelGetProcessTime();
 extern "C" int sceKernelUsleep(std::uint32_t);
 // File-open diagnostics specific to this probe; the real platform API is used.
@@ -65,7 +66,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.098";
+constexpr const char *build_version="01.000.099";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -308,6 +309,10 @@ void run_test(int i) {
   int trace_error=errno;close(trace_fd);
   if(traced!=sizeof(begin)-1) {result(i,trace_error?trace_error:-1313,"Before JVM: checkpoint write failed");skip_vm_dependents();return;}
   ps5_vm_set_metadata_interval(1024);
+  log_stage("Preparing DNS pool/resolver before VM allocation pressure");
+  int dns_prepare=ps5_dns_prepare();
+  if(dns_prepare<0){char detail[160];std::snprintf(detail,sizeof(detail),"Early DNS pair preparation failed result=0x%08X errno=%d; inspect native DNS stages",(unsigned)dns_prepare,errno);log_stage(detail);ps5::log_share::write_note("/download0/probe-exception.txt",detail);result(i,dns_prepare,detail);skip_vm_dependents();return;}
+  log_stage("Early DNS pool/resolver ready; no DNS query performed");
   log_stage("Preparing server worker attribute objects before VM allocation pressure");
   int worker_prepare=server_job.prepare();
   if(worker_prepare){log_stage(server_job.phase);result(i,worker_prepare,"Server worker early attribute preparation failed");skip_vm_dependents();return;}
@@ -443,7 +448,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.098",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.099",42,rgb(238,242,250));
  c.label(103,163,SERVER_FLAVOR_LABEL " / Minecraft 26.3 / Java 25. Compatibility play test; saves every 5 minutes.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;

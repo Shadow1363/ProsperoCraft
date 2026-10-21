@@ -939,10 +939,19 @@
     {
       "app_version": "01.000.098",
       "package_sha256": "1d00d6ce503feb82b9c8fa7209d68b23b81d0baac7c53aa8ae4ea1c6fc1cbe59",
-      "console": "pending",
+      "console": "FAILonlinepreflightDNSpoolcreate;workerentry/TLSinit complete",
       "changes": "ReusableJNIworkerearlycachedattrs,ordinary8MiBfirst,PS5pthreadcreateEAGAIN/ENOMEM->existingsharedVMABIownedexplicitstack;joinTLS-before-unmap/failedcleanupretention. ConsumerpreparesbeforeVM,persistslaunchphase/code/errno/currentexceptionroutes. Paper/game/probe/plugin/moduleimage/nativeHotSpot0110adds stack-purpose ABI.",
       "checks": "PASS actualworkerheader/realJVM/pthread/forcedlateattrsENOMEM/nativecreateENOMEM/directstack8MiB/TLSjoin-before-free/nonENOMEM/map/create/join/releasefaults/retention. OriginalhostworkertestPASS. No newhostgame run. PASS098ZIPCRC/version/options/105Paperpins/plugin/audit/noFabric,8currenttargetnativefiles/modules/signatures/copies/symbols/silence/singleledger/stack/libccounter;0110stackVMABIlinked/newphase/errorreports/earlypreparepaths. Exact097game/probe/plugin/moduleimage/othernativecode retained;failed097/096/095,Fabric094,vanilla083,frozen058hashespreserved. Actual0110VMABI/sharedledgerASanUBSan stacktag/guarduncommit/recommit/exactrelease/8MiBcap checks andtargetHotSpot/exactpatchPASS.",
-      "pending": "ActualPS5workerlaunchstage/attrs/nativepressure/stackguard/Attach/Detach/joinTLS thenPaperstartup/join/plugins/respawn/save/rejoin/normalstop. Old097precisecauseunknown.7200sdeferred;noALLPASS/releaseyet."
+      "pending": "099earlyDNSpairpreparation;laterDNS/TLS/nativepressure/Paperplay/persistence pending. Workerfullguards/Detach/join/TLSunvalidated.7200sdeferred.",
+      "evidence": "Current098reportsretrieved2026-10-21. Workerattached/JavaServerStart25/TLS111issuers/DRBG/defaultTLSfactory complete. FirstdiscoveryDNSfailsatsceNetPoolCreate0x804101ce,neterrno206,errnoENOMEM;getaddrinfoEAI_FAIL. Noquery/Paperstartup established. Rawlogslocal."
+    },
+    {
+      "app_version": "01.000.099",
+      "package_sha256": "95c64819077dc00237a856f0a7e942946362efa3493520f17e33b2cf61eab850",
+      "console": "pending",
+      "changes": "Consumerprepares existing16KiBSDK DNS pool/resolver beforeVMpressure viareusableadapter; noquery/cache/extraresources,partialfailureleasecleanup/idempotence/realerror. VMmemory/C1/Paper/game/probe/plugin/moduleimage/config/security/silence unchanged.",
+      "checks": "PASSactualadapter+hashpinnedSDK/JDKASanUBSan earlypreparefaults/retry/lease/idempotence/zeroqueries/errno,400concurrentfreshlookupslateallocationdenied/queryerror/recovery/allocationrollback. No newhostgame run;095hostevidenceseparate. PASS099ZIPCRC/version/options/105Paperpins/plugin/audit/noFabric,8currentnativefiles/modules/signatures/copies/symbols/silence/singleownershiptables;earlyDNSprepare/ready/failuremarkers andsymbol linked. Exact098HotSpot/othernativecode/game/probe/plugin/moduleimage unchanged;failed098/097/096/095,Fabric094,vanilla083,frozen058hashespreserved.",
+      "pending": "ActualPS5earlyDNSprepare/laterqueries/TLS/nativeheadroom thenPaperstartup/join/plugincommands/respawn/save/rejoin/normalstop.7200sdeferred;noALLPASS/releaseyet."
     }
   ]
 }
