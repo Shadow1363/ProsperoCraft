@@ -104,8 +104,10 @@ The official server bundle is downloaded from Mojang’s metadata-pinned URL. It
 
 101 fails on its first online DNS query, before Paper starts. The early resolver
 pair exists, and the direct-memory counters show no failures or policy refusals.
-102 retries a completed DNS timeout up to three times within that same lease,
-then preserves the real failure if resolution still fails. See
+102 executes all three timeout attempts on PS5, then preserves the actual
+failure. The configured manual Pi-hole resolver's DNS/admin services are
+unreachable during investigation, although its host answers ping. Confirm
+resolver availability and retry102; no newer code candidate is warranted yet. See
 [evidence and validation](docs/dns-timeout-failure-101.md).
 
 Paper/game/probe/plugin JARs, the module image and HotSpot are unchanged from 101.
