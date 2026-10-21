@@ -515,3 +515,10 @@ headroom/Paperplay remain pending.7200s deferred. See
 EAGAIN/ENOMEM.097extends existingownedstackfallback tocompiler_thread withsame
 entry/guards/stacksize/reaper/TLS/budgets. VMcreate/C1/Paper/nativepressure still
 pending;7200sdeferred. See [evidence](compiler-thread-failure-096.md).
+
+## Paper098 worker-entry candidate
+
+097VM/C1preflight completes,playFAIL precedesJava/worker callback; oldreports lack
+stage/code.098earlyattrs/boundedownedworkerstack+0110stack-purposeABI andsaved
+launchphase diagnostics;PS5entry/guards/attach/lifecycle/Paperpending.7200sdeferred.
+See [evidence](worker-entry-failure-097.md).

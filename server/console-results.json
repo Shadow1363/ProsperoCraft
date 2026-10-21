@@ -930,10 +930,19 @@
     {
       "app_version": "01.000.097",
       "package_sha256": "82069ab3d49bb0392915054f509412976be8e83a82828f3411e923d4c4181469",
-      "console": "pending",
+      "console": "FAILplaytestbeforeworker callback;VMcreation andC1preflightcomplete",
       "changes": "Runtime0109extendsfinalordinaryEAGAIN+ENOMEM ownedstackfallback tocompiler_thread retainingrequested1MiB/normalentry/guards/joinTLSreap/exactrelease. No C1disable/stackshrink/budgetincrease. Paper/game/probe/plugin/moduleimage384MiB/config/security/OP/silenceunchanged.",
       "checks": "PASSactualgate45combinations,1MiBownedstackrealpthreadTLS/reap220lifetimes/fault/budgetASanUBSan,512KiBregression,targetHotSpot/exactpatch. Nonewhostgame test;095evidence separate. PASS097ZIPCRC/version/384MiB/C1/security/105pins/plugin/audit/noFabric,8currenttargetnativefiles/moduleimage/signatures/copies/symbols/silence/singleVMledger/stack/libccounter/earlierexports; updated0109libjvm andtargetlinkedELF. Exact096Paper/game/probe/plugin/moduleimage/othernativecode unchanged. Failed096/095,Fabric094,vanilla083,frozen058hashespreserved.",
-      "pending": "ActualPS5VMcreate/C1verify/classloading/compilerTLS/guard/reaping/nativepressure thenPaperplugin/joinedplay/save/rejoin/stop.128MiBsharedpool/32MiBstackbudget stillrefusable. Full7200sdeferred;noALLPASS/releaseyet."
+      "pending": "098earlyJNIworkerattrs/ownedstackfallback/launchdiagnostics. ActualPaperstartup/join/plugins/persistence/nativepressurepending;7200sdeferred.",
+      "evidence": "Current097session/server/exception/startuptail/vmtrace retrieved2026-10-21. Classdirect+compiler1MiBdirectstack success;105JARpreflight/actualC1 returnsnormally. NoServerworkerattached trace/noJavaexception/serveroutput. Oldcallerdoesnotpersistphase/code; exactattr/create/attachcauseunknown. Rawlogslocal."
+    },
+    {
+      "app_version": "01.000.098",
+      "package_sha256": "1d00d6ce503feb82b9c8fa7209d68b23b81d0baac7c53aa8ae4ea1c6fc1cbe59",
+      "console": "pending",
+      "changes": "ReusableJNIworkerearlycachedattrs,ordinary8MiBfirst,PS5pthreadcreateEAGAIN/ENOMEM->existingsharedVMABIownedexplicitstack;joinTLS-before-unmap/failedcleanupretention. ConsumerpreparesbeforeVM,persistslaunchphase/code/errno/currentexceptionroutes. Paper/game/probe/plugin/moduleimage/nativeHotSpot0110adds stack-purpose ABI.",
+      "checks": "PASS actualworkerheader/realJVM/pthread/forcedlateattrsENOMEM/nativecreateENOMEM/directstack8MiB/TLSjoin-before-free/nonENOMEM/map/create/join/releasefaults/retention. OriginalhostworkertestPASS. No newhostgame run. PASS098ZIPCRC/version/options/105Paperpins/plugin/audit/noFabric,8currenttargetnativefiles/modules/signatures/copies/symbols/silence/singleledger/stack/libccounter;0110stackVMABIlinked/newphase/errorreports/earlypreparepaths. Exact097game/probe/plugin/moduleimage/othernativecode retained;failed097/096/095,Fabric094,vanilla083,frozen058hashespreserved. Actual0110VMABI/sharedledgerASanUBSan stacktag/guarduncommit/recommit/exactrelease/8MiBcap checks andtargetHotSpot/exactpatchPASS.",
+      "pending": "ActualPS5workerlaunchstage/attrs/nativepressure/stackguard/Attach/Detach/joinTLS thenPaperstartup/join/plugins/respawn/save/rejoin/normalstop. Old097precisecauseunknown.7200sdeferred;noALLPASS/releaseyet."
     }
   ]
 }

@@ -65,7 +65,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.097";
+constexpr const char *build_version="01.000.098";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -308,6 +308,9 @@ void run_test(int i) {
   int trace_error=errno;close(trace_fd);
   if(traced!=sizeof(begin)-1) {result(i,trace_error?trace_error:-1313,"Before JVM: checkpoint write failed");skip_vm_dependents();return;}
   ps5_vm_set_metadata_interval(1024);
+  log_stage("Preparing server worker attribute objects before VM allocation pressure");
+  int worker_prepare=server_job.prepare();
+  if(worker_prepare){log_stage(server_job.phase);result(i,worker_prepare,"Server worker early attribute preparation failed");skip_vm_dependents();return;}
   log_stage("Calling real JNI_CreateJavaVM");
   ps5_native_trace::enable();
   ps5_native_trace::quiet();
@@ -316,7 +319,7 @@ void run_test(int i) {
   if(startup_log) {std::fprintf(startup_log,"JNI_CreateJavaVM returned %d\n",rc);std::fflush(startup_log);}
   if(rc==JNI_OK && (!java_vm||!java_env)) rc=-1302;
   if(rc!=JNI_OK) {java_vm=nullptr;java_env=nullptr;skip_vm_dependents();read_previous_log();}
-  result(i,rc,"Real JNI_CreateJavaVM, C1 level 1, 192 MiB max heap");
+  result(i,rc,"Real JNI_CreateJavaVM, guarded C1; heap configured for selected server");
  } else if(!java_vm||!java_env) {
   result(i,-1303,"Create the VM first; relaunch to retry");
  } else if(i>=2 && i<=3) {
@@ -404,7 +407,7 @@ bool update() noexcept {
 #endif
    time_t now=time(nullptr);if(now==server_last_frame)return false;server_last_frame=now;ps5::process_usage::append("/download0/process-usage.log",(long long)(now-server_started_at));return true;}
   int error=server_job.join();server_job_started=false;
-  if(error)result(3,error,"Server worker attach/detach failed");
+  if(error){char detail[256];std::snprintf(detail,sizeof(detail),"Server worker completion: phase=%s code=%d",server_job.phase,error);log_stage(detail);result(3,error,detail);}
   return true;
  }
  if(pending==3) {
@@ -414,7 +417,7 @@ bool update() noexcept {
 #endif
   pending=-1;session_status("RUN: server worker (UI remains active)");
   int error=server_job.start(java_vm,server_on_worker);
-  if(error)result(3,error,"Cannot start server worker");else {server_started_at=server_last_frame=time(nullptr);server_job_started=true;ps5::process_usage::append("/download0/process-usage.log",0);}
+  if(error){char detail[256];std::snprintf(detail,sizeof(detail),"Server worker launch: phase=%s code=%d errno=%d",server_job.phase,error,errno);log_stage(detail);ps5::log_share::write_note("/download0/probe-exception.txt",detail);ps5::log_share::write_note("/download0/probe-server-exception.txt",detail);result(3,error,detail);}else {server_started_at=server_last_frame=time(nullptr);server_job_started=true;ps5::process_usage::append("/download0/process-usage.log",0);}
   return true;
  }
  if(pending>=0) {int i=pending;pending=-1;if(i!=0){char state[256];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}run_test(i);return true;}
@@ -440,7 +443,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.097",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.098",42,rgb(238,242,250));
  c.label(103,163,SERVER_FLAVOR_LABEL " / Minecraft 26.3 / Java 25. Compatibility play test; saves every 5 minutes.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
