@@ -465,3 +465,11 @@ EAGAIN/ENOMEM.091adds runtime0105explicit stack/join-before-free reaping while
 retaining224MiB and silence. ActualSDK stack/guard/TLS/join/NMT/startup/joined
 play/save/rejoin remain pending; full7200seconds deferred.
 See [evidence and ownership limits](thread-stack-090.md).
+
+## Build092: directory native memory
+
+091directmetadata/thread creation and2stackreaps succeed, then directory listing
+returnsnull/ENOMEM and conversion fails.092adds buffer fallback and staged
+fd/context/buffer diagnostics; it does not skipconversion or repairfdallocation.
+Startup/joined play/persistence/native lifecycle actualPS5pending;7200sdeferred.
+See [evidence and limits](directory-failure-091.md).

@@ -98,22 +98,23 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: silent Fabric thread-stack candidate 01.000.091
+## Current development: silent Fabric directory candidate 01.000.092
 
-090successfully reserves the new4MiB metadata block through direct memory, then
-fails ordinary512KiB Java thread creation before readiness.091adds runtime0105's
-owned direct-backed stack fallback for final EAGAIN/errnoENOMEM. A native reaper
-joins finished threads before releasing stacks, including TLS destruction; stack
-budgets and cleanup refusal retain ownership. SDK thread metadata can still fail.
-See [evidence and limitations](docs/thread-stack-090.md).
+091records successful direct metadata/thread creation and stack cleanup, then
+fails java.io.File.list with native ENOMEM in vanilla's legacy-player converter.
+092adds runtime0106directory-buffer fallback through the existing bounded shared
+VM direct ledger, with separate ownership/cleanup. The old message lacks a
+failure stage; new fd/context/buffer diagnostics make any remaining cause clear.
+No fd-allocation fix or completed console repair is claimed. See
+[evidence and validation](docs/directory-failure-091.md).
 
-224MiB heap/0103libc cap/0104metadata fallback and music removal remain. Original
-game/probe/loader/smoke JARs are unchanged; standard Fabric/Mixin loading remains
-with no project game rewrites or replacements. Host/native/target/package results
-are separate from pending actualPS5 explicit-stack/guard/TLS/join/NMT and gameplay
-validation. Normal world/view4/simulation3/spawn-protection0/online whitelist/
-level4ops/20configured slots remain. Full two-hour run is deferred;058frozen and
-083vanilla fallback preserved. No new ALL PASS or capacity claim.
+224MiB heap, earlier native repairs and silence remain. Game/probe/loader/smoke
+JARs stay unchanged, with standard Fabric/Mixin loading and no project game
+rewrites, replacements or skipped conversion. Host/native/target/package checks
+are separate from pending actualPS5 startup/kernel enumeration/memory lifecycle,
+joined responsiveness and player persistence. Normal world/view4/simulation3/
+spawn-protection0/online whitelist/level4ops/20slots remain. Full two-hour run is
+deferred;058frozen and083vanilla fallback preserved. No new ALL PASS/capacity claim.
 
 
 072captured a null function call through its new OS-random service import.
@@ -153,7 +154,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-091 keeps original game artifacts and standard Fabric loading; startup thread-stack lifecycle/native headroom, GC, responsiveness and persistence remain pending. Full endurance is deferred.
+092 keeps original game artifacts and standard Fabric loading; directory allocation/startup, native lifecycle, GC, responsiveness and persistence remain pending. Full endurance is deferred.
 
 ### Build and verify
 
