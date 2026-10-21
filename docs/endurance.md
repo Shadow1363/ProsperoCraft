@@ -482,3 +482,11 @@ runtime0107 pre-registered kernel user-event wakeups; unsupported filters retain
 a diagnosed pipe fallback. Host/native/target checks pass, PS5 event support and
 joined stability pending. Full 7200 seconds remains deferred. See
 [the current failure and next checks](selector-failure-092.md).
+
+## Build 094: preflight rate limiting
+
+093 fails on profile-API HTTP429 before startup; it does not test the selector
+repair. 094 reuses existing whitelist UUIDs with remote session identity checks
+and bounds429 retries/Retry-After waits. Authentication/TLS remain enabled.
+PS5 preflight/startup/joined stability pending; full7200s deferred. See
+[the current failure and handling](online-rate-limit-093.md).

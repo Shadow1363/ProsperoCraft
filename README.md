@@ -98,22 +98,22 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Fabric selector wakeup candidate 01.000.093
+## Current development: online-bootstrap candidate 01.000.094
 
-092 reaches readiness and records 20 TPS through 121 seconds without players.
-A later connection fails because Java's selector wakeup pipe returns ENOMEM,
-terminating networking threads. The previous directory failure does not recur.
-093 adopts runtime 0107: a pre-registered PS5 kernel user event avoids pipe
-writes for wakeups. Unsupported kernels retain a diagnosed pipe fallback;
-actual event availability and joined stability still need PS5 validation.
-See [evidence and validation](docs/selector-failure-092.md).
+093 fails before server startup because the profile API returns HTTP 429.
+It does not reach the new selector backend, so that runtime repair remains
+unvalidated. 094 reuses an existing whitelist UUID to avoid redundant name
+lookups, still checks the remote session profile's UUID and name, and adds at
+most two rate-limit retries with bounded Retry-After handling. Online login
+authentication and verified TLS remain required. Persistent throttling fails.
+See [evidence and validation](docs/online-rate-limit-093.md).
 
-Actual selector/JNI host concurrency, socket-readiness and failure tests plus
-target classes/native compilation pass. Original game/probe/loader/smoke JARs
-stay unchanged; module image/libnio contain the runtime repair. Music stays off.
-224 MiB heap, normal world, view 4/simulation 3, spawn-protection 0, online
-whitelist, level 4 ops and 20 slots remain. The full two-hour run is deferred.
-Frozen 058 and vanilla 083 fallback remain intact. No new ALL PASS claim.
+Host response/retry/cleanup and identity-validation tests pass. Runtime, original
+game, Fabric loader and smoke-mod JARs stay unchanged; the separate probe changes.
+Music stays off. Normal world, 224 MiB heap, view 4/simulation 3, spawn-protection
+0, online whitelist, level 4 ops and 20 slots remain. PS5 preflight/startup/joined
+stability/save/rejoin are pending. The full two-hour run stays deferred. Frozen
+058 and vanilla 083 fallback remain intact. No new ALL PASS claim.
 
 
 072captured a null function call through its new OS-random service import.

@@ -1,11 +1,11 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.093",
+  "app_version": "01.000.094",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "43c0cdcec805a309852d60b37ade34473f1d6a55cc1f0031924e3427a137c69d",
-  "console": "092 FAIL after readiness: unjoined 20TPS through121s, then IOUtil.write1 ENOMEM during selector wakeup on connection; Netty loops terminate.093 PS5 pending.",
-  "host": "PASS actual BSD selector/newJNI on macOSkqueue -Xcheck:jni/UBSan:1200 wake-before/blocking/coalescing rounds,socket readiness/cancel,100 close races,EINTR,unsupportedfallback,registrationENOMEM/triggerEIO. ExactBSD0107patch and targetclasses/nativebuild PASS. Package nativeexports/markers exist in libnio and linkedELF. Final093 packagePASS: ZIPCRC/version/flags/7currentnativefiles,all47pins/originalgameaudit,linkednewJNIexports/backendmarkers,singleVMledger/libccounter/stackowner,earliernativeimports,signatures/copychecks. Allgame/probe/loader/smokeJARs andothernativecode match092; exactly2selectorclasses+4checkedbuildmetadataresources differ inmoduleimage. Frozen058/vanilla083 andfailed084..092 hashespreserved. No newhostgamerun;089hostgameevidence retained separately,notPS5proof.",
+  "package_sha256": "97ec74c40b9c495884130f9dae0ab10bf393e521265cbe82177f06190176df2d",
+  "console": "093 FAIL before startup: online preflight profile API HTTP429. Runtime0107 selector backend not reached;094 pendingPS5.",
+  "host": "PASS actual controlledHTTPS response/retry/cleanup:429 success/exhaustion,Retry-After seconds/date/default/longwait refusal,non429 errors,malformed/oversized JSON,interruption. Existing HTTPS-only/schema/UUID tests; whitelistreuse/missing/malformed/conflict,remote session UUID+name checks. No new hostgame run; runtime/game/Fabric/smoke unchanged. PackagePASS: ZIPCRC/version094/options,7currentnativelibraries,moduleimage/all47pins/originalgameaudit,nativeexports/backendmarkers,signatures/copychecks,sharedledger/stack/libccounter andearlierkernelimports. Runtime/moduleimage/game/Fabric/smoke match093; onlyServerOnline25 probeclasses differ; online-mode=true andTLS/whitelist preserved; no testdoubles embedded. Frozen058/vanilla083/failed084..093 hashespreserved.",
   "package": "PASS: exact092 ZIPCRC/version/224MiB/C1/GC/cache/CPU2/512KiB/security/OP/7200s flags; JavaIO/NIOlibraries import both sharedVMmemory functions, libnioexplicitlyneeds libjvm, newfd/context/buffer errorstage marker present. Earlier metadata/directstack/reaper/libccounter/sharedledger/twoexports/all5kernelimports linked; no audio source/musicpaths/PCM assets. All47pins and game/probe/loader/smoke JAR/moduleimage bytes match091. Currenttargetnativefiles match; JavaIO/NIOupdated0106. Bothsignedcontainersvalid; ZIP/symbolcopiesmatch; frozen058 and083/084/085/086/087/088/089/090/091fallbackhashes preserved.",
   "runtime_modules": [
     "java.base",
@@ -199,6 +199,10 @@
     "runtime_patch": "0107",
     "backend": "PS5 pre-registered EVFILT_USER/EV_CLEAR,NOTE_TRIGGER; actual native filter returned, no pipe write on successful backend",
     "fallback": "unsupported filter retains diagnosed pipe; other native errors propagate",
-    "console": "093 pending PS5 filter support,connection,wakeups underpressure,joinedplay/save/rejoin/cleanstop"
+    "console": "093 fails before serverstart onHTTP429; event backend not reached.094 selectoravailability/nativepressure/joinedstability pending."
+  },
+  "online_rate_limit": {
+    "changes": "existing whitelist UUID avoids redundant getByName; remote session UUID+name still verified; all onlineJSON reads retry429 atmost2 times,Retry-After<=30s/default5s,disconnect beforewait. Other failures/longwait/persistent429 still fail.",
+    "console": "094 pending actualPS5 preflight/startup/joining; online-mode/TLS/whitelist unchanged"
   }
 }
