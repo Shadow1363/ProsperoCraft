@@ -529,3 +529,10 @@ See [evidence](worker-entry-failure-097.md).
 query.099prepares existing16KiBpool/resolver beforeVM;noquery/cache/extra pair.
 ActualPS5earlyavailability/lateDNS/TLS/Paperpending;7200sdeferred. See
 [evidence](dns-pool-failure-098.md).
+
+## Paper100 internal Java label
+
+099onlinepreflight passes,Paperrejects25.0.4-internal beforestartup.100uses
+Paper.IgnoreJavaVersion foractualJava25internal/prereleaselabels,preservingreal
+identity andloggingexperimentalstatus. NoJAR/runtimeidentityrewrite. PS5Paper
+pending;7200sdeferred. See[evidence](java-label-failure-099.md).

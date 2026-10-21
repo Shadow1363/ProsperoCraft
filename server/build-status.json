@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.099",
+  "app_version": "01.000.100",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "95c64819077dc00237a856f0a7e942946362efa3493520f17e33b2cf61eab850",
-  "console": "098workerlaunch/Attach/Javaentry/TLSinit complete; onlinepreflightfirstDNSpoolcreatefails0x804101ce/neterrno206/errnoENOMEM,EAI_FAIL.099pendingPS5.",
-  "host": "PASSactualDNSadapter+pinnedSDK/JDKconversionASanUBSan:earlypreparepool/resolverfault/partialretry/leaserelease/idempotence/zeroqueries/errno;400serializedcross-threadfreshquerieswithlatepool/resolver/heaprefusal,queryfail/recovery/outputallocationrollback. No newhostgame run;Paper/probe/plugin unchanged.",
-  "package": "PASS099ZIPCRC/version/options/105Paperpins/plugin/audit/noFabric,8currentnativefiles/modules/signatures/copies/symbols/silence/singleownershiptables;earlyDNSprepare/ready/failuremarkers andsymbol linked. Exact098HotSpot/othernativecode/game/probe/plugin/moduleimage unchanged;failed098/097/096/095,Fabric094,vanilla083,frozen058hashespreserved.",
+  "package_sha256": "79879fbddcadb64b2aba01358ca2bfb20179cc4093f20aed33e8d13851fde883",
+  "console": "099DNS/onlinepreflight complete;Paper rejectsjava.version25.0.4-internal andreturnsbeforestartup.100pendingPS5.",
+  "host": "PASSactualpolicyGA/internalbranches/identity/feature25. ActualPaperhostinternal-label25.0.4-internal fixture passes384MiB/C1/normalworld/25forcedchunks/105pins/pluginenable/scheduler/command/NBT/protocol/15s/7checks/4flushedsaves/normalexit0/leveldat+region persistence;0joins. Hostfixture excludedfrompackage;notPS5proof.",
+  "package": "PASS100ZIPCRC/version/options/105Paperpins/plugin/audit/noFabric,8targetnativefiles/moduleimage/signatures/copies/symbols/silence/singleownershiptables/fallbackhashes. OnlyServerPaper25probeclass changesfrom099;optin/featuregate/experimentallog present;hostfixturesexcluded;runtime/moduleimage/game/plugin unchanged.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -30,18 +30,18 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "099reusableDNSprepare existingpair beforeVMallocationpressure; consumerver/runtimepin/earlycallandfailurediagnostic only. NoHotSpot/game/probe/plugin/moduleimage changes.",
+  "scope": "100consumerPaper.IgnoreJavaVersion opt-in onlyforactualJava25 withinternal/prereleaselabel; visibleexperimentalstatus,realversionpreserved. No JARrewrite/identityspoof/security/memorychanges.",
   "max_heap_mib": 384,
   "runtime_adaptation": "Runtime source unchanged atd56aaab; retains0101..0107 native memory/thread/selector repairs. Paper consumer requestsjava.net.http/jdk.security.auth moduleclosure classes, no addednativeJAAS/GSS support.",
-  "probe_jar_sha256": "af74559fe3f8568a965b7f7bcdda654389e6b4e066ebb46c4c6d8ab8ad23a8a0",
+  "probe_jar_sha256": "085b80a9786926150fcc3b614dcf05d8819b48ae969c4cf53176356a0841f3a6",
   "diagnostics": "Bounded os+thread=info only in legacy exceptions.log route pair (8MiBactive/one8MiBrotated), plus vanilla commands/GC/TPS/nativeusage. Verbose packet control-flow exceptions omitted. Future player-save warning may need focused logging.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "098DNSpoolcreation nativefailurebeforequery.099earlypaircandidatependingPS5; laterDNSqueries/TLS/nativepressure/Paperjoin/plugin/persistence stillunvalidated.7200sdeferred; releaseafterexactconsoleacceptance.",
+  "known_failures": "099Paperinternalversionpolicyrejection.100optincandidatependingactualPS5;Paperstartup/nativepressure/join/plugins/persistence unvalidated.7200sdeferred.",
   "diagnostic_adapter": "External harness andseparatePaperplugin only. Runs upstreamPaper prepared byoriginalPaperclip; no projectgameJARrewrites/replacements. OriginalMojangbundle isunchanged incache; vanilla/Fabric retained separately.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8MiBrequested,earlycachedattrs beforeVM;ordinarycreatefirst,PS5EAGAIN/ENOMEM->sharedVMABIownedstack;realAttach/workerJNIEnv/Detach andjoinTLS-before-free. Launchphase/code savedto startupandcurrent/pertestexceptionroutes. Failedjoin/release retainsownership. ActualPS5pending.",
-  "crash_evidence": "Current098session/server/exception/startuptail/vmtrace:workerattached andServerStart25 entered;TLS trust111/DRBG/factory pass;firstdiscoveryDNS poolcreate0x804101ce/neterrno206/errnoENOMEM thengetaddrinfoEAI_FAIL. NoDNSqueryorPaperstartupestablished. Rawlogslocal.",
+  "crash_evidence": "099currentreports:MC_ONLINE_PREFLIGHT_OK then UnsupportedJavadetected25.0.4-internal,upstreamPaperMain returns,readinessgatefails. NoPaperstartup orpluginexecution. Rawlogslocal.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -63,7 +63,7 @@
     "host_auth_errors": 0,
     "host_version": "01.000.095"
   },
-  "consumer_changes": "099reusableDNSprepare existingpair beforeVMallocationpressure; consumerver/runtimepin/earlycallandfailurediagnostic only. NoHotSpot/game/probe/plugin/moduleimage changes.",
+  "consumer_changes": "100consumerPaper.IgnoreJavaVersion opt-in onlyforactualJava25 withinternal/prereleaselabel; visibleexperimentalstatus,realversionpreserved. No JARrewrite/identityspoof/security/memorychanges.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -221,7 +221,7 @@
     "world": "world-paper-v1",
     "plugin": "PS5PaperSmoke1.0.0 lifecycle/scheduler/ps5probe command; no gameplaychanges",
     "shutdown": "upstreamSystem.exit0 normal. Circle request->liveprogress/finalflush->armed currentrun marker->nativecallback checks plugindisable/dimensionI/O/finalRegionIO/level.dat/code0. App exitsnormally; reopenforreports. Shortcheck isnot fullendurance.",
-    "console": "098onlinepreflightDNSfailsbeforePaper;099pending"
+    "console": "099policyrejectbeforestartup;100pending"
   },
   "fabric_fallback": {
     "version": "01.000.094",
@@ -258,6 +258,12 @@
     "pool_bytes": 16384,
     "answers_cached": false,
     "scope": "existingpool/resolver only,idempotent,noquery;partialfailureleaserelease;explicitpreparefailure",
-    "console": "099pending"
+    "console": "099onlineDNS/TLS/preflightcomplete;longrun/resourcepressurepending"
+  },
+  "experimental_java": {
+    "property": "Paper.IgnoreJavaVersion=true forinternal/prereleaselabel",
+    "gate": "Runtime.version().feature()==25",
+    "identity": "actualjava.version/vendor/runtimepreserved,explicitexperimentalwarning",
+    "console": "100pending"
   }
 }

@@ -4,7 +4,7 @@ from pathlib import Path
 import argparse,json,subprocess,tempfile,re,threading
 ROOT=Path(__file__).resolve().parents[1]
 JDK=Path('/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home')
-parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--stop-after-seconds',type=int,default=0);parser.add_argument('--flavor',choices=['vanilla','fabric','paper'],default='vanilla');parser.add_argument('--flat',action='store_true');parser.add_argument('--code-cache-mib',type=int,default=16,choices=[8,16]);parser.add_argument('--c1',action='store_true');parser.add_argument('--metaspace-threshold-mib',type=int,default=128,choices=[21,128]);parser.add_argument('--sweeper-threshold',type=float,default=50.0,choices=[15.0,50.0]);parser.add_argument('--new-ratio',type=int,default=15,choices=[7,15]);parser.add_argument('--heap-mib',type=int,default=192,choices=[128,144,160,176,192,224,256,384]);parser.add_argument("--worker-runner",type=Path,help="Native JNI worker fixture runner from the Java runtime tests");parser.add_argument('--endurance-seconds',type=int,default=0);parser.add_argument('--online-player');parser.add_argument('--file-list-runner',type=Path);parser.add_argument('--legacy-directory',action='store_true');parser.add_argument('--chunk-radius',type=int,default=0,choices=range(7));args=parser.parse_args();assert 0<=args.endurance_seconds<=86400
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--experimental-java',action='store_true');parser.add_argument('--stop-after-seconds',type=int,default=0);parser.add_argument('--flavor',choices=['vanilla','fabric','paper'],default='vanilla');parser.add_argument('--flat',action='store_true');parser.add_argument('--code-cache-mib',type=int,default=16,choices=[8,16]);parser.add_argument('--c1',action='store_true');parser.add_argument('--metaspace-threshold-mib',type=int,default=128,choices=[21,128]);parser.add_argument('--sweeper-threshold',type=float,default=50.0,choices=[15.0,50.0]);parser.add_argument('--new-ratio',type=int,default=15,choices=[7,15]);parser.add_argument('--heap-mib',type=int,default=192,choices=[128,144,160,176,192,224,256,384]);parser.add_argument("--worker-runner",type=Path,help="Native JNI worker fixture runner from the Java runtime tests");parser.add_argument('--endurance-seconds',type=int,default=0);parser.add_argument('--online-player');parser.add_argument('--file-list-runner',type=Path);parser.add_argument('--legacy-directory',action='store_true');parser.add_argument('--chunk-radius',type=int,default=0,choices=range(7));args=parser.parse_args();assert 0<=args.endurance_seconds<=86400
 if args.c1 and (args.worker_runner or args.file_list_runner):parser.error('C1 fixture requires the Java launcher')
 if args.worker_runner and args.file_list_runner:parser.error('Choose either the native worker runner or the file-list JNI runner')
 assets=ROOT/'build/assets/java25';lock=json.loads((ROOT/'server/26.3.lock.json').read_text())
@@ -31,6 +31,11 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
  if args.c1:
   command.remove('-Xint');command[command.index('-XX:ReservedCodeCacheSize=8m')]='-XX:ReservedCodeCacheSize='+str(args.code_cache_mib)+'m';command[1:1]=['-Xmixed',f'-XX:MetaspaceSize={args.metaspace_threshold_mib}m',f'-XX:SweeperThreshold={args.sweeper_threshold}',f'-XX:NewRatio={args.new_ratio}','-XX:CompileThresholdScaling=4.0','-XX:CompileCommand=MemLimit,*.*,2M','-XX:TieredStopAtLevel=1','-XX:CICompilerCount=1','-Dps5.probe.requireC1=true','-Dps5.probe.jitLog='+str(Path(directory)/'jit.log'),'-Xlog:jit+compilation=debug,codecache=info,gc=info:file='+str(Path(directory)/'jit.log')+':uptime,level,tags:filecount=0']
   command[-1:]=['ServerC1Start25']
+ if args.experimental_java:
+  assert args.flavor=='paper' and args.c1
+  classes=ROOT/'build/host-experimental-classes';classes.mkdir(exist_ok=True)
+  subprocess.run([str(JDK/'bin/javac'),'-cp',cp,'-d',str(classes),str(ROOT/'tools/ExperimentalPaperStart.java')],check=True)
+  at=command.index('-cp');command[at+1]=str(classes)+':'+command[at+1];command[-1]='ExperimentalPaperStart'
  timer=None
  if args.stop_after_seconds:
   assert args.flavor=='paper'
@@ -44,6 +49,7 @@ with tempfile.TemporaryDirectory(prefix='ps5-mc-start-') as directory:
  if args.flavor=='fabric':
   assert 'PS5_FABRIC_SMOKE_OK' in output and 'MC_FABRIC_LOADER_OK' in output,output[-12000:]
   assert 'Loading Minecraft 26.3 with Fabric Loader 0.19.5' in output,output[-12000:]
+ if args.experimental_java:assert 'MC_PAPER_EXPERIMENTAL_JAVA version=25.0.4-internal' in output and 'unsupported, non official, version' not in output,output[-12000:]
  if args.flavor=='paper':
   for marker in ['MC_PAPER_LOADER_OK','MC_PAPER_PLUGIN_OK','PS5_PAPER_PLUGIN_DISABLED','MC_PAPER_EXPECT_EXIT0','Halted I/O scheduler for world \'minecraft:overworld\'','Halted I/O scheduler for world \'minecraft:the_nether\'','Halted I/O scheduler for world \'minecraft:the_end\'','All RegionFile I/O tasks to complete']:assert marker in output,output[-12000:]
  assert 'MC_OP_READY' in output and 'MC_OP_POLICY_FAILED' not in output,output[-12000:]

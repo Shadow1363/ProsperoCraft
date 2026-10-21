@@ -3,7 +3,17 @@ import java.security.MessageDigest;
 import java.util.HexFormat;
 /** Executes publisher-prepared Paper byte-for-byte; no project game rewrites. */
 public final class ServerPaper25 {
+ static void configureJavaPolicy() {
+  int feature=Runtime.version().feature();
+  if(feature!=25)throw new IllegalStateException("Paper probe requires actual Java25; feature="+feature);
+  String version=System.getProperty("java.version","");
+  if(version.contains("-")){
+   System.setProperty("Paper.IgnoreJavaVersion","true");
+   System.out.println("MC_PAPER_EXPERIMENTAL_JAVA version="+version+" feature="+feature+" upstream opt-in enabled; runtime is experimental, not an official GA build");
+  }
+ }
  public static void prepare(Path root)throws Exception {
+  configureJavaPolicy();
   Path assets=Path.of(System.getProperty("ps5.mc.assets","/app0/assets/java25"));
   byte[] bytes=Files.readAllBytes(assets.resolve("paper-plugins/ps5-paper-smoke.jar"));
   String expected=Files.readString(assets.resolve("paper-plugins/ps5-paper-smoke.sha256")).trim();
