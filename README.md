@@ -98,25 +98,22 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: silent Fabric metadata candidate 01.000.090
+## Current development: silent Fabric thread-stack candidate 01.000.091
 
-089aborts during startup after an ordinary4MiB class-metadata reservation fails
-with ENOMEM.090adopts runtime0104's bounded direct fallback for non-class
-metadata reservations, retaining224MiB heap and0103's VM libc cap. Heap,
-compressed class space and executable mappings are excluded. Physical metadata
-backing stays charged across logical uncommit. See [evidence/limits](docs/metaspace-crash-089.md).
+090successfully reserves the new4MiB metadata block through direct memory, then
+fails ordinary512KiB Java thread creation before readiness.091adds runtime0105's
+owned direct-backed stack fallback for final EAGAIN/errnoENOMEM. A native reaper
+joins finished threads before releasing stacks, including TLS destruction; stack
+budgets and cleanup refusal retain ownership. SDK thread metadata can still fail.
+See [evidence and limitations](docs/thread-stack-090.md).
 
-090also removes menu music playback and its audio thread, and omits music/
-selection PCM from this app's package, as requested. Shared/frozen apps are
-preserved. Original game/probe/loader/smoke JARs stay unchanged; standard Fabric/
-Mixin behavior remains disclosed with no project game rewrites or replacements.
-
-Host/native/target/package checks are recorded separately from pending console
-validation. Test silent startup, metadata allocation, short joined exploration,
-responsive damage/grass/chunks and player save/rejoin. Normal world/view4/
-simulation3/spawn-protection0/online whitelist/level4ops/20configured slots remain.
-Full two-hour run is deferred. Preserve058frozen and083vanilla fallback; no new
-ALL PASS or20-player capacity claim.
+224MiB heap/0103libc cap/0104metadata fallback and music removal remain. Original
+game/probe/loader/smoke JARs are unchanged; standard Fabric/Mixin loading remains
+with no project game rewrites or replacements. Host/native/target/package results
+are separate from pending actualPS5 explicit-stack/guard/TLS/join/NMT and gameplay
+validation. Normal world/view4/simulation3/spawn-protection0/online whitelist/
+level4ops/20configured slots remain. Full two-hour run is deferred;058frozen and
+083vanilla fallback preserved. No new ALL PASS or capacity claim.
 
 
 072captured a null function call through its new OS-random service import.
@@ -156,7 +153,7 @@ every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-090 keeps original game artifacts and standard Fabric loading; startup metadata/native headroom, GC, building responsiveness and player persistence remain pending. Full endurance is deferred.
+091 keeps original game artifacts and standard Fabric loading; startup thread-stack lifecycle/native headroom, GC, responsiveness and persistence remain pending. Full endurance is deferred.
 
 ### Build and verify
 
