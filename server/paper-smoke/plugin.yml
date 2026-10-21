@@ -1,0 +1,12 @@
+name: PS5PaperSmoke
+version: '1.0.0'
+main: ps5paper.SmokePlugin
+api-version: '26.3'
+description: PS5 Paper lifecycle, scheduler and command validation
+commands:
+  ps5probe:
+    description: Report the Paper scheduler tick and online player count
+    permission: ps5paper.probe
+permissions:
+  ps5paper.probe:
+    default: op

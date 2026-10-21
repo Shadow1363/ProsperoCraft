@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.094",
+  "app_version": "01.000.095",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "97ec74c40b9c495884130f9dae0ab10bf393e521265cbe82177f06190176df2d",
-  "console": "093 FAIL before startup: online preflight profile API HTTP429. Runtime0107 selector backend not reached;094 pendingPS5.",
-  "host": "PASS actual controlledHTTPS response/retry/cleanup:429 success/exhaustion,Retry-After seconds/date/default/longwait refusal,non429 errors,malformed/oversized JSON,interruption. Existing HTTPS-only/schema/UUID tests; whitelistreuse/missing/malformed/conflict,remote session UUID+name checks. No new hostgame run; runtime/game/Fabric/smoke unchanged. PackagePASS: ZIPCRC/version094/options,7currentnativelibraries,moduleimage/all47pins/originalgameaudit,nativeexports/backendmarkers,signatures/copychecks,sharedledger/stack/libccounter andearlierkernelimports. Runtime/moduleimage/game/Fabric/smoke match093; onlyServerOnline25 probeclasses differ; online-mode=true andTLS/whitelist preserved; no testdoubles embedded. Frozen058/vanilla083/failed084..093 hashespreserved.",
-  "package": "PASS: exact092 ZIPCRC/version/224MiB/C1/GC/cache/CPU2/512KiB/security/OP/7200s flags; JavaIO/NIOlibraries import both sharedVMmemory functions, libnioexplicitlyneeds libjvm, newfd/context/buffer errorstage marker present. Earlier metadata/directstack/reaper/libccounter/sharedledger/twoexports/all5kernelimports linked; no audio source/musicpaths/PCM assets. All47pins and game/probe/loader/smoke JAR/moduleimage bytes match091. Currenttargetnativefiles match; JavaIO/NIOupdated0106. Bothsignedcontainersvalid; ZIP/symbolcopiesmatch; frozen058 and083/084/085/086/087/088/089/090/091fallbackhashes preserved.",
+  "package_sha256": "858d488c8883273491bdd2efb2f9e8062c44331318f29bbcc9b59b56bcc97390",
+  "console": "Fabric satisfaction reported byuser after094candidate; exactALLPASS/full7200s notreported.095Paper pendingPS5.",
+  "host": "PASS final095Paper actualhost/C1/384MiB/normalworld/25forcedchunks,105JARpreflight,pluginenable/scheduler/command,NBT/protocol,60seconds/28checks/14flushedsaves/normalexit0; separateearlystop12s/4checks/3saves. NativeclassifierASan/UBSan+actualshutdownlogreplay andPaperobserverERRORcontrols PASS. Nojoinedhostplayers.224MiBstructuregenerationOOM recorded. Existing monitor/output/HTTPS/identity/rate-limit regression tests PASS against finalprobe.",
+  "package": "PASS095 ZIPCRC/version/384MiB/C1/security/options,105upstreampins/audit/noFabriccontamination,pluginhash/lifecycle/commandmarkers,normalexitclassifier/Circle/shortlabel,8currentnativefiles/linkedexports/singleVMledger/stackowner/libccounter,targetmoduleclasses,image/signatures/copies/symbols,silence; exactFabric094/093,vanilla083,frozen058 retained.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -18,27 +18,30 @@
     "java.management",
     "java.security.sasl",
     "java.naming",
+    "java.net.http",
     "java.rmi",
     "java.scripting",
+    "java.security.jgss",
     "java.transaction.xa",
     "java.sql",
     "jdk.httpserver",
     "jdk.jfr",
+    "jdk.security.auth",
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "092runtime0106shared-directorybufferfallback/matchedcleanup/stagederrors andPS5libnioVMdependency; consumerversion/runtimepin only, silentapp/gameJARs unchanged.",
-  "max_heap_mib": 224,
-  "runtime_adaptation": "0106sharedjava.io/NIOdirectorybuffers ordinary-mapENOMEM fallback viaexistingVMABI/sharedledger; separatecontext/dataownership andexactcleanup, context16KiBrounded, dat64KiB. Stageerrors; no fdallocationfix/newpool/empty-on-error.",
-  "probe_jar_sha256": "0cefd43a40f97f598a4b3d0b54a09f8f689bd0d15b269ba0ade30bb1996025be",
+  "scope": "095 pinned upstream Paper207,isolatedworld/plugin,384MiB,additionaltargetmoduleclasses,Paperconsolebridge,normalSystem.exit classification andCircle shortenedplaycheck; PS5 pending.",
+  "max_heap_mib": 384,
+  "runtime_adaptation": "Runtime source unchanged atd56aaab; retains0101..0107 native memory/thread/selector repairs. Paper consumer requestsjava.net.http/jdk.security.auth moduleclosure classes, no addednativeJAAS/GSS support.",
+  "probe_jar_sha256": "af74559fe3f8568a965b7f7bcdda654389e6b4e066ebb46c4c6d8ab8ad23a8a0",
   "diagnostics": "Bounded os+thread=info only in legacy exceptions.log route pair (8MiBactive/one8MiBrotated), plus vanilla commands/GC/TPS/nativeusage. Verbose packet control-flow exceptions omitted. Future player-save warning may need focused logging.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "092actualPS5directoryfailurestage/kernelopen/enumeration/cache/resourcepressure/startup/joinedGC/damage/grass/chunks/playerpersistence unvalidated. Old091errno12 doesnotestablishbufferstage; fd-level ENOMEM remains unhandled bybufferfallback. Shared128MiB/2048slots/boundedcleanupcontractsremainrefusable. Threadguard/TLS/NMT/sustainedstability pending. Full7200sdeferred; arbitrarymods/Paper/plugins/20playerload pending.",
-  "diagnostic_adapter": "External harness only; underlying Mojang server JAR remains hash-pinned and signed. Fabric standard runtime transformations may occur; zero project game-JAR rewrites or replacement game classes.",
+  "known_failures": "224MiB normalPaperworldgen hostOOM;384MiB hostcontrols pass. ActualPS5heapreservation/nativeheadroom/modules/Paperstartup/joins/latency/respawn/playerpersistence/stop unvalidated. Arbitraryplugins/20playerload/client pending; full7200s deferred.",
+  "diagnostic_adapter": "External harness andseparatePaperplugin only. Runs upstreamPaper prepared byoriginalPaperclip; no projectgameJARrewrites/replacements. OriginalMojangbundle isunchanged incache; vanilla/Fabric retained separately.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "Native startup reportsjava.io list openfailederrno12, oldmessage lacksfd/context/bufferstage. Trace3successful512KiBdirectstackcreates/2join+release0 and4MiBdirectmetadata reservation; serverbinds25565 thenOldUsersConverter.convertPlayersNPE. No currentVMabortclaim.",
+  "crash_evidence": "Prior093 preflight HTTP429 before selectorbackend;094user Fabric satisfaction report.095 nottested onPS5. Paper224MiBhostJavaheapOOM inNBT structures, repairedhostcandidate384MiB.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -52,15 +55,15 @@
     "flushed_save_seconds": 300,
     "reply_timeout_seconds": 120,
     "host_test_seconds": 60,
-    "host_checks": 27,
+    "host_checks": 28,
     "host_flushed_saves": 14,
-    "console": "092 reaches readiness and records unjoined20TPS through121s; selector wakeup ENOMEM then fails network.093 pending;7200s deferred.",
+    "console": "095Paper pending; Fabric satisfactionreported094.7200s deferred/notpassed.",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0,
-    "host_version": "01.000.089"
+    "host_version": "01.000.095"
   },
-  "consumer_changes": "092adopts runtime0106PS5directorycontext/recordbuffer ordinarymapENOMEM->existingVMdirectledger, separatebackendtags/exactlengthcleanup/partialrollback; stagefd/context/buffer errors andPS5libnioVMdependency. No skippedconverter/deletedworlddata/gameJARrewrite.224MiB/C1/GC/cache/0103/0104/0105/world/view/security/OP/musicremoval preserved.",
+  "consumer_changes": "095 pinned upstream Paper207,isolatedworld/plugin,384MiB,additionaltargetmoduleclasses,Paperconsolebridge,normalSystem.exit classification andCircle shortenedplaycheck; PS5 pending.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -81,7 +84,7 @@
   },
   "world": {
     "type": "minecraft:normal",
-    "directory": "world-fabric-v1",
+    "directory": "world-paper-v1",
     "structures": true,
     "preserve_flat_directory": "world",
     "view_distance": 4,
@@ -89,7 +92,8 @@
     "max_players": 20,
     "twenty_player_load": "not tested",
     "preserve_vanilla_directory": "world-normal-v1",
-    "spawn_protection": 0
+    "spawn_protection": 0,
+    "preserve_fabric_directory": "world-fabric-v1"
   },
   "operators": {
     "enabled": true,
@@ -101,17 +105,17 @@
   },
   "new_ratio": 15,
   "image_residency": {
-    "image_bytes": 28085822,
-    "index_bytes": 1000498,
+    "image_bytes": 29224726,
+    "index_bytes": 1039692,
     "target_page_bytes": 16384,
-    "persistent_copy_reduction_bytes": 27082752,
-    "console": "079Java/nativeimagealignmentpendingPS5; copyreductionnotpeakRSSguarantee"
+    "persistent_copy_reduction_bytes": 28180480,
+    "console": "095imageaddsPaperrequiredtargetmoduleclasses; native/Javaindex-only paths retained. PS5memorypending."
   },
   "sweeper_threshold": 50.0,
   "work_order": [
-    "Fabric loader and individually validated server mods",
-    "Paper server and individually validated plugins",
-    "Client native/graphics/input integration"
+    "Paper server and separate plugin validation onPS5",
+    "Freeze and publish exactaccepted serverrelease",
+    "Client native/graphics/input work after serverrelease"
   ],
   "graphics_candidate": {
     "url": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -120,14 +124,13 @@
   },
   "metaspace_initial_threshold_mib": 128,
   "process_limits": "085observed read-only DATA32GiB andunlimitedAS/RSS; process policy only, not available pool memory. No limits changed.",
-  "server_flavor": "fabric",
+  "server_flavor": "paper",
   "loader": {
-    "name": "Fabric Loader",
-    "version": "0.19.5",
-    "pinned_artifacts": 7,
-    "server_mod": "ps5-fabric-smoke 1.0.0",
-    "fabric_api": "not included or validated",
-    "console": "092 reaches readiness and records unjoined20TPS through121s; selector wakeup ENOMEM then fails network.093 pending;7200s deferred."
+    "name": "Paper upstream distribution",
+    "version": "26.3 build207",
+    "runtime_jars": 105,
+    "plugin": "PS5PaperSmoke1.0.0",
+    "console": "095pending"
   },
   "vanilla_fallback": {
     "version": "01.000.083",
@@ -158,7 +161,7 @@
   },
   "native_thread_budget": {
     "before_heap_mib": 176,
-    "heap_mib": 224,
+    "heap_mib": 384,
     "runtime_patch": "0103",
     "vm_libc_cap_bytes": 2097152,
     "policy": "atomicprefix/inflight-inclusive VM libc budget then existing page/slab/direct backend; no SDKreserve/interposition/threadlifecycle or heapmappingchange",
@@ -204,5 +207,26 @@
   "online_rate_limit": {
     "changes": "existing whitelist UUID avoids redundant getByName; remote session UUID+name still verified; all onlineJSON reads retry429 atmost2 times,Retry-After<=30s/default5s,disconnect beforewait. Other failures/longwait/persistent429 still fail.",
     "console": "094 pending actualPS5 preflight/startup/joining; online-mode/TLS/whitelist unchanged"
+  },
+  "paper": {
+    "minecraft": "26.3",
+    "build": 207,
+    "runtime_jars": 105,
+    "max_heap_mib": 384,
+    "additional_modules": [
+      "java.net.http",
+      "jdk.security.auth"
+    ],
+    "native_jaas": "notported/embedded; upstreamoptionalrootcheckcatches UnsatisfiedLinkError",
+    "world": "world-paper-v1",
+    "plugin": "PS5PaperSmoke1.0.0 lifecycle/scheduler/ps5probe command; no gameplaychanges",
+    "shutdown": "upstreamSystem.exit0 normal. Circle request->liveprogress/finalflush->armed currentrun marker->nativecallback checks plugindisable/dimensionI/O/finalRegionIO/level.dat/code0. App exitsnormally; reopenforreports. Shortcheck isnot fullendurance.",
+    "console": "pending"
+  },
+  "fabric_fallback": {
+    "version": "01.000.094",
+    "source_commit": "d43c3bd2fa044e40ce334a70a41769770b3244d7",
+    "package_sha256": "97ec74c40b9c495884130f9dae0ab10bf393e521265cbe82177f06190176df2d",
+    "console": "User satisfied; formalexactALLPASS/fullendurance notexplicitlyreported. Notfrozenmilestone."
   }
 }

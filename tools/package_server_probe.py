@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import re
 ROOT=Path(__file__).resolve().parents[1]
-parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--runtime-workspace',type=Path,required=True);parser.add_argument('--join-player',required=True,help='Online account to provision in the local package, not source Git');parser.add_argument('--flavor',choices=['vanilla','fabric'],default='vanilla');args=parser.parse_args()
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--runtime-workspace',type=Path,required=True);parser.add_argument('--join-player',required=True,help='Online account to provision in the local package, not source Git');parser.add_argument('--flavor',choices=['vanilla','fabric','paper'],default='vanilla');args=parser.parse_args()
 if not re.fullmatch(r'[A-Za-z0-9_]{3,16}',args.join_player):parser.error('Join player must be one Minecraft account name')
 runtime=args.runtime_workspace.resolve()
 subprocess.run(['python3',str(ROOT/'tools/prepare_server.py'),'--runtime-workspace',str(runtime),'--flavor',args.flavor],check=True)

@@ -8,7 +8,7 @@ public class ServerStart25 {
  private static native void checkpoint(String stage);
  private static void trace(String stage){if(Boolean.getBoolean("ps5.probe.dependencyTrace"))checkpoint("MC start: "+stage);}
  private static final class Observer extends OutputStream {
-  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready,fabricModReady;volatile long readyAt;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors,authErrors,discoveryErrors,networkErrors,playerJoins,playerSaveErrors;
+  final PrintStream console;final StringBuilder head=new StringBuilder(),tail=new StringBuilder(),errors=new StringBuilder(),line=new StringBuilder();volatile boolean ready,fabricModReady,paperPluginReady,paperSchedulerReady,paperCommandReady;volatile long readyAt;volatile long gameTime=-1,timeReplies,saveReplies,serverErrors,authErrors,discoveryErrors,networkErrors,playerJoins,playerSaveErrors,paperErrors;
   OutputStream log;long logged;
   private void persist(byte[] bytes,int offset,int length){if(log==null)return;try{int n=(int)Math.min(length,32L*1024*1024-logged);if(n>0){log.write(bytes,offset,n);logged+=n;}if(n<length){log.write("\n[Log capped at 32 MiB]\n".getBytes(StandardCharsets.UTF_8));log.close();log=null;}else log.flush();}catch(IOException e){console.println("Probe console log write failed: "+e);try{log.close();}catch(IOException ignored){}log=null;}}
   public synchronized void close()throws IOException{if(log!=null){log.close();log=null;}}
@@ -27,6 +27,9 @@ public class ServerStart25 {
   }
   private void note(){String value=line.toString().trim();
    if(value.contains("PS5_FABRIC_SMOKE_OK id=ps5-fabric-smoke version=1.0.0"))fabricModReady=true;
+   if(value.contains("PS5_PAPER_PLUGIN_ENABLED version=1.0.0"))paperPluginReady=true;
+   if(value.contains("PS5_PAPER_SCHEDULER_OK tick="))paperSchedulerReady=true;
+   if(value.contains("PS5_PAPER_COMMAND_OK tick="))paperCommandReady=true;
    String prefix="[Server thread/INFO]: ";int at=value.indexOf(prefix);
    String reply=at<0?"":value.substring(at+prefix.length());
    if(reply.startsWith("System chat: "))reply=reply.substring("System chat: ".length());
@@ -38,6 +41,7 @@ public class ServerStart25 {
    if(reply.endsWith(" joined the game"))playerJoins++;
    if(value.contains("[User Authenticator ")&&value.contains("/ERROR]"))authErrors++;
    if(value.contains("[Minecraft Services Discovery/WARN]")&&(value.contains("Failed to connect")||value.contains("Services are unavailable")))discoveryErrors++;
+   if(System.getProperty("ps5.mc.serverFlavor","vanilla").equals("paper")&&value.contains("/ERROR]"))paperErrors++;
    if(value.contains("[Netty ")&&value.contains("/ERROR]"))networkErrors++;
    if(value.contains("Failed to save player data for "))playerSaveErrors++;
    if(value.contains("[Server thread/ERROR]")||value.contains("MC_OP_POLICY_FAILED"))serverErrors++;
@@ -81,6 +85,7 @@ public class ServerStart25 {
   }
  }
  private static void checkOnline(Observer observer)throws IOException {
+  if(observer.paperErrors>0)throw new IOException("Paper ERROR logged; inspect server.log");
   if(observer.playerSaveErrors>0)throw new IOException("Player data save failed; inspect MC_SAVE_CHECK and server.log before endurance acceptance");
   if(observer.networkErrors>0)throw new IOException("Network packet failure during endurance; inspect server.log");
   if(!Boolean.getBoolean("ps5.mc.requireOnline"))return;
@@ -93,11 +98,13 @@ public class ServerStart25 {
   long begin=observer.readyAt==0?System.nanoTime():observer.readyAt,deadline=begin+seconds*1_000_000_000L,nextSave=begin+saveInterval*1_000_000_000L;
   if(System.nanoTime()-begin>poll*1_000_000_000L)throw new IOException("Endurance monitoring started too late after readiness");
   long last=-1,lastReplyAt=0,checks=0,saves=0,errors=observer.serverErrors;
+  boolean shortened=false;
   var performance=new ServerPerformance25();
   System.out.println("MC_ENDURANCE_BEGIN targetSeconds="+seconds+" pollSeconds="+poll+" saveSeconds="+saveInterval+" noPlayerAutoPause=false");
   do {
    checkOnline(observer);
    if(serverThread()==null)throw new IOException("Server exited before endurance completed");
+   if(checks>=2&&System.getProperty("ps5.mc.serverFlavor","vanilla").equals("paper")&&Files.exists(Path.of(System.getProperty("ps5.mc.workdir"),"paper-stop-request.txt"))){System.out.println("MC_PAPER_PLAY_CHECK_STOP_REQUEST full endurance target not completed");shortened=true;break;}
    long before=observer.timeReplies;command(commands,"time query gametime");awaitReply(observer,before,false,timeout);
    long current=observer.gameTime;
    if(last>=0&&current<=last)throw new IOException("Game time did not advance: "+last+" -> "+current);
@@ -123,7 +130,7 @@ public class ServerStart25 {
   long before=observer.saveReplies;command(commands,"save-all flush");awaitReply(observer,before,true,timeout);
   if(observer.serverErrors>errors)throw new IOException("Server ERROR during final endurance save");
   checkOnline(observer);
-  System.out.println("MC_ENDURANCE_COMPLETE elapsedSeconds="+((System.nanoTime()-begin)/1_000_000_000L)+" checks="+checks+" saves="+(saves+1)+" joins="+observer.playerJoins+" authErrors="+observer.authErrors+" discoveryErrors="+observer.discoveryErrors+" networkErrors="+observer.networkErrors);
+  System.out.println((shortened?"MC_PLAY_CHECK_COMPLETE elapsedSeconds=":"MC_ENDURANCE_COMPLETE elapsedSeconds=")+((System.nanoTime()-begin)/1_000_000_000L)+" checks="+checks+" saves="+(saves+1)+" joins="+observer.playerJoins+" authErrors="+observer.authErrors+" discoveryErrors="+observer.discoveryErrors+" networkErrors="+observer.networkErrors);
  }
  public static void main(String[] args)throws Exception {
   long enduranceSeconds=setting("ps5.mc.enduranceSeconds",0,0,86400);
@@ -132,9 +139,9 @@ public class ServerStart25 {
   Path root=Path.of(System.getProperty("ps5.mc.workdir",System.getProperty("user.dir"))).toAbsolutePath();
   boolean flat=Boolean.getBoolean("ps5.mc.validationFlat");
   String flavor=System.getProperty("ps5.mc.serverFlavor","vanilla");
-  if(!flavor.equals("vanilla")&&!flavor.equals("fabric"))throw new IllegalArgumentException("Unsupported server flavor: "+flavor);
-  boolean fabric=flavor.equals("fabric");
-  String worldName=fabric?"world-fabric-v1":flat?"world":"world-normal-v1";
+  if(!flavor.equals("vanilla")&&!flavor.equals("fabric")&&!flavor.equals("paper"))throw new IllegalArgumentException("Unsupported server flavor: "+flavor);
+  boolean fabric=flavor.equals("fabric"),paper=flavor.equals("paper");
+  String worldName=paper?"world-paper-v1":fabric?"world-fabric-v1":flat?"world":"world-normal-v1";
   int view=(int)setting("ps5.mc.viewDistance",flat?2:4,2,12),simulation=(int)setting("ps5.mc.simulationDistance",flat?2:3,2,view);
   String stage="write authorized EULA and isolated world configuration";trace(stage);
   Files.createDirectories(root);
@@ -168,13 +175,20 @@ public class ServerStart25 {
     stage="initialize and invoke original server nogui";trace(stage);
     ClassLoader gameLoader=ClassLoader.getSystemClassLoader();
     String[] launchArgs={"--nogui","--universe",root.toString(),"--world",worldName};
-    if(fabric){ServerFabric25.prepare(root);gameLoader=ServerFabric25.launch(launchArgs);}
+    if(paper){ServerPaper25.prepare(root);gameLoader=ServerPaper25.launch(root,worldName);}
+    else if(fabric){ServerFabric25.prepare(root);gameLoader=ServerFabric25.launch(launchArgs);}
     else {Class<?> main=Class.forName("net.minecraft.server.Main",true,gameLoader);main.getMethod("main",String[].class).invoke(null,(Object)launchArgs);}
     stage="wait up to 10 minutes for real Done readiness message";trace(stage);
     long deadline=System.nanoTime()+600_000_000_000L;
     while(!observer.ready&&System.nanoTime()<deadline){if(serverThread()==null)break;Thread.sleep(200);}
     if(!observer.ready)throw new IOException("Server did not report ready; thread exited or deadline elapsed");
     if(fabric&&!observer.fabricModReady)throw new IOException("Fabric server test mod entrypoint did not execute");
+    if(paper){
+     command(commands,"ps5probe");long pluginDeadline=System.nanoTime()+30_000_000_000L;
+     while(!(observer.paperPluginReady&&observer.paperSchedulerReady&&observer.paperCommandReady)&&System.nanoTime()<pluginDeadline)Thread.sleep(100);
+     if(!(observer.paperPluginReady&&observer.paperSchedulerReady&&observer.paperCommandReady))throw new IOException("Paper plugin lifecycle/scheduler/command smoke check failed");
+     System.out.println("MC_PAPER_PLUGIN_OK enable, scheduled main-thread task and console command");
+    }
     checkOnline(observer);
     stage="verify vanilla compressed NBT player-save file operations";trace(stage);ServerSave25.check(root.resolve(worldName),gameLoader);
     stage="initialize real gameplay protocol templates after readiness";trace(stage);ServerProtocol25.check(gameLoader);ServerOperators25.requireReady();
@@ -184,6 +198,7 @@ public class ServerStart25 {
     stage="endurance: tick progress, periodic flushed saves and server liveness";trace(stage);
     endurance(observer,commands,enduranceSeconds);
     stage="send stop and await real server thread exit";trace(stage);
+    if(paper){checkOnline(observer);ServerPaper25.armStop(root);}
     commands.write("stop\n".getBytes(StandardCharsets.UTF_8));commands.flush();
     Thread thread=serverThread();if(thread!=null)thread.join(120000);
     if(serverThread()!=null)throw new IOException("Server did not stop within 120 seconds");stopped=true;

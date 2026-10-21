@@ -17,6 +17,7 @@
 #include "jni_worker.hpp"
 #include "vm_diagnostics.hpp"
 #include "server_classpath.hpp"
+#include "paper_shutdown.hpp"
 using Initializer=void (*)();
 extern "C" Initializer __jvm_init_array_start[],__jvm_init_array_end[];
 #include <sys/mman.h>
@@ -64,7 +65,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.094";
+constexpr const char *build_version="01.000.095";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -122,6 +123,12 @@ void save_vm_failure(const char *reason) {
  }
 }
 void vm_exit(int code) {
+#if SERVER_IS_PAPER
+ bool clean=paper_shutdown::clean("/download0/mc-server-start",run_id,code);
+ session_status(clean?"PASS: Paper play/plugin/flushed-save check and normal JVM exit0; full endurance see server.log. Reopen app for reports.":"FAIL: Paper JVM exit before verified clean shutdown; inspect server.log. Reopen app for reports.");
+ log_stage(clean?"PAPER NORMAL SHUTDOWN: verified current-run stop marker, plugin disable, dimension I/O completion and exit0":"PAPER EXIT: clean-shutdown evidence incomplete");
+ if(clean)return; // The VM performs its normal process exit after the JNI hook.
+#endif
  char reason[80];std::snprintf(reason,sizeof(reason),"VM EXIT: %d",code);save_vm_failure(reason);
  if(startup_log) {std::fprintf(startup_log,"%s\n",reason);std::fflush(startup_log);}
 }
@@ -231,7 +238,9 @@ void run_test(int i) {
    result(i,code,"Before JVM: core image read / magic failed");skip_vm_dependents();read_previous_log();return;
   }
   log_stage("Core image opened and JIMAGE header verified");
+  char run_option[160];std::snprintf(run_option,sizeof(run_option),"-Dps5.probe.runId=%s",run_id);
   JavaVMOption options[]={
+   {run_option,nullptr},
    {const_cast<char *>("-Xmixed"),nullptr},
    {const_cast<char *>("-XX:TieredStopAtLevel=1"),nullptr},
    {const_cast<char *>("-XX:CICompilerCount=1"),nullptr},
@@ -245,7 +254,7 @@ void run_test(int i) {
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
    {const_cast<char *>("-Xms16m"),nullptr},
    {const_cast<char *>("-XX:+UseCompactObjectHeaders"),nullptr},
-   {const_cast<char *>("-Xmx224m"),nullptr},
+   {const_cast<char *>(SERVER_HEAP_OPTION),nullptr},
    {const_cast<char *>("-Xss512k"),nullptr},
    // Keep native headroom for Fabric worker stacks and pthread bookkeeping.
    {const_cast<char *>("-Dio.netty.allocator.type=unpooled"),nullptr},
@@ -385,12 +394,24 @@ void server_on_worker(JNIEnv *env,void *) {
 }
 bool update() noexcept {
  if(server_job_started) {
-  if(!server_job.ready()) {time_t now=time(nullptr);if(now==server_last_frame)return false;server_last_frame=now;ps5::process_usage::append("/download0/process-usage.log",(long long)(now-server_started_at));return true;}
+  if(!server_job.ready()) {
+#if SERVER_IS_PAPER
+   if(pad>=0){PadSample samples[64]{};int count=scePadRead(pad,samples,64);if(count>0&&count<=64)for(int i=0;i<count;i++){
+    auto buttons=samples[i].connected&&!(samples[i].buttons&0x80000000u)?samples[i].buttons:0;
+    auto pressed=buttons&~previous;previous=buttons;
+    if(pressed&0x2000){FILE* request=std::fopen("/download0/mc-server-start/paper-stop-request.txt","w");if(request){std::fputs("save and stop\n",request);std::fclose(request);log_stage("Paper play check stop requested by controller; full endurance not claimed");}}
+   }}
+#endif
+   time_t now=time(nullptr);if(now==server_last_frame)return false;server_last_frame=now;ps5::process_usage::append("/download0/process-usage.log",(long long)(now-server_started_at));return true;}
   int error=server_job.join();server_job_started=false;
   if(error)result(3,error,"Server worker attach/detach failed");
   return true;
  }
  if(pending==3) {
+#if SERVER_IS_PAPER
+  unlink("/download0/mc-server-start/paper-stop-request.txt");
+  unlink("/download0/mc-server-start/paper-stop-ready.txt");
+#endif
   pending=-1;session_status("RUN: server worker (UI remains active)");
   int error=server_job.start(java_vm,server_on_worker);
   if(error)result(3,error,"Cannot start server worker");else {server_started_at=server_last_frame=time(nullptr);server_job_started=true;ps5::process_usage::append("/download0/process-usage.log",0);}
@@ -419,14 +440,14 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.094",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.095",42,rgb(238,242,250));
  c.label(103,163,SERVER_FLAVOR_LABEL " / Minecraft 26.3 / Java 25. Compatibility play test; saves every 5 minutes.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
   if(selected==i) c.rounded(95,y-4,1730,76,22,rgb(109,156,255));
   c.rounded(100,y,1720,68,19,rgb(25,34,51));
   c.label(124,y+8,names[i],25,rgb(238,242,250));
-  c.label(125,y+38,server_job_started&&i==3?"Server running on dedicated worker; logs available on port 8765.":messages[i][0]?messages[i]:"Select and press X to run this test.",20,rgb(139,153,178));
+  c.label(125,y+38,server_job_started&&i==3?(SERVER_IS_PAPER?"Server running; logs port 8765. Paper: Circle saves/stops (app exits normally).":"Server running on dedicated worker; logs available on port 8765."):messages[i][0]?messages[i]:"Select and press X to run this test.",20,rgb(139,153,178));
   int visible_status=server_job_started&&i==3?2:status[i];
   c.label(1650,y+25,visible_status==1?"PASS":visible_status==-1?"FAIL":visible_status==2?"RUN":visible_status==3?"SKIP":"--",24,visible_status==1?rgb(105,215,172):visible_status==-1?rgb(230,176,91):rgb(139,153,178));
  }

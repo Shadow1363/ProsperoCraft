@@ -9,7 +9,7 @@ import subprocess
 import urllib.request
 import zipfile
 ROOT=Path(__file__).resolve().parents[1]
-parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--runtime-workspace',type=Path,required=True);parser.add_argument('--flavor',choices=['vanilla','fabric'],default='vanilla');args=parser.parse_args()
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--runtime-workspace',type=Path,required=True);parser.add_argument('--flavor',choices=['vanilla','fabric','paper'],default='vanilla');args=parser.parse_args()
 runtime=args.runtime_workspace.resolve();lock=json.loads((ROOT/'server/26.3.lock.json').read_text())
 cache=ROOT/'.tools/server-26.3.jar';cache.parent.mkdir(exist_ok=True)
 if not cache.exists():urllib.request.urlretrieve(lock['server_bundle']['url'],cache)
@@ -27,6 +27,12 @@ with zipfile.ZipFile(cache) as archive:
             payload=archive.read('META-INF/'+kind+'/'+relative);assert hashlib.sha256(payload).hexdigest()==sha
             (jars/record['file']).write_bytes(payload)
 extra=[]
+paper=None
+if args.flavor=='paper':
+    from prepare_paper import prepare
+    for path in jars.iterdir():path.unlink()
+    paper=prepare(ROOT,cache,jars)
+    lock={**lock,'jars':paper['jars'],'modules':[*lock['modules'],'jdk.security.auth','java.net.http']}
 if args.flavor=='fabric':
     fabric=json.loads((ROOT/'server/fabric-26.3.lock.json').read_text());extra=fabric['jars']
     for record in extra:
@@ -45,7 +51,8 @@ if args.flavor=='fabric':
     (mods/'ps5-fabric-smoke.sha256').write_text(hashlib.sha256((mods/'ps5-fabric-smoke.jar').read_bytes()).hexdigest()+'\n')
 inventory=''.join(record['file']+'='+record['sha256']+'\n' for record in lock['jars']+extra)
 (assets/'java25/server-inventory.properties').write_text(inventory)
-shutil.copy2(ROOT/'server/config/log4j2-ps5.xml',assets/'java25/log4j2-ps5.xml')
+log_config=ROOT/('server/config/log4j2-paper-ps5.xml' if paper else 'server/config/log4j2-ps5.xml')
+shutil.copy2(log_config,assets/'java25/log4j2-ps5.xml')
 # Put the consumer's helper classes in a JAR: the PS5 system loader already
 # supports bundled JAR URLs, while loose class-directory lookup uses sandbox
 # metadata operations that are not established for these fixtures.
@@ -56,21 +63,24 @@ subprocess.run(['/opt/homebrew/opt/openjdk@25/bin/javac','--release','25','-cp',
 assert not (jars/'ps5-platform-diagnostics.jar').exists()
 execution=json.loads((ROOT/'server/execution.json').read_text())
 execution['flavor']=args.flavor
-execution['loader']=fabric['loader'] if args.flavor=='fabric' else None
+execution['loader']=fabric['loader'] if args.flavor=='fabric' else 'Paper upstream build207' if paper else None
 execution['external_loader_transformations']='Fabric standard class loading/Mixin; no project game-JAR rewrites' if args.flavor=='fabric' else None
-server=next(record for record in lock['jars'] if record['file']=='server-26.3.jar')
-assert execution['server_sha256']==server['sha256'] and execution['active_game_transformations']==[] and execution['replacement_game_classes']==[]
+if paper:
+    execution={'flavor':'paper','upstream_distribution':'Paper26.3 build207','upstream_paperclip_sha256':paper['sha256'],'server_sha256':next(row['sha256'] for row in paper['jars'] if row['kind']=='versions'),'active_game_transformations':[],'replacement_game_classes':[],'project_game_transformations':[],'note':'Executes pinned upstream Paper server, not unmodified Mojang server; only upstream Paperclip applies publisher patches on host.'}
+else:
+    server=next(record for record in lock['jars'] if record['file']=='server-26.3.jar')
+    assert execution['server_sha256']==server['sha256'] and execution['active_game_transformations']==[] and execution['replacement_game_classes']==[]
 (assets/'java25/execution-audit.json').write_text(json.dumps(execution,indent=2)+'\n')
 with zipfile.ZipFile(jars/'ps5-server-probe.jar','w',zipfile.ZIP_DEFLATED) as probe:
     config=zipfile.ZipInfo('log4j2-ps5.xml');config.compress_type=zipfile.ZIP_DEFLATED
-    probe.writestr(config,(ROOT/'server/config/log4j2-ps5.xml').read_bytes())
+    probe.writestr(config,log_config.read_bytes())
     for path in sorted(wrapper_classes.rglob('*.class')):
         info=zipfile.ZipInfo(path.relative_to(wrapper_classes).as_posix());info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16
         probe.writestr(info,path.read_bytes())
 with zipfile.ZipFile(jars/'ps5-server-probe.jar') as probe:
     assert 'ServerStart25$Observer.class' in probe.namelist()
 classpath='/app0/assets/java25/jars/ps5-server-probe.jar:'+':'.join('/app0/assets/java25/jars/'+record['file'] for record in lock['jars']+extra)
-(ROOT/'build/server_classpath.hpp').write_text('#pragma once\n#define SERVER_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n#define SERVER_FLAVOR_OPTION '+json.dumps('-Dps5.mc.serverFlavor='+args.flavor)+'\n#define SERVER_FLAVOR_LABEL '+json.dumps('Fabric '+fabric['loader'] if args.flavor=='fabric' else 'Vanilla')+'\n')
+(ROOT/'build/server_classpath.hpp').write_text('#pragma once\n#define SERVER_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n#define SERVER_FLAVOR_OPTION '+json.dumps('-Dps5.mc.serverFlavor='+args.flavor)+'\n#define SERVER_HEAP_OPTION '+json.dumps('-Xmx384m' if paper else '-Xmx224m')+'\n#define SERVER_IS_PAPER '+str(int(paper is not None))+'\n#define SERVER_FLAVOR_LABEL '+json.dumps('Fabric '+fabric['loader'] if args.flavor=='fabric' else 'Paper 26.3 build207' if paper else 'Vanilla')+'\n')
 spec={'menu_audio':False,'source':str(ROOT/'server/native/bootstrap.cpp'),'param':str(ROOT/'server/param.json'),'asset_dir':str(assets),'java_sources':[str(p) for p in java_sources],'modules':lock['modules'],'java_compile_classpath':[str(next(jars/r['file'] for r in lock['jars'] if r['id'].startswith('com.google.code.gson:gson:')))],'include_dirs':[str(ROOT/'build'),str(runtime/'java25/probe')]}
 (ROOT/'build/probe-spec.json').write_text(json.dumps(spec,indent=2)+'\n')
-print('Prepared',len(lock['jars']),'verified official game JARs and',len(extra),'loader JARs; flavor',args.flavor)
+print('Prepared',len(lock['jars']),'verified upstream runtime JARs and',len(extra),'loader JARs; flavor',args.flavor)

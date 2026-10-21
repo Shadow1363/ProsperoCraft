@@ -71,7 +71,9 @@ The runtime now has **nine passing console milestones**, including inbound IPv4,
 ### 2 · Validate server mods
 
 - [ ] Complete the unmodified-server baseline, save/rejoin checks and two-hour run.
-- [ ] Select compatible pinned server mod-loader/game versions; evaluate Fabric and Forge separately where supported.
+- [x] Pin separate Fabric0.19.5 and Paper26.3build207 distributions; retain isolated worlds.
+- [ ] Validate Paper startup, joining, plugin lifecycle and save/rejoin/stop on PS5.
+- [ ] Freeze and publish the accepted server release before client work.
 - [ ] Run individual server-side mods and verify joins, persistence, memory and latency.
 - [ ] Publish exact tested loader/mod versions and reproducible results before larger sets.
 
@@ -98,22 +100,25 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: online-bootstrap candidate 01.000.094
+## Current development: Paper candidate 01.000.095
 
-093 fails before server startup because the profile API returns HTTP 429.
-It does not reach the new selector backend, so that runtime repair remains
-unvalidated. 094 reuses an existing whitelist UUID to avoid redundant name
-lookups, still checks the remote session profile's UUID and name, and adds at
-most two rate-limit retries with bounded Retry-After handling. Online login
-authentication and verified TLS remain required. Persistent throttling fails.
-See [evidence and validation](docs/online-rate-limit-093.md).
+The user is satisfied with Fabric; its094 package/source remain a fallback.
+095 starts the Paper stage with pinned upstream Paper26.3build207, an isolated
+normal world and a separate plugin for lifecycle, scheduler and `/ps5probe`
+checks. Paper executes its upstream server distribution. No project game-JAR
+rewrites or replacement classes are introduced. Music stays off.
 
-Host response/retry/cleanup and identity-validation tests pass. Runtime, original
-game, Fabric loader and smoke-mod JARs stay unchanged; the separate probe changes.
-Music stays off. Normal world, 224 MiB heap, view 4/simulation 3, spawn-protection
-0, online whitelist, level 4 ops and 20 slots remain. PS5 preflight/startup/joined
-stability/save/rejoin are pending. The full two-hour run stays deferred. Frozen
-058 and vanilla 083 fallback remain intact. No new ALL PASS claim.
+Host startup/plugin/60-second tick/save/normal-exit checks pass at384MiB after
+224MiB world-generation heap exhaustion. An early-stop fixture also passes.
+The runtime source is unchanged; Paper adds target module classes. ActualPS5
+memory, startup, joining, plugins and persistence still need validation. See
+[the candidate, stop behavior and release gate](docs/paper-candidate-095.md).
+
+Press **Circle** in the probe after playing to request a flushed save and stop.
+Paper normally exits the JVM and closes the app; reopen it for reports. A short
+play check is recorded separately from the deferred two-hour run. Keep the
+vanilla083 fallback and frozen058 snapshot. After exact Paper console acceptance,
+freeze and publish the server release before beginning client work.
 
 
 072captured a null function call through its new OS-random service import.
@@ -146,22 +151,23 @@ operator policy grants level4OP to all admitted whitelisted accounts through
 vanilla APIs, preserving the20-player limit. Use `/gamemode creative` to avoid
 mob damage, or `/difficulty peaceful` to remove hostile mobs.
 
-The five rows initialize/create the VM, verify official artifacts and actual C1
-results, start the server, monitor actual tick progress/saves, then destroy the
-VM. The7200-second timer starts at the real `Done` readiness message, with checks
+The rows initialize/create the VM, verify upstream artifacts and actual C1
+results, then start and monitor tick progress/saves. Paper exits the JVM when
+it stops; its checked shutdown closes the app rather than completing a separate
+DestroyJavaVM row. Reopen it for reports. The7200-second timer starts at the real `Done` readiness message, with checks
 every30seconds and flushed saves every300seconds. A short gameplay/respawn check
 comes before a full run. Follow the [endurance instructions](docs/endurance.md).
 The human's EULA acceptance is [recorded](server/eula-consent.json). The frozen
 [Server_Start058](Server_Start) snapshot remains the last passing milestone;
-092 keeps original game artifacts and standard Fabric loading; directory allocation/startup, native lifecycle, GC, responsiveness and persistence remain pending. Full endurance is deferred.
+Fabric satisfaction is reported after094. Paper095 is pending actualPS5 validation; no new frozen milestone or completed two-hour run is claimed.
 
 ### Build and verify
 
 With the pinned Java port/toolchain available:
 
 ```sh
-python3 tools/package_server_probe.py --runtime-workspace /path/to/PS5_Homebrew --join-player YOUR_ACCOUNT --flavor fabric
-python3 tools/test_server_start.py
+python3 tools/package_server_probe.py --runtime-workspace /path/to/PS5_Homebrew --join-player YOUR_ACCOUNT --flavor paper
+python3 tools/test_server_start.py --flavor paper --c1 --heap-mib 384 --chunk-radius 2 --endurance-seconds 60
 ```
 
 The preparation script creates the class-path header and external probe specification under `build/`. The Java repository supplies the reusable runtime builder and extra target-built Java modules. No host native binaries are included. Optional module natives and server-specific native dependencies still need console validation.

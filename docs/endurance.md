@@ -490,3 +490,13 @@ repair. 094 reuses existing whitelist UUIDs with remote session identity checks
 and bounds429 retries/Retry-After waits. Authentication/TLS remain enabled.
 PS5 preflight/startup/joined stability pending; full7200s deferred. See
 [the current failure and handling](online-rate-limit-093.md).
+
+## Paper 095 play checks and normal exit
+
+Paper uses384MiB after224MiB host world-generation OOM,105 pinned upstream JARs,
+world-paper-v1 and PS5PaperSmoke1.0.0. Host60s/plugin/save/normal-exit and shortened
+play controls pass; actualPS5 pending. Press Circle after joined play to request
+final save/stop. Paper normally calls System.exit0; the native callback validates
+current-run/plugin/dimension I/O/level evidence before recording success. Reopen
+the app for reports. Shortened checks print MC_PLAY_CHECK_COMPLETE and do not
+claim full7200s. See [candidate details and release gate](paper-candidate-095.md).

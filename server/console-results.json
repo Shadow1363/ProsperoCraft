@@ -903,10 +903,19 @@
     {
       "app_version": "01.000.094",
       "package_sha256": "97ec74c40b9c495884130f9dae0ab10bf393e521265cbe82177f06190176df2d",
-      "console": "pending",
+      "console": "User reports very satisfied with Fabric and requests Paper next. Formal exact-build ALLPASS/full endurance not explicitly reported.",
       "changes": "Harness existingwhitelistUUID reuse with remoteHTTPSsession UUID+name checks; bounded429 retries/Retry-After/disconnect-beforewait. Online authentication/TLS/whitelist remainenabled. Runtime/game/Fabric/smoke unchanged; onlyonlinebootstrap probeclasses change. Musicremoved.",
       "checks": "PASS controlledHTTPS response/retry/cleanup,identity/whitelist/HTTPSpolicy tests; packagePASS. No newhostgame run. PackagePASS: ZIPCRC/version094/options,7currentnativelibraries,moduleimage/all47pins/originalgameaudit,nativeexports/backendmarkers,signatures/copychecks,sharedledger/stack/libccounter andearlierkernelimports. Runtime/moduleimage/game/Fabric/smoke match093; onlyServerOnline25 probeclasses differ; online-mode=true andTLS/whitelist preserved; no testdoubles embedded. Frozen058/vanilla083/failed084..093 hashespreserved.",
-      "pending": "ActualPS5 onlinepreflight,startup,selectorbackend,joining/nativepressure/save/rejoin/cleanstop. Persistentthrottlingstillfails. Full7200s deferred; noALLPASS."
+      "pending": "ActualPS5 onlinepreflight,startup,selectorbackend,joining/nativepressure/save/rejoin/cleanstop. Persistentthrottlingstillfails. Full7200s deferred; noALLPASS.",
+      "evidence": "User feedback2026-10-21 after094candidate; no newconsole reports retrieved inthis turn.094package/source retained asfallback; notfrozen aspassing milestone."
+    },
+    {
+      "app_version": "01.000.095",
+      "package_sha256": "858d488c8883273491bdd2efb2f9e8062c44331318f29bbcc9b59b56bcc97390",
+      "console": "pending",
+      "changes": "Paper26.3build207 pins105upstreamJARs,hostoriginalPaperclip preparation. No projectgamebytecode changes. Isolatedworld-paper-v1 andPS5PaperSmoke1.0.0 plugin,105pinpreflight,Paperlogging withoutrecursiveconsolebridge,384MiBheap vs224MiBFabric afterhostOOM. java.net.http/jdk.security.auth classes added; jaasnativeunported,optionalupstreamrootcheckhandlesmissingnative. Nativecurrentrun cleanexitclassification/Circle shortenedplaycheck; full7200s notclaimed.",
+      "checks": "PASS105upstreamJARinventory/originalPaperclip preparation/plugin compilation; host384MiBPaper60s/plugin/NBT/protocol/25forcedchunks/28healthchecks/14saves/exit0; shortened12s/4checks/3saves/controller-style path separately. Actualnativeexitclassifier ASan/UBSan+realshutdownlog replay,actualobserverPaperERROR/pluginmarker checks. PackageCRC/version/options/105pins/audit/noFabric/8nativefiles/moduleclasses/image/symbols/signatures/silence/fallbackhashes pass. No hostplayers.224MiBhostOOM recorded. Existing monitor/output/HTTPS/identity/rate-limit regression tests pass against finalprobe; nativeclassifier also rejectssavewarnings.",
+      "pending": "ActualPS5newmoduleloading/heap/nativepressure/Paperstartup/onlinejoin/plugincommands/movement/damage/food/grass/chunks/playerpersistence/normalshutdown. Full7200sdeferred; arbitraryplugins/20playerload/clientunvalidated. Freeze/releaseonlyafterexactconsolepass; noALLPASSclaim."
     }
   ]
 }

@@ -23,7 +23,9 @@ public class ServerPreflight25 {
    System.out.println("MC_ZIP_STREAM_OK native deflate/inflate allocations and content verified");
    Path root=Path.of(System.getProperty("ps5.mc.assets","/app0/assets/java25"));
    Properties inventory=new Properties();try(var input=Files.newInputStream(root.resolve("server-inventory.properties"))){inventory.load(input);}
-   int expected=System.getProperty("ps5.mc.serverFlavor","vanilla").equals("fabric")?47:40;
+   boolean paper=System.getProperty("ps5.mc.serverFlavor","vanilla").equals("paper");
+   int expected=paper?105:System.getProperty("ps5.mc.serverFlavor","vanilla").equals("fabric")?47:40;
+   String serverJar=paper?"paper-26.3.jar":"server-26.3.jar";
    if(inventory.size()!=expected)throw new AssertionError("Expected "+expected+" pinned JARs");
    for(String file:new TreeSet<>(inventory.stringPropertyNames())) {
     if(file.contains("/")||file.contains("\\")||!file.endsWith(".jar"))throw new AssertionError("Invalid inventory path");
@@ -33,14 +35,14 @@ public class ServerPreflight25 {
     if(!HexFormat.of().formatHex(digest.digest()).equals(inventory.getProperty(file)))throw new AssertionError("JAR checksum "+file);
    }
    stage="check server Java 25 bytecode";trace(stage);
-   try(JarFile jar=new JarFile(root.resolve("jars/server-26.3.jar").toFile())) {
+   try(JarFile jar=new JarFile(root.resolve("jars").resolve(serverJar).toFile())) {
     var entry=jar.getJarEntry("net/minecraft/server/Main.class");if(entry==null)throw new AssertionError("Missing server main");
     try(var input=new DataInputStream(jar.getInputStream(entry))) {
      if(input.readInt()!=0xCAFEBABE)throw new AssertionError("Class magic");input.readUnsignedShort();if(input.readUnsignedShort()!=69)throw new AssertionError("Server class version");
     }
    }
    stage="canonicalize and mount vanilla assets through ZipFS";trace(stage);
-   Path assetsJar=root.resolve("jars/server-26.3.jar").toRealPath();
+   Path assetsJar=root.resolve("jars").resolve(serverJar).toRealPath();
    stage="check readable vanilla asset JAR";trace(stage);
    assetsJar.getFileSystem().provider().checkAccess(assetsJar,AccessMode.READ);
    stage="enumerate packaged asset directory";trace(stage);

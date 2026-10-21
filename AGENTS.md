@@ -73,3 +73,14 @@ classes. Standard upstream loader/Mixin behavior is part of the authorized mod
 experiment and must be disclosed. Paper executes its own upstream server rather
 than claiming to execute an unmodified Mojang server. No new passing milestone
 is established by the083performance report alone.
+
+## User work-order update on 2026-10-21
+
+The user is satisfied with the Fabric experience and requests Paper next.
+Validate the pinned upstream Paper distribution and a separate plugin on PS5;
+once its exact candidate is confirmed passing, prepare and publish a proper
+server release before client work. Do not infer a formal ALL PASS or full
+two-hour completion from the satisfaction report. Preserve the Fabric094
+candidate/package and vanilla083 fallback. Keep the two-hour test deferred.
+Paper's upstream System.exit on shutdown is normal; report checked shutdown
+evidence and distinguish a user-shortened play check from full endurance.
