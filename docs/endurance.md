@@ -508,3 +508,10 @@ ENOMEM.096 adopts runtime0108 compact-header direct metadata fallback with
 unchanged sharedbudget/384MiBheap/game/config. VMcreation/classloading/native
 headroom/Paperplay remain pending.7200s deferred. See
 [evidence and limits](class-space-failure-095.md).
+
+## Paper097 compiler-thread repair
+
+096 reservesclassdirect32MiB,thencompiler_thread1MiB ordinarypthreadcreate fails
+EAGAIN/ENOMEM.097extends existingownedstackfallback tocompiler_thread withsame
+entry/guards/stacksize/reaper/TLS/budgets. VMcreate/C1/Paper/nativepressure still
+pending;7200sdeferred. See [evidence](compiler-thread-failure-096.md).

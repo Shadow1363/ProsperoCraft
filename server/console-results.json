@@ -921,10 +921,19 @@
     {
       "app_version": "01.000.096",
       "package_sha256": "ce96d3ad3aee39dcc11476f97e9f3b9d41e9c4971e9afee8d93561a55d190497",
-      "console": "pending",
+      "console": "FAILVMcreation: classdirectreservation succeeds,thencompilerthreadnativeENOMEM",
       "changes": "Runtime0108PS5AMD64compactclassspace ordinaryENOMEM fallback toexistingsharedbounded directmetadataownership;normalclassencoding/NMT/protection/commit/release retained. Noheap/poolbudgetincrease. Game/Paper/probe/plugin/moduleimage/config384MiB/OP/security/silence unchanged.",
       "checks": "PASSactualclassreservation/sharedledger/releaseASan/UBSan32MiB/4MiBalignment,zero/protect/subrange/error/header/range/budget/rollback/cleanup;targetHotSpot/exactpatch. Nonewhostgame test;095evidence retainedseparately. PASS096 ZIPCRC/version/384MiB/C1/security/options/105pins/plugin/audit/noFabric,8targetnativefiles/modules/signatures/copies/symbols/silence/singleledger/stack/libccounter/earlierexports;0108classmarker inlibjvm+linkedELF. Exact095game/probe/plugin/moduleimage/othernativecode unchanged. Failed095,Fabric094,vanilla083,frozen058 hashes retained.",
-      "pending": "ActualPS5VMcreate/classload/C1/GC/encoding/protectionzone/nativepoolpressure,thenPaperplugins/joinedplay/save/rejoin/stop. Shared128MiBstillrefusable;32MiBclassbackingphysicalcharge. Full7200sdeferred;noALLPASS/releaseyet."
+      "pending": "097ownedcompilerstack; fullclass/C1/GC/NMT/protection/nativepressure/Paperplay/persistence pending.7200sdeferred.",
+      "evidence": "Current096session/abort/startuptail/nativetrace retrieved2026-10-21.32MiBclassdirect4MiBalignment at0x1000000000 success,0reportedallocationfailures. Laterthreadtype3/compiler_thread1MiB ordinarypthreadcreate repeatedEAGAINerrnoENOMEM; VMabortunabletocreatenativethread. NoPaper/gameexecution. Rawlogslocal."
+    },
+    {
+      "app_version": "01.000.097",
+      "package_sha256": "82069ab3d49bb0392915054f509412976be8e83a82828f3411e923d4c4181469",
+      "console": "pending",
+      "changes": "Runtime0109extendsfinalordinaryEAGAIN+ENOMEM ownedstackfallback tocompiler_thread retainingrequested1MiB/normalentry/guards/joinTLSreap/exactrelease. No C1disable/stackshrink/budgetincrease. Paper/game/probe/plugin/moduleimage384MiB/config/security/OP/silenceunchanged.",
+      "checks": "PASSactualgate45combinations,1MiBownedstackrealpthreadTLS/reap220lifetimes/fault/budgetASanUBSan,512KiBregression,targetHotSpot/exactpatch. Nonewhostgame test;095evidence separate. PASS097ZIPCRC/version/384MiB/C1/security/105pins/plugin/audit/noFabric,8currenttargetnativefiles/moduleimage/signatures/copies/symbols/silence/singleVMledger/stack/libccounter/earlierexports; updated0109libjvm andtargetlinkedELF. Exact096Paper/game/probe/plugin/moduleimage/othernativecode unchanged. Failed096/095,Fabric094,vanilla083,frozen058hashespreserved.",
+      "pending": "ActualPS5VMcreate/C1verify/classloading/compilerTLS/guard/reaping/nativepressure thenPaperplugin/joinedplay/save/rejoin/stop.128MiBsharedpool/32MiBstackbudget stillrefusable. Full7200sdeferred;noALLPASS/releaseyet."
     }
   ]
 }
