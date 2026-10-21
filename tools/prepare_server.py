@@ -71,6 +71,6 @@ with zipfile.ZipFile(jars/'ps5-server-probe.jar') as probe:
     assert 'ServerStart25$Observer.class' in probe.namelist()
 classpath='/app0/assets/java25/jars/ps5-server-probe.jar:'+':'.join('/app0/assets/java25/jars/'+record['file'] for record in lock['jars']+extra)
 (ROOT/'build/server_classpath.hpp').write_text('#pragma once\n#define SERVER_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n#define SERVER_FLAVOR_OPTION '+json.dumps('-Dps5.mc.serverFlavor='+args.flavor)+'\n#define SERVER_FLAVOR_LABEL '+json.dumps('Fabric '+fabric['loader'] if args.flavor=='fabric' else 'Vanilla')+'\n')
-spec={'source':str(ROOT/'server/native/bootstrap.cpp'),'param':str(ROOT/'server/param.json'),'asset_dir':str(assets),'java_sources':[str(p) for p in java_sources],'modules':lock['modules'],'java_compile_classpath':[str(next(jars/r['file'] for r in lock['jars'] if r['id'].startswith('com.google.code.gson:gson:')))],'include_dirs':[str(ROOT/'build'),str(runtime/'java25/probe')]}
+spec={'menu_audio':False,'source':str(ROOT/'server/native/bootstrap.cpp'),'param':str(ROOT/'server/param.json'),'asset_dir':str(assets),'java_sources':[str(p) for p in java_sources],'modules':lock['modules'],'java_compile_classpath':[str(next(jars/r['file'] for r in lock['jars'] if r['id'].startswith('com.google.code.gson:gson:')))],'include_dirs':[str(ROOT/'build'),str(runtime/'java25/probe')]}
 (ROOT/'build/probe-spec.json').write_text(json.dumps(spec,indent=2)+'\n')
 print('Prepared',len(lock['jars']),'verified official game JARs and',len(extra),'loader JARs; flavor',args.flavor)

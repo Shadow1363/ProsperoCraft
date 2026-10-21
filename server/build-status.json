@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.089",
+  "app_version": "01.000.090",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "a30ae767c41ff12c01204b0a2ab2322da347cfc6b9332e8d3d9894ef78cfb678",
-  "console": "088joined play severelyGC-bound: intervalGC29.072s/30s at9.97TPS, repeated fullGC minimalreclaim. No current thread crash/savewarning in capture.089heap/nativebudget candidate pendingPS5; no ALLPASS.",
-  "host": "PASS: actual Fabric/smoke/preflight/readiness at224MiB guarded C1; normalworld25forced chunks(radius2),60seconds/27tickchecks/14flushedsaves/cleanstop/nonempty level.dat/persistedregions; no playerjoined. HostGC log has2Allocation Failure fullpauses; not console performance proof. Actual raw allocator/os.cpp NMT/pre-init ASan/UBSan2MiB budget/boundary/shrink/grow/migrate/rollback/refusal/concurrentreservations/cleanup, existing actual direct ledger/fault/4000concurrentlifetimes and historicalprefixcontrols pass. Exact0103forwardpatch and targetHotSpot build pass.",
-  "package": "PASS: exact089 ZIP CRC/version/224MiB heap/C1/GC/cache/CPU2/512KiB/security/OP/7200s settings; bounded os/thread logging with verbose packet exceptions absent. New native libc budget marker and exactly one linked libc-held counter, existing shared direct ledger/twoexports/all5kernelimports intact. All47pinned game/loader artifacts, probe/smoke JARs and module image match088. Targetnativefiles match currentbuild; seven nonVMlibraries differ from088only GNU build-ID notes; libjvm carries0103. Two signed containers valid; ZIP/symbol copies match; frozen058 and083/084/085/086/087/088fallback hashes preserved.",
+  "package_sha256": "ed42d3af6a5e2c74ebd6a55ddb48da06b8c5929657f8dd410285350eb33508d4",
+  "console": "VM ABORT at startup before readiness/playerjoin: ordinary4MiB non-class metadata reserve fails ENOMEM.090pendingPS5; no ALL PASS.",
+  "host": "PASS: actual MemoryReserver/directledger/helpers/OSrelease ASan/UBSan with real alignedstorage/faultcontrolledkernel:4MiBalignment/initialzero/PROT_NONE faults/subrangezero+recommit/adjacentdata, purpose/fixed/exec/errorgates,NMTreserveevent,rollback/exactrelease/cleanupretention. Existing allocator/os.cppNMT/pre-init/libcbudget/directfault/concurrency/metadatahints/prefix tests pass; exact0104forwardpatch/targetHotSpot pass. No newhostgamerun: game/probe/loader/smoke JARs unchanged, retain089224MiB/60s/27checks/14saves/25forcedchunks/save-stop evidence; cannot validate targetmemory lifecycle.",
+  "package": "PASS: exact090 ZIPCRC/version/224MiB/C1/GC/cache/CPU2/512KiB/security/OP/7200s flags, linked newmetadatadirect reservation marker, existing singlelibccounter/directledger/twoexports/all5kernelimports. No menu_audio in consumer source, no musicpath/audio-log markers in eboot and no PCM/sounds files in ZIP; generated external menu_audio=false. All47official/loaderpins and every game/probe/loader/smoke JAR/module image match089. Currenttargetnativefiles match; nonVMcode unchanged apart fromGNU build-ID notes, libjvm carries0104. Bothsignedcontainers valid, ZIP/symbolcopiesmatch; frozen058 and083/084/085/086/087/088/089fallbackhashes preserved.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -27,18 +27,18 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "089 runtime0103bounded2MiB VM-owned libc allocation plus224MiB Java heap; disable verbose expected packet-exception logs, retain bounded standard native-thread diagnostics. Original game/loader/probe/smoke JARs unchanged.",
+  "scope": "090runtime0104non-class metadata ENOMEM fallback and consumer audio removal/PCM omission. Original game/probe/loader/smoke JARs unchanged;224MiBheap/0103libccap retained.",
   "max_heap_mib": 224,
-  "runtime_adaptation": "0103atomicprefix/inflight-inclusive2MiB VM libc cap with precise shrink/grow/failure/migration/free accounting, existing slabs/pages/shared direct fallback; no SDK interposition or native reserve guarantee, heap/metaspace/codecache mapping unchanged.",
+  "runtime_adaptation": "0104non-class metadata reserve fallback only, shared bounded direct ledger with requestedalignment/zero+NONE/NMT reserve; existingRWcommit and zero+NONE uncommit retainingphysicalbudget; exactwhole release. Heap/classspace/exec/fixed/other tags excluded; no OOM suppression.",
   "probe_jar_sha256": "0cefd43a40f97f598a4b3d0b54a09f8f689bd0d15b269ba0ade30bb1996025be",
   "diagnostics": "Bounded os+thread=info only in legacy exceptions.log route pair (8MiBactive/one8MiBrotated), plus vanilla commands/GC/TPS/nativeusage. Verbose packet control-flow exceptions omitted. Future player-save warning may need focused logging.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "089actualPS5GC/speed/nativeSDKthreadheadroom/page/directpressure/save/rejoin/grass/damage/chunk responsiveness unvalidated.2MiB VM libc cap is not a guaranteed SDK reserve; other native/map/resource/heap limits may still refuse.088GCthrash established,087SDKpthreadallocationexactcause unresolved. Player-save/blockcorrection acceptance and OPpermissions pending. Full7200s deferred; arbitrarymods/Paper/plugins/20playerload pending.",
+  "known_failures": "090actualPS5directmetadataalignment/protection/commit/reclaim/NMT/pressure/stability and silentapp pending. Physicalbacking retained acrosslogicaluncommit and shared128MiB/2048slot budget stillrefusable. Startup/joinedGC/speed/damage/grass/chunks/playerpersistence/OPacceptance unvalidated. Full7200sdeferred; arbitrarymods/Paper/plugins/20playerload pending.",
   "diagnostic_adapter": "External harness only; underlying Mojang server JAR remains hash-pinned and signed. Fabric standard runtime transformations may occur; zero project game-JAR rewrites or replacement game classes.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8 MiB pthread stack; AttachCurrentThread owns its JNIEnv, fixture sets system context class loader; hide worker-written UI buffers until join; VM destruction and other tests disabled while worker active; once-per-second elapsed display",
-  "crash_evidence": "176MiB cap/effective174MiB full: repeated173M->171M collections.259fullpauses/72.839s total/max373.038ms;258Allocation Failure,1CodeCache threshold. At91s health9.97TPS and29.072s intervalGC; server13.817sbehind. Exact SDK thread capacity/persistence not established.",
+  "crash_evidence": "Current fatalreport at17.511s,Worker-Main-1,virtualSpaceNode.cpp:269. Metadata about94MiBused/95MiBcommitted,classspaceabout17MiBused. VM libc held just below2MiB; Javaheapnotfull. Smoke mod entrypoint executes. Rawlogsprivate.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -54,13 +54,13 @@
     "host_test_seconds": 60,
     "host_checks": 27,
     "host_flushed_saves": 14,
-    "console": "088lasthealth121s/5checks/0scheduledsaves/1join withGCthrash; captureRUN, no completedendurance.089pendingPS5. Full7200s deferred/notpassed.",
+    "console": "089aborts17.511s before readiness;090startup/persistence/stabilitypending. Full7200sdeferred/notpassed.",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0,
     "host_version": "01.000.089"
   },
-  "consumer_changes": "089 uses224MiB Java heap (48MiB above088), runtime0103atomic2MiB prefix/inflight-inclusive VM libc budget with matched resize/cleanup and existing page/slab/direct fallback. Retains512KiB stacks,CPU2,C1/SerialGC/NewRatio15/cache/world/view4/simulation3/security/OP. Standard verbose thrown-exception logging disabled; boundedos/thread diagnostics retained. Game/loader/probe/smoke bytes unchanged; no game rewrite/replacement/error suppression.",
+  "consumer_changes": "090adopts runtime0104 ordinarynonfixed/nonexecmtMetaspace ENOMEM fallback using aligned/zeroed/protected shared directmetadata, logicalreclaim retainingphysicalcharge and exactrelease. Removes all menu_audio references/start/stop/selection/status from app; menu_audio=false omits PCM.224MiB/CPU2/512KiB/C1/SerialGC/cache/world/view/security/OP remain; game/probe/loader/smoke unchanged.",
   "baseline": {
     "version": "01.000.058",
     "milestone": "Server_Start",
@@ -127,7 +127,7 @@
     "pinned_artifacts": 7,
     "server_mod": "ps5-fabric-smoke 1.0.0",
     "fabric_api": "not included or validated",
-    "console": "088Fabric/mod/readiness/authenticatedjoin works, severeGCpressureunderplay.089PS5pending."
+    "console": "089smokeentrypoint executes; metadataabortbefore readiness.090pendingPS5."
   },
   "vanilla_fallback": {
     "version": "01.000.083",
@@ -164,5 +164,18 @@
     "policy": "atomicprefix/inflight-inclusive VM libc budget then existing page/slab/direct backend; no SDKreserve/interposition/threadlifecycle or heapmappingchange",
     "stacks_kib": 512,
     "console": "089pending; nativeSDKheadroom/mapping/GC/performance tradeoffs unvalidated"
+  },
+  "audio": {
+    "enabled": false,
+    "music_playback_thread": false,
+    "packaged_pcm": false,
+    "scope": "Consumer app only; shared audio source/frozen apps preserved",
+    "console": "090silentapp pending"
+  },
+  "direct_metaspace": {
+    "runtime_patch": "0104",
+    "purpose": "nonfixed/nonexec mtMetaspace ENOMEM only",
+    "budget": "shared128MiB/2048slots, physicalbackingheld acrosslogicaluncommit",
+    "console": "090pendingPS5"
   }
 }

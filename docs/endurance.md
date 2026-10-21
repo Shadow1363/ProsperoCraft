@@ -449,3 +449,11 @@ libc budget, retaining view4/simulation3 and normal world. Expected packet
 exception logging is disabled; native thread diagnostics remain bounded. Actual
 PS5 performance/thread headroom/save/rejoin pending. Full7200seconds deferred.
 See [evidence and limits](gc-pressure-088.md).
+
+## Build090: metadata reservation and silent app
+
+089aborts on an ordinary4MiB metadata reservation.090retains224MiB heap and uses
+runtime0104's bounded non-class metadata fallback with exact lifecycle handling.
+App music/playback thread/PCM assets are removed at user request. ActualPS5
+startup/memory lifecycle/silent menu/joined speed/save/rejoin pending;7200seconds
+remains deferred. See [evidence and limitations](metaspace-crash-089.md).

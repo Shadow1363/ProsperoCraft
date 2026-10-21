@@ -1,7 +1,6 @@
 #include <sys/stat.h>
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #include "demo_renderer.hpp"
-#include "menu_audio.hpp"
 #include "pad.h"
 #include <atomic>
 #include <cstdarg>
@@ -65,7 +64,7 @@ ps5::jni_worker::Job server_job;
 bool server_job_started=false;
 time_t server_started_at=0,server_last_frame=0;
 FILE *startup_log=nullptr;
-constexpr const char *build_version="01.000.089";
+constexpr const char *build_version="01.000.090";
 char run_id[96]="No run started in this process";
 bool archives_ok=true;
 void session_status(const char *state) {
@@ -399,20 +398,18 @@ bool update() noexcept {
  }
  if(pending>=0) {int i=pending;pending=-1;if(i!=0){char state[256];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}run_test(i);return true;}
  if(pad<0) return false;
- static int last_audio=0;
- int current_audio=ps5::menu_audio::state.load();
- bool changed=current_audio!=last_audio;last_audio=current_audio;
+ bool changed=false;
  PadSample batch[64]{};int count=scePadRead(pad,batch,64);
  if(count<0||count>64) return false;
  for(int i=0;i<count;++i) {
   auto buttons=batch[i].connected && !(batch[i].buttons&0x80000000u)?batch[i].buttons:0;
   auto pressed=buttons&~previous;previous=buttons;
-  if(pressed&0x10) {selected=(selected+test_count-1)%test_count;ps5::menu_audio::selected();changed=true;}
-  if(pressed&0x40) {selected=(selected+1)%test_count;ps5::menu_audio::selected();changed=true;}
+  if(pressed&0x10) {selected=(selected+test_count-1)%test_count;changed=true;}
+  if(pressed&0x40) {selected=(selected+1)%test_count;changed=true;}
   if(exception_detail[0] && (pressed&0x20) && exception_page+1<exception_pages) {++exception_page;changed=true;}
   if(exception_detail[0] && (pressed&0x80) && exception_page>0) {--exception_page;changed=true;}
   if((pressed&0x4000)&&status[selected]==0) {
-   ps5::menu_audio::selected();
+
    status[selected]=2;pending=selected;
    // Present RUN before calling the OS, and schedule only one test per batch.
    return true;
@@ -422,7 +419,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.089",42,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Minecraft " SERVER_FLAVOR_LABEL " Probe 01.000.090",42,rgb(238,242,250));
  c.label(103,163,SERVER_FLAVOR_LABEL " / Minecraft 26.3 / Java 25. Compatibility play test; saves every 5 minutes.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
@@ -433,11 +430,7 @@ void draw(Canvas &c) noexcept {
   int visible_status=server_job_started&&i==3?2:status[i];
   c.label(1650,y+25,visible_status==1?"PASS":visible_status==-1?"FAIL":visible_status==2?"RUN":visible_status==3?"SKIP":"--",24,visible_status==1?rgb(105,215,172):visible_status==-1?rgb(230,176,91):rgb(139,153,178));
  }
- int audio_state=ps5::menu_audio::state.load();
- if(audio_state<0) {
-  char audio_error[80];std::snprintf(audio_error,sizeof(audio_error),"Audio: %s / code %08X",ps5::menu_audio::phase_name(),static_cast<unsigned>(audio_state));
-  c.label(103,736,audio_error,20,rgb(230,176,91));
- }
+
  if(server_job_started) {
   char activity[160];std::snprintf(activity,sizeof(activity),"Server play: %lld seconds since worker start. Progress: http://<PS5-IP>:8765/server.log",static_cast<long long>(time(nullptr)-server_started_at));
   c.label(103,768,activity,24,rgb(139,153,178));
@@ -480,8 +473,8 @@ int main() {
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
  if(sceUserServiceGetInitialUser(&user)>=0 && scePadInit()>=0) pad=scePadOpen(user,0,0,nullptr);
- ps5::menu_audio::start(user);
+
  ps5::demo::run_ui(draw,update,"Java 25 VM startup attempt ready");
- ps5::menu_audio::stop();
+
  ps5::log_share::stop();
 }

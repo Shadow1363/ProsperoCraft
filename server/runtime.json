@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "477f86cd51e46f77f9a20b2cd40fb56bd0ba9dc8",
+  "commit": "0bce8d9259d3e27f5d7bf6e85775e4f0c5b4b514",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
   "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at224MiB max heap in089; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled",
@@ -17,5 +17,6 @@
   "native_direct_fallback": "0101: raw native allocator retries anonymous-page ENOMEM using bounded PS5 direct memory (2048slots/128MiB held budget). CPU RW/no fixed mapping; exact ownership/unmap-before-release and retained budget on cleanup failure. Heap/metaspace/codecache mapping unchanged. HostASan/UBSan/targetHotSpot pass; kernel/cache/headroom/stability pending085PS5. No C1 OOM bailout.",
   "zip_image_direct_fallback": "0102 exposes shared VM C ABI to native ZIP stream/zlib and temporary image buffers after anonymous-map ENOMEM, retaining exact tagged ownership/free/zeroing/errno/decode behavior. Same0101ledger and128MiB budget, not separate per-library pools. Hostactual JNI/bridge/ledger/ZipFS/image ASan/UBSan/Java-native handoff and target rebuild pass;086PS5compression/imagepressure/persistence/stability pending.",
   "exception_diagnostics": "089 bounded os+thread=info only in legacy exceptions.log route pair; verbose expected packet exception logging disabled.8MiB active/one8MiB rotated, fixed read-only routes/archive. Actual future player-save warnings may require focused diagnostics.",
-  "native_thread_budget": "089 runtime0103limits VM-owned libc allocation/in-flight requests to2MiB with exact ownership/resize accounting and existing pages/slabs/direct fallback. No SDK interposition or headroom guarantee; thread lifecycle/stacks/heap mapping unchanged. Consumer224MiB heap restores Java headroom after088GCthrash; actualPS5pending."
+  "native_thread_budget": "089 runtime0103limits VM-owned libc allocation/in-flight requests to2MiB with exact ownership/resize accounting and existing pages/slabs/direct fallback. No SDK interposition or headroom guarantee; thread lifecycle/stacks/heap mapping unchanged. Consumer224MiB heap restores Java headroom after088GCthrash; actualPS5pending.",
+  "direct_metaspace": "0104: ordinary non-fixed/nonexec mtMetaspace ENOMEM can use existing shared128MiB/2048slot direct ledger with requested alignment, zeroed PROT_NONE reservation/NMT event, existing RWcommit, zero+NONE logicaluncommit retaining physicalbudget and exactwhole release. Java heap/classspace/exec excluded. Target/hosttests pass;090PS5pending."
 }
