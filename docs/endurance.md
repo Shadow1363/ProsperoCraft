@@ -473,3 +473,12 @@ returnsnull/ENOMEM and conversion fails.092adds buffer fallback and staged
 fd/context/buffer diagnostics; it does not skipconversion or repairfdallocation.
 Startup/joined play/persistence/native lifecycle actualPS5pending;7200sdeferred.
 See [evidence and limits](directory-failure-091.md).
+
+## Build 093: selector wakeup candidate
+
+092 passes startup and records unjoined 20 TPS through 121 seconds, then a
+connection triggers IOUtil.write1 ENOMEM and event-loop termination. 093 adopts
+runtime0107 pre-registered kernel user-event wakeups; unsupported filters retain
+a diagnosed pipe fallback. Host/native/target checks pass, PS5 event support and
+joined stability pending. Full 7200 seconds remains deferred. See
+[the current failure and next checks](selector-failure-092.md).

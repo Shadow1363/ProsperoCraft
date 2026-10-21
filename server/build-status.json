@@ -1,11 +1,11 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.092",
+  "app_version": "01.000.093",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "e59835d05bf29f7b741a548ea1e49d7a804d9f0dadd014692c61456fab457e02",
-  "console": "FAIL before readiness: metadata/directstack creation and2reaps succeed; legacyplayer conversion throwsNPE afterFile.list null/ENOMEM.092pendingPS5.",
-  "host": "PASS: actualFile.list/listFiles JNI -Xcheck:jni/UBSan with actualVMABI/sharedledger overcontrolledrealstorage. Forcedordinarycontext/datamaprefusal preserves351Unicodenames,converter-stylefilter,empty/repeatedlistings; partialdirectbudgetrollback. Existingfd/read/partial/close/map/arraygrowth/symlink/recovery checks,NIOJNI/Files.walk andparserASan/UBSan pass. Exact0106patch/targetjava.base nativebuild pass. No newhostgamerun: originalgame/probe/loader/smoke unchanged;089224MiB/60s/27checks/14saves/25forcedchunk evidence retained separately, nottargetkernelproof.",
+  "package_sha256": "43c0cdcec805a309852d60b37ade34473f1d6a55cc1f0031924e3427a137c69d",
+  "console": "092 FAIL after readiness: unjoined 20TPS through121s, then IOUtil.write1 ENOMEM during selector wakeup on connection; Netty loops terminate.093 PS5 pending.",
+  "host": "PASS actual BSD selector/newJNI on macOSkqueue -Xcheck:jni/UBSan:1200 wake-before/blocking/coalescing rounds,socket readiness/cancel,100 close races,EINTR,unsupportedfallback,registrationENOMEM/triggerEIO. ExactBSD0107patch and targetclasses/nativebuild PASS. Package nativeexports/markers exist in libnio and linkedELF. Final093 packagePASS: ZIPCRC/version/flags/7currentnativefiles,all47pins/originalgameaudit,linkednewJNIexports/backendmarkers,singleVMledger/libccounter/stackowner,earliernativeimports,signatures/copychecks. Allgame/probe/loader/smokeJARs andothernativecode match092; exactly2selectorclasses+4checkedbuildmetadataresources differ inmoduleimage. Frozen058/vanilla083 andfailed084..092 hashespreserved. No newhostgamerun;089hostgameevidence retained separately,notPS5proof.",
   "package": "PASS: exact092 ZIPCRC/version/224MiB/C1/GC/cache/CPU2/512KiB/security/OP/7200s flags; JavaIO/NIOlibraries import both sharedVMmemory functions, libnioexplicitlyneeds libjvm, newfd/context/buffer errorstage marker present. Earlier metadata/directstack/reaper/libccounter/sharedledger/twoexports/all5kernelimports linked; no audio source/musicpaths/PCM assets. All47pins and game/probe/loader/smoke JAR/moduleimage bytes match091. Currenttargetnativefiles match; JavaIO/NIOupdated0106. Bothsignedcontainersvalid; ZIP/symbolcopiesmatch; frozen058 and083/084/085/086/087/088/089/090/091fallbackhashes preserved.",
   "runtime_modules": [
     "java.base",
@@ -54,7 +54,7 @@
     "host_test_seconds": 60,
     "host_checks": 27,
     "host_flushed_saves": 14,
-    "console": "091failsbefore readiness onjava.io list ENOMEM/null.092pending;7200sdeferred/notpassed.",
+    "console": "092 reaches readiness and records unjoined20TPS through121s; selector wakeup ENOMEM then fails network.093 pending;7200s deferred.",
     "start": "real readiness",
     "host_joins": 0,
     "host_auth_errors": 0,
@@ -127,7 +127,7 @@
     "pinned_artifacts": 7,
     "server_mod": "ps5-fabric-smoke 1.0.0",
     "fabric_api": "not included or validated",
-    "console": "091serverinitreachesbind25565afterFabric; converterdirectoryNPE.092pending."
+    "console": "092 reaches readiness and records unjoined20TPS through121s; selector wakeup ENOMEM then fails network.093 pending;7200s deferred."
   },
   "vanilla_fallback": {
     "version": "01.000.083",
@@ -193,6 +193,12 @@
     "buffers": "16KiBroundedcontext/64KiBrecordbuffer, separatebackendownership",
     "pool": "existing128MiB/2048slots sharedVMledger, no newexports/pool",
     "diagnostics": "1=fd,2=context,3=buffer;fdENOMEMnotfixed",
-    "console": "092pendingPS5"
+    "console": "092 reaches readiness;091 directory failure does not recur. Full lifecycle/persistence pending."
+  },
+  "selector_user_wakeup": {
+    "runtime_patch": "0107",
+    "backend": "PS5 pre-registered EVFILT_USER/EV_CLEAR,NOTE_TRIGGER; actual native filter returned, no pipe write on successful backend",
+    "fallback": "unsupported filter retains diagnosed pipe; other native errors propagate",
+    "console": "093 pending PS5 filter support,connection,wakeups underpressure,joinedplay/save/rejoin/cleanstop"
   }
 }

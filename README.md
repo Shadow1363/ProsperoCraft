@@ -98,23 +98,22 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: silent Fabric directory candidate 01.000.092
+## Current development: Fabric selector wakeup candidate 01.000.093
 
-091records successful direct metadata/thread creation and stack cleanup, then
-fails java.io.File.list with native ENOMEM in vanilla's legacy-player converter.
-092adds runtime0106directory-buffer fallback through the existing bounded shared
-VM direct ledger, with separate ownership/cleanup. The old message lacks a
-failure stage; new fd/context/buffer diagnostics make any remaining cause clear.
-No fd-allocation fix or completed console repair is claimed. See
-[evidence and validation](docs/directory-failure-091.md).
+092 reaches readiness and records 20 TPS through 121 seconds without players.
+A later connection fails because Java's selector wakeup pipe returns ENOMEM,
+terminating networking threads. The previous directory failure does not recur.
+093 adopts runtime 0107: a pre-registered PS5 kernel user event avoids pipe
+writes for wakeups. Unsupported kernels retain a diagnosed pipe fallback;
+actual event availability and joined stability still need PS5 validation.
+See [evidence and validation](docs/selector-failure-092.md).
 
-224MiB heap, earlier native repairs and silence remain. Game/probe/loader/smoke
-JARs stay unchanged, with standard Fabric/Mixin loading and no project game
-rewrites, replacements or skipped conversion. Host/native/target/package checks
-are separate from pending actualPS5 startup/kernel enumeration/memory lifecycle,
-joined responsiveness and player persistence. Normal world/view4/simulation3/
-spawn-protection0/online whitelist/level4ops/20slots remain. Full two-hour run is
-deferred;058frozen and083vanilla fallback preserved. No new ALL PASS/capacity claim.
+Actual selector/JNI host concurrency, socket-readiness and failure tests plus
+target classes/native compilation pass. Original game/probe/loader/smoke JARs
+stay unchanged; module image/libnio contain the runtime repair. Music stays off.
+224 MiB heap, normal world, view 4/simulation 3, spawn-protection 0, online
+whitelist, level 4 ops and 20 slots remain. The full two-hour run is deferred.
+Frozen 058 and vanilla 083 fallback remain intact. No new ALL PASS claim.
 
 
 072captured a null function call through its new OS-random service import.
