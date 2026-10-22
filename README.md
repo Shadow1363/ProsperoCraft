@@ -100,20 +100,19 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Paper ownership-capability candidate 01.000.106
+## Current development: Paper extended-attribute candidate 01.000.107
 
-105 gets past filesystem capacity queries into configuration data copying,
-then terminates at the native ownership-preservation step. No current fatal
-report exists; the exact native cause remains unresolved. See
-[evidence and validation](docs/paper-ownership-crash-105.md).
+106 passes the ownership guard and reaches optional extended attributes during
+configuration copying, then terminates at flistxattr. There is no current fatal
+report; exact native cause remains unresolved. See
+[evidence and validation](docs/paper-xattr-crash-106.md).
 
-106 makes unsupported PS5 ownership changes fail explicitly with EPERM. Java's
-existing copy code can tolerate that failure when POSIX preservation is optional;
-explicit owner-change requests still fail. Capacity/canonicalization repairs
-remain. Host JNI/JVM COPY_ATTRIBUTES/error tests and target builds pass. Game/
-probe/plugin JARs, module image and HotSpot remain unchanged. Permission and
-timestamp handling, configuration completion and Paper startup still need PS5
-validation.
+107 marks PS5 extended attributes as unsupported consistently in the Java BSD
+provider and native calls. Optional copies skip that unavailable capability;
+explicit requests fail without fake empty lists or writes. Actual BSD-class/JNI/
+JVM tests and target builds pass. The game/probe/plugin JARs and HotSpot remain
+unchanged; Java runtime filesystem classes, module image and libnio change.
+Permission/timestamp handling and Paper startup still need console validation.
 
 Try CreateVM, VerifyJARs, then Play. Paper readiness, plugins, joined gameplay,
 save/stop/reload and native-pressure stability remain pending. Circle requests

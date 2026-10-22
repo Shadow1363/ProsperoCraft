@@ -1017,10 +1017,19 @@
     {
       "app_version": "01.000.106",
       "package_sha256": "ad3ce916481bfe24efd696c9f1b6911a519b8ce3131b2b522a178d8fea0c8993",
-      "console": "pending",
+      "console": "Reportedconsoletermination atflistxattr afterownershipEPERM; nocurrentVMabort/fatalreport",
       "changes": "Runtime0115 unsupportedPS5 chown0/lchown0/fchown0 explicitlyEPERM, no rawcalls/falseownershipsuccess. OriginalJava optionalPOSIXcopy flow retained; explicitownerrequests fail. Capacity/canonicalization remain. libnio/buildlabel only; game/probe/plugin/moduleimage/HotSpot unchanged.",
       "checks": "PASS actual3ownershipJNI/currentcapacity/canonicalizer inrealJVM: exactEPERM all3entries,20bytecorrectCOPY_ATTRIBUTES copies exercisingdenials, explicitFiles.setOwner IOException/unchangedsource, realmissing-source+parent errors, existingcapacity/canonical/symlinkcontrols XcheckJNI/UBSan. Targetlibnio/exactpatch PASS. PASS106 CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/moduleimage/symbols/silence/singleledger/fallbackhashes;3ownershipJNI disassemblies no rawownership/syscallreference; capabilitymarkerslinked/capacityguardsretained. Exact105game/probe/plugin/moduleimage/HotSpot/othernativecode retained; updatedlibnio/buildlabel. No newhostPaper run;100hostevidence separate.",
-      "pending": "ActualPS5 ownershiperror/copycontinuation/permission+timestamp/configreplacement/Paperreadiness/plugins/joinedplay/save/stop/reload/nativepressure. CapacityABI/directIOunported;7200sdeferred;noALLPASS/release."
+      "pending": "107consistentxattrunsupported/copyhandling; metadata/timestamps/configcompletion/readiness/plugin/join/persistence pending;7200sdeferred.",
+      "evidence": "Current106 reports retrieved2026-10-22: bufferedcopy/ownershipEPERMmarker reached, nextlasttrace flistxattr duringoptionalextendedattrcopy. Userreportsconsolecrash; sessionRUN/noJavaexception, abort/fatalroutes404. MatchingSDKlist routesrawBSDstub; exactnativecause unresolved. No readiness/plugin/joinproof; rawlogslocal."
+    },
+    {
+      "app_version": "01.000.107",
+      "package_sha256": "6b8841ae072d2a1af226d00b33bc7b324b704f38ea600702157e2ae38b80074a",
+      "console": "pending",
+      "changes": "Runtime0116 PS5extendedattrsunsupported: nativecapfalse,4JNI ENOTSUP, BSDglobal/typed/nameduserviews unavailable, optionalcopy skipped; direct/staleerrorsno fakeempty/write. Existingownership/capacity/canonical retained; otherplatformJava views unchanged. libnio/3BSDclasses/modulebookkeeping/buildlabel change; game/probe/plugin/HotSpot unchanged.",
+      "checks": "PASS actualBSDfilesystem/provider/targetuserattrclasses patchmodule+currentJNI inrealJVM desktop+PS5name controls: viewsets/typed+named lookups,20COPY_ATTRIBUTES copies, PS5zeroxattrcalls/desktopinjectedENOTSUPhandling,4directJNI exactENOTSUP, explicitPS5userwrite/staleviewnofakeempty/ownership/capacity/canonical/dataerrors;XcheckJNI/UBSan. Targetbaseclasses/libnio/exactpatch PASS. PASS107 CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/moduleimage/symbols/silence/singleledger/fallbackhashes;4xattrJNI no rawcalls, markerslinked. Fulljimagecomparison: only3BSDclasses+10specifiedcompilerbookkeeping resources change; allotherentriesidentical. Exact106 game/probe/plugin/HotSpot/othernativecode retained. No newhostPaper run;100hostevidence separate.",
+      "pending": "ActualPS5 extendedattrskip/directerrors/configcopy/permission+timestamp/Paperreadiness/plugins/joinedplay/save/stop/reload/nativepressure. CapacityABI/directIO/xattrssupportunported;7200sdeferred;noALLPASS/release."
     }
   ]
 }

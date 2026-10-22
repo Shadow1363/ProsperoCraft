@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.106",
+  "app_version": "01.000.107",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "ad3ce916481bfe24efd696c9f1b6911a519b8ce3131b2b522a178d8fea0c8993",
-  "console": "105terminates atfchown0 afterbufferedcopy, nocurrentfatalreport;106ownershipEPERMcandidatependingPS5.",
-  "host": "PASS actual3ownershipJNI/currentcapacity/canonicalizer inrealJVM: exactEPERM all3entries,20bytecorrectCOPY_ATTRIBUTES copies exercisingdenials, explicitFiles.setOwner IOException/unchangedsource, realmissing-source+parent errors, existingcapacity/canonical/symlinkcontrols XcheckJNI/UBSan. Targetlibnio/exactpatch PASS. PASS106 CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/moduleimage/symbols/silence/singleledger/fallbackhashes;3ownershipJNI disassemblies no rawownership/syscallreference; capabilitymarkerslinked/capacityguardsretained. Exact105game/probe/plugin/moduleimage/HotSpot/othernativecode retained; updatedlibnio/buildlabel. No newhostPaper run;100hostevidence separate.",
-  "package": "PASS106 currentlibnio/3ownershipguards no rawcalls; exact105game/probe/plugin/moduleimage/HotSpot/othernativecode; capacityguards/config/security/silence/fallbacks retained.",
+  "package_sha256": "6b8841ae072d2a1af226d00b33bc7b324b704f38ea600702157e2ae38b80074a",
+  "console": "106ownershipguard executed thenlasttraceflistxattr; reportedcrash/nofatalreport.107xattrcapabilitycandidatependingPS5.",
+  "host": "PASS actualBSDfilesystem/provider/targetuserattrclasses patchmodule+currentJNI inrealJVM desktop+PS5name controls: viewsets/typed+named lookups,20COPY_ATTRIBUTES copies, PS5zeroxattrcalls/desktopinjectedENOTSUPhandling,4directJNI exactENOTSUP, explicitPS5userwrite/staleviewnofakeempty/ownership/capacity/canonical/dataerrors;XcheckJNI/UBSan. Targetbaseclasses/libnio/exactpatch PASS. PASS107 CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/moduleimage/symbols/silence/singleledger/fallbackhashes;4xattrJNI no rawcalls, markerslinked. Fulljimagecomparison: only3BSDclasses+10specifiedcompilerbookkeeping resources change; allotherentriesidentical. Exact106 game/probe/plugin/HotSpot/othernativecode retained. No newhostPaper run;100hostevidence separate.",
+  "package": "PASS107 currentlibnio/4xattrguards no rawcalls; exact3BSDclass+10compilerresource image delta; exact106game/probe/plugin/HotSpot/othernativecode; pins/config/security/silence/fallbacks retained.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -30,18 +30,18 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "106runtime0115 PS5ownershipchanges explicitEPERM; originalJava optionalPOSIXcopyhandling andexplicitoperationfailures retained. No rawownershipcalls/fabricatedownership/gameJARchanges.",
+  "scope": "107runtime0116 PS5xattrsunsupported acrossnativecap/4JNI/BSDJava views/copy; expliciterrors/no fakeempty/writes, nonPS5views retained. No gameJARrewrite.",
   "max_heap_mib": 384,
-  "runtime_adaptation": "Runtime66e424d includes0115ownershipcapability;0114capacity/0113canonical/0112hostname/0111HotSpot/shared256MiB/C1/DNSretries retained.",
+  "runtime_adaptation": "Runtimee1daee8 includes0116 xattrcapability;0115ownership/0114capacity/0113canonical/0112hostname/0111HotSpot/shared256MiB/C1/DNSretries retained.",
   "probe_jar_sha256": "085b80a9786926150fcc3b614dcf05d8819b48ae969c4cf53176356a0841f3a6",
   "diagnostics": "Bounded os+thread=info only in legacy exceptions.log route pair (8MiBactive/one8MiBrotated), plus vanilla commands/GC/TPS/nativeusage. Verbose packet control-flow exceptions omitted. Future player-save warning may need focused logging.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "105lasttrace fchown0, userreportscrash/no currentfatalreport; exactnativecause unresolved.106pending actualownershipfailure/copycontinuation/permission+timestamp/Paperreadiness/plugin/join/persistence. CapacityABI/directIOunported;2hdeferred.",
+  "known_failures": "106lasttraceflistxattr afterownershipguard; exactnativecause unresolved/no currentfatalreport.107pendingPS5 extendedattrskip/configmetadata/timestamps/readiness/plugin/join/persistence. CapacityABI/directIO andxattrsunsupported;2hdeferred.",
   "diagnostic_adapter": "External harness andseparatePaperplugin only. Runs upstreamPaper prepared byoriginalPaperclip; no projectgameJARrewrites/replacements. OriginalMojangbundle isunchanged incache; vanilla/Fabric retained separately.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8MiBrequested,earlycachedattrs beforeVM;ordinarycreatefirst,PS5EAGAIN/ENOMEM->sharedVMABIownedstack;realAttach/workerJNIEnv/Detach andjoinTLS-before-free. Launchphase/code savedto startupandcurrent/pertestexceptionroutes. Failedjoin/release retainsownership. ActualPS5pending.",
-  "crash_evidence": "Current105 reports retrieved2026-10-22: online/Paper/configinit reachbufferedCopy0 then lastnative trace resolvesfchown0. Userreportsconsolecrash; sessionRUN/noJavaexception, abort/fatalroutes404. Actualcopyflow passesunavailablecapacity intoPOSIXownership stage; completeconfigsave/readiness notestablished. MatchingSDKfchown rawsyscall stub; exactnativemechanism unresolved. Native directkernel/policyfailureszero. Rawlogslocal.",
+  "crash_evidence": "Current106 reports retrieved2026-10-22: bufferedcopy/ownershipEPERMmarker reached, nextlasttrace flistxattr duringoptionalextendedattrcopy. Userreportsconsolecrash; sessionRUN/noJavaexception, abort/fatalroutes404. MatchingSDKlist routesrawBSDstub; exactnativecause unresolved. No readiness/plugin/joinproof; rawlogslocal.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -303,5 +303,11 @@
     "scope": "PS5 chown0/lchown0/fchown0 EPERM before nativecall; explicitrequests fail; originalJavaoptionalcopyflow retained; otherplatformsunchanged. Permission/timestampops notcovered.",
     "host": "PASS actual3JNI/realJVM exacterrno/20COPY_ATTRIBUTES copies/explicitsetOwner failure/unchangeddata andexistingcapacity/canonical/errorcontrols XcheckJNI/UBSan; targetlibnio/exactpatch.",
     "console": "pending; exact105nativecause unresolved."
+  },
+  "extended_attribute_capability": {
+    "patch": "0116",
+    "scope": "PS5nativecapmasked/4JNI ENOTSUP/BSDuserviews unavailable/optionalcopy skipped; direct/staleguards honest; otherplatformJavaadvertisements retained.",
+    "host": "PASS actualBSDclasses/JNI/realJVMdesktop+PS5 controls/views/COPY_ATTRIBUTES/4errno/publicwrite/staleview/errors XcheckJNI/UBSan; targetclasses/libnio/exactpatch.",
+    "console": "pending; exact106nativecause unresolved."
   }
 }
