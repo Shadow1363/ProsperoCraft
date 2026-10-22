@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+"""Check the separate client foundation package, artifact pins and title isolation."""
+import argparse
+import hashlib
+import io
+import json
+from pathlib import Path
+import subprocess
+import zipfile
+
+ROOT=Path(__file__).resolve().parents[1]
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--runtime-workspace',type=Path,required=True);args=p.parse_args();runtime=args.runtime_workspace.resolve()
+sha=lambda b:hashlib.sha256(b).hexdigest()
+package=runtime/'dist/PPSA99875.zip';lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
+with zipfile.ZipFile(package)as z:
+ assert z.testzip()is None
+ prefix='PPSA99875/'
+ param=json.loads(z.read(prefix+'sce_sys/param.json'));assert param['titleId']=='PPSA99875'and param['contentVersion']=='01.000.000'
+ assert not any(n.endswith('.pcm')or'/sounds/'in n for n in z.namelist())
+ for row in lock['artifacts']:
+  data=z.read(prefix+'assets/java25/client/jars/'+row['file']);assert len(data)==row['size']and sha(data)==row['sha256'],row['file']
+ jars={n.rsplit('/',1)[-1]for n in z.namelist()if '/client/jars/'in n and n.endswith('.jar')};assert jars=={row['file']for row in lock['artifacts']}
+ assert not any('/paper-plugins/'in n or '/fabric-mods/'in n or n.endswith('join-player.txt')for n in z.namelist())
+ audit=json.loads(z.read(prefix+'assets/java25/dependency-port-audit.json'));assert audit['activated_for_probe']and not audit['activated_for_game']and not audit['game_jar_modified']
+ port=z.read(prefix+'assets/java25/ports/lwjgl-3.4.3-ps5-platform.jar');assert sha(port)==audit['output_sha256']
+ with zipfile.ZipFile(io.BytesIO(z.read(prefix+'assets/java25/client/jars/lwjgl-3.4.3.jar')))as original,zipfile.ZipFile(io.BytesIO(port))as patched:
+  for name in original.namelist():
+   if name not in audit['recompiled_classes']:assert original.read(name)==patched.read(name),name
+  assert set(patched.namelist())==set(original.namelist())|set(audit['recompiled_classes'])|{'META-INF/PS5-PORT-LICENSE.txt'}
+ assert z.read(prefix+'assets/java25/lib/modules')==(runtime/'build/java25/boot-image/lib/modules').read_bytes()
+ for name,module in [('java','java.base'),('zip','java.base'),('jimage','java.base'),('net','java.base'),('nio','java.base'),('verify','java.base'),('management','java.management')]:
+  assert z.read(prefix+'assets/java25/lib/lib'+name+'.so')==(runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_libs'/module/('lib'+name+'.so')).read_bytes()
+ assert z.read(prefix+'assets/java25/lib/server/libjvm.so')==(runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_libs/java.base/server/libjvm.so').read_bytes()
+ eboot=z.read(prefix+'eboot.bin')
+ for marker in [b'Client Foundation 01.000.000',b'-Xint',b'-Xmx128m',b'-XX:+UseCompactObjectHeaders',b'ClientInventory25',b'ClientPlatform25',b'ClientBridge25',b'()J',b'(Ljava/nio/ByteBuffer;J)J',b'PPSA99875',b'probe-session.txt',b'probe-exception.txt']:
+  assert marker in eboot,marker
+ assert b'-Djava.class.path=/app0/assets/java25/client-probe.jar:/app0/assets/java25/ports/lwjgl-3.4.3-ps5-platform.jar:'in eboot
+ with zipfile.ZipFile(io.BytesIO(z.read(prefix+'assets/java25/client-probe.jar')))as probe:
+  assert set(probe.namelist())=={'ClientArtifactProbe25.class','ClientInventory25.class','ClientPlatform25.class','ClientBridge25.class'}
+ assert not any(n.endswith('server-26.3.jar')or n.endswith('paper-26.3.jar')for n in z.namelist())
+assert package.read_bytes()==(ROOT/'dist/client/PPSA99875.zip').read_bytes()
+assert (runtime/'build/native/llvm-pie.elf').read_bytes()==(ROOT/'build/client-probe/bootstrap-01.000.000-symbols.elf').read_bytes()
+assert sha((runtime/'dist/PPSA99874.zip').read_bytes())=='18dc7f06d59ff11b33c7e96b85f813a28a2cb19638fe0d6eacfd4224513781e7'
+assert sha((runtime/'build/java25/PPSA99874-094-full-local.zip').read_bytes())=='97ec74c40b9c495884130f9dae0ab10bf393e521265cbe82177f06190176df2d'
+assert (runtime/'build/java25/package-client-000.log').read_text().count('integrity: valid')==2
+print('PASS Client Foundation000 package CRC/signatures/title75,54immutable upstream artifacts/exact dependency port/current runtime/symbols/copies/options/silence; Fabric094/Paper108 unchanged. No game launch, GPU or console pass. SHA256',sha(package.read_bytes()))
