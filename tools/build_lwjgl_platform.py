@@ -50,12 +50,14 @@ def main():
             for name in port['source_units']:
                 destination = sources / name; destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.write_bytes(archive.read(name))
+        for name,local in port.get('additional_source_units',{}).items():
+            path=sources/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes((portdir/local).read_bytes())
         for patch in port['patches']:
             subprocess.run(['git', 'apply', '--unsafe-paths', '--directory=' + str(sources), str(portdir / patch)], check=True)
         cp = ':'.join(str(cache / row['file']) for row in [original, annotation])
-        subprocess.run([str(args.java_home / 'bin/javac'), '--release', '8', '-proc:none', '-cp', cp, '-d', str(classes), *[str(sources / name) for name in port['source_units']]], check=True)
+        subprocess.run([str(args.java_home / 'bin/javac'), '--release', '8', '-proc:none', '-cp', cp, '-d', str(classes), *[str(sources / name) for name in [*port['source_units'],*port.get('additional_source_units',{})]]], check=True)
         replacements = {str(path.relative_to(classes)): path.read_bytes() for path in classes.rglob('*.class')}
-        if not replacements or not all(name.startswith(('org/lwjgl/system/Platform', 'org/lwjgl/system/APIUtil')) for name in replacements):
+        if not replacements or not all(name.startswith(('org/lwjgl/system/Platform', 'org/lwjgl/system/APIUtil', 'org/lwjgl/system/ps5/PS5Library')) for name in replacements):
             raise ValueError('Unexpected dependency compilation output')
         destination = out / port['output']
         with zipfile.ZipFile(cache / original['file']) as base, zipfile.ZipFile(destination, 'w', zipfile.ZIP_DEFLATED) as result:
@@ -72,7 +74,7 @@ def main():
             for name in base.namelist():
                 if name not in replacements and result.read(name) != base.read(name):
                     raise ValueError('Unexpected upstream delta: ' + name)
-        audit = {'original_sha256': original['sha256'], 'output_sha256': sha(destination.read_bytes()), 'source_sha256': record['sha256'], 'recompiled_classes': sorted(replacements), 'patch_sha256': {name: sha((portdir / name).read_bytes()) for name in port['patches']}, 'game_jar_modified': False, 'activated_for_game': False, 'console': 'pending; dependency platform identification only; native loading unported'}
+        audit = {'original_sha256': original['sha256'], 'output_sha256': sha(destination.read_bytes()), 'source_sha256': record['sha256'], 'recompiled_classes': sorted(replacements), 'patch_sha256': {name: sha((portdir / name).read_bytes()) for name in port['patches']}, 'game_jar_modified': False, 'activated_for_game': False, 'console': 'pending PS5 platform/resident provider and separately built native core; no graphics or callback claim'}
         (out / 'audit.json').write_text(json.dumps(audit, indent=2) + '\n')
         print('Built', destination, 'SHA256', audit['output_sha256'])
 

@@ -35,6 +35,14 @@
       "reported_date": "2026-10-22",
       "milestone": "Client_Native_Loading",
       "evidence": "User message: ALL PASS! immediately after client001 package and all-seven-rows instructions"
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.002",
+      "package_sha256": "d0b9f815ff68c5ad821b2166509879c623c813019d2f70bbacf53769f35e3971",
+      "console": "pending",
+      "change": "Actual LWJGL native core/memory/JNI subset and PS5 SharedLibrary provider; eight rows; frozen000/001 retained.",
+      "host": "PASS actual upstream native LWJGL core in Java25 -Xint/-Xcheck:jni/UBSan: allocation/reallocation/calloc/alignment/free, typed views/native memcpy, Unicode/MemoryStack, generic JNI malloc/free calls, real provider symbols/invocation/missing/malformed/closed controls. Actual patched TLS key0/EAGAIN/cleanup ASan/UBSan and desktop platform controls. Target compile and package CRC/signatures/options/54pins/exact dependency delta/core+provider JNI/export/objecthash audits/CPUID/SSE2/current runtime and frozen baseline hashes."
     }
   ]
 }

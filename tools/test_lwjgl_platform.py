@@ -40,12 +40,7 @@ public class LwjglPlatformTest {
    if (!map.invoke(current,"/app0/libSDL3.so.0").equals("/app0/libSDL3.so.0")) throw new AssertionError("versioned path");
    Method path = platform.getDeclaredMethod("mapLibraryPathBundled",String.class);path.setAccessible(true);
    if (!path.invoke(null,"liblwjgl.so").equals("ps5/x64/liblwjgl.so")) throw new AssertionError("native resource path");
-   try {
-    Class.forName("org.lwjgl.system.APIUtil").getMethod("apiCreateLibrary",String.class).invoke(null,"native-port-not-built");
-    throw new AssertionError("native load falsely succeeded");
-   } catch (InvocationTargetException expected) {
-    if (!(expected.getCause() instanceof UnsatisfiedLinkError) || !expected.getCause().getMessage().contains("PS5 LWJGL native function resolver is not ported")) throw expected;
-   }
+
   }
   System.out.println("PASS real LWJGL platform " + args[0] + "/" + args[1] + " -> " + current + "; original ordinals/identity retained");
  }
@@ -66,4 +61,4 @@ with zipfile.ZipFile(original) as base, zipfile.ZipFile(jar) as port:
     expected = set(base.namelist()) | set(audit['recompiled_classes']) | {'META-INF/PS5-PORT-LICENSE.txt'}
     assert set(port.namelist()) == expected
     assert not any(name.startswith(('net/minecraft/','com/mojang/')) for name in port.namelist())
-print('PASS exact dependency-only JAR delta and original immutable hash; PS5 native resolver remains explicitly unavailable; no console client result')
+print('PASS exact dependency-only JAR delta and original immutable hash; PS5 native provider tested separately with actual core; no console client result')

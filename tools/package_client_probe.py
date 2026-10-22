@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+from build_lwjgl_native import build as build_native
 import shutil
 import subprocess
 import zipfile
@@ -43,10 +44,12 @@ obj=work/'resident-library.o'
 headers=runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_include/java.base'
 sdk=runtime/'.tools/native-sdk/ps5-payload-sdk'
 subprocess.run(['/opt/homebrew/opt/llvm/bin/clang','-target','x86_64-sie-ps5','-std=c11','-O2','-fPIC','-fvisibility-nodllstorageclass=default','-isysroot',str(sdk),'-I'+str(headers),'-I'+str(headers/'freebsd'),'-c',str(ROOT/'client/native/resident_library.c'),'-o',str(obj)],check=True)
-spec['resident_libraries']=[{'name':'ps5clientbridge','objects':[str(obj)]}]
+native_objects=build_native(runtime,args.java_home,offline=args.offline)
+spec['resident_libraries']=[{'name':'ps5clientbridge','objects':[str(obj)]},{'name':'lwjgl','objects':[str(p)for p in native_objects]}]
+shutil.copyfile(ROOT/'build/client-ports/lwjgl-native/ps5/audit.json',java/'lwjgl-native-audit.json')
 specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\n')
 subprocess.run(['python3',str(runtime/'tools/package_java25_jni.py'),'--probe-spec',str(specfile)],check=True)
 package=runtime/'dist/PPSA99874.zip';destination=ROOT/'dist/client';destination.mkdir(parents=True,exist_ok=True);shutil.copyfile(package,destination/package.name)
-shutil.copyfile(runtime/'build/native/llvm-pie.elf',work/'bootstrap-01.000.001-symbols.elf')
+shutil.copyfile(runtime/'build/native/llvm-pie.elf',work/'bootstrap-01.000.002-symbols.elf')
 digest=hashlib.sha256(package.read_bytes()).hexdigest();(destination/'SHA256SUMS').write_text(digest+'  PPSA99874.zip\n')
-print('Client Native Loading 01.000.001',package,'SHA256',digest,'console pending; not a playable client')
+print('Client LWJGL Core 01.000.002',package,'SHA256',digest,'console pending; not a playable client')

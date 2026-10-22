@@ -77,3 +77,7 @@ The frozen [Client_Foundation source/validation](../Client_Foundation/README.md)
 ## Development001: resident JNI loading
 
 [Client Native Loading001](client-native-loading-001.md) is the next seven-row milestone, reported ALL PASS on the PS5 on2026-10-22. It adds actual JVM library/native symbol discovery and scoped function calls through a consumer-owned resident library. Frozen000 is retained;001 is now frozen as [Client_Native_Loading](../Client_Native_Loading/README.md). This advances native-loading infrastructure without claiming full LWJGL native bindings, arbitrary ELF loading or GPU rendering.
+
+## Development002: actual LWJGL core and resident provider
+
+[Client LWJGL Core002](client-lwjgl-core-002.md) adds the eighth row for real upstream native memory/JNI APIs and a PS5 SharedLibrary implementation. Host and target-package checks pass; console validation is pending. Frozen000/001 remain untouched. Driver presentation, SDL/Vulkan and game startup remain ahead.

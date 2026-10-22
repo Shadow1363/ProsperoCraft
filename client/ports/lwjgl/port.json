@@ -12,9 +12,13 @@
     "org/lwjgl/system/APIUtil.java"
   ],
   "patches": [
-    "0001-explicit-ps5-platform.patch"
+    "0001-explicit-ps5-platform.patch",
+    "0003-resident-shared-library.patch"
   ],
   "output": "lwjgl-3.4.3-ps5-platform.jar",
-  "status": "Dependency platform port only, not full LWJGL native support; not activated for game execution",
-  "license": "BSD3-clause; LICENSE.md retained with port"
+  "status": "PS5 platform and resident SharedLibrary dependency port; native core subset built separately. No game execution/graphics claim.",
+  "license": "BSD3-clause; LICENSE.md retained with port",
+  "additional_source_units": {
+    "org/lwjgl/system/ps5/PS5Library.java": "PS5Library.java"
+  }
 }
