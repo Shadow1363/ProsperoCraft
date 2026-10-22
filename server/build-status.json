@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.103",
+  "app_version": "01.000.104",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "519f9c0eeee230f7d4b93c6bdd52f66dac6c3c860de651964d9e9a16ac1fe008",
-  "console": "102saved automaticDNS run fails external discovery ENODNS225 beforePaper;103 localhostnamefallback pendingPS5.",
-  "host": "PASS actual patched IPv4/IPv6 hostname JNI bodies registered inrealJVM: empty/error/named/unterminated, PS5/nonPS5 controls, IPv4/IPv6 preference, actual InetAddress.getLocalHost loopback fallback; XcheckJNI/UBSan. Target java.base-libs andexactpatch PASS. PASS103 CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/modules/symbols/silence/singleledger/fallbackhashes. Exact102 game/probe/plugin/moduleimage/HotSpot retained; libnet updated, othernativecode unchanged (libnio build-id only). No newhostPaper run;100host evidence separate.",
-  "package": "PASS103 current patchedlibnet andlinkedIPv4/IPv6hostname functions; exact102 game/probe/plugin/moduleimage/HotSpot; othernativecode unchanged (libnio build-id only). CRC/signatures/pins/config/fallbacks verified.",
+  "package_sha256": "f9f9fc3c72a500c80513f058b3def5029df8dfdb80fad9e643934fc32e0fa342",
+  "console": "103CRASH atstatvfs0 copyingPaperconfiguration afteronlinepreflight;104filesystemcandidatependingPS5.",
+  "host": "PASS actualstatsJNI/JDKcanonicalizer/pathcollapse/helper inrealJVM:4realstatfields/EINTR/permission/missing/repeatedNIOconfigcopy/publicFilespace/canonical underEPERM existing/missingtail/dot-parent/symlinkrefusal/native-links/EIO, XcheckJNI/UBSan. ExistingNIO/ZipFS/descriptor ASanUBSan regression PASS. Targetjava.base-libs/exactpatch PASS. PASS104 CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/moduleimage/symbols/silence/singleledger/fallbackhashes; updatedlibjava/libnio, no unresolved pathname statvfs, SDKstatfs linked; exact103 game/probe/plugin/moduleimage/HotSpot andothernativecode retained. No newhostPaper run;100host evidence separate.",
+  "package": "PASS104 patchedlibjava/libnio, SDKstatfs linked andpathname statvfs import absent; exact103 game/probe/plugin/moduleimage/HotSpot/othernativecode; CRC/signatures/pins/config/fallbacks verified.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -30,18 +30,18 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "103runtime0112 empty successful localhostname -> existing localhost fallback, PS5IPv4/IPv6 only. No externalDNS/security/gameJAR changes; separate ENODNS225 unresolved.",
+  "scope": "104runtime0113 PS5 File/NIOpathstats->realstatfs; java.io realpathEPERM usesexistingdescriptor fallback/knownlinkrefusal, originalmissingsuffixcontract. No gameJAR/securityrewrite.",
   "max_heap_mib": 384,
-  "runtime_adaptation": "Runtime8f56ce3 includes0112 libnet localhostnamefallback. HotSpot0111/shared256MiB andscopedDNSretries retained.",
+  "runtime_adaptation": "Runtime9f6d1b0 includes0113 libjava/libnio configurationfilesystem fixes;0112hostname/0111HotSpot/shared256MiB/C1 andDNSretries retained.",
   "probe_jar_sha256": "085b80a9786926150fcc3b614dcf05d8819b48ae969c4cf53176356a0841f3a6",
   "diagnostics": "Bounded os+thread=info only in legacy exceptions.log route pair (8MiBactive/one8MiBrotated), plus vanilla commands/GC/TPS/nativeusage. Verbose packet control-flow exceptions omitted. Future player-save warning may need focused logging.",
   "reserved_code_cache_mib": 16,
-  "known_failures": "Saved102 automaticDNSrun returns ENODNS225 atdiscovery; currentassignedDNS/newrunpending. Emptylocalhostname loggingerror repairedincandidate103 butconsolepending. Paperreadiness/nativepressure/join/plugin/persistence unvalidated;2hdeferred.",
+  "known_failures": "103 statvfs0 nativeSIGSEGV and java.io configcanonicalize EPERM.104pendingPS5 configstatistics/writes/readiness/plugin/join/save/reload/nativepressure; optionaldirectIO fstatvfs unported, full2hdeferred.",
   "diagnostic_adapter": "External harness andseparatePaperplugin only. Runs upstreamPaper prepared byoriginalPaperclip; no projectgameJARrewrites/replacements. OriginalMojangbundle isunchanged incache; vanilla/Fabric retained separately.",
   "management": "Real java.management native objects embedded; preflight checks actual heap/non-heap values and -Xint VM argument",
   "classloader_fix": "PS5-only temporary class-byte/UTF allocation fallback to real OS RW pages with matching cleanup; original bytecode checks and definition calls retained; exact JVM-call failure context added",
   "worker": "8MiBrequested,earlycachedattrs beforeVM;ordinarycreatefirst,PS5EAGAIN/ENOMEM->sharedVMABIownedstack;realAttach/workerJNIEnv/Detach andjoinTLS-before-free. Launchphase/code savedto startupandcurrent/pertestexceptionroutes. Failedjoin/release retainsownership. ActualPS5pending.",
-  "crash_evidence": "Saved102 automatic-DNS run1792610207 retrieved2026-10-22: firstdiscovery query0x804101E1/neterrno225 (ENODNS), distinct fromearlier manualDNS3timeouts226. No retry for225 asintended. Empty successful localhostname causes emptyDNS/EINVAL22 and loggingERROR earlier. Trust/DRBG/TLS init complete; Paperneverlaunched; native direct kernel/policy counterszero; abort/fatal routes404. CurrentDNSassignment andnewrunpending. Rawlogs/deviceaddresseslocal.",
+  "crash_evidence": "Current103 reports retrieved2026-10-22: verifiedonlinepreflight complete afterDNSrepair; Paperloads/reaches DedicatedServer config. SIGSEGV/SEGV_ACCERR onServerthread through statvfs0/Files.copy/Configurate atomicwriter; matchingELF statvfs unresolved, localSDKstatfs present. Earlier bukkit/commands/spigot configcanonicalize0 EPERM. Session RUN interruptedbyfatal; fatalreportdecisive. Native direct>128MiB withzero kernel/policyfailures; no readiness/plugin/joinproof. Rawlogslocal.",
   "native_heap_fix": "Libc-first raw allocator retains NMT preinit contract;0093 compact aligned16byte size/taggedowner prefix reduces per-live-block overhead. ASan/UBSan and actual old/new profile comparison pass, console reduction unmeasured. Compressed module image saves37391447resident bytes before per-resource decode;176MiBheap raises cap32MiB versus070. This is a memory tradeoff, not a console peak guarantee.",
   "file_io_fix": "libjava io_util.c readBytes/writeBytes preserve stack buffer <=8192 bytes; larger scratch allocations try libc then page-rounded mmap; matched free/unmap with errno preserved and diagnostics; both backend failures retain OutOfMemoryError.",
   "platform_string_fix": "All MALLOC_MIN4 returned platform strings use aligned backend header; JNU_ReleaseStringPlatformChars and strict rejection match free/munmap, preserve errno. Both backend failures retain real OOM; PS5 UTF-8 failure message no longer implies only Java array oversize.",
@@ -285,5 +285,11 @@
     "scope": "PS5 IPv4/IPv6 successful emptygethostname uses existinglocalhost fallback; real Java loopback shortcut. Valid names/nonPS5/externalDNS unchanged.",
     "host": "PASS actualJNI/realJVM/IPv4+IPv6/PS5+nonPS5/empty+error+named+unterminated controls; XcheckJNI/UBSan andtarget libnet.",
     "console": "pending; independent ofexternalENODNS225."
+  },
+  "config_filesystem": {
+    "patch": "0113",
+    "scope": "PS5 File/NIO pathname stats realSDKstatfs; java.io EPERMusesexistingdescriptorwalk, knownoriginalpathELOOP fails; native-successlinks/nonPS5 unchanged.",
+    "host": "PASS actualJNI/JDKcanonicalizer/File/NIO copy/stats/error/symlink controls XcheckJNI/UBSan andexistingdescriptorASan/UBSan; targetlibs/exactpatch.",
+    "console": "pending;103matchingcrash/configdenials retrieved."
   }
 }
