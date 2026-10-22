@@ -102,7 +102,9 @@ release, then continuing client work. Promote its GitHub release status without
 inferring new console tests or ALL PASS. Keep endurance/lifecycle limitations
 explicit and preserve the exact published app binaries and source tag.
 
-The user requests reusing server title ID PPSA99874 for client builds. Client109
-uses the same content identity and advances the shared version after Paper108.
+The user requests reusing server title ID PPSA99874 and the same content identity
+for client builds, but explicitly wants client versions to start at01.000.000
+and advance independently of server versions. Do not continue the server build
+counter for client packages.
 Installing the client replaces the server app. Preserve tested server packages
 and source snapshots for reinstalling; do not claim side-by-side installation.

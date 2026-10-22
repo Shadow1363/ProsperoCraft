@@ -99,7 +99,7 @@ adds explicit PS5/x64 identification. Its console foundation probe is
 ready; native SDL/Vulkan integration remains ahead. No PS5 client launch is claimed.
 
 - [x] Pin client artifacts and asset index; add isolated preparation and real-JVM class preflight.
-- [x] Build a Client Foundation probe (`PPSA99874`,01.000.109): explicit LWJGL PS5 platform port and real JNI direct-buffer handoff; host/package checks pass.
+- [x] Build a Client Foundation probe (`PPSA99874`,01.000.000): explicit LWJGL PS5 platform port and real JNI direct-buffer handoff; host/package checks pass.
 - [ ] Validate all six client-foundation rows on the PS5 (not a game/menu/graphics test).
 
 The client reuses server title `PPSA99874` at the user's request. Installing

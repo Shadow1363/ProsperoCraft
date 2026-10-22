@@ -36,11 +36,11 @@ Next work is actual dependency platform support and native bindings, with a smal
 
 No PS5 client app, graphics frame, menu, world or controller result is claimed yet. Server endurance and remaining lifecycle checks remain pending separately.
 
-## Client Foundation 01.000.109: shared-title console probe
+## Client Foundation 01.000.000: shared-title console probe
 
-At the user's request, the client now uses server title `PPSA99874` and its exact content identity. Version01.000.109 follows Paper108 in the shared version sequence. Installing this client probe replaces the installed server app; the tested server packages and source snapshots are retained for reinstalling. This remains a foundation test, not a playable client or new frozen milestone. Local package: `dist/client/PPSA99874.zip` (also in the runtime workspace's `dist/`). The package hash is recorded in `client/build-status.json` and the local `SHA256SUMS`.
+At the user's request, the client now uses server title `PPSA99874` and its exact content identity. Client builds start at01.000.000 and advance independently of the server build counter, as explicitly requested by the user. Installing this client probe replaces the installed server app; the tested server packages and source snapshots are retained for reinstalling. This remains a foundation test, not a playable client or new frozen milestone. Local package: `dist/client/PPSA99874.zip` (also in the runtime workspace's `dist/`). The package hash is recorded in `client/build-status.json` and the local `SHA256SUMS`.
 
-The initial untested ClientFoundation000/PPSA99875 candidate is superseded and preserved locally. The six foundation rows and dependency/native bridge are unchanged; only application identity/version and documentation change.
+The initial untested ClientFoundation000/PPSA99875 and shared-title109 candidates are superseded and preserved locally. The six foundation rows and dependency/native bridge are unchanged; only application identity/version and documentation change.
 
 Run all six rows in order:
 

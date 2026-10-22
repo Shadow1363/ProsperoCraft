@@ -9,10 +9,18 @@
     {
       "title_id": "PPSA99874",
       "app_version": "01.000.109",
-      "console": "pending",
+      "console": "not reported; superseded by user request to start client numbering at zero",
       "change": "Shared server/client title and exact server content identity at user request; six foundation checks unchanged.",
       "package_sha256": "c5886c42535c2f5faf3d92b9d29ef56f26e40db39d0e39d7a9b9e94d41d7738f",
       "host": "PASS package/signatures/pins/shared identity, exact000 client assets and retained server fallback hashes; console pending"
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.000",
+      "console": "pending",
+      "change": "Same server title/content identity; client numbering starts from zero independently of server builds. Six foundation checks unchanged.",
+      "package_sha256": "e2eb90a727fc670418437937b292b152c5177e3e02077aa114049bc6c9c11fbf",
+      "host": "PASS package CRC/signatures/shared identity/client000/options/pins/exact109 assets/current runtime and preserved server fallback hashes; PS5 pending"
     }
   ]
 }

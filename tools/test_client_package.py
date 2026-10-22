@@ -15,7 +15,7 @@ package=runtime/'dist/PPSA99874.zip';lock=json.loads((ROOT/'client/26.3.lock.jso
 with zipfile.ZipFile(package)as z:
  assert z.testzip()is None
  prefix='PPSA99874/'
- param=json.loads(z.read(prefix+'sce_sys/param.json'));assert param['titleId']=='PPSA99874'and param['contentVersion']=='01.000.109'
+ param=json.loads(z.read(prefix+'sce_sys/param.json'));assert param['titleId']=='PPSA99874'and param['contentVersion']=='01.000.000'
  server_identity=json.loads((ROOT/'server/param.json').read_text())
  assert all(param[key]==server_identity[key]for key in ['titleId','conceptId','contentId'])
  assert not any(n.endswith('.pcm')or'/sounds/'in n for n in z.namelist())
@@ -34,15 +34,15 @@ with zipfile.ZipFile(package)as z:
   assert z.read(prefix+'assets/java25/lib/lib'+name+'.so')==(runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_libs'/module/('lib'+name+'.so')).read_bytes()
  assert z.read(prefix+'assets/java25/lib/server/libjvm.so')==(runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_libs/java.base/server/libjvm.so').read_bytes()
  eboot=z.read(prefix+'eboot.bin')
- for marker in [b'Client Foundation 01.000.109',b'-Xint',b'-Xmx128m',b'-XX:+UseCompactObjectHeaders',b'ClientInventory25',b'ClientPlatform25',b'ClientBridge25',b'()J',b'(Ljava/nio/ByteBuffer;J)J',b'PPSA99874',b'probe-session.txt',b'probe-exception.txt']:
+ for marker in [b'Client Foundation 01.000.000',b'-Xint',b'-Xmx128m',b'-XX:+UseCompactObjectHeaders',b'ClientInventory25',b'ClientPlatform25',b'ClientBridge25',b'()J',b'(Ljava/nio/ByteBuffer;J)J',b'PPSA99874',b'probe-session.txt',b'probe-exception.txt']:
   assert marker in eboot,marker
  assert b'-Djava.class.path=/app0/assets/java25/client-probe.jar:/app0/assets/java25/ports/lwjgl-3.4.3-ps5-platform.jar:'in eboot
  with zipfile.ZipFile(io.BytesIO(z.read(prefix+'assets/java25/client-probe.jar')))as probe:
   assert set(probe.namelist())=={'ClientArtifactProbe25.class','ClientInventory25.class','ClientPlatform25.class','ClientBridge25.class'}
  assert not any(n.endswith('server-26.3.jar')or n.endswith('paper-26.3.jar')for n in z.namelist())
 assert package.read_bytes()==(ROOT/'dist/client/PPSA99874.zip').read_bytes()
-assert (runtime/'build/native/llvm-pie.elf').read_bytes()==(ROOT/'build/client-probe/bootstrap-01.000.109-symbols.elf').read_bytes()
+assert (runtime/'build/native/llvm-pie.elf').read_bytes()==(ROOT/'build/client-probe/bootstrap-01.000.000-symbols.elf').read_bytes()
 assert sha((runtime/'build/java25/PPSA99874-108-full-local.zip').read_bytes())=='18dc7f06d59ff11b33c7e96b85f813a28a2cb19638fe0d6eacfd4224513781e7'
 assert sha((runtime/'build/java25/PPSA99874-094-full-local.zip').read_bytes())=='97ec74c40b9c495884130f9dae0ab10bf393e521265cbe82177f06190176df2d'
-assert (runtime/'build/java25/package-client-109.log').read_text().count('integrity: valid')==2
-print('PASS Client Foundation109 package CRC/signatures/title74,54immutable upstream artifacts/exact dependency port/current runtime/symbols/copies/options/silence; Fabric094/Paper108 unchanged. No game launch, GPU or console pass. SHA256',sha(package.read_bytes()))
+assert (runtime/'build/java25/package-client-000.log').read_text().count('integrity: valid')==2
+print('PASS Client Foundation000 package CRC/signatures/title74,54immutable upstream artifacts/exact dependency port/current runtime/symbols/copies/options/silence; Fabric094/Paper108 unchanged. No game launch, GPU or console pass. SHA256',sha(package.read_bytes()))

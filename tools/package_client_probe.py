@@ -40,6 +40,6 @@ spec={'menu_audio':False,'source':str(ROOT/'client/native/bootstrap.cpp'),'param
 specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\n')
 subprocess.run(['python3',str(runtime/'tools/package_java25_jni.py'),'--probe-spec',str(specfile)],check=True)
 package=runtime/'dist/PPSA99874.zip';destination=ROOT/'dist/client';destination.mkdir(parents=True,exist_ok=True);shutil.copyfile(package,destination/package.name)
-shutil.copyfile(runtime/'build/native/llvm-pie.elf',work/'bootstrap-01.000.109-symbols.elf')
+shutil.copyfile(runtime/'build/native/llvm-pie.elf',work/'bootstrap-01.000.000-symbols.elf')
 digest=hashlib.sha256(package.read_bytes()).hexdigest();(destination/'SHA256SUMS').write_text(digest+'  PPSA99874.zip\n')
-print('Client Foundation 01.000.109',package,'SHA256',digest,'console pending; not a playable client')
+print('Client Foundation 01.000.000',package,'SHA256',digest,'console pending; not a playable client')
