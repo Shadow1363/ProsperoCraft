@@ -96,3 +96,8 @@ ALL PASS, completed lifecycle checklist or endurance result. Preserve exact
 server packages/frozen milestones. Client work need not wait for those pending
 server checks. Keep client code/artifact pins/graphics integration here and
 reusable runtime fixes in the Java repository.
+
+The user subsequently explicitly requested making Fabric-Paper-v01.000.108 a full
+release, then continuing client work. Promote its GitHub release status without
+inferring new console tests or ALL PASS. Keep endurance/lifecycle limitations
+explicit and preserve the exact published app binaries and source tag.

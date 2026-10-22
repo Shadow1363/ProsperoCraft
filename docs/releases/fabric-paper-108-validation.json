@@ -2,7 +2,7 @@
   "release": "Fabric-Paper-v01.000.108",
   "title_id": "PPSA99874",
   "date": "2026-10-22",
-  "status": "Positive console playtests; development prerelease, not a new ALL PASS milestone",
+  "status": "Full release explicitly authorized by user on 2026-10-22; positive console playtests, not a new ALL PASS milestone",
   "two_hour_endurance": "pending; explicitly deferred by user",
   "project_game_jar_transformations": [],
   "fabric_feedback": "User very satisfied with Fabric094 experience. Standard upstream loader/Mixin behavior; individual arbitrary mods are not validated.",
@@ -1459,5 +1459,6 @@
       ]
     }
   ],
-  "release_checks": "PASS ZIP CRC and every retained byte against exact tested local packages; only upstream JARs and personal join-player excluded. Actual provisioning reconstructs every nonpersonal tested file for both flavors; corrupted source and retained app rejection tested before writes. All public asset SHA-256 checks pass. These packaging checks do not establish additional console validation."
+  "release_checks": "PASS ZIP CRC and every retained byte against exact tested local packages; only upstream JARs and personal join-player excluded. Actual provisioning reconstructs every nonpersonal tested file for both flavors; corrupted source and retained app rejection tested before writes. All public asset SHA-256 checks pass. These packaging checks do not establish additional console validation.",
+  "promotion": "Promoted from prerelease at user request; app binaries and their checksums unchanged. Two-hour endurance and remaining lifecycle acceptance stay pending."
 }

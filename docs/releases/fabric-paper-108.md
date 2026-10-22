@@ -2,7 +2,7 @@
 
 Release: [Fabric-Paper-v01.000.108](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108).
 
-Minecraft Java 26.3 now has positive PS5 playtest reports with both Fabric and Paper on the native Java 25 port. The user was very satisfied with Fabric094 and describes Paper108 as much more than acceptable and by far the best build yet. This development prerelease celebrates those results and preserves downloadable app binaries. It does not establish a new ALL PASS milestone. The two-hour endurance run remains explicitly pending, and client work is now authorized.
+Minecraft Java 26.3 now has positive PS5 playtest reports with both Fabric and Paper on the native Java 25 port. The user was very satisfied with Fabric094 and describes Paper108 as much more than acceptable and by far the best build yet. This full release celebrates those results and preserves downloadable app binaries. It does not establish a new ALL PASS milestone. The two-hour endurance run remains explicitly pending, and client work is now authorized.
 
 - Fabric app: 01.000.094, loader 0.19.5, source `d43c3bd2fa044e40ce334a70a41769770b3244d7`.
 - Paper app: 01.000.108, upstream Paper 26.3 build207, tested source `3a793f13e6459166bdfbccd71fb7e708946cb097` (the release adds documentation/provisioning only).

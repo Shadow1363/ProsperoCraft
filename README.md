@@ -55,7 +55,7 @@ The runtime now has **nine passing console milestones**, including inbound IPv4,
 ## Fabric and Paper release
 
 [Fabric and Paper running on PS5 — Fabric094 / Paper108](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108)
-is the new development prerelease, with separate app-only downloads, checksums
+is the new full release, with separate app-only downloads, checksums
 and local provisioning instructions. The user reports a satisfying Fabric
 experience and describes Paper108 as the best build yet. See the
 [release notes and setup](docs/releases/fabric-paper-108.md).
@@ -85,7 +85,7 @@ ALL PASS or playable client is claimed.
 - [ ] Complete the unmodified-server baseline, save/rejoin checks and two-hour run.
 - [x] Pin separate Fabric0.19.5 and Paper26.3build207 distributions; retain isolated worlds.
 - [ ] Validate Paper startup, joining, plugin lifecycle and save/rejoin/stop on PS5.
-- [x] Publish the Fabric094/Paper108 development prerelease with qualified console feedback.
+- [x] Publish the Fabric094/Paper108 full release with qualified console feedback.
 - [ ] Complete formal lifecycle/endurance acceptance before a new frozen ALL PASS release.
 - [ ] Run individual server-side mods and verify joins, persistence, memory and latency.
 - [ ] Publish exact tested loader/mod versions and reproducible results before larger sets.
@@ -132,7 +132,7 @@ All game/probe/plugin JARs, Java module image and HotSpot remain unchanged.
 Try CreateVM, VerifyJARs, then Play. Paper readiness, plugins, joined gameplay,
 save/stop/reload and native-pressure stability remain pending. Circle requests
 save/stop once running; reopen after expected app exit for logs. Full two-hour
-test stays deferred. Fabric/Paper development prerelease is published; client work
+test stays deferred. Fabric/Paper full release is published; client work
 is now authorized while remaining server validation stays pending.
 
 
