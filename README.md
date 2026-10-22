@@ -100,23 +100,23 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Paper DNS-recovery candidate 01.000.102
+## Current development: local-hostname candidate 01.000.103
 
-101 fails on its first online DNS query, before Paper starts. The early resolver
-pair exists, and the direct-memory counters show no failures or policy refusals.
-102 executes all three timeout attempts on PS5, then preserves the actual
-failure. The configured manual Pi-hole resolver's DNS/admin services are
-unreachable during investigation, although its host answers ping. Confirm
-resolver availability and retry102; no newer code candidate is warranted yet. See
-[evidence and validation](docs/dns-timeout-failure-101.md).
+The saved 102 run after selecting automatic DNS still stops before Paper:
+the resolver reports no configured DNS, rather than the previous timeout.
+Current assigned DNS settings and a fresh run remain to be checked. See
+[evidence and validation](docs/automatic-dns-and-local-hostname-102.md).
 
-Paper/game/probe/plugin JARs, the module image and HotSpot are unchanged from 101.
-The 256 MiB native-memory allowance remains; 101 did not reach Paper to validate it.
-Host resolver/fault/cleanup checks pass. Try CreateVM, VerifyJARs, then Play.
-Actual PS5 DNS recovery, Paper startup, joining, plugins and persistence remain
-pending. Circle requests save/stop once running; reopen after expected app exit
-for logs. Full two-hour test stays deferred; release after console acceptance,
-then client.
+103 fixes a separate Java-port error: an empty native local hostname now uses
+Java's existing localhost/loopback fallback. Host JNI/JVM tests and the target
+native-library build pass. External DNS queries and all game/probe/plugin JARs
+remain unchanged. This fix does not repair missing external DNS configuration.
+
+Try CreateVM, VerifyJARs, then Play once DNS settings are confirmed. Actual PS5
+local-host detection, online preflight, Paper startup, joining, plugins and
+persistence remain pending. Circle requests save/stop once running; reopen
+after expected app exit for logs. Full two-hour test stays deferred; release
+after console acceptance, then client.
 
 
 072captured a null function call through its new OS-random service import.
