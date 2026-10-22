@@ -37,9 +37,16 @@ with zipfile.ZipFile(java/'client-probe.jar','w',zipfile.ZIP_DEFLATED)as output:
   info=zipfile.ZipInfo(str(path.relative_to(classes)));info.compress_type=zipfile.ZIP_DEFLATED;output.writestr(info,path.read_bytes())
 modules=json.loads((ROOT/'server/26.3.lock.json').read_text())['modules']
 spec={'menu_audio':False,'source':str(ROOT/'client/native/bootstrap.cpp'),'param':str(ROOT/'client/param.json'),'asset_dir':str(assets),'java_sources':[str(p)for p in sources],'modules':modules,'java_compile_classpath':[str(port),*[str(ROOT/'.tools/client'/row['file'])for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:')]],'include_dirs':[str(work),str(ROOT/'client/native'),str(runtime/'java25/probe')]}
+# A genuine named JNI library is built into the resident registry. Its native
+# methods use normal JVM symbol resolution, not RegisterNatives injection.
+obj=work/'resident-library.o'
+headers=runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_include/java.base'
+sdk=runtime/'.tools/native-sdk/ps5-payload-sdk'
+subprocess.run(['/opt/homebrew/opt/llvm/bin/clang','-target','x86_64-sie-ps5','-std=c11','-O2','-fPIC','-fvisibility-nodllstorageclass=default','-isysroot',str(sdk),'-I'+str(headers),'-I'+str(headers/'freebsd'),'-c',str(ROOT/'client/native/resident_library.c'),'-o',str(obj)],check=True)
+spec['resident_libraries']=[{'name':'ps5clientbridge','objects':[str(obj)]}]
 specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\n')
 subprocess.run(['python3',str(runtime/'tools/package_java25_jni.py'),'--probe-spec',str(specfile)],check=True)
 package=runtime/'dist/PPSA99874.zip';destination=ROOT/'dist/client';destination.mkdir(parents=True,exist_ok=True);shutil.copyfile(package,destination/package.name)
-shutil.copyfile(runtime/'build/native/llvm-pie.elf',work/'bootstrap-01.000.000-symbols.elf')
+shutil.copyfile(runtime/'build/native/llvm-pie.elf',work/'bootstrap-01.000.001-symbols.elf')
 digest=hashlib.sha256(package.read_bytes()).hexdigest();(destination/'SHA256SUMS').write_text(digest+'  PPSA99874.zip\n')
-print('Client Foundation 01.000.000',package,'SHA256',digest,'console pending; not a playable client')
+print('Client Native Loading 01.000.001',package,'SHA256',digest,'console pending; not a playable client')

@@ -52,6 +52,14 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Current client candidate: Native Loading 01.000.001
+
+[Client001](docs/client-native-loading-001.md) adds a seventh row for actual
+System.loadLibrary, JNI discovery and scoped resident function lookup. Host and
+package checks pass; PS5 validation is pending. It uses titlePPSA99874 and leaves
+the frozen000 milestone intact. Full LWJGL core/native graphics integration and
+Minecraft's menu are still ahead. Run all seven rows in order.
+
 ## Client Foundation — PS5 ALL PASS
 
 The user confirms all six rows of Client Foundation `01.000.000` passed on the

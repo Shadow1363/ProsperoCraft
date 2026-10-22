@@ -47,8 +47,8 @@ extern "C" int __wrap_open(const char *path,int flags,...) {
 namespace {
 using ps5::demo::Canvas;
 constexpr std::uint32_t rgb(unsigned r,unsigned g,unsigned b) {return 0xff000000u|r|(g<<8)|(b<<16);}
-constexpr int test_count=6;
-const char *names[]={"Initialize embedded core runtime","Create Java 25 VM (interpreter mode)","Verify client artifacts (no game launch)","LWJGL: explicit PS5/x64 platform","JNI: direct buffers, slices and errors","Destroy Java VM"};
+constexpr int test_count=7;
+const char *names[]={"Initialize embedded core runtime","Create Java 25 VM (interpreter mode)","Verify client artifacts (no game launch)","LWJGL: explicit PS5/x64 platform","JNI: direct buffers, slices and errors","JNI: resident library and function lookup","Destroy Java VM"};
 int status[test_count]{}; // 0 untested, 1 pass, -1 fail, 2 running
 char messages[test_count][104]{};
 int selected=0,pending=-1,pad=-1;
@@ -58,7 +58,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.000";
+constexpr const char* build_version="01.000.001";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -194,6 +194,7 @@ void run_test(int i) {
   log_stage("Core image opened and JIMAGE header verified");
   JavaVMOption options[]={
    {const_cast<char *>("-Xint"),nullptr},
+   {const_cast<char *>("--enable-native-access=ALL-UNNAMED"),nullptr},
    {const_cast<char *>("-XX:+UseCompactObjectHeaders"),nullptr},
    {const_cast<char *>("-XX:UseAVX=0"),nullptr},
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
@@ -241,8 +242,8 @@ void run_test(int i) {
   result(i,rc,"Real JNI_CreateJavaVM, -Xint, 128 MiB max heap");
  } else if(!java_vm||!java_env) {
   result(i,-1303,"Create the VM first; relaunch to retry");
- } else if(i>=2 && i<=4) {
-  const char *fixture=i==2?"ClientInventory25":i==3?"ClientPlatform25":"ClientBridge25";
+ } else if(i>=2 && i<=5) {
+  const char *fixture=i==2?"ClientInventory25":i==3?"ClientPlatform25":i==4?"ClientBridge25":"ClientLibrary25";
   NativeTraceScope trace_scope;
   log_stage("Reading bundled java.security through native file API");
   FILE *security=std::fopen("/app0/assets/java25/conf/security/java.security","rb");
@@ -339,10 +340,10 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Client Foundation 01.000.000",64,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Client Native Loading 01.000.001",64,rgb(238,242,250));
  c.label(103,163,"Client foundation only: artifact hashes, LWJGL platform and JNI. No Minecraft menu or GPU renderer yet.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
-  int y=220+i*82;
+  int y=220+i*70;
   if(selected==i) c.rounded(95,y-4,1730,76,22,rgb(109,156,255));
   c.rounded(100,y,1720,68,19,rgb(25,34,51));
   c.label(124,y+8,names[i],25,rgb(238,242,250));
@@ -381,7 +382,7 @@ void draw(Canvas &c) noexcept {
 }
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Client Foundation 01.000.000 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Client Native Loading 01.000.001 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
