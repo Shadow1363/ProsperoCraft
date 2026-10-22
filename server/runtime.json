@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "e1daee83a4e273b423baa56b53f0bfec5e17f5e1",
+  "commit": "4486b9b2dec1df8241e5949c95041bde2dda8493",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
   "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at224MiB max heap in089; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled Paper095 uses384MiB maxheap after224MiB normalworldgen hostOOM. Fabric retains224MiB. PaperPS5nativeheadroom pending.",
@@ -32,5 +32,6 @@
   "config_filesystem": "0113: PS5 NIO pathname stats use realSDKstatfs, removing unimplementedstatvfs import fromcopy path. java.io canonicalization EPERM reuses existingdescriptor walk, including verifiedparents/missingconfigsuffixes; known originalpathELOOP rejected. Otherplatform/native-successlinks retained. HostactualJNI/JVM/File/NIO/canonical/descriptor tests andtargetbuild pass;104PS5pending. OptionaldirectIO fstatvfs unported. 0114 supersedes pathnamecapacity with explicitunavailable results; canonicalizationretained.",
   "filesystem_capacity_unavailable": "0114 supersedes rawpathname statfs untilvalidatedPS5ABI: NIOcapacity throwsENOSYS, File space queryreturns existingunavailable0; originalJava copybuffer fallback andactualIO retained, no fabricatedcapacity/newrawsyscalls. NonPS5unchanged; canonicalization0113 retained. HostactualJNI/JVMcopy/error/canonical controlsPASS;105PS5pending.",
   "ownership_capability": "0115: PS5 chown0/lchown0/fchown0 explicitlyEPERM without rawownershipcalls; originalJava optionalPOSIXcopy handling retained, explicitoperations fail/no fabricatedownership. Otherplatformsunchanged. ActualJNI/JVM20COPY_ATTRIBUTES/errno/setOwner/error controls+targetlibnio PASS;106PS5pending, permission/timestamps not covered.",
-  "extended_attribute_capability": "0116 masksPS5nativexattrcap,4JNIentrypoints ENOTSUP/no rawcalls. BSDJavafilesystem userviews omitted/typed+named unavailable/optionalextendedattrcopy skipped onPS5; nativeguards protectdirect/stale calls. OtherplatformJavaadvertisements retained. ActualBSDclasses/JNI/JVM desktop+PS5controls/COPY_ATTRIBUTES/errors andtargetclasses/libsPASS;107PS5pending."
+  "extended_attribute_capability": "0116 masksPS5nativexattrcap,4JNIentrypoints ENOTSUP/no rawcalls. BSDJavafilesystem userviews omitted/typed+named unavailable/optionalextendedattrcopy skipped onPS5; nativeguards protectdirect/stale calls. OtherplatformJavaadvertisements retained. ActualBSDclasses/JNI/JVM desktop+PS5controls/COPY_ATTRIBUTES/errors andtargetclasses/libsPASS;107PS5pending.",
+  "file_timestamps": "0117: PS5 resident futimes/utimes replaces newer raw BSD syscalls for descriptor and ordinary path timestamp updates. Microsecond precision, normalized negatives/EINTR/real errors; unsupported dirfd/flags ENOTSUP. Actual JNI/JVM/FileTime/COPY_ATTRIBUTES host checks and target libnio pass;108 PS5 pending."
 }

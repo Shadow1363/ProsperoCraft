@@ -100,19 +100,17 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Paper extended-attribute candidate 01.000.107
+## Current development: Paper timestamp candidate 01.000.108
 
-106 passes the ownership guard and reaches optional extended attributes during
-configuration copying, then terminates at flistxattr. There is no current fatal
-report; exact native cause remains unresolved. See
-[evidence and validation](docs/paper-xattr-crash-106.md).
+107 gets past optional extended attributes, then terminates at the timestamp
+update during configuration copying. No current fatal report identifies the
+exact native cause. See [evidence and validation](docs/paper-timestamp-crash-107.md).
 
-107 marks PS5 extended attributes as unsupported consistently in the Java BSD
-provider and native calls. Optional copies skip that unavailable capability;
-explicit requests fail without fake empty lists or writes. Actual BSD-class/JNI/
-JVM tests and target builds pass. The game/probe/plugin JARs and HotSpot remain
-unchanged; Java runtime filesystem classes, module image and libnio change.
-Permission/timestamp handling and Paper startup still need console validation.
+108 routes ordinary PS5 file timestamps through the SDK's resident futimes and
+utimes APIs. Real errors propagate; unsupported directory-descriptor/no-follow
+modes fail explicitly. Timestamp precision is microseconds. Actual JNI/JVM tests
+and the target library build pass; console availability remains unverified.
+All game/probe/plugin JARs, Java module image and HotSpot remain unchanged.
 
 Try CreateVM, VerifyJARs, then Play. Paper readiness, plugins, joined gameplay,
 save/stop/reload and native-pressure stability remain pending. Circle requests

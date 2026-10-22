@@ -1,12 +1,12 @@
 {
   "title_id": "PPSA99874",
-  "app_version": "01.000.107",
+  "app_version": "01.000.108",
   "minecraft": "26.3",
   "java_major": 25,
-  "package_sha256": "6b8841ae072d2a1af226d00b33bc7b324b704f38ea600702157e2ae38b80074a",
-  "console": "106ownershipguard executed thenlasttraceflistxattr; reportedcrash/nofatalreport.107xattrcapabilitycandidatependingPS5.",
-  "host": "PASS actualBSDfilesystem/provider/targetuserattrclasses patchmodule+currentJNI inrealJVM desktop+PS5name controls: viewsets/typed+named lookups,20COPY_ATTRIBUTES copies, PS5zeroxattrcalls/desktopinjectedENOTSUPhandling,4directJNI exactENOTSUP, explicitPS5userwrite/staleviewnofakeempty/ownership/capacity/canonical/dataerrors;XcheckJNI/UBSan. Targetbaseclasses/libnio/exactpatch PASS. PASS107 CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/moduleimage/symbols/silence/singleledger/fallbackhashes;4xattrJNI no rawcalls, markerslinked. Fulljimagecomparison: only3BSDclasses+10specifiedcompilerbookkeeping resources change; allotherentriesidentical. Exact106 game/probe/plugin/HotSpot/othernativecode retained. No newhostPaper run;100hostevidence separate.",
-  "package": "PASS107 currentlibnio/4xattrguards no rawcalls; exact3BSDclass+10compilerresource image delta; exact106game/probe/plugin/HotSpot/othernativecode; pins/config/security/silence/fallbacks retained.",
+  "package_sha256": "18dc7f06d59ff11b33c7e96b85f813a28a2cb19638fe0d6eacfd4224513781e7",
+  "console": "107 reported crash at futimens0;108 resident timestamp candidate pending.",
+  "host": "PASS actual timestamp JNI real files/faults ASan/UBSan: fd/path writes, unlinked inode identity, microsecond precision, negative/extreme conversion, EINTR, EBADF/EACCES/ENOENT, unsupported dirfd/flags before path access. Real JVM actual BSD classes+JNI registration FileTime write/20 COPY_ATTRIBUTES exact timestamps and previous ownership/xattr/capacity/canonical controls XcheckJNI/UBSan. Target libnio/exact patch PASS. PASS108 package CRC/signatures/version/options, all105 upstream Paper pins, plugin/audit/noFabric/security/silence, currentnativefiles/moduleimage/symbols/copies/singleledger/fallback hashes. JNI disassembly/import relocations prove resident futimes/utimes calls and no newer timestamp raw calls. Exact107 game/probe/plugin/module image/HotSpot/other native code retained;107 package preserved.",
+  "package": "PASS108 package CRC/signatures/version/options, all105 upstream Paper pins, plugin/audit/noFabric/security/silence, currentnativefiles/moduleimage/symbols/copies/singleledger/fallback hashes. JNI disassembly/import relocations prove resident futimes/utimes calls and no newer timestamp raw calls. Exact107 game/probe/plugin/module image/HotSpot/other native code retained;107 package preserved.",
   "runtime_modules": [
     "java.base",
     "java.compiler",
@@ -30,9 +30,9 @@
     "jdk.unsupported",
     "jdk.zipfs"
   ],
-  "scope": "107runtime0116 PS5xattrsunsupported acrossnativecap/4JNI/BSDJava views/copy; expliciterrors/no fakeempty/writes, nonPS5views retained. No gameJARrewrite.",
+  "scope": "Runtime0117 PS5 NIO resident timestamp API port; no game JAR transformations.",
   "max_heap_mib": 384,
-  "runtime_adaptation": "Runtimee1daee8 includes0116 xattrcapability;0115ownership/0114capacity/0113canonical/0112hostname/0111HotSpot/shared256MiB/C1/DNSretries retained.",
+  "runtime_adaptation": "Runtime0117 timestamp port, existing xattr/ownership/capacity/canonicalization/runtime memory fixes retained.",
   "probe_jar_sha256": "085b80a9786926150fcc3b614dcf05d8819b48ae969c4cf53176356a0841f3a6",
   "diagnostics": "Bounded os+thread=info only in legacy exceptions.log route pair (8MiBactive/one8MiBrotated), plus vanilla commands/GC/TPS/nativeusage. Verbose packet control-flow exceptions omitted. Future player-save warning may need focused logging.",
   "reserved_code_cache_mib": 16,
@@ -308,6 +308,12 @@
     "patch": "0116",
     "scope": "PS5nativecapmasked/4JNI ENOTSUP/BSDuserviews unavailable/optionalcopy skipped; direct/staleguards honest; otherplatformJavaadvertisements retained.",
     "host": "PASS actualBSDclasses/JNI/realJVMdesktop+PS5 controls/views/COPY_ATTRIBUTES/4errno/publicwrite/staleview/errors XcheckJNI/UBSan; targetclasses/libnio/exactpatch.",
-    "console": "pending; exact106nativecause unresolved."
+    "console": "107 passed optional xattr step; trace ends at next futimens0. Full application validation pending."
+  },
+  "file_timestamps": {
+    "patch": "0117",
+    "console": "pending",
+    "scope": "Resident futimes/utimes, microsecond precision; dirfd/nofollow ENOTSUP; real errors.",
+    "host": "PASS actual timestamp JNI real files/faults ASan/UBSan: fd/path writes, unlinked inode identity, microsecond precision, negative/extreme conversion, EINTR, EBADF/EACCES/ENOENT, unsupported dirfd/flags before path access. Real JVM actual BSD classes+JNI registration FileTime write/20 COPY_ATTRIBUTES exact timestamps and previous ownership/xattr/capacity/canonical controls XcheckJNI/UBSan. Target libnio/exact patch PASS. Package verification pending."
   }
 }
