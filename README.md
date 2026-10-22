@@ -100,24 +100,25 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Paper copy-fallback candidate 01.000.105
+## Current development: Paper ownership-capability candidate 01.000.106
 
-104 passes online preflight and no longer logs the prior canonicalization
-errors, but terminates at filesystem statistics during configuration copying.
-No current fatal report was written; the exact native cause is unresolved.
-See [evidence and validation](docs/paper-capacity-crash-104.md).
+105 gets past filesystem capacity queries into configuration data copying,
+then terminates at the native ownership-preservation step. No current fatal
+report exists; the exact native cause remains unresolved. See
+[evidence and validation](docs/paper-ownership-crash-105.md).
 
-105 reports filesystem capacity as unavailable on PS5, allowing Java's existing
-copy-buffer fallback to handle configuration copies. It makes no raw statistics
-call and invents no disk capacity. The canonicalization repair remains. Host
-JNI/JVM copy/error/canonicalization checks and target builds pass. Game/probe/
-plugin JARs, module image and HotSpot remain unchanged. Actual PS5 validation,
-including real capacity support, remains pending.
+106 makes unsupported PS5 ownership changes fail explicitly with EPERM. Java's
+existing copy code can tolerate that failure when POSIX preservation is optional;
+explicit owner-change requests still fail. Capacity/canonicalization repairs
+remain. Host JNI/JVM COPY_ATTRIBUTES/error tests and target builds pass. Game/
+probe/plugin JARs, module image and HotSpot remain unchanged. Permission and
+timestamp handling, configuration completion and Paper startup still need PS5
+validation.
 
 Try CreateVM, VerifyJARs, then Play. Paper readiness, plugins, joined gameplay,
-save/stop/reload and native-pressure stability still need console checks. Circle
-requests save/stop once running; reopen after expected app exit for logs. Full
-two-hour test stays deferred; release after console acceptance, then client.
+save/stop/reload and native-pressure stability remain pending. Circle requests
+save/stop once running; reopen after expected app exit for logs. Full two-hour
+test stays deferred; release after console acceptance, then client.
 
 
 072captured a null function call through its new OS-random service import.

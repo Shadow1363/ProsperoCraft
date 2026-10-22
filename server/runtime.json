@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
-  "commit": "751da7a356ff9e0474216b9b4a3fd72057fbc128",
+  "commit": "66e424d8436331b400a29ce7cecf2eafd131ce81",
   "upstream_openjdk_commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
   "probe_contract": "tools/package_java25_jni.py --probe-spec",
   "execution_mode": "Guarded mixed C1 level1, one compiler, threshold scaling4, per-compilation arena limit2MiB,16MiB code cache, SerialGC NewRatio15 at224MiB max heap in089; index-only compressed image and compact native prefix; PS5 validation pending; Java25 compact object headers enabled Paper095 uses384MiB maxheap after224MiB normalworldgen hostOOM. Fabric retains224MiB. PaperPS5nativeheadroom pending.",
@@ -30,5 +30,6 @@
   "dns_timeout_retries": "Scoped SDK adapter: at most3 synchronous default-policy attempts only after completed resolver timeout226. Same lease/real answers; nondefault timeout/retry/flags pass through once; final errors preserved. Host actual adapter/SDK/fault/concurrency ASanUBSan pass;102 PS5 recovery pending.",
   "empty_local_hostname": "0112: PS5 IPv4/IPv6 empty successful gethostname result uses existing localhost fallback, real Java loopback shortcut. Valid names/nonPS5/externalDNS unchanged. Actual JNI/JVM XcheckJNI/UBSan andtarget libnet build pass;103 PS5 pending. Separate102 automaticDNSrun returns ENODNS225, unresolved.",
   "config_filesystem": "0113: PS5 NIO pathname stats use realSDKstatfs, removing unimplementedstatvfs import fromcopy path. java.io canonicalization EPERM reuses existingdescriptor walk, including verifiedparents/missingconfigsuffixes; known originalpathELOOP rejected. Otherplatform/native-successlinks retained. HostactualJNI/JVM/File/NIO/canonical/descriptor tests andtargetbuild pass;104PS5pending. OptionaldirectIO fstatvfs unported. 0114 supersedes pathnamecapacity with explicitunavailable results; canonicalizationretained.",
-  "filesystem_capacity_unavailable": "0114 supersedes rawpathname statfs untilvalidatedPS5ABI: NIOcapacity throwsENOSYS, File space queryreturns existingunavailable0; originalJava copybuffer fallback andactualIO retained, no fabricatedcapacity/newrawsyscalls. NonPS5unchanged; canonicalization0113 retained. HostactualJNI/JVMcopy/error/canonical controlsPASS;105PS5pending."
+  "filesystem_capacity_unavailable": "0114 supersedes rawpathname statfs untilvalidatedPS5ABI: NIOcapacity throwsENOSYS, File space queryreturns existingunavailable0; originalJava copybuffer fallback andactualIO retained, no fabricatedcapacity/newrawsyscalls. NonPS5unchanged; canonicalization0113 retained. HostactualJNI/JVMcopy/error/canonical controlsPASS;105PS5pending.",
+  "ownership_capability": "0115: PS5 chown0/lchown0/fchown0 explicitlyEPERM without rawownershipcalls; originalJava optionalPOSIXcopy handling retained, explicitoperations fail/no fabricatedownership. Otherplatformsunchanged. ActualJNI/JVM20COPY_ATTRIBUTES/errno/setOwner/error controls+targetlibnio PASS;106PS5pending, permission/timestamps not covered."
 }
