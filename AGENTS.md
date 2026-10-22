@@ -108,3 +108,9 @@ and advance independently of server versions. Do not continue the server build
 counter for client packages.
 Installing the client replaces the server app. Preserve tested server packages
 and source snapshots for reinstalling; do not claim side-by-side installation.
+
+Client_Foundation is the frozen passing client foundation milestone, PPSA99874
+version01.000.000, user ALL PASS on2026-10-22. Preserve its source snapshot,
+validation and matching compiled package. Its six foundation checks do not
+establish game startup, GPU rendering, SDL/Vulkan/audio or controller gameplay.
+Continue new client work in root client/, never inside Client_Foundation/.

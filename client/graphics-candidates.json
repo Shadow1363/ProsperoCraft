@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Separate LWJGL PS5/x64 platform dependency port built and host-tested. Validate foundation probe on console, then implement actual native function resolver/core bindings and presentation/SDL bridge. Driver remains evaluation-only."
+  "next": "ClientFoundation000 ALL PASS on PS5. Implement actual LWJGL native resolver/core bindings and isolated presentation/SDL bridge. Driver remains evaluation-only; no GPU/menu validation."
 }

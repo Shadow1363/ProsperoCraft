@@ -52,6 +52,19 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Client Foundation — PS5 ALL PASS
+
+The user confirms all six rows of Client Foundation `01.000.000` passed on the
+actual PS5 on2026-10-22. The matching source and package are frozen as
+[Client_Foundation](Client_Foundation/README.md), with a
+[release download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Foundation-v01.000.000)
+and [validation record](Client_Foundation/validation.json).
+
+This establishes runtime/artifact loading, explicit LWJGL PS5 platform handling,
+real JNI direct-buffer handoff and VM shutdown. Native loading, SDL/Vulkan
+presentation and Minecraft's menu/world remain next. Server endurance remains
+pending. The client shares `PPSA99874` and starts its own build counter at zero.
+
 ## Fabric and Paper release
 
 [Fabric and Paper running on PS5 — Fabric094 / Paper108](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108)
@@ -95,12 +108,12 @@ ALL PASS or playable client is claimed.
 [Client bring-up status and commands](docs/client-bringup.md): official26.3 client
 and53 Java libraries are pinned; actual host class preflight passes without
 native initialization. Upstream LWJGL rejects the PS5 platform; the new source-built dependency port
-adds explicit PS5/x64 identification. Its console foundation probe is
-ready; native SDL/Vulkan integration remains ahead. No PS5 client launch is claimed.
+adds explicit PS5/x64 identification. Its console foundation probe has
+passed all six rows on PS5; native SDL/Vulkan integration remains ahead. No PS5 client launch is claimed.
 
 - [x] Pin client artifacts and asset index; add isolated preparation and real-JVM class preflight.
 - [x] Build a Client Foundation probe (`PPSA99874`,01.000.000): explicit LWJGL PS5 platform port and real JNI direct-buffer handoff; host/package checks pass.
-- [ ] Validate all six client-foundation rows on the PS5 (not a game/menu/graphics test).
+- [x] Validate all six client-foundation rows on PS5:01.000.000 ALL PASS, frozen source/package and release (not a game/menu/graphics test).
 
 The client reuses server title `PPSA99874` at the user's request. Installing
 the client replaces the server app; tested server packages remain preserved.

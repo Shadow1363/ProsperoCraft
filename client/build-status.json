@@ -1,5 +1,5 @@
 {
-  "stage": "Client Foundation 01.000.000 shared-title candidate",
+  "stage": "Frozen Client Foundation 01.000.000 milestone",
   "date": "2026-10-22",
   "minecraft": "26.3",
   "java_major": 25,
@@ -8,9 +8,9 @@
   "embedded_native_resources": "Original JNA/LZ4 JAR resources retained but not initialized/extracted by preflight; no desktop compatibility claim",
   "game_transformations": [],
   "host": "PASS source-built explicit PS5 LWJGL platform: real JVM PS5/x64, non-x64 rejection, desktop identity/ordinals, library names/resource paths, explicit unported native function resolver. Exact dependency-only delta verified. Actual JNI direct buffer zero/slices/guard/checksum/error controls XcheckJNI/UBSan. Target package CRC/signatures/artifact pins/current runtime/symbols/copies/silence/shared title identity; original server packages preserved. PASS shared title/content identity and client version000, exact109 client assets; preserved server108/Fabric094 hashes.",
-  "console": "pending; shared title replaces installed server app; same six foundation rows, no game launch or GPU rendering",
+  "console": "ALL PASS: human user report for all six foundation rows",
   "first_dependency_boundary": "Upstream rejects PS5; separate source-built platform port now recognizes PS5/x64. Actual PS5 native function resolver/core bindings remain unported.",
-  "next": "Validate foundation rows on PS5; implement native loading/function resolution and isolated presentation, then SDL/Vulkan integration before real client menu",
+  "next": "Native LWJGL function resolver/core bindings and isolated GPU presentation, then SDL/Vulkan integration before real client menu",
   "server_baseline": "Fabric094/Paper108 full release published at user request; exact packages retained",
   "server_two_hour_endurance": "pending; explicitly deferred",
   "server_lifecycle_acceptance": "remaining checks pending; no new ALL PASS inferred",
@@ -26,5 +26,6 @@
       "activated_for_game": false
     }
   ],
-  "version_policy": "Client builds start at zero independently of server builds; same PPSA99874/content identity by explicit user request."
+  "version_policy": "Client builds start at zero independently of server builds; same PPSA99874/content identity by explicit user request.",
+  "milestone": "Client_Foundation"
 }

@@ -38,7 +38,7 @@ No PS5 client app, graphics frame, menu, world or controller result is claimed y
 
 ## Client Foundation 01.000.000: shared-title console probe
 
-At the user's request, the client now uses server title `PPSA99874` and its exact content identity. Client builds start at01.000.000 and advance independently of the server build counter, as explicitly requested by the user. Installing this client probe replaces the installed server app; the tested server packages and source snapshots are retained for reinstalling. This remains a foundation test, not a playable client or new frozen milestone. Local package: `dist/client/PPSA99874.zip` (also in the runtime workspace's `dist/`). The package hash is recorded in `client/build-status.json` and the local `SHA256SUMS`.
+At the user's request, the client now uses server title `PPSA99874` and its exact content identity. Client builds start at01.000.000 and advance independently of the server build counter, as explicitly requested by the user. Installing this client probe replaces the installed server app; the tested server packages and source snapshots are retained for reinstalling. The user reports ALL PASS for all six rows on2026-10-22; the source/package is now frozen as Client_Foundation. This remains a foundation test, not a playable client. Local package: `dist/client/PPSA99874.zip` (also in the runtime workspace's `dist/`). The package hash is recorded in `client/build-status.json` and the local `SHA256SUMS`.
 
 The initial untested ClientFoundation000/PPSA99875 and shared-title109 candidates are superseded and preserved locally. The six foundation rows and dependency/native bridge are unchanged; only application identity/version and documentation change.
 
@@ -67,3 +67,9 @@ python3 tools/test_client_package.py --runtime-workspace /path/to/PS5_Homebrew
 ```
 
 The packaging flow currently uses the runtime workspace's macOS toolchain. Native presentation, PS5 LWJGL function resolution/core bindings and SDL/Vulkan integration remain next. Server two-hour endurance stays pending separately.
+
+## Console acceptance and freeze
+
+The user reports **ALL PASS** after the exact shared-title000 package on2026-10-22. All six foundation rows are accepted on the actual PS5. The tested package hash is `e2eb90a727fc670418437937b292b152c5177e3e02077aa114049bc6c9c11fbf`.
+
+The frozen [Client_Foundation source/validation](../Client_Foundation/README.md) and [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Foundation-v01.000.000) preserve this milestone. Public packaging excludes54 original upstream JARs without rebuilding retained binaries; the attached helper restores all tested bytes from hash-verified local preparation. Native LWJGL loading, GPU/SDL/Vulkan presentation, audio, controller gameplay and actual Minecraft startup remain unvalidated. Continue future development outside the frozen folder. Server endurance remains deferred.
