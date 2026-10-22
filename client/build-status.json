@@ -1,0 +1,17 @@
+{
+  "stage": "Pinned artifact and class-loading preflight",
+  "date": "2026-10-22",
+  "minecraft": "26.3",
+  "java_major": 25,
+  "pinned_client_and_java_jars": 54,
+  "conditional_desktop_artifacts_staged": 0,
+  "embedded_native_resources": "Original JNA/LZ4 JAR resources retained but not initialized/extracted by preflight; no desktop compatibility claim",
+  "game_transformations": [],
+  "host": "PASS metadata/library/asset-index pins, offline staging, actual Java25 -Xverify:all seven original class loads with initialization disabled; real upstream LWJGL Platform PS5 LinkageError reproduced; same-size client mutation rejected before class loads and restored",
+  "console": "No client package or client console test yet",
+  "first_dependency_boundary": "LWJGL3.4.3 Platform rejects os.name=PS5",
+  "next": "PS5 dependency/native-binding support; isolated native presentation and Java SDL/Vulkan bridge before real client menu",
+  "server_baseline": "Fabric094/Paper108 full release published at user request; exact packages retained",
+  "server_two_hour_endurance": "pending; explicitly deferred",
+  "server_lifecycle_acceptance": "remaining checks pending; no new ALL PASS inferred"
+}

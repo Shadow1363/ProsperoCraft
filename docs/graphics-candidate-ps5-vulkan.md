@@ -18,3 +18,9 @@ No driver build, SDK change or graphics dependency is adopted by this task.
 
 The requested order is stable unmodified server, validated server mods, then
 client work. Revisit and pin the driver/SDK when that client stage begins.
+
+On2026-10-22 the user authorizes client work while deferring server endurance.
+The revision above remains current at review. See [client bring-up](client-bringup.md)
+and `client/graphics-candidates.json` for artifact/preflight results, dependency
+pins and native integration work. No driver/SDK adoption or PS5 graphics pass
+has occurred yet. The earlier server-first work order is superseded.

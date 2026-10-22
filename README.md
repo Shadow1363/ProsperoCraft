@@ -92,6 +92,13 @@ ALL PASS or playable client is claimed.
 
 ### 3 · Bring up the client (authorized 2026-10-22; server endurance pending)
 
+[Client bring-up status and commands](docs/client-bringup.md): official26.3 client
+and53 Java libraries are pinned; actual host class preflight passes without
+native initialization. Upstream LWJGL currently rejects the PS5 platform; native
+SDL/Vulkan integration remains ahead. No PS5 client launch is claimed.
+
+- [x] Pin client artifacts and asset index; add isolated preparation and real-JVM class preflight.
+
 - [ ] Port native bindings and window/input interfaces for the selected client.
 - [ ] Evaluate [PS5_Vulkan](docs/graphics-candidate-ps5-vulkan.md) as a graphics foundation and verify a compatible renderer path.
 - [ ] Establish graphics/audio, reach the menu and load a vanilla test world.
