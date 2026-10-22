@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
   "commit": "4486b9b2dec1df8241e5949c95041bde2dda8493",
-  "scope": "Current reusable runtime; no runtime source changes required for ClientFoundation000. External probe-spec packaging and real RegisterNatives bridge.",
+  "scope": "Current reusable runtime; no runtime source changes required for ClientFoundation109. External probe-spec packaging and real RegisterNatives bridge.",
   "java_mode": "Interpreter128MiB/compact headers; no claimed game rendering",
   "console": "pending"
 }

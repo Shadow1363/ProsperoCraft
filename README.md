@@ -95,12 +95,16 @@ ALL PASS or playable client is claimed.
 [Client bring-up status and commands](docs/client-bringup.md): official26.3 client
 and53 Java libraries are pinned; actual host class preflight passes without
 native initialization. Upstream LWJGL rejects the PS5 platform; the new source-built dependency port
-adds explicit PS5/x64 identification. Its separate console foundation probe is
+adds explicit PS5/x64 identification. Its console foundation probe is
 ready; native SDL/Vulkan integration remains ahead. No PS5 client launch is claimed.
 
 - [x] Pin client artifacts and asset index; add isolated preparation and real-JVM class preflight.
-- [x] Build a separate Client Foundation probe (`PPSA99875`,01.000.000): explicit LWJGL PS5 platform port and real JNI direct-buffer handoff; host/package checks pass.
+- [x] Build a Client Foundation probe (`PPSA99874`,01.000.109): explicit LWJGL PS5 platform port and real JNI direct-buffer handoff; host/package checks pass.
 - [ ] Validate all six client-foundation rows on the PS5 (not a game/menu/graphics test).
+
+The client reuses server title `PPSA99874` at the user's request. Installing
+the client replaces the server app; tested server packages remain preserved.
+
 
 - [ ] Port native bindings and window/input interfaces for the selected client.
 - [ ] Evaluate [PS5_Vulkan](docs/graphics-candidate-ps5-vulkan.md) as a graphics foundation and verify a compatible renderer path.

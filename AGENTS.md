@@ -101,3 +101,8 @@ The user subsequently explicitly requested making Fabric-Paper-v01.000.108 a ful
 release, then continuing client work. Promote its GitHub release status without
 inferring new console tests or ALL PASS. Keep endurance/lifecycle limitations
 explicit and preserve the exact published app binaries and source tag.
+
+The user requests reusing server title ID PPSA99874 for client builds. Client109
+uses the same content identity and advances the shared version after Paper108.
+Installing the client replaces the server app. Preserve tested server packages
+and source snapshots for reinstalling; do not claim side-by-side installation.

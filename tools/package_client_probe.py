@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Package a separate client foundation title; no game launch or GPU claims."""
+"""Package the client foundation using the shared server/client title; no game launch or GPU claims."""
 import argparse
 import hashlib
 import json
@@ -39,7 +39,7 @@ modules=json.loads((ROOT/'server/26.3.lock.json').read_text())['modules']
 spec={'menu_audio':False,'source':str(ROOT/'client/native/bootstrap.cpp'),'param':str(ROOT/'client/param.json'),'asset_dir':str(assets),'java_sources':[str(p)for p in sources],'modules':modules,'java_compile_classpath':[str(port),*[str(ROOT/'.tools/client'/row['file'])for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:')]],'include_dirs':[str(work),str(ROOT/'client/native'),str(runtime/'java25/probe')]}
 specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\n')
 subprocess.run(['python3',str(runtime/'tools/package_java25_jni.py'),'--probe-spec',str(specfile)],check=True)
-package=runtime/'dist/PPSA99875.zip';destination=ROOT/'dist/client';destination.mkdir(parents=True,exist_ok=True);shutil.copyfile(package,destination/package.name)
-shutil.copyfile(runtime/'build/native/llvm-pie.elf',work/'bootstrap-01.000.000-symbols.elf')
-digest=hashlib.sha256(package.read_bytes()).hexdigest();(destination/'SHA256SUMS').write_text(digest+'  PPSA99875.zip\n')
-print('Client Foundation 01.000.000',package,'SHA256',digest,'console pending; not a playable client')
+package=runtime/'dist/PPSA99874.zip';destination=ROOT/'dist/client';destination.mkdir(parents=True,exist_ok=True);shutil.copyfile(package,destination/package.name)
+shutil.copyfile(runtime/'build/native/llvm-pie.elf',work/'bootstrap-01.000.109-symbols.elf')
+digest=hashlib.sha256(package.read_bytes()).hexdigest();(destination/'SHA256SUMS').write_text(digest+'  PPSA99874.zip\n')
+print('Client Foundation 01.000.109',package,'SHA256',digest,'console pending; not a playable client')

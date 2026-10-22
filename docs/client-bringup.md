@@ -36,9 +36,11 @@ Next work is actual dependency platform support and native bindings, with a smal
 
 No PS5 client app, graphics frame, menu, world or controller result is claimed yet. Server endurance and remaining lifecycle checks remain pending separately.
 
-## Client Foundation 01.000.000: first separate console probe
+## Client Foundation 01.000.109: shared-title console probe
 
-Title `PPSA99875` is separate from server `PPSA99874`, so the installed server can remain in place. The candidate is a foundation test, not a playable Minecraft client. No new frozen milestone or release is established. Local package: `dist/client/PPSA99875.zip` (also in the runtime workspace's `dist/`). SHA-256: `4ee7927a61399f9b4fa2506b2b1f05e93821787b8c98c1fa0f5a300f068381cf`.
+At the user's request, the client now uses server title `PPSA99874` and its exact content identity. Version01.000.109 follows Paper108 in the shared version sequence. Installing this client probe replaces the installed server app; the tested server packages and source snapshots are retained for reinstalling. This remains a foundation test, not a playable client or new frozen milestone. Local package: `dist/client/PPSA99874.zip` (also in the runtime workspace's `dist/`). The package hash is recorded in `client/build-status.json` and the local `SHA256SUMS`.
+
+The initial untested ClientFoundation000/PPSA99875 candidate is superseded and preserved locally. The six foundation rows and dependency/native bridge are unchanged; only application identity/version and documentation change.
 
 Run all six rows in order:
 

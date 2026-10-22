@@ -58,10 +58,10 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.000";
+constexpr const char* build_version="01.000.109";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
- char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99875\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
+ char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
  ps5::log_share::write_note("/download0/probe-session.txt",note);
 }
 char exception_detail[1536]{};
@@ -339,7 +339,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Client Foundation 01.000.000",64,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Client Foundation 01.000.109",64,rgb(238,242,250));
  c.label(103,163,"Client foundation only: artifact hashes, LWJGL platform and JNI. No Minecraft menu or GPU renderer yet.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=220+i*82;
@@ -381,7 +381,7 @@ void draw(Canvas &c) noexcept {
 }
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Client Foundation 01.000.000 / PPSA99875\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Client Foundation 01.000.109 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
