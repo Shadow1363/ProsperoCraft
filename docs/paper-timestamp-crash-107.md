@@ -7,3 +7,7 @@ Current 107 reports retrieved 2026-10-22 identify build/run 107 and show online 
 Host checks exercise actual JNI bodies with real files and injected errors under ASan/UBSan: descriptor/path timestamps, unlinked inode identity, precision, negative/extreme values, EINTR, EBADF/EACCES/ENOENT and unsupported modes before path access. The real JVM fixture registers the actual timestamp JNI, verifies a public FileTime write and twenty COPY_ATTRIBUTES timestamps under XcheckJNI/UBSan, retaining capacity/ownership/xattr/canonicalization controls. Target libnio and exact patch checks pass. These host tests do not establish availability of resident timestamp APIs inside the PS5 title sandbox.
 
 Console validation remains: CreateVM, VerifyJARs, Play, actual configuration-copy completion, Paper readiness, plugin lifecycle/command, authenticated joined play, persistence/save/stop/reload and native-pressure stability. Full two-hour run remains deferred. No ALL PASS or release. Failed 107 package and older fallbacks preserved; raw logs remain local.
+
+## Console feedback for 108
+
+On 2026-10-22 the user reports this build is much more than acceptable and by far the best yet. Record this as a positive console playtest, without inferring a completed plugin/persistence checklist, explicit ALL PASS or two-hour endurance. The candidate remains in development; no frozen snapshot or release is created.

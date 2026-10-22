@@ -4,7 +4,7 @@
   "minecraft": "26.3",
   "java_major": 25,
   "package_sha256": "18dc7f06d59ff11b33c7e96b85f813a28a2cb19638fe0d6eacfd4224513781e7",
-  "console": "107 reported crash at futimens0;108 resident timestamp candidate pending.",
+  "console": "User reports build108 is much more than acceptable and by far the best build yet. Positive console playtest feedback; not an explicit ALL PASS, completed plugin/persistence checklist or two-hour endurance result.",
   "host": "PASS actual timestamp JNI real files/faults ASan/UBSan: fd/path writes, unlinked inode identity, microsecond precision, negative/extreme conversion, EINTR, EBADF/EACCES/ENOENT, unsupported dirfd/flags before path access. Real JVM actual BSD classes+JNI registration FileTime write/20 COPY_ATTRIBUTES exact timestamps and previous ownership/xattr/capacity/canonical controls XcheckJNI/UBSan. Target libnio/exact patch PASS. PASS108 package CRC/signatures/version/options, all105 upstream Paper pins, plugin/audit/noFabric/security/silence, currentnativefiles/moduleimage/symbols/copies/singleledger/fallback hashes. JNI disassembly/import relocations prove resident futimes/utimes calls and no newer timestamp raw calls. Exact107 game/probe/plugin/module image/HotSpot/other native code retained;107 package preserved.",
   "package": "PASS108 package CRC/signatures/version/options, all105 upstream Paper pins, plugin/audit/noFabric/security/silence, currentnativefiles/moduleimage/symbols/copies/singleledger/fallback hashes. JNI disassembly/import relocations prove resident futimes/utimes calls and no newer timestamp raw calls. Exact107 game/probe/plugin/module image/HotSpot/other native code retained;107 package preserved.",
   "runtime_modules": [
@@ -312,7 +312,7 @@
   },
   "file_timestamps": {
     "patch": "0117",
-    "console": "pending",
+    "console": "108 receives strongly positive console playtest feedback; individual timestamp operations, persistence and sustained behavior are not separately certified.",
     "scope": "Resident futimes/utimes, microsecond precision; dirfd/nofollow ENOTSUP; real errors.",
     "host": "PASS actual timestamp JNI real files/faults ASan/UBSan: fd/path writes, unlinked inode identity, microsecond precision, negative/extreme conversion, EINTR, EBADF/EACCES/ENOENT, unsupported dirfd/flags before path access. Real JVM actual BSD classes+JNI registration FileTime write/20 COPY_ATTRIBUTES exact timestamps and previous ownership/xattr/capacity/canonical controls XcheckJNI/UBSan. Target libnio/exact patch PASS. Package verification pending."
   }

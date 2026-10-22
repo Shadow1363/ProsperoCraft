@@ -102,6 +102,10 @@ The official server bundle is downloaded from Mojang’s metadata-pinned URL. It
 
 ## Current development: Paper timestamp candidate 01.000.108
 
+The user reports 108 is much more than acceptable and by far the best build yet.
+This is positive console playtest feedback; full validation and the two-hour run
+remain pending. No frozen milestone or release has been created.
+
 107 gets past optional extended attributes, then terminates at the timestamp
 update during configuration copying. No current fatal report identifies the
 exact native cause. See [evidence and validation](docs/paper-timestamp-crash-107.md).
