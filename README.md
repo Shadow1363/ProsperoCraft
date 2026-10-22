@@ -100,16 +100,19 @@ No Mac networking helper is needed. This build does not accept the EULA, generat
 
 The official server bundle is downloaded from Mojang’s metadata-pinned URL. Its SHA-1, size and SHA-256 are checked; each contained library/server JAR is checked against the bundle’s SHA-256 inventory. Game files remain in ignored caches and local packages, rather than source commits. See the [official 26.3 release](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3).
 
-## Current development: Paper filesystem candidate 01.000.104
+## Current development: Paper copy-fallback candidate 01.000.105
 
-103 passes verified online preflight and reaches Paper configuration startup,
-then crashes in Java NIO filesystem statistics. Configuration saves also report
-canonical-path permission errors. See [evidence and validation](docs/paper-filesystem-crash-103.md).
+104 passes online preflight and no longer logs the prior canonicalization
+errors, but terminates at filesystem statistics during configuration copying.
+No current fatal report was written; the exact native cause is unresolved.
+See [evidence and validation](docs/paper-capacity-crash-104.md).
 
-104 fixes those Java-port paths: real native statfs statistics and the existing
-descriptor-based canonicalization fallback for sandbox EPERM. Game/probe/plugin
-JARs, the module image and HotSpot remain unchanged. Host JNI/JVM/File/NIO tests
-and target native-library builds pass; actual PS5 validation remains pending.
+105 reports filesystem capacity as unavailable on PS5, allowing Java's existing
+copy-buffer fallback to handle configuration copies. It makes no raw statistics
+call and invents no disk capacity. The canonicalization repair remains. Host
+JNI/JVM copy/error/canonicalization checks and target builds pass. Game/probe/
+plugin JARs, module image and HotSpot remain unchanged. Actual PS5 validation,
+including real capacity support, remains pending.
 
 Try CreateVM, VerifyJARs, then Play. Paper readiness, plugins, joined gameplay,
 save/stop/reload and native-pressure stability still need console checks. Circle

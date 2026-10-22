@@ -999,10 +999,19 @@
     {
       "app_version": "01.000.104",
       "package_sha256": "f9f9fc3c72a500c80513f058b3def5029df8dfdb80fad9e643934fc32e0fa342",
-      "console": "pending",
+      "console": "Consoletermination reported atstatisticsJNI; nocurrentVMabort/fatalreport",
       "changes": "Runtime0113 uses realSDKstatfs forPS5 File/NIOpathname stats, removes unsupportedstatvfs import there. java.io canonicalizerEPERM reusesexistingdescriptor walk; rejects knownoriginalpathELOOP, native-successlinks/normalmissingsuffix semantics retained. libjava/libnio/buildlabel only; game/probe/plugin/moduleimage/HotSpot unchanged.",
       "checks": "PASS actualstatsJNI/JDKcanonicalizer/pathcollapse/helper inrealJVM:4realstatfields/EINTR/permission/missing/repeatedNIOconfigcopy/publicFilespace/canonical underEPERM existing/missingtail/dot-parent/symlinkrefusal/native-links/EIO, XcheckJNI/UBSan. ExistingNIO/ZipFS/descriptor ASanUBSan regression PASS. Targetjava.base-libs/exactpatch PASS. PASS104 CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/moduleimage/symbols/silence/singleledger/fallbackhashes; updatedlibjava/libnio, no unresolved pathname statvfs, SDKstatfs linked; exact103 game/probe/plugin/moduleimage/HotSpot andothernativecode retained. No newhostPaper run;100host evidence separate.",
-      "pending": "ActualPS5 configwrites/statistics/atomicreplacement, Paperreadiness/plugin lifecycle/joinedplay/save/stop/reload/nativepressure; full7200sdeferred;noALLPASS/release."
+      "pending": "105explicitcapacityunavailable/originalcopyfallback; actualconfigurationcopy/replacement/readiness/plugin/join/persistence pending;7200sdeferred.",
+      "evidence": "Current104 reports retrieved2026-10-22: onlinepreflight/Paperconfig init complete tosamearea; priorconfigcanonicalize ERRORsabsent. Lasttrace resolvedpatchedstatvfs0; userreportsconsolecrash, sessionRUN/noexception; abort/fatalroutes404. Native direct kernel/policy failureszero. ExactnativeSDK/kernel/layout/permissionmechanism unresolved; no readiness/plugin/joinproof. Rawlogslocal."
+    },
+    {
+      "app_version": "01.000.105",
+      "package_sha256": "da84b7137794dda1b72460745d07898090e6841d2ae9b2ed21789c8605a3f111",
+      "console": "pending",
+      "changes": "Runtime0114 reportsPS5pathnamecapacityunavailable: NIOENOSYS/File existing0; originalJava bufferfallback andactualIO/errors retained. No rawstatscall/fakecapacity/gameJARtransforms;0113canonicalization remains. Realcapacity/directIO pending. libjava/libnio/buildlabelonly; game/probe/plugin/moduleimage/HotSpot unchanged.",
+      "checks": "PASS actualcurrentFile/NIOcapacityJNI+JDKcanonicalizer inrealJVM: exactENOSYS/zeroFilevalues/zeronativestatfsinvocations,20bytecorrectNIOcopies viaoriginalJava bufferfallback, realmissing-source+parent errors, existingEPERM/missingtail/parent/symlink/native-link/EIO controls XcheckJNI/UBSan. Targetjava.base-libs/exactpatch PASS. PASS105 CRC/signatures/version/options/105Paperpins/plugin/audit/noFabric/currentnativefiles/moduleimage/symbols/silence/singleledger/fallbackhashes; BOTHcapacityJNI disassemblies no statfs/statvfs/syscall reference; capacityunavailable markerlinked. Exact104game/probe/plugin/moduleimage/HotSpot/othernativecode retained. No newhostPaper run;100hostevidence separate.",
+      "pending": "ActualPS5 configurationcopy/replacement, Paperreadiness/plugin/joinedplay/save/stop/reload/nativepressure. RealcapacityABI unsupported;7200sdeferred,noALLPASS/release."
     }
   ]
 }
