@@ -52,6 +52,18 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Fabric and Paper release
+
+[Fabric and Paper running on PS5 — Fabric094 / Paper108](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108)
+is the new development prerelease, with separate app-only downloads, checksums
+and local provisioning instructions. The user reports a satisfying Fabric
+experience and describes Paper108 as the best build yet. See the
+[release notes and setup](docs/releases/fabric-paper-108.md).
+
+The two-hour run remains pending. The user has authorized moving into client
+work; full server lifecycle acceptance remains tracked separately. No new
+ALL PASS or playable client is claimed.
+
 ## Roadmap
 
 ### 1 · Prove the server foundation
@@ -73,11 +85,12 @@ The runtime now has **nine passing console milestones**, including inbound IPv4,
 - [ ] Complete the unmodified-server baseline, save/rejoin checks and two-hour run.
 - [x] Pin separate Fabric0.19.5 and Paper26.3build207 distributions; retain isolated worlds.
 - [ ] Validate Paper startup, joining, plugin lifecycle and save/rejoin/stop on PS5.
-- [ ] Freeze and publish the accepted server release before client work.
+- [x] Publish the Fabric094/Paper108 development prerelease with qualified console feedback.
+- [ ] Complete formal lifecycle/endurance acceptance before a new frozen ALL PASS release.
 - [ ] Run individual server-side mods and verify joins, persistence, memory and latency.
 - [ ] Publish exact tested loader/mod versions and reproducible results before larger sets.
 
-### 3 · Bring up the client after server mods
+### 3 · Bring up the client (authorized 2026-10-22; server endurance pending)
 
 - [ ] Port native bindings and window/input interfaces for the selected client.
 - [ ] Evaluate [PS5_Vulkan](docs/graphics-candidate-ps5-vulkan.md) as a graphics foundation and verify a compatible renderer path.
@@ -119,7 +132,8 @@ All game/probe/plugin JARs, Java module image and HotSpot remain unchanged.
 Try CreateVM, VerifyJARs, then Play. Paper readiness, plugins, joined gameplay,
 save/stop/reload and native-pressure stability remain pending. Circle requests
 save/stop once running; reopen after expected app exit for logs. Full two-hour
-test stays deferred; release after console acceptance, then client.
+test stays deferred. Fabric/Paper development prerelease is published; client work
+is now authorized while remaining server validation stays pending.
 
 
 072captured a null function call through its new OS-random service import.

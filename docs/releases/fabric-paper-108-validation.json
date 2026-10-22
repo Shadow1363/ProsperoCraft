@@ -1,0 +1,1463 @@
+{
+  "release": "Fabric-Paper-v01.000.108",
+  "title_id": "PPSA99874",
+  "date": "2026-10-22",
+  "status": "Positive console playtests; development prerelease, not a new ALL PASS milestone",
+  "two_hour_endurance": "pending; explicitly deferred by user",
+  "project_game_jar_transformations": [],
+  "fabric_feedback": "User very satisfied with Fabric094 experience. Standard upstream loader/Mixin behavior; individual arbitrary mods are not validated.",
+  "paper_feedback": "User says Paper108 is much more than acceptable and by far the best build yet. Upstream Paper distribution; arbitrary plugins and full plugin/persistence checklist not certified.",
+  "public_packaging": "Retained bytes unchanged from tested local packages; excluded upstream game/dependency/loader JARs and personal account provisioning. Both alternatives share title ID; install one at a time.",
+  "builds": [
+    {
+      "flavor": "fabric",
+      "app_version": "01.000.094",
+      "source_commit": "d43c3bd2fa044e40ce334a70a41769770b3244d7",
+      "full_tested_local_package_sha256": "97ec74c40b9c495884130f9dae0ab10bf393e521265cbe82177f06190176df2d",
+      "public_asset": "PPSA99874-fabric-01.000.094-app-only.zip",
+      "public_asset_sha256": "0d3704ebc1a1a91c13328ba6eee0f518f65ea7da5fdcd170eef6f067b718e194",
+      "excluded_jars": [
+        {
+          "file": "asm-9.10.1.jar",
+          "sha256": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+          "size": 126151
+        },
+        {
+          "file": "asm-analysis-9.10.1.jar",
+          "sha256": "dede75a21306b65974ecd8f87114ff6970f09fb794157a4ca09ab25c888c2bfc",
+          "size": 35140
+        },
+        {
+          "file": "asm-commons-9.10.1.jar",
+          "sha256": "6d0abefb7cbf972ea16edb37ec14835372505063a45f976ab7ea889ed9497895",
+          "size": 74840
+        },
+        {
+          "file": "asm-tree-9.10.1.jar",
+          "sha256": "3dfb0d5b6a106cd40b5b250e39935fbf2f927f4477546a5369a3ac609cf0506b",
+          "size": 51958
+        },
+        {
+          "file": "asm-util-9.10.1.jar",
+          "sha256": "1bb99d091fba2597dc6d51193e9bbcf0d8447e7ed96bd8f0198b18152f09655c",
+          "size": 95628
+        },
+        {
+          "file": "authlib-10.0.77.jar",
+          "sha256": "521672866582633a412c82171d3cfa416ecaccdf05a43baf809c16f9aec07068",
+          "size": 152645
+        },
+        {
+          "file": "azure-json-1.4.0.jar",
+          "sha256": "c50bc998cd1a6c689f8644b51c206217bf2da09d5b949e777490a60290cc3a0d",
+          "size": 325945
+        },
+        {
+          "file": "brigadier-1.3.11.jar",
+          "sha256": "9d09cf4819de83dfcd38bcb212d5f2227131791cef3abbfca3321d6fb2b9a64d",
+          "size": 80151
+        },
+        {
+          "file": "commons-io-2.20.0.jar",
+          "sha256": "df90bba0fe3cb586b7f164e78fe8f8f4da3f2dd5c27fa645f888100ccc25dd72",
+          "size": 563971
+        },
+        {
+          "file": "commons-lang3-3.20.0.jar",
+          "sha256": "69e5c9fa35da7a51a5fd2099dfe56a2d8d32cf233e2f6d770e796146440263f4",
+          "size": 713862
+        },
+        {
+          "file": "datafixerupper-10.0.21.jar",
+          "sha256": "3547cb1da8993fb7ebd42494d0e78997d2cfbe90c421f5efd022863e6909941e",
+          "size": 753612
+        },
+        {
+          "file": "fabric-loader-0.19.5.jar",
+          "sha256": "93044e4dd46de5d8136701292f05e868da096d2c9fddb4793e4fdbcc63efc695",
+          "size": 1984980
+        },
+        {
+          "file": "failureaccess-1.0.3.jar",
+          "sha256": "cbfc3906b19b8f55dd7cfd6dfe0aa4532e834250d7f080bd8d211a3e246b59cb",
+          "size": 10763
+        },
+        {
+          "file": "fastutil-8.5.18.jar",
+          "sha256": "9094ae67d01d0ad246f886f11ad557fc2e79c72cbf3feed83e1512a8ae90a74a",
+          "size": 23965563
+        },
+        {
+          "file": "gson-2.14.0.jar",
+          "sha256": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+          "size": 313604
+        },
+        {
+          "file": "guava-33.6.0-jre.jar",
+          "sha256": "dc573e1fca4fd5454f4a5fd3d7da2df03002876a4175bafc14a95980dd7713b3",
+          "size": 3064793
+        },
+        {
+          "file": "jna-5.17.0.jar",
+          "sha256": "b3a9408e7c51e08ef0e3bfcc08f443f6ec0f6191ba8cd7c18d53d2b22e5bdbc0",
+          "size": 2002589
+        },
+        {
+          "file": "jna-platform-5.17.0.jar",
+          "sha256": "b7e3d46c87bad2eb409b0e704916bcd81206168e357312dfddd0e253679cd9e0",
+          "size": 1378617
+        },
+        {
+          "file": "joml-1.10.9.jar",
+          "sha256": "feca4db853371704338621c120acc5cc32300d8af635fa42414b6213301e216b",
+          "size": 814581
+        },
+        {
+          "file": "jopt-simple-5.0.4.jar",
+          "sha256": "df26cc58f235f477db07f753ba5a3ab243ebe5789d9f89ecf68dd62ea9a66c28",
+          "size": 78146
+        },
+        {
+          "file": "jspecify-1.0.0.jar",
+          "sha256": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
+          "size": 3819
+        },
+        {
+          "file": "jtracy-1.14.38.jar",
+          "sha256": "721bff502a9664d689d781ab7bfed19330606c2e1ef6b8e4d59fba67e7e765da",
+          "size": 14292
+        },
+        {
+          "file": "log4j-api-2.26.0.jar",
+          "sha256": "820de7bbaf430eaf2e3e5ccb92f23e2085797c5ac4d4f7fc6c8b660fbefa1dbc",
+          "size": 351126
+        },
+        {
+          "file": "log4j-core-2.26.0.jar",
+          "sha256": "406bb3132c47a5d322e5c571feb0787ca84496469f346eb51f1ef2ee45499902",
+          "size": 2015101
+        },
+        {
+          "file": "log4j-slf4j2-impl-2.26.0.jar",
+          "sha256": "cfc1bddbd39e684b698ae968291d8a3b3a55ee0ec2ef3d3ea5c2336a9e151598",
+          "size": 30211
+        },
+        {
+          "file": "logging-1.7.12.jar",
+          "sha256": "3c7ac9742fa98c773275379eb1046c048b5d2ee989152a8c69e7ba696c3f8538",
+          "size": 19540
+        },
+        {
+          "file": "lz4-java-1.10.1.jar",
+          "sha256": "a58a84c4271e50df4c96ed916ccb7e48a869f8ed9cdcda1ad5d3d4c33b0214a3",
+          "size": 910232
+        },
+        {
+          "file": "msal4j-1.24.1.jar",
+          "sha256": "12e62f79d1a71d176a41c168c0587f8167f0add99b78f006f39595bd7242aebe",
+          "size": 396486
+        },
+        {
+          "file": "netty-buffer-4.2.16.Final.jar",
+          "sha256": "cc36ae9fbd0b03fe755eb4eb4424ca53b59cfd297d7fd47d49e5b1059beded6c",
+          "size": 378032
+        },
+        {
+          "file": "netty-codec-base-4.2.16.Final.jar",
+          "sha256": "feb410225938d9970de6b624a0c031d079804fa5cc5e1ec6e9298f16db5998a7",
+          "size": 155355
+        },
+        {
+          "file": "netty-codec-compression-4.2.16.Final.jar",
+          "sha256": "13c8565414dd2115281303ef4ad1f7cc69bd7771d8d12c7d2fb31307dff26d11",
+          "size": 183349
+        },
+        {
+          "file": "netty-codec-http-4.2.16.Final.jar",
+          "sha256": "0d16f981de8d0d304a2ab1a81f0a674892089fbaa8a583100aebb4a5b00456ec",
+          "size": 678387
+        },
+        {
+          "file": "netty-common-4.2.16.Final.jar",
+          "sha256": "9825ee68a0dc4cd2b53e2f532502401b2211bad9b77e8b04882d9e64487283ff",
+          "size": 819965
+        },
+        {
+          "file": "netty-handler-4.2.16.Final.jar",
+          "sha256": "a259ca496da05ac1981f95cd856211f894a328056a6129e9cd70dbbd5df401f7",
+          "size": 587814
+        },
+        {
+          "file": "netty-resolver-4.2.16.Final.jar",
+          "sha256": "c9eca6a99036485cf1d186b4a6a595b0a54c53808319ee03924270eae04c32bb",
+          "size": 32975
+        },
+        {
+          "file": "netty-transport-4.2.16.Final.jar",
+          "sha256": "cfa3f654caff906653385f4b7ddaa539d795b78f5711a622482b17d2b73484c0",
+          "size": 549855
+        },
+        {
+          "file": "netty-transport-classes-epoll-4.2.16.Final.jar",
+          "sha256": "9f2b53210db9c8d24e787ed43f3896aaf30d686ed270c7afbb29ab6330c6aa23",
+          "size": 159935
+        },
+        {
+          "file": "netty-transport-classes-kqueue-4.2.16.Final.jar",
+          "sha256": "6599b495f69420cb240ab0a1aa60a19a2df3bc72791729170e0993727637a689",
+          "size": 116819
+        },
+        {
+          "file": "netty-transport-native-epoll-4.2.16.Final-linux-aarch_64.jar",
+          "sha256": "212cc7d81390e31b580a1fb91b6c8d963b43e762ed072c555e2b09ad4476e928",
+          "size": 43899
+        },
+        {
+          "file": "netty-transport-native-epoll-4.2.16.Final-linux-x86_64.jar",
+          "sha256": "2e00548e731948881d0c73ee79d2ead759254e750929406a1d595484758f0267",
+          "size": 42393
+        },
+        {
+          "file": "netty-transport-native-kqueue-4.2.16.Final-osx-aarch_64.jar",
+          "sha256": "796c503f7a80217177bd315f6448263134ee0f9042627d5fd698c760bcf99c8c",
+          "size": 27482
+        },
+        {
+          "file": "netty-transport-native-kqueue-4.2.16.Final-osx-x86_64.jar",
+          "sha256": "05a09a4ab51f488f0c22f42ccce6c06935afbfac51173fae44170465aa072828",
+          "size": 26737
+        },
+        {
+          "file": "netty-transport-native-unix-common-4.2.16.Final.jar",
+          "sha256": "41ca8fe192083d17917be7ddcecded4da4fc1db1d1656d03d0bcb14e2f431155",
+          "size": 46877
+        },
+        {
+          "file": "oshi-core-6.9.0.jar",
+          "sha256": "b29ba9bce041e6ea822203d5b5a692660c87551241510ebc76eedffe684844c7",
+          "size": 1022125
+        },
+        {
+          "file": "server-26.3.jar",
+          "sha256": "a362163eec5d1612d520772bc16e5b39c09e3b234fdc045f56bf544284ee8ae6",
+          "size": 26652008
+        },
+        {
+          "file": "slf4j-api-2.0.17.jar",
+          "sha256": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832",
+          "size": 69908
+        },
+        {
+          "file": "sponge-mixin-0.17.4+mixin.0.8.7.jar",
+          "sha256": "1f0ae44db7295f8626f33b1dc0ad7f043d8954a8d6847247875fcc5dfcecc934",
+          "size": 1539080
+        }
+      ],
+      "retained_files": [
+        {
+          "path": ".DS_Store",
+          "sha256": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3",
+          "size": 6148
+        },
+        {
+          "path": "assets/java25/boot-image-audit.json",
+          "sha256": "6b80c3e50b13ea72aee8c2a2ca3c65018e23cd5e3bbe6ff178fc4f60b21c9c78",
+          "size": 1480
+        },
+        {
+          "path": "assets/java25/classes/Hello25.class",
+          "sha256": "35509a23be2a2d89151b9bd63d8662bbb1b38e36a76869c6bf63e5940e40a589",
+          "size": 1820
+        },
+        {
+          "path": "assets/java25/classes/ServerC1Start25.class",
+          "sha256": "985e5290faccbe08268f0538bb1967823762df3b274dd9fa5fa8220e1348cad5",
+          "size": 578
+        },
+        {
+          "path": "assets/java25/classes/ServerFabric25.class",
+          "sha256": "73bcf63a179ee4fe5fd32ee1c8bbb54e009c37ef3d67168d8c5f8b5f0de36647",
+          "size": 3910
+        },
+        {
+          "path": "assets/java25/classes/ServerHelp25.class",
+          "sha256": "fa83064cbaf27140331891aee629cd2bbf75a9f0d4ceb89d3b8a1c839ad24d63",
+          "size": 3697
+        },
+        {
+          "path": "assets/java25/classes/ServerMemory25.class",
+          "sha256": "f52d38c08d473072eab24cd96e23fdb1433a2663f9b3d77ad49ebb96966d2f00",
+          "size": 2894
+        },
+        {
+          "path": "assets/java25/classes/ServerOnline25$OnlineRead.class",
+          "sha256": "3e6af577e6ef028e18eeb80846e6bcfd5d2b60aa6b3476bbde48e4165bdb93d0",
+          "size": 298
+        },
+        {
+          "path": "assets/java25/classes/ServerOnline25$Pause.class",
+          "sha256": "534287191ce37cf83e17354f46798d16749aff7e7a4c81a51f53b479403950f3",
+          "size": 275
+        },
+        {
+          "path": "assets/java25/classes/ServerOnline25$RateLimited.class",
+          "sha256": "83fb5da515d3a54bf6bcb64cb015ba8747d61cff7890ce2e9edd819d29814519",
+          "size": 864
+        },
+        {
+          "path": "assets/java25/classes/ServerOnline25.class",
+          "sha256": "0e0207cad18b7b4b2cc6996cb9fcd49d4628f5d71c147c4ed0a2945379a0934a",
+          "size": 14469
+        },
+        {
+          "path": "assets/java25/classes/ServerOperators25.class",
+          "sha256": "924608e4f5b8f7980ef51b72c5740665c40d93d9da72ccf460a30407b2eb161c",
+          "size": 5301
+        },
+        {
+          "path": "assets/java25/classes/ServerPerformance25.class",
+          "sha256": "961e6c4ede12d8d50412e8fdcdef2e6fe5eac16c39bcb64e0e4068541d04e185",
+          "size": 2190
+        },
+        {
+          "path": "assets/java25/classes/ServerPreflight25$NullProbe.class",
+          "sha256": "73290e8bf3d3181816e740d61aab723be106f2e892efe8c04b699cd534a7a6b1",
+          "size": 323
+        },
+        {
+          "path": "assets/java25/classes/ServerPreflight25.class",
+          "sha256": "2b229332164c8d91439c57b4c9ea47ba0367c8eba968e613f3ab050b0df20ac3",
+          "size": 10820
+        },
+        {
+          "path": "assets/java25/classes/ServerProtocol25.class",
+          "sha256": "6032c6aeba2350f7fa7b95f20213fb9843040cb2f78048e361ca6e0dcbd05d73",
+          "size": 1811
+        },
+        {
+          "path": "assets/java25/classes/ServerSave25.class",
+          "sha256": "fbd34d97b911d92d836ef01c821915d48cc163c0fe5e639ecddcfa95661ffe4e",
+          "size": 5726
+        },
+        {
+          "path": "assets/java25/classes/ServerStart25$Observer.class",
+          "sha256": "97c81e251754bfb1498a76b0b386e5571e8c9969fd4863a18e5b7016d3dc218f",
+          "size": 5448
+        },
+        {
+          "path": "assets/java25/classes/ServerStart25.class",
+          "sha256": "cd7b05fd41bdc5cc210d90ed75868c56aa06db011da7f3bed16bb2e1bb015b54",
+          "size": 15923
+        },
+        {
+          "path": "assets/java25/classes/ps5probe/JitWarmup25.class",
+          "sha256": "e3921ae3ff7a9029b99564aa7d65ad2777e0152eb5e85a926cbf52e70825aaac",
+          "size": 4000
+        },
+        {
+          "path": "assets/java25/conf/net.properties",
+          "sha256": "f0093906820c30e079cbf79bd744d761aaf32ae917598c7ce71fac7eae16f86d",
+          "size": 7341
+        },
+        {
+          "path": "assets/java25/conf/security/java.security",
+          "sha256": "7c43432bc33b890d4e750f6886f383785a35a9b6021c34c84fcde11bb15c152d",
+          "size": 74132
+        },
+        {
+          "path": "assets/java25/conf/security/policy/README.txt",
+          "sha256": "6da0747334b0fea7592fd92614b2bbc8b126535e129b1fee483774d914e98eb5",
+          "size": 2390
+        },
+        {
+          "path": "assets/java25/conf/security/policy/limited/default_US_export.policy",
+          "sha256": "758b930a526fc670ab7537f8c26321527050a31f5f42149a2dda623c56a0a1a9",
+          "size": 146
+        },
+        {
+          "path": "assets/java25/conf/security/policy/limited/default_local.policy",
+          "sha256": "2b2627548e61316150d47ffc3e6cad465ca05b3cccd4785eb7d21aa7baa0f441",
+          "size": 647
+        },
+        {
+          "path": "assets/java25/conf/security/policy/limited/exempt_local.policy",
+          "sha256": "8c3d7648abcd95a272ce12db870082937f4d7f6878d730d83cb7fbb31eb8b2c9",
+          "size": 566
+        },
+        {
+          "path": "assets/java25/conf/security/policy/unlimited/default_US_export.policy",
+          "sha256": "758b930a526fc670ab7537f8c26321527050a31f5f42149a2dda623c56a0a1a9",
+          "size": 146
+        },
+        {
+          "path": "assets/java25/conf/security/policy/unlimited/default_local.policy",
+          "sha256": "8d8a318e6d90dfd7e26612d2b6385aa704f686ca6134c551f8928418d92b851a",
+          "size": 193
+        },
+        {
+          "path": "assets/java25/execution-audit.json",
+          "sha256": "13241d3357e029dbb111e9f55044e5fff77761f77452e8c9c37b55a5c3102f1b",
+          "size": 1001
+        },
+        {
+          "path": "assets/java25/fabric-mods/ps5-fabric-smoke.jar",
+          "sha256": "1a11044aac8dca17dde2733a9b9d47b6a0d5abea085e030104371af94118bb61",
+          "size": 1135
+        },
+        {
+          "path": "assets/java25/fabric-mods/ps5-fabric-smoke.sha256",
+          "sha256": "21a11a991f0d957f4c60a914eb4cfba0d820817d389139c4fed479d3577df12f",
+          "size": 65
+        },
+        {
+          "path": "assets/java25/jars/ps5-server-probe.jar",
+          "sha256": "29c87dffee76ceb8f768e2804a7ed45c67de877ac9d631e7a85576148885a440",
+          "size": 42932
+        },
+        {
+          "path": "assets/java25/legal/java.base/aes.md",
+          "sha256": "45c6d4da48325edfbff3dcf71c704e504c057904435ed23c6d57046d551eb69d",
+          "size": 1444
+        },
+        {
+          "path": "assets/java25/legal/java.base/c-libutl.md",
+          "sha256": "bef40679922d6fdfb7e4ddb223ad6722300f6054ba737bbf6188d60fcec517f9",
+          "size": 1556
+        },
+        {
+          "path": "assets/java25/legal/java.base/cldr.md",
+          "sha256": "472e341c36efc1136860ed7a6461a2af4a53ae95d55d1126726340f5ba62b06a",
+          "size": 8790
+        },
+        {
+          "path": "assets/java25/legal/java.base/gcc.md",
+          "sha256": "589e34f142cdf7d1430daa573e61c2e3dd0330c9eb5a2c00d4a98b3a4450810b",
+          "size": 128099
+        },
+        {
+          "path": "assets/java25/legal/java.base/icu.md",
+          "sha256": "be23ad20a8231d2241b37fcf401548febd8597de8373f89268882020cb7c8818",
+          "size": 4147
+        },
+        {
+          "path": "assets/java25/legal/java.base/public_suffix.md",
+          "sha256": "861de1e4992a7d28f1de25c73cd50d26a94779ebd749c0643fecfa56442c3429",
+          "size": 17783
+        },
+        {
+          "path": "assets/java25/legal/java.base/siphash.md",
+          "sha256": "5a792b5a74ad2a5f3d6a7ad8b7a841116e58a772c18bc6e392320a365b222c76",
+          "size": 8256
+        },
+        {
+          "path": "assets/java25/legal/java.base/unicode.md",
+          "sha256": "5194d6760f2e7eccc07804196cc619f84e730fa9d10c0529b71416186f4d12dc",
+          "size": 15098
+        },
+        {
+          "path": "assets/java25/legal/java.base/zlib.md",
+          "sha256": "c9c70c36a1f0325e8788771906202d42ba6ab4205caca44ec0f665707e83226b",
+          "size": 1010
+        },
+        {
+          "path": "assets/java25/lib/libjava.so",
+          "sha256": "56450696ab4c75c4e81ced64a9fabbbd7c5994839046906fc37627c2ae3a28ee",
+          "size": 225584
+        },
+        {
+          "path": "assets/java25/lib/libjimage.so",
+          "sha256": "7c962257644445b6812421d5ad4a18b2ae8ca1808858f3429dee6cc57f77b42b",
+          "size": 499992
+        },
+        {
+          "path": "assets/java25/lib/libmanagement.so",
+          "sha256": "ec063037e829eb41144041bda180c588705d80479715c81a7fa174ca58bb5737",
+          "size": 64288
+        },
+        {
+          "path": "assets/java25/lib/libnet.so",
+          "sha256": "769a37f055fd028438a8f069e6f1afc1d6f7a120517146bac5ae2bfd1c266e44",
+          "size": 112624
+        },
+        {
+          "path": "assets/java25/lib/libnio.so",
+          "sha256": "af6c9dcc8e89a550c58cc5a5160a1cd6d5f8d8582dfccbd5763ff41d7dc954d7",
+          "size": 176704
+        },
+        {
+          "path": "assets/java25/lib/libverify.so",
+          "sha256": "6ce3c1f2f8ff4752e3eef21a61e959749700158b9a3df9794c453a372560d544",
+          "size": 103376
+        },
+        {
+          "path": "assets/java25/lib/libzip.so",
+          "sha256": "b809f57c110cbadefca206645deb172a5ccd797bd7a306b1d44ab2a8dde84504",
+          "size": 174304
+        },
+        {
+          "path": "assets/java25/lib/modules",
+          "sha256": "3ad7399d5b70b54f10bb4da101346cf5050803cc89c374ca0d6e0cb269fb70a7",
+          "size": 28085978
+        },
+        {
+          "path": "assets/java25/lib/security/cacerts",
+          "sha256": "2675a0aa6e7c158bbccf1181383ee794319e362df9a6bc88e1a5f8469a4c1dd7",
+          "size": 134174
+        },
+        {
+          "path": "assets/java25/lib/server/libjvm.so",
+          "sha256": "e744d21020645fe1b0306b7bad6a3ad3245837edd42e2542ee469e1d2e571afb",
+          "size": 33455776
+        },
+        {
+          "path": "assets/java25/lib/tzdb.dat",
+          "sha256": "5906b44e25a8a730131d7ba1beb5d15af27043f6536f1a169ca8a5d8b8bed8f8",
+          "size": 102956
+        },
+        {
+          "path": "assets/java25/log4j2-ps5.xml",
+          "sha256": "48625790a41003ba339ac6de960afab585bb85d912feaab939a054152af22a6f",
+          "size": 433
+        },
+        {
+          "path": "assets/java25/release",
+          "sha256": "0bd38a414d69cc0034c2aef11367c8b1c153c5ea45f76f5a750c568c24dd5140",
+          "size": 339
+        },
+        {
+          "path": "assets/java25/server-inventory.properties",
+          "sha256": "fdadec2644d62f10f1358208ff5d333fd910f8d3cf9ea48ce8ad7afb03b33187",
+          "size": 4386
+        },
+        {
+          "path": "eboot.bin",
+          "sha256": "d59951933d7a1070158811a8398d1844d49fb6ddc8ed167709d591a742cd6799",
+          "size": 23142572
+        },
+        {
+          "path": "licenses/ADDITIONAL_LICENSE_INFO",
+          "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+          "size": 2114
+        },
+        {
+          "path": "licenses/ASSEMBLY_EXCEPTION",
+          "sha256": "75292f03bf23d3db7c985aecc191029b93883200721ed23ed34a2e601463df33",
+          "size": 1514
+        },
+        {
+          "path": "licenses/EMBEDDED-RUNTIME-NOTICES.md",
+          "sha256": "c8231e2ccb7b96325c446663ab6c137a931541287dcc49db770d50abe72cb9de",
+          "size": 1646
+        },
+        {
+          "path": "licenses/GPL-3.0.txt",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+          "size": 35149
+        },
+        {
+          "path": "licenses/Inter-OFL.txt",
+          "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57",
+          "size": 4377
+        },
+        {
+          "path": "licenses/LICENSE",
+          "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+          "size": 19274
+        },
+        {
+          "path": "licenses/THIRD_PARTY_NOTICES.md",
+          "sha256": "61f28ff35f9247eefdc298c4a2acc7daa01c2050dd8a6d87e2014d46edb9d66a",
+          "size": 1609
+        },
+        {
+          "path": "sce_module/libc.prx",
+          "sha256": "e6ff45d16adf687855cc3b33b0c8a4132b6504360b221e0a34c7e99fb3ba0036",
+          "size": 1284674
+        },
+        {
+          "path": "sce_sys/icon0.png",
+          "sha256": "52fb7430adc1e667b35269ad76109997a220ac271992e2ff3c3d223c46608f6a",
+          "size": 23764
+        },
+        {
+          "path": "sce_sys/param.json",
+          "sha256": "eeb49ed3457e1991e93e6bc714c7cbd485c83e4da6fc562bd6a34092418792d7",
+          "size": 864
+        }
+      ]
+    },
+    {
+      "flavor": "paper",
+      "app_version": "01.000.108",
+      "source_commit": "3a793f13e6459166bdfbccd71fb7e708946cb097",
+      "full_tested_local_package_sha256": "18dc7f06d59ff11b33c7e96b85f813a28a2cb19638fe0d6eacfd4224513781e7",
+      "public_asset": "PPSA99874-paper-01.000.108-app-only.zip",
+      "public_asset_sha256": "cf9721859e097af3f305106487d8eb0bc62d9e3eeae10c34824bb8427dcb1b3f",
+      "excluded_jars": [
+        {
+          "file": "adventure-api-5.2.0.jar",
+          "sha256": "7e52fe7190be3e87b3b3f71712cfa12315fcd27109f302a7b440c12f01fae827",
+          "size": 428448
+        },
+        {
+          "file": "adventure-key-5.2.0.jar",
+          "sha256": "0184d173200e2eef8fbc791f622d1d58fd459f8930c616b5a4fe79e83eda6c55",
+          "size": 11211
+        },
+        {
+          "file": "adventure-text-logger-slf4j-5.2.0.jar",
+          "sha256": "ae79b7f3846c5d973b37c7eec03190bd44e182918d1346e7705c5991a1b5dfb3",
+          "size": 24750
+        },
+        {
+          "file": "adventure-text-minimessage-5.2.0.jar",
+          "sha256": "e1871aba1511dbe49cff211c10f85682886014161e5d629318aa69583c31a2c0",
+          "size": 203770
+        },
+        {
+          "file": "adventure-text-serializer-ansi-5.2.0.jar",
+          "sha256": "9229d090832e288018f3df69027602dcda253118358585dc2728f84597e9ca9d",
+          "size": 11583
+        },
+        {
+          "file": "adventure-text-serializer-commons-5.2.0.jar",
+          "sha256": "64b3e45d93aa57f4da9b257d16c8f2172612d9e3312b061f4892fd426922d2c3",
+          "size": 3630
+        },
+        {
+          "file": "adventure-text-serializer-gson-5.2.0.jar",
+          "sha256": "5b2ad1c8a65e7fa0811279b51a45d5fc574b6a6354097b545e4fdb5b68aaed73",
+          "size": 68158
+        },
+        {
+          "file": "adventure-text-serializer-json-5.2.0.jar",
+          "sha256": "adb5410006175b9aa6343bfadd0bd11c4a6955ee2abc1a58abe2a3fa6cbd9ab5",
+          "size": 15873
+        },
+        {
+          "file": "adventure-text-serializer-legacy-5.2.0.jar",
+          "sha256": "1231a0de417de66c59e2f2a3892ecca6b8d48621df6f1d9a2f81b01f57e328b7",
+          "size": 30336
+        },
+        {
+          "file": "adventure-text-serializer-plain-5.2.0.jar",
+          "sha256": "f6424cc038a631b79cc4b74b6b353d5d007c99b38f9be482e0c2448a00eecd21",
+          "size": 8559
+        },
+        {
+          "file": "ansi-1.1.1.jar",
+          "sha256": "b6c569e1a0925b9eeb349e12db35e2237556107e3336657e0b2ebde261d8afd7",
+          "size": 25154
+        },
+        {
+          "file": "asm-9.9.1.jar",
+          "sha256": "6f3828a215c920059a5efa2fb55c233d6c54ec5cadca99ce1b1bdd10077c7ddd",
+          "size": 126252
+        },
+        {
+          "file": "asm-commons-9.9.1.jar",
+          "sha256": "c2319e014ce7199f2b7f7d56d6bb991863168c3f4b6cd6c9f542a4937ef7ef88",
+          "size": 75010
+        },
+        {
+          "file": "asm-tree-9.9.1.jar",
+          "sha256": "0f3555096b720b820bbacab0b515589bee0200bee099bda14c561738ae837ba1",
+          "size": 51963
+        },
+        {
+          "file": "authlib-10.0.77.jar",
+          "sha256": "521672866582633a412c82171d3cfa416ecaccdf05a43baf809c16f9aec07068",
+          "size": 152645
+        },
+        {
+          "file": "azure-json-1.4.0.jar",
+          "sha256": "c50bc998cd1a6c689f8644b51c206217bf2da09d5b949e777490a60290cc3a0d",
+          "size": 325945
+        },
+        {
+          "file": "brigadier-1.3.11.jar",
+          "sha256": "9d09cf4819de83dfcd38bcb212d5f2227131791cef3abbfca3321d6fb2b9a64d",
+          "size": 80151
+        },
+        {
+          "file": "bungeecord-chat-1.21-R0.2-deprecated+build.21.jar",
+          "sha256": "ce930b3ee048520a0ab538eb8d1627b301367fc1b300837235387aded6d89ba1",
+          "size": 168064
+        },
+        {
+          "file": "common-1.3.0.jar",
+          "sha256": "dcbcf2912e1bad8391c5fd6af4eaa556b5a64097124df4ee149512eaf6aa2b8b",
+          "size": 48420
+        },
+        {
+          "file": "commons-codec-1.16.0.jar",
+          "sha256": "56595fb20b0b85bc91d0d503dad50bb7f1b9afc0eed5dffa6cbb25929000484d",
+          "size": 360738
+        },
+        {
+          "file": "commons-io-2.20.0.jar",
+          "sha256": "df90bba0fe3cb586b7f164e78fe8f8f4da3f2dd5c27fa645f888100ccc25dd72",
+          "size": 563971
+        },
+        {
+          "file": "commons-lang-2.6.jar",
+          "sha256": "50f11b09f877c294d56f24463f47d28f929cf5044f648661c0f0cfbae9a2f49c",
+          "size": 284220
+        },
+        {
+          "file": "commons-lang3-3.20.0.jar",
+          "sha256": "69e5c9fa35da7a51a5fd2099dfe56a2d8d32cf233e2f6d770e796146440263f4",
+          "size": 713862
+        },
+        {
+          "file": "concurrentutil-1.3.0.jar",
+          "sha256": "c0b4a5335a61fd0c73babae7ad92702c5e584318ad9b929bf93c575fed7288a1",
+          "size": 541859
+        },
+        {
+          "file": "configurate-core-4.2.0.jar",
+          "sha256": "06c1e9f7789a189af0c0156ebe9f469da7cc674233f43e8133c83131edd9f7e0",
+          "size": 364528
+        },
+        {
+          "file": "configurate-yaml-4.2.0.jar",
+          "sha256": "6294f085316188bffb71bb05ef36bf8755a288ed925c791952e1e8d7bfc8ba4c",
+          "size": 379214
+        },
+        {
+          "file": "converter-1.3.0.jar",
+          "sha256": "f2f0dcf16f445f7cd0d3f7ae937f0c3996f11abc347480a5a182a1a24d6ad29f",
+          "size": 31067
+        },
+        {
+          "file": "datafixerupper-10.0.21.jar",
+          "sha256": "3547cb1da8993fb7ebd42494d0e78997d2cfbe90c421f5efd022863e6909941e",
+          "size": 753612
+        },
+        {
+          "file": "disruptor-3.4.4.jar",
+          "sha256": "1524ed31f13bcabee1b6146e67be30c6317cb94fcd0c7c2f7c7a1f3e82087c51",
+          "size": 84626
+        },
+        {
+          "file": "error_prone_annotations-2.48.0.jar",
+          "sha256": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+          "size": 20255
+        },
+        {
+          "file": "failureaccess-1.0.3.jar",
+          "sha256": "cbfc3906b19b8f55dd7cfd6dfe0aa4532e834250d7f080bd8d211a3e246b59cb",
+          "size": 10763
+        },
+        {
+          "file": "fastutil-8.5.18.jar",
+          "sha256": "9094ae67d01d0ad246f886f11ad557fc2e79c72cbf3feed83e1512a8ae90a74a",
+          "size": 23965563
+        },
+        {
+          "file": "geantyref-1.3.16.jar",
+          "sha256": "7f1d591092d5142b6aaa7cf59f94c4c74d57dbeef03b2f8262949f8f36bac6e3",
+          "size": 71272
+        },
+        {
+          "file": "gson-2.14.0.jar",
+          "sha256": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+          "size": 313604
+        },
+        {
+          "file": "guava-33.6.0-jre.jar",
+          "sha256": "dc573e1fca4fd5454f4a5fd3d7da2df03002876a4175bafc14a95980dd7713b3",
+          "size": 3064793
+        },
+        {
+          "file": "httpclient-4.5.14.jar",
+          "sha256": "c8bc7e1c51a6d4ce72f40d2ebbabf1c4b68bfe76e732104b04381b493478e9d6",
+          "size": 785639
+        },
+        {
+          "file": "httpcore-4.4.16.jar",
+          "sha256": "6c9b3dd142a09dc468e23ad39aad6f75a0f2b85125104469f026e52a474e464f",
+          "size": 327891
+        },
+        {
+          "file": "ioutil-1.3.0.jar",
+          "sha256": "3794a27254c9e36e5fcb2228aa50d9255cd2d584b136dbf4ba1a6680aded78bd",
+          "size": 67284
+        },
+        {
+          "file": "j2objc-annotations-3.1.jar",
+          "sha256": "84d3a150518485f8140ea99b8a985656749629f6433c92b80c75b36aba3b099b",
+          "size": 16762
+        },
+        {
+          "file": "javax.inject-1.jar",
+          "sha256": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+          "size": 2497
+        },
+        {
+          "file": "jcl-over-slf4j-1.7.36.jar",
+          "sha256": "ab57ca8fd223772c17365d121f59e94ecbf0ae59d08c03a3cb5b81071c019195",
+          "size": 16555
+        },
+        {
+          "file": "jline-native-4.4.6.jar",
+          "sha256": "94520da74ad2453c0eb1b041256c99ca41aaf7779d2873c4e251e726baf7e956",
+          "size": 218858
+        },
+        {
+          "file": "jline-reader-3.20.0.jar",
+          "sha256": "acd1c94d1e228aa7b7962f69b21ed3a9fd828eb3a63e4baf9086954e626af1f0",
+          "size": 171052
+        },
+        {
+          "file": "jline-terminal-4.4.6.jar",
+          "sha256": "48c90d193a3d558979770717539d11801f4fac74b193d9b64299144bda00c11f",
+          "size": 434587
+        },
+        {
+          "file": "jline-terminal-ffm-4.4.6.jar",
+          "sha256": "3c635ad51a9541bfc1e9c9bce10dd9533b96d27eea1c4d955f723124ade3703a",
+          "size": 76847
+        },
+        {
+          "file": "jna-5.17.0.jar",
+          "sha256": "b3a9408e7c51e08ef0e3bfcc08f443f6ec0f6191ba8cd7c18d53d2b22e5bdbc0",
+          "size": 2002589
+        },
+        {
+          "file": "jna-platform-5.17.0.jar",
+          "sha256": "b7e3d46c87bad2eb409b0e704916bcd81206168e357312dfddd0e253679cd9e0",
+          "size": 1378617
+        },
+        {
+          "file": "joml-1.10.9.jar",
+          "sha256": "feca4db853371704338621c120acc5cc32300d8af635fa42414b6213301e216b",
+          "size": 814581
+        },
+        {
+          "file": "jopt-simple-5.0.4.jar",
+          "sha256": "df26cc58f235f477db07f753ba5a3ab243ebe5789d9f89ecf68dd62ea9a66c28",
+          "size": 78146
+        },
+        {
+          "file": "json-simple-1.1.1.jar",
+          "sha256": "4e69696892b88b41c55d49ab2fdcc21eead92bf54acc588c0050596c3b75199c",
+          "size": 23931
+        },
+        {
+          "file": "jspecify-1.0.0.jar",
+          "sha256": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
+          "size": 3819
+        },
+        {
+          "file": "jtracy-1.14.38.jar",
+          "sha256": "721bff502a9664d689d781ab7bfed19330606c2e1ef6b8e4d59fba67e7e765da",
+          "size": 14292
+        },
+        {
+          "file": "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+          "sha256": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+          "size": 2199
+        },
+        {
+          "file": "log4j-api-2.26.0.jar",
+          "sha256": "820de7bbaf430eaf2e3e5ccb92f23e2085797c5ac4d4f7fc6c8b660fbefa1dbc",
+          "size": 351126
+        },
+        {
+          "file": "log4j-core-2.26.0.jar",
+          "sha256": "406bb3132c47a5d322e5c571feb0787ca84496469f346eb51f1ef2ee45499902",
+          "size": 2015101
+        },
+        {
+          "file": "log4j-iostreams-2.26.0.jar",
+          "sha256": "1c4e14ebecfd6a0e100a08f9eccfb639784a441e7591e887752440bb4c941fe8",
+          "size": 49772
+        },
+        {
+          "file": "log4j-slf4j2-impl-2.26.0.jar",
+          "sha256": "cfc1bddbd39e684b698ae968291d8a3b3a55ee0ec2ef3d3ea5c2336a9e151598",
+          "size": 30211
+        },
+        {
+          "file": "logging-1.7.12.jar",
+          "sha256": "3c7ac9742fa98c773275379eb1046c048b5d2ee989152a8c69e7ba696c3f8538",
+          "size": 19540
+        },
+        {
+          "file": "lz4-java-1.10.1.jar",
+          "sha256": "a58a84c4271e50df4c96ed916ccb7e48a869f8ed9cdcda1ad5d3d4c33b0214a3",
+          "size": 910232
+        },
+        {
+          "file": "maven-artifact-3.9.6.jar",
+          "sha256": "ad7a0fb408f8e47585ccc0d0011e0b501d93bfc9888d369bbd4a043d19475073",
+          "size": 58708
+        },
+        {
+          "file": "maven-builder-support-3.9.6.jar",
+          "sha256": "e1f4d2784459ce8a34b9dae1829a1999b569e483e21ee9faa7368691e729296e",
+          "size": 14347
+        },
+        {
+          "file": "maven-model-3.9.6.jar",
+          "sha256": "4f8f07fdb6b8701fa89a23a2edf830808fd65892d90cce40c0e6df7c8f2fcb62",
+          "size": 217563
+        },
+        {
+          "file": "maven-model-builder-3.9.6.jar",
+          "sha256": "5f96dafbc411ee4b1e8426368d0d31d05ab5a4dace69808143142a0017598721",
+          "size": 198399
+        },
+        {
+          "file": "maven-repository-metadata-3.9.6.jar",
+          "sha256": "e047a67b204c434994253e2ab5bdff5fe8cb7ada9316ac3e754c39f900ea847b",
+          "size": 28440
+        },
+        {
+          "file": "maven-resolver-api-1.9.18.jar",
+          "sha256": "ebfb9e1dfeea3c2017905184581e007874b4eaac9d28bfffcfe5133d70ac6339",
+          "size": 157111
+        },
+        {
+          "file": "maven-resolver-connector-basic-1.9.18.jar",
+          "sha256": "f88d97d0f18571a675e73b45d6a9384b00322c9fae514ad6761d65b729a4e82a",
+          "size": 40439
+        },
+        {
+          "file": "maven-resolver-impl-1.9.18.jar",
+          "sha256": "6bb9c90d007098004749c867da2eaf5785fc1139907718749c1097bdb2929bf8",
+          "size": 317884
+        },
+        {
+          "file": "maven-resolver-named-locks-1.9.18.jar",
+          "sha256": "098de7bbc5b0b26c3eff74ac30ffba6680fdab9bf4aebab95c3f5e2fe9eaeea8",
+          "size": 37917
+        },
+        {
+          "file": "maven-resolver-provider-3.9.6.jar",
+          "sha256": "73b00b244b7b9e285654a45e765892bf5d369da77d42b5b4b5429122ed198a33",
+          "size": 74416
+        },
+        {
+          "file": "maven-resolver-spi-1.9.18.jar",
+          "sha256": "d364fce9a17b0e0b073c26efa92af95b29c00c42943dced4a1168a7923fd3fe1",
+          "size": 51715
+        },
+        {
+          "file": "maven-resolver-transport-http-1.9.18.jar",
+          "sha256": "1fa02272da7a604718f22e2bc9775f14350487548ffc30a2ffaae1c2d1d1a58a",
+          "size": 55883
+        },
+        {
+          "file": "maven-resolver-util-1.9.18.jar",
+          "sha256": "2eb0ea667bc489384478231dda7516407d4b5b22a138077229871de9362a7ae2",
+          "size": 196023
+        },
+        {
+          "file": "msal4j-1.24.1.jar",
+          "sha256": "12e62f79d1a71d176a41c168c0587f8167f0add99b78f006f39595bd7242aebe",
+          "size": 396486
+        },
+        {
+          "file": "mysql-connector-j-9.2.0.jar",
+          "sha256": "7e9941bbdcca244d878ea95bfff788fd9ba6a65af757f24be6c632930d61c7ed",
+          "size": 2609756
+        },
+        {
+          "file": "netty-buffer-4.2.16.Final.jar",
+          "sha256": "cc36ae9fbd0b03fe755eb4eb4424ca53b59cfd297d7fd47d49e5b1059beded6c",
+          "size": 378032
+        },
+        {
+          "file": "netty-codec-base-4.2.16.Final.jar",
+          "sha256": "feb410225938d9970de6b624a0c031d079804fa5cc5e1ec6e9298f16db5998a7",
+          "size": 155355
+        },
+        {
+          "file": "netty-codec-compression-4.2.16.Final.jar",
+          "sha256": "13c8565414dd2115281303ef4ad1f7cc69bd7771d8d12c7d2fb31307dff26d11",
+          "size": 183349
+        },
+        {
+          "file": "netty-codec-haproxy-4.2.16.Final.jar",
+          "sha256": "bada016d30eb0adcb0703bc5f34391482ed044675d111f830263d6f3e300675d",
+          "size": 39193
+        },
+        {
+          "file": "netty-codec-http-4.2.16.Final.jar",
+          "sha256": "0d16f981de8d0d304a2ab1a81f0a674892089fbaa8a583100aebb4a5b00456ec",
+          "size": 678387
+        },
+        {
+          "file": "netty-common-4.2.16.Final.jar",
+          "sha256": "9825ee68a0dc4cd2b53e2f532502401b2211bad9b77e8b04882d9e64487283ff",
+          "size": 819965
+        },
+        {
+          "file": "netty-handler-4.2.16.Final.jar",
+          "sha256": "a259ca496da05ac1981f95cd856211f894a328056a6129e9cd70dbbd5df401f7",
+          "size": 587814
+        },
+        {
+          "file": "netty-resolver-4.2.16.Final.jar",
+          "sha256": "c9eca6a99036485cf1d186b4a6a595b0a54c53808319ee03924270eae04c32bb",
+          "size": 32975
+        },
+        {
+          "file": "netty-transport-4.2.16.Final.jar",
+          "sha256": "cfa3f654caff906653385f4b7ddaa539d795b78f5711a622482b17d2b73484c0",
+          "size": 549855
+        },
+        {
+          "file": "netty-transport-classes-epoll-4.2.16.Final.jar",
+          "sha256": "9f2b53210db9c8d24e787ed43f3896aaf30d686ed270c7afbb29ab6330c6aa23",
+          "size": 159935
+        },
+        {
+          "file": "netty-transport-classes-kqueue-4.2.16.Final.jar",
+          "sha256": "6599b495f69420cb240ab0a1aa60a19a2df3bc72791729170e0993727637a689",
+          "size": 116819
+        },
+        {
+          "file": "netty-transport-native-epoll-4.2.16.Final-linux-aarch_64.jar",
+          "sha256": "212cc7d81390e31b580a1fb91b6c8d963b43e762ed072c555e2b09ad4476e928",
+          "size": 43899
+        },
+        {
+          "file": "netty-transport-native-epoll-4.2.16.Final-linux-x86_64.jar",
+          "sha256": "2e00548e731948881d0c73ee79d2ead759254e750929406a1d595484758f0267",
+          "size": 42393
+        },
+        {
+          "file": "netty-transport-native-kqueue-4.2.16.Final-osx-aarch_64.jar",
+          "sha256": "796c503f7a80217177bd315f6448263134ee0f9042627d5fd698c760bcf99c8c",
+          "size": 27482
+        },
+        {
+          "file": "netty-transport-native-kqueue-4.2.16.Final-osx-x86_64.jar",
+          "sha256": "05a09a4ab51f488f0c22f42ccce6c06935afbfac51173fae44170465aa072828",
+          "size": 26737
+        },
+        {
+          "file": "netty-transport-native-unix-common-4.2.16.Final.jar",
+          "sha256": "41ca8fe192083d17917be7ddcecded4da4fc1db1d1656d03d0bcb14e2f431155",
+          "size": 46877
+        },
+        {
+          "file": "option-1.1.0.jar",
+          "sha256": "97b69b4b17dfe02217c9131ad342564cbc9aebd04c75eb689639b5f78fd4b11c",
+          "size": 32200
+        },
+        {
+          "file": "org.eclipse.sisu.inject-0.9.0.M2.jar",
+          "sha256": "9b62bcfc352a2ec87da8b01e37c952a54d358bbb1af3f212648aeafe7ab2dbb5",
+          "size": 424617
+        },
+        {
+          "file": "oshi-core-6.9.0.jar",
+          "sha256": "b29ba9bce041e6ea822203d5b5a692660c87551241510ebc76eedffe684844c7",
+          "size": 1022125
+        },
+        {
+          "file": "paper-26.3.jar",
+          "sha256": "b3effa48833295aa377ad83974c3bec92d0e3277a5f37752b5682a8b859840d6",
+          "size": 30937314
+        },
+        {
+          "file": "paper-api-26.3.build.207-stable.jar",
+          "sha256": "5bd233fa6f09cfc4be1f228421d0557e214421f00ce48d47c21dade44f1412db",
+          "size": 2943658
+        },
+        {
+          "file": "plexus-interpolation-1.26.jar",
+          "sha256": "b3b5412ce17889103ea564bcdfcf9fb3dfa540344ffeac6b538a73c9d7182662",
+          "size": 85348
+        },
+        {
+          "file": "plexus-utils-3.5.1.jar",
+          "sha256": "86e0255d4c879c61b4833ed7f13124e8bb679df47debb127326e7db7dd49a07b",
+          "size": 269335
+        },
+        {
+          "file": "protobuf-java-4.29.0.jar",
+          "sha256": "16901851ebe5e89fe88aaad3c26866373695bc2e30627bb8932847e2f5fc2e76",
+          "size": 1870544
+        },
+        {
+          "file": "slf4j-api-2.0.17.jar",
+          "sha256": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832",
+          "size": 69908
+        },
+        {
+          "file": "snakeyaml-2.2.jar",
+          "sha256": "1467931448a0817696ae2805b7b8b20bfb082652bf9c4efaed528930dc49389b",
+          "size": 334352
+        },
+        {
+          "file": "spark-api-0.1-20240720.200737-2.jar",
+          "sha256": "f99a3ba0cd3df1aee7b8f285fe7967a28d9c0cea37fa6621b643da919dcfb819",
+          "size": 9520
+        },
+        {
+          "file": "spark-paper-1.10.191.jar",
+          "sha256": "075daaf5243d20b37da5e6a248e2b7382db1f31945a69b70d0550ed5bebf9fdf",
+          "size": 4127374
+        },
+        {
+          "file": "sqlite-jdbc-3.49.1.0.jar",
+          "sha256": "5c8609d2ca341deb8c6f71778974b5ba4995c7d32d7c7c89d9392a3e72c39291",
+          "size": 14317659
+        },
+        {
+          "file": "terminalconsoleappender-1.3.0.jar",
+          "sha256": "1afea1bca095068f7f4483f061feed94753be34233ddb0df9ec380fc14d5a985",
+          "size": 16949
+        },
+        {
+          "file": "velocity-native-4.1.0.jar",
+          "sha256": "3ee3671d057f8ac53acc59c3915cc2d9fe1661942b440a6935df88de7e6e103e",
+          "size": 238618
+        }
+      ],
+      "retained_files": [
+        {
+          "path": ".DS_Store",
+          "sha256": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3",
+          "size": 6148
+        },
+        {
+          "path": "assets/java25/boot-image-audit.json",
+          "sha256": "37be3f6b0e1dd9de6e1b628e2f0b8cf2eed80d877a58b518181603ae45ba32a0",
+          "size": 1598
+        },
+        {
+          "path": "assets/java25/classes/Hello25.class",
+          "sha256": "35509a23be2a2d89151b9bd63d8662bbb1b38e36a76869c6bf63e5940e40a589",
+          "size": 1820
+        },
+        {
+          "path": "assets/java25/classes/ServerC1Start25.class",
+          "sha256": "985e5290faccbe08268f0538bb1967823762df3b274dd9fa5fa8220e1348cad5",
+          "size": 578
+        },
+        {
+          "path": "assets/java25/classes/ServerFabric25.class",
+          "sha256": "73bcf63a179ee4fe5fd32ee1c8bbb54e009c37ef3d67168d8c5f8b5f0de36647",
+          "size": 3910
+        },
+        {
+          "path": "assets/java25/classes/ServerHelp25.class",
+          "sha256": "fa83064cbaf27140331891aee629cd2bbf75a9f0d4ceb89d3b8a1c839ad24d63",
+          "size": 3697
+        },
+        {
+          "path": "assets/java25/classes/ServerMemory25.class",
+          "sha256": "f52d38c08d473072eab24cd96e23fdb1433a2663f9b3d77ad49ebb96966d2f00",
+          "size": 2894
+        },
+        {
+          "path": "assets/java25/classes/ServerOnline25$OnlineRead.class",
+          "sha256": "3e6af577e6ef028e18eeb80846e6bcfd5d2b60aa6b3476bbde48e4165bdb93d0",
+          "size": 298
+        },
+        {
+          "path": "assets/java25/classes/ServerOnline25$Pause.class",
+          "sha256": "534287191ce37cf83e17354f46798d16749aff7e7a4c81a51f53b479403950f3",
+          "size": 275
+        },
+        {
+          "path": "assets/java25/classes/ServerOnline25$RateLimited.class",
+          "sha256": "83fb5da515d3a54bf6bcb64cb015ba8747d61cff7890ce2e9edd819d29814519",
+          "size": 864
+        },
+        {
+          "path": "assets/java25/classes/ServerOnline25.class",
+          "sha256": "0e0207cad18b7b4b2cc6996cb9fcd49d4628f5d71c147c4ed0a2945379a0934a",
+          "size": 14469
+        },
+        {
+          "path": "assets/java25/classes/ServerOperators25.class",
+          "sha256": "924608e4f5b8f7980ef51b72c5740665c40d93d9da72ccf460a30407b2eb161c",
+          "size": 5301
+        },
+        {
+          "path": "assets/java25/classes/ServerPaper25.class",
+          "sha256": "3b69f1d91362b468b8e114c0f9cbabdd969a7aa1160d5ab156e6163b3fcaac95",
+          "size": 4998
+        },
+        {
+          "path": "assets/java25/classes/ServerPerformance25.class",
+          "sha256": "961e6c4ede12d8d50412e8fdcdef2e6fe5eac16c39bcb64e0e4068541d04e185",
+          "size": 2190
+        },
+        {
+          "path": "assets/java25/classes/ServerPreflight25$NullProbe.class",
+          "sha256": "73290e8bf3d3181816e740d61aab723be106f2e892efe8c04b699cd534a7a6b1",
+          "size": 323
+        },
+        {
+          "path": "assets/java25/classes/ServerPreflight25.class",
+          "sha256": "a11a9a9a7f35793cded5f3034ad99e249769d3153cfad70090a94b494c4f4474",
+          "size": 10950
+        },
+        {
+          "path": "assets/java25/classes/ServerProtocol25.class",
+          "sha256": "6032c6aeba2350f7fa7b95f20213fb9843040cb2f78048e361ca6e0dcbd05d73",
+          "size": 1811
+        },
+        {
+          "path": "assets/java25/classes/ServerSave25.class",
+          "sha256": "fbd34d97b911d92d836ef01c821915d48cc163c0fe5e639ecddcfa95661ffe4e",
+          "size": 5726
+        },
+        {
+          "path": "assets/java25/classes/ServerStart25$Observer.class",
+          "sha256": "a99f0c7a33627afd5cdc7167f6d0bac2b498066af3e0c7dbb7c72bfaf7d1c72a",
+          "size": 5929
+        },
+        {
+          "path": "assets/java25/classes/ServerStart25.class",
+          "sha256": "d4b0414b64047fe1440e0f9f5848415ef1387968030dd71e979a6e9d137a98ad",
+          "size": 17027
+        },
+        {
+          "path": "assets/java25/classes/ps5probe/JitWarmup25.class",
+          "sha256": "e3921ae3ff7a9029b99564aa7d65ad2777e0152eb5e85a926cbf52e70825aaac",
+          "size": 4000
+        },
+        {
+          "path": "assets/java25/conf/net.properties",
+          "sha256": "f0093906820c30e079cbf79bd744d761aaf32ae917598c7ce71fac7eae16f86d",
+          "size": 7341
+        },
+        {
+          "path": "assets/java25/conf/security/java.security",
+          "sha256": "7c43432bc33b890d4e750f6886f383785a35a9b6021c34c84fcde11bb15c152d",
+          "size": 74132
+        },
+        {
+          "path": "assets/java25/conf/security/policy/README.txt",
+          "sha256": "6da0747334b0fea7592fd92614b2bbc8b126535e129b1fee483774d914e98eb5",
+          "size": 2390
+        },
+        {
+          "path": "assets/java25/conf/security/policy/limited/default_US_export.policy",
+          "sha256": "758b930a526fc670ab7537f8c26321527050a31f5f42149a2dda623c56a0a1a9",
+          "size": 146
+        },
+        {
+          "path": "assets/java25/conf/security/policy/limited/default_local.policy",
+          "sha256": "2b2627548e61316150d47ffc3e6cad465ca05b3cccd4785eb7d21aa7baa0f441",
+          "size": 647
+        },
+        {
+          "path": "assets/java25/conf/security/policy/limited/exempt_local.policy",
+          "sha256": "8c3d7648abcd95a272ce12db870082937f4d7f6878d730d83cb7fbb31eb8b2c9",
+          "size": 566
+        },
+        {
+          "path": "assets/java25/conf/security/policy/unlimited/default_US_export.policy",
+          "sha256": "758b930a526fc670ab7537f8c26321527050a31f5f42149a2dda623c56a0a1a9",
+          "size": 146
+        },
+        {
+          "path": "assets/java25/conf/security/policy/unlimited/default_local.policy",
+          "sha256": "8d8a318e6d90dfd7e26612d2b6385aa704f686ca6134c551f8928418d92b851a",
+          "size": 193
+        },
+        {
+          "path": "assets/java25/execution-audit.json",
+          "sha256": "bc7d957d67a020656b86d77777b28f2cf25184ebb3a3d9599b7f96e4e147f283",
+          "size": 509
+        },
+        {
+          "path": "assets/java25/jars/ps5-server-probe.jar",
+          "sha256": "085b80a9786926150fcc3b614dcf05d8819b48ae969c4cf53176356a0841f3a6",
+          "size": 46385
+        },
+        {
+          "path": "assets/java25/legal/java.base/aes.md",
+          "sha256": "45c6d4da48325edfbff3dcf71c704e504c057904435ed23c6d57046d551eb69d",
+          "size": 1444
+        },
+        {
+          "path": "assets/java25/legal/java.base/c-libutl.md",
+          "sha256": "bef40679922d6fdfb7e4ddb223ad6722300f6054ba737bbf6188d60fcec517f9",
+          "size": 1556
+        },
+        {
+          "path": "assets/java25/legal/java.base/cldr.md",
+          "sha256": "472e341c36efc1136860ed7a6461a2af4a53ae95d55d1126726340f5ba62b06a",
+          "size": 8790
+        },
+        {
+          "path": "assets/java25/legal/java.base/gcc.md",
+          "sha256": "589e34f142cdf7d1430daa573e61c2e3dd0330c9eb5a2c00d4a98b3a4450810b",
+          "size": 128099
+        },
+        {
+          "path": "assets/java25/legal/java.base/icu.md",
+          "sha256": "be23ad20a8231d2241b37fcf401548febd8597de8373f89268882020cb7c8818",
+          "size": 4147
+        },
+        {
+          "path": "assets/java25/legal/java.base/public_suffix.md",
+          "sha256": "861de1e4992a7d28f1de25c73cd50d26a94779ebd749c0643fecfa56442c3429",
+          "size": 17783
+        },
+        {
+          "path": "assets/java25/legal/java.base/siphash.md",
+          "sha256": "5a792b5a74ad2a5f3d6a7ad8b7a841116e58a772c18bc6e392320a365b222c76",
+          "size": 8256
+        },
+        {
+          "path": "assets/java25/legal/java.base/unicode.md",
+          "sha256": "5194d6760f2e7eccc07804196cc619f84e730fa9d10c0529b71416186f4d12dc",
+          "size": 15098
+        },
+        {
+          "path": "assets/java25/legal/java.base/zlib.md",
+          "sha256": "c9c70c36a1f0325e8788771906202d42ba6ab4205caca44ec0f665707e83226b",
+          "size": 1010
+        },
+        {
+          "path": "assets/java25/lib/libjava.so",
+          "sha256": "d9b701a7586bb32acd0a5fd0b50f16d61a6d15c8b76fad91ff15f9e7c192721f",
+          "size": 225600
+        },
+        {
+          "path": "assets/java25/lib/libjimage.so",
+          "sha256": "3269e16bdc14e25c10f50c923b4620d1f7cf991ad5794fd5a00fa72d6f4259e6",
+          "size": 499992
+        },
+        {
+          "path": "assets/java25/lib/libmanagement.so",
+          "sha256": "ea4fb83157ab4054ff9036f42b22ad587c9587ad855e133c268177a8fbc5d6a7",
+          "size": 64288
+        },
+        {
+          "path": "assets/java25/lib/libnet.so",
+          "sha256": "8cb79d3dbe80b5b2074844694613cd78b943e304dbddbfeaca6f2186d1721a8c",
+          "size": 112624
+        },
+        {
+          "path": "assets/java25/lib/libnio.so",
+          "sha256": "955c49a9a161c998aebf6da8c6b1ab203543de3117c805034564f46b91b90bbd",
+          "size": 176704
+        },
+        {
+          "path": "assets/java25/lib/libverify.so",
+          "sha256": "1cf654bb8aef41e3756013edfea89decddf0d46b64698f2ca92f8c15f740b161",
+          "size": 103376
+        },
+        {
+          "path": "assets/java25/lib/libzip.so",
+          "sha256": "a6b521d7bbaf1230e2d9ddead0b5ef47e376d39b182213a4d686dc0177c99fd7",
+          "size": 174304
+        },
+        {
+          "path": "assets/java25/lib/modules",
+          "sha256": "055399249c17326ff0a264f6380d9fbcd200fe2935970bfd93fa3b367f7929ec",
+          "size": 29218564
+        },
+        {
+          "path": "assets/java25/lib/security/cacerts",
+          "sha256": "2675a0aa6e7c158bbccf1181383ee794319e362df9a6bc88e1a5f8469a4c1dd7",
+          "size": 134174
+        },
+        {
+          "path": "assets/java25/lib/server/libjvm.so",
+          "sha256": "608a56b38401604b8ffde7c152b6d73abf39aed595a852966d81f23455d37fd5",
+          "size": 33504984
+        },
+        {
+          "path": "assets/java25/lib/tzdb.dat",
+          "sha256": "5906b44e25a8a730131d7ba1beb5d15af27043f6536f1a169ca8a5d8b8bed8f8",
+          "size": 102956
+        },
+        {
+          "path": "assets/java25/log4j2-ps5.xml",
+          "sha256": "81e4ae56d12d264c3135bd0f8c5da28752b76a95cd10646addf6ae122ad86609",
+          "size": 436
+        },
+        {
+          "path": "assets/java25/paper-plugins/ps5-paper-smoke.jar",
+          "sha256": "efbda528303237ce7ede13a676b15d2c575ef305d3122501a75e993c843ca215",
+          "size": 1483
+        },
+        {
+          "path": "assets/java25/paper-plugins/ps5-paper-smoke.sha256",
+          "sha256": "f126fda7f4f06ada16cca711b54f21816e89c882b7f4e973e912653000eaaabe",
+          "size": 65
+        },
+        {
+          "path": "assets/java25/release",
+          "sha256": "01c351e6207557577523ea3c0aef50017f3d7f96dac1148e185c8ec3f07cc891",
+          "size": 390
+        },
+        {
+          "path": "assets/java25/server-inventory.properties",
+          "sha256": "e56ae386fc435b679abe02529fbba8b737f2319dd7ec1df5384c3331858429b6",
+          "size": 9888
+        },
+        {
+          "path": "eboot.bin",
+          "sha256": "0936ab15aa935bb44595592a28ab87081c2cd64b41e2c5d9e3ac678e12a312f7",
+          "size": 23198860
+        },
+        {
+          "path": "licenses/ADDITIONAL_LICENSE_INFO",
+          "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+          "size": 2114
+        },
+        {
+          "path": "licenses/ASSEMBLY_EXCEPTION",
+          "sha256": "75292f03bf23d3db7c985aecc191029b93883200721ed23ed34a2e601463df33",
+          "size": 1514
+        },
+        {
+          "path": "licenses/EMBEDDED-RUNTIME-NOTICES.md",
+          "sha256": "c8231e2ccb7b96325c446663ab6c137a931541287dcc49db770d50abe72cb9de",
+          "size": 1646
+        },
+        {
+          "path": "licenses/GPL-3.0.txt",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+          "size": 35149
+        },
+        {
+          "path": "licenses/Inter-OFL.txt",
+          "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57",
+          "size": 4377
+        },
+        {
+          "path": "licenses/LICENSE",
+          "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+          "size": 19274
+        },
+        {
+          "path": "licenses/THIRD_PARTY_NOTICES.md",
+          "sha256": "61f28ff35f9247eefdc298c4a2acc7daa01c2050dd8a6d87e2014d46edb9d66a",
+          "size": 1609
+        },
+        {
+          "path": "sce_module/libc.prx",
+          "sha256": "e6ff45d16adf687855cc3b33b0c8a4132b6504360b221e0a34c7e99fb3ba0036",
+          "size": 1284674
+        },
+        {
+          "path": "sce_sys/icon0.png",
+          "sha256": "52fb7430adc1e667b35269ad76109997a220ac271992e2ff3c3d223c46608f6a",
+          "size": 23764
+        },
+        {
+          "path": "sce_sys/param.json",
+          "sha256": "5d0a6b1dac4f7b477cc17a0bfd305fad780c1674122028123c6f3e142c97b0ce",
+          "size": 864
+        }
+      ]
+    }
+  ],
+  "release_checks": "PASS ZIP CRC and every retained byte against exact tested local packages; only upstream JARs and personal join-player excluded. Actual provisioning reconstructs every nonpersonal tested file for both flavors; corrupted source and retained app rejection tested before writes. All public asset SHA-256 checks pass. These packaging checks do not establish additional console validation."
+}

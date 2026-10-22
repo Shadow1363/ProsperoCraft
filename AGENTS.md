@@ -84,3 +84,15 @@ two-hour completion from the satisfaction report. Preserve the Fabric094
 candidate/package and vanilla083 fallback. Keep the two-hour test deferred.
 Paper's upstream System.exit on shutdown is normal; report checked shutdown
 evidence and distinguish a user-shortened play check from full endurance.
+
+## User work-order update on 2026-10-22
+
+The user reports Paper108 is much more than acceptable and by far the best yet,
+after earlier satisfaction with Fabric094. The user now explicitly authorizes
+client work while leaving the two-hour run pending, and requests a release
+celebrating Fabric and Paper running before proceeding. Publish the accurately
+qualified development prerelease and app-only artifacts; do not infer a formal
+ALL PASS, completed lifecycle checklist or endurance result. Preserve exact
+server packages/frozen milestones. Client work need not wait for those pending
+server checks. Keep client code/artifact pins/graphics integration here and
+reusable runtime fixes in the Java repository.
