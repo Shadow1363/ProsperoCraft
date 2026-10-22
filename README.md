@@ -52,13 +52,18 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: Native Loading 01.000.001
+## Client Native Loading — PS5 ALL PASS
 
-[Client001](docs/client-native-loading-001.md) adds a seventh row for actual
-System.loadLibrary, JNI discovery and scoped resident function lookup. Host and
-package checks pass; PS5 validation is pending. It uses titlePPSA99874 and leaves
-the frozen000 milestone intact. Full LWJGL core/native graphics integration and
-Minecraft's menu are still ahead. Run all seven rows in order.
+The user confirms all seven rows of client `01.000.001` passed on the actual PS5
+on2026-10-22. The source and matching package are frozen as
+[Client_Native_Loading](Client_Native_Loading/README.md), with a
+[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Native_Loading-v01.000.001)
+and [validation record](Client_Native_Loading/validation.json).
+
+Standard JNI loading, OnLoad/discovery and scoped real native-function calls now
+pass in this consumer probe. Full LWJGL native bindings, SDL/Vulkan presentation
+and Minecraft's menu are still ahead. The earlier foundation and server packages
+remain preserved; two-hour server endurance remains pending.
 
 ## Client Foundation — PS5 ALL PASS
 
@@ -122,6 +127,7 @@ passed all six rows on PS5; native SDL/Vulkan integration remains ahead. No PS5 
 - [x] Pin client artifacts and asset index; add isolated preparation and real-JVM class preflight.
 - [x] Build a Client Foundation probe (`PPSA99874`,01.000.000): explicit LWJGL PS5 platform port and real JNI direct-buffer handoff; host/package checks pass.
 - [x] Validate all six client-foundation rows on PS5:01.000.000 ALL PASS, frozen source/package and release (not a game/menu/graphics test).
+- [x] Validate client001 resident JNI loading/scoped function lookup on PS5: all seven rows pass; source/package frozen.
 
 The client reuses server title `PPSA99874` at the user's request. Installing
 the client replaces the server app; tested server packages remain preserved.

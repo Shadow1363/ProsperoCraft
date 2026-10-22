@@ -114,3 +114,9 @@ version01.000.000, user ALL PASS on2026-10-22. Preserve its source snapshot,
 validation and matching compiled package. Its six foundation checks do not
 establish game startup, GPU rendering, SDL/Vulkan/audio or controller gameplay.
 Continue new client work in root client/, never inside Client_Foundation/.
+
+Client_Native_Loading is the frozen passing client001 milestone, PPSA99874
+version01.000.001, human ALL PASS for all seven rows on2026-10-22. Preserve
+its source, validation and exact compiled package. It validates this resident
+JNI loading/function-call integration, not full LWJGL/native graphics, arbitrary
+ELF loading or Minecraft startup. Continue future work outside frozen folders.

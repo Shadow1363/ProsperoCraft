@@ -1,5 +1,5 @@
 {
-  "stage": "Client Native Loading 01.000.001 candidate",
+  "stage": "Frozen Client Native Loading 01.000.001 milestone",
   "date": "2026-10-22",
   "minecraft": "26.3",
   "java_major": 25,
@@ -8,9 +8,9 @@
   "embedded_native_resources": "Original JNA/LZ4 JAR resources retained but not initialized/extracted by preflight; no desktop compatibility claim",
   "game_transformations": [],
   "host": "PASS real JVM System.loadLibrary/JNI_OnLoad once, normal JNI symbol resolution, scoped library/symbol/real function calls, repeated handles and missing/wrong-ABI/heap/null/unknown-library controls XcheckJNI/UBSan. Actual target object/schema/type/lifecycle guard tests and target registry/app build. Package CRC/signatures/real JNI builtin+export symbols/objecthash audit,54upstream pins/exact LWJGLport/moduleimage/native library bytes/frozen000 and server fallback hashes.",
-  "console": "pending; all seven rows required, new resident JNI library/function lookup, no game or GPU launch",
+  "console": "ALL PASS: human user report for all seven rows on actual PS5",
   "first_dependency_boundary": "Upstream rejects PS5; separate source-built platform port now recognizes PS5/x64. Actual PS5 native function resolver/core bindings remain unported.",
-  "next": "Validate all seven rows on PS5; implement actual LWJGL native core and function-provider integration, then native presentation and SDL/Vulkan.",
+  "next": "Implement actual LWJGL native core/function-provider integration, then native presentation and SDL/Vulkan.",
   "server_baseline": "Fabric094/Paper108 full release published at user request; exact packages retained",
   "server_two_hour_endurance": "pending; explicitly deferred",
   "server_lifecycle_acceptance": "remaining checks pending; no new ALL PASS inferred",
@@ -31,6 +31,7 @@
   "resident_jni": {
     "name": "ps5clientbridge",
     "scope": "Actual consumer-owned C exports; JVM JNI discovery, explicit matching C ABI; existing registry handles, code remains resident. No arbitrary module loader.",
-    "console": "pending"
-  }
+    "console": "ALL PASS for standard load/JNI discovery/scoped real function calls and absence/error controls"
+  },
+  "milestone": "Client_Native_Loading"
 }

@@ -76,4 +76,4 @@ The frozen [Client_Foundation source/validation](../Client_Foundation/README.md)
 
 ## Development001: resident JNI loading
 
-[Client Native Loading001](client-native-loading-001.md) is the next seven-row candidate. It adds actual JVM library/native symbol discovery and scoped function calls through a consumer-owned resident library. Frozen000 remains the passing milestone;001 needs console validation. This advances native-loading infrastructure without claiming full LWJGL native bindings, arbitrary ELF loading or GPU rendering.
+[Client Native Loading001](client-native-loading-001.md) is the next seven-row milestone, reported ALL PASS on the PS5 on2026-10-22. It adds actual JVM library/native symbol discovery and scoped function calls through a consumer-owned resident library. Frozen000 is retained;001 is now frozen as [Client_Native_Loading](../Client_Native_Loading/README.md). This advances native-loading infrastructure without claiming full LWJGL native bindings, arbitrary ELF loading or GPU rendering.

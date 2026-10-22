@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Restore exact upstream client JARs to the frozen app-only foundation release."""
+"""Restore exact upstream client JARs to the frozen app-only client milestone release."""
 import argparse
 import hashlib
 import json
@@ -14,8 +14,8 @@ def digest(path):
 
 
 def provision(record, app, jars):
-    if record['milestone'] != 'Client_Foundation':
-        raise ValueError('Client Foundation validation manifest required')
+    if record['milestone'] not in {'Client_Foundation', 'Client_Native_Loading'}:
+        raise ValueError('Supported client milestone validation manifest required')
     app, jars = Path(app).resolve(), Path(jars).resolve()
     for row in record['retained_files']:
         path = app / row['path']

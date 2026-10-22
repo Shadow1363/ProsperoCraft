@@ -29,9 +29,12 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.001",
       "package_sha256": "abc6aef0f162d9d134dec298742f27dfdb91a80345bb81ac54498239d34fd890",
-      "console": "pending",
+      "console": "ALL PASS: human user report for all seven probe rows",
       "change": "New standard JNI resident-library load and scoped native function lookup row; seven rows total. Frozen000 untouched.",
-      "host": "PASS real JVM System.loadLibrary/JNI_OnLoad once, normal JNI symbol resolution, scoped library/symbol/real function calls, repeated handles and missing/wrong-ABI/heap/null/unknown-library controls XcheckJNI/UBSan. Actual target object/schema/type/lifecycle guard tests and target registry/app build. Package CRC/signatures/real JNI builtin+export symbols/objecthash audit,54upstream pins/exact LWJGLport/moduleimage/native library bytes/frozen000 and server fallback hashes."
+      "host": "PASS real JVM System.loadLibrary/JNI_OnLoad once, normal JNI symbol resolution, scoped library/symbol/real function calls, repeated handles and missing/wrong-ABI/heap/null/unknown-library controls XcheckJNI/UBSan. Actual target object/schema/type/lifecycle guard tests and target registry/app build. Package CRC/signatures/real JNI builtin+export symbols/objecthash audit,54upstream pins/exact LWJGLport/moduleimage/native library bytes/frozen000 and server fallback hashes.",
+      "reported_date": "2026-10-22",
+      "milestone": "Client_Native_Loading",
+      "evidence": "User message: ALL PASS! immediately after client001 package and all-seven-rows instructions"
     }
   ]
 }
