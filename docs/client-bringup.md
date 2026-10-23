@@ -113,3 +113,12 @@ package checks pass. All nine PS5 rows remain pending. The original runtime
 SDK, JVM source and game JARs are unchanged; the combined title explicitly
 connects the shared SDK C++ ABI's real TLS callback to the scoped GPU platform.
 Full LWJGL Vulkan bindings, SDL/shader/game integration remain ahead.
+
+## Client004 console acceptance — 2026-10-23
+
+The human user reports ALL PASS for all nine rows of PPSA99874 client01.000.004.
+Client_GPU_Integration freezes the exact package/source and records Java/LWJGL
+GPU copy/fill/readback, negative controls, three Vulkan session lifecycle cycles
+and final DestroyJavaVM. Console evidence is the direct user report. Full Vulkan
+bindings, SDL/window integration, shader/game rendering and module-global cleanup
+remain unvalidated; server endurance stays deferred.

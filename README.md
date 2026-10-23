@@ -52,15 +52,20 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: Java/LWJGL + GPU004
+## Client GPU Integration — PS5 ALL PASS
 
-[Client004](docs/client-gpu-integration-004.md) adds actual Java-driven offscreen
-RADV GPU copy/fill/readback alongside the passing LWJGL core and JVM tests.
-Host physical-GPU/JNI checks and target package checks pass; **PS5 validation
-is pending for all nine rows**. The eighth row checks GPU results in Java and
-runs three Vulkan session create/destroy cycles; the ninth destroys the JVM.
-The CPU probe menu stays visible. Full LWJGL Vulkan bindings, SDL, shaders and
-Minecraft's menu remain ahead. Frozen000–003 packages stay preserved.
+The user confirms **all nine rows of client01.000.004 pass on the actual PS5**
+on 2026-10-23. The source and matching package are frozen as
+[Client_GPU_Integration](Client_GPU_Integration/README.md), with a
+[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_GPU_Integration-v01.000.004)
+and [validation record](Client_GPU_Integration/validation.json).
+
+Java25 and actual LWJGL native buffers now drive RADV offscreen GPU copy/fill/
+readback through a real JNI bridge. Java result/guard checks, error controls,
+three Vulkan create/destroy cycles and final JVM shutdown pass. This is a narrow
+fixture; full LWJGL Vulkan bindings, SDL/window integration, shader rendering
+and Minecraft's menu remain ahead. Frozen000–003 packages stay preserved;
+server endurance stays deferred. [Technical details](docs/client-gpu-integration-004.md).
 
 ## Client Native Graphics — PS5 ALL PASS
 
@@ -72,8 +77,8 @@ and [validation record](Client_Native_Graphics/validation.json).
 
 The native Mesa/RADV path now performs GPU clear/copy/readback and VideoOut
 presentation on PS5. This standalone test launches no Java, SDL, shaders or game.
-Java002/LWJGL remains a separate passing baseline. Their integration, shader
-rendering and Minecraft's menu are next; server endurance stays deferred.
+Java002/LWJGL remains a separate passing baseline. The004 offscreen integration now passes; shader
+rendering and Minecraft's menu remain ahead; server endurance stays deferred.
 [Technical details and run instructions](docs/client-native-graphics-003.md).
 
 ## Client LWJGL Core — PS5 ALL PASS
@@ -86,7 +91,7 @@ and [validation record](Client_LWJGL_Core/validation.json).
 
 Actual upstream LWJGL native memory/JNI operations and the PS5 resident function
 provider now pass alongside the earlier runtime/JNI checks. The official game
-JAR stays unchanged. Full bindings, Java GPU integration, SDL/Vulkan
+JAR stays unchanged. Full Vulkan bindings, SDL/window integration
 and Minecraft's menu remain ahead. Earlier frozen packages are preserved;
 server two-hour endurance remains deferred. [Technical details](docs/client-lwjgl-core-002.md).
 
@@ -274,6 +279,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client GPU Integration · 01.000.004** | ALL PASS on PS5: Java/LWJGL GPU copy/fill/readback, three Vulkan session cycles and VM shutdown | [Frozen source & validation](Client_GPU_Integration) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_GPU_Integration-v01.000.004) |
 | **Client Native Graphics · 01.000.003** | ALL PASS on PS5: RADV GPU clear/copy/readback and VideoOut presentation | [Frozen source & validation](Client_Native_Graphics) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Native_Graphics-v01.000.003) |
 | **Client LWJGL Core · 01.000.002** | ALL PASS on PS5: native memory/JNI core and resident function provider | [Frozen source & validation](Client_LWJGL_Core) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_LWJGL_Core-v01.000.002) |
 | **Client Native Loading · 01.000.001** | ALL PASS on PS5: standard JNI loading and scoped real-function calls | [Frozen source & validation](Client_Native_Loading) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Native_Loading-v01.000.001) |

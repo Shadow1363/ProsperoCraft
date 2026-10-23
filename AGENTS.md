@@ -135,3 +135,12 @@ compiled package. It validates scoped RADV GPU clear/copy/readback and VideoOut
 presentation, not Java/SDL integration, shader rendering, full Vulkan coverage
 or game startup. No log retrieval was possible; evidence is the human report.
 Continue development outside frozen folders.
+
+Client_GPU_Integration is the frozen passing client004 milestone, PPSA99874
+version01.000.004, user ALL PASS for all nine rows on2026-10-23. Preserve its
+source, validation, exact package and symbols. It validates actual Java/LWJGL
+plus resident JNI/RADV offscreen GPU copy/fill/readback, scoped provider/TLS
+callback integration, three Vulkan session cycles and final JVM shutdown.
+It does not establish full LWJGL Vulkan bindings, SDL/window integration,
+shader/game rendering, full module cleanup or server endurance. Continue
+development outside frozen folders.

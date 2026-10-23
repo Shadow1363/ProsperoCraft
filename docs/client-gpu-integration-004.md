@@ -1,8 +1,8 @@
-# Client GPU Integration 01.000.004 — PS5 candidate
+# Client GPU Integration 01.000.004 — PS5 ALL PASS
 
 Client004 combines the passing Java25/LWJGL core with the pinned RADV dependency in one native process. Its new eighth row runs a consumer-owned Java fixture that allocates actual LWJGL native buffers, loads a real resident JNI library and submits offscreen Vulkan copy/fill commands. Java verifies every returned word and the destination guard bytes. It also checks malformed buffers, thread ownership, stale handles and three actual Vulkan instance/device create/destroy cycles.
 
-**Console validation is pending.** Client000/001/002/003 remain frozen passing snapshots with exact package hashes. TitlePPSA99874 and the server/client content identity are retained, with independent client version01.000.004. Installing replaces the installed app; earlier packages are preserved. The server two-hour run stays deferred.
+**All nine rows pass on the actual PS5**, confirmed by the human user on2026-10-23. Exact source, package and validation are frozen in `Client_GPU_Integration/`. Client000/001/002/003 remain frozen passing snapshots with exact package hashes. TitlePPSA99874 and the server/client content identity are retained, with independent client version01.000.004. Installing replaces the installed app; earlier packages are preserved. The server two-hour run stays deferred.
 
 ## Run on PS5
 
@@ -28,7 +28,7 @@ This is a consumer fixture with a narrow JNI bridge, **not the full LWJGL Vulkan
 
 The Java image/native modules, runtime SDK and JVM sources are unchanged. The graphics dependency uses the separately pinned SDK platform cache from003. Its C++ ABI/unwind archives are checked byte-for-byte against the runtime SDK before sharing those implementations.
 
-The consumer link scopes Mesa's zlib and its platform providers to their own symbol names. Graphics-owned allocation/thread/libc calls bind to the actual scoped platform implementations; Java's global allocator, thread and DNS definitions retain their existing bindings. The shared SDK C++ ABI's optional TLS-destructor callback is now connected to the actual scoped platform implementation for this combined app, rather than the previous absent callback. This is an explicit new integration boundary requiring PS5 validation; it is not a JVM source patch or a fake-success fallback.
+The consumer link scopes Mesa's zlib and its platform providers to their own symbol names. Graphics-owned allocation/thread/libc calls bind to the actual scoped platform implementations; Java's global allocator, thread and DNS definitions retain their existing bindings. The shared SDK C++ ABI's optional TLS-destructor callback is now connected to the actual scoped platform implementation for this combined app, rather than the previous absent callback. This explicit integration boundary passes in the nine-row PS5 fixture; it is not a JVM source patch or a fake-success fallback.
 
 Four real graphics constructors are retained and run exactly once by the resident library's JNI_OnLoad after VM creation. Legacy `.ctors.N` priorities are normalized, placing compiler-rt CPU detection at priority90 before the three normal-priority Mesa initializers. The existing359 JVM/core constructors remain deferred to the first row. No constructors execute automatically at application startup. Graphics dependency globals remain resident until app close; Vulkan session resources are explicitly torn down, while full module/global destructor lifecycle remains unvalidated.
 
@@ -52,4 +52,4 @@ The actual Java/LWJGL/JNI test passes on the Mac's physical GPU through the inst
 
 Target checks pass for real JNI/GPU symbols and system AGC imports, scoped zlib/allocation/thread providers, the actual TLS callback binding, four priority-correct retained graphics constructors,359 deferred core constructors and zero automatic startup constructors. Package CRC/signatures/shared identity,54 original artifacts, exact002 Java image/native library bytes, object inventories and frozen000-003/Fabric094/Paper108 full-package hashes pass. The package SHA256 is recorded in `client/gpu/status.json` and `dist/client-gpu/SHA256SUMS`.
 
-Next after console acceptance: standard LWJGL Vulkan bindings, SDL/window integration and shader rendering, each with its own PS5 checks. Server endurance remains deferred.
+Next: standard LWJGL Vulkan bindings, SDL/window integration and shader rendering, each with its own PS5 checks. Server endurance remains deferred.
