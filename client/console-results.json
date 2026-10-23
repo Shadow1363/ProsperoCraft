@@ -51,9 +51,13 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.003",
       "package_sha256": "82895fc3d9381a08c61f979e9ba33a56943ea5f890830786c7dd4c1c684bf812",
-      "console": "pending",
+      "console": "ALL PASS: human confirmation of RGB sequence, legible final card and no crash or visual corruption",
       "change": "Standalone native-only pinned RADV GPU clear/copy/readback and VideoOut presentation; X-gated start with preserved logs on reopen. No JVM/SDL/game/shader pipeline or lifecycle teardown test.",
-      "host": "PASS target Mesa/RADV/platform and own Wall/Wextra/Werror build; native conversion/signatures, real driver exports and AGC imports, exact source/object audits, no game/JVM/audio/desktop libraries, preserved client000-002/Fabric094/Paper108 packages and actual card ASan/UBSan at640x480 through8K plus visual inspection"
+      "host": "PASS target Mesa/RADV/platform and own Wall/Wextra/Werror build; native conversion/signatures, real driver exports and AGC imports, exact source/object audits, no game/JVM/audio/desktop libraries, preserved client000-002/Fabric094/Paper108 packages and actual card ASan/UBSan at640x480 through8K plus visual inspection",
+      "reported_date": "2026-10-23",
+      "milestone": "Client_Native_Graphics",
+      "evidence": "User reported: Real RADV GPU copy and presend readback verified. Then answered Yes\u2014all passed when asked whether003 showed the RGB sequence and result card with no crash or visual corruption.",
+      "log_retrieval": "Not retrieved: connection to prior PS5 log endpoint refused; acceptance is the direct human console report."
     }
   ]
 }

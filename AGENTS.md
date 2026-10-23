@@ -127,3 +127,11 @@ its source, validation and exact compiled package. It validates the tested
 LWJGL native memory/JNI subset and PS5 resident provider; it does not establish
 complete native bindings, arbitrary ELF loading, GPU/SDL/Vulkan or game startup.
 Continue development outside frozen milestone folders.
+
+Client_Native_Graphics is the frozen passing native-only client003 milestone,
+PPSA99874 version01.000.003, human confirmation of all requested RGB/card checks
+with no crash/corruption on2026-10-23. Preserve source, validation and exact
+compiled package. It validates scoped RADV GPU clear/copy/readback and VideoOut
+presentation, not Java/SDL integration, shader rendering, full Vulkan coverage
+or game startup. No log retrieval was possible; evidence is the human report.
+Continue development outside frozen folders.

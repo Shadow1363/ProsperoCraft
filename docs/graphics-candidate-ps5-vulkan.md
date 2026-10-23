@@ -31,3 +31,8 @@ pinned Mesa/RADV driver and PS5 platform SDK in separate consumer caches. See
 package checks and required console presentation results. The driver is now
 built/linked for this candidate; console compatibility, Java/SDL integration
 and game rendering remain unvalidated. The working runtime SDK is unchanged.
+
+Client003 subsequently receives human ALL PASS confirmation on2026-10-23 for
+the RGB sequence and legible result card with no crash/corruption. The native
+RADV transfer/readback/VideoOut path is frozen in Client_Native_Graphics; full
+driver coverage, Java/SDL integration and game rendering remain unvalidated.

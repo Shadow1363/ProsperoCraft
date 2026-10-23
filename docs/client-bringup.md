@@ -93,3 +93,12 @@ Mesa/RADV driver and its platform SDK for actual GPU clear/copy/readback and
 VideoOut presentation. It uses the same PPSA99874 identity with version01.000.003,
 but launches no JVM or game. Console confirmation of the RGB sequence, final
 card and automated checks is pending. Existing passing milestones are preserved.
+
+## Native Graphics003 acceptance — 2026-10-23
+
+The tester reports the result card, then confirms all requested RGB/card checks
+passed with no crash or visual corruption. Client_Native_Graphics003 is frozen
+with its exact package/source pins and published as a native-only milestone.
+The PS5 log server was unreachable; console evidence is the direct human report.
+Java/SDL integration, shader rendering, GPU teardown/recreation and game startup
+remain unvalidated; server endurance stays deferred.

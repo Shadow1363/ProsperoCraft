@@ -1,5 +1,5 @@
 {
-  "status": "Native003 candidate: pinned Mesa/RADV and separate PS5 SDK platform built and linked; console presentation pending",
+  "status": "Native003 PS5 ALL PASS: pinned Mesa/RADV and isolated SDK platform; exact source/package frozen",
   "reviewed_date": "2026-10-23",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -10,9 +10,9 @@
     "upstream_sdk_repository": "https://github.com/mihawk-99/PS5_PayloadSDK",
     "upstream_sdk_revision": "b83202be73e930050e00de0f1b4d9ec46c0391bf",
     "integration": "Static RADV archive and VK_KHR_display/VideoOut; upstream reports are not this project's PS5 validation",
-    "console": "pending native003 actual driver/presentation test"
+    "console": "ALL PASS client003 native clear/copy/readback and VideoOut presentation; Java/SDL/game integration and full driver coverage unvalidated"
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Validate native003 GPU clear/copy/readback and VideoOut presentation on PS5 before combining driver, LWJGL and Java/SDL. Client002 stays frozen ALL PASS."
+  "next": "Client003 native GPU presentation and client002 LWJGL core are frozen ALL PASS baselines. Integrate Java/LWJGL and SDL in development; validate shader rendering and lifecycle separately."
 }
