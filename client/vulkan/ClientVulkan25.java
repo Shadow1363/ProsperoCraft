@@ -11,7 +11,7 @@ import static org.lwjgl.vulkan.VK11.VK_API_VERSION_1_1;
 public final class ClientVulkan25 {
  public static native void checkpoint(String text);
  private static void check(int result,String call) {if(result!=VK_SUCCESS)throw new IllegalStateException(call+" VkResult="+result);}
- private static void stage(String text){checkpoint("LWJGL Vulkan005: "+text);}
+ private static void stage(String text){checkpoint("LWJGL Vulkan006: "+text);}
  private static void rejected(Runnable call) {
   try{call.run();}catch(IllegalStateException expected){return;}
   throw new AssertionError("Expected duplicate VK.create rejection");
@@ -47,7 +47,7 @@ public final class ClientVulkan25 {
   VkInstance instance=null;VkDevice device=null;long pool=0,fence=0;boolean incomplete=false;
   try(MemoryStack stack=MemoryStack.stackPush()) {
    PointerBuffer pointer=stack.mallocPointer(1);
-   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java LWJGL Vulkan005")).apiVersion(VK_API_VERSION_1_1);
+   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java LWJGL Vulkan006")).apiVersion(VK_API_VERSION_1_1);
    VkInstanceCreateInfo info=VkInstanceCreateInfo.calloc(stack).sType$Default().pApplicationInfo(app);
    stage("create instance with standard vkCreateInstance");check(vkCreateInstance(info,null,pointer),"vkCreateInstance");
    instance=new VkInstance(pointer.get(0),info);
@@ -120,7 +120,7 @@ public final class ClientVulkan25 {
    VK.create(new PS5Library(hostLibrary));
   } else {
    System.loadLibrary("ps5clientgpu");
-   VK.create(new PS5Library("ps5clientgpu"));
+   VK.create(new PS5Library(System.mapLibraryName("ps5clientgpu")));
   }
   try {
    rejected(()->VK.create(VK.getFunctionProvider()));

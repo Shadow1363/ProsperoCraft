@@ -132,3 +132,13 @@ standard loader entry forwards to the real RADV ICD. Host physical-GPU/XcheckJNI
 UBSan and target package checks pass; all ten PS5 rows remain pending. No game
 or Vulkan Java bytecode transformation is introduced. SDL/window integration,
 shader rendering and game startup follow separate validation. Frozen000-004 remain.
+
+## Client005 failure and006 correction — 2026-10-23
+
+The tester reports ClientVulkan25 UnsatisfiedLinkError: PS5 resident library
+unavailable: ps5clientgpu on row9. The registry key is libps5clientgpu.so; the
+fixture passed System.loadLibrary's logical name directly to PS5Library.
+[Client006](client-vulkan-bindings-006.md) applies System.mapLibraryName before
+that provider open. No alias/driver workaround or Vulkan/game JAR change is
+introduced.005 package/symbols are preserved as a failed candidate. Host GPU
+and corrected package regression checks pass; all ten PS5 rows remain pending.

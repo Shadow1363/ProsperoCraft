@@ -1,11 +1,11 @@
 {
-  "stage": "Client Vulkan Bindings005 candidate",
+  "stage": "Client Vulkan Bindings006 candidate \u2014 resident-name correction",
   "date": "2026-10-23",
   "title_id": "PPSA99874",
-  "app_version": "01.000.005",
-  "package_sha256": "89d959f891559b8bf4cbdd7ab6caa3a5a4f0cc0607c3ae109f0ffdbec3d72865",
-  "console": "pending; all ten rows in order; row9 standard LWJGL Vulkan GPU transfer and row10 DestroyJavaVM",
-  "host": "PASS actual original LWJGL Vulkan3.4.3 standard VK.create/VkInstance/VkDevice capability tables/structs/commands on physical MoltenVK1.4.1 host GPU;12 GPU copy-fill-readbacks8..65536/full Java word+guard checks/3instance-device lifecycles/duplicate-init rejection/loader cleanup under Java25 Xint/XcheckJNI/verify and real core UBSan. Target compile/signatures/actual loader+ICD+JNI+GPU exports/system imports/constructor ordering/scoped providers/54immutable JARs/exact002 moduleimage and native libs/frozen000-004/Fabric094/Paper108 hashes pass.",
+  "app_version": "01.000.006",
+  "package_sha256": "40726d133bfab837937bf46f25d4c35c4b8c404cee21ae98567b1cb763330c41",
+  "console": "pending; all ten PS5 rows for corrected006;005 failed row9 with unmapped resident-library name",
+  "host": "PASS actual original LWJGL Vulkan3.4.3 standard VK.create/VkInstance/VkDevice capability tables/structs/commands on physical MoltenVK1.4.1 host GPU;12 GPU copy-fill-readbacks8..65536/full Java word+guard checks/3instance-device lifecycles/duplicate-init rejection/loader cleanup under Java25 Xint/XcheckJNI/verify and real core UBSan. Target compile/signatures/actual loader+ICD+JNI+GPU exports/system imports/constructor ordering/scoped providers/54immutable JARs/exact002 moduleimage and native libs/frozen000-004/Fabric094/Paper108 hashes pass. Corrected006 host GPU rerun passes; target package regression checks compiled mapLibraryName call and mapped registry key.",
   "scope": "Unmodified upstream LWJGL Vulkan Java commands/structs/capability tables; selected transfer and lifecycle commands tested, not full API/SDL/shader/game coverage",
   "upstream_vulkan_jar_modified": false,
   "game_jar_modified": false,
@@ -14,5 +14,6 @@
   "bootstrap": "Supported VK.create(FunctionProvider) with PS5Library and real vkGetInstanceProcAddr forwarding to resident ICD",
   "lifecycle": "3normal instance-device cycles and loader close; incomplete fence retains in-flight buffers/context until relaunch; module-global destruction and recovery unvalidated",
   "server_two_hour_endurance": "pending; explicitly deferred",
-  "baseline": "Frozen000-004 source and exact packages preserved"
+  "baseline": "Frozen000-004 source and exact packages preserved",
+  "previous_failure": "005: PS5 resident library unavailable: ps5clientgpu; registry key libps5clientgpu.so. Corrected fixture uses System.mapLibraryName for the SharedLibrary provider."
 }

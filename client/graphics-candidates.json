@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Client005 exercises original LWJGL Vulkan Java bindings/capability tables through the supported resident function provider. Host physical-GPU/package checks pass; ten-row PS5 test pending. SDL/window integration and shader rendering follow acceptance. Frozen000-004 preserved."
+  "next": "Client006 corrects005 resident-name failure before Vulkan command initialization. Original Vulkan Java bindings remain unchanged; host GPU/package pass, all ten PS5 rows pending. SDL/window and shaders follow acceptance; frozen000-004 preserved."
 }

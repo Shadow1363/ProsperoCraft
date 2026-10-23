@@ -52,15 +52,15 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: LWJGL Vulkan Bindings005
+## Current client candidate: LWJGL Vulkan Bindings006
 
-[Client005](docs/client-vulkan-bindings-005.md) exercises original upstream LWJGL
-Vulkan structs, capability tables and command bindings against the real resident
-RADV driver. The Vulkan and game JARs are unchanged. Physical-host-GPU and target
-package checks pass; **all ten PS5 rows remain pending**. Row9 checks standard
-Vulkan GPU copy/fill/readback and lifecycle; row10 destroys the JVM. The menu
-stays visible. Frozen000–004 packages remain preserved. SDL/window integration,
-shaders and Minecraft's menu remain ahead; server endurance stays deferred.
+[Client006](docs/client-vulkan-bindings-006.md) fixes005's reported row9 failure:
+the resident SharedLibrary provider needed the mapped name `libps5clientgpu.so`,
+not the short System.loadLibrary name. The fixture now uses System.mapLibraryName;
+the Vulkan/game JARs and runtime source/SDK are unchanged. Host physical-GPU and
+target package checks pass; **all ten PS5 rows remain pending**. Row9 tests
+standard LWJGL Vulkan commands/readback; row10 destroys the JVM. Frozen000–004
+remain preserved. SDL, shaders, Minecraft startup and server endurance remain ahead.
 
 ## Client GPU Integration — PS5 ALL PASS
 

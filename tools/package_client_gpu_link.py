@@ -62,7 +62,7 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  run(tool,'self','--sign','--in',elf,'--out',app/'eboot.bin','--magic','0x1D3D154F')
  shutil.copyfile(consumer/'param.json',app/'sce_sys/param.json');shutil.copyfile(runtime/'sce_sys/icon0.png',app/'sce_sys/icon0.png');shutil.copyfile(runtime/'build/native/libc.prx',app/'sce_module/libc.prx')
  shutil.copytree(assets,app/'assets');shutil.copytree(runtime/'dist/PPSA99874/licenses',app/'licenses')
- shutil.copytree(ROOT/'build/client-graphics/PPSA99874/licenses',app/'licenses/graphics')
+ shutil.copytree(ROOT/'build/client-graphics/PPSA99874/licenses',app/'licenses/graphics',dirs_exist_ok=True)
  for path in [app/'eboot.bin',app/'sce_module/libc.prx']:run(tool,'self','--inspect','--file',path)
  import zipfile
  dest=ROOT/('dist/client-'+variant);dest.mkdir(exist_ok=True);package=dest/'PPSA99874.zip'

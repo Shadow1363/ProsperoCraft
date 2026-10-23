@@ -58,7 +58,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.005";
+constexpr const char* build_version="01.000.006";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -341,7 +341,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Client Vulkan Bindings 01.000.005",64,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Client Vulkan Bindings 01.000.006",64,rgb(238,242,250));
  c.label(103,163,"Upstream LWJGL Vulkan command tables and GPU readback. Native003 presentation preserved; no SDL/game yet.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=200+i*52;
@@ -383,10 +383,10 @@ void draw(Canvas &c) noexcept {
 }
 }
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU005 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU006 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Client Vulkan Bindings 01.000.005 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Client Vulkan Bindings 01.000.006 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;

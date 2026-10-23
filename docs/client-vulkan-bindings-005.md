@@ -1,4 +1,6 @@
-# Client Vulkan Bindings 01.000.005 — console candidate
+# Client Vulkan Bindings 01.000.005 — console failure recorded
+
+**Console result:** row9 failed with `PS5 resident library unavailable: ps5clientgpu`. The fixture used an unmapped logical name in the SharedLibrary provider. [Client006](client-vulkan-bindings-006.md) corrects that lookup;005 is not a passing milestone. The following records the005 design and original candidate scope.
 
 Client005 exercises the original upstream LWJGL3.4.3 Vulkan Java bindings, structures and instance/device capability tables against the actual statically resident RADV driver. It builds on frozen Client_GPU_Integration004 ALL PASS. **All ten PS5 rows are pending for this exact build**; host GPU success is not a console pass.
 
