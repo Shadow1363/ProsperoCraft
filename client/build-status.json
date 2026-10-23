@@ -1,6 +1,6 @@
 {
-  "stage": "Client LWJGL Core 01.000.002 candidate",
-  "date": "2026-10-22",
+  "stage": "Client LWJGL Core 01.000.002 \u2014 PS5 ALL PASS",
+  "date": "2026-10-23",
   "minecraft": "26.3",
   "java_major": 25,
   "pinned_client_and_java_jars": 54,
@@ -8,9 +8,9 @@
   "embedded_native_resources": "Original JNA/LZ4 JAR resources retained but not initialized/extracted by preflight; no desktop compatibility claim",
   "game_transformations": [],
   "host": "PASS actual upstream native LWJGL core in Java25 -Xint/-Xcheck:jni/UBSan: allocation/reallocation/calloc/alignment/free, typed views/native memcpy, Unicode/MemoryStack, generic JNI malloc/free calls, real provider symbols/invocation/missing/malformed/closed controls. Actual patched TLS key0/EAGAIN/cleanup ASan/UBSan and desktop platform controls. Target compile and package CRC/signatures/options/54pins/exact dependency delta/core+provider JNI/export/objecthash audits/CPUID/SSE2/current runtime and frozen baseline hashes.",
-  "console": "pending; all eight rows required, actual LWJGL memory/JNI core and resident SharedLibrary provider; no game/GPU launch",
+  "console": "ALL PASS: human user report for all eight rows on actual PS5",
   "first_dependency_boundary": "Explicit PS5 platform/resident provider implemented; native core subset built. Full bindings/callbacks and graphics integration remain incomplete.",
-  "next": "Validate actual LWJGL core/provider on PS5, then native GPU presentation and SDL/Vulkan integration.",
+  "next": "Native GPU presentation, then SDL/Vulkan integration and the real client menu.",
   "server_baseline": "Fabric094/Paper108 full release published at user request; exact packages retained",
   "server_two_hour_endurance": "pending; explicitly deferred",
   "server_lifecycle_acceptance": "remaining checks pending; no new ALL PASS inferred",
@@ -27,20 +27,20 @@
     }
   ],
   "version_policy": "Client builds start at zero independently of server builds; same PPSA99874/content identity by explicit user request.",
-  "baseline_milestone": "Client_Foundation000 and Client_Native_Loading001 frozen ALL PASS; exact snapshots/packages retained",
+  "baseline_milestone": "Client_Foundation000, Client_Native_Loading001 and Client_LWJGL_Core002 frozen ALL PASS; exact snapshots/packages retained",
   "resident_jni": {
     "names": [
       "ps5clientbridge",
       "lwjgl"
     ],
     "scope": "Existing loader plus actual upstream core/memory/JNI/libc subset and custom PS5 resident provider. No arbitrary ELF loader or libffi callback/graphics claim.",
-    "console": "001 base library ALL PASS;002 LWJGL integration pending"
+    "console": "ALL PASS on PS5: both resident groups and actual LWJGL core/provider, eight rows"
   },
   "native_lwjgl": {
     "upstream_commit": "30fac9b95f99cda97312232be25ba55297bf9951",
     "compile_profile": "x86-64/SSE2; no AVX/AVX2/FMA",
     "java_memory_backend": "Java25 jdk.internal.misc.Unsafe via explicit export",
     "allocator": "upstream system configuration; SDK libc, large-allocation pressure unvalidated",
-    "console": "pending"
+    "console": "ALL PASS: tested memory/JNI core and resident provider subset on PS5; full native coverage and graphics pending"
   }
 }

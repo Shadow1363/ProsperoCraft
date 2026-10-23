@@ -52,12 +52,19 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: LWJGL Core 01.000.002
+## Client LWJGL Core — PS5 ALL PASS
 
-[Client002](docs/client-lwjgl-core-002.md) exercises actual LWJGL native memory,
-JNI calls and a PS5 resident function provider. Host/package checks pass; run
-all eight rows on the PS5 for console validation. Frozen000/001 remain preserved.
-GPU presentation, SDL/Vulkan integration and Minecraft's menu are still ahead.
+All eight rows of client **01.000.002** pass on the actual PS5, confirmed by
+the human tester on 2026-10-23. The matching source and package are frozen as
+[Client_LWJGL_Core](Client_LWJGL_Core/README.md), with a
+[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_LWJGL_Core-v01.000.002)
+and [validation record](Client_LWJGL_Core/validation.json).
+
+Actual upstream LWJGL native memory/JNI operations and the PS5 resident function
+provider now pass alongside the earlier runtime/JNI checks. The official game
+JAR stays unchanged. Full bindings, GPU presentation, SDL/Vulkan integration
+and Minecraft's menu remain ahead. Earlier frozen packages are preserved;
+server two-hour endurance remains deferred. [Technical details](docs/client-lwjgl-core-002.md).
 
 ## Client Native Loading — PS5 ALL PASS
 
@@ -135,6 +142,7 @@ passed all six rows on PS5; native SDL/Vulkan integration remains ahead. No PS5 
 - [x] Build a Client Foundation probe (`PPSA99874`,01.000.000): explicit LWJGL PS5 platform port and real JNI direct-buffer handoff; host/package checks pass.
 - [x] Validate all six client-foundation rows on PS5:01.000.000 ALL PASS, frozen source/package and release (not a game/menu/graphics test).
 - [x] Validate client001 resident JNI loading/scoped function lookup on PS5: all seven rows pass; source/package frozen.
+- [x] Validate client002 actual LWJGL native memory/JNI core and PS5 resident provider on PS5: all eight rows pass; source/package frozen.
 
 The client reuses server title `PPSA99874` at the user's request. Installing
 the client replaces the server app; tested server packages remain preserved.
@@ -241,6 +249,9 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client LWJGL Core · 01.000.002** | ALL PASS on PS5: native memory/JNI core and resident function provider | [Frozen source & validation](Client_LWJGL_Core) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_LWJGL_Core-v01.000.002) |
+| **Client Native Loading · 01.000.001** | ALL PASS on PS5: standard JNI loading and scoped real-function calls | [Frozen source & validation](Client_Native_Loading) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Native_Loading-v01.000.001) |
+| **Client Foundation · 01.000.000** | ALL PASS on PS5: runtime, artifacts, platform and JNI buffers | [Frozen source & validation](Client_Foundation) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Foundation-v01.000.000) |
 | **Server Start · 01.000.058** | ALL PASS on PS5: real readiness, saved metadata, clean stop and VM lifecycle | [Frozen source & validation](Server_Start) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Server_Start-v01.000.058) |
 | **Server Bootstrap · 01.000.002** | ALL PASS on PS5 13.60: VM lifecycle, 40-JAR preflight and official server `--help` | [Frozen source & validation](Server_Bootstrap) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Server_Bootstrap-v01.000.002) |
 

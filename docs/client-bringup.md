@@ -81,3 +81,7 @@ The frozen [Client_Foundation source/validation](../Client_Foundation/README.md)
 ## Development002: actual LWJGL core and resident provider
 
 [Client LWJGL Core002](client-lwjgl-core-002.md) adds the eighth row for real upstream native memory/JNI APIs and a PS5 SharedLibrary implementation. Host and target-package checks pass; console validation is pending. Frozen000/001 remain untouched. Driver presentation, SDL/Vulkan and game startup remain ahead.
+
+## Client002 console acceptance — 2026-10-23
+
+The human tester reports ALL PASS for all eight rows of PPSA99874 client01.000.002. The actual LWJGL native memory/JNI subset and resident provider are frozen as [Client_LWJGL_Core](../Client_LWJGL_Core/README.md), with the exact package hash and source/runtime pins. GPU presentation, SDL/Vulkan, complete native coverage and Minecraft main remain unvalidated. Server endurance remains deferred.

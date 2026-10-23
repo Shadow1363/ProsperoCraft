@@ -120,3 +120,10 @@ version01.000.001, human ALL PASS for all seven rows on2026-10-22. Preserve
 its source, validation and exact compiled package. It validates this resident
 JNI loading/function-call integration, not full LWJGL/native graphics, arbitrary
 ELF loading or Minecraft startup. Continue future work outside frozen folders.
+
+Client_LWJGL_Core is the frozen passing client002 milestone, PPSA99874
+version01.000.002, human ALL PASS for all eight rows on2026-10-23. Preserve
+its source, validation and exact compiled package. It validates the tested
+LWJGL native memory/JNI subset and PS5 resident provider; it does not establish
+complete native bindings, arbitrary ELF loading, GPU/SDL/Vulkan or game startup.
+Continue development outside frozen milestone folders.
