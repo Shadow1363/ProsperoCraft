@@ -58,6 +58,14 @@
       "milestone": "Client_Native_Graphics",
       "evidence": "User reported: Real RADV GPU copy and presend readback verified. Then answered Yes\u2014all passed when asked whether003 showed the RGB sequence and result card with no crash or visual corruption.",
       "log_retrieval": "Not retrieved: connection to prior PS5 log endpoint refused; acceptance is the direct human console report."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.004",
+      "package_sha256": "0077d9f72e7a468e16bacfc075527c096d68decab1849e1252ba18405cf444b5",
+      "console": "pending; all nine rows in order, including Java/LWJGL offscreen GPU transfer and final DestroyJavaVM",
+      "change": "Nine rows: prior Java/LWJGL checks plus real Java-driven offscreen RADV copy/fill/readback and Vulkan session cleanup; original game JARs intact; no full Vulkan binding/SDL/shader/game launch.",
+      "host": "PASS actual Java25 -Xint/XcheckJNI/verify + LWJGL native memory + MoltenVK1.4.1 physical host GPU:12copy/fill/readback transfers8..65536 bytes, full Java word/guard checks, null/heap/short/alias/malformed/foreign-thread/stale-session controls, three create/destroy cycles, idempotent close and UBSan. Target compile/link/real JNI+GPU exports/system AGC imports/scoped zlib+allocator+thread providers/actual TLS callback/359core+4priority-correct GPU constructors/no automatic constructors/CRC/signatures/54pins/exact002 Java image+native libs/frozen000-003/Fabric094/Paper108 preserved."
     }
   ]
 }

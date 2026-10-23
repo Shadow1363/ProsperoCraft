@@ -52,6 +52,16 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Current client candidate: Java/LWJGL + GPU004
+
+[Client004](docs/client-gpu-integration-004.md) adds actual Java-driven offscreen
+RADV GPU copy/fill/readback alongside the passing LWJGL core and JVM tests.
+Host physical-GPU/JNI checks and target package checks pass; **PS5 validation
+is pending for all nine rows**. The eighth row checks GPU results in Java and
+runs three Vulkan session create/destroy cycles; the ninth destroys the JVM.
+The CPU probe menu stays visible. Full LWJGL Vulkan bindings, SDL, shaders and
+Minecraft's menu remain ahead. Frozen000–003 packages stay preserved.
+
 ## Client Native Graphics — PS5 ALL PASS
 
 The human tester confirms client **01.000.003** displayed the RGB sequence and

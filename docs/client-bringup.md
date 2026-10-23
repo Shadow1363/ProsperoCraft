@@ -102,3 +102,14 @@ with its exact package/source pins and published as a native-only milestone.
 The PS5 log server was unreachable; console evidence is the direct human report.
 Java/SDL integration, shader rendering, GPU teardown/recreation and game startup
 remain unvalidated; server endurance stays deferred.
+
+## Client GPU Integration004 — PS5 pending
+
+[Client004](client-gpu-integration-004.md) combines the actual LWJGL memory/core
+with a resident JNI bridge and scoped RADV offscreen GPU commands in one JVM
+process. Java verifies GPU copy/fill results, guards and error controls across
+three actual create/destroy cycles. Physical-host-GPU/XcheckJNI/UBSan and target
+package checks pass. All nine PS5 rows remain pending. The original runtime
+SDK, JVM source and game JARs are unchanged; the combined title explicitly
+connects the shared SDK C++ ABI's real TLS callback to the scoped GPU platform.
+Full LWJGL Vulkan bindings, SDL/shader/game integration remain ahead.

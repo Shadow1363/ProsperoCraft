@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Client003 native GPU presentation and client002 LWJGL core are frozen ALL PASS baselines. Integrate Java/LWJGL and SDL in development; validate shader rendering and lifecycle separately."
+  "next": "Client004 combines Java/LWJGL native memory and scoped RADV offscreen commands; physical-host-GPU/package checks pass, nine-row PS5 result pending. Client003 presentation and002 core stay frozen ALL PASS; standard Vulkan bindings, SDL and shaders remain ahead."
 }

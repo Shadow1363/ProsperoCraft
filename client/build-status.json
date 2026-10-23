@@ -43,5 +43,6 @@
     "allocator": "upstream system configuration; SDK libc, large-allocation pressure unvalidated",
     "console": "ALL PASS: tested memory/JNI core and resident provider subset on PS5; full native coverage and graphics pending"
   },
-  "graphics_candidate": "Client_Native_Graphics003 frozen ALL PASS: native-only GPU clear/copy/readback and presentation; Java002 stays the passing JVM/LWJGL baseline"
+  "graphics_candidate": "Client_Native_Graphics003 frozen ALL PASS: native-only GPU clear/copy/readback and presentation; Java002 stays the passing JVM/LWJGL baseline",
+  "gpu_integration_candidate": "client/gpu/status.json:004 Java/LWJGL + scoped RADV offscreen GPU candidate; nine-row PS5 result pending"
 }
