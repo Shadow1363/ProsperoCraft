@@ -24,3 +24,10 @@ The revision above remains current at review. See [client bring-up](client-bring
 and `client/graphics-candidates.json` for artifact/preflight results, dependency
 pins and native integration work. No driver/SDK adoption or PS5 graphics pass
 has occurred yet. The earlier server-first work order is superseded.
+
+On 2026-10-23, after client002 ALL PASS, native client003 cross-compiles the
+pinned Mesa/RADV driver and PS5 platform SDK in separate consumer caches. See
+[native003](client-native-graphics-003.md) for exact pins, host build adaptations,
+package checks and required console presentation results. The driver is now
+built/linked for this candidate; console compatibility, Java/SDL integration
+and game rendering remain unvalidated. The working runtime SDK is unchanged.

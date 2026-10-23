@@ -52,6 +52,18 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Current client candidate: Native Graphics003
+
+[Client003](docs/client-native-graphics-003.md) builds the pinned Mesa/RADV PS5
+driver with a separate SDK cache and tests real GPU clear/copy/readback and
+VideoOut presentation. It is a native-only diagnostic before Java/SDL integration.
+Host/package checks pass; PS5 results are pending. Open the app and press X
+once: expect red/green/blue frames, then a legible graphics result card. The
+initial screen may be blank; startup instructions appear in a system notification.
+Keep it open for logs, or reopen without pressing X after a crash.
+
+The passing client002 Java/LWJGL package remains frozen. [Build pins and scope](client/graphics/sources.json).
+
 ## Client LWJGL Core — PS5 ALL PASS
 
 All eight rows of client **01.000.002** pass on the actual PS5, confirmed by

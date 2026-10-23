@@ -85,3 +85,11 @@ The frozen [Client_Foundation source/validation](../Client_Foundation/README.md)
 ## Client002 console acceptance — 2026-10-23
 
 The human tester reports ALL PASS for all eight rows of PPSA99874 client01.000.002. The actual LWJGL native memory/JNI subset and resident provider are frozen as [Client_LWJGL_Core](../Client_LWJGL_Core/README.md), with the exact package hash and source/runtime pins. GPU presentation, SDL/Vulkan, complete native coverage and Minecraft main remain unvalidated. Server endurance remains deferred.
+
+## Native Graphics003 — console pending
+
+After002 ALL PASS, [native003](client-native-graphics-003.md) isolates the pinned
+Mesa/RADV driver and its platform SDK for actual GPU clear/copy/readback and
+VideoOut presentation. It uses the same PPSA99874 identity with version01.000.003,
+but launches no JVM or game. Console confirmation of the RGB sequence, final
+card and automated checks is pending. Existing passing milestones are preserved.

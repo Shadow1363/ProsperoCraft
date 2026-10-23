@@ -9,9 +9,9 @@ import subprocess
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser(description=__doc__);p.add_argument('--runtime-workspace',type=Path,required=True);args=p.parse_args();runtime=args.runtime_workspace.resolve()
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--runtime-workspace',type=Path,required=True);p.add_argument('--package',type=Path,help='Explicit client002 package, e.g. preserved milestone ZIP');args=p.parse_args();runtime=args.runtime_workspace.resolve()
 sha=lambda b:hashlib.sha256(b).hexdigest()
-package=runtime/'dist/PPSA99874.zip';lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
+package=args.package.resolve()if args.package else runtime/'dist/PPSA99874.zip';lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
 with zipfile.ZipFile(package)as z:
  assert z.testzip()is None
  prefix='PPSA99874/'

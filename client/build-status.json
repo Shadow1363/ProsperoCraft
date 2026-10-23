@@ -42,5 +42,6 @@
     "java_memory_backend": "Java25 jdk.internal.misc.Unsafe via explicit export",
     "allocator": "upstream system configuration; SDK libc, large-allocation pressure unvalidated",
     "console": "ALL PASS: tested memory/JNI core and resident provider subset on PS5; full native coverage and graphics pending"
-  }
+  },
+  "graphics_candidate": "client/graphics/status.json: standalone native003; Java002 remains the passing integration baseline"
 }
