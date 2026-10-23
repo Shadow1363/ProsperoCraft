@@ -122,3 +122,13 @@ GPU copy/fill/readback, negative controls, three Vulkan session lifecycle cycles
 and final DestroyJavaVM. Console evidence is the direct user report. Full Vulkan
 bindings, SDL/window integration, shader/game rendering and module-global cleanup
 remain unvalidated; server endurance stays deferred.
+
+## LWJGL Vulkan Bindings005 — PS5 pending
+
+[Client005](client-vulkan-bindings-005.md) uses the unchanged upstream Vulkan JAR's
+standard structs, instance/device capability tables and generic JNI commands.
+Supported VK.create(FunctionProvider) uses the resident PS5Library; one native
+standard loader entry forwards to the real RADV ICD. Host physical-GPU/XcheckJNI/
+UBSan and target package checks pass; all ten PS5 rows remain pending. No game
+or Vulkan Java bytecode transformation is introduced. SDL/window integration,
+shader rendering and game startup follow separate validation. Frozen000-004 remain.

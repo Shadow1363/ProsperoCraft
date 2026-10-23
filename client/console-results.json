@@ -69,6 +69,14 @@
       "reported_date": "2026-10-23",
       "milestone": "Client_GPU_Integration",
       "evidence": "User message: ALL PASS! immediately after client004 package and instructions to run all nine rows in order, with row8 Java/LWJGL GPU copy/fill/readback and row9 DestroyJavaVM."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.005",
+      "package_sha256": "89d959f891559b8bf4cbdd7ab6caa3a5a4f0cc0607c3ae109f0ffdbec3d72865",
+      "console": "pending; all ten rows in order; row9 standard LWJGL Vulkan GPU transfer and row10 DestroyJavaVM",
+      "change": "Ten rows: original standard LWJGL Vulkan structs/commands/capability tables via supported resident provider,12real GPU copy/fill/readback checks and3instance-device cycles; no Vulkan/game JAR rewrite, SDL or shaders.",
+      "host": "PASS actual original LWJGL Vulkan3.4.3 standard VK.create/VkInstance/VkDevice capability tables/structs/commands on physical MoltenVK1.4.1 host GPU;12 GPU copy-fill-readbacks8..65536/full Java word+guard checks/3instance-device lifecycles/duplicate-init rejection/loader cleanup under Java25 Xint/XcheckJNI/verify and real core UBSan. Target compile/signatures/actual loader+ICD+JNI+GPU exports/system imports/constructor ordering/scoped providers/54immutable JARs/exact002 moduleimage and native libs/frozen000-004/Fabric094/Paper108 hashes pass."
     }
   ]
 }

@@ -2,7 +2,8 @@
 import hashlib,json,os,re,shutil,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];LLVM=Path('/opt/homebrew/opt/llvm/bin')
-def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit):
+def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu",version="01.000.004"):
+ consumer=ROOT/"client"/variant
  def run(*args,**kw):subprocess.run(list(map(str,args)),check=True,env=dict(os.environ,LLVM_CONFIG=str(LLVM/'llvm-config')),**kw)
  build=runtime/'build/java25';sdk=runtime/'.tools/native-sdk/ps5-payload-sdk';graphics_sdk=ROOT/'.tools/graphics-sdk';native=runtime/'.tools/native-app/tooling/native'
  # Keep the runtime's exact module image/configuration/libraries and all54 pinned
@@ -42,14 +43,14 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit):
  objects=[]
  # Compile application/UI against the original runtime SDK. Only the isolated
  # graphics dependency/bridge uses the fork headers. Both use the same SDK ABI.
- for name,source in [('main',ROOT/'client/gpu/bootstrap.cpp'),('renderer',runtime/'native/renderer/demo_renderer.cpp'),('crt',native/'app_crt.cpp'),('cpp_runtime',native/'app_cpp_runtime.cpp')]:
+ for name,source in [('main',consumer/'bootstrap.cpp'),('renderer',runtime/'native/renderer/demo_renderer.cpp'),('crt',native/'app_crt.cpp'),('cpp_runtime',native/'app_cpp_runtime.cpp')]:
   obj=work/(name+'.o')
   run(LLVM/'clang++','-target','x86_64-sie-ps5','-fvisibility-nodllstorageclass=default','-isysroot',sdk,'-isystem',sdk/'target/include/c++/v1','-isystem',sdk/'target/include','-I'+str(runtime/'native/renderer'),'-I'+str(runtime/'build/native'),'-I'+str(runtime/'src'),'-I'+str(runtime/'native'),'-I'+str(work),'-I'+str(ROOT/'client/native'),'-I'+str(runtime/'java25/probe'),'-std=c++20','-O2','-Wall','-Wextra','-Werror','-fno-stack-protector','-fno-plt','-femulated-tls','-fno-exceptions','-fno-rtti','-ffunction-sections','-fdata-sections','-c',source,'-o',obj);objects.append(obj)
  stubs=[]
  for name in ['libSceAgc','libSceAgcDriver']:
   # Real native003 import declaration files, never executable implementations.
   stubs.append(ROOT/'build/client-graphics'/(name+'.so'))
- pie=work/'bootstrap-01.000.004-symbols.elf'
+ pie=work/('bootstrap-'+version+'-symbols.elf')
  run('bash',sdk/'bin/prospero-lld','-T',layout,'--eh-frame-hdr','--version-script',native/'app-symbols.map','--version-script',aliasmap,'-e','_start','-o',pie,*objects,*stubs,'@'+str(response),'--as-needed',*sorted((sdk/'target/lib').glob('*.so')))
  symbols=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(pie)],text=True);table={line.split()[-1]:int(line.split()[0],16)for line in symbols.splitlines()if len(line.split())==3}
  assert table['__init_array_start']==table['__init_array_end'],'Unstaged automatic constructor'
@@ -59,16 +60,16 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit):
  run(tool,'link','--in',pie,'--out',elf,'--stub-dir',sdk/'target/lib',*sum([['--stub',str(p)]for p in stubs],[]),'--module-sdk','0x02000009','--companion-sdk','0x08050001','--file-name','eboot.elf')
  app=work/'PPSA99874';shutil.rmtree(app,ignore_errors=True);(app/'sce_sys').mkdir(parents=True);(app/'sce_module').mkdir()
  run(tool,'self','--sign','--in',elf,'--out',app/'eboot.bin','--magic','0x1D3D154F')
- shutil.copyfile(ROOT/'client/gpu/param.json',app/'sce_sys/param.json');shutil.copyfile(runtime/'sce_sys/icon0.png',app/'sce_sys/icon0.png');shutil.copyfile(runtime/'build/native/libc.prx',app/'sce_module/libc.prx')
+ shutil.copyfile(consumer/'param.json',app/'sce_sys/param.json');shutil.copyfile(runtime/'sce_sys/icon0.png',app/'sce_sys/icon0.png');shutil.copyfile(runtime/'build/native/libc.prx',app/'sce_module/libc.prx')
  shutil.copytree(assets,app/'assets');shutil.copytree(runtime/'dist/PPSA99874/licenses',app/'licenses')
  shutil.copytree(ROOT/'build/client-graphics/PPSA99874/licenses',app/'licenses/graphics')
  for path in [app/'eboot.bin',app/'sce_module/libc.prx']:run(tool,'self','--inspect','--file',path)
  import zipfile
- dest=ROOT/'dist/client-gpu';dest.mkdir(exist_ok=True);package=dest/'PPSA99874.zip'
+ dest=ROOT/('dist/client-'+variant);dest.mkdir(exist_ok=True);package=dest/'PPSA99874.zip'
  with zipfile.ZipFile(package,'w',zipfile.ZIP_DEFLATED)as z:
   for p in sorted(app.rglob('*')):
    if p.is_file():
     info=zipfile.ZipInfo(str(p.relative_to(app.parent)));info.external_attr=0o100777<<16;info.compress_type=zipfile.ZIP_DEFLATED;z.writestr(info,p.read_bytes())
  shutil.copyfile(package,runtime/'dist/PPSA99874.zip')
  digest=hashlib.sha256(package.read_bytes()).hexdigest();(dest/'SHA256SUMS').write_text(digest+'  PPSA99874.zip\n')
- print('Client004 combined Java/LWJGL/GPU candidate SHA256',digest,'nine rows; console pending')
+ print('Client',version,'Java/LWJGL GPU candidate SHA256',digest,'console pending')
