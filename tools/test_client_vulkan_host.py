@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--java-home',required=True,type=Path);p.add_argument('--runtime-workspace',required=True,type=Path);a=p.parse_args()
 subprocess.run(['python3',str(ROOT/'tools/test_lwjgl_core.py'),'--java-home',str(a.java_home),'--runtime-workspace',str(a.runtime_workspace)],check=True)
-w=ROOT/'build/vulkan-host-007';w.mkdir(exist_ok=True)
+w=ROOT/'build/vulkan-host-008';w.mkdir(exist_ok=True)
 (w/'callback.c').write_text('''#include <jni.h>
 #include <stdio.h>
 static void note(JNIEnv*e,jclass c,jstring s){(void)c;const char*p=(*e)->GetStringUTFChars(e,s,NULL);if(p){puts(p);fflush(stdout);(*e)->ReleaseStringUTFChars(e,s,p);}}

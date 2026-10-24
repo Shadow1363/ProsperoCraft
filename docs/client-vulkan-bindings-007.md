@@ -11,3 +11,7 @@ The fixture now reports monotonic timestamps and separate checkpoints before/aft
 Install **PPSA99874 01.000.007** from `dist/client-vulkan/PPSA99874.zip` (also runtime workspace `dist/PPSA99874.zip`). Run all ten rows in order. Row9 still performs12 real GPU transfer/readback checks and three instance/device lifecycles; row10 destroys the JVM. If row9 does not finish after about a minute, preserve its displayed stage and reopen without running more rows so the saved reports can be collected. This is a diagnostic stopping point, not a validated completion-time guarantee.
 
 Host Java25 Xint/XcheckJNI/verification, real LWJGL core UBSan and physical MoltenVK GPU checks pass. Target packaging and frozen-artifact checks are recorded in `client/vulkan/status.json` after packaging. All ten PS5 rows require new console validation. No new milestone or release is established. SDL, shaders, game startup and the deferred server two-hour run remain unvalidated.
+
+## Subsequent console result
+
+007 failed row2 before JVM entry with ENOSPC while writing its trace header. See [008 storage recovery](client-vulkan-bindings-008.md). No new Vulkan result was obtained.

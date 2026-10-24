@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #include "demo_renderer.hpp"
 #include "log_share.hpp"
+#include "log_retention.hpp"
 #include "buffer_bridge.hpp"
 #include "client_classpath.hpp"
 #include "pad.h"
@@ -58,7 +59,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.007";
+constexpr const char* build_version="01.000.008";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -156,10 +157,19 @@ void run_test(int i) {
  if(i==0) {
   timespec now{};clock_gettime(CLOCK_REALTIME,&now);
   std::snprintf(run_id,sizeof(run_id),"client-%s-%lld-%ld",build_version,static_cast<long long>(now.tv_sec),now.tv_nsec);
+  // Explicit initialization starts a new run; menu-only relaunch preserves logs.
+  // These are diagnostic files only. No world, save or configuration is touched.
+  static char retained_tail[512*1024];
+  for(const char* path:{"/download0/java25-startup.log","/download0/java25-vm-trace.log"}) {
+   if(!ps5::log_retention::retain_tail(path,retained_tail,sizeof(retained_tail))) {
+    result(i,errno,"Cannot retain diagnostic tail; check storage");return;
+   }
+  }
   ps5::log_share::begin_session(build_version,run_id);
   startup_log=std::fopen("/download0/java25-startup.log","a");
   if(!startup_log) {result(i,errno,"Cannot open persistent startup log");return;}
   std::fprintf(startup_log,"\n=== CLIENT RUN %s BUILD %s ===\n",run_id,build_version);std::fflush(startup_log);
+  log_stage("Prior startup/VM diagnostic tails retained: max512KiB each before new run");
   log_stage("Begin embedded core constructors");
   size_t count=0;
   for(auto *fn=__jvm_init_array_start;fn!=__jvm_init_array_end;++fn) {if(*fn) {(*fn)();++count;}}
@@ -348,7 +358,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Client Vulkan Bindings 01.000.007",64,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Client Vulkan Bindings 01.000.008",64,rgb(238,242,250));
  c.label(103,163,"Upstream LWJGL Vulkan command tables and GPU readback. Native003 presentation preserved; no SDL/game yet.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=200+i*52;
@@ -390,10 +400,10 @@ void draw(Canvas &c) noexcept {
 }
 }
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU007 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU008 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Client Vulkan Bindings 01.000.007 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Client Vulkan Bindings 01.000.008 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;

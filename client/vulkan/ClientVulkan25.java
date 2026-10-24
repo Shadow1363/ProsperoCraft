@@ -11,7 +11,7 @@ import static org.lwjgl.vulkan.VK11.VK_API_VERSION_1_1;
 public final class ClientVulkan25 {
  public static native void checkpoint(String text);
  private static void check(int result,String call) {if(result!=VK_SUCCESS)throw new IllegalStateException(call+" VkResult="+result);}
- private static void stage(String text){checkpoint("LWJGL Vulkan007 @"+System.nanoTime()+"ns: "+text);}
+ private static void stage(String text){checkpoint("LWJGL Vulkan008 @"+System.nanoTime()+"ns: "+text);}
  private static void rejected(Runnable call) {
   try{call.run();}catch(IllegalStateException expected){return;}
   throw new AssertionError("Expected duplicate VK.create rejection");
@@ -47,7 +47,7 @@ public final class ClientVulkan25 {
   VkInstance instance=null;VkDevice device=null;long pool=0,fence=0;boolean incomplete=false;
   try(MemoryStack stack=MemoryStack.stackPush()) {
    PointerBuffer pointer=stack.mallocPointer(1);
-   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java LWJGL Vulkan007")).apiVersion(VK_API_VERSION_1_1);
+   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java LWJGL Vulkan008")).apiVersion(VK_API_VERSION_1_1);
    VkInstanceCreateInfo info=VkInstanceCreateInfo.calloc(stack).sType$Default().pApplicationInfo(app);
    stage("initialize original VK10 class before native instance call");
    try {Class.forName("org.lwjgl.vulkan.VK10");}catch(ClassNotFoundException e){throw new AssertionError(e);}
