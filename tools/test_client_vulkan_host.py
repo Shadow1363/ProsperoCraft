@@ -3,11 +3,11 @@
 import argparse,hashlib,json,os,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser(description=__doc__);p.add_argument('--java-home',required=True,type=Path);p.add_argument('--runtime-workspace',required=True,type=Path);p.add_argument('--shader',action='store_true');p.add_argument('--render',action='store_true');p.add_argument('--present',action='store_true');p.add_argument('--runtime-shader',action='store_true');p.add_argument('--texture',action='store_true');p.add_argument('--scene',action='store_true');a=p.parse_args()
-if sum([a.shader,a.render,a.present,a.runtime_shader,a.texture,a.scene])>1:p.error('Choose one candidate')
-fixture='ClientScene25' if a.scene else 'ClientTexture25' if a.texture else 'ClientRuntimeShader25' if a.runtime_shader else 'ClientPresentHost25' if a.present else 'ClientRender25' if a.render else 'ClientShader25' if a.shader else 'ClientVulkan25'
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--java-home',required=True,type=Path);p.add_argument('--runtime-workspace',required=True,type=Path);p.add_argument('--shader',action='store_true');p.add_argument('--render',action='store_true');p.add_argument('--present',action='store_true');p.add_argument('--runtime-shader',action='store_true');p.add_argument('--texture',action='store_true');p.add_argument('--scene',action='store_true');p.add_argument('--continuous',action='store_true');a=p.parse_args()
+if sum([a.shader,a.render,a.present,a.runtime_shader,a.texture,a.scene,a.continuous])>1:p.error('Choose one candidate')
+fixture='ClientContinuousHost25'if a.continuous else 'ClientScene25' if a.scene else 'ClientTexture25' if a.texture else 'ClientRuntimeShader25' if a.runtime_shader else 'ClientPresentHost25' if a.present else 'ClientRender25' if a.render else 'ClientShader25' if a.shader else 'ClientVulkan25'
 subprocess.run(['python3',str(ROOT/'tools/test_lwjgl_core.py'),'--java-home',str(a.java_home),'--runtime-workspace',str(a.runtime_workspace)],check=True)
-w=ROOT/('build/scene-host-022' if a.scene else 'build/texture-host-021' if a.texture else 'build/runtime-shader-host-015' if a.runtime_shader else 'build/present-host-011' if a.present else 'build/render-host-010' if a.render else 'build/shader-host-009' if a.shader else 'build/vulkan-host-008');w.mkdir(exist_ok=True)
+w=ROOT/('build/continuous-host-023'if a.continuous else 'build/scene-host-022' if a.scene else 'build/texture-host-021' if a.texture else 'build/runtime-shader-host-015' if a.runtime_shader else 'build/present-host-011' if a.present else 'build/render-host-010' if a.render else 'build/shader-host-009' if a.shader else 'build/vulkan-host-008');w.mkdir(exist_ok=True)
 callback='''#include <jni.h>
 #include <stdio.h>
 static void note(JNIEnv*e,jclass c,jstring s){(void)c;const char*p=(*e)->GetStringUTFChars(e,s,NULL);if(p){puts(p);fflush(stdout);(*e)->ReleaseStringUTFChars(e,s,p);}}
@@ -37,7 +37,10 @@ if a.runtime_shader:
   for info in src.infolist():out.writestr(info,hashlib.sha1(hostlib.read_bytes()).hexdigest().encode()if info.filename==resource else src.read(info.filename))
  cp+=':'+str(paired);extra=[str(sdlhost)];properties=['-Dps5.test.shadercLibrary='+str(hostlib)]
 sources=[ROOT/'client/vulkan/ClientVulkan25.java']
-if a.scene:
+if a.continuous:
+ from compile_client_scene import compile_scene
+ sources=[ROOT/'client/continuous/ClientContinuousHost25.java',ROOT/'client/continuous/ClientDirectScene25.java',ROOT/'client/scene/ClientScene25.java',compile_scene()]
+elif a.scene:
  from compile_client_scene import compile_scene
  # Host-only hook calls a genuine GPU blit verifier after target scene pixels
  # have passed; all original rendering/reference code stays the same.
@@ -66,7 +69,11 @@ env=dict(os.environ,PS5_RENDER_READBACK_PATH=str(w/'readback.rgba'),UBSAN_OPTION
 result=subprocess.run([str(a.java_home/'bin/java'),'-Xint','-Xcheck:jni','-Xverify:all','--enable-native-access=ALL-UNNAMED','--add-exports=java.base/jdk.internal.misc=ALL-UNNAMED',*properties,'-Dps5.test.vulkanLibrary=/opt/homebrew/lib/libMoltenVK.dylib','-Djava.library.path='+str(ROOT/'build/client-ports/lwjgl-native/host'),'-cp',str(w)+':'+cp,'RunVulkan',str(w/'libcallback.dylib'),*extra],env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=120)
 (w/'result.log').write_text(result.stdout);result.check_returncode()
 for marker in ['runtime error:','WARNING in native method','FATAL ERROR in native method','Exception in thread','Failed to locate address']:assert marker not in result.stdout,marker
-if a.scene:
+if a.continuous:
+ assert result.stdout.count('draw graphics cycle')==27
+ assert result.stdout.count('all pixels/guards PASS')==3
+ assert 'PASS direct renderer host:81 draws' in result.stdout
+elif a.scene:
  assert result.stdout.count('draw graphics cycle')==9
  assert result.stdout.count('all pixels/guards PASS')==3
  assert 'PASS scene/perspective/vertices:27 draws' in result.stdout
@@ -98,5 +105,5 @@ else:
  assert result.stdout.count('bindings and GPU byte checks PASS')==3
  assert 'PASS unmodified LWJGL Vulkan bindings:12 GPU transfers,3 instance/device lifecycles, VK loader cleanup'in result.stdout
 assert hashlib.sha256(vulkan.read_bytes()).hexdigest()==row['sha256']
-summary='Scene022 real vertex buffer/perspective UV/full readback/depth-blend controls;27draws/9images+guards/3lifecycles. SDL presentation not exercised on host' if a.scene else 'Texture021 actual uploads/combined sampler/D32 depth reject and disabled control/alpha blend and disabled control;27draws/9full256x256images+guards/3lifecycles' if a.texture else 'RuntimeShader015 actual shaderc valid/invalid compiler controls/3compilers/18GPU dispatches/full output+guards' if a.runtime_shader else 'Present011 HOST OFFSCREEN ONLY: presentation shader/BGRA output/push constants,9 draws/full pixels+guards/3lifecycles. PS5 display/surface/swapchain/acquire/present NOT EXERCISED' if a.present else '9graphics draws/full256x256 pixels+guards/3graphics lifecycles/readback image' if a.render else '18compute dispatches/1,63,64,65,1024,4096 words/full output+guards/3pipeline lifecycles' if a.shader else '12copy-fill-readbacks/full output+guards/3instance-device lifecycles/duplicate-init rejection'
+summary='Continuous023 shared actual direct BGRA renderer:81draws/27full images+guards/3sessions/all3phases. Host targets offscreen;PS5 SDL swapchain not exercised' if a.continuous else 'Scene022 real vertex buffer/perspective UV/full readback/depth-blend controls;27draws/9images+guards/3lifecycles. SDL presentation not exercised on host' if a.scene else 'Texture021 actual uploads/combined sampler/D32 depth reject and disabled control/alpha blend and disabled control;27draws/9full256x256images+guards/3lifecycles' if a.texture else 'RuntimeShader015 actual shaderc valid/invalid compiler controls/3compilers/18GPU dispatches/full output+guards' if a.runtime_shader else 'Present011 HOST OFFSCREEN ONLY: presentation shader/BGRA output/push constants,9 draws/full pixels+guards/3lifecycles. PS5 display/surface/swapchain/acquire/present NOT EXERCISED' if a.present else '9graphics draws/full256x256 pixels+guards/3graphics lifecycles/readback image' if a.render else '18compute dispatches/1,63,64,65,1024,4096 words/full output+guards/3pipeline lifecycles' if a.shader else '12copy-fill-readbacks/full output+guards/3instance-device lifecycles/duplicate-init rejection'
 print('PASS original LWJGL Vulkan3.4.3, standard command bindings:',summary,'; Java25 Xint/XcheckJNI/verify + real core UBSan + MoltenVK physical host GPU. PS5 pending.')

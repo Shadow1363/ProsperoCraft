@@ -10,7 +10,7 @@
   "conceptId": "99874",
   "contentBadgeType": 1,
   "contentId": "IV9999-PPSA99874_00-MCSERVERBOOT0001",
-  "contentVersion": "01.000.022",
+  "contentVersion": "01.000.023",
   "downloadDataSize": 256,
   "gameIntent": {
     "permittedIntents": [
@@ -22,7 +22,7 @@
   "localizedParameters": {
     "defaultLanguage": "en-US",
     "en-US": {
-      "titleName": "Minecraft Java Client Perspective Scene"
+      "titleName": "Minecraft Java Client Continuous Scene"
     }
   },
   "masterVersion": "01.00",

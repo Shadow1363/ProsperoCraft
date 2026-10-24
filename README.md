@@ -52,6 +52,15 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Current client candidate: Continuous Direct Scene023
+
+[Client023](docs/client-continuous-023.md) draws the perspective scene into each
+acquired SDL swapchain image,with three checked phases and at least180FIFO
+frames. It replaces the static scene upload/blit handoff. The shared renderer
+passes81draws/27full-image checks on the host GPU; fifteen PS5 checks and visible
+pastel/blue/white phases remain pending. Frozen022 is preserved. Camera controls
+and game startup remain ahead.
+
 ## Client Visible Perspective Scene — PS5 ALL15 PASS
 
 Client **01.000.022** passes all fifteen checks; the user reports **“all pass.”**

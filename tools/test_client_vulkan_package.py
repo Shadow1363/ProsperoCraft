@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1];LLVM=Path('/opt/homebrew/opt/llvm/bin')
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--runtime-workspace',type=Path,required=True);p.add_argument('--shader',action='store_true');p.add_argument('--render',action='store_true');p.add_argument('--present',action='store_true');p.add_argument('--sdl',action='store_true');p.add_argument('--runtime-shader',action='store_true');a=p.parse_args()
 if sum([a.shader,a.render,a.present,a.sdl,a.runtime_shader])>1:p.error('Choose one candidate')
 runtime=a.runtime_workspace.resolve()
-variant='runtime_shader' if a.runtime_shader else 'sdl' if a.sdl else 'present' if a.present else 'render' if a.render else 'shader' if a.shader else 'vulkan';version='01.000.022' if a.runtime_shader else '01.000.014' if a.sdl else '01.000.011' if a.present else '01.000.010' if a.render else '01.000.009' if a.shader else '01.000.008'
+variant='runtime_shader' if a.runtime_shader else 'sdl' if a.sdl else 'present' if a.present else 'render' if a.render else 'shader' if a.shader else 'vulkan';version='01.000.023' if a.runtime_shader else '01.000.014' if a.sdl else '01.000.011' if a.present else '01.000.010' if a.render else '01.000.009' if a.shader else '01.000.008'
 work=ROOT/('build/client-'+variant+'-probe');package=ROOT/('dist/client-'+variant)/'PPSA99874.zip';sha=lambda b:hashlib.sha256(b).hexdigest()
 elf=work/('bootstrap-'+version+'-symbols.elf');raw=elf.read_bytes()
 text=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(elf)],text=True)
@@ -53,7 +53,7 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_L
  assert all(param[k]==base[k]for k in ['titleId','conceptId','contentId'])
  assert not any(name.endswith(('.pcm','.at9'))for name in z.namelist())
  assert not any('/sounds/'in name or '/libSceAgc.so'in name or '/libSceAgcDriver.so'in name for name in z.namelist())
- assert (('Client Visible Perspective Scene ' if a.runtime_shader else 'Client SDL Window Input ' if a.sdl else 'Client Direct Presentation ' if a.present else 'Client Graphics Pipeline ' if a.render else 'Client Shader Pipeline ' if a.shader else 'Client Vulkan Bindings ')+version).encode()in z.read(prefix+'eboot.bin')
+ assert (('Client Continuous Direct Scene ' if a.runtime_shader else 'Client SDL Window Input ' if a.sdl else 'Client Direct Presentation ' if a.present else 'Client Graphics Pipeline ' if a.render else 'Client Shader Pipeline ' if a.shader else 'Client Vulkan Bindings ')+version).encode()in z.read(prefix+'eboot.bin')
  assert b'ClientGpu25'in z.read(prefix+'eboot.bin')and b'-Xint'in z.read(prefix+'eboot.bin')
  fixture=z.read(prefix+'assets/java25/classes/ClientVulkan25.class')
  assert b'mapLibraryName'in fixture and b'ps5clientgpu'in fixture
@@ -75,7 +75,7 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_L
  assert audit['vulkan_binding']['fixture_source_sha256']==sha((ROOT/'client/vulkan/ClientVulkan25.java').read_bytes())
  core=json.loads(z.read(prefix+'assets/java25/lwjgl-native-audit.json'))
  assert groups[2]['objects_sha256']==list(core['objects_sha256'].values())
- for klass in ['ClientGpu25','ClientLwjglCore25','ClientVulkan25']+(['ClientShader25','ClientShaderCode25'] if a.shader or a.render or a.present or a.sdl or a.runtime_shader else [])+(['ClientRender25','ClientRenderCode25'] if a.render else [])+(['ClientPresent25','ClientPresentCode25'] if a.present else [])+(['ClientSceneSDL25'if a.runtime_shader else'ClientSDL25','ClientPresentCode25'] if a.sdl or a.runtime_shader else [])+(['ClientRuntimeShader25','ClientTexture25','ClientTextureCode25','ClientScene25','ClientSceneCode25']if a.runtime_shader else []):
+ for klass in ['ClientGpu25','ClientLwjglCore25','ClientVulkan25']+(['ClientShader25','ClientShaderCode25'] if a.shader or a.render or a.present or a.sdl or a.runtime_shader else [])+(['ClientRender25','ClientRenderCode25'] if a.render else [])+(['ClientPresent25','ClientPresentCode25'] if a.present else [])+(['ClientContinuousSDL25'if a.runtime_shader else'ClientSDL25','ClientPresentCode25'] if a.sdl or a.runtime_shader else [])+(['ClientRuntimeShader25','ClientTexture25','ClientTextureCode25','ClientScene25','ClientSceneCode25','ClientDirectScene25']if a.runtime_shader else []):
   assert z.read(prefix+'assets/java25/classes/'+klass+'.class')==(work/'classes'/(klass+'.class')).read_bytes()
  if a.shader or a.render or a.present or a.sdl or a.runtime_shader:
   shader_audit=json.loads(z.read(prefix+'assets/java25/shader-audit.json'))
@@ -106,8 +106,8 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_L
    assert sha(z.read(prefix+'assets/java25/shaders/present/'+name))==entry['glsl_sha256']
    assert sha(z.read(prefix+'assets/java25/shaders/present/'+name+'.spv'))==entry['spirv_sha256']
    assert z.read(prefix+'assets/java25/shaders/present/'+name)==(ROOT/'client/present'/name).read_bytes()
-  present=z.read(prefix+'assets/java25/classes/'+('ClientSceneSDL25'if a.runtime_shader else'ClientSDL25'if a.sdl else'ClientPresent25')+'.class')
-  for name in [*([b'SDL_Vulkan_CreateSurface',b'SDL_PollEvent',b'SDL_GetGamepadAxis']if a.sdl or a.runtime_shader else[b'vkCreateDisplayPlaneSurfaceKHR']),b'vkCreateSwapchainKHR',b'vkAcquireNextImageKHR',b'vkQueuePresentKHR',*([b'vkCmdBlitImage',b'latestPixels']if a.runtime_shader else[b'vkCmdDraw']),b'vkCmdCopyImageToBuffer']:assert name in present,name
+  present=z.read(prefix+'assets/java25/classes/'+('ClientContinuousSDL25'if a.runtime_shader else'ClientSDL25'if a.sdl else'ClientPresent25')+'.class')
+  for name in [*([b'SDL_Vulkan_CreateSurface',b'SDL_PollEvent',b'SDL_GetGamepadAxis']if a.sdl or a.runtime_shader else[b'vkCreateDisplayPlaneSurfaceKHR']),b'vkCreateSwapchainKHR',b'vkAcquireNextImageKHR',b'vkQueuePresentKHR',*([b'ClientDirectScene25',b'record']if a.runtime_shader else[b'vkCmdDraw']),b'vkCmdCopyImageToBuffer']:assert name in present,name
   native_calls=subprocess.check_output([str(LLVM/'llvm-nm'),'--undefined-only',str(work/'main.o')],text=True)
   assert 'sceVideoOutOpen'not in native_calls and 'run_ui'not in native_calls
   for name in ['wsi_CreateSwapchainKHR','wsi_AcquireNextImageKHR','wsi_QueuePresentKHR']:assert symbols.get(name),name
@@ -116,7 +116,7 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_L
   assert sha((work/'resident-sdl.o').read_bytes())==sdl['scoped_object_sha256']==groups[3]['objects_sha256'][0]
   for name in ['SDL_Init','SDL_CreateWindow','SDL_PollEvent','SDL_GetGamepadAxis','SDL_Vulkan_CreateSurface','SDL_Vulkan_GetInstanceExtensions','PS5_bootstrap','SDL_PS5_JoystickDriver']:assert symbols.get(name),name
   assert 'libps5sdl.so' in registry
-  assert b'No SDL gamepad after10s' in z.read(prefix+'assets/java25/classes/'+('ClientSceneSDL25'if a.runtime_shader else'ClientSDL25')+'.class')
+  assert b'No SDL gamepad after10s' in z.read(prefix+'assets/java25/classes/'+('ClientContinuousSDL25'if a.runtime_shader else'ClientSDL25')+'.class')
   assert symbols.get('client_sdl_diagnostic')
   assert z.read(prefix+'assets/java25/classes/ClientVulkan25$Allocation.class')==(work/'classes/ClientVulkan25$Allocation.class').read_bytes()
   assert b'Packaged fixture companion defined'in z.read(prefix+'eboot.bin')
@@ -124,7 +124,7 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_L
   for name in ['SDL-LICENSE.txt','Zlib.txt','MIT.txt']:assert z.read(prefix+'assets/java25/sdl-licenses/'+name)
  if a.runtime_shader:
   bootstrap=(ROOT/'client/runtime_shader/bootstrap.cpp').read_text()
-  assert 'i==8 || i==9 || i==12 || i==13' in bootstrap and 'i>=8 && i<=11'not in bootstrap
+  assert 'i==8 || i==9 || i==10 || i==12 || i==13' in bootstrap and 'i>=8 && i<=11'not in bootstrap
   assert 'step==10?11:step==11?12:step==12?13:step==13?10:step' in bootstrap
   allocation=json.loads(z.read(prefix+'assets/java25/cpp-allocation-audit.json'))
   cpp=work/'cpp_runtime.o'
@@ -134,6 +134,11 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_L
   refs={line.split()[-1]for line in undefined.splitlines()if line.split()}
   assert set(allocation['bindings'].values())<=refs and not {'malloc','free','posix_memalign'}&refs
   assert 'test_count=15'in bootstrap and 'i<=13'in bootstrap
+  direct=z.read(prefix+'assets/java25/classes/ClientDirectScene25.class')
+  for name in [b'vkCmdDraw',b'vkCmdBindVertexBuffers',b'vkCmdBeginRenderPass',b'expected',b'verify']:assert name in direct,name
+  presenter=z.read(prefix+'assets/java25/classes/ClientContinuousSDL25.class')
+  for name in [b'vkCmdBlitImage',b'latestPixels']:assert name not in presenter,name
+  assert prefix+'assets/java25/classes/ClientContinuousHost25.class' not in z.namelist()
   scene_audit=json.loads(z.read(prefix+'assets/java25/scene-audit.json'))
   for entry in scene_audit['files']:
    name=entry['source']
@@ -183,4 +188,4 @@ assert package.read_bytes()==(runtime/'dist/PPSA99874.zip').read_bytes()
 assert (ROOT/('dist/client-'+variant)/'SHA256SUMS').read_text().split()[0]==sha(package.read_bytes())
 for folder,digest in [('Client_Foundation-01.000.000','e2eb90a727fc670418437937b292b152c5177e3e02077aa114049bc6c9c11fbf'),('Client_Native_Loading-01.000.001','abc6aef0f162d9d134dec298742f27dfdb91a80345bb81ac54498239d34fd890'),('Client_LWJGL_Core-01.000.002','d0b9f815ff68c5ad821b2166509879c623c813019d2f70bbacf53769f35e3971'),('Client_Native_Graphics-01.000.003','82895fc3d9381a08c61f979e9ba33a56943ea5f890830786c7dd4c1c684bf812'),('Client_GPU_Integration-01.000.004','0077d9f72e7a468e16bacfc075527c096d68decab1849e1252ba18405cf444b5'),('Client_Vulkan_Bindings-01.000.008','d6132b1f56fbbc892577019ec3b86a6abcd31b2dc50b670543afa5cb9596ddb4'),('Client_Shader_Pipeline-01.000.009','e26c108d72dfe139c5f53cd2c2620685a9e918dcc801cb82878b920a6cd9bebb'),('Client_Graphics_Pipeline-01.000.010','514205b2940c8e7044aa034b820846758d5442f9f19dee4875c59aa9ec3089ef'),('Client_Direct_Presentation-01.000.011','1cc3e1f62a6495e1d110ab3eed80d2e1b73231b23bc428045383e2d47e41d86b'),('Client_SDL_Window_Input-01.000.014','dfa391acfe93a63330b6c98616237906859287bb6ad21e380265a240151dbd1b'),('Client_Runtime_Shader-01.000.020','4573723d3947f005f7389d82737505b17581fc36ba0f2c1b3ba0b42dca2bb552'),('Client_Texture_Depth_Blend-01.000.021','5adbcd8dda4e355c69ab027c4630c0603bb095250e9afb2251e678ce9e58bc81'),('Client_Visible_Perspective_Scene-01.000.022','9d49135a4dcbd66e93ef496e442c7845964e08aa6664c9dc26546a94196e450e')]:assert sha((ROOT/'dist/milestones'/folder/'PPSA99874-full-local.zip').read_bytes())==digest
 for version,digest in [('094','97ec74c40b9c495884130f9dae0ab10bf393e521265cbe82177f06190176df2d'),('108','18dc7f06d59ff11b33c7e96b85f813a28a2cb19638fe0d6eacfd4224513781e7')]:assert sha((runtime/'build/java25'/f'PPSA99874-{version}-full-local.zip').read_bytes())==digest
-print(('RuntimeShader022 real compiler exports/explicit constructor lifecycle/5resident groups/GLSL fixture; 'if a.runtime_shader else 'SDL014 real video/joystick/Vulkan exports/four resident groups/licenses and scoped object checks; ' if a.sdl else 'Present011 original KHR display/swapchain/graphics/present commands; no CPU display calls in bootstrap; ' if a.present else 'Render010 vertex/fragment modules/actual graphics commands/readback publish; ' if a.render else 'Shader009 validated SPIR-V/actual compute pipeline and dispatch binding symbols; ' if a.shader else '')+'PASS Vulkan baseline actual ELF:359 deferred JVM constructors,4 explicit priority-correct GPU constructors/no automatic startup; real JNI/GPU exports/imports, scoped allocator/thread/zlib and real TLS callback; CRC/signatures/54upstream pins/exact002 moduleimage and native libraries/resident groups/object hashes and preserved000-003/Fabric094/Paper108. PS5 console pending. SHA256',sha(package.read_bytes()))
+print(('RuntimeShader023 real compiler exports/explicit constructor lifecycle/5resident groups/GLSL fixture; 'if a.runtime_shader else 'SDL014 real video/joystick/Vulkan exports/four resident groups/licenses and scoped object checks; ' if a.sdl else 'Present011 original KHR display/swapchain/graphics/present commands; no CPU display calls in bootstrap; ' if a.present else 'Render010 vertex/fragment modules/actual graphics commands/readback publish; ' if a.render else 'Shader009 validated SPIR-V/actual compute pipeline and dispatch binding symbols; ' if a.shader else '')+'PASS Vulkan baseline actual ELF:359 deferred JVM constructors,4 explicit priority-correct GPU constructors/no automatic startup; real JNI/GPU exports/imports, scoped allocator/thread/zlib and real TLS callback; CRC/signatures/54upstream pins/exact002 moduleimage and native libraries/resident groups/object hashes and preserved000-003/Fabric094/Paper108. PS5 console pending. SHA256',sha(package.read_bytes()))
