@@ -210,3 +210,14 @@ offscreen,new graphics shaders compiled offline; visible SDL tiles remain the
 baseline. No game/Java JAR or JVM/SDK changes. Visible textured scene,perspective/
 vertex buffers,larger shaders,game startup,global teardown and endurance remain
 unvalidated. Continue development outside frozen folders.
+
+Client_Visible_Perspective_Scene is the frozen passing client022 milestone,
+PPSA99874 version01.000.022,human all pass on2026-10-24. Saved ALL15 PASS
+confirms real vertex-buffer/perspective-correct sampled scene27draws/9full
+images+guards,actual verified GPU readback/upload/blit through SDL295FIFO
+frames with physical event/state masks15,and JVM shutdown. Preserve exact
+source/package/symbols. Static visible panel uses explicit readback/re-upload/
+blit handoff,not continuous scene rendering directly into swapchain or camera
+control. No game/Java JAR/JVM/SDK changes. Direct/continuous rendering,index
+buffers/camera,larger workloads,game startup,global teardown and endurance
+remain unvalidated. Continue development outside frozen folders.

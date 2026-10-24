@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Status: Fabric/Paper playtests and client texture/depth/blending pass on PS5.** Client **01.000.021** passes fourteen checks: real offscreen texture upload/depth/blend controls,27draws/9full-image checks,existing runtime shader compilation,SDL input/display and JVM shutdown. Minecraft startup and wider rendering remain ahead; server two-hour endurance stays deferred.
+> **Status: Fabric/Paper playtests and a visible perspective-textured client scene pass on PS5.** Client **01.000.022** passes fifteen checks: real vertex-buffer rendering/full image verification,actual GPU readback upload/blit through SDL,295FIFO frames with physical input,and JVM shutdown. Continuous/direct scene rendering and Minecraft startup remain ahead; server two-hour endurance stays deferred.
 
 ## The goal
 
@@ -52,15 +52,21 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: Visible Perspective Scene022
+## Client Visible Perspective Scene — PS5 ALL15 PASS
 
-[Client022](docs/client-scene-022.md) adds a real vertex buffer and perspective-
-correct textured panel,checked against an independent full-image reference.
-Its actual GPU readback is uploaded and blitted through SDL for a static visible
-scene on magenta. This handoff is explicit; continuous/direct swapchain scene
-rendering and camera movement remain ahead. Host rendering and GPU conversion/
-scaling checks pass; fifteen PS5 checks and visual confirmation are pending.
-Frozen021 remains the passing texture/depth/blend baseline.
+Client **01.000.022** passes all fifteen checks; the user reports **“all pass.”**
+Saved logs confirm real vertex-buffer/perspective texture rendering,27draws/
+9full-image checks with depth/blend controls,295SDL FIFO frames with physical
+event/state masks15,and JVM shutdown. The visible static panel uses the actual
+verified GPU readback,uploaded once and blitted to the swapchain. This handoff
+remains distinct from continuous scene rendering directly into the swapchain.
+
+Exact tested source/package and evidence are frozen in
+[Client_Visible_Perspective_Scene](Client_Visible_Perspective_Scene/README.md),with a
+[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Visible_Perspective_Scene-v01.000.022)
+and [validation record](Client_Visible_Perspective_Scene/validation.json).
+Continuous/direct rendering,camera movement,index buffers,larger workloads,
+Minecraft startup and full native teardown remain ahead; endurance stays deferred.
 
 ## Client Texture,Depth and Blending — PS5 ALL14 PASS
 
@@ -403,6 +409,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client Visible Perspective Scene · 01.000.022** | PS5 ALL15 PASS:vertex-buffer perspective scene,verified image handoff,295SDL FIFO frames/input and JVM shutdown | [Frozen source & validation](Client_Visible_Perspective_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Visible_Perspective_Scene-v01.000.022) |
 | **Client Texture/Depth/Blend · 01.000.021** | PS5 ALL14 PASS:3texture uploads,27draws/9full images+guards,depth/blend controls,SDL318frames and JVM shutdown | [Frozen source & validation](Client_Texture_Depth_Blend) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Texture_Depth_Blend-v01.000.021) |
 | **Client Runtime Shader · 01.000.020** | PS5 ALL13 PASS: real runtime GLSL/error controls,18 GPU outputs,SDL input/display252frames and JVM shutdown | [Frozen source & validation](Client_Runtime_Shader) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Runtime_Shader-v01.000.020) |
 | **Client SDL Window/Input · 01.000.014** | PS5 automated/input/visual PASS: actual SDL window/surface, physical gamepad events+state,537 GPU frames and JVM shutdown | [Frozen source & validation](Client_SDL_Window_Input) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SDL_Window_Input-v01.000.014) |

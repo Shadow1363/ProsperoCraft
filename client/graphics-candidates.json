@@ -1,5 +1,5 @@
 {
-  "status": "021 texture/depth/blend milestone frozen ALL14 PASS;022 perspective vertex-buffer scene/SDL verified-readback blit candidate host GPU PASS,PS5 pending",
+  "status": "022 ALL15 PASS:real perspective/vertex scene with full image checks,verified readback/upload/blit,295SDL FIFO frames/input masks15 and JVM shutdown;frozen Client_Visible_Perspective_Scene",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "022 fifteen PS5 checks and visible pastel panel on magenta with physical SDL inputs. Continuous/direct scene rendering,indexing/camera/game startup/global teardown and endurance remain ahead."
+  "next": "Continuous scene rendering directly into swapchain,camera movement/index buffers and later Minecraft startup. Larger workloads,global teardown and endurance remain unvalidated."
 }

@@ -65,3 +65,13 @@ verifier exclusion,paired C++ allocator/staged constructors,original54 JARs/
 exact runtime libraries,CRC/signatures and preserved021/020/earlier/server
 packages. PS5 all15 and visible scene acceptance remain pending.
 Package SHA-256: `9d49135a4dcbd66e93ef496e442c7845964e08aa6664c9dc26546a94196e450e`.
+
+## Console acceptance2026-10-24
+
+Human “all pass” after explicit ALL15/visible-panel instructions and retrieved
+run client-01.000.022-1792845723-859007196 confirm ALL15 PASS. Scene27draws/
+9full images+guards and295SDL FIFO frames with36samples+256guards/frame,
+eventMask15/stateMask15,and DestroyJavaVM complete are recorded. Exact package/
+source/symbols are frozen in Client_Visible_Perspective_Scene. Earlier pending
+statements describe the pre-test candidate; the frozen validation records this
+subsequent pass while preserving the static handoff and other limitations.
