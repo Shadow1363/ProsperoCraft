@@ -1,11 +1,11 @@
 {
-  "stage": "Client SDL Window/Input013 candidate \u2014 explicit fixture companions",
+  "stage": "Client SDL Window/Input014 candidate \u2014 bootstrap-owned pad init and bounded discovery",
   "date": "2026-10-24",
   "title_id": "PPSA99874",
-  "app_version": "01.000.013",
-  "package_sha256": "a271f1121daab78239a23717dbca0433caf525b4f99e0c3884310371757ec62d",
-  "console": "pending; all twelve013 automatic checks, physical SDL inputs and visual confirmation",
-  "host": "PASS013 target compile/link/CRC/signatures/explicit companion-loading bootstrap and packaged helper bytecode, actual SDL exports/four resident libraries/scoped SDL hash/licenses/54 original JARs/exact002 image-native libs/359+4 staged constructors/frozen000-004/008-011/Fabric094/Paper108 checks. Existing real host SDL virtual-input event/state test PASS remains applicable; SDL and Java bytecode unchanged. PS5 retest pending.",
+  "app_version": "01.000.014",
+  "package_sha256": "dfa391acfe93a63330b6c98616237906859287bb6ad21e380265a240151dbd1b",
+  "console": "pending; all twelve014 checks, real SDL controller events/state and full-screen confirmation",
+  "host": "PASS actual input adapter with host OS-call fixtures under ASan/UBSan: no repeated scePadInit, user/open/read/button/axis/release/disconnect paths. Existing real macOS SDL virtual-input Java event/state/ABI checks remain applicable; PS5 hardware not validated.014 target package PASS: native exports/diagnostic callback/bounded discovery and companion classes, scoped SDL source/object hashes/licenses/54 original JARs/exact002 image-native libs/signatures/constructors/frozen000-004/008-011/Fabric094/Paper108.",
   "scope": "Actual resident SDL3.4.2 public PS5 video/joystick backend adapted for real resident Vulkan/display query/surface hooks. Original Java SDL/Vulkan and game JARs unchanged. Polling input only; no libffi callback/audio/rumble/LED claim.",
   "lifecycle": "SDL window/gamepad and native GPU display resources retained through DestroyJavaVM until app close. Teardown/resize/focus/reconnect/timeout recovery unvalidated.",
   "runtime_source_modified": false,
@@ -14,5 +14,5 @@
   "upstream_sdl_java_jar_modified": false,
   "baseline": "Frozen000-004 and008-011 preserved",
   "server_two_hour_endurance": "pending; explicitly deferred",
-  "previous_failure": "012 check9 before SDL: NoClassDefFoundError ClientVulkan25$Allocation despite class present in exact ZIP/JAR. Underlying classpath/deployment cause unresolved. Explicit native DefineClass for fixture companions added in013."
+  "previous_failure": "013 check11 no SDL gamepad after successful earlier Vulkan/compute checks and returned SDL window creation. Repeated pad initialization and immediate empty inventory are suspected; native reason unproven.014 reuses bootstrap service init, bounded10s real discovery and persistent native diagnostics."
 }

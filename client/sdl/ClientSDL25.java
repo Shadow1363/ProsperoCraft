@@ -20,12 +20,12 @@ import static org.lwjgl.sdl.SDLEvents.*;
 /** Direct PS5 display probe. No CPU VideoOut owner, SDL or game launch. */
 public final class ClientSDL25 {
  public static native void checkpoint(String text);
- private static void stage(String text){checkpoint("SDL012 @"+System.nanoTime()+"ns: "+text);}
+ private static void stage(String text){checkpoint("SDL014 @"+System.nanoTime()+"ns: "+text);}
  private static void check(int result,String call){if(result!=VK_SUCCESS)throw new IllegalStateException(call+" VkResult="+result+"; close/reopen app; partial native/display resources retained");}
  private static int expected(int x,int y,int phase){if(x<16||y<16||x>=240||y>=240)return 0xff000000;if(Math.abs(x-y)<3)return 0xffffffff;return switch((x/32+y/32+phase)%4){case 0->0xffff0000;case 1->0xff00ff00;case 2->0xff0000ff;default->0xffffff00;};}
  private static long window,pad;private static int inputMask,stateMask;private static boolean armed;
  private static void sdl(boolean result,String call){if(!result)throw new IllegalStateException(call+": "+SDL_GetError());}
- private static void ask(String text){checkpoint("SDL012 USER:"+text);}
+ private static void ask(String text){checkpoint("SDL014 USER:"+text);}
  private static void input(MemoryStack stack) {
   SDL_Event event=SDL_Event.calloc(stack);
   while(SDL_PollEvent(event)) {
@@ -48,7 +48,7 @@ public final class ClientSDL25 {
   // success or failure. Reacquisition, teardown and timeout recovery are not tested.
   try(MemoryStack stack=MemoryStack.stackPush()) {
    PointerBuffer ptr=stack.mallocPointer(1);LongBuffer handle=stack.mallocLong(1);IntBuffer count=stack.mallocInt(1);
-   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java SDL012")).apiVersion(VK_API_VERSION_1_1);
+   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java SDL014")).apiVersion(VK_API_VERSION_1_1);
    VkInstanceCreateInfo ii=VkInstanceCreateInfo.calloc(stack).sType$Default().pApplicationInfo(app).ppEnabledExtensionNames(SDL_Vulkan_GetInstanceExtensions());
    stage("create instance with SDL-provided Vulkan extensions");check(vkCreateInstance(ii,null,ptr),"vkCreateInstance");VkInstance instance=new VkInstance(ptr.get(0),ii);
    check(vkEnumeratePhysicalDevices(instance,count,null),"count devices");if(count.get(0)<1||count.get(0)>16)throw new AssertionError("GPU count");PointerBuffer devices=stack.mallocPointer(count.get(0));check(vkEnumeratePhysicalDevices(instance,count,devices),"enumerate devices");VkPhysicalDevice physical=new VkPhysicalDevice(devices.get(0),instance);
@@ -113,10 +113,22 @@ public final class ClientSDL25 {
   if(!"ps5".equals(SDL_GetCurrentVideoDriver()))throw new AssertionError("Expected actual PS5 SDL video backend: "+SDL_GetCurrentVideoDriver());
   try(MemoryStack stack=MemoryStack.stackPush()) {
    int display=SDL_GetPrimaryDisplay();SDL_DisplayMode mode=SDL_GetCurrentDisplayMode(display);if(mode==null)throw new IllegalStateException("SDL display mode: "+SDL_GetError());
-   window=SDL_CreateWindow("PS5 Java SDL012",mode.w(),mode.h(),SDL_WINDOW_VULKAN|SDL_WINDOW_FULLSCREEN);if(window==0)throw new IllegalStateException("SDL_CreateWindow: "+SDL_GetError());
-   java.nio.IntBuffer pads=SDL_GetGamepads();if(pads==null||pads.remaining()==0)throw new IllegalStateException("No SDL gamepad: "+SDL_GetError());
-   try{pad=SDL_OpenGamepad(pads.get(0));}finally{org.lwjgl.sdl.SDLStdinc.SDL_free(pads);}
-   if(pad==0)throw new IllegalStateException("SDL_OpenGamepad: "+SDL_GetError());stage("real SDL video="+SDL_GetCurrentVideoDriver()+" version="+SDLVersion.SDL_GetVersion()+" gamepad="+SDL_GetGamepadName(pad));
+   window=SDL_CreateWindow("PS5 Java SDL014",mode.w(),mode.h(),SDL_WINDOW_VULKAN|SDL_WINDOW_FULLSCREEN);if(window==0)throw new IllegalStateException("SDL_CreateWindow: "+SDL_GetError());
+   long discoveryDeadline=System.nanoTime()+10_000_000_000L;
+   int joystickCount=0;
+   while(pad==0 && System.nanoTime()<discoveryDeadline) {
+    SDL_PumpEvents();org.lwjgl.sdl.SDLJoystick.SDL_UpdateJoysticks();
+    java.nio.IntBuffer pads=SDL_GetGamepads();
+    if(pads!=null) {
+     try{if(pads.hasRemaining())pad=SDL_OpenGamepad(pads.get(0));}finally{org.lwjgl.sdl.SDLStdinc.SDL_free(pads);}
+    }
+    java.nio.IntBuffer sticks=org.lwjgl.sdl.SDLJoystick.SDL_GetJoysticks();
+    joystickCount=sticks==null?0:sticks.remaining();
+    if(sticks!=null)org.lwjgl.sdl.SDLStdinc.SDL_free(sticks);
+    if(pad==0)org.lwjgl.sdl.SDLTimer.SDL_Delay(16);
+   }
+   if(pad==0)throw new IllegalStateException("No SDL gamepad after10s; joystickCount="+joystickCount+" SDL="+SDL_GetError());
+   stage("real SDL video="+SDL_GetCurrentVideoDriver()+" version="+SDLVersion.SDL_GetVersion()+" gamepad="+SDL_GetGamepadName(pad));
    long proc=SDL_Vulkan_GetVkGetInstanceProcAddr();if(proc==0)throw new IllegalStateException("SDL Vulkan function provider: "+SDL_GetError());
    VK.create((FunctionProvider)name -> memASCII(memAddress(name)).equals("vkGetInstanceProcAddr")?proc:JNI.invokePPP(0L,memAddress(name),proc));
    try{run();}finally{VK.destroy();}

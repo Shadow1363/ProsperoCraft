@@ -158,9 +158,19 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.013",
       "package_sha256": "a271f1121daab78239a23717dbca0433caf525b4f99e0c3884310371757ec62d",
-      "console": "pending; all twelve013 automatic checks, physical SDL inputs and visual confirmation",
+      "console": "FAIL check11 SDL: No SDL gamepad; earlier Vulkan/compute companion loading now passed",
       "host": "PASS013 target compile/link/CRC/signatures/explicit companion-loading bootstrap and packaged helper bytecode, actual SDL exports/four resident libraries/scoped SDL hash/licenses/54 original JARs/exact002 image-native libs/359+4 staged constructors/frozen000-004/008-011/Fabric094/Paper108 checks. Existing real host SDL virtual-input event/state test PASS remains applicable; SDL and Java bytecode unchanged. PS5 retest pending.",
-      "change": "Define packaged Vulkan Allocation and generated shader-data companions through existing native file IO/system-loader JNI path.012 underlying classpath/deployment cause unresolved; SDL not yet reached on console."
+      "change": "Define packaged Vulkan Allocation and generated shader-data companions through existing native file IO/system-loader JNI path.012 underlying classpath/deployment cause unresolved; SDL not yet reached on console.",
+      "reported_date": "2026-10-24",
+      "evidence": "Saved session client-01.000.013-1792838974-537697485; SDL video/window calls returned before empty gamepad enumeration. Underlying SDL pad init/discovery cause not yet proven."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.014",
+      "package_sha256": "dfa391acfe93a63330b6c98616237906859287bb6ad21e380265a240151dbd1b",
+      "console": "pending; all twelve014 checks, real SDL controller events/state and full-screen confirmation",
+      "host": "PASS actual input adapter with host OS-call fixtures under ASan/UBSan: no repeated scePadInit, user/open/read/button/axis/release/disconnect paths. Existing real macOS SDL virtual-input Java event/state/ABI checks remain applicable; PS5 hardware not validated.014 target package PASS: native exports/diagnostic callback/bounded discovery and companion classes, scoped SDL source/object hashes/licenses/54 original JARs/exact002 image-native libs/signatures/constructors/frozen000-004/008-011/Fabric094/Paper108.",
+      "change": "Reuse bootstrap-owned UserService/Pad initialization; retain real user/open/read requirements. Pump SDL events/joystick state and wait up to10s for physical gamepad discovery; persistent native diagnostics and inventory on failure."
     }
   ]
 }

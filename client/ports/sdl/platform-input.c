@@ -15,7 +15,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-void say(const char *format, ...){va_list args;va_start(args,format);vfprintf(stderr,format,args);va_end(args);fputc('\n',stderr);}
+extern void client_sdl_diagnostic(const char* text);
+void say(const char *format, ...){char line[384];va_list args;va_start(args,format);vsnprintf(line,sizeof(line),format,args);va_end(args);client_sdl_diagnostic(line);}
+
 double now_seconds(void){struct timespec t;clock_gettime(CLOCK_MONOTONIC,&t);return (double)t.tv_sec+(double)t.tv_nsec/1e9;}
 int sceSystemServiceHideSplashScreen(void);
 int sceSystemServiceLoadExec(const char *path, const char *const *argv);
@@ -170,9 +172,13 @@ pad_open(void)
 {
    for (int player = 0; player < PAD_PLAYERS; player++)
       pad_rest(&pad_states[player]);
-   (void)sceUserServiceInitialize(NULL);
+   /* Altered: this title's bootstrap already initializes UserService/Pad and
+    * closes its start-button handle before SDL. Reuse that service lifetime;
+    * a second scePadInit result must not reject an already initialized pad. */
    int32_t user = -1;
-   if (sceUserServiceGetInitialUser(&user) < 0 || scePadInit() < 0) {
+   int user_result=sceUserServiceGetInitialUser(&user);
+   say("SDL pad initial user: result=%d user=%d; bootstrap owns service init",user_result,(int)user);
+   if (user_result < 0) {
       say("pad: no user or no pad service");
       return false;
    }

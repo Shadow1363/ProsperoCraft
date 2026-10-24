@@ -52,10 +52,11 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: SDL Window/Input013
+## Current client candidate: SDL Window/Input014
 
-[Client013](docs/client-sdl-window-input-013.md) explicitly loads packaged fixture
-companions after012 failed before SDL with NoClassDefFoundError. It retains actual SDL3 PS5 fullscreen
+[Client014](docs/client-sdl-window-input-014.md) reuses bootstrap-owned pad
+initialization and waits for real SDL controller discovery after013 found no
+gamepad. Earlier companion loading passed in013. It retains actual SDL3 PS5 fullscreen
 window/Vulkan surface and real DualSense gamepad polling/events through the
 original LWJGL SDL bindings. After the pattern appears, the probe requests
 X/Circle/D-pad Left/left-stick input. **Console checks remain pending**. The host
