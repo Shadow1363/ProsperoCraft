@@ -1,5 +1,5 @@
 {
-  "status": "026 callbacks/OpenAL ALL5 PASS frozen/released;027 original Main retry with validated native providers pending",
+  "status": "026 callbacks/OpenAL frozen ALL5 PASS;027 fails missing OpenGL JNI;real binding build done,PS5 GL provider unresolved",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,11 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Retrieve027 original startup/native loader boundary or actual window/menu evidence;OpenGL/STB/FreeType/VMA/SPIRV-Cross/other SDL paths incomplete. No speaker or game pass;endurance deferred."
+  "next": "Integrate a verified genuine PS5 OpenGL provider/context path. OpenGL JNI component builds and passes host GPU tests;not a PS5 pass. Other native libraries incomplete;no new known-failing app requested.",
+  "opengl_provider_candidate": {
+    "repository": "https://github.com/blackbearreloaded/ps5-opengl",
+    "checked_date": "2026-10-24",
+    "availability": "Direct GitHub/API/git404;search cache only,no source/artifact retrieved",
+    "adopted": false
+  }
 }

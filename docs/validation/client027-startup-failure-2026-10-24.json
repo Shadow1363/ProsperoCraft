@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-24",
+  "build": "01.000.027",
+  "package_sha256": "e8b34ceb3532e0407e5d19802ea4f5a82dc27901b26e60daaf249e4d967b3305",
+  "session_observed_via_safari": "client-01.000.027-1792854115-898280003",
+  "session_state_observed": "RUN: Start original Minecraft26.3 Main (menu unvalidated)",
+  "report": "Complete exceptions.log saved via Safari;startup-tail save remained disabled and was not retrieved",
+  "report_sha256": "eefeb2e5c66635726470bf29e8aae3427707e2d7935beef0a773a2d665f79202",
+  "report_bytes": 8341,
+  "fatal": "Loading library OpenGL:UnsatisfiedLinkError failed to locate liblwjgl_opengl.so",
+  "library_load_order": [
+    "OpenGL",
+    "vma",
+    "freetype",
+    "STB",
+    "SDL",
+    "shaderc",
+    "OpenAL",
+    "spvc"
+  ],
+  "loading_index": 0,
+  "heap": "46MiB used/123MiB max;no OOM reported",
+  "not_claimed": "No independently retrieved native termination trace;no original Main OpenAL load-row result;no PS5 GL context/menu",
+  "repair": "193 original LWJGL OpenGL C units/2270 genuine JNI exports built forPS5;host actual GPU3contexts/192pixels/384guards passes;not packaged pending real PS5 GL provider",
+  "candidate_source_availability": "blackbearreloaded/ps5-opengl direct GitHub/API/git404;no unverified adoption"
+}
