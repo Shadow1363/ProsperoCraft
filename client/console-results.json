@@ -208,9 +208,19 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.018",
       "package_sha256": "44ee853dd7a8a914fc49db3cfd5632ac8fd9dff55a390968623ea926ac6a68ee",
-      "console": "pending; diagnostic candidate after017 compilation crash",
+      "console": "CRASH inside glslang parse after real compile entry, result/diagnostic stream/Compiler::Compile/TShader construction",
       "host": "PASS actual pinned host shaderc:3 invalid/valid compiler cycles,18 MoltenVK dispatches/full output+guards, Java25 Xint/XcheckJNI/verification/core UBSan. Host compiler does not include target-only diagnostic patch. Target018 package PASS: real compiler exports/hashed native checkpoint patch/embedded stage strings,5 resident groups,5 correctly ordered compiler constructors,359 JVM+4 GPU constructors,54 original JARs/exact002 image-native libs,CRC/signatures and preserved milestones/server packages. PS5 native fault unresolved.",
       "change": "Target-only source export+audited observational native shaderc checkpoint patch. Actual compile entry/result allocation/diagnostic streams/TShader/parser/formatting boundaries. Original compiler outputs and13 acceptance checks remain required; no JVM/SDK/game/Java JAR changes.",
+      "reported_date": "2026-10-24",
+      "evidence": "Saved run client-01.000.018-1792841874-781253561. Last checkpoint compiler: before glslang parse; all earlier native compiler stages completed. No Java exception or VM abort captured. Exact fault unresolved."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.019",
+      "package_sha256": "772e23900036ede31d7aa32cb6552d99309472aa9a7a7889db69c2a7c8df9e43",
+      "console": "pending; parser fault diagnostic candidate",
+      "host": "PASS host fault recorder nested install/restoration/mask preservation and SIGILL/SIGSEGV delegation with bounded raw context in isolated children. Actual pinned host shaderc3invalid/valid cycles/18 MoltenVK output+guard workloads PASS; host compiler omits target native patches. Target019 build/package PASS: real exports, hashed checkpoint patches/fault source/embedded stages,5 resident groups,5 ordered compiler+359 JVM+4 GPU constructors,54 original JARs/exact002 runtime image-native libs,CRC/signatures/frozen client+server packages. PS5 parser fault and target signal capture remain unresolved.",
+      "change": "Add genuine glslang parser checkpoints and scoped fault recorder during real compiler API. Preserve/delegate/restore prior signal handlers;96 raw target context words, no desktop layout assumption/recovery/fabricated output. JVM/SDK/game/Java JARs unchanged.",
       "reported_date": "2026-10-24"
     }
   ]

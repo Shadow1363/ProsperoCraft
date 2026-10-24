@@ -18,12 +18,12 @@ parser.add_argument('--shader', action='store_true', help='Build client009 compu
 parser.add_argument('--render', action='store_true', help='Build client010 graphics pipeline candidate')
 parser.add_argument('--present', action='store_true', help='Build client011 standalone direct presentation candidate')
 parser.add_argument('--sdl', action='store_true', help='Build client014 SDL window/input candidate')
-parser.add_argument('--runtime-shader', action='store_true', help='Build client018 runtime GLSL compiler candidate')
+parser.add_argument('--runtime-shader', action='store_true', help='Build client019 runtime GLSL compiler candidate')
 args = parser.parse_args()
 if sum([args.shader,args.render,args.present,args.sdl,args.runtime_shader])>1:parser.error("Choose one candidate")
 runtime = args.runtime_workspace.resolve()
 variant="runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.018" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+version="01.000.019" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
