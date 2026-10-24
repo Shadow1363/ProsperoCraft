@@ -52,6 +52,16 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Current client candidate: Direct Presentation011
+
+[Client011](docs/client-direct-presentation-011.md) tests actual Java/LWJGL display,
+surface, FIFO swapchain and direct graphics presentation on PS5. It starts from
+notifications and one X press, then runs twelve checks automatically without
+opening the CPU display. The final full-screen pattern is retained after JVM
+shutdown. **All PS5 checks and visible-pattern confirmation remain pending**.
+The host offscreen companion checks shaders/pixels only; it cannot validate the
+PS5 presentation path. SDL/window integration remains ahead. Frozen010 is preserved.
+
 ## Client Graphics Pipeline — PS5 ALL PASS
 
 The user reports **ALL PASS** for client **01.000.010** on **2026-10-24**, after

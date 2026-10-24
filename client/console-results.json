@@ -132,6 +132,14 @@
       "reported_date": "2026-10-24",
       "milestone": "Client_Graphics_Pipeline",
       "evidence": "User ALL PASS immediately after010 instructions to run all twelve rows and confirm the colored preview appears and remains after JVM shutdown. Retrieved session client-01.000.010-1792834964-628576597 final PASS Destroy Java VM code0; startup confirms9 draws, every pixel/guard check,3 graphics sessions, GPU readback publish and DestroyJavaVM complete."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.011",
+      "package_sha256": "1cc3e1f62a6495e1d110ab3eed80d2e1b73231b23bc428045383e2d47e41d86b",
+      "console": "pending; twelve automatic PS5 checks and human full-screen pattern confirmation after JVM shutdown",
+      "host": "PASS separate MoltenVK offscreen companion using presentation shaders/12-byte push constants/BGRA output:9 draws/all256x256 pixels+guards/3 graphics lifecycles; Java25 Xint/XcheckJNI/verify and actual core UBSan. Target Java compiles. PS5 display/surface/swapchain/acquire/present/retained context NOT exercised by host. Target compile/link/signatures/CRC/presentation shader/source hashes/real WSI symbols/no CPU display calls in bootstrap/54 original JARs/exact002 image+native libs/scoped providers/359+4 staged constructors/frozen000-004 and008-010/Fabric094/Paper108 checks PASS.",
+      "change": "One X press starts twelve automatic checks without CPU VideoOut owner; original LWJGL KHR_display surface/swapchain/90 graphics draws,36 samples and256guard bytes per frame/FIFO presents; native display resources retained through JVM shutdown until app closes. No SDL/game."
     }
   ]
 }
