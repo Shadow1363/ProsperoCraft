@@ -8,7 +8,7 @@ import org.lwjgl.system.Configuration;
 /** Invokes the original client entry point; no game class replacement/hooks. */
 public final class ClientStartup25 {
  public static native void checkpoint(String text);
- private static void stage(String text){checkpoint("MC Startup025: "+text);}
+ private static void stage(String text){checkpoint("MC Startup027: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -27,9 +27,9 @@ public final class ClientStartup25 {
    System.setProperty("user.dir",work.toString());System.setProperty("user.home",work.toString());System.setProperty("java.io.tmpdir",work.resolve("native-cache").toString());
    for(String key:new String[]{"jna.tmpdir","io.netty.native.workdir"})System.setProperty(key,work.resolve("native-cache").toString());
    System.setProperty("jna.nosys","true");
-   Configuration.MEMORY_ALLOCATOR.set("system");Configuration.SDL_LIBRARY_NAME.set(System.mapLibraryName("ps5sdl"));Configuration.VULKAN_LIBRARY_NAME.set(System.mapLibraryName("ps5clientgpu"));Configuration.SHADERC_LIBRARY_NAME.set(System.mapLibraryName("ps5shaderc"));Configuration.SHARED_LIBRARY_EXTRACT_PATH.set(work.resolve("native-cache").toString());
-   stage("configure genuine PS5 resident SDL/Vulkan/shaderc providers;other native bindings remain incomplete");
-   System.loadLibrary("ps5clientgpu");System.loadLibrary("ps5shaderc");System.loadLibrary("ps5sdl");
+   Configuration.MEMORY_ALLOCATOR.set("system");Configuration.OPENAL_LIBRARY_NAME.set(System.mapLibraryName("ps5openal"));Configuration.SDL_LIBRARY_NAME.set(System.mapLibraryName("ps5sdl"));Configuration.VULKAN_LIBRARY_NAME.set(System.mapLibraryName("ps5clientgpu"));Configuration.SHADERC_LIBRARY_NAME.set(System.mapLibraryName("ps5shaderc"));Configuration.SHARED_LIBRARY_EXTRACT_PATH.set(work.resolve("native-cache").toString());
+   stage("configure validated026 real libffi/OpenAL plus resident SDL/Vulkan/shaderc;other native bindings remain incomplete");
+   System.loadLibrary("ps5clientgpu");System.loadLibrary("ps5shaderc");System.loadLibrary("ps5sdl");System.loadLibrary("ps5openal");
    stage("original Main class lookup;offline demo arguments,no credentials or multiplayer");
    Class<?> main=Class.forName("net.minecraft.client.main.Main",false,ClassLoader.getSystemClassLoader());Method method=main.getMethod("main",String[].class);
    stage("ENTER original net.minecraft.client.main.Main.main;menu/world not yet validated");

@@ -27,8 +27,8 @@ def build(java_home,offline=False):
  with zipfile.ZipFile(jar,'w',zipfile.ZIP_DEFLATED)as z:
   for path in emitted:
    info=zipfile.ZipInfo(str(path.relative_to(classes)));info.compress_type=zipfile.ZIP_DEFLATED;z.writestr(info,path.read_bytes())
-  z.writestr('META-INF/PS5-PORT-LICENSE.txt',(ROOT/'client/ports/lwjgl/LICENSE.md').read_bytes())
- audit={'scope':pin['scope'],'units':audits,'classes':[str(p.relative_to(classes))for p in emitted],'output_sha256':hashlib.sha256(jar.read_bytes()).hexdigest(),'game_jar_modified':False,'native_implementations_added':False,'console':'pending;OpenAL native implementation unavailable'}
+  info=zipfile.ZipInfo('META-INF/PS5-PORT-LICENSE.txt');info.compress_type=zipfile.ZIP_DEFLATED;z.writestr(info,(ROOT/'client/ports/lwjgl/LICENSE.md').read_bytes())
+ audit={'scope':pin['scope'],'units':audits,'classes':[str(p.relative_to(classes))for p in emitted],'output_sha256':hashlib.sha256(jar.read_bytes()).hexdigest(),'game_jar_modified':False,'native_implementations_added':False,'console':'Native implementations are supplied separately;actual per-app PS5 validation required.026 module dispatch/callback/OpenAL acceptance is frozen separately.'}
  (out/'audit.json').write_text(json.dumps(audit,indent=2)+'\n');print('Built startup module platform overlay',jar);return jar
 if __name__=='__main__':
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--java-home',type=Path,required=True);p.add_argument('--offline',action='store_true');a=p.parse_args();build(a.java_home,a.offline)

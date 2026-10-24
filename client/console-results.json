@@ -301,6 +301,15 @@
       "reported_date": "2026-10-24",
       "milestone": "Client_Callbacks_OpenAL",
       "evidence": "Human ALL5 PASS and Safari saved reports for client-01.000.026-1792852721-557017669. Three32+32 callback cycles,3x4800stereo frames/440Hz/peak5957/crossings43/guards+stopped-source silence;JVM shutdown."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.027",
+      "package_sha256": "e8b34ceb3532e0407e5d19802ea4f5a82dc27901b26e60daaf249e4d967b3305",
+      "console": "pending actual original Main startup with026libffi/OpenAL providers;no menu pass",
+      "host": "PASS launch policy/workdir/options preservation,unchanged original JAR;separate original host Main reaches native bootstrap then exits253 at unprovided host natives,no host menu pass. Native026 callback/OpenAL host+actual PS5 acceptance is frozen separately. PASS027 PASS027 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15staged constructors/7real resident groups/actual026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 e8b34ceb3532e0407e5d19802ea4f5a82dc27901b26e60daaf249e4d967b3305",
+      "change": "Original Main retry using real026libffi/OpenAL providers and PS5 VK/ALC dispatch;all54 original JARs/all5147assets intact,128MiB,existing logging/no automatic menu pass. Other native paths incomplete.",
+      "reported_date": "2026-10-24"
     }
   ]
 }
