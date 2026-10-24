@@ -17,3 +17,7 @@ All ten rows require a new PS5 result. The ninth row still checks original LWJGL
 Host Java25 -Xint/-Xcheck:jni/-Xverify:all, real core UBSan and physical MoltenVK GPU checks pass for the corrected fixture. Target package checks verify that the actual compiled fixture calls mapLibraryName and that the generated registry contains its expected mapped key, along with existing real loader/ICD/JNI/GPU symbols, signatures/CRC, exact original JARs/moduleimage/native libraries, constructor ordering/scoped providers and frozen package checks. The corrected target lookup still requires PS5 console validation.
 
 Rebuild using `tools/package_client_vulkan.py` and validate using `tools/test_client_vulkan_package.py` and `tools/test_client_vulkan_host.py`, with the same runtime workspace/JDK25 parameters documented for005. The package SHA256 is recorded in `client/vulkan/status.json` and `dist/client-vulkan/SHA256SUMS`. No new passing milestone/release is created for this candidate.
+
+## Subsequent console result
+
+Retrieved2026-10-24 reports show006 stalled in row9 after its create-instance checkpoint, with no captured Java exception. Its earlier GPU row passed all three cycles. See [client007](client-vulkan-bindings-007.md) for sampled tracing and finer checkpoints;006 is not a passing milestone.

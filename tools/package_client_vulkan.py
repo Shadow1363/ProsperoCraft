@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare the client006 JVM/core/bridge objects; final driver link is consumer-owned."""
+"""Prepare the client007 JVM/core/bridge objects; final driver link is consumer-owned."""
 import argparse
 import hashlib
 import json
@@ -62,4 +62,4 @@ specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\
 # A temporary stub is never linked or generated: the bridge's external driver
 # symbols are supplied by the final link below.
 from package_client_gpu_link import finish
-finish(runtime,args.java_home,work,assets,spec,gpu_support,gpu_audit,variant="vulkan",version="01.000.006")
+finish(runtime,args.java_home,work,assets,spec,gpu_support,gpu_audit,variant="vulkan",version="01.000.007")

@@ -58,7 +58,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.006";
+constexpr const char* build_version="01.000.007";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -191,6 +191,12 @@ void run_test(int i) {
    log_stage("Core image read or magic check failed before JNI call");
    result(i,code,"Before JVM: core image read / magic failed");skip_vm_dependents();read_previous_log();return;
   }
+#ifdef __PROSPERO__
+  // Reuse the runtime's sampling control: preserve last-stage/failure context
+  // without synchronous disk writes for every allocation/zeroing checkpoint.
+  ps5_vm_set_metadata_interval(4096);
+#endif
+  log_stage("Runtime ENTER/DONE checkpoint sampling enabled: 1 in 4096");
   log_stage("Core image opened and JIMAGE header verified");
   JavaVMOption options[]={
    {const_cast<char *>("-Xint"),nullptr},
@@ -235,6 +241,7 @@ void run_test(int i) {
   if(traced!=sizeof(begin)-1) {result(i,trace_error?trace_error:-1313,"Before JVM: checkpoint write failed");skip_vm_dependents();return;}
   log_stage("Calling real JNI_CreateJavaVM");
   ps5_native_trace::enable();
+  ps5_native_trace::quiet();
   int rc=JNI_CreateJavaVM(&java_vm,reinterpret_cast<void **>(&java_env),&args);
   ps5_native_trace::disable();
   if(startup_log) {std::fprintf(startup_log,"JNI_CreateJavaVM returned %d\n",rc);std::fflush(startup_log);}
@@ -341,7 +348,7 @@ bool update() noexcept {
 }
 void draw(Canvas &c) noexcept {
  c.gradient(rgb(18,29,49),rgb(8,13,23));
- c.label(100,64,"Java 25 - Client Vulkan Bindings 01.000.006",64,rgb(238,242,250));
+ c.label(100,64,"Java 25 - Client Vulkan Bindings 01.000.007",64,rgb(238,242,250));
  c.label(103,163,"Upstream LWJGL Vulkan command tables and GPU readback. Native003 presentation preserved; no SDL/game yet.",24,rgb(139,153,178));
  for(int i=0;i<test_count;++i) {
   int y=200+i*52;
@@ -383,10 +390,10 @@ void draw(Canvas &c) noexcept {
 }
 }
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU006 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU007 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Client Vulkan Bindings 01.000.006 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Client Vulkan Bindings 01.000.007 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;

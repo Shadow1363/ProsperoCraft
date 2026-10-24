@@ -11,7 +11,7 @@ import static org.lwjgl.vulkan.VK11.VK_API_VERSION_1_1;
 public final class ClientVulkan25 {
  public static native void checkpoint(String text);
  private static void check(int result,String call) {if(result!=VK_SUCCESS)throw new IllegalStateException(call+" VkResult="+result);}
- private static void stage(String text){checkpoint("LWJGL Vulkan006: "+text);}
+ private static void stage(String text){checkpoint("LWJGL Vulkan007 @"+System.nanoTime()+"ns: "+text);}
  private static void rejected(Runnable call) {
   try{call.run();}catch(IllegalStateException expected){return;}
   throw new AssertionError("Expected duplicate VK.create rejection");
@@ -47,10 +47,15 @@ public final class ClientVulkan25 {
   VkInstance instance=null;VkDevice device=null;long pool=0,fence=0;boolean incomplete=false;
   try(MemoryStack stack=MemoryStack.stackPush()) {
    PointerBuffer pointer=stack.mallocPointer(1);
-   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java LWJGL Vulkan006")).apiVersion(VK_API_VERSION_1_1);
+   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java LWJGL Vulkan007")).apiVersion(VK_API_VERSION_1_1);
    VkInstanceCreateInfo info=VkInstanceCreateInfo.calloc(stack).sType$Default().pApplicationInfo(app);
-   stage("create instance with standard vkCreateInstance");check(vkCreateInstance(info,null,pointer),"vkCreateInstance");
+   stage("initialize original VK10 class before native instance call");
+   try {Class.forName("org.lwjgl.vulkan.VK10");}catch(ClassNotFoundException e){throw new AssertionError(e);}
+   stage("VK10 class initialized; enter standard vkCreateInstance");
+   check(vkCreateInstance(info,null,pointer),"vkCreateInstance");
+   stage("vkCreateInstance returned; construct VkInstance capability table");
    instance=new VkInstance(pointer.get(0),info);
+   stage("VkInstance capability table complete; enumerate physical devices");
    if(!instance.getCapabilities().Vulkan11)throw new AssertionError("Vulkan1.1 instance capability");
    IntBuffer count=stack.mallocInt(1);check(vkEnumeratePhysicalDevices(instance,count,null),"count physical GPUs");
    if(count.get(0)<1||count.get(0)>16)throw new AssertionError("Bounded physical GPU count");
@@ -69,7 +74,7 @@ public final class ClientVulkan25 {
     VkExtensionProperties.Buffer extensions=VkExtensionProperties.malloc(count.get(0),stack);check(vkEnumerateDeviceExtensionProperties(physical,(ByteBuffer)null,count,extensions),"enumerate device extensions");
     for(int i=0;i<count.get(0);i++)if(extensions.get(i).extensionNameString().equals("VK_KHR_portability_subset")){deviceInfo.ppEnabledExtensionNames(stack.pointers(stack.UTF8("VK_KHR_portability_subset")));break;}
    }
-   stage("create device and full LWJGL device capability table");check(vkCreateDevice(physical,deviceInfo,null,pointer),"vkCreateDevice");device=new VkDevice(pointer.get(0),physical,deviceInfo);
+   stage("create device and full LWJGL device capability table");check(vkCreateDevice(physical,deviceInfo,null,pointer),"vkCreateDevice");stage("vkCreateDevice returned; construct VkDevice capability table");device=new VkDevice(pointer.get(0),physical,deviceInfo);stage("VkDevice capability table complete");
    if(device.getCapabilities().vkCmdCopyBuffer==0||device.getCapabilities().vkCmdFillBuffer==0)throw new AssertionError("Standard command table missing");
    vkGetDeviceQueue(device,family,0,pointer);VkQueue queue=new VkQueue(pointer.get(0),device);
    LongBuffer handle=stack.mallocLong(1);
@@ -125,7 +130,7 @@ public final class ClientVulkan25 {
   try {
    rejected(()->VK.create(VK.getFunctionProvider()));
    if(VK.getInstanceVersionSupported()<VK_API_VERSION_1_1)throw new AssertionError("Vulkan1.1 loader");
-   stage("unmodified VK10 and VkInstance/VkDevice capability tables initialized");
+   stage("Vulkan loader initialized; instance and device tables follow");
    for(int i=0;i<3;i++)cycle(i,hostLibrary!=null);
   } finally {VK.destroy();}
   VK.destroy();

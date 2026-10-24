@@ -84,9 +84,19 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.006",
       "package_sha256": "40726d133bfab837937bf46f25d4c35c4b8c404cee21ae98567b1cb763330c41",
-      "console": "pending; all ten PS5 rows for corrected006;005 failed row9 with unmapped resident-library name",
+      "console": "STALLED row9 after create-instance checkpoint; no Java exception captured; row8 GPU transfers and cleanup passed in retrieved logs",
       "change": "Map the logical ps5clientgpu name with System.mapLibraryName before PS5Library open, matching actual resident registry key libps5clientgpu.so; original Vulkan/game JARs and runtime remain unchanged. Repeated packaging merges existing license notices.",
-      "host": "PASS actual original LWJGL Vulkan3.4.3 standard VK.create/VkInstance/VkDevice capability tables/structs/commands on physical MoltenVK1.4.1 host GPU;12 GPU copy-fill-readbacks8..65536/full Java word+guard checks/3instance-device lifecycles/duplicate-init rejection/loader cleanup under Java25 Xint/XcheckJNI/verify and real core UBSan. Target compile/signatures/actual loader+ICD+JNI+GPU exports/system imports/constructor ordering/scoped providers/54immutable JARs/exact002 moduleimage and native libs/frozen000-004/Fabric094/Paper108 hashes pass. Corrected006 host GPU rerun passes; target package regression checks compiled mapLibraryName call and mapped registry key."
+      "host": "PASS actual original LWJGL Vulkan3.4.3 standard VK.create/VkInstance/VkDevice capability tables/structs/commands on physical MoltenVK1.4.1 host GPU;12 GPU copy-fill-readbacks8..65536/full Java word+guard checks/3instance-device lifecycles/duplicate-init rejection/loader cleanup under Java25 Xint/XcheckJNI/verify and real core UBSan. Target compile/signatures/actual loader+ICD+JNI+GPU exports/system imports/constructor ordering/scoped providers/54immutable JARs/exact002 moduleimage and native libs/frozen000-004/Fabric094/Paper108 hashes pass. Corrected006 host GPU rerun passes; target package regression checks compiled mapLibraryName call and mapped registry key.",
+      "reported_date": "2026-10-24",
+      "evidence": "Current session client-01.000.006-1792786365-412794498 and saved startup/VM trace retrieved2026-10-24; VM trace66.2MiB dominated by synchronous startup/allocation diagnostics. Checkpoint precedes VK10 class initialization/native call/VkInstance table, so exact stalled operation remains unresolved."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.007",
+      "package_sha256": "68822fb431df4d6404323548a5f6b621a119bd74dce2b8c54d59fb5753b47c6c",
+      "console": "pending; all ten PS5 rows for007;006 stalled in row9 with no captured Java exception",
+      "change": "Existing runtime ENTER/DONE sampling1/4096 and quiet native-call context during VM startup; failure/signal and last-stage/native-call context retained; finer monotonic Vulkan checkpoints. No runtime source change.",
+      "host": "PASS Java25 Xint/XcheckJNI/verify, real core UBSan and physical MoltenVK GPU:12 transfers,3 instance/device cycles and cleanup. Target compile/signatures/CRC,54 original pinned JARs, exact002 module image/native libraries, scoped providers,359 deferred JVM/4 explicit GPU constructors, real loader/ICD/JNI exports/imports and frozen000\u2013004/Fabric094/Paper108 checks pass. Linked ELF has one shared existing runtime metadata-interval storage symbol."
     }
   ]
 }
