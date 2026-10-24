@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Status: Fabric/Paper playtests and runtime GLSL compilation pass on PS5.** Client **01.000.020** passes thirteen checks: three compiler cycles with real error controls,18 GPU output workloads,physical SDL input/display and JVM shutdown. Minecraft startup and wider rendering remain ahead; server two-hour endurance stays deferred.
+> **Status: Fabric/Paper playtests and client texture/depth/blending pass on PS5.** Client **01.000.021** passes fourteen checks: real offscreen texture upload/depth/blend controls,27draws/9full-image checks,existing runtime shader compilation,SDL input/display and JVM shutdown. Minecraft startup and wider rendering remain ahead; server two-hour endurance stays deferred.
 
 ## The goal
 
@@ -52,13 +52,21 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: Texture,Depth and Blending021
+## Client Texture,Depth and Blending — PS5 ALL14 PASS
 
-[Client021](docs/client-texture-021.md) adds real texture upload/sampling,a D32
-depth attachment and alpha blending with disabled-feature controls. The actual
-Mac GPU passes27draws/9full-image checks across3 sessions. Fourteen PS5 checks
-remain pending; the texture checks are offscreen,followed by the existing SDL
-visible tiles/input prompts. Frozen020 remains the passing runtime GLSL baseline.
+Client **01.000.021** passes all fourteen checks; the user reports **“nice pass!”**
+Retrieved logs confirm three real texture uploads,27draws and9full-image/guard
+checks with depth-disabled and blend-disabled controls,followed by318SDL frames,
+physical event/state masks15 and JVM shutdown. Runtime shader compilation also
+continues to pass. The texture workload is offscreen; visible tiles remain the
+existing SDL baseline.
+
+Exact tested source/package and evidence are frozen in
+[Client_Texture_Depth_Blend](Client_Texture_Depth_Blend/README.md),with a
+[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Texture_Depth_Blend-v01.000.021)
+and [validation record](Client_Texture_Depth_Blend/validation.json). A visible
+textured scene,perspective/vertex buffers,larger workloads,game startup and full
+native teardown remain ahead; server two-hour endurance stays deferred.
 
 ## Client Runtime Shader Compilation — PS5 ALL13 PASS
 
@@ -385,6 +393,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client Texture/Depth/Blend · 01.000.021** | PS5 ALL14 PASS:3texture uploads,27draws/9full images+guards,depth/blend controls,SDL318frames and JVM shutdown | [Frozen source & validation](Client_Texture_Depth_Blend) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Texture_Depth_Blend-v01.000.021) |
 | **Client Runtime Shader · 01.000.020** | PS5 ALL13 PASS: real runtime GLSL/error controls,18 GPU outputs,SDL input/display252frames and JVM shutdown | [Frozen source & validation](Client_Runtime_Shader) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Runtime_Shader-v01.000.020) |
 | **Client SDL Window/Input · 01.000.014** | PS5 automated/input/visual PASS: actual SDL window/surface, physical gamepad events+state,537 GPU frames and JVM shutdown | [Frozen source & validation](Client_SDL_Window_Input) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SDL_Window_Input-v01.000.014) |
 | **Client Direct Presentation · 01.000.011** | PS5 automated and visual PASS:90 direct GPU/FIFO presents, sample/guard checks and JVM shutdown with retained display | [Frozen source & validation](Client_Direct_Presentation) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Direct_Presentation-v01.000.011) |

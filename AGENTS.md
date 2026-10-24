@@ -199,3 +199,14 @@ JARs remain unchanged. Target dependency checkpoint patches and scoped fault
 recorder remain disclosed. Includes/callbacks/HLSL/larger shader workloads,
 textures/depth/blending/game startup/global teardown and server endurance remain
 unvalidated. Continue development outside frozen folders.
+
+Client_Texture_Depth_Blend is the frozen passing client021 milestone,PPSA99874
+version01.000.021,human nice pass on2026-10-24. Saved ALL14 PASS confirms3real
+texture uploads,combined sampled-image descriptors,D32 depth and alpha-blend
+controls with disabled-feature comparisons,27draws/9full256x256images+guards,
+existing runtime compiler baseline,SDL318frames/eventMask15/stateMask15 and JVM
+shutdown. Preserve exact source/package/symbols. The texture workload is
+offscreen,new graphics shaders compiled offline; visible SDL tiles remain the
+baseline. No game/Java JAR or JVM/SDK changes. Visible textured scene,perspective/
+vertex buffers,larger shaders,game startup,global teardown and endurance remain
+unvalidated. Continue development outside frozen folders.

@@ -1,5 +1,5 @@
 {
-  "status": "020 runtime shader milestone frozen ALL13 PASS;021 texture/depth/blend candidate host GPU PASS,target pending",
+  "status": "021 ALL14 PASS:3texture uploads,27draws/9full images+guards,depth/blend controls,runtime shader compilation,SDL318frames/input masks15 and JVM shutdown; frozen Client_Texture_Depth_Blend",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "021 real texture upload/descriptor sampling,D32 depth and alpha blending controls before existing SDL input/display. PS5 all14 acceptance pending; game startup and endurance remain ahead."
+  "next": "Visible textured scene,perspective/vertex buffers and later game startup. Wider coverage,global teardown and endurance remain unvalidated."
 }

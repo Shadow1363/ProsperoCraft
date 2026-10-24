@@ -239,10 +239,12 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.021",
       "package_sha256": "5adbcd8dda4e355c69ab027c4630c0603bb095250e9afb2251e678ce9e58bc81",
-      "console": "pending;14 checks,texture/depth/blend offscreen before SDL input/display",
+      "console": "ALL14 PASS in saved PS5 session and human nice pass:3 real texture uploads,27 draws/9full images+guards,depth-disabled and blend-disabled controls,existing runtime shaderc/GPU baseline,SDL318frames/eventMask15/stateMask15 and DestroyJavaVM",
       "host": "PASS actual original LWJGL3.4.3 commands on real MoltenVK GPU,Java25 Xint/XcheckJNI/verify with core UBSan:3 real texture uploads,combined sampled-image descriptors,D32 depth reject+disabled control,source-alpha blend+disabled control,27draws/9full256x256RGBA images+256guards and3 resource/device lifecycles. New graphics modules pass glslangValidator/spirv-val. Host success does not establish PS5 pass. Target021 compile/link and package verification PASS:14-row order/explicit texture shader companion,real texture/sampler/upload/depth/blend Java methods and resident driver exports,validated texture module hashes,original54JARs/exact002 runtime image-native libs,paired C++ allocation/5resident groups/359JVM+4GPU+5compiler staged constructors,signatures/CRC and preserved frozen020+earlier/server packages. Actual PS5 all14 validation pending.",
       "change": "Retain020 real runtime compiler/all earlier GPU rows; add actual2x2texture upload/combined descriptor,D32 depth attachment,LESS and depth-disabled controls,source-alpha blending and blend-disabled controls;27draws/9full-image+guard checks across3sessions. Offline new graphics shader modules; no game/Java JAR or JVM/SDK changes.",
-      "reported_date": "2026-10-24"
+      "reported_date": "2026-10-24",
+      "evidence": "Human: nice pass! Saved run client-01.000.021-1792844052-984973201 records ALL14 PASS. Three texture/depth/blend resource/device sessions,27draws/9full256x256images+256guards; actual runtime shaderc3compiler/invalid controls/18GPU workload,SDL318frames with physical event/state masks15 and DestroyJavaVM complete.",
+      "milestone": "Client_Texture_Depth_Blend"
     }
   ]
 }

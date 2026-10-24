@@ -58,3 +58,12 @@ real native exports,14-row order and explicit companion loading,paired C++
 allocation and staged constructors,54original JARs/exact runtime libraries and
 frozen020/earlier/server package preservation. PS5 validation remains pending.
 Package SHA-256: `5adbcd8dda4e355c69ab027c4630c0603bb095250e9afb2251e678ce9e58bc81`.
+
+## Console acceptance2026-10-24
+
+Human “nice pass!” and retrieved run client-01.000.021-1792844052-984973201
+confirm ALL14 PASS:3uploads/27draws/9full images+guards,depth/blend controls,
+existing runtime compiler baseline,SDL318frames/event/state masks15 and JVM stop.
+The exact source/package/symbols are frozen in Client_Texture_Depth_Blend.
+Earlier pending statements describe the pre-test candidate; the frozen
+validation record establishes the subsequent pass and its limits.
