@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/readme-banner.svg" alt="Minecraft Java on PS5 — Fabric/Paper playtests and client graphics shaders pass" width="1200">
+  <img src="docs/readme-banner.svg" alt="Minecraft Java on PS5 — Fabric/Paper playtests and direct Java Vulkan presentation pass" width="1200">
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Status: Fabric/Paper playtests and client graphics shaders pass on PS5.** Client **01.000.010** passes the twelve-row and colored-preview checklist: actual GPU draws, verified pixel readback, CPU-menu preview and VM shutdown. SDL/window integration, direct GPU presentation and Minecraft startup remain ahead; server two-hour endurance stays deferred.
+> **Status: Fabric/Paper playtests and direct Java/Vulkan presentation pass on PS5.** Client **01.000.011** passes twelve automatic checks and explicit human visual confirmation:90 GPU graphics/FIFO presents and JVM shutdown with the display retained. SDL window/input integration and Minecraft startup remain ahead; server two-hour endurance stays deferred.
 
 ## The goal
 
@@ -52,15 +52,22 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: Direct Presentation011
+## Client Direct Presentation — PS5 automated and visual PASS
 
-[Client011](docs/client-direct-presentation-011.md) tests actual Java/LWJGL display,
-surface, FIFO swapchain and direct graphics presentation on PS5. It starts from
-notifications and one X press, then runs twelve checks automatically without
-opening the CPU display. The final full-screen pattern is retained after JVM
-shutdown. **All PS5 checks and visible-pattern confirmation remain pending**.
-The host offscreen companion checks shaders/pixels only; it cannot validate the
-PS5 presentation path. SDL/window integration remains ahead. Frozen010 is preserved.
+Client **01.000.011** passes all twelve automatic checks on PS5, and the user
+explicitly confirms the full-screen result: **“PASS by notification and pass by
+my eyes.”** Retrieved reports verify90 ordered graphics/FIFO presents, sampled
+pixels/guards and DestroyJavaVM. Original LWJGL display/surface/swapchain calls
+now drive actual RADV/VideoOut without the CPU display owner. The tested source
+and exact package are frozen as [Client_Direct_Presentation](Client_Direct_Presentation/README.md),
+with a [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Direct_Presentation-v01.000.011)
+and [validation record](Client_Direct_Presentation/validation.json).
+
+The display context remains alive until app close, preserving the final image
+after JVM shutdown. Teardown/handoff/resize/recovery, SDL window/input and
+Minecraft startup remain unvalidated. Original game/Vulkan JARs and runtime
+implementation/SDK are unchanged; earlier frozen packages remain preserved.
+Server two-hour endurance stays deferred.
 
 ## Client Graphics Pipeline — PS5 ALL PASS
 
@@ -337,6 +344,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client Direct Presentation · 01.000.011** | PS5 automated and visual PASS:90 direct GPU/FIFO presents, sample/guard checks and JVM shutdown with retained display | [Frozen source & validation](Client_Direct_Presentation) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Direct_Presentation-v01.000.011) |
 | **Client Graphics Pipeline · 01.000.010** | ALL PASS on PS5:9 graphics draws, verified pixels/guards, GPU-readback CPU-menu preview and VM shutdown | [Frozen source & validation](Client_Graphics_Pipeline) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Graphics_Pipeline-v01.000.010) |
 | **Client Shader Pipeline · 01.000.009** | ALL PASS on PS5:18 compute dispatches, guarded readback,3 shader lifecycles and VM shutdown | [Frozen source & validation](Client_Shader_Pipeline) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Shader_Pipeline-v01.000.009) |
 | **Client Vulkan Bindings · 01.000.008** | ALL PASS on PS5: original LWJGL Vulkan commands,12 GPU transfers,3 lifecycles and VM shutdown | [Frozen source & validation](Client_Vulkan_Bindings) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Vulkan_Bindings-v01.000.008) |

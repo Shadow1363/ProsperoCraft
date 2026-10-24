@@ -1,5 +1,5 @@
 {
-  "status": "Client010 graphics/CPU-readback preview PS5 ALL PASS; Client011 direct Vulkan presentation candidate pending",
+  "status": "Client011 direct Java/LWJGL/RADV display/swapchain presentation PS5 automated and explicit visual PASS;90 presents and DestroyJavaVM with retained display",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Client011 direct KHR_display/swapchain/draw/present without CPU VideoOut owner; twelve automatic checks and human full-screen confirmation pending. SDL/window follows separate validation; frozen000-004/008-010 preserved."
+  "next": "SDL window/input integration; display teardown/handoff/resize/recovery remain unvalidated. Frozen000-004/008-011 preserved; server endurance deferred."
 }

@@ -170,3 +170,12 @@ Actual readback is displayed by the existing CPU menu; preserve this distinction
 from SDL/window, Java-owned VideoOut/direct GPU swapchain presentation and game
 startup, which remain unvalidated. Preserve exact source/package/symbols; continue
 development outside frozen folders. Server two-hour endurance remains deferred.
+
+Client_Direct_Presentation is the frozen passing client011 milestone, PPSA99874
+version01.000.011, human automated-notification and explicit visual PASS on
+2026-10-24. Retrieved logs confirm all12 checks,90 ordered direct graphics/FIFO
+presents,36 pixel samples plus256 guards per frame and DestroyJavaVM. Native
+GPU display/resources remain retained until app close; CPU display is not opened.
+Preserve source/package/symbols. Teardown/handoff/resize/timeout recovery, SDL
+window/input and game startup remain unvalidated. Continue outside frozen folders;
+server two-hour endurance stays deferred.

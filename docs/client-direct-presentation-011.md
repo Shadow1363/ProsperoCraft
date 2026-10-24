@@ -73,3 +73,7 @@ exercise the target display discovery, surface, swapchain, acquire/present or
 retained-display lifecycle. All twelve console checks and human full-screen
 confirmation remain pending. Exact package/hash/checks are recorded in
 `client/present/status.json`; no new passing milestone is created yet.
+
+## Console acceptance
+
+On2026-10-24 the user explicitly reports “PASS by notification and pass by my eyes.” Retrieved session confirms ALL12 PASS; every present frame0–89/sample+guard record is verified, followed by DestroyJavaVM complete. The native display remains retained by design. Exact tested source/package and evidence are frozen in [Client_Direct_Presentation](../Client_Direct_Presentation/README.md).

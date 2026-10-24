@@ -137,9 +137,12 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.011",
       "package_sha256": "1cc3e1f62a6495e1d110ab3eed80d2e1b73231b23bc428045383e2d47e41d86b",
-      "console": "pending; twelve automatic PS5 checks and human full-screen pattern confirmation after JVM shutdown",
+      "console": "PASS: all twelve automatic checks by notification and saved session; human explicitly confirms full-screen pattern by eyes",
       "host": "PASS separate MoltenVK offscreen companion using presentation shaders/12-byte push constants/BGRA output:9 draws/all256x256 pixels+guards/3 graphics lifecycles; Java25 Xint/XcheckJNI/verify and actual core UBSan. Target Java compiles. PS5 display/surface/swapchain/acquire/present/retained context NOT exercised by host. Target compile/link/signatures/CRC/presentation shader/source hashes/real WSI symbols/no CPU display calls in bootstrap/54 original JARs/exact002 image+native libs/scoped providers/359+4 staged constructors/frozen000-004 and008-010/Fabric094/Paper108 checks PASS.",
-      "change": "One X press starts twelve automatic checks without CPU VideoOut owner; original LWJGL KHR_display surface/swapchain/90 graphics draws,36 samples and256guard bytes per frame/FIFO presents; native display resources retained through JVM shutdown until app closes. No SDL/game."
+      "change": "One X press starts twelve automatic checks without CPU VideoOut owner; original LWJGL KHR_display surface/swapchain/90 graphics draws,36 samples and256guard bytes per frame/FIFO presents; native display resources retained through JVM shutdown until app closes. No SDL/game.",
+      "reported_date": "2026-10-24",
+      "milestone": "Client_Direct_Presentation",
+      "evidence": "User: PASS by notification and pass by my eyes. Retrieved session client-01.000.011-1792835992-660643948 reports ALL12 PASS; startup confirms every present frame0-89/sample+guard checks across3 phases, direct GPU display context retained and DestroyJavaVM complete."
     }
   ]
 }
