@@ -15,10 +15,12 @@ parser.add_argument('--runtime-workspace', type=Path, required=True)
 parser.add_argument('--java-home', type=Path, required=True)
 parser.add_argument('--offline', action='store_true')
 parser.add_argument('--shader', action='store_true', help='Build client009 compute shader candidate')
+parser.add_argument('--render', action='store_true', help='Build client010 graphics pipeline candidate')
 args = parser.parse_args()
+if args.shader and args.render:parser.error("Choose one candidate")
 runtime = args.runtime_workspace.resolve()
-variant="shader" if args.shader else "vulkan"
-version="01.000.009" if args.shader else "01.000.008"
+variant="render" if args.render else "shader" if args.shader else "vulkan"
+version="01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -36,13 +38,20 @@ lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
 classpath='/app0/assets/java25/client-probe.jar:/app0/assets/java25/ports/'+port.name+':'+':'.join('/app0/assets/java25/client/jars/'+row['file']for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:'))
 (work/'client_classpath.hpp').write_text('#pragma once\n#define CLIENT_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n')
 sources=[*sorted((ROOT/'client/java').glob('*.java')),ROOT/'client/gpu/ClientGpu25.java',ROOT/'client/vulkan/ClientVulkan25.java']
-if args.shader:
+if args.shader or args.render:
  from compile_client_shader import compile_shader
  sources += [ROOT/'client/shader/ClientShader25.java',compile_shader()]
  shutil.copyfile(ROOT/'build/client-shader/audit.json',java/'shader-audit.json')
  (java/'shaders').mkdir()
  shutil.copyfile(ROOT/'build/client-shader/workload.spv',java/'shaders/workload.spv')
  shutil.copyfile(ROOT/'client/shader/workload.comp',java/'shaders/workload.comp')
+if args.render:
+ from compile_client_render import compile_render
+ sources += [ROOT/'client/render/ClientRender25.java',compile_render()]
+ shutil.copyfile(ROOT/'build/client-render/audit.json',java/'render-audit.json')
+ for name in ['fullscreen.vert','pattern.frag']:
+  shutil.copyfile(ROOT/'client/render'/name,java/'shaders'/name)
+  shutil.copyfile(ROOT/'build/client-render'/(name+'.spv'),java/'shaders'/(name+'.spv'))
 cp=':'.join([str(port),*[str(ROOT/'.tools/client'/row['file'])for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:')]])
 classes=work/'classes';shutil.rmtree(classes,ignore_errors=True);classes.mkdir()
 subprocess.run([str(args.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(classes),*[str(p)for p in sources]],check=True)
