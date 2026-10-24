@@ -143,6 +143,14 @@
       "reported_date": "2026-10-24",
       "milestone": "Client_Direct_Presentation",
       "evidence": "User: PASS by notification and pass by my eyes. Retrieved session client-01.000.011-1792835992-660643948 reports ALL12 PASS; startup confirms every present frame0-89/sample+guard checks across3 phases, direct GPU display context retained and DestroyJavaVM complete."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.012",
+      "package_sha256": "f203429b1439bc27229dedd3286bad11bb0481bf550f37965442d3f3be03947c",
+      "console": "pending; twelve automatic checks plus real X/Circle/D-pad Left/left-stick events+state and human full-screen confirmation",
+      "host": "PASS original SDL Java bindings with real macOS SDL3.4.12, host-C-created virtual joystick, gamepad button/axis state and SDL_Event ABI/event receipt/release/cleanup; Xint/XcheckJNI/verify and UBSan. Host digest resource paired to actual SDL binary; no PS5 hardware/window/surface tested. Native SDL3.4.2 PS5 compilation/link succeeds; target package checks PASS: real SDL video/joystick/Vulkan exports, four resident groups, scoped SDL object hash, licenses, 54 original JAR pins/exact002 Java image/native libs, 359+4 staged constructors, signatures/CRC and frozen000-004/008-011/Fabric094/Paper108 packages.",
+      "change": "Actual resident SDL3 public PS5 video/input backend with real Vulkan hooks; original LWJGL SDL JAR. Twelve automatic checks then physical X/Circle/D-pad Left/left-stick SDL events+state, at least90 graphics presents; retained SDL/display resources through JVM stop. Polling only; no game/audio/callbacks."
     }
   ]
 }

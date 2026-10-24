@@ -1,0 +1,17 @@
+{
+  "stage": "Client SDL Window/Input012 candidate",
+  "date": "2026-10-24",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.012",
+  "package_sha256": "f203429b1439bc27229dedd3286bad11bb0481bf550f37965442d3f3be03947c",
+  "console": "pending; twelve automatic checks plus real X/Circle/D-pad Left/left-stick events+state and human full-screen confirmation",
+  "host": "PASS original SDL Java bindings with real macOS SDL3.4.12, host-C-created virtual joystick, gamepad button/axis state and SDL_Event ABI/event receipt/release/cleanup; Xint/XcheckJNI/verify and UBSan. Host digest resource paired to actual SDL binary; no PS5 hardware/window/surface tested. Native SDL3.4.2 PS5 compilation/link succeeds; target package checks PASS: real SDL video/joystick/Vulkan exports, four resident groups, scoped SDL object hash, licenses, 54 original JAR pins/exact002 Java image/native libs, 359+4 staged constructors, signatures/CRC and frozen000-004/008-011/Fabric094/Paper108 packages.",
+  "scope": "Actual resident SDL3.4.2 public PS5 video/joystick backend adapted for real resident Vulkan/display query/surface hooks. Original Java SDL/Vulkan and game JARs unchanged. Polling input only; no libffi callback/audio/rumble/LED claim.",
+  "lifecycle": "SDL window/gamepad and native GPU display resources retained through DestroyJavaVM until app close. Teardown/resize/focus/reconnect/timeout recovery unvalidated.",
+  "runtime_source_modified": false,
+  "runtime_sdk_replaced": false,
+  "game_jar_modified": false,
+  "upstream_sdl_java_jar_modified": false,
+  "baseline": "Frozen000-004 and008-011 preserved",
+  "server_two_hour_endurance": "pending; explicitly deferred"
+}

@@ -17,11 +17,12 @@ parser.add_argument('--offline', action='store_true')
 parser.add_argument('--shader', action='store_true', help='Build client009 compute shader candidate')
 parser.add_argument('--render', action='store_true', help='Build client010 graphics pipeline candidate')
 parser.add_argument('--present', action='store_true', help='Build client011 standalone direct presentation candidate')
+parser.add_argument('--sdl', action='store_true', help='Build client012 SDL window/input candidate')
 args = parser.parse_args()
-if sum([args.shader,args.render,args.present])>1:parser.error("Choose one candidate")
+if sum([args.shader,args.render,args.present,args.sdl])>1:parser.error("Choose one candidate")
 runtime = args.runtime_workspace.resolve()
-variant="present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+variant="sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
+version="01.000.012" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -39,7 +40,7 @@ lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
 classpath='/app0/assets/java25/client-probe.jar:/app0/assets/java25/ports/'+port.name+':'+':'.join('/app0/assets/java25/client/jars/'+row['file']for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:'))
 (work/'client_classpath.hpp').write_text('#pragma once\n#define CLIENT_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n')
 sources=[*sorted((ROOT/'client/java').glob('*.java')),ROOT/'client/gpu/ClientGpu25.java',ROOT/'client/vulkan/ClientVulkan25.java']
-if args.shader or args.render or args.present:
+if args.shader or args.render or args.present or args.sdl:
  from compile_client_shader import compile_shader
  sources += [ROOT/'client/shader/ClientShader25.java',compile_shader()]
  shutil.copyfile(ROOT/'build/client-shader/audit.json',java/'shader-audit.json')
@@ -53,9 +54,9 @@ if args.render:
  for name in ['fullscreen.vert','pattern.frag']:
   shutil.copyfile(ROOT/'client/render'/name,java/'shaders'/name)
   shutil.copyfile(ROOT/'build/client-render'/(name+'.spv'),java/'shaders'/(name+'.spv'))
-if args.present:
+if args.present or args.sdl:
  from compile_client_present import compile_present
- sources += [ROOT/'client/present/ClientPresent25.java',compile_present()]
+ sources += [ROOT/('client/sdl/ClientSDL25.java' if args.sdl else 'client/present/ClientPresent25.java'),compile_present()]
  shutil.copyfile(ROOT/'build/client-present/audit.json',java/'present-audit.json')
  (java/'shaders/present').mkdir()
  for name in ['fullscreen.vert','pattern.frag']:
@@ -83,6 +84,22 @@ loader=work/'vulkan-loader.o'
 subprocess.run(['/opt/homebrew/opt/llvm/bin/clang','-std=c11','-O2','-Wall','-Wextra','-Werror','-fPIC','-target','x86_64-sie-ps5','-march=x86-64','-mno-avx','-mno-avx2','-mno-fma','-fvisibility-nodllstorageclass=default','-isysroot',str(runtime/'.tools/native-sdk/ps5-payload-sdk'),'-I'+str(ROOT/'.tools/PS5_Mesa/include'),'-c',str(ROOT/'client/vulkan/loader.c'),'-o',str(loader)],check=True)
 gpu_audit['vulkan_binding']={'jar':'Original upstream lwjgl-vulkan3.4.3 unchanged','bootstrap':'Supported VK.create(FunctionProvider) with PS5Library resident provider; vkGetInstanceProcAddr forwards to actual ICD','loader_object_sha256':hashlib.sha256(loader.read_bytes()).hexdigest(),'fixture_source_sha256':hashlib.sha256((ROOT/'client/vulkan/ClientVulkan25.java').read_bytes()).hexdigest(),'scope':'Real upstream VkInstance/VkDevice capability tables, structs and generic JNI commands; selected transfer/lifecycle commands tested, not complete Vulkan coverage'}
 spec['resident_libraries']=[{'name':'ps5clientgpu','objects':[str(gpu_bridge),str(loader)]},{'name':'ps5clientbridge','objects':[str(obj)]},{'name':'lwjgl','objects':[str(p)for p in native_objects]}]
+if args.sdl:
+ from build_sdl_native import build as build_sdl
+ sdl_object=build_sdl(runtime)
+ # Bind SDL's libc/thread references to the same genuine scoped graphics
+ # providers as RADV, without changing global JVM symbol resolution.
+ scoped=work/'resident-sdl.o'
+ mapping=ROOT/'build/client-gpu/sdl-bindings.txt'
+ bindings=gpu_audit['graphics_bindings']
+ mapping.write_text(''.join(k+' '+v+'\n' for k,v in sorted(bindings.items())))
+ subprocess.run(['/opt/homebrew/opt/llvm/bin/llvm-objcopy','--redefine-syms='+str(mapping),str(sdl_object),str(scoped)],check=True)
+ spec['resident_libraries'].append({'name':'ps5sdl','objects':[str(scoped)]})
+ sdl_audit=json.loads((ROOT/'build/sdl3-native/audit.json').read_text());sdl_audit['scoped_object_sha256']=hashlib.sha256(scoped.read_bytes()).hexdigest();sdl_audit['binding_scope']='Existing graphics provider binding map; JVM global providers unchanged'
+ (java/'sdl-audit.json').write_text(json.dumps(sdl_audit,indent=2)+'\n')
+ licenses=java/'sdl-licenses';licenses.mkdir()
+ for name in ['Zlib.txt','MIT.txt']:shutil.copyfile(ROOT/'client/ports/sdl'/name,licenses/name)
+ shutil.copyfile(ROOT/'build/sdl-src/LICENSE.txt',licenses/'SDL-LICENSE.txt')
 shutil.copyfile(ROOT/'build/client-ports/lwjgl-native/ps5/audit.json',java/'lwjgl-native-audit.json')
 specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\n')
 # Prepare the normal JVM/core embedding first using the existing002 tool/spec.
