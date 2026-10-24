@@ -20,12 +20,13 @@ parser.add_argument('--present', action='store_true', help='Build client011 stan
 parser.add_argument('--sdl', action='store_true', help='Build client014 SDL window/input candidate')
 parser.add_argument('--runtime-shader', action='store_true', help='Build client023 runtime GLSL compiler candidate')
 parser.add_argument('--startup',action='store_true',help='Build025 original Minecraft Main startup attempt')
+parser.add_argument('--native-bootstrap',action='store_true',help='Build026 genuine libffi/OpenAL native acceptance')
 args = parser.parse_args()
-if sum([args.shader,args.render,args.present,args.sdl,args.runtime_shader,args.startup])>1:parser.error("Choose one candidate")
-if args.startup:args.runtime_shader=True
+if sum([args.shader,args.render,args.present,args.sdl,args.runtime_shader,args.startup,args.native_bootstrap])>1:parser.error("Choose one candidate")
+if args.startup or args.native_bootstrap:args.runtime_shader=True
 runtime = args.runtime_workspace.resolve()
-variant="startup" if args.startup else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.025" if args.startup else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+variant="native_bootstrap" if args.native_bootstrap else "startup" if args.startup else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
+version="01.000.026" if args.native_bootstrap else "01.000.025" if args.startup else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -45,10 +46,17 @@ port=ROOT/'build/client-ports/lwjgl/lwjgl-3.4.3-ps5-platform.jar';shutil.copyfil
 audit=json.loads((ROOT/'build/client-ports/lwjgl/audit.json').read_text());audit['activated_for_probe']=True;audit['activated_for_game']=bool(args.startup)
 (java/'dependency-port-audit.json').write_text(json.dumps(audit,indent=2)+'\n')
 lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
+module_port=None
+if args.native_bootstrap:
+ from build_lwjgl_module_platform import build as build_module_platform
+ module_port=build_module_platform(args.java_home,args.offline);shutil.copyfile(module_port,ports/module_port.name)
+ shutil.copyfile(ROOT/'build/client-ports/lwjgl-modules/audit.json',java/'module-platform-audit.json')
 classpath='/app0/assets/java25/client-probe.jar:/app0/assets/java25/ports/'+port.name+':'+':'.join('/app0/assets/java25/client/jars/'+row['file']for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:'))
+if module_port:classpath='/app0/assets/java25/ports/'+module_port.name+':'+classpath
 (work/'client_classpath.hpp').write_text('#pragma once\n#define CLIENT_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n')
 sources=[*sorted((ROOT/'client/java').glob('*.java')),ROOT/'client/gpu/ClientGpu25.java',ROOT/'client/vulkan/ClientVulkan25.java']
 if args.startup:sources += [ROOT/'client/startup/ClientStartup25.java']
+if args.native_bootstrap:sources += [ROOT/'client/native_bootstrap/ClientNativeBootstrap25.java']
 if args.shader or args.render or args.present or args.sdl or args.runtime_shader:
  from compile_client_shader import compile_shader
  sources += [ROOT/'client/shader/ClientShader25.java',compile_shader()]
@@ -133,6 +141,19 @@ if args.runtime_shader:
  (java/'shaderc-audit.json').write_text(json.dumps(compiler_audit,indent=2)+'\n')
  licenses=java/'shaderc-licenses';licenses.mkdir()
  for name,path in [('shaderc-LICENSE.txt',ROOT/'.tools/shaderc-src/LICENSE'),('glslang-LICENSE.txt',ROOT/'.tools/shaderc-src/third_party/glslang/LICENSE.txt'),('SPIRV-Tools-LICENSE.txt',ROOT/'.tools/shaderc-src/third_party/spirv-tools/LICENSE'),('SPIRV-Headers-LICENSE.txt',ROOT/'.tools/shaderc-src/third_party/spirv-headers/LICENSE')]:shutil.copyfile(path,licenses/name)
+if args.native_bootstrap:
+ from build_libffi_native import build as build_ffi
+ ffi_object,ffi_audit=build_ffi(runtime,args.java_home,offline=args.offline)
+ scoped_ffi=work/'ffi.o';subprocess.run(['/opt/homebrew/opt/llvm/bin/llvm-objcopy','--redefine-syms='+str(ROOT/'build/client-gpu/sdl-bindings.txt'),str(ffi_object),str(scoped_ffi)],check=True)
+ spec['resident_libraries'][2]['objects'].append(str(scoped_ffi));ffi_audit['scoped_object_sha256']=hashlib.sha256(scoped_ffi.read_bytes()).hexdigest();(java/'ffi-audit.json').write_text(json.dumps(ffi_audit,indent=2)+'\n')
+ from build_openal_native import build as build_openal
+ al_object,al_lifecycle,al_audit=build_openal(runtime,offline=args.offline)
+ spec['resident_libraries'].append({'name':'ps5openal','objects':[str(al_object),str(al_lifecycle)]});(java/'openal-audit.json').write_text(json.dumps(al_audit,indent=2)+'\n')
+ helper=work/'callback-helper-raw.o';headers=runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_include/java.base'
+ subprocess.run(['/opt/homebrew/opt/llvm/bin/clang','-target','x86_64-sie-ps5','-O2','-fPIC','-fvisibility-nodllstorageclass=default','-isysroot',str(ROOT/'.tools/graphics-sdk'),'-I'+str(headers),'-I'+str(headers/'freebsd'),'-c',str(ROOT/'client/native_bootstrap/callback_probe.c'),'-o',str(helper)],check=True)
+ scoped_helper=work/'callback-helper.o';subprocess.run(['/opt/homebrew/opt/llvm/bin/llvm-objcopy','--redefine-syms='+str(ROOT/'build/client-gpu/sdl-bindings.txt'),str(helper),str(scoped_helper)],check=True);spec['resident_libraries'].append({'name':'ps5nativeprobe','objects':[str(scoped_helper)]})
+ licenses=java/'native-bootstrap-licenses';licenses.mkdir()
+ for name,path in [('libffi-LICENSE.txt',ROOT/'build/libffi-ps5/source/LICENSE'),('OpenAL-COPYING.txt',ROOT/'.tools/openal-soft-src/COPYING'),('OpenAL-BSD.txt',ROOT/'.tools/openal-soft-src/BSD-3Clause'),('PFFFT-LICENSE.txt',ROOT/'.tools/openal-soft-src/LICENSE-pffft'),('fmt-LICENSE.txt',ROOT/'.tools/openal-soft-src/fmt-11.2.0/LICENSE'),('GSL-LICENSE.txt',ROOT/'.tools/openal-soft-src/gsl/LICENSE')]:shutil.copyfile(path,licenses/name)
 shutil.copyfile(ROOT/'build/client-ports/lwjgl-native/ps5/audit.json',java/'lwjgl-native-audit.json')
 specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\n')
 # Prepare the normal JVM/core embedding first using the existing002 tool/spec.

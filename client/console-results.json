@@ -290,6 +290,15 @@
       "reported_date": "2026-10-24",
       "evidence": "client-01.000.025-1792850495-314186228: original Main entered;OpenAL bootstrap crash report,VM EXIT -3/native exit0xfffffffd. Vulkan platform switch also rejectedPS5;no025 reservation/OOM failure.",
       "log_evidence": "docs/validation/client025-startup-failure-2026-10-24.json"
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.026",
+      "package_sha256": "e158f9fd76ce91f16091b6e9ee2c54a4cbaf11863f08bf77853204b6ef984d82",
+      "console": "pending exact PS5 five-row acceptance;not game startup or speaker output",
+      "host": "PASS actual libffi3.8/LWJGL no-argument Vulkan loader+callback bootstrap,192callbacks/3lifecycles/current+native threads and3OpenAL loopback mixer/context lifecycles,440Hz PCM/frequency/peak/guard/silence controls;normal host and patched PS5 enum dispatch through actual MoltenVK/OpenAL under Xint/XcheckJNI/verification/UBSan. Host-only selector excluded from app. PASS actual RW->RX generated-code execution3cycles;NULL/size/overflow/map/prep/protect/re-prep and5/5mapping frees;explicit prep test double only for allocator/protection unit;actual FFI ABI covered separately on host. PASS CRC/signatures/identity,54original JARs,exact023 runtime image/native libraries,359JVM+4GPU+5shaderc+15OpenAL staged constructors/no auto ctors,real FFI/OpenAL/helper exports,7resident groups,128MiB/five-row fixture,host selector excluded,frozen023/failed025 package checksums preserved.",
+      "change": "Genuine libffi3.8 original LWJGL JNI/upcalls,PS5 SysV-only/W->X closure adapter;actual OpenAL Soft1.25.2 loopback/Null mixer and explicit15constructor lifecycle;PS5 module platform overlay activated in targeted five-row probe. No game/runtime implementation rewrites.",
+      "reported_date": "2026-10-24"
     }
   ]
 }

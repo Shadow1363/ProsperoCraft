@@ -249,3 +249,12 @@ no credentials or game class transformations. Native client coverage remains
 incomplete;four startup rows are not an automatic menu pass. Original game
 Main return/process exit is diagnostic evidence,not menu/world acceptance.
 Preserve frozen023/earlier packages and actual-console validation boundaries.
+
+User update2026-10-24:work on genuine callbacks/libffi and OpenAL after025
+reaches original Main and exits during native bootstrap.026 is a five-row
+native acceptance candidate,not a game launch. Preserve original game JARs,
+failed024/025 packages and frozen023. Host passes do not establish PS5 callback
+ABI,mixer or shutdown;freeze only exact human console acceptance. Before a
+public OpenAL-linked binary release,provide corresponding sources and exact
+relink inputs/instructions with its LGPL notices. Speaker output,remaining
+client dependencies and Minecraft menu remain unvalidated;endurance deferred.

@@ -47,3 +47,7 @@ requirement. The dispatch repair is built/tested separately and deliberately
 not promoted into a new console app while these known blockers persist.
 No additional025 console test is needed. No026 app/menu pass is claimed;
 server two-hour endurance stays deferred.
+
+Later development: [026](client-native-bootstrap-026.md) now supplies real
+libffi/OpenAL implementations in a targeted acceptance app. Its host checks
+pass;actual PS5 native acceptance and original-game retry remain pending.
