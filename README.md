@@ -52,6 +52,14 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Current client candidate: Texture,Depth and Blending021
+
+[Client021](docs/client-texture-021.md) adds real texture upload/sampling,a D32
+depth attachment and alpha blending with disabled-feature controls. The actual
+Mac GPU passes27draws/9full-image checks across3 sessions. Fourteen PS5 checks
+remain pending; the texture checks are offscreen,followed by the existing SDL
+visible tiles/input prompts. Frozen020 remains the passing runtime GLSL baseline.
+
 ## Client Runtime Shader Compilation — PS5 ALL13 PASS
 
 Client **01.000.020** passes all thirteen checks on PS5; the user reports

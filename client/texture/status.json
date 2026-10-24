@@ -1,0 +1,23 @@
+{
+  "stage": "Client Texture/Depth/Blend021 candidate",
+  "date": "2026-10-24",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.021",
+  "console": "pending; all14 checks and existing SDL physical-input/visual confirmation required",
+  "host": "PASS actual original LWJGL3.4.3 commands on real MoltenVK GPU,Java25 Xint/XcheckJNI/verify with core UBSan:3 real texture uploads,combined sampled-image descriptors,D32 depth reject+disabled control,source-alpha blend+disabled control,27draws/9full256x256RGBA images+256guards and3 resource/device lifecycles. New graphics modules pass glslangValidator/spirv-val. Host success does not establish PS5 pass.",
+  "scope": "Offscreen real texture upload/descriptor sampling,D32 depth and alpha-blend controls before SDL. Existing020 runtime compiler/GPU/input baselines retained. New graphics shaders compiled offline.",
+  "runtime_source_modified": false,
+  "runtime_sdk_replaced": false,
+  "game_jar_modified": false,
+  "lifecycle": "Texture workload runs3 complete resource/device sessions before retained SDL display; existing paired C++ allocation remains. Incomplete GPU resources retained.",
+  "baseline": "Client_Runtime_Shader020 exact frozen package/source/symbols preserved",
+  "not_validated": [
+    "PS5 new texture/depth/blend workload and14check combination",
+    "Texture filtering/mips/perspective/vertex buffers/indexing/larger workloads",
+    "Actual game startup,new visible textured scene and controller gameplay",
+    "Full native teardown/prolonged low-memory robustness",
+    "Server two-hour endurance remains deferred"
+  ],
+  "package_sha256": "5adbcd8dda4e355c69ab027c4630c0603bb095250e9afb2251e678ce9e58bc81",
+  "package_checks": "Target021 compile/link and package verification PASS:14-row order/explicit texture shader companion,real texture/sampler/upload/depth/blend Java methods and resident driver exports,validated texture module hashes,original54JARs/exact002 runtime image-native libs,paired C++ allocation/5resident groups/359JVM+4GPU+5compiler staged constructors,signatures/CRC and preserved frozen020+earlier/server packages. Actual PS5 all14 validation pending."
+}

@@ -18,12 +18,12 @@ parser.add_argument('--shader', action='store_true', help='Build client009 compu
 parser.add_argument('--render', action='store_true', help='Build client010 graphics pipeline candidate')
 parser.add_argument('--present', action='store_true', help='Build client011 standalone direct presentation candidate')
 parser.add_argument('--sdl', action='store_true', help='Build client014 SDL window/input candidate')
-parser.add_argument('--runtime-shader', action='store_true', help='Build client020 runtime GLSL compiler candidate')
+parser.add_argument('--runtime-shader', action='store_true', help='Build client021 runtime GLSL compiler candidate')
 args = parser.parse_args()
 if sum([args.shader,args.render,args.present,args.sdl,args.runtime_shader])>1:parser.error("Choose one candidate")
 runtime = args.runtime_workspace.resolve()
 variant="runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.020" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+version="01.000.021" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -65,6 +65,13 @@ if args.present or args.sdl or args.runtime_shader:
   shutil.copyfile(ROOT/'build/client-present'/(name+'.spv'),java/'shaders/present'/(name+'.spv'))
 if args.runtime_shader:
  sources += [ROOT/'client/runtime_shader/ClientRuntimeShader25.java']
+ from compile_client_texture import compile_texture
+ sources += [ROOT/'client/texture/ClientTexture25.java',compile_texture()]
+ shutil.copyfile(ROOT/'build/client-texture/audit.json',java/'texture-audit.json')
+ (java/'shaders/texture').mkdir()
+ for name in ['fullscreen.vert','texture.frag']:
+  shutil.copyfile(ROOT/'client/texture'/name,java/'shaders/texture'/name)
+  shutil.copyfile(ROOT/'build/client-texture'/(name+'.spv'),java/'shaders/texture'/(name+'.spv'))
 cp=':'.join([str(port),*[str(ROOT/'.tools/client'/row['file'])for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:')]])
 classes=work/'classes';shutil.rmtree(classes,ignore_errors=True);classes.mkdir()
 subprocess.run([str(args.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(classes),*[str(p)for p in sources]],check=True)

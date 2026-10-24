@@ -11,7 +11,7 @@ import static org.lwjgl.util.shaderc.Shaderc.*;
 /** Selected original LWJGL compute commands; no window or game code. */
 public final class ClientRuntimeShader25 {
  public static native void checkpoint(String text);
- private static void stage(String text){checkpoint("Runtime Shader020 @"+System.nanoTime()+"ns: "+text);}
+ private static void stage(String text){checkpoint("Runtime Shader021 @"+System.nanoTime()+"ns: "+text);}
  private static void check(int result,String call){if(result!=VK_SUCCESS)throw new IllegalStateException(call+" VkResult="+result);}
  private static final String SOURCE="""
 #version 450
@@ -60,7 +60,7 @@ void main() {
   boolean mapped=false,incomplete=false;
   try(MemoryStack stack=MemoryStack.stackPush()) {
    PointerBuffer ptr=stack.mallocPointer(1);LongBuffer handle=stack.mallocLong(1);IntBuffer count=stack.mallocInt(1);
-   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java Runtime Shader020")).apiVersion(VK_API_VERSION_1_1);
+   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java Runtime Shader021")).apiVersion(VK_API_VERSION_1_1);
    VkInstanceCreateInfo ii=VkInstanceCreateInfo.calloc(stack).sType$Default().pApplicationInfo(app);
    stage("create shader session "+cycle);check(vkCreateInstance(ii,null,ptr),"vkCreateInstance");instance=new VkInstance(ptr.get(0),ii);
    check(vkEnumeratePhysicalDevices(instance,count,null),"count devices");if(count.get(0)<1||count.get(0)>16)throw new AssertionError("GPU count");
