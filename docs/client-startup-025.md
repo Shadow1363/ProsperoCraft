@@ -35,3 +35,8 @@ Package SHA-256: `1c61c103fc96ac30a4c7acbdb985888a5cf2dfa848dadf90b74903c052097a
 Host128MiB original Main/native-bootstrap control and target package checks
 pass,including all original JAR/assets,exact023 image/native libraries,staged
 constructors,signatures and preserved frozen package hashes. No PS5 pass yet.
+
+Console follow-up:025 VM creation/inventory and actual original Main entry
+are confirmed. Minecraft exits-3 with an OpenAL bootstrap crash report;Vulkan
+also reports unsupported PS5 module dispatch. This clears the024 reservation
+blocker only. See [native bootstrap work](client-native-bootstrap-025.md).

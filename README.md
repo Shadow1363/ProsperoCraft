@@ -52,14 +52,16 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: Original Minecraft Startup025
+## Current client startup:025 native-bootstrap failure
 
-[Client025](docs/client-startup-025.md) retries original Minecraft26.3 Main
-with the passing probes'128MiB heap reservation.024 aborted before Main:
-the VM could not reserve its512MiB heap. All54 original Java/game artifacts
-and5,147 original assets remain unchanged. **PS5 VM creation/startup/menu
-requires retesting;native coverage and later memory needs remain unresolved.**
-The exact failed024 package/symbols and frozen023 remain preserved.
+[Client025](docs/client-startup-025.md) now creates the VM and enters original
+Minecraft Main on PS5. It exits with a crash report during OpenAL initialization;
+LWJGL's no-argument Vulkan and OpenAL loaders reject the appended PS5 platform.
+The512MiB reservation failure from024 is cleared at128MiB. The game JAR stays
+unchanged. [Saved evidence](docs/validation/client025-startup-failure-2026-10-24.json)
+and a [development dispatch repair](docs/client-native-bootstrap-025.md) record
+progress and remaining callback/OpenAL native work. **No menu/gameplay pass or
+new026 test app is claimed;another025 run would repeat a known failure.**
 
 ## Client Continuous Direct Scene — PS5 ALL15 PASS
 

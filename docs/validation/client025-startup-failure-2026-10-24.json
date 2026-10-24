@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-24",
+  "build": "01.000.025",
+  "package_sha256": "1c61c103fc96ac30a4c7acbdb985888a5cf2dfa848dadf90b74903c052097aee",
+  "run": "client-01.000.025-1792850495-314186228",
+  "console": "FAIL after actual original Main entry;VM creation and inventory pass",
+  "termination": "Original Minecraft native-bootstrap crash report,VM EXIT -3 and native exit0xfffffffd;not024 VM reservation abort",
+  "failures": [
+    "Original LWJGL VK.create no-argument platform switch rejects appended PS5 enum",
+    "Original LWJGL ALC.create platform switch rejects PS5;OpenAL is first fatal entry in shuffled native load order"
+  ],
+  "heap_report": "46MiB used,123MiB committed/max;no025 heap OOM in retrieved reports",
+  "retrieval": "Safari native UI;startup tail includes history,only marked025 run used",
+  "reports": {
+    "exceptions.log": {
+      "bytes": 8159,
+      "sha256": "c433ba0266372d37b7d9c17b5fb2265aa9220872d78c8ed9e5dd9939097df784"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "c3781281c9697f627634a0d6efeb24b63c4cddd4e10e871343f8f28f31430b51"
+    },
+    "vm-trace.log": {
+      "bytes": 227889,
+      "sha256": "6793165ddf987435ac2b8451e6b4f8e51ed58f37072a526487d51315cc3d3a18"
+    }
+  },
+  "repair": "Separate pinned-source VK/ALC platform overlay built/tested on host;not yet integrated into a PS5 app",
+  "remaining": [
+    "Real no-argument VK bootstrap reaches missing LibFFI.FFI_TYPE_DOUBLE callback dependency in host control",
+    "OpenAL native implementation unavailable",
+    "Other native dependencies still incomplete;game menu not established"
+  ],
+  "next_console_test": "Wait for native-port work;no new026 app or console pass"
+}

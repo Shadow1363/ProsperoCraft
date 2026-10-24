@@ -1,5 +1,5 @@
 {
-  "status": "023 direct renderer ALL15 PASS;024 VM aborted on512MiB reservation;025 retries128MiB,console pending",
+  "status": "023 direct rendering ALL15 PASS;025 VM/inventory/Main entry reached but native bootstrap failed on PS5 module dispatch",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Retest025 actual VM creation/original Main with128MiB reservation. Native client coverage and later heap needs unresolved;original JARs intact. Server endurance deferred."
+  "next": "Development VK/ALC dispatch overlay host-tested separately;real Vulkan allocation-callback/libffi and OpenAL implementations required before another useful client-startup console test. Other native paths incomplete;endurance deferred."
 }
