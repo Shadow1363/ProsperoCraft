@@ -153,3 +153,11 @@ This validates the tested original LWJGL Vulkan command/struct/capability-table
 path and diagnostic storage recovery, not complete Vulkan coverage, SDL/window
 integration, Java presentation, shaders or game startup. Continue development
 outside frozen folders; server two-hour endurance remains deferred.
+
+Client_Shader_Pipeline is the frozen passing client009 milestone, PPSA99874
+version01.000.009, user ALL PASS for all eleven rows on2026-10-24. Retrieved logs
+confirm18 actual LWJGL/RADV compute shader dispatches, output/guard verification,
+three shader/device lifecycles and DestroyJavaVM. Preserve source/package/symbols.
+This is offscreen compute, not SDL/window integration, visible graphics/fragment
+rendering, Java display presentation or game startup. Continue development outside
+frozen folders; server two-hour endurance remains deferred.

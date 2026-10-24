@@ -1,5 +1,5 @@
 {
-  "status": "Client008 standard LWJGL Vulkan commands PS5 ALL PASS; Client009 compute shader candidate pending",
+  "status": "Client009 compute shader pipeline PS5 ALL PASS:18 dispatches/output+guard verification/3 lifecycles and DestroyJavaVM",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Client009 adds original LWJGL compute pipeline/descriptor/push-constant/dispatch/output-guard checks before SDL/window and graphics shader integration. Host GPU pass; eleven PS5 rows pending. Frozen000-004 and008 preserved."
+  "next": "SDL/window/display integration and visible graphics shader rendering; compute009 is offscreen only. Frozen000-004 and008-009 preserved; server endurance deferred."
 }

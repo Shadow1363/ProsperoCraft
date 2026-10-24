@@ -58,3 +58,7 @@ checks, exact package hash and pending console results are recorded in
 `client/shader/status.json`. Official game/Vulkan JARs, the Java runtime
 implementation and SDK are unchanged. No new milestone/release is created
 until this exact build passes on PS5.
+
+## Console acceptance
+
+All eleven009 rows pass on2026-10-24, confirmed by the user and retrieved current-run reports. Logs verify18 shader dispatches, full output/guard checks,3 lifecycles and DestroyJavaVM. Exact tested bytes are frozen in [Client_Shader_Pipeline](../Client_Shader_Pipeline/README.md).

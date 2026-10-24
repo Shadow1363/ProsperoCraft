@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Status: Fabric/Paper server playtests and client Vulkan bindings pass on PS5.** Client **01.000.008** passes all ten rows, including real LWJGL Vulkan GPU commands/readback and VM shutdown. Minecraft client startup, SDL/window integration and shaders remain ahead; server two-hour endurance stays deferred.
+> **Status: Fabric/Paper playtests and client compute shaders pass on PS5.** Client **01.000.009** passes all eleven rows, including actual RADV shader compilation/dispatch, guarded readback and VM shutdown. Window/display integration, visible rendering and Minecraft client startup remain ahead; server two-hour endurance stays deferred.
 
 ## The goal
 
@@ -52,14 +52,21 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: Shader Pipeline009
+## Client Shader Pipeline — PS5 ALL PASS
 
-[Client009](docs/client-shader-pipeline-009.md) adds actual compute-shader pipeline
-creation and dispatch through the original LWJGL Vulkan bindings. Java checks
-all GPU output and guard words across18 dispatches and three shader/device
-lifecycles. The Mac GPU checks pass; **all eleven PS5 rows remain pending**.
-This is an offscreen shader canary; SDL/window integration, visible rendering
-and Minecraft startup remain ahead. Frozen008 is preserved below.
+All eleven rows of client **01.000.009** pass on PS5, confirmed on **2026-10-24**.
+Retrieved logs verify18 real compute-shader dispatches, every output/guard word,
+three shader/device lifecycles and DestroyJavaVM. Original LWJGL Vulkan bindings
+create the descriptors, push constants and pipeline; RADV compiles and executes
+the shader on the PS5 GPU. The tested source/package are frozen as
+[Client_Shader_Pipeline](Client_Shader_Pipeline/README.md), with a
+[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Shader_Pipeline-v01.000.009)
+and [validation record](Client_Shader_Pipeline/validation.json).
+
+This is offscreen compute. SDL/window integration, visible graphics/fragment
+rendering, Java display presentation and Minecraft startup remain ahead.
+Original game/Vulkan JARs and runtime implementation/SDK are unchanged.
+Frozen000–004 and008 remain preserved; server endurance stays deferred.
 
 ## Client Vulkan Bindings — PS5 ALL PASS
 
@@ -305,6 +312,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client Shader Pipeline · 01.000.009** | ALL PASS on PS5:18 compute dispatches, guarded readback,3 shader lifecycles and VM shutdown | [Frozen source & validation](Client_Shader_Pipeline) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Shader_Pipeline-v01.000.009) |
 | **Client Vulkan Bindings · 01.000.008** | ALL PASS on PS5: original LWJGL Vulkan commands,12 GPU transfers,3 lifecycles and VM shutdown | [Frozen source & validation](Client_Vulkan_Bindings) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Vulkan_Bindings-v01.000.008) |
 | **Client GPU Integration · 01.000.004** | ALL PASS on PS5: Java/LWJGL GPU copy/fill/readback, three Vulkan session cycles and VM shutdown | [Frozen source & validation](Client_GPU_Integration) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_GPU_Integration-v01.000.004) |
 | **Client Native Graphics · 01.000.003** | ALL PASS on PS5: RADV GPU clear/copy/readback and VideoOut presentation | [Frozen source & validation](Client_Native_Graphics) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Native_Graphics-v01.000.003) |
