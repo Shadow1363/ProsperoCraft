@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-24",
+  "build": "01.000.024",
+  "run": "client-01.000.024-1792849139-513138847",
+  "result": "FAIL before Main at real JNI_CreateJavaVM",
+  "startup_error": "Could not reserve enough space for 524288 KB object heap",
+  "native_evidence": "512MiB/520MiB reserve failures errno12;VM ABORT;native exit1",
+  "retrieval": "Safari native UI;session/full startup tail/full VM trace saved locally. Startup has older history;only024 marked run used.",
+  "reports": {
+    "session.txt": {
+      "bytes": 126,
+      "sha256": "8ecd849d77739408922def473dde95660e76fa9fd18b349f4859076fcce337bc"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "1656aade27bad2e9eb1c668e5692246e72f4c96291114671206c010e35585512"
+    },
+    "vm-trace.log": {
+      "bytes": 6451,
+      "sha256": "6bda389e296e5f35cc9b819ad374a368da7f14cc9ebcd0188ddb9bfd3793c649"
+    }
+  },
+  "correction": "Consumer025 Xmx128m matching passing023;actual console retest pending",
+  "not_established": "Original Main/native loader/window/menu;128MiB later game memory adequacy"
+}

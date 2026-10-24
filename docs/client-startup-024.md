@@ -68,3 +68,8 @@ all5147original asset hashes/sizes,pinned index,exact023 runtime image/native
 libraries,359+4+5 staged constructors/5real resident groups,paired C++ allocator,
 actual Main invocation/four-row/log config and preserved022/023 packages.
 PS5 startup/menu validation remains pending. Package SHA-256: `95a48cfddca9cadc10c7121959b52db71daff93b68ec0da4d5189b03b4a9ca3d`.
+
+Console follow-up2026-10-24:024 aborted while creating the VM,with512MiB
+heap reservation refused (`errno=12`);original Main was never reached.
+See [025 correction](client-startup-025.md). The original package/symbols are
+preserved as failed evidence,not a passing milestone.
