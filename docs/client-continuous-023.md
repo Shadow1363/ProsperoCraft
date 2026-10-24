@@ -72,3 +72,14 @@ instructions. Exact source/package/symbols are frozen in Client_Continuous_Direc
 Current-run log downloads were refused;no independently corroborated run ID,
 frame count or detailed stage completion is claimed. Human acceptance is kept
 separate from host/package checks and the still-pending report retrieval.
+
+## Later log corroboration2026-10-24
+
+Safari native UI successfully saved session/startup-tail/native VM trace while
+shell access still failed with No route to host. Run
+client-01.000.023-1792846440-446670267 confirms ALL15 PASS:494consecutive direct
+frames/1482draws,all3phases (180/180/134frames),36pixel samples+256guards each,
+physical event/state masks15 and JVM shutdown. Earlier report-unavailability
+statements remain historical;the additive
+[follow-up](validation/client023-log-follow-up-2026-10-24.json) supplies the later
+evidence without altering frozen validation or original release artifacts.

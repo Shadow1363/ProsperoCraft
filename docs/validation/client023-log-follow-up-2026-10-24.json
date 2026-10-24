@@ -1,0 +1,46 @@
+{
+  "milestone": "Client_Continuous_Direct_Scene",
+  "app_version": "01.000.023",
+  "title_id": "PPSA99874",
+  "verified_date": "2026-10-24",
+  "tested_source_commit": "a942f20ddbf9a21ba1737a8ba196f0a9bacc150c",
+  "tested_full_package_sha256": "846cd9adea6f9e6b04f80df461424c26b1fec6aa080ed641c35e7cfb16488ea4",
+  "recorded_run": "client-01.000.023-1792846440-446670267",
+  "session_state": "ALL15 PASS",
+  "retrieval": "Safari native UI opened each PS5 report and saved Page Source into ignored local logs. Shell curl still fails with No route to host. No app/JAR/runtime changes or new console run were needed.",
+  "original_frozen_validation": "Client_Continuous_Direct_Scene/validation.json remains unchanged;it accurately records human PASS and unavailable logs at original publication. This additive follow-up supplies later corroboration.",
+  "observed": {
+    "direct_presented_frames": 494,
+    "consecutive_frame_indices": "0..493",
+    "phase_frame_counts": {
+      "0": 180,
+      "1": 180,
+      "2": 134
+    },
+    "scene_draws_per_frame": 3,
+    "direct_scene_draws": 1482,
+    "pixel_samples_per_frame": 36,
+    "total_swapchain_pixel_samples": 17784,
+    "guard_bytes_checked_per_frame": 256,
+    "total_guard_byte_checks": 126464,
+    "physical_event_mask": 15,
+    "physical_state_mask": 15,
+    "runtime_shaderc": "3 compiler/invalid-source diagnostic controls and18GPU outputs pass",
+    "offscreen_texture_controls": "27draws/9full-image+guard checks pass",
+    "offscreen_perspective_scene": "27draws/9full-image+guard checks pass",
+    "jvm_shutdown": "DestroyJavaVM complete in startup and native VM trace"
+  },
+  "fault_review": "No native shaderc fault marker or fixture failure found in the isolated current run/startup segment or current VM trace. This does not prove complete fault detection or prolonged stability.",
+  "reports_sha256": {
+    "session.txt": "f9f875972df8eda4480f14415acf184ecc829af398b8d1df80df6aa99e460e53",
+    "startup-tail.log": "8b0f37350a035ce11b823557b75bd0d5b628cc93ddd43fd8d200d770efd3a5b9",
+    "vm-trace.log": "9144a0a1e6c2f43daa9a001073c52b9f8f72127057097f61fc4ce3facaec55a0"
+  },
+  "not_validated": [
+    "Camera/gameplay controls,index buffers,filtering/mips,larger models/shaders,Minecraft startup",
+    "SDL/native display teardown,resize/focus/reconnect,complete SDL/Vulkan coverage",
+    "Runtime shader includes/callbacks/HLSL,global module teardown,prolonged GPU/low-memory robustness",
+    "Server two-hour endurance remains explicitly deferred"
+  ],
+  "checks": "PASS session build/run matching,isolated current-run startup segment,494consecutive frame records/all3phases,physical masks15,earlier fixture PASS stages and JVM stop in both reports. Raw logs remain local."
+}

@@ -232,3 +232,12 @@ frames/all3phases,36samples+256guards/frame and physical masks15. No captured
 scene upload/blit. Native display/renderer retained;camera controls/indexing,
 larger workloads,game startup,global teardown and endurance remain unvalidated.
 Continue development outside frozen folders.
+
+Client023 follow-up:Safari native UI retrieved the saved reports on2026-10-24
+while shell requests still returned No route to host. Run
+client-01.000.023-1792846440-446670267 corroborates ALL15 PASS,494consecutive
+direct frames/1482scene draws,all3phases,physical masks15 and JVM shutdown.
+Keep the original frozen source/validation and four release assets unchanged;
+docs/validation/client023-log-follow-up-2026-10-24.json and additive release
+follow-up assets record this later evidence. Raw logs stay local. Camera,
+game startup,full teardown and endurance limitations remain.

@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Status: Fabric/Paper playtests and continuous direct client rendering have human PS5 PASS.** Client **01.000.023** draws into each SDL swapchain image with checked pastel/blue/white phases. The user reports PASS;current-run logs and exact frame count could not be retrieved. Camera controls and Minecraft startup remain ahead;server two-hour endurance stays deferred.
+> **Status: Fabric/Paper playtests and continuous direct client rendering pass on PS5.** Client **01.000.023** passes all fifteen checks;retrieved reports confirm494direct FIFO frames,1,482scene draws,all3phases,physical inputs and JVM shutdown. Camera controls and Minecraft startup remain ahead;server two-hour endurance stays deferred.
 
 ## The goal
 
@@ -52,21 +52,24 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Client Continuous Direct Scene — human PS5 PASS
+## Client Continuous Direct Scene — PS5 ALL15 PASS
 
-The user reports **“PASS”** for client **01.000.023** after the fifteen-check
-and pastel/blue/white phase checklist. The renderer draws directly into acquired
-SDL swapchain color attachments with depth/blend controls and sampled pixel/
-guard verification. It replaces022's captured-scene upload/blit handoff. The
-current-run log endpoint refused connections;session identity and exact frame
-count are not independently corroborated. Host shared-renderer checks pass.
+Human **“PASS”** for client **01.000.023** is now corroborated by saved reports
+retrieved through Safari. Run `client-01.000.023-1792846440-446670267` confirms
+494consecutive direct FIFO frames:1,482scene draws,17,784pixel samples,
+126,464guard-byte checks,all3phases,physical event/state masks15 and JVM shutdown.
+The renderer draws into each acquired SDL color attachment;it replaces022's
+captured-scene upload/blit handoff. No fault marker or fixture failure was found
+in the retrieved current run.
 
-Exact tested source/package and evidence are frozen in
+Exact tested source/package are preserved in
 [Client_Continuous_Direct_Scene](Client_Continuous_Direct_Scene/README.md),with a
-[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Continuous_Direct_Scene-v01.000.023)
-and [validation record](Client_Continuous_Direct_Scene/validation.json).
-Camera controls,index buffers,larger workloads,Minecraft startup and full native
-teardown remain ahead;server endurance stays deferred.
+[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Continuous_Direct_Scene-v01.000.023).
+The original frozen validation remains unchanged. An additive
+[log follow-up](docs/validation/client023-log-follow-up-2026-10-24.json) records
+the later corroboration;raw logs stay local. Camera controls,index buffers,
+larger workloads,Minecraft startup and full teardown remain ahead;endurance
+stays deferred.
 
 ## Client Visible Perspective Scene — PS5 ALL15 PASS
 
@@ -425,7 +428,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
-| **Client Continuous Direct Scene · 01.000.023** | Human PS5 PASS for direct swapchain rendering/phase/input checklist;current-run logs unavailable | [Frozen source & validation](Client_Continuous_Direct_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Continuous_Direct_Scene-v01.000.023) |
+| **Client Continuous Direct Scene · 01.000.023** | PS5 ALL15 PASS:494direct FIFO frames/1,482draws,all3phases,input masks15 and JVM shutdown | [Frozen source & validation](Client_Continuous_Direct_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Continuous_Direct_Scene-v01.000.023) |
 | **Client Visible Perspective Scene · 01.000.022** | PS5 ALL15 PASS:vertex-buffer perspective scene,verified image handoff,295SDL FIFO frames/input and JVM shutdown | [Frozen source & validation](Client_Visible_Perspective_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Visible_Perspective_Scene-v01.000.022) |
 | **Client Texture/Depth/Blend · 01.000.021** | PS5 ALL14 PASS:3texture uploads,27draws/9full images+guards,depth/blend controls,SDL318frames and JVM shutdown | [Frozen source & validation](Client_Texture_Depth_Blend) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Texture_Depth_Blend-v01.000.021) |
 | **Client Runtime Shader · 01.000.020** | PS5 ALL13 PASS: real runtime GLSL/error controls,18 GPU outputs,SDL input/display252frames and JVM shutdown | [Frozen source & validation](Client_Runtime_Shader) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Runtime_Shader-v01.000.020) |
