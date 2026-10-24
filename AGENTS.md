@@ -161,3 +161,12 @@ three shader/device lifecycles and DestroyJavaVM. Preserve source/package/symbol
 This is offscreen compute, not SDL/window integration, visible graphics/fragment
 rendering, Java display presentation or game startup. Continue development outside
 frozen folders; server two-hour endurance remains deferred.
+
+Client_Graphics_Pipeline is the frozen passing client010 milestone, PPSA99874
+version01.000.010, user ALL PASS on2026-10-24 after the twelve-row and colored
+preview checklist. Retrieved logs corroborate9 graphics draws, full pixel/guard
+checks,3 image/pipeline/device lifecycles, GPU readback publication and JVM stop.
+Actual readback is displayed by the existing CPU menu; preserve this distinction
+from SDL/window, Java-owned VideoOut/direct GPU swapchain presentation and game
+startup, which remain unvalidated. Preserve exact source/package/symbols; continue
+development outside frozen folders. Server two-hour endurance remains deferred.

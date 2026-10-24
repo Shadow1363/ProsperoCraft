@@ -1,5 +1,5 @@
 {
-  "status": "Client009 compute shader PS5 ALL PASS; Client010 vertex/fragment graphics/readback preview candidate pending",
+  "status": "Client010 graphics pipeline PS5 ALL PASS:9 draws/full pixel+guard verification/3 lifecycles/readback publish/DestroyJavaVM; human combined preview checklist accepted",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Client010 graphics shaders and full image verification/CPU-menu readback preview, then SDL/window/direct GPU display integration. Twelve console rows and human preview confirmation pending; frozen000-004/008-009 preserved."
+  "next": "SDL/window and direct GPU display integration;010 preview uses actual GPU readback displayed by CPU menu. Frozen000-004/008-010 preserved; server endurance deferred."
 }
