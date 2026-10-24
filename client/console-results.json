@@ -245,6 +245,15 @@
       "reported_date": "2026-10-24",
       "evidence": "Human: nice pass! Saved run client-01.000.021-1792844052-984973201 records ALL14 PASS. Three texture/depth/blend resource/device sessions,27draws/9full256x256images+256guards; actual runtime shaderc3compiler/invalid controls/18GPU workload,SDL318frames with physical event/state masks15 and DestroyJavaVM complete.",
       "milestone": "Client_Texture_Depth_Blend"
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.022",
+      "package_sha256": "9d49135a4dcbd66e93ef496e442c7845964e08aa6664c9dc26546a94196e450e",
+      "console": "pending;15 checks and visible static perspective-textured panel on magenta with physical SDL inputs",
+      "host": "PASS real original LWJGL/MoltenVK GPU:3 vertex-buffer/perspective scene sessions,27draws/9full256x256images+guards with independent barycentric1/W reference and depth/blend controls. Host-only hook validates128x96RGBA->BGRA nearest GPU scaling against every actual source pixel; no SDL/PS5 WSI exercised. Java25 Xint/XcheckJNI/verify/core UBSan; new shaders glslang/spirv-val PASS. Target022 compile/link/package PASS:15-row order and explicit scene/texture companions,real vertex-buffer and blit driver exports,scene/texture module hashes,host-only blit verifier absent,original54JARs/exact002 runtime image-native libs,paired C++ allocation/5resident groups/359JVM+4GPU+5compiler staged constructors,CRC/signatures and preserved021/020/earlier/server packages. PS5 all15 and visible scene pending.",
+      "change": "New actual six-vertex position/UV buffer,perspective-correct sampled panel with independent1/W barycentric full-image reference and inherited depth/blend controls.3sessions/27draws/9images+guards. Final actual GPU readback copied to Java array,uploaded once and nearest-blitted to SDL BGRA swapchain;36samples+256guards/frame and physical event/state masks retained. Explicit static readback/upload handoff,not continuous direct scene rendering. No game/Java JAR/JVM/SDK changes.",
+      "reported_date": "2026-10-24"
     }
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "stage": "Client Visible Perspective Scene022 candidate",
+  "date": "2026-10-24",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.022",
+  "console": "pending; all15 checks and visual panel confirmation required",
+  "host": "PASS real original LWJGL/MoltenVK GPU:3 vertex-buffer/perspective scene sessions,27draws/9full256x256images+guards with independent barycentric1/W reference and depth/blend controls. Host-only hook validates128x96RGBA->BGRA nearest GPU scaling against every actual source pixel; no SDL/PS5 WSI exercised. Java25 Xint/XcheckJNI/verify/core UBSan; new shaders glslang/spirv-val PASS.",
+  "scope": "Actual six-vertex buffer/perspective interpolation/offscreen depth-blend controls; verified real GPU readback uploaded once and nearest-blitted through SDL to static scene. Physical input acceptance retained,not camera control.",
+  "runtime_source_modified": false,
+  "runtime_sdk_replaced": false,
+  "game_jar_modified": false,
+  "lifecycle": "New scene3resource/device lifecycles before retained SDL display context. Existing paired app C++ allocation and diagnostics unchanged.",
+  "baseline": "Frozen021 exact source/package/symbols preserved",
+  "not_validated": [
+    "PS5 new scene/SDLblit and all15 combination",
+    "Continuous/direct scene rendering into swapchain/camera control/index buffers/mips/filtering",
+    "Larger models/shaders/runtime shader includes/callbacks/HLSL/game startup",
+    "SDL/native teardown/reconnect/focus/resize/complete coverage/prolonged GPU-low-memory robustness",
+    "Server two-hour endurance explicitly deferred"
+  ],
+  "package_sha256": "9d49135a4dcbd66e93ef496e442c7845964e08aa6664c9dc26546a94196e450e",
+  "package_checks": "Target022 compile/link/package PASS:15-row order and explicit scene/texture companions,real vertex-buffer and blit driver exports,scene/texture module hashes,host-only blit verifier absent,original54JARs/exact002 runtime image-native libs,paired C++ allocation/5resident groups/359JVM+4GPU+5compiler staged constructors,CRC/signatures and preserved021/020/earlier/server packages. PS5 all15 and visible scene pending."
+}
