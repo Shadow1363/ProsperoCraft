@@ -1,5 +1,5 @@
 {
-  "status": "Client011 direct presentation automated/visual PASS; Client012 actual SDL3 PS5 window/input candidate pending",
+  "status": "Client011 direct presentation PASS;012 failed Vulkan fixture companion loading before SDL;013 explicit companion-loading candidate pending",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Validate SDL fullscreen window/Vulkan surface and real gamepad state/events on PS5; resources retained through JVM shutdown. Audio/callbacks/game startup remain unvalidated."
+  "next": "013 console retest: original classpath cause remains unresolved; explicit native fixture companion definitions precede Vulkan/shader/SDL rows. SDL/input/display acceptance pending."
 }
