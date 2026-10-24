@@ -258,3 +258,15 @@ ABI,mixer or shutdown;freeze only exact human console acceptance. Before a
 public OpenAL-linked binary release,provide corresponding sources and exact
 relink inputs/instructions with its LGPL notices. Speaker output,remaining
 client dependencies and Minecraft menu remain unvalidated;endurance deferred.
+
+Client_Callbacks_OpenAL is the frozen passing026 milestone,PPSA99874
+01.000.026,human ALL5 PASS and retrieved run
+client-01.000.026-1792852721-557017669 on2026-10-24. Preserve its exact
+source,full package,symbols,validation and release assets.192real Java
+callbacks across calling/native threads,3OpenAL loopback mixer lifecycles
+with PCM/frequency/guard/silence controls,Vulkan loader/FFI bootstrap and JVM
+shutdown pass. No PS5 speaker output,full callback coverage or game menu pass.
+The release includes original OpenAL corresponding source and exact relink
+objects/helper;unmodified relink reproduces the frozen native ELF. Original
+game JARs are omitted publicly and reprovisioned locally. Continue development
+outside the frozen folder;server two-hour endurance remains deferred.

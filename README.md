@@ -52,15 +52,20 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: native callbacks and OpenAL026
+## Client Callbacks/OpenAL — PS5 ALL5 PASS
 
-[Client026](docs/client-native-bootstrap-026.md) adds genuine libffi/LWJGL
-callbacks and OpenAL Soft mixing,following025's original-game native-bootstrap
-failure. Host checks pass192 callbacks on calling/native threads and three
-real PCM mixer lifecycles,including the PS5 module dispatch branches. The
-five-row PS5 acceptance candidate is **pending console validation**. It tests
-these dependencies before retrying Minecraft;no window,speaker output or game
-menu is expected. Original game JARs and frozen023 remain unchanged.
+Client **01.000.026** now passes all five checks on the actual PS5. Saved reports
+confirm192native-to-Java callbacks across calling/native threads,three real
+OpenAL loopback mixer/context lifecycles with verified440Hz PCM/guards/silence,
+no-argument Vulkan loader/callback bootstrap and JVM shutdown. This establishes
+native callback and in-memory mixer acceptance;**speaker output and Minecraft
+startup/menu remain unvalidated**. Original game JARs remain unchanged.
+
+[Frozen source/validation](Client_Callbacks_OpenAL) and the [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Callbacks_OpenAL-v01.000.026)
+include app-only artifacts,local JAR provisioning and an OpenAL corresponding-
+source/relink kit. The kit reproduces the exact native ELF and accepts a
+compatible rebuilt OpenAL object. Continue game startup in development while
+preserving this exact026 snapshot. Server two-hour endurance stays deferred.
 
 ## Client Continuous Direct Scene — PS5 ALL15 PASS
 
@@ -438,6 +443,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client Callbacks/OpenAL · 01.000.026** | PS5 ALL5 PASS:192callbacks,3real loopback mixer lifecycles,Vulkan native bootstrap and JVM shutdown | [Frozen source & validation](Client_Callbacks_OpenAL) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Callbacks_OpenAL-v01.000.026) |
 | **Client Continuous Direct Scene · 01.000.023** | PS5 ALL15 PASS:494direct FIFO frames/1,482draws,all3phases,input masks15 and JVM shutdown | [Frozen source & validation](Client_Continuous_Direct_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Continuous_Direct_Scene-v01.000.023) |
 | **Client Visible Perspective Scene · 01.000.022** | PS5 ALL15 PASS:vertex-buffer perspective scene,verified image handoff,295SDL FIFO frames/input and JVM shutdown | [Frozen source & validation](Client_Visible_Perspective_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Visible_Perspective_Scene-v01.000.022) |
 | **Client Texture/Depth/Blend · 01.000.021** | PS5 ALL14 PASS:3texture uploads,27draws/9full images+guards,depth/blend controls,SDL318frames and JVM shutdown | [Frozen source & validation](Client_Texture_Depth_Blend) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Texture_Depth_Blend-v01.000.021) |

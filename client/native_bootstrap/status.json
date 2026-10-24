@@ -4,7 +4,7 @@
   "app_version": "01.000.026",
   "stage": "Native libffi callback/OpenAL mixer acceptance",
   "package_sha256": "e158f9fd76ce91f16091b6e9ee2c54a4cbaf11863f08bf77853204b6ef984d82",
-  "console": "pending exact PS5 five-row acceptance;not game startup or speaker output",
+  "console": "Human ALL5 PASS corroborated by saved session/startup:192 native-to-Java callbacks,3 OpenAL mixer/context lifecycles and DestroyJavaVM",
   "host": "PASS actual libffi3.8/LWJGL no-argument Vulkan loader+callback bootstrap,192callbacks/3lifecycles/current+native threads and3OpenAL loopback mixer/context lifecycles,440Hz PCM/frequency/peak/guard/silence controls;normal host and patched PS5 enum dispatch through actual MoltenVK/OpenAL under Xint/XcheckJNI/verification/UBSan. Host-only selector excluded from app.",
   "adapter": "PASS actual RW->RX generated-code execution3cycles;NULL/size/overflow/map/prep/protect/re-prep and5/5mapping frees;explicit prep test double only for allocator/protection unit;actual FFI ABI covered separately on host.",
   "package_checks": "PASS CRC/signatures/identity,54original JARs,exact023 runtime image/native libraries,359JVM+4GPU+5shaderc+15OpenAL staged constructors/no auto ctors,real FFI/OpenAL/helper exports,7resident groups,128MiB/five-row fixture,host selector excluded,frozen023/failed025 package checksums preserved.",
@@ -58,10 +58,13 @@
     }
   },
   "unvalidated": [
-    "Actual PS5 closures/ABI/executable mappings/native thread JNI attachment+detach/OpenAL PCM/context cleanup/JVM shutdown",
-    "Speaker/capture output,global teardown and broad callback/FFI argument signatures",
-    "Original Minecraft startup with new dependencies;OpenGL/STB/FreeType/VMA/SPIRV-Cross/other SDL callbacks still incomplete",
-    "Server two-hour endurance remains deferred"
+    "No PS5 speaker/capture output or game window/menu/startup;original Main with new ports not retested",
+    "Only tested integer/pointer callback signature;floating-point/aggregate/variadic callbacks and broad FFI/SDL callback coverage pending",
+    "OpenGL/STB/FreeType/VMA/SPIRV-Cross and remaining native dependencies incomplete",
+    "Global module teardown,prolonged low-memory robustness and server two-hour endurance pending/deferred"
   ],
-  "distribution": "Local candidate only;OpenAL LGPL corresponding-source/relink inputs required before public release assets"
+  "distribution": "Local candidate only;OpenAL LGPL corresponding-source/relink inputs required before public release assets",
+  "milestone": "Client_Callbacks_OpenAL",
+  "reported_date": "2026-10-24",
+  "run": "client-01.000.026-1792852721-557017669"
 }

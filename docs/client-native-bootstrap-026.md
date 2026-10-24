@@ -81,3 +81,11 @@ promise follows from passing this targeted dependency test.
 Current local package: runtime workspace `dist/PPSA99874.zip`,consumer
 `dist/client-native_bootstrap/PPSA99874.zip`. SHA-256: `e158f9fd76ce91f16091b6e9ee2c54a4cbaf11863f08bf77853204b6ef984d82`.
 Target/package checks pass;actual PS5 result remains pending.
+
+Console follow-up2026-10-24:human ALL5 PASS is corroborated by saved run
+client-01.000.026-1792852721-557017669.192callbacks,3loopback mixer/context
+lifecycles with peak5957/crossings43/guards+silence,and DestroyJavaVM pass.
+[Client_Callbacks_OpenAL](../Client_Callbacks_OpenAL) preserves exact tested
+source/package/symbols/validation. The release includes OpenAL source/relink
+materials;both exact ELF reproduction and edited-source library relinking pass.
+Speaker output,remaining native coverage and Minecraft startup stay unvalidated.
