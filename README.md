@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Status: Fabric/Paper playtests and client SDL window/input pass on PS5.** Client **01.000.014** passes twelve checks with physical DualSense events/state,537 GPU presents and JVM shutdown; the user confirms the tiles and inputs. Minecraft startup, wider renderer/input support and SDL teardown remain ahead; server two-hour endurance stays deferred.
+> **Status: Fabric/Paper playtests and runtime GLSL compilation pass on PS5.** Client **01.000.020** passes thirteen checks: three compiler cycles with real error controls,18 GPU output workloads,physical SDL input/display and JVM shutdown. Minecraft startup and wider rendering remain ahead; server two-hour endurance stays deferred.
 
 ## The goal
 
@@ -52,14 +52,22 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: Runtime Shader Compilation020
+## Client Runtime Shader Compilation — PS5 ALL13 PASS
 
-[Client020](docs/client-runtime-shader-020.md) fixes the confirmed C++ allocation
-route:019 recorded SIGILL at the application `new[]` allocation-failure trap
-while glslang generated built-in tables. App C++ new/delete now use paired
-existing graphics heap providers, without changing JVM/raw libc allocation.
-Console validation of the repair and all thirteen checks remains pending.
-Frozen014 is preserved; textures/depth/blending and game startup remain ahead.
+Client **01.000.020** passes all thirteen checks on PS5; the user reports
+**“nice pass!”** Retrieved logs confirm three actual shaderc GLSL compilation
+cycles with invalid-source diagnostic controls, runtime SPIR-V sizes1392/1000/
+1392bytes,18 RADV output/guard workloads,252 SDL graphics/FIFO frames with physical
+DualSense event/state masks15 and successful JVM shutdown. The app C++ allocation
+route repair is validated for this workload; no game/Java JAR was modified.
+
+Exact tested source, package and evidence are preserved in
+[Client_Runtime_Shader](Client_Runtime_Shader/README.md), with a
+[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Runtime_Shader-v01.000.020)
+and [validation record](Client_Runtime_Shader/validation.json). Native display
+resources remain retained until app close. Textures/depth/blending, larger shader
+workloads/includes/callbacks/HLSL, game startup, global teardown and server
+endurance require separate validation.
 
 ## Client SDL Window/Input — PS5 automated, input and visual PASS
 
@@ -369,6 +377,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client Runtime Shader · 01.000.020** | PS5 ALL13 PASS: real runtime GLSL/error controls,18 GPU outputs,SDL input/display252frames and JVM shutdown | [Frozen source & validation](Client_Runtime_Shader) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Runtime_Shader-v01.000.020) |
 | **Client SDL Window/Input · 01.000.014** | PS5 automated/input/visual PASS: actual SDL window/surface, physical gamepad events+state,537 GPU frames and JVM shutdown | [Frozen source & validation](Client_SDL_Window_Input) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SDL_Window_Input-v01.000.014) |
 | **Client Direct Presentation · 01.000.011** | PS5 automated and visual PASS:90 direct GPU/FIFO presents, sample/guard checks and JVM shutdown with retained display | [Frozen source & validation](Client_Direct_Presentation) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Direct_Presentation-v01.000.011) |
 | **Client Graphics Pipeline · 01.000.010** | ALL PASS on PS5:9 graphics draws, verified pixels/guards, GPU-readback CPU-menu preview and VM shutdown | [Frozen source & validation](Client_Graphics_Pipeline) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Graphics_Pipeline-v01.000.010) |

@@ -32,7 +32,7 @@ bindings and exercise1MiB new[]/write/delete[],zero-size,nothrow success/failure
 256/4096-aligned new/delete and balanced ownership. Host providers use actual
 host allocation; this verifies operator pairing, not PS5 direct memory. The
 original actual host shaderc/MoltenVK workload remains applicable: only Java
-stage/version text changed. Target runtime compiler execution remains pending.
+stage/version text changed. Target runtime compiler execution subsequently passed the captured020 console run.
 
 Install PPSA99874 **01.000.020** from `dist/client-runtime_shader/PPSA99874.zip`
 (or the runtime workspace's current `dist/PPSA99874.zip`). Wait for the ready
@@ -53,4 +53,4 @@ Target package checks pass, including actual scoped C++ object references/hashes
 existing real providers, original JARs/runtime libraries, constructor counts/
 order, resident exports, native fault capture/patch audits, CRC/signatures and
 preserved milestone/server packages. Package SHA-256: `4573723d3947f005f7389d82737505b17581fc36ba0f2c1b3ba0b42dca2bb552`.
-PS5 compiler/repair validation is pending.
+PS5 compiler/repair validation passed on2026-10-24: human “nice pass!” and saved ALL13 PASS. See ../Client_Runtime_Shader/validation.json for exact evidence and remaining limits.
