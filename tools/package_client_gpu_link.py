@@ -33,7 +33,10 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  archives=[p for p in inputs if p.endswith('.a')]
  inputs=[*flags,str(build/'embedded-jvm.o'),*old_objects,str(gpu_support),*backends,*archives,'--defsym=__cxa_thread_atexit_impl=clientgpu_ps5___cxa_thread_atexit_impl']
  layout=work/'gpu-probe.ld';s=(build/'jni-probe.ld').read_text();needle='        *(.data.rel.ro .data.rel.ro.*)';assert needle in s
- s=s.replace(needle,'''        PROVIDE_HIDDEN(__client_gpu_init_start = .);
+ s=s.replace(needle,'''        PROVIDE_HIDDEN(__client_shaderc_init_start = .);
+        KEEP(*(SORT(.data.rel.ro.clientshaderc.init_array.*)))
+        PROVIDE_HIDDEN(__client_shaderc_init_end = .);
+        PROVIDE_HIDDEN(__client_gpu_init_start = .);
         KEEP(*(SORT(.data.rel.ro.clientgpu.init_array.*)))
         KEEP(*(.data.rel.ro.clientgpu.init_array*))
         PROVIDE_HIDDEN(__client_gpu_init_end = .);

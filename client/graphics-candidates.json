@@ -1,5 +1,5 @@
 {
-  "status": "Client014 actual SDL3 PS5 window/Vulkan surface/physical gamepad event+state and direct rendering automated/input/visual PASS;537 frames and DestroyJavaVM with retained context",
+  "status": "Client014 SDL window/input PASS; Client015 actual resident runtime GLSL shaderc compiler candidate pending",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Missing renderer/input/runtime shader features and Minecraft integration remain separate validation steps. SDL teardown/resize/focus/reconnect/callback/audio remain unvalidated; server endurance deferred."
+  "next": "Validate runtime GLSL compile/error controls and resulting GPU execution on PS5, then textures/depth/blending and game integration. Frozen000-004/008-011/014 preserved; server endurance deferred."
 }
