@@ -64,3 +64,11 @@ exclusion,original JARs/exact runtime libraries,paired allocation and staged
 constructors,CRC/signatures and all frozen022/earlier/server packages.
 PS5 all15 and visible phase acceptance remain pending.
 Package SHA-256: `846cd9adea6f9e6b04f80df461424c26b1fec6aa080ed641c35e7cfb16488ea4`.
+
+## Human console acceptance2026-10-24
+
+User “PASS” follows the explicit023 fifteen-check and pastel/blue/white phase
+instructions. Exact source/package/symbols are frozen in Client_Continuous_Direct_Scene.
+Current-run log downloads were refused;no independently corroborated run ID,
+frame count or detailed stage completion is claimed. Human acceptance is kept
+separate from host/package checks and the still-pending report retrieval.

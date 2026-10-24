@@ -221,3 +221,14 @@ blit handoff,not continuous scene rendering directly into swapchain or camera
 control. No game/Java JAR/JVM/SDK changes. Direct/continuous rendering,index
 buffers/camera,larger workloads,game startup,global teardown and endurance
 remain unvalidated. Continue development outside frozen folders.
+
+Client_Continuous_Direct_Scene is the frozen client023 milestone,PPSA99874
+version01.000.023,human PASS on2026-10-24 after explicit all15/direct scene
+phase instructions. Current-run log endpoint refused connections;no session ID
+or precise frame count independently corroborated. Preserve exact source/package/
+symbols and distinguish human acceptance from pending log retrieval. Shared
+renderer draws into each acquired SDL BGRA color attachment;requires minimum180
+frames/all3phases,36samples+256guards/frame and physical masks15. No captured
+scene upload/blit. Native display/renderer retained;camera controls/indexing,
+larger workloads,game startup,global teardown and endurance remain unvalidated.
+Continue development outside frozen folders.

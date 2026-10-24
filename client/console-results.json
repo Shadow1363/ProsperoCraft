@@ -261,10 +261,12 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.023",
       "package_sha256": "846cd9adea6f9e6b04f80df461424c26b1fec6aa080ed641c35e7cfb16488ea4",
-      "console": "pending;all15 and continuous direct scene pastel/blue/white phases with physical SDL inputs",
+      "console": "Human PASS for exact023 after ALL15 and visual pastel/blue/white phase instructions;current-run reports not yet retrieved",
       "host": "PASS actual shared direct BGRA scene renderer on real MoltenVK GPU/original LWJGL3.4.3 bindings:81draws/27full256x256images+guards/3sessions/all3phases with independent1/W reference and completed-work cleanup. Java25 Xint/XcheckJNI/verify/core UBSan. Host uses offscreen targets;PS5 SDL/WSI not exercised. Target023 compile/link/package PASS:15-row order/explicit direct renderer companion,actual shared direct-render class and perspective modules,draw/vertex/renderpass methods with no scene blit/latestPixels in presenter,host-only fixtures excluded,original54JARs/exact002 runtime image-native libs,paired C++ allocation/5resident groups/359JVM+4GPU+5compiler staged constructors,CRC/signatures and preserved022/021/020/earlier/server packages. PS5 direct rendering/all15/visual phases pending.",
       "change": "Replace022 captured-scene upload/blit display with shared actual perspective renderer drawing3times into each acquired SDL swapchain color attachment,D32 depth,vertex/texture resources and pipeline controls. At least180frames/all3phases,36independent-reference samples+256guards/frame,physical events/state masks15. Earlier offscreen rows retained. No game/Java JAR/JVM/SDK changes.",
-      "reported_date": "2026-10-24"
+      "reported_date": "2026-10-24",
+      "evidence": "User PASS immediately after023 install/fifteen-check/three-phase instructions. Exact package846cd9adea6f9e6b04f80df461424c26b1fec6aa080ed641c35e7cfb16488ea4 preserved. Log endpoint refused connections during retrieval;no independent current-run/session/frame-count corroboration claimed.",
+      "milestone": "Client_Continuous_Direct_Scene"
     }
   ]
 }
