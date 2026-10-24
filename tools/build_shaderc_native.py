@@ -33,7 +33,7 @@ def build(runtime,host=False,offline=False):
     # The actual SDK compatibility providers have already been scoped for RADV.
     # Only rename compiler references to real definitions present in that object.
     gpu=json.loads((ROOT/'build/client-gpu/audit.json').read_text());names=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(ROOT/'build/client-gpu/graphics-support.o')],text=True);defined={line.split()[-1]for line in names.splitlines()if len(line.split())==3}
-    bindings={k:v for k,v in gpu['graphics_bindings'].items()if v in defined};mapping=out/'provider-bindings.txt';mapping.write_text(''.join(k+' '+v+'\n'for k,v in sorted(bindings.items())))
+    bindings={k:v for k,v in gpu['graphics_bindings'].items()if v in defined};bindings['shaderc_compiler_initialize']='ps5shaderc_real_compiler_initialize';mapping=out/'provider-bindings.txt';mapping.write_text(''.join(k+' '+v+'\n'for k,v in sorted(bindings.items())))
     subprocess.run([str(LLVM/'llvm-objcopy'),'--redefine-syms='+str(mapping),str(raw),str(obj)],check=True)
     sections=subprocess.check_output([str(LLVM/'llvm-readelf'),'-SW',str(obj)],text=True);initializers=sorted(set(re.findall(r'\]\s+(\.(?:init_array|ctors)(?:\.\S+)?)\s',sections)));options=[]
     for name in initializers:

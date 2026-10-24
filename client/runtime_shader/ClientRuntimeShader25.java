@@ -11,7 +11,7 @@ import static org.lwjgl.util.shaderc.Shaderc.*;
 /** Selected original LWJGL compute commands; no window or game code. */
 public final class ClientRuntimeShader25 {
  public static native void checkpoint(String text);
- private static void stage(String text){checkpoint("Runtime Shader015 @"+System.nanoTime()+"ns: "+text);}
+ private static void stage(String text){checkpoint("Runtime Shader017 @"+System.nanoTime()+"ns: "+text);}
  private static void check(int result,String call){if(result!=VK_SUCCESS)throw new IllegalStateException(call+" VkResult="+result);}
  private static final String SOURCE="""
 #version 450
@@ -25,14 +25,19 @@ void main() {
 }
 """;
  private static ByteBuffer compile(int cycle) {
-  stage("initialize actual resident shaderc compiler cycle"+cycle);
+  stage("before original Shaderc Java class initialization cycle"+cycle);
+  try{Class.forName("org.lwjgl.util.shaderc.Shaderc");}catch(ClassNotFoundException e){throw new AssertionError(e);}
+  stage("original Shaderc class initialized; before native shaderc_compiler_initialize cycle"+cycle);
   long compiler=shaderc_compiler_initialize();if(compiler==0)throw new IllegalStateException("shaderc compiler allocation failed");
+  stage("native shaderc_compiler_initialize returned; before options");
   long options=0;
   try {
+   stage("before native shaderc options allocation");
    options=shaderc_compile_options_initialize();if(options==0)throw new IllegalStateException("shaderc options allocation failed");
    shaderc_compile_options_set_target_env(options,shaderc_target_env_vulkan,shaderc_env_version_vulkan_1_1);
    shaderc_compile_options_set_target_spirv(options,shaderc_spirv_version_1_3);
    shaderc_compile_options_set_optimization_level(options,cycle%2==0?shaderc_optimization_level_zero:shaderc_optimization_level_size);
+   stage("before native invalid-GLSL compile");
    long bad=shaderc_compile_into_spv(compiler,"#version 450\nvoid main(){ this_is_invalid; }\n",shaderc_compute_shader,"invalid-canary.comp","main",options);
    if(bad==0)throw new AssertionError("Invalid source returned null result");
    try {if(shaderc_result_get_compilation_status(bad)==shaderc_compilation_status_success||shaderc_result_get_num_errors(bad)==0||shaderc_result_get_error_message(bad).isEmpty())throw new AssertionError("Invalid GLSL did not produce real compiler diagnostics");}
@@ -49,12 +54,13 @@ void main() {
   }finally{if(options!=0)shaderc_compile_options_release(options);shaderc_compiler_release(compiler);}
  }
  private static void cycle(int cycle,boolean host) {
+  ByteBuffer runtimeCode=compile(cycle);
   VkInstance instance=null;VkDevice device=null;
   long buffer=0,memory=0,shader=0,setLayout=0,pipelineLayout=0,pipeline=0,descriptorPool=0,commandPool=0,fence=0;
   boolean mapped=false,incomplete=false;
   try(MemoryStack stack=MemoryStack.stackPush()) {
    PointerBuffer ptr=stack.mallocPointer(1);LongBuffer handle=stack.mallocLong(1);IntBuffer count=stack.mallocInt(1);
-   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java Runtime Shader015")).apiVersion(VK_API_VERSION_1_1);
+   VkApplicationInfo app=VkApplicationInfo.calloc(stack).sType$Default().pApplicationName(stack.UTF8("PS5 Java Runtime Shader017")).apiVersion(VK_API_VERSION_1_1);
    VkInstanceCreateInfo ii=VkInstanceCreateInfo.calloc(stack).sType$Default().pApplicationInfo(app);
    stage("create shader session "+cycle);check(vkCreateInstance(ii,null,ptr),"vkCreateInstance");instance=new VkInstance(ptr.get(0),ii);
    check(vkEnumeratePhysicalDevices(instance,count,null),"count devices");if(count.get(0)<1||count.get(0)>16)throw new AssertionError("GPU count");
@@ -79,11 +85,10 @@ void main() {
    VkMemoryAllocateInfo ai=VkMemoryAllocateInfo.calloc(stack).sType$Default().allocationSize(req.size()).memoryTypeIndex(type);
    check(vkAllocateMemory(device,ai,null,handle),"vkAllocateMemory");memory=handle.get(0);check(vkBindBufferMemory(device,buffer,memory,0),"vkBindBufferMemory");
    check(vkMapMemory(device,memory,0,VK_WHOLE_SIZE,0,ptr),"vkMapMemory");mapped=true;ByteBuffer words=memByteBuffer(ptr.get(0),65536).order(ByteOrder.nativeOrder());
-   ByteBuffer runtimeCode=compile(cycle);
    try {
     VkShaderModuleCreateInfo sm=VkShaderModuleCreateInfo.calloc(stack).sType$Default().pCode(runtimeCode);
     stage("create shader module from runtime-compiled GLSL");check(vkCreateShaderModule(device,sm,null,handle),"vkCreateShaderModule");shader=handle.get(0);
-   }finally{memFree(runtimeCode);}
+   }finally{memFree(runtimeCode);runtimeCode=null;}
    VkDescriptorSetLayoutBinding.Buffer binding=VkDescriptorSetLayoutBinding.calloc(1,stack);binding.get(0).binding(0).descriptorType(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER).descriptorCount(1).stageFlags(VK_SHADER_STAGE_COMPUTE_BIT);
    VkDescriptorSetLayoutCreateInfo sl=VkDescriptorSetLayoutCreateInfo.calloc(stack).sType$Default().pBindings(binding);check(vkCreateDescriptorSetLayout(device,sl,null,handle),"vkCreateDescriptorSetLayout");setLayout=handle.get(0);
    VkPushConstantRange.Buffer push=VkPushConstantRange.calloc(1,stack);push.get(0).stageFlags(VK_SHADER_STAGE_COMPUTE_BIT).offset(0).size(8);
@@ -118,6 +123,7 @@ void main() {
    }
    stage("shader cycle"+cycle+" all output/guard words PASS");
   } finally {
+   if(runtimeCode!=null)memFree(runtimeCode);
    if(!incomplete && device!=null){if(fence!=0)vkDestroyFence(device,fence,null);if(commandPool!=0)vkDestroyCommandPool(device,commandPool,null);if(descriptorPool!=0)vkDestroyDescriptorPool(device,descriptorPool,null);if(pipeline!=0)vkDestroyPipeline(device,pipeline,null);if(pipelineLayout!=0)vkDestroyPipelineLayout(device,pipelineLayout,null);if(setLayout!=0)vkDestroyDescriptorSetLayout(device,setLayout,null);if(shader!=0)vkDestroyShaderModule(device,shader,null);if(mapped)vkUnmapMemory(device,memory);if(buffer!=0)vkDestroyBuffer(device,buffer,null);if(memory!=0)vkFreeMemory(device,memory,null);vkDestroyDevice(device,null);}
    if(!incomplete && instance!=null)vkDestroyInstance(instance,null);
   }

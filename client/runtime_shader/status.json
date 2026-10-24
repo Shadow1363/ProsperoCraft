@@ -1,17 +1,17 @@
 {
-  "stage": "Client Runtime Shader Compilation016 candidate \u2014 companion-row correction",
+  "stage": "Client Runtime Shader Compilation017 candidate \u2014 precise initialization boundaries and reduced overlap",
   "date": "2026-10-24",
   "title_id": "PPSA99874",
-  "app_version": "01.000.016",
-  "package_sha256": "1fdc141be848a3c1e9f738ae81d9115d5862ad50ccf2bd6588c11ca60a21b969",
-  "console": "pending; all thirteen016 checks;015 failed before compiler execution with duplicate companion definition",
-  "host": "PASS016 target package/CRC/signatures/explicit index8-10 companion selection, actual compiler exports/5resident groups/5correct-priority staged initializers/no auto startup, unchanged015 assets and Java bytecode,54original JARs/exact002 image-native libs/frozen000-004/008-011/014/Fabric094/Paper108. Prior same-pinned host real compiler invalid/valid controls/3lifecycles/18GPU dispatches/output+guards remain applicable; PS5 compiler pending.",
+  "app_version": "01.000.017",
+  "package_sha256": "cb0a8f527b76cafad0553ebd2b75515bf22d9e795101608783ebe4514fbfce66",
+  "console": "pending; compiler row now precedes SDL input/display, then JVM shutdown",
+  "host": "PASS changed Java fixture with actual pinned host shaderc/MoltenVK:3 invalid/valid compiler cycles,18GPU dispatches/full output+guards with compilation preceding Vulkan allocations. Target017 package/CRC/signatures/staged constructors/5real resident groups/compiler symbol+observational wrapper/scoped hashes/licenses/original54JARs/exact002 image-native libs/frozen000-004/008-011/014/Fabric094/Paper108 PASS. PS5 crash root cause and native compiler execution remain unresolved.",
   "scope": "Runtime GLSL->SPIR-V via original LWJGL shaderc APIs, then actual RADV compute. No cached/precompiled SPIR-V in new row. Existing SDL input/display precedes it.",
   "runtime_source_modified": false,
   "runtime_sdk_replaced": false,
   "game_jar_modified": false,
   "upstream_shaderc_java_jar_modified": false,
-  "lifecycle": "Compiler/options/results individually released; native compiler constructors explicitly initialized at resident load after VM. SDL/display retained through JVM stop; module/global teardown unvalidated.",
+  "lifecycle": "Compiler row precedes retained SDL/display context; compilation precedes each Vulkan device/buffer allocation. Native compiler entry wrapper is observational. Global teardown remains unvalidated.",
   "baseline": "Frozen014 and earlier exact passing packages preserved",
   "server_two_hour_endurance": "pending; explicitly deferred",
   "not_validated": [
@@ -20,5 +20,5 @@
     "Textures/depth/blending and Minecraft startup",
     "Full module/global teardown, prolonged load and low memory robustness"
   ],
-  "previous_failure": "015 bootstrap accidentally included compiler row in companion definition range, redefining ClientPresentCode25. SDL event/state/display passed; shaderc not reached.016 explicit index8/9/10 companion selection only."
+  "previous_failure": "016 crashed at first Shaderc class/native compiler boundary after SDL passed; no captured exception/abort. Native constructors completed. Exact cause unresolved;017 logs before/after class init and real compiler entry/return."
 }
