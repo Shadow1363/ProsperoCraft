@@ -49,6 +49,19 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  for name,source in [('main',consumer/'bootstrap.cpp'),('renderer',runtime/'native/renderer/demo_renderer.cpp'),('crt',native/'app_crt.cpp'),('cpp_runtime',native/'app_cpp_runtime.cpp')]:
   obj=work/(name+'.o')
   run(LLVM/'clang++','-target','x86_64-sie-ps5','-fvisibility-nodllstorageclass=default','-isysroot',sdk,'-isystem',sdk/'target/include/c++/v1','-isystem',sdk/'target/include','-I'+str(runtime/'native/renderer'),'-I'+str(runtime/'build/native'),'-I'+str(runtime/'src'),'-I'+str(runtime/'native'),'-I'+str(work),'-I'+str(ROOT/'client/native'),'-I'+str(runtime/'java25/probe'),'-std=c++20','-O2','-Wall','-Wextra','-Werror','-fno-stack-protector','-fno-plt','-femulated-tls','-fno-exceptions','-fno-rtti','-ffunction-sections','-fdata-sections','-c',source,'-o',obj);objects.append(obj)
+ if variant=='runtime_shader':
+  # Only this consumer title's C++ allocation operators need the existing
+  # graphics heap. Pair new/delete (including aligned/nothrow/sized variants)
+  # without changing raw libc, JVM os::malloc or global --wrap policies.
+  cpp=work/'cpp_runtime.o';raw_cpp=work/'cpp_runtime-libc.o';shutil.copyfile(cpp,raw_cpp)
+  bindings={name:gpu_audit['graphics_bindings'][name]for name in ['malloc','free','posix_memalign']}
+  mapping=work/'cpp-allocation-bindings.txt';mapping.write_text(''.join(k+' '+v+'\n'for k,v in sorted(bindings.items())))
+  run(LLVM/'llvm-objcopy','--redefine-syms='+str(mapping),cpp)
+  audit={'scope':'Consumer application C++ new/delete operators only; unchanged SDK source, JVM allocation and raw libc bindings',
+         'source_sha256':hashlib.sha256((native/'app_cpp_runtime.cpp').read_bytes()).hexdigest(),
+         'bindings':bindings,'raw_object_sha256':hashlib.sha256(raw_cpp.read_bytes()).hexdigest(),
+         'scoped_object_sha256':hashlib.sha256(cpp.read_bytes()).hexdigest(),'console':'pending'}
+  (java/'cpp-allocation-audit.json').write_text(json.dumps(audit,indent=2)+'\n')
  stubs=[]
  for name in ['libSceAgc','libSceAgcDriver']:
   # Real native003 import declaration files, never executable implementations.

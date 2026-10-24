@@ -218,9 +218,19 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.019",
       "package_sha256": "772e23900036ede31d7aa32cb6552d99309472aa9a7a7889db69c2a7c8df9e43",
-      "console": "pending; parser fault diagnostic candidate",
+      "console": "CRASH: SIGILL at application operator new[] deliberate allocation-failure trap during built-in symbol-table generation",
       "host": "PASS host fault recorder nested install/restoration/mask preservation and SIGILL/SIGSEGV delegation with bounded raw context in isolated children. Actual pinned host shaderc3invalid/valid cycles/18 MoltenVK output+guard workloads PASS; host compiler omits target native patches. Target019 build/package PASS: real exports, hashed checkpoint patches/fault source/embedded stages,5 resident groups,5 ordered compiler+359 JVM+4 GPU constructors,54 original JARs/exact002 runtime image-native libs,CRC/signatures/frozen client+server packages. PS5 parser fault and target signal capture remain unresolved.",
       "change": "Add genuine glslang parser checkpoints and scoped fault recorder during real compiler API. Preserve/delegate/restore prior signal handlers;96 raw target context words, no desktop layout assumption/recovery/fabricated output. JVM/SDK/game/Java JARs unchanged.",
+      "reported_date": "2026-10-24",
+      "evidence": "Run client-01.000.019-1792842526-244118770; recorder installed4 handlers and captured SIGILL code5 address0x408579. Subtract actual title load base0x400000 (also corroborated by checkpoint pointer0x406090 vs ELF0x6090): ELF0x8579 is UD2 after __wrap_malloc returned null in operator new[]. glslang last stage before built-in table generation/parsing. Concrete C++ allocation failure; requested size and broader memory state not established."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.020",
+      "package_sha256": "4573723d3947f005f7389d82737505b17581fc36ba0f2c1b3ba0b42dca2bb552",
+      "console": "pending; allocation-route repair candidate",
+      "host": "PASS actual unchanged SDK C++ operator host test:1MiB array write/delete,zero-size,nothrow success/failure,256/4096 alignment and balanced ownership using real host providers. Target020 compile/link/package PASS: paired scoped malloc/free/posix_memalign C++ object references with source/object hashes,existing real graphics providers; original54 JARs/exact002 JVM image/native libs,all constructor/lifecycle/scoped provider/signature/CRC/frozen client+server checks. Existing actual host shaderc3 invalid/valid cycles/18MoltenVK output+guards remain applicable (fixture only version text changed). PS5 repair unvalidated.",
+      "change": "Pair app C++ new/delete operator malloc/free/alignment calls with existing real graphics direct-memory heap providers. Does not change SDK source,raw libc/JVM-specific allocation or any game/Java JAR. Preserve actual shaderc computation/invalid controls/GPU outputs and all13 checks.",
       "reported_date": "2026-10-24"
     }
   ]

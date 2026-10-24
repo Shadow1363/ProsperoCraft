@@ -52,13 +52,14 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: Runtime Shader Compilation019
+## Current client candidate: Runtime Shader Compilation020
 
-[Client019](docs/client-runtime-shader-019.md) adds parser checkpoints and scoped
-native fault-context capture after018 reached glslang parse and crashed.
-Native entry, diagnostic streams and shader construction completed in that run.
-**The parser crash remains unresolved.** All thirteen PS5 checks remain pending;
-frozen014 is preserved. Textures/depth/blending and game startup remain ahead.
+[Client020](docs/client-runtime-shader-020.md) fixes the confirmed C++ allocation
+route:019 recorded SIGILL at the application `new[]` allocation-failure trap
+while glslang generated built-in tables. App C++ new/delete now use paired
+existing graphics heap providers, without changing JVM/raw libc allocation.
+Console validation of the repair and all thirteen checks remains pending.
+Frozen014 is preserved; textures/depth/blending and game startup remain ahead.
 
 ## Client SDL Window/Input — PS5 automated, input and visual PASS
 
