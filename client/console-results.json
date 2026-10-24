@@ -168,9 +168,12 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.014",
       "package_sha256": "dfa391acfe93a63330b6c98616237906859287bb6ad21e380265a240151dbd1b",
-      "console": "pending; all twelve014 checks, real SDL controller events/state and full-screen confirmation",
+      "console": "ALL12 PASS in saved session; real SDL eventMask15/stateMask15,537 rendered/presented frames and DestroyJavaVM; human confirms nice tiles and all inputs accepted",
       "host": "PASS actual input adapter with host OS-call fixtures under ASan/UBSan: no repeated scePadInit, user/open/read/button/axis/release/disconnect paths. Existing real macOS SDL virtual-input Java event/state/ABI checks remain applicable; PS5 hardware not validated.014 target package PASS: native exports/diagnostic callback/bounded discovery and companion classes, scoped SDL source/object hashes/licenses/54 original JARs/exact002 image-native libs/signatures/constructors/frozen000-004/008-011/Fabric094/Paper108.",
-      "change": "Reuse bootstrap-owned UserService/Pad initialization; retain real user/open/read requirements. Pump SDL events/joystick state and wait up to10s for physical gamepad discovery; persistent native diagnostics and inventory on failure."
+      "change": "Reuse bootstrap-owned UserService/Pad initialization; retain real user/open/read requirements. Pump SDL events/joystick state and wait up to10s for physical gamepad discovery; persistent native diagnostics and inventory on failure.",
+      "reported_date": "2026-10-24",
+      "milestone": "Client_SDL_Window_Input",
+      "evidence": "User: tiles nice, inputs all accepted. Retrieved session client-01.000.014-1792839239-751134957 reports ALL12 PASS. Startup confirms SDL eventMask15/stateMask15,537 frames/sample+guard/FIFO checks, retained SDL/display context and DestroyJavaVM complete."
     }
   ]
 }

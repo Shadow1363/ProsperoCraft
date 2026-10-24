@@ -37,3 +37,7 @@ Keep it open for reports; after a crash reopen without pressing X.
 All twelve014 PS5 checks and input/visual confirmation remain pending. SDL/GPU
 resources stay retained through JVM shutdown; teardown/resize/reconnect/focus/
 recovery/audio/callbacks/gameplay and server two-hour endurance remain unvalidated.
+
+## Console acceptance
+
+The user confirms “tiles nice, inputs all accepted” on2026-10-24. Retrieved session ALL12 PASS and logs verify eventMask15/stateMask15,537 graphics/sample/guard/FIFO frames and DestroyJavaVM complete. Exact tested source/package and evidence are frozen in [Client_SDL_Window_Input](../Client_SDL_Window_Input/README.md).

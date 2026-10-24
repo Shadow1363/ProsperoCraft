@@ -179,3 +179,12 @@ GPU display/resources remain retained until app close; CPU display is not opened
 Preserve source/package/symbols. Teardown/handoff/resize/timeout recovery, SDL
 window/input and game startup remain unvalidated. Continue outside frozen folders;
 server two-hour endurance stays deferred.
+
+Client_SDL_Window_Input is the frozen passing client014 milestone, PPSA99874
+version01.000.014, human tiles/input acceptance and saved ALL12 PASS on2026-10-24.
+Reports confirm real SDL3 PS5 window/Vulkan surface, physical DualSense events
+and state for X/Circle/D-pad Left/left stick,537 graphics/sample/guard/FIFO frames
+and DestroyJavaVM. Preserve exact source/package/symbols. SDL/native display
+resources remain retained until app close; teardown/resize/focus/reconnect,
+audio/callbacks/keyboard-mouse mapping and game startup remain unvalidated.
+Continue outside frozen folders. Server two-hour endurance remains deferred.

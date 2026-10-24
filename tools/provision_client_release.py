@@ -14,7 +14,7 @@ def digest(path):
 
 
 def provision(record, app, jars):
-    if record['milestone'] not in {'Client_Foundation', 'Client_Native_Loading', 'Client_LWJGL_Core', 'Client_GPU_Integration', 'Client_Vulkan_Bindings', 'Client_Shader_Pipeline', 'Client_Graphics_Pipeline', 'Client_Direct_Presentation'}:
+    if record['milestone'] not in {'Client_Foundation', 'Client_Native_Loading', 'Client_LWJGL_Core', 'Client_GPU_Integration', 'Client_Vulkan_Bindings', 'Client_Shader_Pipeline', 'Client_Graphics_Pipeline', 'Client_Direct_Presentation', 'Client_SDL_Window_Input'}:
         raise ValueError('Supported client milestone validation manifest required')
     app, jars = Path(app).resolve(), Path(jars).resolve()
     for row in record['retained_files']:

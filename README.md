@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/readme-banner.svg" alt="Minecraft Java on PS5 — Fabric/Paper playtests and direct Java Vulkan presentation pass" width="1200">
+  <img src="docs/readme-banner.svg" alt="Minecraft Java on PS5 — Fabric/Paper playtests and client SDL window/input pass" width="1200">
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Status: Fabric/Paper playtests and direct Java/Vulkan presentation pass on PS5.** Client **01.000.011** passes twelve automatic checks and explicit human visual confirmation:90 GPU graphics/FIFO presents and JVM shutdown with the display retained. SDL window/input integration and Minecraft startup remain ahead; server two-hour endurance stays deferred.
+> **Status: Fabric/Paper playtests and client SDL window/input pass on PS5.** Client **01.000.014** passes twelve checks with physical DualSense events/state,537 GPU presents and JVM shutdown; the user confirms the tiles and inputs. Minecraft startup, wider renderer/input support and SDL teardown remain ahead; server two-hour endurance stays deferred.
 
 ## The goal
 
@@ -52,16 +52,21 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: SDL Window/Input014
+## Client SDL Window/Input — PS5 automated, input and visual PASS
 
-[Client014](docs/client-sdl-window-input-014.md) reuses bootstrap-owned pad
-initialization and waits for real SDL controller discovery after013 found no
-gamepad. Earlier companion loading passed in013. It retains actual SDL3 PS5 fullscreen
-window/Vulkan surface and real DualSense gamepad polling/events through the
-original LWJGL SDL bindings. After the pattern appears, the probe requests
-X/Circle/D-pad Left/left-stick input. **Console checks remain pending**. The host
-real-SDL virtual-input test passes; it does not validate PS5 hardware/windowing.
-Frozen011 remains preserved. Audio/callbacks/game startup remain ahead.
+Client **01.000.014** passes all twelve checks on PS5. The user confirms
+**“tiles nice, inputs all accepted.”** Retrieved reports verify physical
+DualSense events and polled state for X/Circle/D-pad Left/left stick,537 rendered
+frames with sample/guard checks, and DestroyJavaVM. Actual SDL3 PS5 video and
+Vulkan surface hooks are exercised through original LWJGL SDL bindings. Tested
+source/package are frozen as [Client_SDL_Window_Input](Client_SDL_Window_Input/README.md),
+with a [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SDL_Window_Input-v01.000.014)
+and [validation record](Client_SDL_Window_Input/validation.json).
+
+SDL/native display resources remain retained until app close. Teardown/resize/
+reconnect/focus, audio/callbacks, keyboard/mouse mapping and Minecraft startup
+remain unvalidated. Original game/SDL/Vulkan JARs and JVM/SDK are unchanged;
+prior passing snapshots are preserved. Server two-hour endurance stays deferred.
 
 ## Client Direct Presentation — PS5 automated and visual PASS
 
@@ -355,6 +360,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client SDL Window/Input · 01.000.014** | PS5 automated/input/visual PASS: actual SDL window/surface, physical gamepad events+state,537 GPU frames and JVM shutdown | [Frozen source & validation](Client_SDL_Window_Input) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SDL_Window_Input-v01.000.014) |
 | **Client Direct Presentation · 01.000.011** | PS5 automated and visual PASS:90 direct GPU/FIFO presents, sample/guard checks and JVM shutdown with retained display | [Frozen source & validation](Client_Direct_Presentation) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Direct_Presentation-v01.000.011) |
 | **Client Graphics Pipeline · 01.000.010** | ALL PASS on PS5:9 graphics draws, verified pixels/guards, GPU-readback CPU-menu preview and VM shutdown | [Frozen source & validation](Client_Graphics_Pipeline) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Graphics_Pipeline-v01.000.010) |
 | **Client Shader Pipeline · 01.000.009** | ALL PASS on PS5:18 compute dispatches, guarded readback,3 shader lifecycles and VM shutdown | [Frozen source & validation](Client_Shader_Pipeline) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Shader_Pipeline-v01.000.009) |
