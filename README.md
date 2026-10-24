@@ -52,6 +52,15 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Current client candidate: Shader Pipeline009
+
+[Client009](docs/client-shader-pipeline-009.md) adds actual compute-shader pipeline
+creation and dispatch through the original LWJGL Vulkan bindings. Java checks
+all GPU output and guard words across18 dispatches and three shader/device
+lifecycles. The Mac GPU checks pass; **all eleven PS5 rows remain pending**.
+This is an offscreen shader canary; SDL/window integration, visible rendering
+and Minecraft startup remain ahead. Frozen008 is preserved below.
+
 ## Client Vulkan Bindings — PS5 ALL PASS
 
 All ten rows of client **01.000.008** pass on PS5, confirmed on **2026-10-24**.

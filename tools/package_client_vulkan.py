@@ -14,14 +14,17 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--runtime-workspace', type=Path, required=True)
 parser.add_argument('--java-home', type=Path, required=True)
 parser.add_argument('--offline', action='store_true')
+parser.add_argument('--shader', action='store_true', help='Build client009 compute shader candidate')
 args = parser.parse_args()
 runtime = args.runtime_workspace.resolve()
+variant="shader" if args.shader else "vulkan"
+version="01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
 subprocess.run(['python3',str(ROOT/'tools/prepare_client.py'),*(['--offline']if args.offline else [])],check=True)
 subprocess.run(['python3',str(ROOT/'tools/build_lwjgl_platform.py'),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
-work=ROOT/'build/client-vulkan-probe';work.mkdir(parents=True,exist_ok=True)
+work=ROOT/('build/client-'+variant+'-probe');work.mkdir(parents=True,exist_ok=True)
 assets=work/'assets';shutil.rmtree(assets,ignore_errors=True)
 java=assets/'java25';java.mkdir(parents=True)
 shutil.copytree(ROOT/'build/client',java/'client')
@@ -33,6 +36,13 @@ lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
 classpath='/app0/assets/java25/client-probe.jar:/app0/assets/java25/ports/'+port.name+':'+':'.join('/app0/assets/java25/client/jars/'+row['file']for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:'))
 (work/'client_classpath.hpp').write_text('#pragma once\n#define CLIENT_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n')
 sources=[*sorted((ROOT/'client/java').glob('*.java')),ROOT/'client/gpu/ClientGpu25.java',ROOT/'client/vulkan/ClientVulkan25.java']
+if args.shader:
+ from compile_client_shader import compile_shader
+ sources += [ROOT/'client/shader/ClientShader25.java',compile_shader()]
+ shutil.copyfile(ROOT/'build/client-shader/audit.json',java/'shader-audit.json')
+ (java/'shaders').mkdir()
+ shutil.copyfile(ROOT/'build/client-shader/workload.spv',java/'shaders/workload.spv')
+ shutil.copyfile(ROOT/'client/shader/workload.comp',java/'shaders/workload.comp')
 cp=':'.join([str(port),*[str(ROOT/'.tools/client'/row['file'])for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:')]])
 classes=work/'classes';shutil.rmtree(classes,ignore_errors=True);classes.mkdir()
 subprocess.run([str(args.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(classes),*[str(p)for p in sources]],check=True)
@@ -40,7 +50,7 @@ with zipfile.ZipFile(java/'client-probe.jar','w',zipfile.ZIP_DEFLATED)as output:
  for path in sorted(classes.rglob('*.class')):
   info=zipfile.ZipInfo(str(path.relative_to(classes)));info.compress_type=zipfile.ZIP_DEFLATED;output.writestr(info,path.read_bytes())
 modules=json.loads((ROOT/'server/26.3.lock.json').read_text())['modules']
-spec={'menu_audio':False,'source':str(ROOT/'client/vulkan/bootstrap.cpp'),'param':str(ROOT/'client/vulkan/param.json'),'asset_dir':str(assets),'java_sources':[str(p)for p in sources],'modules':modules,'java_compile_classpath':[str(port),*[str(ROOT/'.tools/client'/row['file'])for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:')]],'include_dirs':[str(work),str(ROOT/'client/native'),str(runtime/'java25/probe')]}
+spec={'menu_audio':False,'source':str(ROOT/'client'/variant/'bootstrap.cpp'),'param':str(ROOT/'client'/variant/'param.json'),'asset_dir':str(assets),'java_sources':[str(p)for p in sources],'modules':modules,'java_compile_classpath':[str(port),*[str(ROOT/'.tools/client'/row['file'])for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:')]],'include_dirs':[str(work),str(ROOT/'client/native'),str(runtime/'java25/probe')]}
 # A genuine named JNI library is built into the resident registry. Its native
 # methods use normal JVM symbol resolution, not RegisterNatives injection.
 obj=work/'resident-library.o'
@@ -62,4 +72,4 @@ specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\
 # A temporary stub is never linked or generated: the bridge's external driver
 # symbols are supplied by the final link below.
 from package_client_gpu_link import finish
-finish(runtime,args.java_home,work,assets,spec,gpu_support,gpu_audit,variant="vulkan",version="01.000.008")
+finish(runtime,args.java_home,work,assets,spec,gpu_support,gpu_audit,variant=variant,version=version)
