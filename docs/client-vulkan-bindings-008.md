@@ -33,3 +33,7 @@ running rows. All ten rows, storage recovery and completion of the Vulkan row
 remain pending on PS5. Server two-hour endurance remains explicitly deferred.
 Package SHA256 and completed host/package checks are recorded in
 `client/vulkan/status.json`. No passing milestone or release is created.
+
+## Console acceptance
+
+All ten008 rows pass on2026-10-24, confirmed directly by the user. Retrieved logs corroborate12 standard GPU submissions,3 lifecycles/loader cleanup and final DestroyJavaVM. Frozen source, exact tested package and scope are recorded in [Client_Vulkan_Bindings](../Client_Vulkan_Bindings/README.md).

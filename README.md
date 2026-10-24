@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/readme-banner.svg" alt="Minecraft Java on PS5 — server first, server mods next, client afterward" width="1200">
+  <img src="docs/readme-banner.svg" alt="Minecraft Java on PS5 — Fabric/Paper playtests and client Vulkan bindings pass" width="1200">
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Status: flat-world server startup, save and stop pass on PS5.** Build **01.000.058** passes all five probe rows with Minecraft **26.3 / Java 25**, including real readiness, saved world metadata and VM destruction. Build069 admits an authenticated player and logs working chicken consumption with much faster reported gameplay; intermittent stalls and full endurance remain unvalidated.
+> **Status: Fabric/Paper server playtests and client Vulkan bindings pass on PS5.** Client **01.000.008** passes all ten rows, including real LWJGL Vulkan GPU commands/readback and VM shutdown. Minecraft client startup, SDL/window integration and shaders remain ahead; server two-hour endurance stays deferred.
 
 ## The goal
 
@@ -52,17 +52,22 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: LWJGL Vulkan Bindings008
+## Client Vulkan Bindings — PS5 ALL PASS
 
-[Client008](docs/client-vulkan-bindings-008.md) addresses007's row2 failure:
-the diagnostic trace-header write returned ENOSPC before entering the JVM.
-Shared startup history had reached58MB. Starting a new run now retains bounded
-startup/VM diagnostic tails using an opt-in runtime probe helper; menu-only
-relaunch preserves reports. The original006 Vulkan stall still needs validation.
-Sampled tracing and precise timestamps remain enabled. JVM implementation/SDK
-and original Vulkan/game JARs are unchanged. **All ten PS5 rows remain pending**.
-Frozen000–004 and exact failed005–007 packages are preserved. SDL, shaders,
-Minecraft startup and the deferred server endurance run remain ahead.
+All ten rows of client **01.000.008** pass on PS5, confirmed on **2026-10-24**.
+Retrieved logs verify12 standard LWJGL Vulkan GPU transfers, three instance/device
+lifecycles, loader cleanup and DestroyJavaVM. The original LWJGL Vulkan JAR now
+uses actual RADV commands through its upstream structs and capability tables.
+The source and exact tested package are frozen as
+[Client_Vulkan_Bindings](Client_Vulkan_Bindings/README.md), with a
+[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Vulkan_Bindings-v01.000.008)
+and [validation record](Client_Vulkan_Bindings/validation.json).
+
+Bounded diagnostic history and sampled tracing also resolve the observed startup
+storage failure in this run. Original game/Vulkan JARs, the runtime JVM and SDK
+remain unchanged; the runtime adds opt-in diagnostic probe support. Frozen000–004
+are preserved. Complete Vulkan coverage, SDL/window integration, Java presentation,
+shaders and Minecraft startup remain ahead. Server endurance stays deferred.
 
 ## Client GPU Integration — PS5 ALL PASS
 
@@ -291,6 +296,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client Vulkan Bindings · 01.000.008** | ALL PASS on PS5: original LWJGL Vulkan commands,12 GPU transfers,3 lifecycles and VM shutdown | [Frozen source & validation](Client_Vulkan_Bindings) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Vulkan_Bindings-v01.000.008) |
 | **Client GPU Integration · 01.000.004** | ALL PASS on PS5: Java/LWJGL GPU copy/fill/readback, three Vulkan session cycles and VM shutdown | [Frozen source & validation](Client_GPU_Integration) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_GPU_Integration-v01.000.004) |
 | **Client Native Graphics · 01.000.003** | ALL PASS on PS5: RADV GPU clear/copy/readback and VideoOut presentation | [Frozen source & validation](Client_Native_Graphics) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Native_Graphics-v01.000.003) |
 | **Client LWJGL Core · 01.000.002** | ALL PASS on PS5: native memory/JNI core and resident function provider | [Frozen source & validation](Client_LWJGL_Core) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_LWJGL_Core-v01.000.002) |

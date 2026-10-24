@@ -104,9 +104,12 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.008",
       "package_sha256": "d6132b1f56fbbc892577019ec3b86a6abcd31b2dc50b670543afa5cb9596ddb4",
-      "console": "pending; all ten PS5 rows and full-storage recovery for008;007 failed row2 before JVM entry with ENOSPC",
+      "console": "ALL PASS: user report for all ten PS5 rows, corroborated by current-run GPU/lifecycle/shutdown logs",
       "host": "PASS008 Java25 Xint/XcheckJNI/verify, real core UBSan and physical MoltenVK GPU:12 transfers,3 instance/device cycles and cleanup. Target compile/link/signatures/CRC,54 upstream JAR pins, exact002 Java image/native libraries, scoped providers,359 deferred JVM/4 explicit GPU constructors and frozen000\u2013004/Fabric094/Paper108 package checks pass. Runtime diagnostic helper exact-tail/same-inode/idempotence/small/missing/invalid-input real-file tests pass with ASan/UBSan. Console storage recovery and Vulkan completion pending.",
-      "change": "At explicit new-run initialization retain last512KiB each of startup/VM logs using runtime probe helper; menu-only relaunch preserves reports. Existing ENTER/DONE sampling1/4096 and quiet native-call context; detailed monotonic Vulkan checkpoints retained."
+      "change": "At explicit new-run initialization retain last512KiB each of startup/VM logs using runtime probe helper; menu-only relaunch preserves reports. Existing ENTER/DONE sampling1/4096 and quiet native-call context; detailed monotonic Vulkan checkpoints retained.",
+      "reported_date": "2026-10-24",
+      "milestone": "Client_Vulkan_Bindings",
+      "evidence": "User ALL PASS immediately after008 instructions for all ten rows; retrieved session client-01.000.008-1792833121-787521422 reports PASS Destroy Java VM code0, startup confirms12 standard LWJGL GPU transfers/3 lifecycles/loader cleanup and DestroyJavaVM complete."
     }
   ]
 }

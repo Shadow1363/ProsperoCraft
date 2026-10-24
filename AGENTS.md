@@ -144,3 +144,12 @@ callback integration, three Vulkan session cycles and final JVM shutdown.
 It does not establish full LWJGL Vulkan bindings, SDL/window integration,
 shader/game rendering, full module cleanup or server endurance. Continue
 development outside frozen folders.
+
+Client_Vulkan_Bindings is the frozen passing client008 milestone, PPSA99874
+version01.000.008, user ALL PASS for all ten rows on2026-10-24. Retrieved current-run
+logs corroborate12 standard LWJGL Vulkan GPU transfers,3 instance/device lifecycles,
+loader cleanup and DestroyJavaVM. Preserve source, exact package and symbols.
+This validates the tested original LWJGL Vulkan command/struct/capability-table
+path and diagnostic storage recovery, not complete Vulkan coverage, SDL/window
+integration, Java presentation, shaders or game startup. Continue development
+outside frozen folders; server two-hour endurance remains deferred.
