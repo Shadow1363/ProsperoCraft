@@ -1,5 +1,5 @@
 {
-  "status": "Client014 SDL window/input PASS; Client015 actual resident runtime GLSL shaderc compiler candidate pending",
+  "status": "014 SDL PASS;015 passed SDL then bootstrap duplicate companion failure before shaderc.016 bootstrap correction candidate pending",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Validate runtime GLSL compile/error controls and resulting GPU execution on PS5, then textures/depth/blending and game integration. Frozen000-004/008-011/014 preserved; server endurance deferred."
+  "next": "016 console runtime GLSL compiler validation; companion loading now explicitly limited to three intended rows. No console shaderc execution result yet; server endurance deferred."
 }

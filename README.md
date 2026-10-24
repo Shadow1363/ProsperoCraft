@@ -52,9 +52,10 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client candidate: Runtime Shader Compilation015
+## Current client candidate: Runtime Shader Compilation016
 
-[Client015](docs/client-runtime-shader-015.md) adds actual resident shaderc GLSL
+[Client016](docs/client-runtime-shader-016.md) corrects015’s duplicate fixture
+companion definition before the compiler row. It retains actual resident shaderc GLSL
 compilation through original LWJGL bindings. It checks invalid-source diagnostics,
 compiles valid SPIR-V at runtime and verifies18 GPU dispatches across three
 compiler/device lifecycles. Host compiler/GPU checks pass; **thirteen PS5 checks

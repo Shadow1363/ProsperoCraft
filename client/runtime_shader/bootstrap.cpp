@@ -56,7 +56,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.015";
+constexpr const char* build_version="01.000.016";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -300,7 +300,7 @@ void run_test(int i) {
   // Main fixtures bypass classpath discovery through actual packaged-file IO.
   // Define their companion through the same path instead of relying on a
   // second, differently exercised classpath lookup during the Vulkan row.
-  if(klass && !java_env->ExceptionCheck() && i>=8 && i<=11) {
+  if(klass && !java_env->ExceptionCheck() && (i==8 || i==9 || i==10)) {
    const char* companion_name=i==8?"ClientVulkan25$Allocation":i==9?"ClientShaderCode25":"ClientPresentCode25";
    char companion_path[160];std::snprintf(companion_path,sizeof(companion_path),"/app0/assets/java25/classes/%s.class",companion_name);
    log_stage(companion_name);
@@ -359,7 +359,7 @@ void run_test(int i) {
 }
 extern "C" void client_sdl_diagnostic(const char* text) {log_stage(text);}
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU015 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU016 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 extern "C" int sceKernelSendNotificationRequest(std::uint32_t,void*,std::size_t,int);
 extern "C" int sceSystemServiceHideSplashScreen();
@@ -369,14 +369,14 @@ static void notify(const char* text) {
  (void)sceKernelSendNotificationRequest(0,&n,sizeof(n),0);
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Client Runtime Shader 01.000.015 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Client Runtime Shader 01.000.016 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
  if(sceUserServiceGetInitialUser(&user)>=0 && scePadInit()>=0) pad=scePadOpen(user,0,0,nullptr);
 
- notify("Client015 ready: release and press X once. Automatic Java/SDL window and controller checks; initial screen may be blank.");
- if(pad<0){notify("Client015 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
+ notify("Client016 ready: release and press X once. Automatic Java/SDL window and controller checks; initial screen may be blank.");
+ if(pad<0){notify("Client016 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
  bool armed=false,start=false;std::uint32_t previous=0;
  while(!start) {
   PadSample batch[64]{};int count=scePadRead(pad,batch,64);
@@ -390,16 +390,16 @@ int main() {
  }
  scePadClose(pad);pad=-1;
  (void)sceSystemServiceHideSplashScreen();
- notify("Client015 running thirteen automatic checks. SDL pattern will appear; then press X/Circle/D-pad Left and move left stick. Keep open for logs.");
+ notify("Client016 running thirteen automatic checks. SDL pattern will appear; then press X/Circle/D-pad Left and move left stick. Keep open for logs.");
  for(int i=0;i<test_count;++i) {
   if(i){char state[200];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}
   run_test(i);
   if(status[i]!=1) {
-   char note[240];std::snprintf(note,sizeof(note),"Client015 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
+   char note[240];std::snprintf(note,sizeof(note),"Client016 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
    for(;;)(void)sceKernelUsleep(1000000);
   }
  }
  char state[240];std::snprintf(state,sizeof(state),"ALL13 PASS: SDL input/display,actual runtime GLSL compilation/error controls/GPU output and DestroyJavaVM; native display retained.");session_status(state);
- notify("Client015 automatic checks PASS. Confirm full-screen colored tiles/white diagonal remain after this notification. Keep open for logs.");
+ notify("Client016 automatic checks PASS. Confirm full-screen colored tiles/white diagonal remain after this notification. Keep open for logs.");
  for(;;)(void)sceKernelUsleep(1000000);
 }

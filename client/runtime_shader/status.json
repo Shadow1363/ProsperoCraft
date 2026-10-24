@@ -1,11 +1,11 @@
 {
-  "stage": "Client Runtime Shader Compilation015 candidate",
+  "stage": "Client Runtime Shader Compilation016 candidate \u2014 companion-row correction",
   "date": "2026-10-24",
   "title_id": "PPSA99874",
-  "app_version": "01.000.015",
-  "package_sha256": "e429ef01a3b1cf97a62ad6960331666428d010b004957150853932e9000c348d",
-  "console": "pending; thirteen automatic PS5 checks including actual shaderc compilation and visual confirmation after JVM shutdown",
-  "host": "PASS same pinned actual host shaderc:3 compiler/options/result lifecycles, invalid GLSL errors/diagnostics, valid runtime SPIR-V,18 real MoltenVK dispatches/all output+guards. Java25 Xint/XcheckJNI/verify/core UBSan; compiler Release, not UBSan. Target build/package PASS: real compiler exports/5resident groups,5 staged compiler+SDK iostream initializers with priority100 first/no auto startup, source/object/license hashes, runtime GLSL fixture/no generated SPIR-V shortcut,54 original JARs/exact002 image-native libs/signatures/CRC/scoped providers/frozen000-004/008-011/014/Fabric094/Paper108. PS5 runtime compiler remains pending.",
+  "app_version": "01.000.016",
+  "package_sha256": "1fdc141be848a3c1e9f738ae81d9115d5862ad50ccf2bd6588c11ca60a21b969",
+  "console": "pending; all thirteen016 checks;015 failed before compiler execution with duplicate companion definition",
+  "host": "PASS016 target package/CRC/signatures/explicit index8-10 companion selection, actual compiler exports/5resident groups/5correct-priority staged initializers/no auto startup, unchanged015 assets and Java bytecode,54original JARs/exact002 image-native libs/frozen000-004/008-011/014/Fabric094/Paper108. Prior same-pinned host real compiler invalid/valid controls/3lifecycles/18GPU dispatches/output+guards remain applicable; PS5 compiler pending.",
   "scope": "Runtime GLSL->SPIR-V via original LWJGL shaderc APIs, then actual RADV compute. No cached/precompiled SPIR-V in new row. Existing SDL input/display precedes it.",
   "runtime_source_modified": false,
   "runtime_sdk_replaced": false,
@@ -19,5 +19,6 @@
     "Shader includes/callbacks/HLSL",
     "Textures/depth/blending and Minecraft startup",
     "Full module/global teardown, prolonged load and low memory robustness"
-  ]
+  ],
+  "previous_failure": "015 bootstrap accidentally included compiler row in companion definition range, redefining ClientPresentCode25. SDL event/state/display passed; shaderc not reached.016 explicit index8/9/10 companion selection only."
 }

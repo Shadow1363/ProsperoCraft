@@ -179,9 +179,19 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.015",
       "package_sha256": "e429ef01a3b1cf97a62ad6960331666428d010b004957150853932e9000c348d",
-      "console": "pending; thirteen automatic PS5 checks including actual shaderc compilation and visual confirmation after JVM shutdown",
+      "console": "FAIL check12 before shaderc: duplicate ClientPresentCode25 definition by bootstrap",
       "host": "PASS same pinned actual host shaderc:3 compiler/options/result lifecycles, invalid GLSL errors/diagnostics, valid runtime SPIR-V,18 real MoltenVK dispatches/all output+guards. Java25 Xint/XcheckJNI/verify/core UBSan; compiler Release, not UBSan. Target build/package PASS: real compiler exports/5resident groups,5 staged compiler+SDK iostream initializers with priority100 first/no auto startup, source/object/license hashes, runtime GLSL fixture/no generated SPIR-V shortcut,54 original JARs/exact002 image-native libs/signatures/CRC/scoped providers/frozen000-004/008-011/014/Fabric094/Paper108. PS5 runtime compiler remains pending.",
-      "change": "Thirteen checks:014 SDL input/display baseline plus real resident shaderc runtime GLSL compilation, invalid-source diagnostics/3compiler lifecycles and18GPU dispatches/all output+guards; explicit compiler/C++ constructor staging, no JVM/game JAR changes."
+      "change": "Thirteen checks:014 SDL input/display baseline plus real resident shaderc runtime GLSL compilation, invalid-source diagnostics/3compiler lifecycles and18GPU dispatches/all output+guards; explicit compiler/C++ constructor staging, no JVM/game JAR changes.",
+      "reported_date": "2026-10-24",
+      "evidence": "Saved session client-01.000.015-1792840405-760602449; SDL passed eventMask15/stateMask15 and284frames. Bootstrap companion range incorrectly included newly added compiler row11(index), redefining existing class. No runtime compiler call reached."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.016",
+      "package_sha256": "1fdc141be848a3c1e9f738ae81d9115d5862ad50ccf2bd6588c11ca60a21b969",
+      "console": "pending; all thirteen016 checks;015 failed before compiler execution with duplicate companion definition",
+      "host": "PASS016 target package/CRC/signatures/explicit index8-10 companion selection, actual compiler exports/5resident groups/5correct-priority staged initializers/no auto startup, unchanged015 assets and Java bytecode,54original JARs/exact002 image-native libs/frozen000-004/008-011/014/Fabric094/Paper108. Prior same-pinned host real compiler invalid/valid controls/3lifecycles/18GPU dispatches/output+guards remain applicable; PS5 compiler pending.",
+      "change": "Limit companion definitions explicitly to index8/9/10, excluding new compiler row11.015 had duplicate presentation class definition before shaderc; dependency objects and Java bytecode unchanged."
     }
   ]
 }
