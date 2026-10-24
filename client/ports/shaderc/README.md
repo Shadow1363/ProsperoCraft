@@ -12,3 +12,10 @@ once through lifecycle.c's resident JNI_OnLoad after VM creation. Only actual
 available graphics-provider definitions are used for scoped compatibility.
 JVM/SDK and official Java shaderc/game JARs remain unchanged. The app packages
 upstream component license texts; source pins identify reproducible sources.
+
+018 exports the exact pinned shaderc source into the ignored target build tree
+and applies `0001-compile-checkpoints.patch`. This observational native dependency
+patch logs actual compile API, diagnostic stringstream and glslang parser
+boundaries; it does not replace compiler results or change a Java/game JAR.
+The host compiler uses the original sources, without these target checkpoints.
+The patch SHA-256 is recorded in the package audit and checked against source.

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build pinned shaderc/glslang/SPIRV-Tools on host or PS5; stage target constructors."""
 from pathlib import Path
-import argparse,subprocess,json,hashlib,re
+import argparse,subprocess,json,hashlib,re,tarfile,io,shutil
 ROOT=Path(__file__).resolve().parents[1];LLVM=Path('/opt/homebrew/opt/llvm/bin')
 def build(runtime,host=False,offline=False):
     port=ROOT/'client/ports/shaderc';lock=json.loads((port/'sources.json').read_text());source=ROOT/'.tools/shaderc-src'
@@ -17,12 +17,29 @@ def build(runtime,host=False,offline=False):
         if revision!=row['commit']:subprocess.run(['git','-C',str(path),'checkout','--detach',row['commit']],check=True)
         subprocess.run(['git','-C',str(path),'diff','--exit-code','HEAD'],check=True)
     out=ROOT/('build/shaderc-host'if host else'build/shaderc-ps5');out.mkdir(exist_ok=True)
-    args=['cmake','-S',str(source),'-B',str(out),'-G','Ninja','-DCMAKE_BUILD_TYPE=Release','-DSHADERC_SKIP_TESTS=ON','-DSHADERC_SKIP_EXAMPLES=ON','-DSHADERC_SKIP_EXECUTABLES=ON','-DSHADERC_SKIP_COPYRIGHT_CHECK=ON','-DSHADERC_SKIP_INSTALL=OFF','-DSHADERC_ENABLE_WERROR_COMPILE=OFF','-DENABLE_GLSLANG_BINARIES=OFF','-DENABLE_HLSL=ON','-DSPIRV_SKIP_EXECUTABLES=ON','-DSPIRV_SKIP_TESTS=ON','-DDISABLE_EXCEPTIONS=ON','-DCMAKE_POSITION_INDEPENDENT_CODE=ON']
+    # Export the pinned shaderc tree; target-only observational patch never edits
+    # upstream caches or the original dependency/Java artifacts.
+    configured_source=source
+    patch=port/'0001-compile-checkpoints.patch'
+    if not host:
+        configured_source=out/'source';shutil.rmtree(configured_source,ignore_errors=True);configured_source.mkdir()
+        archive=subprocess.check_output(['git','-C',str(source),'archive','HEAD'])
+        with tarfile.open(fileobj=io.BytesIO(archive))as contents:contents.extractall(configured_source,filter='data')
+        for path,row in rows[1:]:
+            target=configured_source/'third_party'/row['name']
+            if target.exists():shutil.rmtree(target)
+            target.symlink_to(path.resolve(),target_is_directory=True)
+        subprocess.run(['git','apply','--unsafe-paths','--directory='+str(configured_source),str(patch)],check=True)
+    cache=out/'CMakeCache.txt'
+    if cache.exists():
+        home=re.search(r'^CMAKE_HOME_DIRECTORY:INTERNAL=(.+)$',cache.read_text(),re.M)
+        if home and Path(home[1]).resolve()!=configured_source.resolve():cache.unlink()
+    args=['cmake','-S',str(configured_source),'-B',str(out),'-G','Ninja','-DCMAKE_BUILD_TYPE=Release','-DSHADERC_SKIP_TESTS=ON','-DSHADERC_SKIP_EXAMPLES=ON','-DSHADERC_SKIP_EXECUTABLES=ON','-DSHADERC_SKIP_COPYRIGHT_CHECK=ON','-DSHADERC_SKIP_INSTALL=OFF','-DSHADERC_ENABLE_WERROR_COMPILE=OFF','-DENABLE_GLSLANG_BINARIES=OFF','-DENABLE_HLSL=ON','-DSPIRV_SKIP_EXECUTABLES=ON','-DSPIRV_SKIP_TESTS=ON','-DDISABLE_EXCEPTIONS=ON','-DCMAKE_POSITION_INDEPENDENT_CODE=ON']
     if not host:
         sdk=ROOT/'.tools/graphics-sdk';toolchain=out/'toolchain.cmake'
         toolchain.write_text('set(CMAKE_SYSTEM_NAME FreeBSD)\nset(CMAKE_SYSTEM_VERSION 9)\nset(CMAKE_SYSTEM_PROCESSOR x86_64)\nset(CMAKE_CROSSCOMPILING TRUE)\nset(CMAKE_C_COMPILER '+str(LLVM/'clang')+')\nset(CMAKE_CXX_COMPILER '+str(LLVM/'clang++')+')\nset(CMAKE_C_COMPILER_TARGET x86_64-sie-ps5)\nset(CMAKE_CXX_COMPILER_TARGET x86_64-sie-ps5)\nset(CMAKE_AR '+str(LLVM/'llvm-ar')+')\nset(CMAKE_RANLIB '+str(LLVM/'llvm-ranlib')+')\nset(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)\n')
         flags='-isysroot '+str(sdk)+' -isystem '+str(sdk/'target/include')+' -fvisibility-nodllstorageclass=default -march=x86-64 -msse2 -mno-avx -mno-avx2 -mno-fma -fno-stack-protector -femulated-tls'
-        args+=['-DCMAKE_TOOLCHAIN_FILE='+str(toolchain),'-DCMAKE_C_FLAGS='+flags,'-DCMAKE_CXX_FLAGS=-isystem '+str(sdk/'target/include/c++/v1')+' '+flags]
+        args+=['-DCMAKE_TOOLCHAIN_FILE='+str(toolchain),'-DCMAKE_C_FLAGS='+flags,'-DCMAKE_CXX_FLAGS=-isystem '+str(sdk/'target/include/c++/v1')+' -DPS5_SHADERC_CHECKPOINTS '+flags]
     subprocess.run(args,check=True);subprocess.run(['cmake','--build',str(out),'--target','shaderc_shared'if host else'shaderc_combined','-j','4'if host else'6'],check=True)
     if host:return out/'libshaderc/libshaderc_shared.dylib'
     raw=out/'compiler-raw.o';obj=out/'compiler.o'
@@ -42,6 +59,6 @@ def build(runtime,host=False,offline=False):
     if options:subprocess.run([str(LLVM/'llvm-objcopy'),*options,str(obj)],check=True)
     headers=runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_include/java.base';lifecycle=out/'lifecycle.o'
     subprocess.run([str(LLVM/'clang'),'-target','x86_64-sie-ps5','-O2','-fPIC','-fvisibility-nodllstorageclass=default','-isysroot',str(sdk),'-I'+str(headers),'-I'+str(headers/'freebsd'),'-c',str(port/'lifecycle.c'),'-o',str(lifecycle)],check=True)
-    audit={'sources':lock,'constructor_sections':initializers,'lifecycle':'Explicit resident JNI_OnLoad initializes retained compiler constructors once after VM; no module teardown claim','objects_sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in [obj,lifecycle]},'bindings':bindings,'console':'pending'};(out/'audit.json').write_text(json.dumps(audit,indent=2)+'\n');return obj,lifecycle,audit
+    audit={'sources':lock,'diagnostic_patch_sha256':hashlib.sha256(patch.read_bytes()).hexdigest(),'constructor_sections':initializers,'lifecycle':'Explicit resident JNI_OnLoad initializes retained compiler constructors once after VM; no module teardown claim','objects_sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in [obj,lifecycle]},'bindings':bindings,'console':'pending'};(out/'audit.json').write_text(json.dumps(audit,indent=2)+'\n');return obj,lifecycle,audit
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--runtime-workspace',required=True,type=Path);p.add_argument('--host',action='store_true');p.add_argument('--offline',action='store_true');a=p.parse_args();build(a.runtime_workspace,a.host,a.offline);print('PASS pinned shaderc dependency build; host'if a.host else'PASS pinned PS5 shaderc dependency build and explicit constructor staging; console pending')

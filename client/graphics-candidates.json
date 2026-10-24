@@ -1,5 +1,5 @@
 {
-  "status": "014 SDL PASS;016 crashed at first shaderc initialization boundary.017 reduced overlap and precise Java/native diagnostics pending",
+  "status": "014 SDL PASS;017 compiler/options initialize, then crash during invalid-source compilation.018 real compiler internal diagnostics pending",
   "reviewed_date": "2026-10-24",
   "ps5_vulkan": {
     "repository": "https://github.com/mihawk-99/PS5_Vulkan",
@@ -14,5 +14,5 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "017 runtime compiler console validation before SDL input/display; class-load vs native initialization fault unresolved. Frozen014 preserved; server endurance deferred."
+  "next": "018 native compiler/parser/diagnostic-stream boundary validation before SDL input/display; native fault unresolved. Frozen014 preserved; server endurance deferred."
 }

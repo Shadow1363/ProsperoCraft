@@ -199,9 +199,19 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.017",
       "package_sha256": "cb0a8f527b76cafad0553ebd2b75515bf22d9e795101608783ebe4514fbfce66",
-      "console": "pending; compiler row now precedes SDL input/display, then JVM shutdown",
+      "console": "CRASH during first invalid-GLSL compilation; original Shaderc class/compiler/options initialization succeeded",
       "host": "PASS changed Java fixture with actual pinned host shaderc/MoltenVK:3 invalid/valid compiler cycles,18GPU dispatches/full output+guards with compilation preceding Vulkan allocations. Target017 package/CRC/signatures/staged constructors/5real resident groups/compiler symbol+observational wrapper/scoped hashes/licenses/original54JARs/exact002 image-native libs/frozen000-004/008-011/014/Fabric094/Paper108 PASS. PS5 crash root cause and native compiler execution remain unresolved.",
-      "change": "Precise original Shaderc class initialization and real native compiler-entry/return diagnostics; compile before Vulkan allocations and run compiler row before retained SDL/display context.016 crash cause unresolved; original compiler still executed, no success substitution."
+      "change": "Precise original Shaderc class initialization and real native compiler-entry/return diagnostics; compile before Vulkan allocations and run compiler row before retained SDL/display context.016 crash cause unresolved; original compiler still executed, no success substitution.",
+      "evidence": "Retrieved session client-01.000.017-1792841350-700258348. Native compiler entry/return and options configuration passed; last checkpoint before invalid-GLSL compile. SDL was not opened. No captured Java exception or VM abort; exact native fault unresolved."
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.018",
+      "package_sha256": "44ee853dd7a8a914fc49db3cfd5632ac8fd9dff55a390968623ea926ac6a68ee",
+      "console": "pending; diagnostic candidate after017 compilation crash",
+      "host": "PASS actual pinned host shaderc:3 invalid/valid compiler cycles,18 MoltenVK dispatches/full output+guards, Java25 Xint/XcheckJNI/verification/core UBSan. Host compiler does not include target-only diagnostic patch. Target018 package PASS: real compiler exports/hashed native checkpoint patch/embedded stage strings,5 resident groups,5 correctly ordered compiler constructors,359 JVM+4 GPU constructors,54 original JARs/exact002 image-native libs,CRC/signatures and preserved milestones/server packages. PS5 native fault unresolved.",
+      "change": "Target-only source export+audited observational native shaderc checkpoint patch. Actual compile entry/result allocation/diagnostic streams/TShader/parser/formatting boundaries. Original compiler outputs and13 acceptance checks remain required; no JVM/SDK/game/Java JAR changes.",
+      "reported_date": "2026-10-24"
     }
   ]
 }

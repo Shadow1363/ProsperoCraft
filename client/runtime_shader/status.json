@@ -1,17 +1,17 @@
 {
-  "stage": "Client Runtime Shader Compilation017 candidate \u2014 precise initialization boundaries and reduced overlap",
+  "stage": "Client Runtime Shader Compilation018 candidate \u2014 checkpoints inside actual native compilation",
   "date": "2026-10-24",
   "title_id": "PPSA99874",
-  "app_version": "01.000.017",
-  "package_sha256": "cb0a8f527b76cafad0553ebd2b75515bf22d9e795101608783ebe4514fbfce66",
-  "console": "pending; compiler row now precedes SDL input/display, then JVM shutdown",
-  "host": "PASS changed Java fixture with actual pinned host shaderc/MoltenVK:3 invalid/valid compiler cycles,18GPU dispatches/full output+guards with compilation preceding Vulkan allocations. Target017 package/CRC/signatures/staged constructors/5real resident groups/compiler symbol+observational wrapper/scoped hashes/licenses/original54JARs/exact002 image-native libs/frozen000-004/008-011/014/Fabric094/Paper108 PASS. PS5 crash root cause and native compiler execution remain unresolved.",
-  "scope": "Runtime GLSL->SPIR-V via original LWJGL shaderc APIs, then actual RADV compute. No cached/precompiled SPIR-V in new row. Existing SDL input/display precedes it.",
+  "app_version": "01.000.018",
+  "package_sha256": "44ee853dd7a8a914fc49db3cfd5632ac8fd9dff55a390968623ea926ac6a68ee",
+  "console": "pending; diagnostic candidate, not a demonstrated crash repair",
+  "host": "PASS actual pinned host shaderc:3 invalid/valid compiler cycles,18 MoltenVK dispatches/full output+guards, Java25 Xint/XcheckJNI/verification/core UBSan. Host compiler does not include target-only diagnostic patch. Target018 package PASS: real compiler exports/hashed native checkpoint patch/embedded stage strings,5 resident groups,5 correctly ordered compiler constructors,359 JVM+4 GPU constructors,54 original JARs/exact002 image-native libs,CRC/signatures and preserved milestones/server packages. PS5 native fault unresolved.",
+  "scope": "Actual runtime GLSL->SPIR-V via original LWJGL shaderc APIs, then actual RADV compute. Target-only observational native compiler patch; compiler precedes SDL input/display.",
   "runtime_source_modified": false,
   "runtime_sdk_replaced": false,
   "game_jar_modified": false,
   "upstream_shaderc_java_jar_modified": false,
-  "lifecycle": "Compiler row precedes retained SDL/display context; compilation precedes each Vulkan device/buffer allocation. Native compiler entry wrapper is observational. Global teardown remains unvalidated.",
+  "lifecycle": "Original compiler/results/options lifecycle and all13 acceptance checks unchanged; retained SDL/display context still follows compilation. Native teardown unvalidated.",
   "baseline": "Frozen014 and earlier exact passing packages preserved",
   "server_two_hour_endurance": "pending; explicitly deferred",
   "not_validated": [
@@ -20,5 +20,6 @@
     "Textures/depth/blending and Minecraft startup",
     "Full module/global teardown, prolonged load and low memory robustness"
   ],
-  "previous_failure": "016 crashed at first Shaderc class/native compiler boundary after SDL passed; no captured exception/abort. Native constructors completed. Exact cause unresolved;017 logs before/after class init and real compiler entry/return."
+  "previous_failure": "017 proved original Shaderc class/compiler/options initialization succeeds, then crashed during first invalid-source compile. No captured Java exception/VM abort. Exact native fault unresolved.",
+  "native_shaderc_dependency_patch": "0001-compile-checkpoints.patch adds actual compiler/diagnostic stream/TShader/parser checkpoint calls; no substituted results or game/Java JAR transformations"
 }
