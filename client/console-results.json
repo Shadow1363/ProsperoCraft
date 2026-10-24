@@ -268,6 +268,15 @@
       "evidence": "Human PASS followed by Safari retrieval of session/startup/native trace on2026-10-24. Run client-01.000.023-1792846440-446670267 confirms494consecutive direct frames (phase0:180,phase1:180,phase2:134),1482draws,17784pixel samples/126464guard-byte checks,physical masks15 and JVM shutdown. Original frozen validation/release assets remain unchanged;additive follow-up records later evidence.",
       "milestone": "Client_Continuous_Direct_Scene",
       "log_follow_up": "docs/validation/client023-log-follow-up-2026-10-24.json"
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.024",
+      "package_sha256": "95a48cfddca9cadc10c7121959b52db71daff93b68ec0da4d5189b03b4a9ca3d",
+      "console": "pending;actual original client startup/menu not established",
+      "host": "PASS launch argument/workdir/options-preservation policy;separate actual unchanged host Main reaches native-library bootstrap and exits253 at expected missing desktop natives,no host menu pass. Original client JAR SHA256 unchanged. All5147original assets/484894038bytes staged and hash-verified. PASS024 target package CRC/signatures,four-row original Main invocation,all54 original Java/game JAR SHA256s,all5147 asset SHA1/size checks,pinned index,exact023 runtime image/native libraries,359JVM+4GPU+5compiler staged constructors,5real resident groups,paired C++ allocator/log configuration and preserved022/023 package hashes. PS5 original startup/menu pending.",
+      "change": "First actual original Minecraft26.3 Main invocation via consumer harness with full original assets,offline demo policy,genuine current PS5 providers,512MiB heap/writable logs. Four startup rows,no prior scene/testpad owner,no game-JAR transformations. Native coverage incomplete;menu not automatically passed.",
+      "reported_date": "2026-10-24"
     }
   ]
 }

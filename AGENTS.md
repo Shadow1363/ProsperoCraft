@@ -241,3 +241,11 @@ Keep the original frozen source/validation and four release assets unchanged;
 docs/validation/client023-log-follow-up-2026-10-24.json and additive release
 follow-up assets record this later evidence. Raw logs stay local. Camera,
 game startup,full teardown and endurance limitations remain.
+
+User work-order update2026-10-24:try actual original Minecraft client startup
+now,before camera controls. Development024 calls unmodified26.3Main through
+consumer harness,full5147original asset objects and supported demo arguments;
+no credentials or game class transformations. Native client coverage remains
+incomplete;four startup rows are not an automatic menu pass. Original game
+Main return/process exit is diagnostic evidence,not menu/world acceptance.
+Preserve frozen023/earlier packages and actual-console validation boundaries.

@@ -19,11 +19,13 @@ parser.add_argument('--render', action='store_true', help='Build client010 graph
 parser.add_argument('--present', action='store_true', help='Build client011 standalone direct presentation candidate')
 parser.add_argument('--sdl', action='store_true', help='Build client014 SDL window/input candidate')
 parser.add_argument('--runtime-shader', action='store_true', help='Build client023 runtime GLSL compiler candidate')
+parser.add_argument('--startup',action='store_true',help='Build024 original Minecraft Main startup attempt')
 args = parser.parse_args()
-if sum([args.shader,args.render,args.present,args.sdl,args.runtime_shader])>1:parser.error("Choose one candidate")
+if sum([args.shader,args.render,args.present,args.sdl,args.runtime_shader,args.startup])>1:parser.error("Choose one candidate")
+if args.startup:args.runtime_shader=True
 runtime = args.runtime_workspace.resolve()
-variant="runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+variant="startup" if args.startup else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
+version="01.000.024" if args.startup else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -33,14 +35,20 @@ work=ROOT/('build/client-'+variant+'-probe');work.mkdir(parents=True,exist_ok=Tr
 assets=work/'assets';shutil.rmtree(assets,ignore_errors=True)
 java=assets/'java25';java.mkdir(parents=True)
 shutil.copytree(ROOT/'build/client',java/'client')
+if args.startup:
+ from prepare_client_assets import prepare as prepare_assets
+ asset_source=prepare_assets(offline=args.offline)
+ shutil.copytree(asset_source,java/'game-assets')
+ shutil.copyfile(ROOT/'client/startup/log4j2-startup.xml',java/'log4j2-startup.xml')
 ports=java/'ports';ports.mkdir()
 port=ROOT/'build/client-ports/lwjgl/lwjgl-3.4.3-ps5-platform.jar';shutil.copyfile(port,ports/port.name)
-audit=json.loads((ROOT/'build/client-ports/lwjgl/audit.json').read_text());audit['activated_for_probe']=True;audit['activated_for_game']=False
+audit=json.loads((ROOT/'build/client-ports/lwjgl/audit.json').read_text());audit['activated_for_probe']=True;audit['activated_for_game']=bool(args.startup)
 (java/'dependency-port-audit.json').write_text(json.dumps(audit,indent=2)+'\n')
 lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
 classpath='/app0/assets/java25/client-probe.jar:/app0/assets/java25/ports/'+port.name+':'+':'.join('/app0/assets/java25/client/jars/'+row['file']for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:'))
 (work/'client_classpath.hpp').write_text('#pragma once\n#define CLIENT_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n')
 sources=[*sorted((ROOT/'client/java').glob('*.java')),ROOT/'client/gpu/ClientGpu25.java',ROOT/'client/vulkan/ClientVulkan25.java']
+if args.startup:sources += [ROOT/'client/startup/ClientStartup25.java']
 if args.shader or args.render or args.present or args.sdl or args.runtime_shader:
  from compile_client_shader import compile_shader
  sources += [ROOT/'client/shader/ClientShader25.java',compile_shader()]

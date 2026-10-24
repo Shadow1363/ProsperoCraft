@@ -1,0 +1,44 @@
+{
+  "stage": "Original Minecraft Client Startup024 attempt",
+  "date": "2026-10-24",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.024",
+  "package_sha256": "95a48cfddca9cadc10c7121959b52db71daff93b68ec0da4d5189b03b4a9ca3d",
+  "console": "pending;actual original client startup/menu not established",
+  "host": "PASS launch argument/workdir/options-preservation policy;separate actual unchanged host Main reaches native-library bootstrap and exits253 at expected missing desktop natives,no host menu pass. Original client JAR SHA256 unchanged. All5147original assets/484894038bytes staged and hash-verified.",
+  "package_checks": "PASS024 target package CRC/signatures,four-row original Main invocation,all54 original Java/game JAR SHA256s,all5147 asset SHA1/size checks,pinned index,exact023 runtime image/native libraries,359JVM+4GPU+5compiler staged constructors,5real resident groups,paired C++ allocator/log configuration and preserved022/023 package hashes. PS5 original startup/menu pending.",
+  "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
+  "game_jar_modified": false,
+  "runtime_implementation_modified": false,
+  "runtime_sdk_replaced": false,
+  "java_heap_max_mib": 512,
+  "compressed_class_space_mib": 64,
+  "startup_rows": 4,
+  "assets": {
+    "asset_index": {
+      "id": "34",
+      "sha1": "0c8f43b28f837869c1e54a6aeb22c396a1548946",
+      "size": 597035,
+      "totalSize": 484894038,
+      "url": "https://piston-meta.mojang.com/v1/packages/0c8f43b28f837869c1e54a6aeb22c396a1548946/34.json",
+      "file": "assets-index-34.json",
+      "sha256": "286d76e66c3dbaecb60fdafd2ba4dcaaef3983e36b59a132306f679bedaa5015"
+    },
+    "logical_objects": 5147,
+    "unique_objects": 5147,
+    "unique_bytes": 484894038,
+    "verification": "Every original object matches publisher index SHA1 and size;all objects staged,including sounds. No transformed/replacement assets.",
+    "console": "Asset preparation is not startup/menu validation."
+  },
+  "launch": "Supported offline demo arguments,PS5Probe/offline UUID/token0,Vulkan,1280x720,disabled multiplayer/chat. No credentials,EULA acceptance,quickplay server or authenticated-play claim.",
+  "workdir": "/download0/mc-client",
+  "logs": "System.out/err -> /download0/java25-exceptions.log available as /exceptions.log;Log4j bounded game logs in workdir and console;native stages/exit in startup-tail.log.",
+  "native_coverage": "Real current core/SDL/Vulkan/shaderc providers;full STB/FreeType/VMA/SPIRV-Cross/OpenAL/callback paths still incomplete. No fake exports or desktop-native substitution.",
+  "baseline": "Frozen023/earlier exact packages/source/symbols preserved",
+  "not_validated": [
+    "PS5 original Main/native bootstrap/window/menu/gameplay/input/authentication",
+    "Full client native bindings/SDL callbacks/libffi/STB/FreeType/VMA/SPIRV-Cross/OpenAL paths",
+    "World startup,complete rendering,teardown/prolonged low-memory robustness",
+    "Server two-hour endurance remains explicitly deferred"
+  ]
+}
