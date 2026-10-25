@@ -511,3 +511,11 @@ No fatal context/OOM/driver error captured;cause unknown. Exact052retained befor
 first120at1s then60at5s;no handler replacement,no speculative game/runtime/heap/GPU
 repair. Console validation remains pending. Server2H stays deferred. Read prior051
 complete release/store/provisioning/OpenAL requirements before any client release.
+
+Current054update supersedes053candidate directions:see docs/handoff-prosperocraft-client054.md.
+053crash/reopen reports contain98snapshots through97185ms and native pairs through
+97186ms;pipeline wait resolves,Main entersMinecraft.run and language-resource apply.
+No permanent deadlock/menu/crash cause is established. Four recorder handlers match,
+flexible availability remains>=324MiB;raw RSS units/process policy unknown.054adds
+read-only process limits/direct availability and dense transition sampling;no
+limit/heap/graphics/game repair claimed. Exact053retained;054console pending.

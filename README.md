@@ -59,24 +59,24 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client053 — native startup observations
+## Development client054 — resource-apply transition observations
 
-052 reached the original Mojang loading screen near completion and crashed before
-the menu fade,around1½minutes after X. Matching reports contain91complete snapshots,
-last at94.195s:render waits for a shared-executor pipeline future while the worker
-bakes models in resource preparation.390shader calls returned;first8fences/flips
-succeeded. No fatal signal,VM abort,driver error or Java OOM was captured.
-**Crash cause remains unknown;no menu/gameplay/stability pass is established.**
+053 crashed and was restarted. Matching reports show98complete snapshots through
+97.185s:the earlier pipeline wait resolves,Main enters Minecraft.run and applies
+language resources while the worker becomes idle. This is progress beyond the
+constructor,not a working-menu pass. Native queries succeed,all four recorder
+handlers still match,and available flexible memory stays at least324MiB. Raw
+maximum-RSS rises;its units and applicable process policy remain unverified.
+No fatal signal,VM abort,driver error or Java OOM was captured. **Cause unknown.**
 
-053 records native resource counters and read-only fault-handler ownership around
-the existing Java snapshots. Sampling stays at1s through120samples,then60at5s;
-32threads/64frames,nominal419s plus sampling overhead. Query errors remain explicit;
-no handler is reinstalled. Original game material,runtime,heap and graphics behavior
-remain intact. Diagnostics may alter timing. **053console validation is pending.**
-Exact052and all frozen passes are preserved.
-[Build and diagnostic scope](docs/client-startup-053.md) ·
-[052 failure evidence](docs/validation/client052-startup-failure-2026-10-25.json) ·
-[Current continuation handoff](docs/handoff-prosperocraft-client053.md).
+054 adds read-only process-limit/direct-memory queries and denser250ms snapshots
+around the observed90–110s transition. No limit,heap,game or graphics behavior is
+changed. Diagnostics can affect timing. Host/target/package validation is recorded
+in the build record;**054console capture,crash resolution and menu/gameplay/stability
+remain pending.** Exact053and frozen passes are preserved.
+[Diagnostic scope](docs/client-startup-054.md) ·
+[053 failure evidence](docs/validation/client053-startup-failure-2026-10-25.json) ·
+[Current handoff](docs/handoff-prosperocraft-client054.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

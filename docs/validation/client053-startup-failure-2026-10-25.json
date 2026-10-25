@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.053",
+  "run": "client-01.000.053-1792953446-914697374",
+  "tested_source_commit": "1790aaf89c53b93bbe2f4fcae5fae9a6bb5a6596",
+  "package_sha256": "cea95dcd5ef98f851a1f66e023a6e3323914d589df29cff6452f3f858cb1e65d",
+  "human": "restarted the app after crasg;053crash/reopen confirmed in response to053candidate. No new specific screen/timing supplied;052screen/timing must not automatically be assigned053.",
+  "observed": {
+    "samples": 98,
+    "last_snapshot_ms": 97185,
+    "last_heap_used_bytes": 241813728,
+    "heap_used_min_bytes": 60917136,
+    "heap_used_max_bytes": 241813728,
+    "pipeline_progress": "Early pipeline-future wait resolves. By96s render is in Minecraft.run/Main292,97.185s render applies language JSON resources and Worker-Main-1 is idle. Earlier wait is not a permanent deadlock.",
+    "last_main": "StringLatin1.compareTo/Gson/Language.loadFromJson -> ClientLanguage -> LanguageManager.onResourceManagerReload -> SimpleReloadInstance -> Minecraft.runTick/run. Not a fatal instruction.",
+    "native_samples": 196,
+    "last_native_elapsed_ms": 97186,
+    "raw_maxrss_first": 509584,
+    "raw_maxrss_last": 1162304,
+    "raw_maxrss_units": "unverified;no byte conversion/total-memory/limit-exceeded conclusion",
+    "flexible_bytes_min": 339738624,
+    "flexible_bytes_last": 339738624,
+    "query_statuses": [
+      [
+        "0",
+        "0x00000000",
+        "0xf",
+        "0x0"
+      ]
+    ],
+    "shader_entries": 390,
+    "shader_returns": 390,
+    "native": "First8successful fences/accepted flips. No captured fatal signal/VM abort/driver error/Java OOM.98native phase pairs complete;no observer normal completion/error marker.4recorder handlers match through last query.",
+    "metadata_initial_nulls": [
+      "FAIL: Metadata arena allocation addr=0 bytes=632 mode=1 errno=0",
+      "FAIL: Metadata arena allocation addr=0 bytes=752 mode=1 errno=0",
+      "FAIL: Metadata arena allocation addr=0 bytes=240 mode=1 errno=0",
+      "FAIL: Metadata arena allocation addr=0 bytes=88 mode=1 errno=0"
+    ]
+  },
+  "cause": "Unknown. Capture shows resource preparation/pipeline progress;does not establish menu or crash cause. Last observation is not exact termination time.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "96c784f8a3511b76abf6c08e1b3587975a5ebf2c03769b0639171ef42d3dbcf5"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "419faf6ab8d08149abd8aa26a693d896591d6f2691432d259226b9f7c0215729"
+    },
+    "exceptions.log": {
+      "bytes": 705658,
+      "sha256": "8ed19ea39445e09ec82868e35d756cf6f1642e85ae9b7db1d4c2cfd6da3053b0"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 412,
+      "sha256": "1e6837444e00f337ee062f3dd8aaaa52cb3857d9608061b8b7fca7923dd3ccd9"
+    },
+    "process-usage.log": {
+      "bytes": 44826,
+      "sha256": "97c663bdc38304f11df5a85b4fb1ad0780e4a9c9221a3d22f13ebab4a06fb01b"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "d4f7655c7633afcf8a9f49f2467f4e2ac7eb974aa5626996f2201d7595e586e0"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "3d5c9e4cf5e494f529d631642cf3627a95a58f30860cddbacc37c4b5fa0e04d2"
+    },
+    "vm-trace.log": {
+      "bytes": 1729706,
+      "sha256": "8d287d8e3a6d867f3cbfd3d33508e2bd0647fc638e6703205ce7e4885eea2fc4"
+    }
+  },
+  "next": "054adds process policy/direct availability queries and250ms samples in90-110s region;no speculative heap/game/GPU repair.",
+  "limits": "No menu/ALL PASS/new milestone/full client release. Server2H deferred."
+}

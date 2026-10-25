@@ -1,12 +1,12 @@
 {
-  "stage": "ProsperoCraft original startup053:native resource and handler ownership observations",
+  "stage": "ProsperoCraft original startup054:process policy/direct memory and dense transition observations",
   "date": "2026-10-25",
   "title_id": "PPSA99874",
-  "app_version": "01.000.053",
-  "package_sha256": "cea95dcd5ef98f851a1f66e023a6e3323914d589df29cff6452f3f858cb1e65d",
-  "console": "PENDING053.052human Mojang loading near completion then crash before menu fade,around1\u00bdminutes;matching reports end after snapshot91at94195ms. Cause unknown.",
-  "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,late cadence boundary,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
-  "package_checks": "PASS053 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 cea95dcd5ef98f851a1f66e023a6e3323914d589df29cff6452f3f858cb1e65d",
+  "app_version": "01.000.054",
+  "package_sha256": "4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc",
+  "console": "PENDING054.053crash/restart;98complete snapshots through97185ms. Earlier pipeline wait resolves;Main enters Minecraft.run and applies language resources. No menu acceptance/crash cause.",
+  "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+  "package_checks": "PASS054 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
   "game_jar_modified": false,
   "runtime_implementation_modified": false,
@@ -40,16 +40,16 @@
     "Further native feature/API coverage and network-service failures",
     "Game memory adequacy/performance/global teardown;server endurance deferred"
   ],
-  "previous_failure": "docs/validation/client052-startup-failure-2026-10-25.json",
+  "previous_failure": "docs/validation/client053-startup-failure-2026-10-25.json",
   "memory_limit": "040used130MiB after last Java GC/247MiB committed;separate4MiB native allocator failure. Console-wide memory pressure and full game adequacy unmeasured.",
-  "development_repair": "Diagnostic only:existing observer writes native before/after records with raw getrusage/flexible-memory/handler-ownership queries;180samples,first120at1s then60at5s,32threads/64frames. No crash repair claimed.",
+  "development_repair": "Diagnostic only:240samples with interval1s for1..89,250ms for90..169,1s for170..179,5s for180..239;nominal419s plus overhead. Adds read-only RLIMIT_DATA/AS/RSS and direct availability/statuses. No limit/heap/graphics/game change or crash repair.",
   "native_dependency_baseline": {
     "milestone": "Client_OpenGL_Provider",
     "version": "01.000.029",
     "full_package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
     "console": "Human ALL5 PASS and saved reports;037 packaged provider/JNI/overlay hashes match029"
   },
-  "development": "053adds native resource/handler query records around Java stack samples;1s sampling through120then60at5s",
+  "development": "054adds raw process limits and direct-memory availability;denser250ms samples during nominal89-109s transition",
   "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports.",
   "stb_baseline": {
     "milestone": "Client_STB_Codecs",
@@ -128,20 +128,26 @@
   "shader_compilation_console_evidence": "Retrieved046/047/049/050each have390entry/390return markers. Last compile is not known crash location.",
   "presentation_console_evidence": "050 matching session/native header,early VideoOut retained,three imports,thread create0,first8 fences VK_SUCCESS and8native flips accepted0. Human Mojang loading then crash. Later failure cause unknown;first8bounds do not identify later frames.",
   "startup_observer": {
-    "samples": 180,
+    "samples": 240,
     "interval_ms": 1000,
     "requested_stack_bytes": 262144,
     "max_threads_printed": 32,
     "max_frames_printed_per_thread": 64,
     "output": "/exceptions.log;PS5 STARTUP SNAPSHOT/PS5 END SNAPSHOT markers",
-    "scope": "One optional daemon:phase0native record,Java stacks/publication,phase1native record;first120at1s then60at5s.32threads/64frames. Raw rusage,flexible query and four signal-handler ownership masks. Query failures stay explicit;native append failure disables native portion while Java sampling continues. Safepoints/allocations/I/O/queries may alter timing. Not crash context.",
-    "console": "PENDING053.05291samples through94195ms,render waits for pipeline future while worker bakes models;human crash around1\u00bdminutes before menu fade.",
-    "early_samples": 120,
+    "scope": "One optional daemon;phase0native/Java stacks/phase1native.240samples;1s sleeps after1..89,250ms90..169,1s170..179,5s180..239.32threads/64frames. Native resource/limits/direct-range/handler query observations;errors explicit. No limit/handler/game changes;can perturb timing,not atomic crash context.",
+    "console": "053confirmed98complete Java snapshots/native phase pairs through97186ms. Main moves from pipeline join toMinecraft.run and language-resource apply. Handler mask0xf/errors0,flexible minimum339738624bytes. Cause unknown;054pending.",
+    "early_samples": 90,
     "later_interval_ms": 5000,
-    "nominal_last_sample_seconds": 419
+    "nominal_last_sample_seconds": 419,
+    "dense_interval_ms": 250,
+    "dense_interval_after_samples": [
+      90,
+      169
+    ],
+    "later_interval_after_sample": 180
   },
-  "startup_observer_host_regression": "PASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,late cadence boundary,absent-native fallback,daemon and interrupted close without later writes;host only",
-  "latest_console_observations": "docs/validation/client052-startup-failure-2026-10-25.json",
-  "native_observer_host": "PASS actual native observer helper ASan/UBSan: raw query values/errors,phase/elapsed formatting,append/write failure and errno preservation;controlled query results,not PS5 resource validation",
-  "native_observer_report": "/process-usage.log;build/run header;phase0 before Java stack capture,phase1 after publication. maxrss_raw units unspecified;flexible values invalid on nonzero rc;handler masks query errors invalidate corresponding bits."
+  "startup_observer_host_regression": "PASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only",
+  "latest_console_observations": "docs/validation/client053-startup-failure-2026-10-25.json",
+  "native_observer_host": "PASS actual native observer helper ASan/UBSan: raw resource/limit/direct-range values/errors/infinity/invalid-total skip,phase/elapsed formatting,append/write failure and errno preservation;controlled query results,not PS5 resource validation",
+  "native_observer_report": "/process-usage.log build/run,phase0/1. getrusage and available flexible memory plus raw RLIMIT_DATA/AS/RSS and direct total/largest-range/status/sentinels. All raw result codes explicit;RSS units unverified. Ownership masks query only;no reinstallation."
 }

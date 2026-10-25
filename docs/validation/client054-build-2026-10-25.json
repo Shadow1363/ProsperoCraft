@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.054",
+  "package_sha256": "4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc",
+  "implementation": "Consumer native resource policy/direct-range diagnostics and denser transition sampling. Parent1790aaf;see commit containing manifest for source revision.",
+  "source_sha256": {
+    "client/startup/ClientStartup25.java": "7933cfbdb1a6607462ba280c545bf2624335cc8ff51147f9060796a1f1be021e",
+    "client/startup/bootstrap.cpp": "3173015b224b45235424b20bc33819cc44d15a2707f72bba72c91306aa5ac440",
+    "client/startup/observer_native.hpp": "789c5f4cba765139616448200c01a609e3488813c43c5325b300b8a927080e7d",
+    "client/startup/param.json": "2fdccaa9a67f319d9b6b1dddcd9427cf1373774f8ca6145e8d8470acb44fc15f",
+    "tools/package_client_vulkan.py": "36886b4c2399c3ceeab85ce56ce7ee33bcccf65c825529b65c2d22f330dfa3a4",
+    "tools/test_client_startup_host.py": "a98c3ba3f8d3a86cc9b07fec42e2f75a8b2fb644c3a60d9b554f5d9f00185e8e",
+    "tools/test_client_startup_package.py": "061f73f8557241f054d648d0b1f07a70132cfdd3ee1b8fbde00905881a564742",
+    "tools/test_startup_native_observer.py": "3a2eb4ff856b425a88efa9a0755fbc452008567de1e5688b5abc692f55f82f29"
+  },
+  "symbols_sha256": "54d1b90e36e49d43178b467da3ae5cbe65ff9c5bb7b57caa67bb17124a1bb492",
+  "runtime_commit": "6382528c7aee066002d1c2c6a7b5c7116987ae8c",
+  "checks": {
+    "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+    "native_observer": "PASS actual native observer helper ASan/UBSan: raw resource/limit/direct-range values/errors/infinity/invalid-total skip,phase/elapsed formatting,append/write failure and errno preservation;controlled query results,not PS5 resource validation",
+    "package": "PASS054 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc",
+    "target": "Packaging exit0;target compile/link/SELF integrity pass. Target binary contains unique per-limit keys.",
+    "baseline002": "Exact convenience ZIP restored:d0b9f815ff68c5ad821b2166509879c623c813019d2f70bbacf53769f35e3971",
+    "preserved053": "Full package SHA256rechecked:cea95dcd5ef98f851a1f66e023a6e3323914d589df29cff6452f3f858cb1e65d"
+  },
+  "console": "PENDING054capture/policy/direct queries/crash resolution/menu.053pipeline wait resolves and main loop reached;no menu acceptance/cause established.",
+  "scope": "Read-only process limits/direct availability;240samples,250ms sleeps90..169around nominal89..109s,nominal419s total plus overhead. Original game/runtime/heap/graphics intact.",
+  "release": "No passing milestone/full client release/Store download. Server2H deferred."
+}

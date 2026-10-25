@@ -5,7 +5,7 @@ import argparse,subprocess,json,tempfile,hashlib,os
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--java-home',type=Path,required=True);a=p.parse_args();lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
 cp=':'.join(str(ROOT/'.tools/client'/r['file'])for r in lock['artifacts'])
-out=ROOT/'build/startup-host-053';out.mkdir(exist_ok=True)
+out=ROOT/'build/startup-host-054';out.mkdir(exist_ok=True)
 (out/'StartupPolicy.java').write_text('''import java.nio.file.*;import java.util.*;public class StartupPolicy{public static void main(String[]a)throws Exception{Path w=Path.of(a[0]);ClientStartup25.prepareWork(w);String text=Files.readString(w.resolve("options.txt"));if(!text.contains("soundCategory_music:0.0"))throw new AssertionError();Files.writeString(w.resolve("options.txt"),"existing");ClientStartup25.prepareWork(w);if(!Files.readString(w.resolve("options.txt")).equals("existing"))throw new AssertionError("existing options overwritten");String[]args=ClientStartup25.launchArguments(w,Path.of(a[1]));List<String>l=Arrays.asList(args);for(String flag:new String[]{"--demo","--disableMultiplayer","--disableChat","--graphicsBackend","vulkan","--accessToken","0"})if(!l.contains(flag))throw new AssertionError(flag);if(l.contains("--quickPlayMultiplayer"))throw new AssertionError();System.out.println("PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check");}}''')
 subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(out),str(ROOT/'client/startup/ClientStartup25.java'),str(out/'StartupPolicy.java')],check=True)
 with tempfile.TemporaryDirectory(prefix='mc-startup-policy-')as temp:
@@ -21,8 +21,8 @@ public class StartupObserverCheck{
   if(!ready.await(5,TimeUnit.SECONDS))throw new AssertionError("workers");
   ByteArrayOutputStream bytes=new ByteArrayOutputStream();PrintStream console=new PrintStream(bytes,true,java.nio.charset.StandardCharsets.UTF_8);
   ClientStartup25.StartupObserver observer=new ClientStartup25.StartupObserver(console,2,10);observer.start();joinObserver();observer.close();
-  ClientStartup25.StartupObserver schedule=new ClientStartup25.StartupObserver(console,180,1000,5000);
-  if(schedule.intervalAfter(1)!=1000||schedule.intervalAfter(119)!=1000||schedule.intervalAfter(120)!=5000||schedule.intervalAfter(179)!=5000)throw new AssertionError("late schedule");schedule.close();
+  ClientStartup25.StartupObserver schedule=new ClientStartup25.StartupObserver(console,240,1000,5000);
+  if(schedule.intervalAfter(1)!=1000||schedule.intervalAfter(89)!=1000||schedule.intervalAfter(90)!=250||schedule.intervalAfter(169)!=250||schedule.intervalAfter(170)!=1000||schedule.intervalAfter(179)!=1000||schedule.intervalAfter(180)!=5000||schedule.intervalAfter(239)!=5000)throw new AssertionError("late schedule");schedule.close();
   String text=bytes.toString(java.nio.charset.StandardCharsets.UTF_8);
   if(!text.contains("PS5 native observer unavailable;Java snapshots continue:"))throw new AssertionError("host absent-native fallback");
   if(text.split("PS5 STARTUP SNAPSHOT ",-1).length!=3||!text.contains("MAIN")||!text.contains("StartupObserverCheck.main")||!text.contains("deep(")||!text.contains("[frame limit64]")||!text.contains("[thread limit32]")||!text.contains("heapUsed=")||!text.contains("elapsedMs=")||!text.contains("observer completed"))throw new AssertionError(text);
@@ -30,7 +30,7 @@ public class StartupObserverCheck{
   long deadline=System.nanoTime()+TimeUnit.SECONDS.toNanos(5);
   while(!bytes.toString().contains("PS5 END SNAPSHOT 1")&&System.nanoTime()<deadline)Thread.sleep(5);
   if(!bytes.toString().contains("PS5 END SNAPSHOT 1"))throw new AssertionError("no first snapshot");observer.close();joinObserver();int size=bytes.size();Thread.sleep(20);if(bytes.size()!=size||bytes.toString().contains("SNAPSHOT 2"))throw new AssertionError("writes after close");
-  release.countDown();System.out.println("PASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,late cadence boundary,absent-native fallback,daemon and interrupted close without later writes;host only");
+  release.countDown();System.out.println("PASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only");
  }
 }''')
 subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',str(out)+':'+cp,'-d',str(out),str(out/'StartupObserverCheck.java')],check=True)
