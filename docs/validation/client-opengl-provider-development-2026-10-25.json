@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-25",
+  "status": "development component builds and host acceptance only; no installer or console pass",
+  "sources": {
+    "name": "Mesa",
+    "version": "24.3.4",
+    "archive": {
+      "url": "https://archive.mesa3d.org/mesa-24.3.4.tar.xz",
+      "file": "mesa-osmesa-24.3.4.tar.xz",
+      "size": 30691532,
+      "sha256": "e641ae27191d387599219694560d221b7feaa91c900bcec46bf444218ed66025"
+    },
+    "scope": "Original OSMesa/softpipe software OpenGL provider for native bootstrap;Vulkan remains game renderer. Not a hardware GL performance claim.",
+    "dependencies": [
+      {
+        "file": "zlib-1.3.1.tar.gz",
+        "url": "https://zlib.net/fossils/zlib-1.3.1.tar.gz",
+        "size": 1512791,
+        "sha256": "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23"
+      },
+      {
+        "file": "zlib_1.3.1-1_patch.zip",
+        "url": "https://wrapdb.mesonbuild.com/v2/zlib_1.3.1-1/get_patch",
+        "size": 2403,
+        "sha256": "e79b98eb24a75392009cec6f99ca5cdca9881ff20bfa174e8b8926d5c7a47095"
+      }
+    ]
+  },
+  "patches": {
+    "0001-static-osmesa-target.patch": "bfa0994f60f99a74b3acb7830aed243b080f0099291532f9b855dcab29a904cb",
+    "0002-sdk-file-description-type.patch": "83297817d025a6c8dcabc33aafb21c241bdbceff6e877277dcf61742c3c3bddb",
+    "0003-ps5-emulated-tls-dispatch.patch": "ac765d8473c28f098527c833dd885bfd086fcaa175147ba0155d208c18e9a56a"
+  },
+  "source_patch_identity": "3109723ca468ab7be38ee367e8ec6f9c959fed48473d0dc54921f4ef8c7d594d",
+  "ps5": {
+    "compile_and_relocatable_link": "PASS",
+    "archives": {
+      "src/gallium/targets/osmesa/libOSMesa.a": "514e50d8cd158672e8d030edf4ed7468b3f2be67b2fddfb6526b912f4933dfa9",
+      "src/util/libxmlconfig.a": "96aff60ec0e3e2e5c033cf76ec27a64589fb19b02877c3d777b0ba856c0aaf5d",
+      "subprojects/zlib-1.3.1/libz.a": "9d112adb4ec877901cd2bb93c56e9c4488717a8812aa5d3f06e0e74a22d0740e"
+    },
+    "relocatable_sha256": "6821a87dd0be3a8db144f5b7888dfffc401755c58bebce0645f7bc52f2466d58",
+    "internal_glapi_osmesa_dri_query_references": "resolved",
+    "external_sdk_provider_symbols_pending": 257,
+    "symbol_isolation_constructor_staging_final_executable_link": "pending",
+    "console": "not packaged or run"
+  },
+  "host": {
+    "result": "PASS",
+    "archives": {
+      "src/gallium/targets/osmesa/libOSMesa.a": "bd284a38b2178eb6b77a846da77cf5644d6be5be656e18402117e66535947ad0",
+      "src/util/libxmlconfig.a": "245e793147ff08e05bd4ade8745afb52c76fe5c6a82bd4d338f4d998e00793db",
+      "subprojects/zlib-1.3.1/libz.a": "9d164208aaad9a62d8283defe973775c78e59ae26073f8e354a86a091408b5b1"
+    },
+    "provider": "real Mesa24.3.4 softpipe via actual original LWJGL3.4.3 generated OpenGL JNI",
+    "contexts": 3,
+    "rgba_pixels": 192,
+    "guard_bytes": 768,
+    "negative_controls": [
+      "reject non-direct context buffer",
+      "reject undersized context buffer",
+      "reject corrupted source archive"
+    ],
+    "java": "OpenJDK25 Xint XcheckJNI Xverify:all",
+    "sanitizers": "UBSan on JNI binding/helper; Mesa release build not instrumented",
+    "host_only_lwjgl_jar_change": "native library SHA1 resource only",
+    "optional_host_dependency": "Homebrew SPIRV-Tools autodetected by Mesa; not linked to PS5 object"
+  },
+  "fixtures_sha256": {
+    "tools/build_osmesa_native.py": "cd2a8b455d4bfb7de71ba4e4651dc7c8ebf921f80763f65171cdb7ad9c76124d",
+    "tools/test_osmesa_host.py": "b1eab41cf6c439b22d04456c6fd90c56b565284d3f99b456142a6e59b3595c90",
+    "tools/fixtures/OSMesaBindingsHost25.java": "69df4020791f0234dd27755d24bfbd54d6acf9535d30c1ab3c29bea6d5912192",
+    "tools/fixtures/osmesa_context_host.c": "2df20fd0916ded14a35eb8369c83510da433e810bfc149d644b33e15b24cb7e5"
+  },
+  "unchanged": [
+    "official game JARs",
+    "Java runtime implementation",
+    "RADV provider",
+    "frozen passing milestones"
+  ],
+  "pending": [
+    "resident Mesa symbol isolation",
+    "scoped PS5 provider bindings",
+    "constructor initialization after VM creation",
+    "actual PS5 GL/JNI/context/readback/shutdown acceptance",
+    "original game menu startup"
+  ],
+  "server_two_hour_endurance": "deferred by user"
+}
