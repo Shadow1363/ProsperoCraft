@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.030",
+  "package_sha256": "1eb5bc45080aa65b9d38817db58e4984ff58668f491598322783c83c41cc8ce1",
+  "run": "client-01.000.030-1792920868-564011535",
+  "console": "FAIL original Main:Loading library STB;missing liblwjgl_stb.so;VM EXIT -3",
+  "cause": "java.lang.UnsatisfiedLinkError from LibSTB class initialization through NativeLibrariesBootstrap.loadSTB",
+  "load_order": [
+    "STB",
+    "shaderc",
+    "OpenGL",
+    "SDL",
+    "OpenAL",
+    "spvc",
+    "freetype",
+    "vma"
+  ],
+  "load_index": 0,
+  "scope": "Original Main reached native bootstrap;no menu/world pass. STB was first,so this run does not corroborate original Main OpenGL/Vulkan integration.029 OpenGL acceptance remains independently frozen. No raw native VM fault or heap OOM identified in these reports.",
+  "reports": {
+    "startup-tail.log": {
+      "sha256": "39c7bfc84a00ac46a08bf588703c5a1cfd76a1778a1c03756d54de192e5b8fa7",
+      "retrieval": "Saved locally using Safari native UI"
+    },
+    "exceptions.log": {
+      "sha256": "bbc2e3b90c67700cc6b458492d29bc3f7d87374165eb471f994d410d4adbbd49",
+      "retrieval": "Saved locally using Safari native UI"
+    }
+  },
+  "preservation": "Exact030 full local ZIP and symbols in dist/failures/Client_Original_Startup-01.000.030;raw reports remain local",
+  "next": "031 genuine STB codec/JNI acceptance before another original Main retry"
+}

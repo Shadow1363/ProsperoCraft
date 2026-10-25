@@ -14,7 +14,7 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Test030 original Minecraft startup with exact passing029 OSMesa/OpenGL bytes and Vulkan selected. Remaining STB/FreeType/VMA/SPIRV-Cross/SDL paths and game menu unvalidated.",
+  "next": "Run031 real STB codec/JNI acceptance before next original Main retry.030failed at missing STB,index0;029 OpenGL provider remains frozen passing.",
   "opengl_provider_candidate": {
     "repository": "https://github.com/blackbearreloaded/ps5-opengl",
     "checked_date": "2026-10-24",

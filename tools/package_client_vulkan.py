@@ -22,13 +22,14 @@ parser.add_argument('--runtime-shader', action='store_true', help='Build client0
 parser.add_argument('--startup',action='store_true',help='Build030 original Minecraft Main startup with validated029 OpenGL provider')
 parser.add_argument('--native-bootstrap',action='store_true',help='Build026 genuine libffi/OpenAL native acceptance')
 parser.add_argument('--opengl-bootstrap',action='store_true',help='Build029 genuine Mesa/OpenGL acceptance')
+parser.add_argument('--stb-bootstrap',action='store_true',help='Build031 genuine STB codec acceptance')
 args = parser.parse_args()
-if sum([args.shader,args.render,args.present,args.sdl,args.runtime_shader,args.startup,args.native_bootstrap,args.opengl_bootstrap])>1:parser.error("Choose one candidate")
-if args.startup or args.opengl_bootstrap:args.native_bootstrap=True
+if sum([args.shader,args.render,args.present,args.sdl,args.runtime_shader,args.startup,args.native_bootstrap,args.opengl_bootstrap,args.stb_bootstrap])>1:parser.error("Choose one candidate")
+if args.startup or args.opengl_bootstrap or args.stb_bootstrap:args.native_bootstrap=True
 if args.startup or args.native_bootstrap:args.runtime_shader=True
 runtime = args.runtime_workspace.resolve()
-variant="opengl_bootstrap" if args.opengl_bootstrap else "startup" if args.startup else "native_bootstrap" if args.native_bootstrap else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.029" if args.opengl_bootstrap else "01.000.030" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+variant="stb_bootstrap" if args.stb_bootstrap else "opengl_bootstrap" if args.opengl_bootstrap else "startup" if args.startup else "native_bootstrap" if args.native_bootstrap else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
+version="01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.030" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -57,6 +58,7 @@ classpath='/app0/assets/java25/client-probe.jar:/app0/assets/java25/ports/'+port
 if module_port:classpath='/app0/assets/java25/ports/'+module_port.name+':'+classpath
 (work/'client_classpath.hpp').write_text('#pragma once\n#define CLIENT_CLASSPATH_OPTION '+json.dumps('-Djava.class.path='+classpath)+'\n')
 sources=[*sorted((ROOT/'client/java').glob('*.java')),ROOT/'client/gpu/ClientGpu25.java',ROOT/'client/vulkan/ClientVulkan25.java']
+if args.stb_bootstrap:sources += [ROOT/'client/stb_bootstrap/ClientSTB25.java']
 if args.opengl_bootstrap:sources += [ROOT/'client/opengl_bootstrap/ClientOpenGL25.java']
 if args.startup:sources += [ROOT/'client/startup/ClientStartup25.java']
 if args.native_bootstrap:sources += [ROOT/'client/native_bootstrap/ClientNativeBootstrap25.java']
@@ -171,6 +173,16 @@ if args.opengl_bootstrap or args.startup:
  shutil.copyfile(ROOT/'.tools/mesa-osmesa-24.3.4.tar.xz',licenses/'mesa-24.3.4-source.tar.xz')
  for patch in sorted((ROOT/'client/ports/opengl').glob('*.patch')):shutil.copyfile(patch,licenses/patch.name)
 
+if args.stb_bootstrap:
+ from build_lwjgl_stb_native import build as build_stb
+ stb=build_stb(runtime,args.java_home,offline=args.offline)
+ spec['resident_libraries'].append({'name':'lwjgl_stb','objects':[str(stb)]})
+ shutil.copyfile(ROOT/'build/lwjgl-stb-ps5/audit.json',java/'stb-audit.json')
+ licenses=java/'stb-licenses';licenses.mkdir()
+ shutil.copyfile(ROOT/'client/ports/lwjgl/LICENSE.md',licenses/'LWJGL-LICENSE.txt')
+ # Original STB implementations carry their own MIT/public-domain notices.
+ for row in json.loads((ROOT/'client/ports/stb/native-sources.json').read_text())['files']:
+  shutil.copyfile(ROOT/'.tools/lwjgl-stb-src'/row['file'],licenses/row['file'])
 shutil.copyfile(ROOT/'build/client-ports/lwjgl-native/ps5/audit.json',java/'lwjgl-native-audit.json')
 specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\n')
 # Prepare the normal JVM/core embedding first using the existing002 tool/spec.

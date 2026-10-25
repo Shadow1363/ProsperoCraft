@@ -4,7 +4,7 @@
   "title_id": "PPSA99874",
   "app_version": "01.000.030",
   "package_sha256": "1eb5bc45080aa65b9d38817db58e4984ff58668f491598322783c83c41cc8ce1",
-  "console": "pending actual PS5 original Minecraft startup;no menu/world acceptance yet",
+  "console": "FAIL original Main:Loading library STB;missing liblwjgl_stb.so;VM EXIT -3",
   "host": "PASS launch policy/writable workdir/existing options preservation,unchanged original JAR;separate original host Main reaches native-library bootstrap then exits253 with unprovided host natives. No host menu pass.",
   "package_checks": "PASS030 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/9real resident groups/actual029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 1eb5bc45080aa65b9d38817db58e4984ff58668f491598322783c83c41cc8ce1",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
@@ -50,6 +50,9 @@
     "full_package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
     "console": "Human ALL5 PASS plus saved reports;native provider/JNI/overlay bytes match030"
   },
-  "development": "030 startup retry after029 provider console acceptance;all54original JARs/all5147assets unchanged",
-  "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports."
+  "development": "031real STB codecs/JNI acceptance candidate before original Main retry;STB load failed at index0.029 provider snapshot preserved.",
+  "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports.",
+  "reported_date": "2026-10-25",
+  "run": "client-01.000.030-1792920868-564011535",
+  "failure_evidence": "docs/validation/client030-startup-failure-2026-10-25.json"
 }

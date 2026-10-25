@@ -47,5 +47,6 @@
   "gpu_integration_candidate": "Client_GPU_Integration004 frozen ALL PASS: all nine PS5 rows, actual Java/LWJGL offscreen GPU results, three Vulkan session cycles and final JVM shutdown",
   "vulkan_bindings_candidate": "client/vulkan/status.json:006 fixes005 row9 unmapped resident library lookup; host GPU/package checks pass, all ten PS5 rows pending",
   "opengl_provider_candidate": "Client_OpenGL_Provider029 frozen ALL5 PASS with matching session/startup:3real softpipe/OpenGL JNI contexts,192RGBA pixels,768guards and JVM shutdown;game startup pending",
-  "startup_candidate": "client/startup/status.json:030 original Main retry with exact passing029 GL native providers and overlay;all original game artifacts unchanged;PS5 pending"
+  "startup_candidate": "030failed at STB,index0.031real STB acceptance host/package pass;actual PS5 pending",
+  "stb_candidate": "client/stb_bootstrap/status.json:031 genuine STB JNI/codecs,5rows;PS5 pending"
 }
