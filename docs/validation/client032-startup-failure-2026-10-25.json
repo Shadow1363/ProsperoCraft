@@ -1,0 +1,29 @@
+{
+  "app_version": "01.000.032",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.032-1792923707-453221582",
+  "date": "2026-10-25",
+  "tested_source_commit": "f3a1012782b4e9ab41e17efffccce934bea839d1",
+  "package_sha256": "5d6fb33084876e0d0b08e5b020c6de196b98508d31b983a6f33cd9028635e434",
+  "human": "crashed!",
+  "observed": "Original Main reaches NativeLibrariesBootstrap;first library freetype fails with UnsatisfiedLinkError:Failed to locate library libfreetype.so;native log ends VM EXIT -3. Window not initialized.",
+  "loading_order": "freetype,STB,spvc,OpenAL,vma,shaderc,OpenGL,SDL",
+  "loading_index": 0,
+  "limits": "Does not demonstrate STB/OpenGL load in original Main;no native JVM crash or heap OOM established.",
+  "reports": {
+    "session.txt": {
+      "size": 144,
+      "sha256": "3c285d564a444b25bf664e96a80641050bbbdb87f86a767a33f9844b112ac4d4"
+    },
+    "exceptions.log": {
+      "size": 8460,
+      "sha256": "416f44f8d44542714dd401568b10ab46f576d4e70099b067ccfa22871b29cad1"
+    },
+    "startup-tail.log": {
+      "size": 524288,
+      "sha256": "ed4c478ad63fcf6b8120efbcb995b4e5641fba6afa969a3b0587c8e80a145326"
+    }
+  },
+  "retrieval": "Complete saved reports via Safari UI;raw logs local only",
+  "development": "033 real FreeType rasterization acceptance before original Main retry;game JARs unchanged"
+}

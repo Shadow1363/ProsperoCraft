@@ -52,6 +52,18 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Development client033 — FreeType font acceptance pending
+
+Startup032 stops at its first native dependency,`libfreetype.so`,before creating
+a window. Saved session,exception and startup reports identify the failure;
+[diagnostic record](docs/validation/client032-startup-failure-2026-10-25.json).
+Client033 adds genuine FreeType2.14.1 with original LWJGL downcalls and a pinned
+OFL font. Its five-row probe checks three library/face lifecycles,nine glyphs
+plus repeat renders,exact pixels/metrics,invalid font/space controls and guards,
+then JVM shutdown. Host checks pass;**actual PS5 validation is pending**.
+This is a dependency acceptance test without a Minecraft window.
+[Build and test instructions](docs/client-freetype-development.md).
+
 ## Client STB Codecs — PS5 ALL5 PASS
 
 Client **01.000.031** passes all five checks on the actual PS5. The matching
@@ -65,8 +77,7 @@ retrieved. This distinction is preserved in the validation record.
 [Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_STB_Codecs-v01.000.031)
 
 031resolves the native STB component missing in030. Minecraft startup remains
-unvalidated;development032 combines031STB with029OpenGL for the next original
-Main retry. [Build scope and test instructions](docs/client-startup-032.md). Valid Vorbis decode,
+unvalidated;032 combined031STB with029OpenGL but stopped at missing FreeType. [Build scope and test instructions](docs/client-startup-032.md). Valid Vorbis decode,
 font/resize/DXT/callback coverage,large/concurrent workloads and full native
 cleanup remain unvalidated. All original game JARs stay intact;endurance deferred.
 

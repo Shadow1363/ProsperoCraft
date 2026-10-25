@@ -1,4 +1,4 @@
-# Original Minecraft startup032 — console validation pending
+# Original Minecraft startup032 — failed at missing FreeType
 
 Client01.000.032 combines the exact native STB object accepted in031 with the
 OSMesa/OpenGL provider and dependency dispatch accepted in029. This addresses
@@ -34,4 +34,7 @@ packages are preserved. No passing milestone or release is inferred for032.
 
 Host and full package checks pass. Full local package SHA-256:
 `5d6fb33084876e0d0b08e5b020c6de196b98508d31b983a6f33cd9028635e434`.
-Actual PS5 startup/menu validation remains pending.
+Actual PS5 run failed at first native bootstrap entry,freetype,with missing
+libfreetype.so and VM EXIT -3. Window/menu were not reached. See
+[recorded failure](validation/client032-startup-failure-2026-10-25.json).
+Development033 tests real FreeType before the next original Main retry.
