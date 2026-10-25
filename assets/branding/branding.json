@@ -1,0 +1,11 @@
+{
+  "name": "ProsperoCraft",
+  "title_id": "PPSA99874",
+  "description": "Minecraft Java Edition client and server on PS5, powered by a native OpenJDK 25 port. Vanilla, Fabric and Paper server playtests; client startup under development.",
+  "original": "ProsperoCraft-original.png",
+  "original_sha256": "dafc5c7af256bca9bf92754fe42b5016ea04ea33909a9a2e4a3d58e95b51aa93",
+  "icon": "icon0.png",
+  "icon_sha256": "028e5f073217ffb01be013128f34bf95711d515f30f9a2382c31557e1c205978",
+  "processing": "User-provided360x360PNG;512x512RGBA PNG using nearest-neighbour resampling;no generated artwork",
+  "scope": "Future development packaging only;frozen snapshots,release assets and existing038 candidate unchanged"
+}

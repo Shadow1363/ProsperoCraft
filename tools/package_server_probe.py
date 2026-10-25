@@ -14,6 +14,8 @@ runtime=args.runtime_workspace.resolve()
 subprocess.run(['python3',str(ROOT/'tools/prepare_server.py'),'--runtime-workspace',str(runtime),'--flavor',args.flavor],check=True)
 (ROOT/'build/assets/java25/join-player.txt').write_text(args.join_player+'\n')
 subprocess.run(['python3',str(runtime/'tools/package_java25_jni.py'),'--probe-spec',str(ROOT/'build/probe-spec.json')],check=True)
+from apply_branding import apply_package
+apply_package(runtime/'dist/PPSA99874.zip',runtime/'dist/PPSA99874')
 dist=ROOT/'dist';dist.mkdir(exist_ok=True);package=dist/'PPSA99874.zip';shutil.copy2(runtime/'dist/PPSA99874.zip',package)
 sha=hashlib.sha256(package.read_bytes()).hexdigest();(dist/'PPSA99874.sha256').write_text(sha+'  PPSA99874.zip\n')
 version=json.loads((ROOT/'server/param.json').read_text())['contentVersion']

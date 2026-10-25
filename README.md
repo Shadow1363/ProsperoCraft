@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/readme-banner.svg" alt="Minecraft Java on PS5 — Fabric/Paper playtests and client SDL window/input pass" width="1200">
+  <img src="docs/readme-banner.svg" alt="ProsperoCraft — Minecraft Java client and server development on PS5" width="1200">
 </p>
 
 <p align="center">
@@ -9,7 +9,9 @@
   <a href="#follow-the-project">Follow the project</a>
 </p>
 
-# Minecraft Java on PS5
+# ProsperoCraft
+
+<img src="assets/branding/icon0.png" alt="ProsperoCraft crafting-table PC icon" width="160">
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
@@ -51,6 +53,11 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 | **Dependencies / JNI** | Manifest-linked JARs, services/resources, system class path and real resident JNI calls | [Dependency_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/Dependency_Probe) |
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
+
+ProsperoCraft brings Minecraft Java Edition client and server development to PS5,
+powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
+console playtests;client startup/menu is still under development.
+[Project artwork](assets/branding/README.md).
 
 ## Development client038 — Minecraft heap-headroom test
 

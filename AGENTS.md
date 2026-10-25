@@ -337,3 +337,11 @@ System.mapLibraryName("ps5spvc") before original Spvc initializes. The original
 default is spirv-cross;no Java overlay/game JAR change is required. Matching
 OpenAL source/relink materials reproduce the accepted native ELF;original JARs
 are omitted publicly. Continue outside frozen folders;server endurance deferred.
+
+User branding update2026-10-25:the app name is ProsperoCraft. Use the supplied
+PNG preserved in assets/branding,with its512RGBA nearest-neighbour icon,for
+future development client/server packaging via tools/apply_branding.py. Do not
+regenerate the artwork,rename repositories or change PPSA99874/content identity.
+Preserve frozen snapshots/releases and already-built038. Keep future candidate
+versions distinct as usual. Catalog rename/description update is PR737;its
+reservation icon_url remains null per catalog rules until downloadable release.

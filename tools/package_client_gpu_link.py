@@ -86,6 +86,8 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  shutil.copytree(assets,app/'assets');shutil.copytree(runtime/'dist/PPSA99874/licenses',app/'licenses')
  shutil.copytree(ROOT/'build/client-graphics/PPSA99874/licenses',app/'licenses/graphics',dirs_exist_ok=True)
  for path in [app/'eboot.bin',app/'sce_module/libc.prx']:run(tool,'self','--inspect','--file',path)
+ from apply_branding import apply_app
+ apply_app(app)
  import zipfile
  dest=ROOT/('dist/client-'+variant);dest.mkdir(exist_ok=True);package=dest/'PPSA99874.zip'
  with zipfile.ZipFile(package,'w',zipfile.ZIP_DEFLATED)as z:

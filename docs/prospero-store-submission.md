@@ -1,29 +1,36 @@
-# Prospero Store coming-soon submission
+# Prospero Store reservation — ProsperoCraft
 
-PS5 Minecraft Java was submitted as a coming-soon reservation for title ID
-`PPSA99874` on 2026-10-17:
+The existing PPSA99874 reservation was added by mateo-cogeanu in
+https://github.com/darkxex/ps5-homebrew-catalog/pull/353 and merged on2026-10-17.
+The catalog repository URL now resolves under darkxex/ps5-homebrew-catalog.
 
-https://github.com/blackbearreloaded/ps5-homebrew-catalog/pull/353
+On2026-10-25 the user selected ProsperoCraft and requested the supplied app icon,
+name and updated Minecraft Java client/server/native-runtime description.
+The reservation update is submitted at:
 
-Status: submitted; upstream maintainer review/merge is pending. This is not
-confirmation that the listing is live. The catalog feeds homebrew.page and
-Prospero Store. The submission changes only `apps/PPSA99874.json`.
+https://github.com/darkxex/ps5-homebrew-catalog/pull/737
 
-The record describes the experimental native OpenJDK25-backed Minecraft Java
-server project, with full world startup still being validated. It does not
-claim a playable client or completed server startup/save/stop. All reservation
-links, artifact URL, checksum, version and license are null, following the
-catalog's reservation format; no game binaries or development download are
-published through this reservation.
+Status:submitted;upstream review/merge pending. This does not confirm the live
+store/website already shows the new name. Only apps/PPSA99874.json changes.
 
-Local `python3 -m catalog check` passes (98 records; no errors, warnings or
-notices). Upstream Validate submission and Scan the release checks passed.
-A separate developer-release-bump check was still running when recorded.
+Name:ProsperoCraft
 
-The reservation belongs to GitHub account `mateo-cogeanu`. Only this account
-can update/release it; the catalog asks for an update at least every180days.
-When a distributable build is ready, a new PR must supply its complete release
-metadata and satisfy the catalog's then-current requirements. Do not overwrite
-previously listed release assets.
+Description: Minecraft Java Edition client and server on PS5, powered by native OpenJDK 25; vanilla, Fabric and Paper server playtests, with client startup under development.
 
-Submission rules: https://github.com/blackbearreloaded/ps5-homebrew-catalog/blob/main/docs/submitting.md#reserving-a-title-id
+The161-character description stays within the catalog's200-character limit.
+It distinguishes server playtests from the still-unvalidated client startup/menu.
+Reservation status remains unchanged:source_repo,artifact_url,sha256,icon_url,
+version and license stay null. No full game package or development artifact is
+uploaded to the catalog. Current reservation rules require icon_url null and
+show the shared Coming soon art;the supplied ProsperoCraft icon is used in future
+local app packages and project branding,not forced into an invalid reservation.
+A later downloadable listing can supply its pinned public icon and release data.
+
+Local python3 -m catalog check passes with138valid records and0errors/warnings/
+notices. The update branch is codex/prosperocraft-branding in the user's catalog
+fork. The original reservation belongs to this same account.
+
+Consumer artwork/name live in assets/branding and tools/apply_branding.py.
+Future client/server packagers apply them while preserving title/content identity
+and build versions. Frozen validation/release assets and already-built038 stay
+intact. Branding changes do not establish client/menu acceptance.

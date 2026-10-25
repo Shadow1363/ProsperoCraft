@@ -54,6 +54,8 @@ run(tool,'link','--in',B/'llvm-pie.elf','--out',B/'eboot.elf','--stub-dir',S/'ta
 app=B/'PPSA99874';(app/'sce_sys').mkdir(parents=True,exist_ok=True);(app/'sce_module').mkdir(exist_ok=True)
 run(tool,'self','--sign','--in',B/'eboot.elf','--out',app/'eboot.bin','--magic','0x1D3D154F')
 shutil.copyfile(R/'client/graphics/param.json',app/'sce_sys/param.json');shutil.copyfile(W/'sce_sys/icon0.png',app/'sce_sys/icon0.png');shutil.copyfile(W/'build/native/libc.prx',app/'sce_module/libc.prx')
+from apply_branding import apply_app
+apply_app(app)
 licenses=app/'licenses';licenses.mkdir(exist_ok=True)
 for src,name in [(U/'LICENSE','PS5-Vulkan-GPL-3.0.txt'),(R/'build/graphics-sdk-source/LICENSE','PS5-PayloadSDK-GPL-3.0.txt'),(R/'.tools/PS5_Mesa/licenses/MIT','Mesa-MIT.txt'),(R/'.tools/PS5_Mesa/licenses/Apache-2.0','Mesa-Apache-2.0.txt'),(R/'build/graphics-LLVM-LICENSE.txt','LLVM-LICENSE.txt')]:
  shutil.copyfile(src,licenses/name)

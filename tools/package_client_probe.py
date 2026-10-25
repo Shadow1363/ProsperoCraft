@@ -49,6 +49,8 @@ spec['resident_libraries']=[{'name':'ps5clientbridge','objects':[str(obj)]},{'na
 shutil.copyfile(ROOT/'build/client-ports/lwjgl-native/ps5/audit.json',java/'lwjgl-native-audit.json')
 specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\n')
 subprocess.run(['python3',str(runtime/'tools/package_java25_jni.py'),'--probe-spec',str(specfile)],check=True)
+from apply_branding import apply_package
+apply_package(runtime/'dist/PPSA99874.zip',runtime/'dist/PPSA99874')
 package=runtime/'dist/PPSA99874.zip';destination=ROOT/'dist/client';destination.mkdir(parents=True,exist_ok=True);shutil.copyfile(package,destination/package.name)
 shutil.copyfile(runtime/'build/native/llvm-pie.elf',work/'bootstrap-01.000.002-symbols.elf')
 digest=hashlib.sha256(package.read_bytes()).hexdigest();(destination/'SHA256SUMS').write_text(digest+'  PPSA99874.zip\n')
