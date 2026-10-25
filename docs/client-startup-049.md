@@ -76,3 +76,11 @@ checks and target build pass. Actual PS5 behavior remains pending.
 Full-package validation passes,including fdopen/no dup2 in actual startup main,
 nonfatal diagnostic marker,all original pins,SELF integrity and exact048preservation;
 recorded in startup/status.json.
+
+## Retrieved console outcome
+
+Matching049run confirms native FILE capture active and actual1920x1080set0/buffers
+0-4registration messages.048setup regression is passed in this run. No native GPU
+refusal/timeout,signal or VM abort captured;trace390compile entries/390returns,
+as046/047. Crash cause/menu remain unresolved. [Evidence](validation/client049-startup-failure-2026-10-25.json) ·
+[050presentation checkpoints](client-startup-050.md).

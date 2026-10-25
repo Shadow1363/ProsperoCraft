@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.049",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.049-1792947461-290571136",
+  "tested_source_commit": "de457001b537dab1069b8b65c6e2b5dcb29e14a6",
+  "package_sha256": "b8edd18c63a6572c483c7c6e203e772bf48c974c50b56a1199fe7d2151d11b40",
+  "human": "Logs ready;no new visual/menu acceptance supplied",
+  "observed": "Native FILE capture marker present and real entropy/device UUID/WSI registration messages captured. Native report confirms1920x1080 registered set0/buffers0-4. No GPU submission refusal/timeout message. Outer recorder installed4;VideoOut/image imports succeed. Trace390compile entries/390returns,matching046/047 counts. No signal/VM abort;fatal report unavailable.",
+  "cause": "049repairs048diagnostic setup regression and confirms real native FILE capture. Original later failure remains unresolved. Last shader return does not identify crash location. Current native WSI report has no queue/fence/flip completion breadcrumbs,so later frame progress is unknown.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "07b314887dd0a72a0c1f2d6e65b3d5606d88afb52d08f059b3b5572d6725c225"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "586cf6e5c95e83846be06b135e90eaefcd02098d0a66798e251094be5373b89d"
+    },
+    "exceptions.log": {
+      "bytes": 13365,
+      "sha256": "8cc6df6299458cc8e0751ad505b56985f9041de9c7ffde88353822f4fd2d66d8"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 412,
+      "sha256": "0951ed2e62743a280f22c54b96a345d81e4ba7e88e235dc0ccf8a81e4e5eddc3"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "95da073cc4095fda0cdc589addc0b38c4e941fca2ae0ac1aeb07c65f34a325b2"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "24e42a7efe8bf9709ada8f60a36ee2c233c30a5da8b4fa69dd87226d81338f20"
+    },
+    "vm-trace.log": {
+      "bytes": 1572326,
+      "sha256": "d10ecefd9e1ae51d4defde46d7a8b4e63937862c7682134483718db4d1f194d9"
+    }
+  },
+  "next": "050adds bounded observational present enqueue/flip fence begin/result/native flip-result checkpoints and raw flip-thread creation status. Preserve existing behavior,including previous handling of wait results;no result rewritten.",
+  "limits": "No menu/gameplay/ALL PASS or new milestone. Exact049retained. PS5 frame progression/crash resolution remain pending;server2H deferred."
+}

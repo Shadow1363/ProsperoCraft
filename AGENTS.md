@@ -463,3 +463,13 @@ no dup2/no pipe/thread;raw descriptor2 remains unchanged/not captured. Optional
 capture failure now logs/notifies and continues startup. Preserve early WSI owner/
 outer recorder/original artifacts. PS5 FILE capture/loading/crash/menu pending;
 server2H deferred. Current049supersedes earlier candidate instructions.
+
+Client049 matching run client-01.000.049-1792947461-290571136 confirms real native
+FILE capture and1080p framebuffers registered set0/buffers0-4.048setup regression
+passed;no GPU submit/timeout diagnostic or signal/VM abort captured.046/047/049
+have390compile entries/returns each,last compile is not a known crash location.
+Exact049retained.050adds first8present/fence/flip checkpoints plus raw failures,
+within existing64event cap,in private WSI object. Behavior/results unchanged,
+including existing failed-fence continuation (logged,not repaired/claimed success).
+No new output/thread/timeout/resolution/heap change. PS5 frame progression/crash/
+menu/stability pending;server2H deferred. Current050supersedes earlier candidates.
