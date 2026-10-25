@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-25",
+  "scope": "Read-only JDK25 javap -p -c -l of pinned original classes;no transformations,game source edits or hooks",
+  "classes": {
+    "net.minecraft.locale.Language": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "0cad7169a42792ec4f8eacaf1682165ab9a5706c2006b4d705022e1e283ad80c",
+      "javap_sha256": "cda6594ca3c5e8a4742adc61c77c034a99a11d9c52d9c2b8eb0579d6f71b2fc4"
+    },
+    "net.minecraft.client.resources.language.ClientLanguage": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "0e6f9533163e799a3800c9d8b45943e73b40e213e18f491b9b11706c43b67a53",
+      "javap_sha256": "558b97e108151042fd866b99aebc585dc316a23e3ceeeb64e7c404df1c4a0f4c"
+    },
+    "net.minecraft.client.resources.language.LanguageManager": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "4fd3b9ce696b55a0a544af47eeda58e67bb75ee30e0cf2450bb4c06fd106c047",
+      "javap_sha256": "ef55e126cca3c6f2a9dbf532f24194e2d2fe37bebec1832469bf597ca4ee2e0a"
+    },
+    "net.minecraft.server.packs.resources.SimpleReloadInstance": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "9ab052dbb3a6aad194e6b23acba72102096478fc14888d8469223e522c64106e",
+      "javap_sha256": "fb17c588a933013a6171348f16a06ee8860d382ffbad3b66eb9b3ce52b07ddbc"
+    },
+    "net.minecraft.client.Minecraft": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "6620185007eb572e953c5fdad1e6e369b75b058b9dcd9a0bda9f8bc3f212c9d6",
+      "javap_sha256": "ab0324407ea3bdc22367632802f68cc7d3afbf23176d0d0ded8dbdef0cf47d62"
+    },
+    "net.minecraft.client.gui.font.FontManager": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "6f5ac9d504aff755456cf160711fbe8482413e6065213dc5bd66b6655404c3dd",
+      "javap_sha256": "b16a8d33a0a4e10d5d2f23ea8225de262aac7280af43ac10de448aaf05161715"
+    },
+    "net.minecraft.client.gui.font.GlyphStitcher": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "bd390fa17d810c16727975e52661da519e43cb9f495368a1600726e30a97c31f",
+      "javap_sha256": "a3b5d24346863c10c9d8ff1777d893c73e1aecd5e894841447436915cf0c7d31"
+    },
+    "net.minecraft.client.gui.font.FontTexture": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "ea53ae1136a0ea8c3401a3c17b9260991386c876074b829d2d827aca16c07880",
+      "javap_sha256": "e7211e38cec2103d51d10c9ca383f1cfc7e00eb7e16466c29d41e7d37f4e1168"
+    },
+    "net.minecraft.client.renderer.texture.TextureManager": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "85812ee373b4f2d4374e3d385e5238a3c1ec31870847e4ce806fe60a38439ed5",
+      "javap_sha256": "8d665b78b0e50d65834ab2cc573c36af0c9cfabe171da8114f3bb1f79d4bd750"
+    },
+    "net.minecraft.client.renderer.texture.ReloadableTexture": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "c8e983093346f8812b951ed8606738b8e8c49e35709fa8df9e3ee273a2cfeea0",
+      "javap_sha256": "70f093f0048015f1a55813bb34ffe64108b3fce40dcffc93d7c9fada7642e5c6"
+    },
+    "com.mojang.renderpearl.backend.vulkan.VulkanCommandEncoder": {
+      "jar": "client-26.3.jar",
+      "jar_sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
+      "class_sha256": "ced0afb605f658ff15d1b576bb8209667fd774c2f1a6a275a4d90e4904b7bdd9",
+      "javap_sha256": "b5a1ab1b07f7ac726d0b193d3144db2d061faadea049a056509ca9a483fe5004"
+    }
+  },
+  "findings": [
+    "Language.loadFromJson bytecode0..110 performs UTF8 Gson parse,entry iteration,format-regex substitution and BiConsumer publication. No native call directly appears in this method. This does not exclude indirect/runtime faults.",
+    "LanguageManager calls ClientLanguage.loadFrom then Language.inject and the reloadCallback. Minecraft lambda$new$2 checks player!=null before updating search trees;no direct texture upload in this callback. Actual player state at termination was not captured.",
+    "FontManager.reload prepares futures,waits on the preparation barrier,then applies via reload executor;createFontSet creates GlyphStitcher and reloads FontSet. FontTexture uses real GpuDevice texture/view creation and GlyphBitmap.upload.",
+    "TextureManager.reload schedules preparation,barrier and async apply. ReloadableTexture creates GpuDevice texture/view and CommandEncoder.writeToTexture using NativeImage. Vulkan backend has real command-buffer/barrier/submission paths. These are dependencies,not proof any particular next call executed.",
+    "SimpleReloadInstance manages listener preparation/apply futures and the main-thread executor. Last sampled language frames do not establish the next completed listener,menu transition,or fatal instruction.",
+    "No concrete compatibility defect established by this inspection. New055 diagnostic captures collector/safepoint transitions independently of Java stack observer;heap/executor/graphics policies unchanged."
+  ],
+  "console": "Human confirms054near-end loading crash,time unknown. Cause unknown. No menu acceptance."
+}

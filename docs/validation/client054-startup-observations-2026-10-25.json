@@ -5,7 +5,7 @@
   "run": "client-01.000.054-1792954563-796299341",
   "tested_source_commit": "b94d32466a368881e510dfaad37716d88f58e0a6",
   "package_sha256": "4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc",
-  "human": "User requested latest logs and detailed fresh-context handoff;no explicit054visual/final-outcome/timing supplied. Earlier053crash/restart and052Mojang-near-finish/~1\u00bdminute reports remain separate.",
+  "human": "User confirmed in continuation: reached close to the end of loading and then crashed;time unknown. No working menu accepted. Earlier052/053reports remain separate.",
   "observed": {
     "identity": "Build/session/native-stderr/abort/resource header all054matching run. Saved RUN does not prove live progress.",
     "snapshots": 120,
@@ -106,6 +106,6 @@
     }
   },
   "cause": "Unknown. Repeated final language resource-apply observations narrow sampled activity;do not diagnose String/regex/Gson or memory exhaustion from last stacks.",
-  "next": "Establish054actual screen/outcome/timing;read full reports and inspect original language/resource-apply dependencies read-only. Consider smallest targeted capture at that later transition if needed;no speculative heap/graphics/game changes. Preserve exact054before changed055or later.",
-  "limits": "This handoff turn changes evidence/docs only;054binary unchanged. No menu/gameplay/ALL PASS/new milestone/full client release/Store download;server2H deferred."
+  "next": "Exact054ZIP/symbols/status/build/implementation reference/retrieved observations preserved under dist/failures/Client_Original_Startup-01.000.054. Safari refresh cannot connect to report server. Read-only original language/resource inspection;targeted GC/safepoint file diagnostics for055,no speculative memory/game fix.",
+  "limits": "054binary unchanged and preserved. Human crash confirmed;cause unknown. No menu/ALL PASS/client release/Store download;server2H deferred."
 }

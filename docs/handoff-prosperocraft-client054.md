@@ -1,3 +1,5 @@
+> Continuation: user now confirms054near-end loading crash,time unknown. Exact054artifacts preserved. See [current055diagnostic](client-startup-055.md);older no-human-outcome statements below describe the retrieval turn.
+
 # Complete current handoff — ProsperoCraft client054 and retrieved console evidence
 
 Continue the actual existing files/history. Do not recreate/reset the project.

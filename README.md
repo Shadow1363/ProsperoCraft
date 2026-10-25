@@ -59,23 +59,23 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client054 — retrieved resource-apply observations
+## Development client055 — GC and safepoint transition capture
 
-054reports confirm120complete snapshots through96.992s and120native phase pairs.
-The earlier pipeline wait resolves;Main entersMinecraft.run and applies language
-resources while the worker becomes idle. This is progress,not menu acceptance.
-Raw process-limit queries reportAS/RSSinfinite anddata32GiB;flexible availability
-stays>=324MiB and largest direct range>=12,124,160,000bytes. RSS units remain
-unverified;no1GiBlimit or exhaustion diagnosis follows. No fatal signal,VM abort,
-driver error or Java OOM was captured. **Cause unknown;actual054human final screen/
-outcome/timing,menu/gameplay and stability remain unvalidated.**
+The user confirms054crashed close to the end of loading;timing is unknown.
+Saved054reports show main-loop language resource application after the earlier
+pipeline wait resolves. **Cause remains unknown;no menu is accepted.** Exact054
+package/symbols/evidence are preserved. Read-only original resource/font/texture
+inspection found no concrete compatibility defect.
 
-Host/target/package checks passed. Latest handoff turn changes docs/evidence only;
-054binary is unchanged. Preserve exact054before any changed055candidate.
-[Diagnostic scope](docs/client-startup-054.md) ·
-[054 retrieved evidence](docs/validation/client054-startup-observations-2026-10-25.json) ·
-[Complete current handoff](docs/handoff-prosperocraft-client054.md) ·
-[Copyable fresh-context prompt](docs/fresh-context-prompt-client054.md).
+055adds bounded native HotSpot GC/safepoint file diagnostics to show collection
+starts/ends,heap phases and JVM pauses independently of Java stack samples.
+The256MiBheap,original54JARs/5147assets,runtime image and graphics behavior stay.
+PS5 log creation/rotation,crash resolution and working menu remain pending.
+No client release/Store download;server endurance remains deferred.
+[Diagnostic scope and test instructions](docs/client-startup-055.md) ·
+[054human/evidence record](docs/validation/client054-startup-observations-2026-10-25.json) ·
+[Resource-path inspection](docs/validation/client054-resource-path-inspection-2026-10-25.json) ·
+[Current handoff](docs/handoff-prosperocraft-client055.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

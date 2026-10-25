@@ -1,3 +1,5 @@
+> Continuation: user now confirms054near-end loading crash,time unknown. Exact054artifacts preserved. See [current055diagnostic](client-startup-055.md);older no-human-outcome statements below describe the retrieval turn.
+
 # Copyable fresh-context continuation prompt
 
 ```text

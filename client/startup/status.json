@@ -1,12 +1,12 @@
 {
-  "stage": "ProsperoCraft original startup054:process policy/direct memory and dense transition observations",
+  "stage": "ProsperoCraft original startup055:bounded GC/safepoint file diagnostics",
   "date": "2026-10-25",
   "title_id": "PPSA99874",
-  "app_version": "01.000.054",
-  "package_sha256": "4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc",
-  "console": "054matching run confirms120complete snapshots/120native phase pairs through96993ms;reportedAS/RSSlimitsinfinite,data32GiB,flexible>=324MiB,direct-largest>=12124160000bytes,handlers0xf. Main applies language resources after pipeline wait resolves. Actual054screen/final outcome/timing,crash cause and menu unvalidated.",
-  "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
-  "package_checks": "PASS054 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc",
+  "app_version": "01.000.055",
+  "package_sha256": "33b22e7241dcaf2bd003badd4f7f5fbdbd2781bb51b229918de0e87a687e939c",
+  "console": "PENDING055 PS5 log creation/rotation,GC/safepoint transition capture,crash resolution and working menu. Human confirms054 crashed near loading completion,time unknown;cause unknown.",
+  "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS exact startup GC/safepoint JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+  "package_checks": "PASS055 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 33b22e7241dcaf2bd003badd4f7f5fbdbd2781bb51b229918de0e87a687e939c",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
   "game_jar_modified": false,
   "runtime_implementation_modified": false,
@@ -40,16 +40,16 @@
     "Further native feature/API coverage and network-service failures",
     "Game memory adequacy/performance/global teardown;server endurance deferred"
   ],
-  "previous_failure": "docs/validation/client053-startup-failure-2026-10-25.json",
+  "previous_failure": "docs/validation/client054-startup-observations-2026-10-25.json",
   "memory_limit": "040used130MiB after last Java GC/247MiB committed;separate4MiB native allocator failure. Console-wide memory pressure and full game adequacy unmeasured.",
-  "development_repair": "Diagnostic only:240samples with interval1s for1..89,250ms for90..169,1s for170..179,5s for180..239;nominal419s plus overhead. Adds read-only RLIMIT_DATA/AS/RSS and direct availability/statuses. No limit/heap/graphics/game change or crash repair.",
+  "development_repair": "Diagnostic only:dedicated HotSpot gc*=debug,safepoint*=debug file output,4MiB threshold/one rotation and reusable report transport. No supported crash repair established.",
   "native_dependency_baseline": {
     "milestone": "Client_OpenGL_Provider",
     "version": "01.000.029",
     "full_package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
     "console": "Human ALL5 PASS and saved reports;037 packaged provider/JNI/overlay hashes match029"
   },
-  "development": "054adds raw process limits and direct-memory availability;denser250ms samples during nominal89-109s transition",
+  "development": "055 captures GC starts/ends,heap phases and safepoint transitions independently of unchanged240sample observer;heap/runtime image/graphics/game bytes unchanged.",
   "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports.",
   "stb_baseline": {
     "milestone": "Client_STB_Codecs",
@@ -135,7 +135,7 @@
     "max_frames_printed_per_thread": 64,
     "output": "/exceptions.log;PS5 STARTUP SNAPSHOT/PS5 END SNAPSHOT markers",
     "scope": "One optional daemon;phase0native/Java stacks/phase1native.240samples;1s sleeps after1..89,250ms90..169,1s170..179,5s180..239.32threads/64frames. Native resource/limits/direct-range/handler query observations;errors explicit. No limit/handler/game changes;can perturb timing,not atomic crash context.",
-    "console": "054matching run confirms120complete snapshots/120native phase pairs through96993ms;reportedAS/RSSlimitsinfinite,data32GiB,flexible>=324MiB,direct-largest>=12124160000bytes,handlers0xf. Main applies language resources after pipeline wait resolves. Actual054screen/final outcome/timing,crash cause and menu unvalidated.",
+    "console": "055pending. Historical054:120complete snapshots/pairs through96993ms,language resource application;human reports near-end loading crash,time unknown.",
     "early_samples": 90,
     "later_interval_ms": 5000,
     "nominal_last_sample_seconds": 419,
@@ -149,5 +149,17 @@
   "startup_observer_host_regression": "PASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only",
   "latest_console_observations": "docs/validation/client054-startup-observations-2026-10-25.json",
   "native_observer_host": "PASS actual native observer helper ASan/UBSan: raw resource/limit/direct-range values/errors/infinity/invalid-total skip,phase/elapsed formatting,append/write failure and errno preservation;controlled query results,not PS5 resource validation",
-  "native_observer_report": "/process-usage.log build/run,phase0/1. getrusage and available flexible memory plus raw RLIMIT_DATA/AS/RSS and direct total/largest-range/status/sentinels. All raw result codes explicit;RSS units unverified. Ownership masks query only;no reinstallation."
+  "native_observer_report": "/process-usage.log build/run,phase0/1. getrusage and available flexible memory plus raw RLIMIT_DATA/AS/RSS and direct total/largest-range/status/sentinels. All raw result codes explicit;RSS units unverified. Ownership masks query only;no reinstallation.",
+  "runtime_report_transport_commit": "1e9fb4f23a2e84e26c50fe67cc4e746ff371dfa2",
+  "gc_safepoint_logging": {
+    "option": "-Xlog:gc*=debug,safepoint*=debug:file=/download0/java25-gc.log:uptimemillis,level,tags:filecount=1,filesize=4M",
+    "reports": [
+      "/gc.log",
+      "/gc-rotated.log",
+      "/previous-gc.log",
+      "/previous-gc-rotated.log"
+    ],
+    "console": "PENDING exact055PS5 file output/rotation/content. No collection failure or memory exhaustion diagnosis.",
+    "host": "Exact option,SerialGC phases/heap/full pause/safepoints and one-file rollover passed in host JVM."
+  }
 }
