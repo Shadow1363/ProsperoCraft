@@ -306,3 +306,17 @@ Minecraft startup remain unvalidated;server endurance deferred. Release includes
 matching OpenAL source/relink materials reproducing the accepted native ELF.
 Original game JARs remain intact locally and are omitted publicly. Continue
 outside the frozen folder;next original Main retry must combine accepted natives.
+
+Client_VMA_Allocator is the frozen passing035 milestone,PPSA99874
+01.000.035,human ALL5 PASS and saved session/detailed current-run startup
+client-01.000.035-1792926499-461213821 on2026-10-25. Preserve exact
+source/package/symbols/validation/release.12real RADV copy/fill transfers across
+3VMA3.4.0 allocator/instance/device lifecycles use two mapped65536-byte buffer
+suballocations each;exact source/output/guards,NEVER_ALLOCATE controls,
+map/flush/invalidate/unmap/free and JVM shutdown pass. Images,custom pools,
+defragmentation,budgets,virtual allocations,allocation callbacks,concurrent/large
+workloads/global teardown and Minecraft startup remain unvalidated. SPIRV-Cross
+is still a known missing native bootstrap component;server endurance deferred.
+Release includes exact matching OpenAL source/relink materials reproducing the
+accepted native ELF. Original game JARs stay intact locally and are omitted
+publicly. Continue outside the frozen folder;do not infer a Minecraft menu pass.

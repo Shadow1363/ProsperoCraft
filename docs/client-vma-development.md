@@ -1,4 +1,4 @@
-# Client035 — real VMA allocation and GPU transfer acceptance
+# Client035 — real VMA allocator,PS5 ALL5 PASS
 
 Original Minecraft034 reports missing liblwjgl_vma.so at bootstrap index5.
 The earlier shaderc,SDL,FreeType,STB and OpenAL entries loaded in that Main run.
@@ -49,7 +49,9 @@ dist/PPSA99874.zip. PPSA99874 replaces the existing app. Launch and press X
 once;report all five rows. After failure leave the app open for reports,or reopen
 without pressing X if it closes. No device IP/filter is embedded in the app.
 
-Actual PS5 VMA allocation/JNI/GPU callbacks/cleanup remain pending. Images,
+Human ALL5 PASS and matching saved session/detailed startup on2026-10-25
+establish the tested
+PS5 VMA/JNI/GPU transfer/cleanup workload. Images,
 custom pools,defragmentation,budgets,virtual allocations,allocation callbacks,
 concurrent/large workloads and full native teardown remain unvalidated.
 SPIRV-Cross and broader SDL integration are incomplete;Minecraft startup/menu/
@@ -62,4 +64,8 @@ must include matching corresponding-source and exact relink materials first.
 
 Host and full package checks pass. Full local package SHA-256:
 `7e62bc9b982a48f0ffbb9fe384b40f100d132fcd6be271fdc1df13c1738d46fd`.
-Actual PS5 five-row allocation/GPU transfer validation remains pending.
+Human PS5 ALL5 PASS and matching saved session/detailed startup recorded
+on2026-10-25. All12RADV transfers,3allocator/device lifecycles,source/output/guards,
+NEVER_ALLOCATE controls,cleanup and DestroyJavaVM are corroborated in the current run.
+Client_VMA_Allocator preserves the accepted source/package/validation/release.
+Continue development outside the frozen folder.

@@ -52,17 +52,24 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Development client035 — VMA GPU allocator acceptance pending
+## Client VMA Allocator — PS5 ALL5 PASS
 
-Original Minecraft034 loaded shaderc,SDL,FreeType,STB and OpenAL before stopping
-at missing `liblwjgl_vma.so` (bootstrap index5). Saved session,exception and
-native startup reports identify this failure;
-[diagnostic record](docs/validation/client034-startup-failure-2026-10-25.json).
-035 adds original VMA3.4.0/LWJGL3.4.3 bindings. Its five-row probe uses real VMA
-buffer allocations for12GPU transfers across3allocator/device lifecycles with
-map/flush/invalidate,byte/guard/failure controls and cleanup. Host checks pass;
-**PS5 validation is pending**. It has no game window.
-[Build scope and test instructions](docs/client-vma-development.md).
+Client **01.000.035** passes all five checks on the actual PS5. The matching
+saved session and detailed current-run log confirm12RADV GPU transfers,
+3allocator/device lifecycles,guards/controls and JVM shutdown.
+The accepted fixture uses original VMA3.4.0/LWJGL3.4.3 JNI for12real copy/fill
+transfers across3allocator/device lifecycles,two mapped65536-byte buffers each,
+with exact output/source/guards,NEVER_ALLOCATE rejection and native cleanup.
+
+[Frozen source and validation](Client_VMA_Allocator) ·
+[Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_VMA_Allocator-v01.000.035)
+
+This addresses the missing VMA component in034. SPIRV-Cross remains a known
+missing native component before another complete Minecraft startup/menu attempt.
+Images,custom pools/defragmentation/budgets/virtual allocations,callbacks,
+concurrent/large workloads and full native teardown remain unvalidated.
+Original game JARs remain unchanged;server endurance deferred.
+[Build details and limitations](docs/client-vma-development.md).
 
 ## Client FreeType Fonts — PS5 ALL5 PASS
 
@@ -505,6 +512,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client VMA Allocator · 01.000.035** | PS5 ALL5 PASS,human+saved reports:12RADV transfers,3VMA allocator/device cycles,guards and JVM stop | [Frozen source & validation](Client_VMA_Allocator) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_VMA_Allocator-v01.000.035) |
 | **Client FreeType Fonts · 01.000.033** | PS5 ALL5 PASS,human+saved reports:real FreeType glyph rasterization/guards and JVM stop | [Frozen source & validation](Client_FreeType_Fonts) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_FreeType_Fonts-v01.000.033) |
 | **Client STB Codecs · 01.000.031** | PS5 ALL5 PASS,human+saved session:real PNG/codecs/guards and JVM stop;detailed startup download incomplete | [Frozen source & validation](Client_STB_Codecs) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_STB_Codecs-v01.000.031) |
 | **Client OpenGL Provider · 01.000.029** | PS5 ALL5 PASS:3real software GL contexts,192RGBA pixels,768guards and JVM shutdown | [Frozen source & validation](Client_OpenGL_Provider) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_OpenGL_Provider-v01.000.029) |
