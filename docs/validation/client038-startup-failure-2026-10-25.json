@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.038",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.038-1792932410-44897984",
+  "tested_source_commit": "52582957cb014c2c1b0c1540e7e55d218f62adcc",
+  "package_sha256": "9f9a871285686b43e6abe12df66552a20f6022133646ac2452eb270dfcef93f5",
+  "human": "quite frozen",
+  "live_session": "FAIL original Main / codeFFFFFAE5(-1307)",
+  "observed": "Vulkan backend creation fails:vkGetInstanceProcAddr mismatch. OpenGL fallback unavailable in SDL ps5 driver;no message system;window creation fails;original Main returns and harness deliberately reports failure.",
+  "cause": "PS5 SDL driver stores raw vk_icdGetInstanceProcAddr while LWJGL provider exposes public vkGetInstanceProcAddr wrapper. Original game explicitly compares these function addresses.",
+  "heap": "256MiB option reserved/VM started;GC log progresses to124.349s with247MiB committed and130MiB used after last logged collection. No Java OOM captured in this run.",
+  "limits": "Not a system-wide freeze;read-only PS5 report server responds. No successful graphics backend/window/menu;native API completeness not established. Network services warnings also present,distinct from recorded renderer rejection.",
+  "reports": {
+    "exceptions.log": {
+      "bytes": 12496,
+      "sha256": "fb2ebdb8de7a596bcd0955217d79488d28ca2d6363e18cffe6c1120e2ea69376"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "6f9445123fe107ac6619caa111f359263d8c59f70fdc849d7cca953d19f7d4cf"
+    }
+  },
+  "additional_live_UI_evidence": {
+    "session": "client038 FAIL/codeFFFFFAE5",
+    "exception.txt": "Original game main returned;no automatic menu PASS"
+  },
+  "repair": "039 PS5 SDL uses same public resident Vulkan loader as LWJGL;actual ICD dispatch remains real;host old-address control reproduces mismatch;target integration pending;new branding applied"
+}

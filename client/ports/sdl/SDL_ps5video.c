@@ -18,15 +18,16 @@
 #include "video/SDL_sysvideo.h"
 #include "events/SDL_events_c.h"
 
-/* Altered for the PS5 Java probe: real static-ICD Vulkan hooks. */
+/* Use the same public resident loader as LWJGL. Minecraft checks pointer identity.
+ * The public entry delegates to the real static ICD;all returned commands stay real. */
 #include "video/SDL_vulkan_internal.h"
-extern PFN_vkVoidFunction vk_icdGetInstanceProcAddr(VkInstance,const char*);
+extern PFN_vkVoidFunction vkGetInstanceProcAddr(VkInstance,const char*);
 static bool PS5_Vulkan_LoadLibrary(SDL_VideoDevice *_this,const char *path)
 {
     if(path && *path)return SDL_SetError("PS5 uses its statically resident Vulkan ICD; explicit library path unsupported");
-    PFN_vkVoidFunction enumerate=vk_icdGetInstanceProcAddr(VK_NULL_HANDLE,"vkEnumerateInstanceExtensionProperties");
+    PFN_vkVoidFunction enumerate=vkGetInstanceProcAddr(VK_NULL_HANDLE,"vkEnumerateInstanceExtensionProperties");
     if(!enumerate)return SDL_SetError("Resident ICD missing extension enumeration");
-    _this->vulkan_config.vkGetInstanceProcAddr=(SDL_FunctionPointer)vk_icdGetInstanceProcAddr;
+    _this->vulkan_config.vkGetInstanceProcAddr=(SDL_FunctionPointer)vkGetInstanceProcAddr;
     _this->vulkan_config.vkEnumerateInstanceExtensionProperties=(SDL_FunctionPointer)enumerate;
     _this->vulkan_config.loader_handle=NULL; /* A genuine static provider, no fabricated dlopen handle. */
     _this->vulkan_config.loader_path[0]=0;
@@ -54,7 +55,7 @@ static bool PS5_Vulkan_GetPresentationSupport(SDL_VideoDevice *_this,VkInstance 
 {
     VkSurfaceKHR surface=VK_NULL_HANDLE;VkBool32 supported=VK_FALSE;
     if(!PS5_Vulkan_CreateSurface(_this,NULL,instance,NULL,&surface))return false;
-    PFN_vkGetPhysicalDeviceSurfaceSupportKHR query=(PFN_vkGetPhysicalDeviceSurfaceSupportKHR)vk_icdGetInstanceProcAddr(instance,"vkGetPhysicalDeviceSurfaceSupportKHR");
+    PFN_vkGetPhysicalDeviceSurfaceSupportKHR query=(PFN_vkGetPhysicalDeviceSurfaceSupportKHR)vkGetInstanceProcAddr(instance,"vkGetPhysicalDeviceSurfaceSupportKHR");
     VkResult result=query?query(physical,family,surface,&supported):VK_ERROR_EXTENSION_NOT_PRESENT;
     PS5_Vulkan_DestroySurface(_this,instance,surface,NULL);
     if(result!=VK_SUCCESS)return SDL_SetError("PS5 Vulkan presentation query failed: %d",result);
@@ -65,10 +66,10 @@ static bool PS5_QueryDisplay(SDL_DisplayMode *mode)
     const char *extensions[]={VK_KHR_SURFACE_EXTENSION_NAME,VK_KHR_DISPLAY_EXTENSION_NAME};
     VkApplicationInfo app={.sType=VK_STRUCTURE_TYPE_APPLICATION_INFO,.pApplicationName="SDL PS5 display query",.apiVersion=VK_API_VERSION_1_1};
     VkInstanceCreateInfo ci={.sType=VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,.pApplicationInfo=&app,.enabledExtensionCount=2,.ppEnabledExtensionNames=extensions};
-    PFN_vkCreateInstance create=(PFN_vkCreateInstance)vk_icdGetInstanceProcAddr(VK_NULL_HANDLE,"vkCreateInstance");VkInstance instance=VK_NULL_HANDLE;
+    PFN_vkCreateInstance create=(PFN_vkCreateInstance)vkGetInstanceProcAddr(VK_NULL_HANDLE,"vkCreateInstance");VkInstance instance=VK_NULL_HANDLE;
     VkResult result=create?create(&ci,NULL,&instance):VK_ERROR_INITIALIZATION_FAILED;
     if(result!=VK_SUCCESS)return SDL_SetError("SDL PS5 display instance failed: %d",result);
-#define LOAD(name) PFN_vk##name name=(PFN_vk##name)vk_icdGetInstanceProcAddr(instance,"vk"#name)
+#define LOAD(name) PFN_vk##name name=(PFN_vk##name)vkGetInstanceProcAddr(instance,"vk"#name)
     LOAD(DestroyInstance);LOAD(EnumeratePhysicalDevices);LOAD(GetPhysicalDeviceDisplayPropertiesKHR);LOAD(GetDisplayModePropertiesKHR);
 #undef LOAD
     bool ok=false;uint32_t count=16;VkPhysicalDevice devices[16];

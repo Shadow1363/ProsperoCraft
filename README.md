@@ -59,15 +59,16 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client038 — Minecraft heap-headroom test
+## Development client039 — ProsperoCraft Vulkan loader identity fix
 
-037 got through native bootstrap but exhausted the128MiB Java heap during
-crash-report construction;an earlier initialization error may be hidden. Saved
-[diagnostics](docs/validation/client037-startup-failure-2026-10-25.json) identify
-FAIL despite the black screen.038tries256MiB with GC info and an actual heap
-checkpoint. All accepted native components and original game JARs are retained.
-**PS5 larger-heap reservation/startup/window/menu remain pending.**
-[Build scope and test instructions](docs/client-startup-038.md).
+038reserved its256MiB heap and reached graphics backend selection,but original
+Minecraft rejected different vkGetInstanceProcAddr addresses from SDL and LWJGL.
+039uses the same real public resident loader for both,retaining the native ICD,
+original game JAR and256MiB heap. The host regression reproduces the old mismatch
+and passes corrected pointer identity/real Vulkan calls. ProsperoCraft name and
+the supplied icon now appear in this candidate. **PS5 renderer/window/menu remains
+pending.** [Build/test scope](docs/client-startup-039.md) ·
+[038failure evidence](docs/validation/client038-startup-failure-2026-10-25.json).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

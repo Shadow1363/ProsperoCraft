@@ -40,3 +40,9 @@ two-hour endurance remain unvalidated;endurance is deferred.
 Host launch policy and full package checks pass. Full local ZIP SHA-256:
 `9f9a871285686b43e6abe12df66552a20f6022133646ac2452eb270dfcef93f5`.
 PS5 VM256MiB reservation/commit and original game startup/menu remain pending.
+
+Follow-up:038reserved256MiB and reached backend selection without a recorded
+Java OOM,but SDL/LWJGL returned different vkGetInstanceProcAddr addresses.
+Vulkan was rejected;SDL OpenGL fallback/error dialog were unsupported. Main
+returned and session reported FAIL.039unifies the public loader entry. See
+validation/client038-startup-failure-2026-10-25.json.
