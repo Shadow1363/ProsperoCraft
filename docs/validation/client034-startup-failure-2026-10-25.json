@@ -1,0 +1,29 @@
+{
+  "app_version": "01.000.034",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.034-1792925454-672377236",
+  "date": "2026-10-25",
+  "tested_source_commit": "196d44506b7ddca35ae4c0aab8767864c9bc34f0",
+  "package_sha256": "ee306f748fc37c171eec6edb1afaf5dfe59d12ef0cb57b56feb56bf8b3ba4a79",
+  "human": "crashed!",
+  "observed": "Original Main NativeLibrariesBootstrap stops loading vma at index5:UnsatisfiedLinkError Failed to locate library liblwjgl_vma.so;native startup ends VM EXIT -3. No window initialized.",
+  "loading_order": "shaderc,SDL,freetype,STB,OpenAL,vma,OpenGL,spvc",
+  "loading_index": 5,
+  "scope": "Earlier five entries loaded in this original Main run;no original Main OpenGL/spvc success inferred. No separate native JVM fault or heap exhaustion established.",
+  "reports": {
+    "session.txt": {
+      "size": 144,
+      "sha256": "43ce1e4e94b5a61598cc7d07ea5cfa6b14f9852b2bf47552e660065cebd8fe18"
+    },
+    "exceptions.log": {
+      "size": 8417,
+      "sha256": "a337c07fe9974e6131835b0a3d19ad3f18c6ad32fbe5cac54c0f4498e9c58dbf"
+    },
+    "startup-tail.log": {
+      "size": 524288,
+      "sha256": "d5f5b5bbe1a4fe00a9e10c49b20f52382a57bd2ad945c3ef0e05e5691097015c"
+    }
+  },
+  "retrieval": "Complete saved reports via Safari UI;raw logs local only",
+  "development": "035 genuine original VMA/JNI allocation and GPU transfer acceptance before another Main retry;original game JARs unchanged"
+}

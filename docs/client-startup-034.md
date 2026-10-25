@@ -1,4 +1,4 @@
-# Original Minecraft startup034 — console validation pending
+# Original Minecraft startup034 — failed at missing VMA
 
 034 combines the exact native FreeType component accepted in033 with031 STB,
 029 OSMesa/OpenGL,026 libffi/OpenAL and the existing SDL3/shaderc/RADV integration.
@@ -32,4 +32,8 @@ and server two-hour endurance remain unvalidated;endurance remains deferred.
 
 Host/full-package checks pass. Full local package SHA-256:
 `ee306f748fc37c171eec6edb1afaf5dfe59d12ef0cb57b56feb56bf8b3ba4a79`.
-PS5 original Main/window/menu validation remains pending.
+PS5 run failed loading vma at bootstrap index5 with missing liblwjgl_vma.so
+and VM EXIT -3. The five earlier entries (shaderc,SDL,FreeType,STB,OpenAL)
+loaded;no window/menu was initialized. See
+[recorded failure](validation/client034-startup-failure-2026-10-25.json).
+035 tests actual VMA allocations/GPU transfers before another Main retry.

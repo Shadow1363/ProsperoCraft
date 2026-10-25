@@ -4,7 +4,7 @@
   "title_id": "PPSA99874",
   "app_version": "01.000.034",
   "package_sha256": "ee306f748fc37c171eec6edb1afaf5dfe59d12ef0cb57b56feb56bf8b3ba4a79",
-  "console": "PENDING actual PS5 original Main/window/menu",
+  "console": "FAIL original Main:Loading library vma at index5;missing liblwjgl_vma.so;VM EXIT -3",
   "host": "PASS launch policy/writable workdir/existing options preservation,unchanged original JAR;separate original host Main reaches native-library bootstrap then exits253 with unprovided host natives. No host menu pass.",
   "package_checks": "PASS034 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/11real resident groups/actual033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 ee306f748fc37c171eec6edb1afaf5dfe59d12ef0cb57b56feb56bf8b3ba4a79",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
@@ -50,7 +50,7 @@
     "full_package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
     "console": "Human ALL5 PASS plus saved reports;034 packaged provider/JNI/overlay hashes match029"
   },
-  "development": "034 original Main retry;four diagnostic rows are not automatic menu validation.",
+  "development": "035 real VMA/JNI GPU allocation acceptance before next original Main retry",
   "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports.",
   "stb_baseline": {
     "milestone": "Client_STB_Codecs",
@@ -63,5 +63,8 @@
     "version": "01.000.033",
     "full_package_sha256": "e7666f17dedda986507f9ba19fa11183bf89baf07971044659dcee2416022afc",
     "console": "Human ALL5 PASS and complete current-run reports;real glyph rendering/guards/cleanup/JVM shutdown"
-  }
+  },
+  "run": "client-01.000.034-1792925454-672377236",
+  "reported_date": "2026-10-25",
+  "failure_evidence": "docs/validation/client034-startup-failure-2026-10-25.json"
 }

@@ -52,13 +52,17 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Development client034 — original Minecraft startup retry
+## Development client035 — VMA GPU allocator acceptance pending
 
-034 combines passing033FreeType,031STB and029OpenGL with the existing native
-providers for original Minecraft26.3 Main. Game JARs remain unchanged;Vulkan is
-selected. **Actual PS5 window/menu validation is pending.** VMA,SPIRV-Cross and
-remaining SDL/native coverage may still block startup.
-[Build scope and test instructions](docs/client-startup-034.md).
+Original Minecraft034 loaded shaderc,SDL,FreeType,STB and OpenAL before stopping
+at missing `liblwjgl_vma.so` (bootstrap index5). Saved session,exception and
+native startup reports identify this failure;
+[diagnostic record](docs/validation/client034-startup-failure-2026-10-25.json).
+035 adds original VMA3.4.0/LWJGL3.4.3 bindings. Its five-row probe uses real VMA
+buffer allocations for12GPU transfers across3allocator/device lifecycles with
+map/flush/invalidate,byte/guard/failure controls and cleanup. Host checks pass;
+**PS5 validation is pending**. It has no game window.
+[Build scope and test instructions](docs/client-vma-development.md).
 
 ## Client FreeType Fonts — PS5 ALL5 PASS
 
