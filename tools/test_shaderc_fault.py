@@ -5,10 +5,12 @@ import subprocess,tempfile
 ROOT=Path(__file__).resolve().parents[1]
 HARNESS=r'''
 #include <signal.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <unistd.h>
 int ps5shaderc_fault_begin(void);
 void ps5shaderc_fault_end(void);
+unsigned ps5shaderc_fault_status(unsigned *);
 static void old_one(int sig){_exit(sig==SIGILL?73:75);}
 static void old_three(int sig,siginfo_t*info,void*context){_exit(sig==SIGSEGV&&info&&context?74:76);}
 int main(int argc,char**argv){
@@ -19,6 +21,15 @@ int main(int argc,char**argv){
  int mode=atoi(argv[1]);
  if(mode==2||mode==4){action.sa_sigaction=old_three;action.sa_flags=SA_SIGINFO;if(sigaction(SIGSEGV,&action,0))return 3;}
  if(ps5shaderc_fault_begin()!=4)return 4;
+ unsigned errors=99;errno=EDOM;
+ if(ps5shaderc_fault_status(&errors)!=15||errors||errno!=EDOM)return 9;
+ if(mode==5){
+  action.sa_handler=old_one;action.sa_flags=0;
+  if(sigaction(SIGILL,&action,0))return 10;
+  if(ps5shaderc_fault_status(&errors)!=11||errors)return 11;
+  if(sigaction(SIGILL,0,&current)||current.sa_handler!=old_one)return 12;
+  ps5shaderc_fault_end();return 0;
+ }
  if(mode==3||mode==4){
   if(ps5shaderc_fault_begin()!=4)return 8;
   ps5shaderc_fault_end(); // Compiler scope ends,outer startup scope remains.
@@ -41,9 +52,10 @@ with tempfile.TemporaryDirectory(prefix='shaderc-fault-')as folder:
  # Target intentionally records96 raw words using its pinned SDK probe range.
  subprocess.run(['clang','-std=c11','-D_GNU_SOURCE','-Wall','-Wextra','-Werror','-DPS5_SHADERC_CONTEXT_WORDS=4','-DPS5_SHADERC_FAULT_LOG="'+str(report)+'"',str(ROOT/'client/ports/shaderc/fault.c'),str(w/'test.c'),'-pthread','-o',str(w/'test')],check=True)
  subprocess.run([str(w/'test'),'0'],check=True)
+ subprocess.run([str(w/'test'),'5'],check=True)
  for mode,code in [('1',73),('2',74),('3',73),('4',74)]:
   report.unlink(missing_ok=True)
   result=subprocess.run([str(w/'test'),mode]);assert result.returncode==code,result.returncode
   data=report.read_text();assert 'SHADERC FAULT signal='in data and 'SHADERC FAULT address='in data
   assert data.count('SHADERC FAULT context-word=')==4,data
- print('PASS real fault recorder: nested install/restoration/mask preservation,outer startup scope survives compiler end, SIGILL one-argument handler and SIGSEGV SA_SIGINFO delegation, bounded raw context written before original handler; no recovery. PS5 context capture pending.')
+ print('PASS real fault recorder: read-only handler ownership/displacement without reinstallation and errno preservation,nested install/restoration/mask preservation,outer startup scope survives compiler end, SIGILL one-argument handler and SIGSEGV SA_SIGINFO delegation, bounded raw context written before original handler; no recovery. PS5 context capture pending.')

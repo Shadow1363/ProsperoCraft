@@ -501,3 +501,13 @@ final visual outcome supplied;050Mojang/crash remains a separate report. No bina
 changed for documentation handoff;051console/menu/crash mechanism remain unresolved.
 See docs/validation/client051-startup-observations-2026-10-25.json and the current
 051handoff before work. Preserve051exact artifacts before any changed052candidate.
+
+Current continuation update:docs/handoff-prosperocraft-client053.md supersedes052
+candidate instructions. Human confirms052Mojang loading near completion then crash
+before menu fade around1½minutes. Matching reports end after91complete snapshots,
+last94195ms,with render joining pipeline future and worker baking resource models.
+No fatal context/OOM/driver error captured;cause unknown. Exact052retained before053.
+053adds consumer native resource/handler-ownership observations around Java samples,
+first120at1s then60at5s;no handler replacement,no speculative game/runtime/heap/GPU
+repair. Console validation remains pending. Server2H stays deferred. Read prior051
+complete release/store/provisioning/OpenAL requirements before any client release.

@@ -1,5 +1,7 @@
 # Current handoff — ProsperoCraft client052
 
+Update:[current053handoff](handoff-prosperocraft-client053.md) records the052console failure and next candidate. The text below preserves the prior handoff state.
+
 Continue existing files/history;do not recreate/reset. Read runtime AGENTS.md,
 consumer AGENTS.md,and the complete [051handoff](handoff-prosperocraft-client051.md)
 including its release/provisioning/OpenAL/Store sections,then this update and

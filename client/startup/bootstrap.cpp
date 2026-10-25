@@ -16,6 +16,7 @@
 #include "jni.h"
 #include "native_trace.hpp"
 #include "native_stderr.hpp"
+#include "observer_native.hpp"
 static void notify(const char* text);
 using Initializer=void (*)();
 extern "C" Initializer __jvm_init_array_start[],__jvm_init_array_end[];
@@ -67,7 +68,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.052";
+constexpr const char* build_version="01.000.053";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -95,8 +96,14 @@ void network_checkpoint(JNIEnv *env,jclass,jstring stage) {
  const char *utf=env->GetStringUTFChars(stage,nullptr);
  if(!utf) return;
  log_stage(utf);
- if(std::strncmp(utf,"MC Startup052:",14)==0)notify(utf);
+ if(std::strncmp(utf,"MC Startup053:",14)==0)notify(utf);
  env->ReleaseStringUTFChars(stage,utf);
+}
+void native_snapshot(JNIEnv *env,jclass,jlong elapsed,jint phase) {
+ if(!startup_observer::append("/download0/process-usage.log",static_cast<long long>(elapsed),phase)) {
+  jclass error=env->FindClass("java/io/IOException");
+  if(error)env->ThrowNew(error,"Native observer report append failed");
+ }
 }
 int vm_print(FILE *,const char *format,va_list arguments) {
  if(!startup_log) return 0;
@@ -175,13 +182,15 @@ void run_test(int i) {
    }
   }
   ps5::log_share::begin_session(build_version,run_id);
+  char resource_identity[256];std::snprintf(resource_identity,sizeof(resource_identity),"Build: %s\nRun: %s\nNative startup observer;phase0 before stack collection,phase1 after publication;RSS units unspecified\n",build_version,run_id);
+  if(!ps5::log_share::write_note("/download0/process-usage.log",resource_identity))log_stage("Native observer identity write failed");
   char native_identity[256];std::snprintf(native_identity,sizeof(native_identity),"Build: %s\nRun: %s\nNative stderr capture\n",build_version,run_id);
   int native_stderr_error=0;
   if(!ps5::log_share::write_note("/download0/probe-native-stderr.log",native_identity))
    native_stderr_error=errno?errno:EIO;
   else native_stderr_error=ps5::native_stderr::begin("/download0/probe-native-stderr.log");
-  if(!native_stderr_error)std::fprintf(stderr,"Client052 native stderr stream active before embedded constructors\n");
-  else notify("Client052 native stderr capture unavailable;continuing original startup. Inspect startup reports.");
+  if(!native_stderr_error)std::fprintf(stderr,"Client053 native stderr stream active before embedded constructors\n");
+  else notify("Client053 native stderr capture unavailable;continuing original startup. Inspect startup reports.");
   startup_log=std::fopen("/download0/java25-startup.log","a");
   if(!startup_log) {result(i,errno,"Cannot open persistent startup log");return;}
   std::fprintf(startup_log,"\n=== CLIENT RUN %s BUILD %s ===\n",run_id,build_version);std::fflush(startup_log);
@@ -322,8 +331,9 @@ void run_test(int i) {
   jclass klass=java_env->DefineClass(fixture,loader,reinterpret_cast<const jbyte*>(class_bytes),static_cast<jsize>(class_size));
   java_env->DeleteLocalRef(loader);java_env->DeleteLocalRef(loader_class);
   if(!klass||java_env->ExceptionCheck()) {java_failure(i,-1304,"DefineClass Client fixture");return;}
-  JNINativeMethod callbacks[]={{const_cast<char *>("checkpoint"),const_cast<char *>("(Ljava/lang/String;)V"),reinterpret_cast<void *>(&network_checkpoint)}};
-  if(java_env->RegisterNatives(klass,callbacks,1)!=JNI_OK || java_env->ExceptionCheck()) {
+  JNINativeMethod callbacks[]={{const_cast<char *>("checkpoint"),const_cast<char *>("(Ljava/lang/String;)V"),reinterpret_cast<void *>(&network_checkpoint)},
+   {const_cast<char *>("nativeSnapshot"),const_cast<char *>("(JI)V"),reinterpret_cast<void *>(&native_snapshot)}};
+  if(java_env->RegisterNatives(klass,callbacks,i==3?2:1)!=JNI_OK || java_env->ExceptionCheck()) {
    java_failure(i,-1317,"network trace binding");java_env->DeleteLocalRef(klass);return;
   }
   jmethodID method=java_env->GetStaticMethodID(klass,"main","([Ljava/lang/String;)V");
@@ -359,7 +369,7 @@ void run_test(int i) {
 }
 extern "C" void client_sdl_diagnostic(const char* text) {log_stage(text);}
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU052 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU053 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 extern "C" int sceKernelSendNotificationRequest(std::uint32_t,void*,std::size_t,int);
 extern "C" int sceSystemServiceHideSplashScreen();
@@ -369,14 +379,14 @@ static void notify(const char* text) {
  (void)sceKernelSendNotificationRequest(0,&n,sizeof(n),0);
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.052 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.053 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
  if(sceUserServiceGetInitialUser(&user)>=0 && scePadInit()>=0) pad=scePadOpen(user,0,0,nullptr);
 
- notify("Client052 ready: press X once to try ORIGINAL Minecraft startup. Demo mode;no automatic menu PASS. Keep open for logs.");
- if(pad<0){notify("Client052 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
+ notify("Client053 ready: press X once to try ORIGINAL Minecraft startup. Demo mode;no automatic menu PASS. Keep open for logs.");
+ if(pad<0){notify("Client053 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
  bool armed=false,start=false;std::uint32_t previous=0;
  while(!start) {
   PadSample batch[64]{};int count=scePadRead(pad,batch,64);
@@ -390,7 +400,7 @@ int main() {
  }
  scePadClose(pad);pad=-1;
  (void)sceSystemServiceHideSplashScreen();
- notify("Client052 starting original Minecraft26.3 demo. Native ports incomplete;startup may stop at a missing dependency. Keep open for logs.");
+ notify("Client053 starting original Minecraft26.3 demo. Native ports incomplete;startup may stop at a missing dependency. Keep open for logs.");
  // Compiler and texture/depth/blend acceptance precede retained SDL display resources.
  // This also avoids repeating manual inputs when compiler startup fails.
  for(int step=0;step<test_count;++step) {
@@ -398,11 +408,11 @@ int main() {
   if(i){char state[200];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}
   run_test(i);
   if(status[i]!=1) {
-   char note[240];std::snprintf(note,sizeof(note),"Client052 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
+   char note[240];std::snprintf(note,sizeof(note),"Client053 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
    for(;;)(void)sceKernelUsleep(1000000);
   }
  }
  char state[240];std::snprintf(state,sizeof(state),"STARTUP RETURNED: inspect logs and actual screen;menu/world success unverified.");session_status(state);
- notify("Client052 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
+ notify("Client053 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
  for(;;)(void)sceKernelUsleep(1000000);
 }

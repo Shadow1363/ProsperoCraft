@@ -59,24 +59,24 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client052 — later startup observations
+## Development client053 — native startup observations
 
-051 crashed and was restarted,as now confirmed by the user;its last screen and
-elapsed crash time remain unknown. Refreshed reports match the earlier saved
-run byte for byte:90snapshots completed normally,render waited on a shared
-background-executor pipeline future while resource-worker stacks changed. There
-is no captured fatal context or established deadlock/allocator/crash cause.
-050's original Mojang-loading-screen report remains separate.
+052 reached the original Mojang loading screen near completion and crashed before
+the menu fade,around1½minutes after X. Matching reports contain91complete snapshots,
+last at94.195s:render waits for a shared-executor pipeline future while the worker
+bakes models in resource preparation.390shader calls returned;first8fences/flips
+succeeded. No fatal signal,VM abort,driver error or Java OOM was captured.
+**Crash cause remains unknown;no menu/gameplay/stability pass is established.**
 
-052 extends the optional observer to150snapshots:first90at1s,then60at5s,with
-32thread/64frame output bounds. The nominal window is389seconds plus sampling
-overhead. Original game material,runtime,heap and native dependencies are unchanged.
-Stack collection adds safepoints,allocations and thread/I/O pressure.
-**052 console validation,crash resolution,menu/gameplay and stable presentation
-remain pending.** Exact051and all frozen passes are preserved.
-[Build and investigation](docs/client-startup-052.md) ·
-[051 follow-up evidence](docs/validation/client051-crash-followup-2026-10-25.json) ·
-[Current continuation handoff](docs/handoff-prosperocraft-client052.md).
+053 records native resource counters and read-only fault-handler ownership around
+the existing Java snapshots. Sampling stays at1s through120samples,then60at5s;
+32threads/64frames,nominal419s plus sampling overhead. Query errors remain explicit;
+no handler is reinstalled. Original game material,runtime,heap and graphics behavior
+remain intact. Diagnostics may alter timing. **053console validation is pending.**
+Exact052and all frozen passes are preserved.
+[Build and diagnostic scope](docs/client-startup-053.md) ·
+[052 failure evidence](docs/validation/client052-startup-failure-2026-10-25.json) ·
+[Current continuation handoff](docs/handoff-prosperocraft-client053.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

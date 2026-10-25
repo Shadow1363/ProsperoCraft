@@ -3,6 +3,7 @@
  * a fault or rewrite its context: forward to the pre-existing signal handler.
  */
 #include <signal.h>
+#include <errno.h>
 #include <stdint.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -80,4 +81,18 @@ void ps5shaderc_fault_end(void){
   report_fd=-1;
  }
  pthread_mutex_unlock(&lock);
+}
+
+/* Read-only ownership observation; never reinstall a displaced handler. */
+unsigned ps5shaderc_fault_status(unsigned *query_errors){
+ int saved_errno=errno;unsigned owned=0,errors=0;
+ pthread_mutex_lock(&lock);
+ for(unsigned i=0;i<4;i++){
+  struct sigaction current;
+  if(sigaction(signals[i],0,&current)!=0)errors|=1u<<i;
+  else if(installed[i]&&(current.sa_flags&SA_SIGINFO)&&current.sa_sigaction==handler)owned|=1u<<i;
+ }
+ pthread_mutex_unlock(&lock);
+ if(query_errors)*query_errors=errors;
+ errno=saved_errno;return owned;
 }

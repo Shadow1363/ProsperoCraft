@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.053",
+  "package_sha256": "cea95dcd5ef98f851a1f66e023a6e3323914d589df29cff6452f3f858cb1e65d",
+  "implementation": "Consumer native resource/handler ownership diagnostics and denser120sample early cadence. Parent1eb0738;see commit containing manifest for source revision.",
+  "source_sha256": {
+    "client/startup/ClientStartup25.java": "78894f86eb798effc65a4d648f02347f27f5b3e5f7558ce6b659e24cf8ab146e",
+    "client/startup/bootstrap.cpp": "937fcdba1b9da654acb25645440bcc79e77bbf99b963a0d0ce35df4ba5934b21",
+    "client/startup/observer_native.hpp": "810515e9d9942c20427249a80e66e575eeeda104232503c356e22554d949e603",
+    "client/startup/param.json": "cc82e2ce245ec7f29e3a439097f3172628407827510a04c35e17f203f0564b54",
+    "client/ports/shaderc/fault.c": "ac715db6d958781e4a09a4427398c00c8dcbc7fc7b3b884a41504c0d1a0ed538",
+    "tools/package_client_vulkan.py": "d3e86cf46579d42be93e036865017c40b708aa7ba2afa1c706b3d9e91f353055",
+    "tools/test_client_startup_host.py": "a1d69950fa24b88a7fc3741b0922de79b4b5de5427f99ec1d47c55a3ebece9a5",
+    "tools/test_client_startup_package.py": "1c8859bb73c03724f36a18685bfe18dac5118a02c5b6b4427692b0449098a52b",
+    "tools/test_startup_native_observer.py": "7b18386f3c8f4ac6dd6854f54b2fd1d28ba5865d583e168ad2d7d94f13662712",
+    "tools/test_shaderc_fault.py": "973893337c97c3239f11c3a64ec1714878b2d6b898a09184dda74c2e4bd2f7a3"
+  },
+  "symbols_sha256": "e0fb9e9ccb17a50c692b8f1adceb9fbc38450c25b4cc008e49e8e604cb70ee4f",
+  "runtime_commit": "6382528c7aee066002d1c2c6a7b5c7116987ae8c",
+  "checks": {
+    "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,late cadence boundary,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+    "native_observer": "PASS actual native observer helper ASan/UBSan: raw query values/errors,phase/elapsed formatting,append/write failure and errno preservation;controlled query results,not PS5 resource validation",
+    "fault": "PASS real fault recorder: read-only handler ownership/displacement without reinstallation and errno preservation,nested install/restoration/mask preservation,outer startup scope survives compiler end, SIGILL one-argument handler and SIGSEGV SA_SIGINFO delegation, bounded raw context written before original handler; no recovery. PS5 context capture pending.",
+    "package": "PASS053 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 cea95dcd5ef98f851a1f66e023a6e3323914d589df29cff6452f3f858cb1e65d",
+    "native_audit": "Packaged shaderc fault source and linked lifecycle.o hashes match current source/build.",
+    "target": "Packaging exit0;actual target compilation/link and SELF integrity passed.",
+    "baseline002": "Exact convenience ZIP restored:d0b9f815ff68c5ad821b2166509879c623c813019d2f70bbacf53769f35e3971",
+    "preserved052": "Exact full package checksum rechecked:096b371c3927f0125922c591eb8c3033a206068ee6c2c3e39376736cd84f5a2e"
+  },
+  "console": "PENDING053actual native queries/capture/loading/crash/menu.052human crash near completed Mojang loading before menu fade around1\u00bdminutes;cause unknown.",
+  "scope": "phase0/phase1native resource/fault-handler observations around each Java snapshot.180samples:first120at1s then60at5s;32threads/64frames;nominal419seconds plus overhead. No game/runtime/heap/graphics repair.",
+  "release": "No passing milestone/full client release/Store download. Server2H deferred."
+}

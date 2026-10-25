@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.052",
+  "run": "client-01.000.052-1792952033-557961309",
+  "tested_source_commit": "1eb07388eec2f644d194955cd40e76c77a43ede1",
+  "package_sha256": "096b371c3927f0125922c591eb8c3033a206068ee6c2c3e39376736cd84f5a2e",
+  "human": "crashed at mojang loading, it approached finishing but never got to the fade to the menu.",
+  "timing": "Human estimates around1\u00bdminutes,consistent with last complete sample91elapsed94195ms. No sample92or normal-completion/error marker. Last observed activity is not a precise crash deadline.",
+  "observed": {
+    "samples": 91,
+    "last_elapsed_ms": 94195,
+    "last_heap_used_bytes": 201468440,
+    "heap_used_range_bytes": [
+      60917304,
+      230307112
+    ],
+    "heap_max_bytes": 259522560,
+    "last_worker": "Worker-Main-1 RUNNABLE FaceBakery.calculateFacing/ItemModelGenerator -> ModelBakery/ParallelMapTransform -> SimpleReloadInstance preparation task -> ForkJoinPool worker.",
+    "last_main": "Render thread WAITING CompletableFuture.join -> PipelineCache.get -> GuiRenderer -> GameRenderer -> Minecraft constructor.",
+    "shader_entries": 390,
+    "shader_returns": 390,
+    "native": "First8fences successful/8accepted flips. No fatal signal/VM abort/driver error/Java OOM captured. Last direct accounting held0xc8ac000,failures0,policy_rejections0;not total console memory.",
+    "metadata": "4initial null records:88,88,40,24bytes. Retry context from052investigation applies;no per-request retry result correlation.",
+    "resource_report": "Not created or unavailable;no current-run native resource samples."
+  },
+  "cause": "Unknown. Model baking/shared-executor wait observed,not a crash diagnosis.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "336f9adf99a9ca6a66cd08e25b784841004f077aedd9464d4ef72fceb207774c"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "40d0727e2b46f7180826c8331951a920e3c397647a8cfc23da13e065bd16cf7d"
+    },
+    "exceptions.log": {
+      "bytes": 624134,
+      "sha256": "025a4c8b91ef75f898e68c0c1625f0d28867d3eb0fad6930042d9a5fc482cdf7"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 412,
+      "sha256": "a6ec521cb0acd4bf2a8f71331a17282b174885ab3b6c5518a60355ecbe6ec0aa"
+    },
+    "process-usage.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "ef341895ee08dcfeb42396ebdaa4e03f14f80686c8bd6be4c9ade6a98a0e1325"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "fcf4731bc46c87a6a2f163c29b3bae68b67eb7f1e0bedd95ba2b1d3d767637ce"
+    },
+    "vm-trace.log": {
+      "bytes": 1719245,
+      "sha256": "f7fd96a23b9eefe0eff082c07a9989c7b8476e6dca2abbde2ae59a9404d7cf66"
+    }
+  },
+  "next": "053adds per-sample native rusage/flexible-memory/handler-ownership observations and keeps1s cadence through120samples;no speculative memory/graphics/game repair.",
+  "limits": "No menu/gameplay/ALL PASS/new milestone or client release. Server2H deferred;exact052retained.",
+  "human_timing_exact": "around there (reply to about1\u00bdminutes versus noticeably longer)"
+}
