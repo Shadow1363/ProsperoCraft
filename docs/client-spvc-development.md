@@ -1,4 +1,4 @@
-# Client036 — real SPIRV-Cross translation/reflection acceptance
+# Client036 — SPIRV-Cross,PS5 ALL5 PASS
 
 035 established actual VMA allocation/transfers on PS5. SPIRV-Cross is the next
 known missing native bootstrap component before another original Main retry.
@@ -60,12 +60,14 @@ Launch,press X once,and report all five checks. If it fails,leave it open for
 reports;after app closure,reopen without pressing X. No preset device IP/filter
 is embedded. Frozen035/033/031/029/026/023 and earlier packages remain preserved.
 
-Actual PS5 C API,localeconv,exception/error handling,translations/reflection and
-cleanup are pending. Executing translated shaders on PS5 GPU,other shader
+Human ALL5 PASS and matching saved session/detailed current-run startup on
+2026-10-25 establish the tested PS5 C API,localeconv,exception/error handling,
+translations/reflection and cleanup workload. Executing translated shaders on PS5 GPU,other shader
 stages/resources/features,CPP/JSON backend workloads,callbacks/concurrency/large
 inputs,non-C/changing locales/floating-literal formatting,global teardown and
 combined original Minecraft startup/menu remain unvalidated. Server two-hour
-endurance remains deferred. No036 passing milestone/release is inferred yet.
+endurance remains deferred. Client_SPIRV_Cross preserves the accepted source/package/validation/release.
+Continue development outside the frozen folder.
 
 Original SPIRV-Cross Apache-2.0 source/archive/license,the locale patch and LWJGL
 BSD notice are packaged. A public OpenAL-linked release must include matching
@@ -73,4 +75,6 @@ corresponding-source and exact relink materials before publication.
 
 Host/native build/full package checks pass. Full local package SHA-256:
 `e4ff7cfe2464e7f218e4b518e1dfe77cca90e67fec531f9314aeb3e1191773ac`.
-Actual PS5 five-row validation remains pending.
+Human PS5 ALL5 PASS on2026-10-25 is corroborated by the matching saved
+session and detailed current-run startup:all3contexts/9translations with exact
+fingerprints/reflection/errors/guards/cleanup and DestroyJavaVM.

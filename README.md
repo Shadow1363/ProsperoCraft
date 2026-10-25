@@ -52,15 +52,25 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Development client036 — SPIRV-Cross acceptance pending
+## Client SPIRV-Cross — PS5 ALL5 PASS
 
-036 adds real SPIRV-Cross C API0.68.0 through original LWJGL downcalls. Its five-row
-probe tests3contexts/9GLSL-HLSL-MSL translations,exact source fingerprints,
-compute resource reflection,malformed SPIR-V controls and input guards/cleanup.
-Host checks pass;generated GLSL/HLSL also recompile and pass spirv-val.
-**PS5 validation is pending.** One PS5 locale adapter uses the native localeconv
-API;game JARs and the Java runtime implementation stay unchanged.
-[Build scope and test instructions](docs/client-spvc-development.md).
+Client **01.000.036** passes all five checks on the actual PS5. Saved session
+and detailed current-run reports confirm3contexts/9GLSL450-HLSL5-MSL translations,
+exact source fingerprints,SSBO set0/binding0,push8/local64 reflection,malformed
+SPIR-V error controls,384input guards,context cleanup and JVM shutdown.
+The PS5 locale adapter reads the native decimal separator;game JARs and the
+Java runtime implementation remain unchanged. Host GLSL/HLSL outputs independently
+recompile and pass spirv-val;translated-shader GPU execution is not established.
+
+[Frozen source and validation](Client_SPIRV_Cross) ·
+[Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SPIRV_Cross-v01.000.036)
+
+The next original Main attempt must combine the accepted SPIRV-Cross,VMA,
+FreeType,STB,OpenGL and existing providers,including the supported ps5spvc library
+configuration. **Combined Minecraft startup/window/menu remains unvalidated.**
+Other shader features,MSL compiler validation,callbacks/concurrency/global teardown
+and server two-hour endurance remain unvalidated;endurance stays deferred.
+[Build details and limitations](docs/client-spvc-development.md).
 
 ## Client VMA Allocator — PS5 ALL5 PASS
 
@@ -74,8 +84,8 @@ with exact output/source/guards,NEVER_ALLOCATE rejection and native cleanup.
 [Frozen source and validation](Client_VMA_Allocator) ·
 [Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_VMA_Allocator-v01.000.035)
 
-This addresses the missing VMA component in034. SPIRV-Cross remains a known
-missing native component before another complete Minecraft startup/menu attempt.
+This addresses the missing VMA component in034. SPIRV-Cross is now independently accepted in036;the combined
+native configuration still needs an original Minecraft startup/menu test.
 Images,custom pools/defragmentation/budgets/virtual allocations,callbacks,
 concurrent/large workloads and full native teardown remain unvalidated.
 Original game JARs remain unchanged;server endurance deferred.
@@ -522,6 +532,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client SPIRV-Cross · 01.000.036** | PS5 ALL5 PASS,saved reports:9shader translations/reflection/error controls/guards and JVM stop | [Frozen source & validation](Client_SPIRV_Cross) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SPIRV_Cross-v01.000.036) |
 | **Client VMA Allocator · 01.000.035** | PS5 ALL5 PASS,human+saved reports:12RADV transfers,3VMA allocator/device cycles,guards and JVM stop | [Frozen source & validation](Client_VMA_Allocator) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_VMA_Allocator-v01.000.035) |
 | **Client FreeType Fonts · 01.000.033** | PS5 ALL5 PASS,human+saved reports:real FreeType glyph rasterization/guards and JVM stop | [Frozen source & validation](Client_FreeType_Fonts) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_FreeType_Fonts-v01.000.033) |
 | **Client STB Codecs · 01.000.031** | PS5 ALL5 PASS,human+saved session:real PNG/codecs/guards and JVM stop;detailed startup download incomplete | [Frozen source & validation](Client_STB_Codecs) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_STB_Codecs-v01.000.031) |

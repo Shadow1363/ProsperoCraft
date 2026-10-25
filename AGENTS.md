@@ -320,3 +320,20 @@ is still a known missing native bootstrap component;server endurance deferred.
 Release includes exact matching OpenAL source/relink materials reproducing the
 accepted native ELF. Original game JARs stay intact locally and are omitted
 publicly. Continue outside the frozen folder;do not infer a Minecraft menu pass.
+
+Client_SPIRV_Cross is the frozen passing036 milestone,PPSA99874
+01.000.036,human ALL5 PASS and saved session/detailed current-run startup
+client-01.000.036-1792927908-979234410 on2026-10-25. Preserve exact
+source/package/symbols/validation/release.3contexts/9GLSL450-HLSL5-MSL translations,
+exact fingerprints,SSBO set0/binding0,push8/local64 reflection,malformed SPIR-V
+error controls,384guards,allocation/context cleanup and JVM shutdown pass.
+One PS5 locale adapter selects the real native localeconv API;original game JARs
+and runtime implementation remain unchanged. Translated shader GPU execution,
+MSL compiler validation,other features/callbacks/concurrency/non-C or changing
+locales/floating literals/global teardown and Minecraft menu remain unvalidated.
+The next original Main retry must combine036SPIRV-Cross and035VMA with the
+previous accepted natives,and set Configuration.SPVC_LIBRARY_NAME to
+System.mapLibraryName("ps5spvc") before original Spvc initializes. The original
+default is spirv-cross;no Java overlay/game JAR change is required. Matching
+OpenAL source/relink materials reproduce the accepted native ELF;original JARs
+are omitted publicly. Continue outside frozen folders;server endurance deferred.
