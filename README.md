@@ -2108,3 +2108,5 @@ unchanged heap/C1/game/loader/probe/mod artifacts. Actual JNI/ZipFS/shared-direc
 and image controls pass on host; actual PS5 save/rejoin/stability remains pending.
 The menu labels short compatibility work as Server play test, while full
 endurance stays deferred. See [details](docs/save-memory-085.md).
+
+Local disk usage: [storage policy and verified duplicate cleanup](docs/local-storage.md).
