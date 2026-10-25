@@ -29,7 +29,7 @@ can miss a sudden termination;native frames lack an instruction-level crash stac
 Thread creation or sampler errors are reported without stopping original Main.
 The observer is interrupted/disabled before closing the stream on normal/exception
 return,and automatically stops after90samples;no recovery or thread-state changes.
-Actual PS5 support/capture and impact remain pending. Missing snapshots are not
+051reports now confirm90complete snapshots and the normal completion marker;timing impact remains unmeasured. Missing snapshots are not
 proof of a game/VM cause;inspect observer-unavailable/stopped markers.
 
 Keep046same-owner early output,047outer delegating recorder,049FILE capture and
@@ -56,4 +56,32 @@ it is not the crash instruction. Crash resolution/menu/gameplay remain pending.
 
 Full local ZIP SHA-256: `a4108d61b82c8dae40f8f5babe99dce772dfb45790e21e110d57233f096cf80d`. Host observer/launch/allocation checks and
 target packaging pass;full-package verification result is recorded in status.json.
-PS5 observer operation,crash mechanism/resolution and menu remain pending.
+051observer capture is confirmed;original crash mechanism/resolution and menu remain pending.
+
+## Retrieved051 reports — 2026-10-25
+
+Matching run:`client-01.000.051-1792950523-73596505`. Full local reports are in
+runtime logs/client051-result-20261025;[hashes and observations](validation/client051-startup-observations-2026-10-25.json).
+All90snapshots completed,elapsed8-89147ms,then the observer stopped normally at
+its configured limit. Samples63-90show Render thread WAITING in
+CompletableFuture.join -> PipelineCache.get:33 -> RenderSystem compiled-pipeline
+lookup -> GuiRenderer.executeDraw -> GameRenderer.render -> Minecraft.renderFrame
+inside construction. Worker-Main-1 has changing RUNNABLE texture/font/model stacks,
+ending in ModelBakery/FaceBakery via ParallelMapTransform. This is sampled worker
+activity and a pipeline-future wait,not proof of deadlock or the crash mechanism.
+Java heap used ranges60914336-234609944bytes;last211739600/max259522560bytes.
+No captured OOM,total-native-memory conclusion or heap-size repair follows.
+
+Native trace again shows390compile entries/390returns,three image imports and
+8successful fences/8accepted flips. No recorded fatal signal,VM abort or driver
+error;hs-error unavailable. No explicit051human visual/final-outcome report was
+supplied with this retrieval. The050Mojang/crash report is separate. Ending at
+snapshot90is normal diagnostic completion,not a crash marker. Future work must
+check actual outcome/timing and inspect pending pipeline task/executor dependencies
+before claiming a cause. No binary changed for this documentation handoff.
+
+VM allocation diagnostics also include81native reservation errno12 records and
+4null metadata allocation results (200/472/2064/536bytes). Later activity continues;
+a4MiB reservation failure is followed by successful direct metaspace reservation.
+These need retry/fallback context,not an automatic harmless/fatal/OOM label. See
+the hashed observations record before designing any allocator change.

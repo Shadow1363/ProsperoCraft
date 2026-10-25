@@ -474,14 +474,11 @@ including existing failed-fence continuation (logged,not repaired/claimed succes
 No new output/thread/timeout/resolution/heap change. PS5 frame progression/crash/
 menu/stability pending;server2H deferred. Current050supersedes earlier candidates.
 
-Latest continuation handoff:docs/handoff-prosperocraft-client050.md. Read it for
-current050package/symbols,known049evidence,Safari report retrieval/repair follow-through,
-and eventual full release/Prospero Store conversion.050has no console outcome yet.
-ProsperoCraft reservation/PR737MERGED and null release/icon fields reverified during
-handoff;Coming soon remains a reservation,not a downloadable client. Prepare a
-full release only after exact console acceptance,without downloaded game files,
-with complete startup provisioning and exact matching OpenAL source/relink kit.
-Older044handoff is historical;do not revert current fixes to that state.
+Latest continuation handoff:docs/handoff-prosperocraft-client051.md. It contains
+current051package/source/checksum,latest retrieved051snapshots,all prior fixes,
+Safari retrieval/publication boundaries and eventual release/store requirements.
+050/044handoffs are historical. ProsperoCraft PR737 was verified MERGED;reservation
+fields were null in that verified state. Do not infer a downloadable client listing.
 
 Client050 human reports Mojang loading then crash;matching run
 client-01.000.050-1792949111-939372034 confirms8successful fence waits/8accepted
@@ -493,3 +490,14 @@ Setup/sampler failure disables diagnostics and continues original Main. Safepoin
 allocation and timing effects require PS5 validation. No game-JAR changes/menu pass/
 new milestone. Current051 supersedes050 candidate instructions;see
 docs/client-startup-051.md and050 validation record. Server2H remains deferred.
+
+051retrieved run client-01.000.051-1792950523-73596505 confirms90complete snapshots
+8-89147ms and normal observer completion. Samples63-90render waits in pipeline
+future join while resource worker has changing RUNNABLE texture/font/model stacks.
+This is not a proven deadlock/crash cause.390shader entries/returns,first8fences/
+flips succeed;no captured fatal signal/VM abort/driver error/OOM. Allocation reserve
+failures/null metadata attempts require retry/fallback context. No explicit human051
+final visual outcome supplied;050Mojang/crash remains a separate report. No binary
+changed for documentation handoff;051console/menu/crash mechanism remain unresolved.
+See docs/validation/client051-startup-observations-2026-10-25.json and the current
+051handoff before work. Preserve051exact artifacts before any changed052candidate.

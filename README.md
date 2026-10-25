@@ -69,10 +69,14 @@ The later crash cause remains unknown; these observations do not establish a men
 at one-second intervals. Original Main and resource workers are listed first;
 output is limited to32 threads and24 frames each. Setup failure continues Main.
 Stack collection adds safepoints, allocations and one256KiB-requested-stack thread;
-its PS5 operation and timing effects require validation. Frozen passes remain intact.
+051reports confirm all90snapshots:render waits for a pipeline future while the
+resource worker remains active in sampled stacks. This does not prove deadlock or
+crash cause;final051screen outcome remains unreported. Frozen passes remain intact.
 **Crash resolution, menu/gameplay and stable presentation remain unvalidated.**
 [Build/test scope](docs/client-startup-051.md) ·
-[050 report evidence](docs/validation/client050-startup-failure-2026-10-25.json).
+[050 report evidence](docs/validation/client050-startup-failure-2026-10-25.json) ·
+[051 observations](docs/validation/client051-startup-observations-2026-10-25.json) ·
+[Current continuation handoff](docs/handoff-prosperocraft-client051.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 
