@@ -74,3 +74,12 @@ Full local package SHA-256:
 Host resource/retry/helper/original launch checks and target build pass.
 Full-package verification passes,including original artifact pins,SELF integrity,
 private WSI audit and preserved historical checksums;recorded in startup/status.json.
+
+## Retrieved console outcome
+
+Run client-01.000.045-1792943278-134343222 confirms both opens still fail0x80020023,
+with324MiB flexible available and >11.5GiB direct ranges. Queries succeed;no VM
+abort/fatal report. Ordinary thread allocations fail EAGAIN/ENOMEM earlier and
+recover with direct stacks. [Evidence](validation/client045-startup-failure-2026-10-25.json).
+[046early WSI-owner follow-up](client-startup-046.md);resource-pressure cause and
+actual menu/presentation remain unresolved.

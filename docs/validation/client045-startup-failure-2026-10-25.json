@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.045",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.045-1792943278-134343222",
+  "tested_source_commit": "71fb6ea9079651e44f94512c32c444d6abc0c764",
+  "package_sha256": "df6978569980e567cf2ce269f29e2854dfebb7fc4df75d29709991a8e9aeeffd",
+  "human": "Logs ready for retrieval;no menu acceptance supplied",
+  "observed": "Both OS opens return0x80020023. All resource query statuses0. Flexible configured469762048/available339738624 bytes at both opens. Direct largest12622757888 then12373196800 bytes. No change across each open. Registration/images not reached.",
+  "additional_evidence": "32 ordinary pthread_create EAGAIN returns across8 Java thread fallback sequences,errno ENOMEM;9 ordinary creates succeed. Direct-stack fallback succeeds. First failure precedes VideoOut. VM-owned libc charge near2MiB cap.",
+  "cause": "General flexible/direct pool exhaustion not supported. Libc/service allocation pressure is a hypothesis supported by ordinary pthread ENOMEM,not confirmed as VideoOut cause. No fatal signal/VM abort report;trace ends during shader compilation.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "1c3a7e91047cbb3d3f0dfdb8884f4cf26e9b2a0a966b24f76e4f8288475c7a2b"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "a77f5a8e2f57ab1a906fc4023e5deb7f8c51d83e1ad57a18945ebfff32265fd3"
+    },
+    "exceptions.log": {
+      "bytes": 125579,
+      "sha256": "68e194398edee5ecaf10b226cd9b17f1fa06a054154eb9fd605a2f9727df45ed"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "f8f8a19d09d4c113c0825126c9b483eb93c4e027a611f47cd2a2e2ab9eefe8c4"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "45d6ce07507c32e41b70f4efdbf773491285b0434054b7f8df459bb2801c2c0f"
+    },
+    "vm-trace.log": {
+      "bytes": 1573933,
+      "sha256": "6bb598114e1d3c1908afaaef8a19aa86c5dbf39924d47bee7b6eb87ef22cc083"
+    }
+  },
+  "next": "046 initialize same WSI-owned output during startup GPU provider OnLoad,before original Main;retain handle for normal swapchain,no second owner/handoff. Early failure remains JNI load failure.",
+  "limits": "PS5 early lifecycle behavior/registration/presentation/menu and later exit cause remain pending;server2H deferred."
+}

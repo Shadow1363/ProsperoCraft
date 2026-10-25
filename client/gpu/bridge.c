@@ -60,6 +60,9 @@ static void destroy_context(void){
  if(instance&&vkDestroyInstance)vkDestroyInstance(instance,NULL);
  fence=VK_NULL_HANDLE;pool=VK_NULL_HANDLE;device=VK_NULL_HANDLE;instance=VK_NULL_HANDLE;cmd=VK_NULL_HANDLE;
 }
+#ifdef PS5_GPU_EARLY_VIDEOOUT
+extern int client_wsi_videoout_prepare(void);
+#endif
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm,void *reserved){
  (void)vm;(void)reserved;
 #ifndef PS5_GPU_HOST
@@ -70,6 +73,12 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm,void *reserved){
   for(Initializer *p=__client_gpu_init_start;p!=__client_gpu_init_end;p++)if(*p)(*p)();
   initialized=1;stage("GPU constructors complete",0);
  }
+#endif
+#ifdef PS5_GPU_EARLY_VIDEOOUT
+ stage("Initialize same WSI output before original Main allocations",INT32_MIN);
+ int videoout_result=client_wsi_videoout_prepare();
+ stage("Early WSI output initialization",videoout_result);
+ if(videoout_result<0)return JNI_ERR;
 #endif
  return JNI_VERSION_1_8;
 }

@@ -421,3 +421,14 @@ Original game JARs/private source boundary/frozen passes preserved. Actual PS5
 resources/open/presentation/menu and later crash remain pending;server2H deferred.
 See docs/client-startup-045.md and matching044failure evidence. The044handoff
 is historical;current candidate045 supersedes its version/status directions.
+
+Client045 reports confirm both opens0x80020023 with324MiB flexible available and
+>11.5GiB largest direct ranges. Earlier ordinary thread creates fail EAGAIN/ENOMEM
+and succeed with direct stacks;libc/service pressure is a hypothesis,not confirmed
+VideoOut cause. Exact045 artifacts/evidence retained.046 initializes the same WSI
+output after GPU provider constructors/before original Main,under existing lock/
+once;later swapchain reuses retained handle including0. No separate preflight
+output or ownership handoff. Negative result fails JNI_OnLoad before Main;no fake
+success. Startup-only macro leaves other build modes unchanged. PS5 early open/
+registration/presentation/menu/later exit remain pending;server2H deferred.
+Current046 supersedes historical044/045candidate instructions.

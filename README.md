@@ -59,16 +59,18 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client045 — VideoOut resource diagnostics
+## Development client046 — initialize the WSI output before original Main
 
-044's actual PS5 trace records two VideoOut open refusals,each `0x80020023`.
-The delayed retry ran but did not recover;framebuffer registration was not reached.
-045 records read-only configured/available flexible memory and largest available
-direct range before/after each open,including raw query statuses. The unavailable
-resource and later process exit remain unresolved. **PS5 presentation/menu remain
-unvalidated.** Original game JARs and frozen milestones are preserved.
-[Build/test scope](docs/client-startup-045.md) ·
-[044failure evidence](docs/validation/client044-startup-failure-2026-10-25.json).
+045 still returned0x80020023 at both VideoOut opens,despite324MiB available
+flexible memory and >11.5GiB direct ranges. Earlier ordinary thread allocations
+also fail with EAGAIN/ENOMEM and recover through direct stacks.046 initializes
+the actual WSI-owned output when the startup GPU provider loads,before original
+Main's allocations,and retains that same handle for its swapchain. Negative
+results remain real native-load failures;no second output or ownership handoff.
+**Underlying service pressure,later exit and PS5 presentation/menu are unresolved.**
+Original game JARs and frozen milestones are preserved.
+[Build/test scope](docs/client-startup-046.md) ·
+[045failure evidence](docs/validation/client045-startup-failure-2026-10-25.json).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

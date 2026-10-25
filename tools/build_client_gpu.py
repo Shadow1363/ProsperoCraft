@@ -77,9 +77,9 @@ def build(runtime,java_home,wsi_diagnostics=False):
  # The regular resident registry sees only the constructor-free JNI bridge.
  # Its OnLoad explicitly runs the retained graphics constructor array once.
  bridge=out/'gpu-bridge.o';headers=runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_include/java.base'
- run(LLVM/'clang','-std=c11','-O2','-Wall','-Wextra','-Werror','-fPIC','-target','x86_64-sie-ps5','-march=x86-64','-mno-avx','-mno-avx2','-mno-fma','-fvisibility-nodllstorageclass=default','-isysroot',sdk,'-isystem',sdk/'target/include','-I'+str(ROOT/'.tools/PS5_Mesa/include'),'-I'+str(headers),'-I'+str(headers/'freebsd'),'-c',ROOT/'client/gpu/bridge.c','-o',bridge)
+ run(LLVM/'clang',*(['-DPS5_GPU_EARLY_VIDEOOUT=1']if wsi_diagnostics else []),'-std=c11','-O2','-Wall','-Wextra','-Werror','-fPIC','-target','x86_64-sie-ps5','-march=x86-64','-mno-avx','-mno-avx2','-mno-fma','-fvisibility-nodllstorageclass=default','-isysroot',sdk,'-isystem',sdk/'target/include','-I'+str(ROOT/'.tools/PS5_Mesa/include'),'-I'+str(headers),'-I'+str(headers/'freebsd'),'-c',ROOT/'client/gpu/bridge.c','-o',bridge)
  audit={'scope':'Consumer-owned scoped graphics dependency providers; JVM process-wide allocation/thread/DNS behavior retained','provider_definitions':prefix,'graphics_bindings':binding,'constructors':{'sections':names,'normalized_priorities':priorities,'execution':'Explicit single JNI_OnLoad after VM creation; retained functions, no automatic startup execution'},'callback':'The SDK C++ ABI optional TLS destructor callback resolves to the real scoped platform provider for this combined title','objects_sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in [merged,bridge]},'console':'pending'}
- if wsi_audit is not None:audit['wsi_diagnostics']=wsi_audit
+ if wsi_audit is not None:audit['wsi_diagnostics']=wsi_audit;audit['early_videoout_owner']='Same WSI output initialized after GPU constructors,before original Main;negative result fails JNI_OnLoad;no external handle/handoff'
  (out/'audit.json').write_text(json.dumps(audit,indent=2)+'\n')
  print('Built scoped graphics support and resident JNI bridge',out)
  return merged,bridge,audit

@@ -1,12 +1,12 @@
 {
-  "stage": "ProsperoCraft original startup045:VideoOut resource diagnostics",
+  "stage": "ProsperoCraft original startup046:early initialization of same WSI output",
   "date": "2026-10-25",
   "title_id": "PPSA99874",
-  "app_version": "01.000.045",
-  "package_sha256": "df6978569980e567cf2ce269f29e2854dfebb7fc4df75d29709991a8e9aeeffd",
-  "console": "PENDING PS5 read-only resource queries/VideoOut/presentation/menu",
+  "app_version": "01.000.046",
+  "package_sha256": "c4c8a11e8fb54dcf2e1fbb91759261aacb940ec1c85485a40ab225b138afbdb9",
+  "console": "PENDING PS5 early WSI owner/open/registration/presentation/menu",
   "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
-  "package_checks": "PASS045 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 df6978569980e567cf2ce269f29e2854dfebb7fc4df75d29709991a8e9aeeffd",
+  "package_checks": "PASS046 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 c4c8a11e8fb54dcf2e1fbb91759261aacb940ec1c85485a40ab225b138afbdb9",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
   "game_jar_modified": false,
   "runtime_implementation_modified": false,
@@ -36,20 +36,20 @@
   "native_coverage": "Exact accepted036 SPIRV-Cross,035 VMA,033 FreeType,031 STB,029 OSMesa/OpenGL and026 callbacks/OpenAL;existing SDL/shaderc/RADV. Combined original game initialization and broader native API use remain unvalidated.",
   "baseline": "All passing snapshots including036/035 and failed034/032/030 preserved",
   "not_validated": [
-    "PS5 resource queries,unavailable resource behind0x80020023,VideoOut/presentation/menu and later exit cause",
+    "PS5 early output initialization,registration/presentation/menu and later process-exit cause",
     "Further native feature/API coverage and network-service failures",
     "Game memory adequacy/performance/global teardown;server endurance deferred"
   ],
-  "previous_failure": "docs/validation/client044-startup-failure-2026-10-25.json",
+  "previous_failure": "docs/validation/client045-startup-failure-2026-10-25.json",
   "memory_limit": "040used130MiB after last Java GC/247MiB committed;separate4MiB native allocator failure. Console-wide memory pressure and full game adequacy unmeasured.",
-  "development_repair": "Diagnostic only:configured/available flexible memory and largest direct range before/after each open,raw query statuses,errno preserved. Same maximum2 actual opens;no allocation/extra output/heap/resolution change.",
+  "development_repair": "Startup-only provider JNI_OnLoad calls real WSI owner under existing lock/once before Main. Same handle retained for swapchain,no second owner/handoff;negative result returns JNI_ERR and stops run. Libc/service pressure remains a hypothesis.",
   "native_dependency_baseline": {
     "milestone": "Client_OpenGL_Provider",
     "version": "01.000.029",
     "full_package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
     "console": "Human ALL5 PASS and saved reports;037 packaged provider/JNI/overlay hashes match029"
   },
-  "development": "045 adds read-only resource evidence around same bounded OS opens;044 both fail0x80020023",
+  "development": "046 initializes same retained WSI output after startup GPU provider constructors,before original Main allocations",
   "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports.",
   "stb_baseline": {
     "milestone": "Client_STB_Codecs",
@@ -87,21 +87,25 @@
   "wsi_host_regression": "PASS actual WSI diagnostic helper:unchanged success/failure codes,384byte bounded format,64event cap under4threads;no GPU/OS failure-path validation",
   "wsi_target_check": "PASS diagnostic WSI target compile/private archive member substitution;original archive retained",
   "wsi_diagnostics": {
-    "scope": "Native WSI checkpoints and one delayed pre-resource VideoOut retry;max2 OS opens,success handle retained,negative results remain failure;read-only before/after kernel memory queries;64events/384byte formatting",
+    "scope": "Early initialization of same WSI-owned output;native checkpoints and one delayed pre-resource VideoOut retry;max2 OS opens,success handle retained,negative results remain failure;read-only before/after kernel memory queries;64events/384byte formatting",
     "mesa_commit": "1ba9874f478657ccf6da72ce55f0260164cc0bd0",
     "original_source_sha256": "a8347cdbd73959b7c5cccf4dd3047434933c44250964306c42f1b776f6dbcea3",
     "patch_sha256": "eaffa2404a54d754d37d546a54fc9a6ecd9d660890a68697da452bb6dbb7e532",
     "retry_patch_sha256": "1cdf5f8cd0a3f9ecf61090fcdb427b0273a4f81daf28f4bf85c2fd5bd0f36e5f",
     "resources_patch_sha256": "c93b1df5f9ff53f8a2e8429881498feef792e065adf5260ff6eb6df011a43989",
-    "patched_source_sha256": "84759b8a88d7059de5fe66db2b24c99cb0ef43a5c204c0fb54358ea21d784d49",
-    "object_sha256": "aa96d2202c5a71281b393257da892dc0881f3b8e193a95c729da42689038f861",
+    "early_owner_patch_sha256": "222f9e031ad9e46a12e5debdff25582030d31a4b29903ac92887c6caf5c10f58",
+    "patched_source_sha256": "99b970b27b20420fc221f9dabc17dde91984518293eadbbbd5e998de8220f87f",
+    "object_sha256": "3b0dd6a56aa33c01cc0786b10ff3105833f2ffb38cd30a2560935ec5fdd190b0",
     "original_archive_sha256": "4fc549f1f0cc4f0270b91e3447f16defdef50e582b03bba2257aaff88ee1e924",
-    "private_archive_sha256": "83276ca26ac74754dd1c4efee50028182528a5f3ae38703f2f943c97903de87e",
+    "private_archive_sha256": "328f2c810e51f3ebc7365d1b812e8f1d4a0a366ef3c7f0146fc6588262e596fb",
     "replaced_member": "wsi_common_videoout.c.o",
     "original_archive_unchanged": true,
-    "console": "PENDING PS5 resource query results;044 both OS opens0x80020023"
+    "console": "PENDING PS5 rejection checkpoint/crash investigation"
   },
   "videoout_retry_host_regression": "wsi/videoout: sceVideoOutOpen failed: 0xfffffff9\nwsi/videoout: sceVideoOutOpen failed: 0xfffffff9\nwsi/videoout: sceVideoOutOpen failed: 0xfffffff8\nwsi/videoout: sceVideoOutOpen failed: 0xfffffff9\nPASS exact VideoOut open function:negative first result logged/not cached as success,no early retry,one retry at2s,success/zero handles retained,max2 failures,no retry with existing swapchain/buffers;synthetic OS responses only,PS5 pending",
   "videoout_resources_host_regression": "PASS exact compiled helper under ASan/UBSan:query arguments/statuses/values,failed-query sentinels,invalid-total skip and errno preservation;synthetic kernel responses only",
-  "videoout_retry_console_evidence": "044 full VM trace records exactly2 OS opens returning0x80020023;retry did not recover. WSI initialization/registration refusal occurs before framebuffer/image allocation. No fatal signal/VM abort captured."
+  "videoout_retry_console_evidence": "044 full VM trace records exactly2 OS opens returning0x80020023;retry did not recover. WSI initialization/registration refusal occurs before framebuffer/image allocation. No fatal signal/VM abort captured.",
+  "early_videoout_owner": "Same WSI output initialized after GPU constructors,before original Main;negative result fails JNI_OnLoad;no external handle/handoff",
+  "videoout_resources_console_evidence": "045 all queries succeed:448MiB configured/324MiB available flexible;direct largest12622757888 then12373196800 bytes;both opens0x80020023. General pool exhaustion not supported. Ordinary pthread EAGAIN/ENOMEM/direct-stack recovery predates VideoOut;libc/service pressure unconfirmed.",
+  "early_videoout_host_regression": "PASS exact early-owner entry/open under ASan/UBSan:concurrent once/lock,one mocked open,positive/zero retention and later reuse,no buffers,raw failures/deadline/max2 preserved. Synthetic OS only;PS5 pending."
 }
