@@ -54,3 +54,8 @@ performance/network/teardown remain pending. Server2H endurance stays deferred.
 
 Host preflight/launch checks and full-package checks pass. Full local ZIP SHA-256:
 `c252c4ce4f454025c6f0930e5c2e2395ff778a3cbe86f7cc71599a94f15fd98c`. PS5 validation remains pending.
+
+Console outcome:render buffers no longer refuse4MiB;original resource reload
+and render loop reached,but4K swapchain repeatedly fails and user reports crash.
+See[041evidence](validation/client041-startup-failure-2026-10-25.json) and
+[042mode retry](client-startup-042.md). No visible menu pass.

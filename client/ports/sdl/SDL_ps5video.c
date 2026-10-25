@@ -21,6 +21,7 @@
 /* Use the same public resident loader as LWJGL. Minecraft checks pointer identity.
  * The public entry delegates to the real static ICD;all returned commands stay real. */
 #include "video/SDL_vulkan_internal.h"
+#include "ps5_display_mode.h"
 extern PFN_vkVoidFunction vkGetInstanceProcAddr(VkInstance,const char*);
 static bool PS5_Vulkan_LoadLibrary(SDL_VideoDevice *_this,const char *path)
 {
@@ -45,7 +46,39 @@ static char const *const *PS5_Vulkan_GetInstanceExtensions(SDL_VideoDevice *_thi
 }
 static bool PS5_Vulkan_CreateSurface(SDL_VideoDevice *_this,SDL_Window *window,VkInstance instance,const VkAllocationCallbacks *allocator,VkSurfaceKHR *surface)
 {
-    return SDL_Vulkan_Display_CreateSurface((void*)_this->vulkan_config.vkGetInstanceProcAddr,instance,allocator,surface);
+    (void)_this;(void)window;*surface=VK_NULL_HANDLE;
+#define LOAD(name) PFN_vk##name name=(PFN_vk##name)vkGetInstanceProcAddr(instance,"vk"#name)
+    LOAD(EnumeratePhysicalDevices);LOAD(GetPhysicalDeviceDisplayPropertiesKHR);LOAD(GetDisplayModePropertiesKHR);
+    LOAD(GetPhysicalDeviceDisplayPlanePropertiesKHR);LOAD(GetDisplayPlaneSupportedDisplaysKHR);LOAD(GetDisplayPlaneCapabilitiesKHR);LOAD(CreateDisplayPlaneSurfaceKHR);LOAD(GetPhysicalDeviceSurfaceCapabilitiesKHR);
+#undef LOAD
+    if(!EnumeratePhysicalDevices||!GetPhysicalDeviceDisplayPropertiesKHR||!GetDisplayModePropertiesKHR||!GetPhysicalDeviceDisplayPlanePropertiesKHR||!GetDisplayPlaneSupportedDisplaysKHR||!GetDisplayPlaneCapabilitiesKHR||!CreateDisplayPlaneSurfaceKHR)return SDL_SetError("PS5 Vulkan display entry points missing");
+    uint32_t count=16;VkPhysicalDevice devices[16];
+    if(EnumeratePhysicalDevices(instance,&count,devices)!=VK_SUCCESS||!count||count>16)return SDL_SetError("PS5 Vulkan physical-device inventory failed");
+    VkDisplayPropertiesKHR displays[16];count=16;
+    if(GetPhysicalDeviceDisplayPropertiesKHR(devices[0],&count,displays)!=VK_SUCCESS||!count||count>16)return SDL_SetError("PS5 Vulkan display inventory failed");
+    VkDisplayModePropertiesKHR modes[32];count=32;
+    if(GetDisplayModePropertiesKHR(devices[0],displays[0].display,&count,modes)!=VK_SUCCESS||!count||count>32)return SDL_SetError("PS5 Vulkan mode inventory failed");
+    int selected=PS5_SelectDisplayMode(modes,count,displays[0].physicalResolution);
+    if(selected<0)return SDL_SetError("PS5 Vulkan no usable enumerated mode");
+    VkDisplayPlanePropertiesKHR planes[32];uint32_t plane_count=32;
+    if(GetPhysicalDeviceDisplayPlanePropertiesKHR(devices[0],&plane_count,planes)!=VK_SUCCESS||!plane_count||plane_count>32)return SDL_SetError("PS5 Vulkan plane inventory failed");
+    for(uint32_t plane=0;plane<plane_count;plane++){
+        VkDisplayKHR supported[16];uint32_t supported_count=16;
+        if(GetDisplayPlaneSupportedDisplaysKHR(devices[0],plane,&supported_count,supported)!=VK_SUCCESS||supported_count>16)continue;
+        bool match=false;for(uint32_t i=0;i<supported_count;i++)if(supported[i]==displays[0].display)match=true;
+        if(!match)continue;
+        VkDisplayPlaneCapabilitiesKHR caps;
+        if(GetDisplayPlaneCapabilitiesKHR(devices[0],modes[selected].displayMode,plane,&caps)!=VK_SUCCESS||!(caps.supportedAlpha&VK_DISPLAY_PLANE_ALPHA_OPAQUE_BIT_KHR)||!(displays[0].supportedTransforms&VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR))continue;
+        VkExtent2D extent=modes[selected].parameters.visibleRegion;
+        if(extent.width<caps.minSrcExtent.width||extent.width>caps.maxSrcExtent.width||extent.height<caps.minSrcExtent.height||extent.height>caps.maxSrcExtent.height||extent.width<caps.minDstExtent.width||extent.width>caps.maxDstExtent.width||extent.height<caps.minDstExtent.height||extent.height>caps.maxDstExtent.height)continue;
+        VkDisplaySurfaceCreateInfoKHR ci={.sType=VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR,.displayMode=modes[selected].displayMode,.planeIndex=plane,.planeStackIndex=planes[plane].currentStackIndex,.transform=VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR,.globalAlpha=1.0f,.alphaMode=VK_DISPLAY_PLANE_ALPHA_OPAQUE_BIT_KHR,.imageExtent=extent};
+        VkResult result=CreateDisplayPlaneSurfaceKHR(instance,&ci,allocator,surface);
+        SDL_Log("PS5 Vulkan surface: %ux%u %.3fHz plane%u result%d",extent.width,extent.height,modes[selected].parameters.refreshRate/1000.0,plane,result);
+        if(result!=VK_SUCCESS)return SDL_SetError("PS5 Vulkan display surface failed:%d",result);
+        if(GetPhysicalDeviceSurfaceCapabilitiesKHR){VkSurfaceCapabilitiesKHR actual;result=GetPhysicalDeviceSurfaceCapabilitiesKHR(devices[0],*surface,&actual);if(result==VK_SUCCESS)SDL_Log("PS5 Vulkan surface caps: extent%ux%u images%u-%u usage0x%x",actual.currentExtent.width,actual.currentExtent.height,actual.minImageCount,actual.maxImageCount,actual.supportedUsageFlags);}
+        return true;
+    }
+    return SDL_SetError("PS5 Vulkan no compatible display plane");
 }
 static void PS5_Vulkan_DestroySurface(SDL_VideoDevice *_this,VkInstance instance,VkSurfaceKHR surface,const VkAllocationCallbacks *allocator)
 {
@@ -79,10 +112,9 @@ static bool PS5_QueryDisplay(SDL_DisplayMode *mode)
     if(GetPhysicalDeviceDisplayPropertiesKHR(devices[0],&count,displays)!=VK_SUCCESS||count<1||count>16)goto done;
     VkDisplayModePropertiesKHR modes[32];count=32;
     if(GetDisplayModePropertiesKHR(devices[0],displays[0].display,&count,modes)!=VK_SUCCESS||count<1||count>32)goto done;
-    int selected=-1;
-    for(uint32_t i=0;i<count;i++)if(modes[i].parameters.visibleRegion.width==displays[0].physicalResolution.width&&modes[i].parameters.visibleRegion.height==displays[0].physicalResolution.height){if(selected<0||modes[i].parameters.refreshRate>modes[selected].parameters.refreshRate)selected=(int)i;}
-    if(selected<0)selected=0;
-    if(modes[selected].parameters.visibleRegion.width<640||modes[selected].parameters.visibleRegion.width>3840||modes[selected].parameters.visibleRegion.height<480||modes[selected].parameters.visibleRegion.height>2160)goto done;
+    int selected=PS5_SelectDisplayMode(modes,count,displays[0].physicalResolution);
+    if(selected<0)goto done;
+    SDL_Log("PS5 SDL display: selected enumerated %ux%u %.3fHz (advertised native %ux%u)",modes[selected].parameters.visibleRegion.width,modes[selected].parameters.visibleRegion.height,modes[selected].parameters.refreshRate/1000.0,displays[0].physicalResolution.width,displays[0].physicalResolution.height);
     SDL_zero(*mode);mode->format=SDL_PIXELFORMAT_BGRA32;mode->w=(int)modes[selected].parameters.visibleRegion.width;mode->h=(int)modes[selected].parameters.visibleRegion.height;mode->refresh_rate=modes[selected].parameters.refreshRate/1000.0f;ok=true;
 done:
     if(DestroyInstance)DestroyInstance(instance,NULL);

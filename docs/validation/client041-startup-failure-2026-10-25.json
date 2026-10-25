@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.041",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.041-1792936853-896206858",
+  "tested_source_commit": "ab1684a4a770383a193fa41e59ccd5a7de8c1278",
+  "package_sha256": "c252c4ce4f454025c6f0930e5c2e2395ff778a3cbe86f7cc71599a94f15fd98c",
+  "human": "asked whether frozen,then reported crash/reopened",
+  "live_session": "RUN original Main observed before reported crash",
+  "observed": "Previous off-heap failure absent;original Main reaches resource reload/renderFrame loop. 164 repeated VK_ERROR_INITIALIZATION_FAILED swapchain failures at3840x2160/FIFO.",
+  "cause": "SDL chooses driver-advertised native4K/highest refresh instead of a restrained startup mode. Precise internal swapchain rejection and later crash instruction remain unresolved;no fatal signal/abort captured in retrieved reports.",
+  "reports": {
+    "exceptions.log": {
+      "bytes": 171277,
+      "sha256": "29c56a19150539f0a7ffc1e7bbb190b2abc3403da9dd8bd7dc9b9530bfcd1c91"
+    },
+    "startup-received.txt": {
+      "bytes": 524287,
+      "sha256": "1300f85776e27d343d1dae046d96948f93c3212980fb5ec9964432e29b6b8fca"
+    },
+    "startup-received.rtf": {
+      "bytes": 531670,
+      "sha256": "760c354953cea93664131652b0ef00ac1df6c9226ecfa0c787e2f929b8469ec4"
+    },
+    "vm-trace.log": {
+      "bytes": 1569657,
+      "sha256": "1208534dda99f61d8d22037639f07d07bee0e8845a56c8c5223537c91bceb6b7"
+    }
+  },
+  "retrieval": "exceptions.log saved from Safari;VM trace direct Safari link download;startup-received.txt is Safari text copied through TextEdit,512KiB tail minus final newline,not claimed byte-exact raw download.",
+  "repair": "042 uses a shared enumerated display-mode policy for SDL display and Vulkan surface,preferring real1080p <=60Hz;adds surface capability/selection diagnostics. No invented720p mode/no driver failure bypass. Crash resolution pending.",
+  "limits": "Original Main/render loop progress is not visible menu/presentation success. Server2H deferred.",
+  "swapchain_failure_count": 164,
+  "allocation_preflight": "VM trace1906 confirms PASS3x4MiB/grow8MiB/preserved pages/new extent/calloc/aligned allocation/cleanup on actual PS5. This is component progress,not full-app ALL PASS."
+}

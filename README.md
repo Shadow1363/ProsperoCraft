@@ -59,16 +59,16 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client041 — native render-buffer allocation
+## Development client042 — consistent enumerated display mode
 
-040selected Vulkan on the real PS5 GPU and logged SDL window creation,then
-failed to allocate a4MiB off-heap render buffer.041routes LWJGL's system memory
-JNI allocation/free/realloc family through the existing scoped graphics title
-heap and adds checked large native allocations before original Main. The approved
-corrected ProsperoCraft icon is included. Original game JARs and JVM global
-allocation stay unchanged. **PS5 allocation/rendering/menu remains pending.**
-[Build/test scope](docs/client-startup-041.md) ·
-[040failure evidence](docs/validation/client040-startup-failure-2026-10-25.json).
+041got past the native render-buffer refusal and entered resource loading and
+the render loop,but repeatedly failed to create a4K Vulkan swapchain;the user
+then reported a crash.042uses one actual mode-selection policy for SDL's display
+and Vulkan surface,preferring enumerated1080p at normal refresh. It logs selected
+mode and surface capabilities. **PS5 presentation/menu and the later crash remain
+unresolved until retested.** No game JAR changes or invented720p mode.
+[Build/test scope](docs/client-startup-042.md) ·
+[041failure evidence](docs/validation/client041-startup-failure-2026-10-25.json).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

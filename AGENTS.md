@@ -371,3 +371,12 @@ to existing clientgpu title-heap malloc/calloc/realloc/free/alignment family,wit
 audit and pre-Main checked large-buffer allocation/cleanup. No game JAR or JVM
 global allocator changes. Approved v3 icon included. PS5 allocation/preflight,
 render buffers/menu/gameplay and memory/performance remain pending;no new pass.
+
+Client041 progressed through resource reload/renderFrame after scoped allocation
+repair,then repeatedly failed4K swapchain creation;human reported crash/reopened.
+Saved VM trace ends in shader compilation without captured fatal fault/abort.
+Exact041package/symbols/status preserved. Client042 unifies SDL display and Vulkan
+surface selection with actual enumerated1080p <=60Hz preference,plane/capability
+checks and logging. Driver offers1080p/1440p/4K;never claim invented720p scanout.
+PS5 swapchain/menu and later crash remain unresolved;host inventory regression
+is synthetic policy validation,not GPU acceptance. Preserve frozen snapshots.
