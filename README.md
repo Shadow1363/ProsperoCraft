@@ -59,18 +59,18 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client046 — initialize the WSI output before original Main
+## Development client047 — investigate crash after original Mojang loading screen
 
-045 still returned0x80020023 at both VideoOut opens,despite324MiB available
-flexible memory and >11.5GiB direct ranges. Earlier ordinary thread allocations
-also fail with EAGAIN/ENOMEM and recover through direct stacks.046 initializes
-the actual WSI-owned output when the startup GPU provider loads,before original
-Main's allocations,and retains that same handle for its swapchain. Negative
-results remain real native-load failures;no second output or ownership handoff.
-**Underlying service pressure,later exit and PS5 presentation/menu are unresolved.**
-Original game JARs and frozen milestones are preserved.
-[Build/test scope](docs/client-startup-046.md) ·
-[045failure evidence](docs/validation/client045-startup-failure-2026-10-25.json).
+**046 displayed the original Mojang loading screen on PS5,then crashed.** Matching
+reports confirm positive early VideoOut handle0x4e100100 and three successful
+swapchain image imports. Keep the early same-owner display initialization.
+No fatal signal/VM abort was captured;the crash cause remains unknown.047 keeps
+the existing delegating native fault recorder active across original startup,
+including intervals between shader compilations. Original game JARs and frozen
+passing milestones are preserved. **Menu/gameplay and crash resolution remain
+unvalidated;this is not ALL PASS.**
+[Build/test scope](docs/client-startup-047.md) ·
+[046loading-screen/crash evidence](docs/validation/client046-loading-screen-crash-2026-10-25.json).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

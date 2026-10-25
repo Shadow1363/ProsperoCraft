@@ -81,3 +81,12 @@ symbol/reference,all original artifacts,SELF integrity and historical package
 checksums. Full local ZIP SHA-256:
 `c4c8a11e8fb54dcf2e1fbb91759261aacb940ec1c85485a40ab225b138afbdb9`.
 PS5 outcome remains pending.
+
+## Retrieved console outcome
+
+The human saw the original Mojang loading screen,then crash,and reopened.
+Matching046session confirms early open0x4e100100/prepare0 and3 successful WSI
+image imports. This validates visible loading progress,not menu/gameplay or a
+new passing milestone. No captured fatal signal/VM abort. Exact046retained.
+[Evidence](validation/client046-loading-screen-crash-2026-10-25.json) ·
+[047startup-wide fault recorder](client-startup-047.md).

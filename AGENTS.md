@@ -432,3 +432,14 @@ output or ownership handoff. Negative result fails JNI_OnLoad before Main;no fak
 success. Startup-only macro leaves other build modes unchanged. PS5 early open/
 registration/presentation/menu/later exit remain pending;server2H deferred.
 Current046 supersedes historical044/045candidate instructions.
+
+Client046 human reports visible original Mojang loading screen then crash/reopen.
+Matching run client-01.000.046-1792944398-207378114 confirms early open0x4e100100,
+prepare0 and3successful WSI image imports. Preserve this working same-owner early
+initialization. No menu/gameplay/ALL PASS or new milestone;exact046retained.
+No fatal signal/VM abort captured.047 holds an outer existing fault-recorder
+reference across original startup JNI call,including gaps between shader compiles.
+Existing recorder implementation/delegation unchanged;historical SHADERC FAULT
+prefix no longer implies compiler origin and signals can be JVM-handled normally.
+Requires4handlers/descriptor;RAII restores on returns. PS5 capture/crash cause/
+menu/stability pending;server2H deferred. Current047supersedes earlier candidates.

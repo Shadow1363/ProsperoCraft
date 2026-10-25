@@ -17,8 +17,13 @@ int main(int argc,char**argv){
  action.sa_handler=old_one;sigemptyset(&action.sa_mask);sigaddset(&action.sa_mask,SIGUSR1);
  if(sigaction(SIGILL,&action,0))return 2;
  int mode=atoi(argv[1]);
- if(mode==2){action.sa_sigaction=old_three;action.sa_flags=SA_SIGINFO;if(sigaction(SIGSEGV,&action,0))return 3;}
+ if(mode==2||mode==4){action.sa_sigaction=old_three;action.sa_flags=SA_SIGINFO;if(sigaction(SIGSEGV,&action,0))return 3;}
  if(ps5shaderc_fault_begin()!=4)return 4;
+ if(mode==3||mode==4){
+  if(ps5shaderc_fault_begin()!=4)return 8;
+  ps5shaderc_fault_end(); // Compiler scope ends,outer startup scope remains.
+  raise(mode==3?SIGILL:SIGSEGV);
+ }
  if(mode==1)raise(SIGILL);
  if(mode==2)raise(SIGSEGV);
  if(ps5shaderc_fault_begin()!=4)return 5;
@@ -36,9 +41,9 @@ with tempfile.TemporaryDirectory(prefix='shaderc-fault-')as folder:
  # Target intentionally records96 raw words using its pinned SDK probe range.
  subprocess.run(['clang','-std=c11','-D_GNU_SOURCE','-Wall','-Wextra','-Werror','-DPS5_SHADERC_CONTEXT_WORDS=4','-DPS5_SHADERC_FAULT_LOG="'+str(report)+'"',str(ROOT/'client/ports/shaderc/fault.c'),str(w/'test.c'),'-pthread','-o',str(w/'test')],check=True)
  subprocess.run([str(w/'test'),'0'],check=True)
- for mode,code in [('1',73),('2',74)]:
+ for mode,code in [('1',73),('2',74),('3',73),('4',74)]:
   report.unlink(missing_ok=True)
   result=subprocess.run([str(w/'test'),mode]);assert result.returncode==code,result.returncode
   data=report.read_text();assert 'SHADERC FAULT signal='in data and 'SHADERC FAULT address='in data
   assert data.count('SHADERC FAULT context-word=')==4,data
- print('PASS real fault recorder: nested install/restoration/mask preservation, SIGILL one-argument handler and SIGSEGV SA_SIGINFO delegation, bounded raw context written before original handler; no recovery. PS5 context capture pending.')
+ print('PASS real fault recorder: nested install/restoration/mask preservation,outer startup scope survives compiler end, SIGILL one-argument handler and SIGSEGV SA_SIGINFO delegation, bounded raw context written before original handler; no recovery. PS5 context capture pending.')

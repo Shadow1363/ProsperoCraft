@@ -46,7 +46,17 @@ extern "C" int __wrap_open(const char *path,int flags,...) {
  errno=error;return fd;
 }
 #endif
+extern "C" int ps5shaderc_fault_begin(void);
+extern "C" void ps5shaderc_fault_end(void);
 namespace {
+// One outer reference survives nested compiler begin/end calls. Restore the
+// previous JVM handlers on every normal/Java-exception return from run_test.
+struct StartupFaultScope {
+ bool active;
+ int handlers;
+ explicit StartupFaultScope(bool enable):active(enable),handlers(enable?ps5shaderc_fault_begin():0){}
+ ~StartupFaultScope(){if(active)ps5shaderc_fault_end();}
+};
 constexpr int test_count=4;
 const char *names[]={"Initialize embedded runtime","Create Java VM for original client","Verify original client artifacts","Start original Minecraft26.3 Main (menu unvalidated)"};
 int status[test_count]{}; // 0 untested, 1 pass, -1 fail, 2 running
@@ -56,7 +66,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.046";
+constexpr const char* build_version="01.000.047";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -84,7 +94,7 @@ void network_checkpoint(JNIEnv *env,jclass,jstring stage) {
  const char *utf=env->GetStringUTFChars(stage,nullptr);
  if(!utf) return;
  log_stage(utf);
- if(std::strncmp(utf,"MC Startup046:",14)==0)notify(utf);
+ if(std::strncmp(utf,"MC Startup047:",14)==0)notify(utf);
  env->ReleaseStringUTFChars(stage,utf);
 }
 int vm_print(FILE *,const char *format,va_list arguments) {
@@ -312,6 +322,14 @@ void run_test(int i) {
   jclass string_class=java_env->FindClass("java/lang/String");
   jobjectArray arguments=string_class?java_env->NewObjectArray(0,string_class,nullptr):nullptr;
   if(!arguments||java_env->ExceptionCheck()) {java_failure(i,-1306,"argument array");if(string_class) java_env->DeleteLocalRef(string_class);java_env->DeleteLocalRef(klass);return;}
+  StartupFaultScope startup_faults(i==3);
+  if(i==3) {
+   char fault_note[128];std::snprintf(fault_note,sizeof(fault_note),"Original startup fault recorder installed handlers%d (expected4)",startup_faults.handlers);log_stage(fault_note);
+   if(startup_faults.handlers!=4) {
+    java_env->DeleteLocalRef(arguments);java_env->DeleteLocalRef(string_class);java_env->DeleteLocalRef(klass);
+    result(i,-1320,"Cannot install complete original-startup fault recorder");return;
+   }
+  }
   log_stage("Calling Client fixture.main");
   java_env->CallStaticVoidMethod(klass,method,arguments);
   bool failed=java_env->ExceptionCheck();
@@ -332,7 +350,7 @@ void run_test(int i) {
 }
 extern "C" void client_sdl_diagnostic(const char* text) {log_stage(text);}
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU046 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU047 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 extern "C" int sceKernelSendNotificationRequest(std::uint32_t,void*,std::size_t,int);
 extern "C" int sceSystemServiceHideSplashScreen();
@@ -342,14 +360,14 @@ static void notify(const char* text) {
  (void)sceKernelSendNotificationRequest(0,&n,sizeof(n),0);
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.046 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.047 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
  if(sceUserServiceGetInitialUser(&user)>=0 && scePadInit()>=0) pad=scePadOpen(user,0,0,nullptr);
 
- notify("Client046 ready: press X once to try ORIGINAL Minecraft startup. Demo mode;no automatic menu PASS. Keep open for logs.");
- if(pad<0){notify("Client046 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
+ notify("Client047 ready: press X once to try ORIGINAL Minecraft startup. Demo mode;no automatic menu PASS. Keep open for logs.");
+ if(pad<0){notify("Client047 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
  bool armed=false,start=false;std::uint32_t previous=0;
  while(!start) {
   PadSample batch[64]{};int count=scePadRead(pad,batch,64);
@@ -363,7 +381,7 @@ int main() {
  }
  scePadClose(pad);pad=-1;
  (void)sceSystemServiceHideSplashScreen();
- notify("Client046 starting original Minecraft26.3 demo. Native ports incomplete;startup may stop at a missing dependency. Keep open for logs.");
+ notify("Client047 starting original Minecraft26.3 demo. Native ports incomplete;startup may stop at a missing dependency. Keep open for logs.");
  // Compiler and texture/depth/blend acceptance precede retained SDL display resources.
  // This also avoids repeating manual inputs when compiler startup fails.
  for(int step=0;step<test_count;++step) {
@@ -371,11 +389,11 @@ int main() {
   if(i){char state[200];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}
   run_test(i);
   if(status[i]!=1) {
-   char note[240];std::snprintf(note,sizeof(note),"Client046 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
+   char note[240];std::snprintf(note,sizeof(note),"Client047 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
    for(;;)(void)sceKernelUsleep(1000000);
   }
  }
  char state[240];std::snprintf(state,sizeof(state),"STARTUP RETURNED: inspect logs and actual screen;menu/world success unverified.");session_status(state);
- notify("Client046 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
+ notify("Client047 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
  for(;;)(void)sceKernelUsleep(1000000);
 }

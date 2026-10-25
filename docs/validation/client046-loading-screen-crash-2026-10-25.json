@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.046",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.046-1792944398-207378114",
+  "tested_source_commit": "8c8a84088de232a965ae57101c5fb122a3937148",
+  "package_sha256": "c4c8a11e8fb54dcf2e1fbb91759261aacb940ec1c85485a40ab225b138afbdb9",
+  "human": "MOJANG LOADING SCREEN then crash;reopened without another run",
+  "observed": "Early same-owner open attempt1 returns positive0x4e100100 and prepare0. WSI creates1920x1080/3image swapchain;images0/1/2 require8847360 bytes align65536 in10485760-byte buffers and host-import result0. Prior open/registration refusal absent. Human visible original Mojang loading screen corroborates presentation,not menu/gameplay pass.",
+  "cause": "Early same-owner VideoOut initialization works for this run. Underlying late-open service refusal mechanism remains unconfirmed. Later crash has no captured fatal signal/VM abort;trace ends after shaderc returns. Existing compiler recorder is removed between compilations,leaving other native startup code uncovered.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "cf0150b295df97d84134c09a897d39a0365d590c044fbf2752f4186372c00893"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "35ab17168c7cc1459fbd2c351889b3e71f5024b20ab431640785780cac531f4e"
+    },
+    "exceptions.log": {
+      "bytes": 13468,
+      "sha256": "79f9b0f71656b69c11220bc2c5eed6aec1672cac4c975f53ae171e1676f647be"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "9c59f7b1cc5d768576b534b3a232ee751dea32a5bfd7cc5a692949ee1a30f444"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "33f2a2ed836a645bef119963558ef24038ea7482c42dded58da62b756423dae3"
+    },
+    "vm-trace.log": {
+      "bytes": 1568244,
+      "sha256": "3b00c306c0f278cb2001e3c2cafc872b2c8d430b4c5b0e94e5d6ceff3b8d2975"
+    }
+  },
+  "next": "047 extends existing delegating fault recorder across original startup fixture/native Main invocation. No game/JVM changes;retain early WSI owner and matched display.",
+  "limits": "No ALL PASS/new milestone/release. Exact046 retained. Crash instruction/cause,menu/gameplay/stability remain pending;server2H deferred."
+}
