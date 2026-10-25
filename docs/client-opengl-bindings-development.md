@@ -198,3 +198,20 @@ original game JARs and includes corresponding OpenAL source/relink materials;
 the unmodified relink reproduces the exact accepted ELF. Preserve the snapshot
 and continue new work in root client/. This acceptance does not establish
 Minecraft startup,hardware GL,full native-module cleanup or endurance.
+
+
+## Original startup030 retry
+
+030calls the original Minecraft Main again. Its startup harness sets the OSMesa
+context API and actual resident library name,loads the real provider after the
+existing graphics platform,and keeps --graphicsBackend vulkan. The packaged
+OSMesa objects,OpenGL JNI and GL/VK/AL Java dependency overlay match passing029
+byte-for-byte. No game classes/JARs or runtime implementation change.
+
+Host controls confirm demo/credential-free launch policy,existing options
+preservation and actual unchanged Main reaching its host native bootstrap
+before expected unavailable-host-native failure. Target checks verify all54
+original JARs/all5147asset SHA1s,exact runtime/native libraries,9resident groups,
+359+4+5+15+1staged constructors and valid signatures/CRC.030requires actual PS5
+startup observation;there is no automatic menu pass. STB/FreeType/VMA/SPIRV-Cross
+and remaining SDL paths,game memory needs and full startup remain unvalidated.

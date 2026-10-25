@@ -52,6 +52,18 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Development:original Minecraft startup030
+
+030retries the original26.3 Main entry point with the exact native OpenGL
+provider,JNI bindings and dependency overlay from passing029. The harness
+uses OSMesa for unconditional GL bootstrap and keeps Vulkan selected for game
+rendering. All54original JARs and5147original asset objects are unchanged.
+
+Host launch-policy and full package checks pass. **Actual PS5 startup/menu is
+pending.** Remaining native dependencies are incomplete;this run can expose the
+next missing library. The four startup rows do not automatically validate a
+Minecraft menu. See [candidate scope](client/startup/status.json).
+
 ## Client OpenGL Provider — PS5 ALL5 PASS
 
 Client **01.000.029** passes all five checks on the actual PS5. Saved reports

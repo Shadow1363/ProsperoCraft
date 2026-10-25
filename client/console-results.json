@@ -339,6 +339,16 @@
       "milestone": "Client_OpenGL_Provider",
       "run": "client-01.000.029-1792919308-523542436",
       "evidence": "Client_OpenGL_Provider/validation.json"
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.030",
+      "package_sha256": "1eb5bc45080aa65b9d38817db58e4984ff58668f491598322783c83c41cc8ce1",
+      "console": "pending actual PS5 original Minecraft startup;no menu/world acceptance yet",
+      "host": "PASS launch policy/writable workdir/existing options preservation,unchanged original JAR;separate original host Main reaches native-library bootstrap then exits253 with unprovided host natives. No host menu pass.",
+      "package_checks": "PASS030 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/9real resident groups/actual029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 1eb5bc45080aa65b9d38817db58e4984ff58668f491598322783c83c41cc8ce1",
+      "change": "Startup harness explicitly selects genuine resident OSMesa for unconditional GL native bootstrap while --graphicsBackend vulkan remains the selected game renderer.",
+      "candidate_record": "docs/validation/client030-startup-candidate-2026-10-25.json"
     }
   ]
 }

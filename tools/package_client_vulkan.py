@@ -19,7 +19,7 @@ parser.add_argument('--render', action='store_true', help='Build client010 graph
 parser.add_argument('--present', action='store_true', help='Build client011 standalone direct presentation candidate')
 parser.add_argument('--sdl', action='store_true', help='Build client014 SDL window/input candidate')
 parser.add_argument('--runtime-shader', action='store_true', help='Build client023 runtime GLSL compiler candidate')
-parser.add_argument('--startup',action='store_true',help='Build027 original Minecraft Main startup with validated026 native ports')
+parser.add_argument('--startup',action='store_true',help='Build030 original Minecraft Main startup with validated029 OpenGL provider')
 parser.add_argument('--native-bootstrap',action='store_true',help='Build026 genuine libffi/OpenAL native acceptance')
 parser.add_argument('--opengl-bootstrap',action='store_true',help='Build029 genuine Mesa/OpenGL acceptance')
 args = parser.parse_args()
@@ -28,7 +28,7 @@ if args.startup or args.opengl_bootstrap:args.native_bootstrap=True
 if args.startup or args.native_bootstrap:args.runtime_shader=True
 runtime = args.runtime_workspace.resolve()
 variant="opengl_bootstrap" if args.opengl_bootstrap else "startup" if args.startup else "native_bootstrap" if args.native_bootstrap else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.029" if args.opengl_bootstrap else "01.000.027" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+version="01.000.029" if args.opengl_bootstrap else "01.000.030" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -157,7 +157,7 @@ if args.native_bootstrap:
  scoped_helper=work/'callback-helper.o';subprocess.run(['/opt/homebrew/opt/llvm/bin/llvm-objcopy','--redefine-syms='+str(ROOT/'build/client-gpu/sdl-bindings.txt'),str(helper),str(scoped_helper)],check=True);spec['resident_libraries'].append({'name':'ps5nativeprobe','objects':[str(scoped_helper)]})
  licenses=java/'native-bootstrap-licenses';licenses.mkdir()
  for name,path in [('libffi-LICENSE.txt',ROOT/'build/libffi-ps5/source/LICENSE'),('OpenAL-COPYING.txt',ROOT/'.tools/openal-soft-src/COPYING'),('OpenAL-BSD.txt',ROOT/'.tools/openal-soft-src/BSD-3Clause'),('PFFFT-LICENSE.txt',ROOT/'.tools/openal-soft-src/LICENSE-pffft'),('fmt-LICENSE.txt',ROOT/'.tools/openal-soft-src/fmt-11.2.0/LICENSE'),('GSL-LICENSE.txt',ROOT/'.tools/openal-soft-src/gsl/LICENSE')]:shutil.copyfile(path,licenses/name)
-if args.opengl_bootstrap:
+if args.opengl_bootstrap or args.startup:
  from build_osmesa_resident import prepare as prepare_gl
  from build_lwjgl_opengl_native import build as build_gl_jni
  gl_objects,gl_audit=prepare_gl(runtime,args.offline)
