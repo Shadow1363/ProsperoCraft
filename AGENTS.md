@@ -390,3 +390,16 @@ registration,image layout and host import errors without changing results or
 parameters. A private RADV archive replaces one native WSI object;original pinned
 source/archive unchanged. Original game JARs and frozen passes stay intact.
 Driver rejection/crash/menu remain unresolved pending next PS5 diagnostic run.
+
+Client043 WSI diagnostics identify negative VideoOut open before framebuffer
+registration/image allocation;extent/count/import callback are valid. Native raw
+OS error not captured;VM trace has no fatal signal. Exact043package/symbols/status
+preserved. Client044 adds0002 native WSI patch:caches nonnegative handles only,
+one delayed retry after2s before any buffers/current swapchain,max2OS attempts,
+retains success and logs raw OS errors. Permanent refusal remains failure.
+Private native archive only;original game JARs/Mesa archive and frozen passes
+unchanged. Host exact-function tests use synthetic OS responses/clock. Initial
+refusal/crash/menu/presentation need actual PS5 validation;server2H deferred.
+
+When incrementing build versions,replace complete version/label tokens rather
+than bare digits;historical SHA-256 strings must remain exact and unchanged.

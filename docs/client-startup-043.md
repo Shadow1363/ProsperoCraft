@@ -58,3 +58,8 @@ network and teardown remain pending. Server2H endurance stays deferred.
 Host helper/launch/allocation checks,target WSI compile and full-package checks
 pass. Full local ZIP SHA-256:`80094940d09e25479fae0dbb6106a6d65b11ffe3c6582ac234b6dae38fd2afe3`.
 PS5 diagnostic run and swapchain/crash resolution remain pending.
+
+Console outcome:checkpoint initialization-guard-477 identifies negative VideoOut
+open before image allocation. Driver caches its first failure permanently. See
+[043evidence](validation/client043-startup-failure-2026-10-25.json) and
+[044bounded retry](client-startup-044.md). Original refusal/crash remain pending.

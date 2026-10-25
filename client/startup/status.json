@@ -1,12 +1,12 @@
 {
-  "stage": "ProsperoCraft original startup043:bounded native WSI diagnostics",
+  "stage": "ProsperoCraft original startup044:bounded VideoOut reopen",
   "date": "2026-10-25",
   "title_id": "PPSA99874",
-  "app_version": "01.000.043",
-  "package_sha256": "80094940d09e25479fae0dbb6106a6d65b11ffe3c6582ac234b6dae38fd2afe3",
-  "console": "PENDING PS5 diagnostic run;swapchain/crash unresolved",
+  "app_version": "01.000.044",
+  "package_sha256": "3a940fa1e3280b8f665f065ce5af50a00b1b9d2884b608a5a123f41666670443",
+  "console": "PENDING PS5 VideoOut retry/raw OS error/presentation/menu",
   "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
-  "package_checks": "PASS043 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 80094940d09e25479fae0dbb6106a6d65b11ffe3c6582ac234b6dae38fd2afe3",
+  "package_checks": "PASS044 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 3a940fa1e3280b8f665f065ce5af50a00b1b9d2884b608a5a123f41666670443",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
   "game_jar_modified": false,
   "runtime_implementation_modified": false,
@@ -36,20 +36,20 @@
   "native_coverage": "Exact accepted036 SPIRV-Cross,035 VMA,033 FreeType,031 STB,029 OSMesa/OpenGL and026 callbacks/OpenAL;existing SDL/shaderc/RADV. Combined original game initialization and broader native API use remain unvalidated.",
   "baseline": "All passing snapshots including036/035 and failed034/032/030 preserved",
   "not_validated": [
-    "Precise WSI rejection/native crash cause and PS5 swapchain/presentation/menu",
+    "PS5 VideoOut open/retry and underlying initial refusal/crash,presentation/menu",
     "Further native feature/API coverage and network-service failures",
     "Game memory adequacy/performance/global teardown;server endurance deferred"
   ],
-  "previous_failure": "docs/validation/client042-startup-failure-2026-10-25.json",
+  "previous_failure": "docs/validation/client043-startup-failure-2026-10-25.json",
   "memory_limit": "040used130MiB after last Java GC/247MiB committed;separate4MiB native allocator failure. Console-wide memory pressure and full game adequacy unmeasured.",
-  "development_repair": "043 diagnostic native WSI checkpoints for actual swapchain/registration/layout/import failures;no result/parameter bypass and no claim of crash fix.",
+  "development_repair": "044 caches success only,permits one delayed retry after2seconds before any buffers/current swapchain exist,retains valid handle and logs raw OS result. Maximum two OS open attempts;no errors swallowed.",
   "native_dependency_baseline": {
     "milestone": "Client_OpenGL_Provider",
     "version": "01.000.029",
     "full_package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
     "console": "Human ALL5 PASS and saved reports;037 packaged provider/JNI/overlay hashes match029"
   },
-  "development": "043 diagnostics only for unresolved native swapchain failure/crash",
+  "development": "044 repairs permanently cached negative VideoOut open;initial refusal/crash unresolved",
   "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports.",
   "stb_baseline": {
     "milestone": "Client_STB_Codecs",
@@ -87,16 +87,18 @@
   "wsi_host_regression": "PASS actual WSI diagnostic helper:unchanged success/failure codes,384byte bounded format,64event cap under4threads;no GPU/OS failure-path validation",
   "wsi_target_check": "PASS diagnostic WSI target compile/private archive member substitution;original archive retained",
   "wsi_diagnostics": {
-    "scope": "Diagnostic-only WSI checkpoints;actual Vulkan/OS results/parameters unchanged;64bounded events,384byte stack formatting,no allocation",
+    "scope": "Native WSI checkpoints and one delayed pre-resource VideoOut retry;max2 OS opens,success handle retained,negative results remain failure;64events/384byte formatting",
     "mesa_commit": "1ba9874f478657ccf6da72ce55f0260164cc0bd0",
     "original_source_sha256": "a8347cdbd73959b7c5cccf4dd3047434933c44250964306c42f1b776f6dbcea3",
     "patch_sha256": "eaffa2404a54d754d37d546a54fc9a6ecd9d660890a68697da452bb6dbb7e532",
-    "patched_source_sha256": "d72bd4337e00a1e0a6e94aeb0c4121280477ce45ca3ce2a9e894789839848658",
-    "object_sha256": "0908b367fa9ac03d1f9134eeebb7ea84872e73fbb76406823424b79cde5c8ecb",
+    "retry_patch_sha256": "1cdf5f8cd0a3f9ecf61090fcdb427b0273a4f81daf28f4bf85c2fd5bd0f36e5f",
+    "patched_source_sha256": "1c0e5b167d7ab67fa063aff0fa4163d355f1de9bc83ad6fcf56a05b2b6688ba1",
+    "object_sha256": "14ff6203bd1c53fef7d9ab2220a1a2610bcb1af519040d68c674993fd4b05882",
     "original_archive_sha256": "4fc549f1f0cc4f0270b91e3447f16defdef50e582b03bba2257aaff88ee1e924",
-    "private_archive_sha256": "e9989e3db8b6d0827329e623ec3a27cc90fb2d43d08a46ede62e6090dfced4f7",
+    "private_archive_sha256": "dabc4e99089310d79c0dc7c3edfecb6f785d5aa9b61b8eaf389fd87da4a999b2",
     "replaced_member": "wsi_common_videoout.c.o",
     "original_archive_unchanged": true,
     "console": "PENDING PS5 rejection checkpoint/crash investigation"
-  }
+  },
+  "videoout_retry_host_regression": "wsi/videoout: sceVideoOutOpen failed: 0xfffffff9\nwsi/videoout: sceVideoOutOpen failed: 0xfffffff9\nwsi/videoout: sceVideoOutOpen failed: 0xfffffff8\nwsi/videoout: sceVideoOutOpen failed: 0xfffffff9\nPASS exact VideoOut open function:negative first result logged/not cached as success,no early retry,one retry at2s,success/zero handles retained,max2 failures,no retry with existing swapchain/buffers;synthetic OS responses only,PS5 pending"
 }
