@@ -22,14 +22,17 @@ int main(void){SDL_VideoDevice driver={0};if(PS5_Vulkan_LoadLibrary(&driver,"not
 PFN_vkGetInstanceProcAddr public_entry=ps5_test_public_loader,from_sdl=(PFN_vkGetInstanceProcAddr)driver.vulkan_config.vkGetInstanceProcAddr;
 if(from_sdl!=public_entry){puts("CONTROL pointer mismatch detected");return 10;}
 PFN_vkEnumerateInstanceExtensionProperties query=(PFN_vkEnumerateInstanceExtensionProperties)driver.vulkan_config.vkEnumerateInstanceExtensionProperties;uint32_t count=0;if(query(NULL,&count,NULL)!=VK_SUCCESS||!count)return 3;
+PFN_vkEnumerateInstanceLayerProperties layers=(PFN_vkEnumerateInstanceLayerProperties)from_sdl(NULL,"vkEnumerateInstanceLayerProperties");VkLayerProperties guard;memset(&guard,0x5a,sizeof(guard));VkLayerProperties expected=guard;count=123;if(!layers||layers(&count,NULL)!=VK_SUCCESS||count)return 11;count=1;if(layers(&count,&guard)!=VK_SUCCESS||count||memcmp(&guard,&expected,sizeof(guard)))return 12;
+count=0;if(query("VK_LAYER_KHRONOS_validation",&count,NULL)!=VK_ERROR_LAYER_NOT_PRESENT)return 13;
+if(from_sdl(NULL,"vkGetInstanceProcAddr")!=(PFN_vkVoidFunction)public_entry||from_sdl(NULL,"vkNonexistentProsperoCommand"))return 14;
 PFN_vkCreateInstance create=(PFN_vkCreateInstance)from_sdl(NULL,"vkCreateInstance");if(!create)return 4;
-VkApplicationInfo app={.sType=VK_STRUCTURE_TYPE_APPLICATION_INFO,.apiVersion=VK_API_VERSION_1_1};VkInstanceCreateInfo info={.sType=VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,.pApplicationInfo=&app};VkInstance instance=VK_NULL_HANDLE;if(create(&info,NULL,&instance)!=VK_SUCCESS||!instance)return 5;
+VkApplicationInfo app={.sType=VK_STRUCTURE_TYPE_APPLICATION_INFO,.apiVersion=VK_API_VERSION_1_1};VkInstanceCreateInfo info={.sType=VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,.pApplicationInfo=&app};VkInstance instance=VK_NULL_HANDLE;const char*absent="VK_LAYER_KHRONOS_validation";info.enabledLayerCount=1;info.ppEnabledLayerNames=&absent;if(create(&info,NULL,&instance)!=VK_ERROR_LAYER_NOT_PRESENT||instance)return 15;info.enabledLayerCount=0;info.ppEnabledLayerNames=NULL;if(create(&info,NULL,&instance)!=VK_SUCCESS||!instance)return 5;
 PFN_vkEnumeratePhysicalDevices devices=(PFN_vkEnumeratePhysicalDevices)from_sdl(instance,"vkEnumeratePhysicalDevices");count=0;if(!devices||devices(instance,&count,NULL)!=VK_SUCCESS||!count)return 6;
-PFN_vkDestroyInstance destroy=(PFN_vkDestroyInstance)from_sdl(instance,"vkDestroyInstance");if(!destroy)return 7;destroy(instance,NULL);puts("PASS actual PS5 SDL hook/public loader pointer identity,real MoltenVK extension query/instance/physical-device lookup/destroy;explicit-path rejection");return 0;}
+PFN_vkDestroyInstance destroy=(PFN_vkDestroyInstance)from_sdl(instance,"vkDestroyInstance");if(!destroy)return 7;destroy(instance,NULL);puts("PASS zero layers count/fill with guards,absent-layer extension/create rejection,self lookup/unknown command,actual PS5 SDL hook/public loader pointer identity,real MoltenVK extension query/instance/physical-device lookup/destroy;explicit-path rejection");return 0;}
 '''
 # Compile the exact consumer wrapper with only host symbol names adapted:it
 # delegates to MoltenVK's actual Vulkan loader entry rather than a mock ICD.
-loader=work/'loader.c';loader.write_text((ROOT/'client/vulkan/loader.c').read_text().replace('vkGetInstanceProcAddr(','ps5_test_public_loader(').replace('vk_icdGetInstanceProcAddr','vkGetInstanceProcAddr'))
+loader=work/'loader.c';loader.write_text((ROOT/'client/vulkan/loader.c').read_text().replace('vkGetInstanceProcAddr','ps5_test_public_loader').replace('vk_icdGetInstanceProcAddr','vkGetInstanceProcAddr').replace('"ps5_test_public_loader"','"vkGetInstanceProcAddr"'))
 includes=['-I'+str(ROOT/'.tools/lwjgl-vma-src')];base=['clang','-std=c11','-O2','-fsanitize=undefined',*includes,str(loader),'-L/opt/homebrew/lib','-lMoltenVK']
 for control in [False,True]:
  unit=work/('control.c'if control else'check.c');body=hook.replace('(SDL_FunctionPointer)vkGetInstanceProcAddr','(SDL_FunctionPointer)vk_icdGetInstanceProcAddr')if control else hook

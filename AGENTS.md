@@ -345,3 +345,13 @@ regenerate the artwork,rename repositories or change PPSA99874/content identity.
 Preserve frozen snapshots/releases and already-built038. Keep future candidate
 versions distinct as usual. Catalog rename/description update is PR737;its
 reservation icon_url remains null per catalog rules until downloadable release.
+
+Client039 failed check4 in original VulkanInstance validation-layer enumeration,
+VK_ERROR_LAYER_NOT_PRESENT;the previous SDL/LWJGL pointer rejection was absent.
+Exact039package/symbols/status are preserved locally;public failure record hashes
+full saved exceptions.log (session/startup/run ID retrieval unavailable).
+Client040 development loader reports truthful zero installed instance layers,
+rejects named-layer extensions/enabled-layer creation,and delegates actual GPU
+commands to resident ICD. Host MoltenVK/UBSan regressions pass;PS5 instance,
+window/menu/gameplay remain pending. Original game JARs remain intact;do not
+claim validation layers,menu success or a new passing milestone from host checks.

@@ -68,3 +68,9 @@ and server two-hour endurance remain unvalidated;endurance remains deferred.
 Host loader regression/launch policy and full-package checks pass. Full local
 ZIP SHA-256:`a034ae37f7d5c40026f0c7163b812aaeda6fb7811936b516ed1bd87baaad13a6`.
 PS5 corrected-loader/renderer/window/menu validation remains pending.
+
+Console outcome:human reported failed check4. Saved exceptions.log shows the
+loader-address rejection is gone;Vulkan instance layer enumeration now fails
+VK_ERROR_LAYER_NOT_PRESENT. Exact039 package/symbols/status preserved. See
+[039failure record](validation/client039-startup-failure-2026-10-25.json) and
+[040development repair](client-startup-040.md). No menu validation established.

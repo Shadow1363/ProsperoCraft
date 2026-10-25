@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.039",
+  "title_id": "PPSA99874",
+  "tested_source_commit": "b6b65e9e12514c5b41ea7b6ef0e475df20e48638",
+  "package_sha256": "a034ae37f7d5c40026f0c7163b812aaeda6fb7811936b516ed1bd87baaad13a6",
+  "human": "failed check4",
+  "observed": "Original Main reaches VulkanInstance.getSupportedValidationLayers;enumeration returns VK_ERROR_LAYER_NOT_PRESENT. No supported backend/window;Main returns and harness reports failure. SDL/LWJGL pointer mismatch no longer observed.",
+  "cause": "Resident wrapper forwards loader-owned instance layer enumeration directly to ICD;this application bundles no validation layers.",
+  "reports": {
+    "exceptions.log": {
+      "bytes": 12989,
+      "sha256": "8a600c8b0a57f450fd347616985352670364a21dfabd147a8a2cba9a091e53e2"
+    }
+  },
+  "limits": "Session and startup-tail retrieval became unavailable after full exceptions.log saved;run ID not retrieved. No menu pass.",
+  "repair": "040 implements layerless loader discovery and rejects explicitly requested absent layers;unchanged actual ICD dispatch and original game JARs;PS5 pending."
+}

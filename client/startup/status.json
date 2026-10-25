@@ -1,12 +1,12 @@
 {
-  "stage": "ProsperoCraft original Minecraft startup039:shared SDL/LWJGL Vulkan loader",
+  "stage": "ProsperoCraft original Minecraft startup040:layerless Vulkan loader discovery",
   "date": "2026-10-25",
   "title_id": "PPSA99874",
-  "app_version": "01.000.039",
-  "package_sha256": "a034ae37f7d5c40026f0c7163b812aaeda6fb7811936b516ed1bd87baaad13a6",
-  "console": "PENDING PS5 corrected Vulkan loader/window/menu",
-  "host": "PASS launch policy/writable workdir/existing options preservation,unchanged original JAR;separate original host Main reaches native-library bootstrap then exits253 with unprovided host natives. No host menu pass.",
-  "package_checks": "PASS039 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 a034ae37f7d5c40026f0c7163b812aaeda6fb7811936b516ed1bd87baaad13a6",
+  "app_version": "01.000.040",
+  "package_sha256": "3950044b662911773ad5d262174b873d7bd48ab44e3e532086880430f94265b5",
+  "console": "PENDING PS5 instance creation/window/menu",
+  "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+  "package_checks": "PASS040 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 3950044b662911773ad5d262174b873d7bd48ab44e3e532086880430f94265b5",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
   "game_jar_modified": false,
   "runtime_implementation_modified": false,
@@ -36,20 +36,20 @@
   "native_coverage": "Exact accepted036 SPIRV-Cross,035 VMA,033 FreeType,031 STB,029 OSMesa/OpenGL and026 callbacks/OpenAL;existing SDL/shaderc/RADV. Combined original game initialization and broader native API use remain unvalidated.",
   "baseline": "All passing snapshots including036/035 and failed034/032/030 preserved",
   "not_validated": [
-    "PS5 corrected SDL/LWJGL loader address identity and graphics backend/window/menu/gameplay",
+    "PS5 layerless Vulkan enumeration/instance creation and graphics backend/window/menu/gameplay",
     "Further native feature/API coverage and network-service failures",
     "Game memory adequacy/performance/global teardown;server endurance deferred"
   ],
-  "previous_failure": "docs/validation/client038-startup-failure-2026-10-25.json",
+  "previous_failure": "docs/validation/client039-startup-failure-2026-10-25.json",
   "memory_limit": "038created256MiB VM and progressed without a recorded Java OOM;later game adequacy unvalidated.",
-  "development_repair": "PS5 SDL uses same real public vkGetInstanceProcAddr wrapper as LWJGL,delegating to actual resident ICD;original game pointer-identity check unchanged.ProsperoCraft title/user icon applied.",
+  "development_repair": "040 implements layerless loader discovery and rejects explicitly requested absent layers;unchanged actual ICD dispatch and original game JARs;PS5 pending.",
   "native_dependency_baseline": {
     "milestone": "Client_OpenGL_Provider",
     "version": "01.000.029",
     "full_package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
     "console": "Human ALL5 PASS and saved reports;037 packaged provider/JNI/overlay hashes match029"
   },
-  "development": "039shared-loader original Main retry;256MiB heap retained;menu validation pending.",
+  "development": "040 original Main retry;256MiB heap retained;menu pending",
   "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports.",
   "stb_baseline": {
     "milestone": "Client_STB_Codecs",
@@ -80,5 +80,5 @@
     "icon": "assets/branding/icon0.png",
     "artwork": "User supplied;nearest-neighbour resize only"
   },
-  "loader_host_regression": "PASS actual PS5 SDL hook/public loader pointer identity,real MoltenVK extension query/instance/physical-device lookup/destroy;explicit-path rejection\n \nCONTROL pointer mismatch detected\n \nPASS038pointer mismatch reproduced and corrected using real driver functions;PS5 console integration pending"
+  "loader_host_regression": "PASS zero layers count/fill with guards,absent-layer extension/create rejection,self lookup/unknown command,actual PS5 SDL hook/public loader pointer identity,real MoltenVK extension query/instance/physical-device lookup/destroy;explicit-path rejection\n \nCONTROL pointer mismatch detected\n \nPASS038pointer mismatch reproduced and corrected using real driver functions;PS5 console integration pending"
 }
