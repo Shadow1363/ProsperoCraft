@@ -1,0 +1,1292 @@
+{
+  "milestone": "Client_STB_Codecs",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.031",
+  "reported_date": "2026-10-25",
+  "console": "Human ALL5 PASS corroborated by matching saved session:STB PNG/codecs/JVM stop. Detailed startup download incomplete;per-cycle output not independently retrieved.",
+  "run": "client-01.000.031-1792921801-581678467",
+  "tested_source_commit": "4dd4ef83ab5bc1609dcf3a4b333fb1bbb65298e6",
+  "tested_full_package_sha256": "061d1ab8b40fcd90cf5e3854ee6d5220a7410685ddb69634faaf688db92cb42c",
+  "public_asset": "PPSA99874-client-stb-codecs-app-only.zip",
+  "public_asset_sha256": "5afac9d3eea0abe6be4123ad61838a1fa3e296e6c4a003508d81328959ea0037",
+  "runtime": {
+    "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+    "commit": "db3ac845fa090c64e2a737d6c4222dd37867d7fe",
+    "scope": "Existing exact runtime image and native libraries retained;no JVM implementation change;128MiB interpreter"
+  },
+  "tests": [
+    "359runtime constructors and real128MiB VM",
+    "54original JAR inventory without game launch",
+    "Real STB PNG encode/file-read/decode/free,3cycles with768exact RGBA bytes/384input guard bytes per accepted fixture",
+    "Truncated PNG and invalid Vorbis rejection controls;Perlin/native struct checks",
+    "DestroyJavaVM;session reports ALL5 PASS"
+  ],
+  "not_validated": [
+    "Detailed current-run startup report not fully retrieved;per-cycle fields based on accepted fixture and human/session ALL5,not independent detailed log inspection",
+    "Valid Vorbis decode,font rasterization,resize,DXT,callbacks,large/concurrent workloads and broad codec coverage",
+    "Minecraft startup/menu/world;remaining native dependencies",
+    "Full native-module teardown/long-duration memory pressure",
+    "Server two-hour endurance remains deferred"
+  ],
+  "logs": {
+    "session.txt": {
+      "sha256": "d16a3a2edcb33b252e9f0891449ca777aba82832742fe39cc2b9d66b9c772134",
+      "scope": "Current-run report saved using Safari native UI;raw data local"
+    }
+  },
+  "openal_relink_asset": "client031-openal-source-relink.zip",
+  "openal_relink_asset_sha256": "882660e562df72cf3a01628dd5648e5b9a07f0a0eb3bf84243e650323aae2298",
+  "relink_checks": "PASS exact tested native ELF reproduced: b8f82e0c6a5b329b86656e7476b837fd6871a97220457791525dbe6fb19c4f16",
+  "excluded_jars": [
+    {
+      "file": "authlib-10.0.77.jar",
+      "size": 152645,
+      "sha256": "521672866582633a412c82171d3cfa416ecaccdf05a43baf809c16f9aec07068"
+    },
+    {
+      "file": "azure-json-1.4.0.jar",
+      "size": 325945,
+      "sha256": "c50bc998cd1a6c689f8644b51c206217bf2da09d5b949e777490a60290cc3a0d"
+    },
+    {
+      "file": "blocklist-1.0.10.jar",
+      "size": 964,
+      "sha256": "830bfd639c8db49236bbd8e45d3a2b8c96c56ff654a10118654958a6235d4c44"
+    },
+    {
+      "file": "brigadier-1.3.11.jar",
+      "size": 80151,
+      "sha256": "9d09cf4819de83dfcd38bcb212d5f2227131791cef3abbfca3321d6fb2b9a64d"
+    },
+    {
+      "file": "client-26.3.jar",
+      "size": 41483720,
+      "sha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d"
+    },
+    {
+      "file": "commons-codec-1.22.0.jar",
+      "size": 420480,
+      "sha256": "d164fe79f262c32d9b18a0b5b2d317d1c27653d5e98fd2b998c24bf901c72ce4"
+    },
+    {
+      "file": "commons-compress-1.28.0.jar",
+      "size": 1117221,
+      "sha256": "e1522945218456f3649a39bc4afd70ce4bd466221519dba7d378f2141a4642ca"
+    },
+    {
+      "file": "commons-io-2.20.0.jar",
+      "size": 563971,
+      "sha256": "df90bba0fe3cb586b7f164e78fe8f8f4da3f2dd5c27fa645f888100ccc25dd72"
+    },
+    {
+      "file": "commons-lang3-3.20.0.jar",
+      "size": 713862,
+      "sha256": "69e5c9fa35da7a51a5fd2099dfe56a2d8d32cf233e2f6d770e796146440263f4"
+    },
+    {
+      "file": "datafixerupper-10.0.21.jar",
+      "size": 753612,
+      "sha256": "3547cb1da8993fb7ebd42494d0e78997d2cfbe90c421f5efd022863e6909941e"
+    },
+    {
+      "file": "failureaccess-1.0.3.jar",
+      "size": 10763,
+      "sha256": "cbfc3906b19b8f55dd7cfd6dfe0aa4532e834250d7f080bd8d211a3e246b59cb"
+    },
+    {
+      "file": "fastutil-8.5.18.jar",
+      "size": 23965563,
+      "sha256": "9094ae67d01d0ad246f886f11ad557fc2e79c72cbf3feed83e1512a8ae90a74a"
+    },
+    {
+      "file": "gson-2.14.0.jar",
+      "size": 313604,
+      "sha256": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f"
+    },
+    {
+      "file": "guava-33.6.0-jre.jar",
+      "size": 3064793,
+      "sha256": "dc573e1fca4fd5454f4a5fd3d7da2df03002876a4175bafc14a95980dd7713b3"
+    },
+    {
+      "file": "icu4j-78.3.jar",
+      "size": 15156073,
+      "sha256": "e962c1758d9659ea1e1fbab99c58683f654d304e1126ace19aaabfe39e0edb25"
+    },
+    {
+      "file": "jna-5.17.0.jar",
+      "size": 2002589,
+      "sha256": "b3a9408e7c51e08ef0e3bfcc08f443f6ec0f6191ba8cd7c18d53d2b22e5bdbc0"
+    },
+    {
+      "file": "jna-platform-5.17.0.jar",
+      "size": 1378617,
+      "sha256": "b7e3d46c87bad2eb409b0e704916bcd81206168e357312dfddd0e253679cd9e0"
+    },
+    {
+      "file": "joml-1.10.9.jar",
+      "size": 814581,
+      "sha256": "feca4db853371704338621c120acc5cc32300d8af635fa42414b6213301e216b"
+    },
+    {
+      "file": "jopt-simple-5.0.4.jar",
+      "size": 78146,
+      "sha256": "df26cc58f235f477db07f753ba5a3ab243ebe5789d9f89ecf68dd62ea9a66c28"
+    },
+    {
+      "file": "jorbis-0.0.17.jar",
+      "size": 99701,
+      "sha256": "e067f29a3701426b67ed973036949c6e58ca5bb53eef7240b2e71e286d252a9e"
+    },
+    {
+      "file": "jspecify-1.0.0.jar",
+      "size": 3819,
+      "sha256": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab"
+    },
+    {
+      "file": "jtracy-1.14.38.jar",
+      "size": 14292,
+      "sha256": "721bff502a9664d689d781ab7bfed19330606c2e1ef6b8e4d59fba67e7e765da"
+    },
+    {
+      "file": "log4j-api-2.26.0.jar",
+      "size": 351126,
+      "sha256": "820de7bbaf430eaf2e3e5ccb92f23e2085797c5ac4d4f7fc6c8b660fbefa1dbc"
+    },
+    {
+      "file": "log4j-core-2.26.0.jar",
+      "size": 2015101,
+      "sha256": "406bb3132c47a5d322e5c571feb0787ca84496469f346eb51f1ef2ee45499902"
+    },
+    {
+      "file": "log4j-slf4j2-impl-2.26.0.jar",
+      "size": 30211,
+      "sha256": "cfc1bddbd39e684b698ae968291d8a3b3a55ee0ec2ef3d3ea5c2336a9e151598"
+    },
+    {
+      "file": "logging-1.7.12.jar",
+      "size": 19540,
+      "sha256": "3c7ac9742fa98c773275379eb1046c048b5d2ee989152a8c69e7ba696c3f8538"
+    },
+    {
+      "file": "lwjgl-3.4.3.jar",
+      "size": 1255440,
+      "sha256": "46eeca5471833c3cf5da3c1da015b41e3bb3eb16dd3da03f366886da10096751"
+    },
+    {
+      "file": "lwjgl-freetype-3.4.3.jar",
+      "size": 468438,
+      "sha256": "b331b9d2a29c1b330c3887d33c14dab9d7eed3f763bb8f5ca559eec02d73f075"
+    },
+    {
+      "file": "lwjgl-jemalloc-3.4.3.jar",
+      "size": 48061,
+      "sha256": "f34062b6489454f7e2c3bf5979e37667e62c7c85cd00f73760f441557cb1978a"
+    },
+    {
+      "file": "lwjgl-openal-3.4.3.jar",
+      "size": 154573,
+      "sha256": "4a0049c8554d6890718fee76507572f2f9f8f3f6144d25d7d2ea76bccc2d9605"
+    },
+    {
+      "file": "lwjgl-opengl-3.4.3.jar",
+      "size": 953649,
+      "sha256": "a92cf30f25b6fb6066f3508511f83c5c4fe2a0cff14fc2e7373bc1f6c726374f"
+    },
+    {
+      "file": "lwjgl-sdl-3.4.3.jar",
+      "size": 989769,
+      "sha256": "dcb33abcbd946553176bb668be80d7adc60cb9d919ab5c71fb01fc51cacc4c8f"
+    },
+    {
+      "file": "lwjgl-shaderc-3.4.3.jar",
+      "size": 153441,
+      "sha256": "82c7b5270d2c78458f5720c639459710c8f086ca050eea9ab0c44256fee7a626"
+    },
+    {
+      "file": "lwjgl-spvc-3.4.3.jar",
+      "size": 150189,
+      "sha256": "d737eba8512caa2f53db7a8dbea4c08d9c3d94493bb0a244e6d64af95541f742"
+    },
+    {
+      "file": "lwjgl-stb-3.4.3.jar",
+      "size": 143041,
+      "sha256": "544753f5e49c53580949b9f1fc341f0e434991303c93d5a428fbaafaacc2cd69"
+    },
+    {
+      "file": "lwjgl-vma-3.4.3.jar",
+      "size": 110265,
+      "sha256": "254162ef94bd213663a417368902ea916d51e0e0fa3054d07ea0ce9a8b7ac9e6"
+    },
+    {
+      "file": "lwjgl-vulkan-3.4.3.jar",
+      "size": 8866042,
+      "sha256": "acdb40767775ed1223dc3b2a8c9d3ce740c9e3c4af074444ce2dfe2ea9ba62e0"
+    },
+    {
+      "file": "lz4-java-1.10.1.jar",
+      "size": 910232,
+      "sha256": "a58a84c4271e50df4c96ed916ccb7e48a869f8ed9cdcda1ad5d3d4c33b0214a3"
+    },
+    {
+      "file": "msal4j-1.24.1.jar",
+      "size": 396486,
+      "sha256": "12e62f79d1a71d176a41c168c0587f8167f0add99b78f006f39595bd7242aebe"
+    },
+    {
+      "file": "netty-buffer-4.2.16.Final.jar",
+      "size": 378032,
+      "sha256": "cc36ae9fbd0b03fe755eb4eb4424ca53b59cfd297d7fd47d49e5b1059beded6c"
+    },
+    {
+      "file": "netty-codec-base-4.2.16.Final.jar",
+      "size": 155355,
+      "sha256": "feb410225938d9970de6b624a0c031d079804fa5cc5e1ec6e9298f16db5998a7"
+    },
+    {
+      "file": "netty-codec-compression-4.2.16.Final.jar",
+      "size": 183349,
+      "sha256": "13c8565414dd2115281303ef4ad1f7cc69bd7771d8d12c7d2fb31307dff26d11"
+    },
+    {
+      "file": "netty-codec-http-4.2.16.Final.jar",
+      "size": 678387,
+      "sha256": "0d16f981de8d0d304a2ab1a81f0a674892089fbaa8a583100aebb4a5b00456ec"
+    },
+    {
+      "file": "netty-common-4.2.16.Final.jar",
+      "size": 819965,
+      "sha256": "9825ee68a0dc4cd2b53e2f532502401b2211bad9b77e8b04882d9e64487283ff"
+    },
+    {
+      "file": "netty-handler-4.2.16.Final.jar",
+      "size": 587814,
+      "sha256": "a259ca496da05ac1981f95cd856211f894a328056a6129e9cd70dbbd5df401f7"
+    },
+    {
+      "file": "netty-resolver-4.2.16.Final.jar",
+      "size": 32975,
+      "sha256": "c9eca6a99036485cf1d186b4a6a595b0a54c53808319ee03924270eae04c32bb"
+    },
+    {
+      "file": "netty-transport-4.2.16.Final.jar",
+      "size": 549855,
+      "sha256": "cfa3f654caff906653385f4b7ddaa539d795b78f5711a622482b17d2b73484c0"
+    },
+    {
+      "file": "netty-transport-classes-epoll-4.2.16.Final.jar",
+      "size": 159935,
+      "sha256": "9f2b53210db9c8d24e787ed43f3896aaf30d686ed270c7afbb29ab6330c6aa23"
+    },
+    {
+      "file": "netty-transport-classes-kqueue-4.2.16.Final.jar",
+      "size": 116819,
+      "sha256": "6599b495f69420cb240ab0a1aa60a19a2df3bc72791729170e0993727637a689"
+    },
+    {
+      "file": "netty-transport-native-unix-common-4.2.16.Final.jar",
+      "size": 46877,
+      "sha256": "41ca8fe192083d17917be7ddcecded4da4fc1db1d1656d03d0bcb14e2f431155"
+    },
+    {
+      "file": "oshi-core-6.9.0.jar",
+      "size": 1022125,
+      "sha256": "b29ba9bce041e6ea822203d5b5a692660c87551241510ebc76eedffe684844c7"
+    },
+    {
+      "file": "patchy-2.2.10.jar",
+      "size": 4439,
+      "sha256": "16d70e7968b45caffc81576268eb000f473fb60bf257182d3447dea8ec919d5a"
+    },
+    {
+      "file": "slf4j-api-2.0.17.jar",
+      "size": 69908,
+      "sha256": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832"
+    },
+    {
+      "file": "text2speech-1.19.12.jar",
+      "size": 14009,
+      "sha256": "63769a6f662ad8943adf6be14a45e375d76a567d7ba50c2a7f1f95082c93b816"
+    }
+  ],
+  "retained_files": [
+    {
+      "path": "assets/java25/boot-image-audit.json",
+      "size": 1480,
+      "sha256": "6b80c3e50b13ea72aee8c2a2ca3c65018e23cd5e3bbe6ff178fc4f60b21c9c78"
+    },
+    {
+      "path": "assets/java25/classes/ClientArtifactProbe25.class",
+      "size": 4649,
+      "sha256": "ed7338a53fccc59f5b7fb7415f029baedd8e9b94ee0297c19c164d2478fcbb9e"
+    },
+    {
+      "path": "assets/java25/classes/ClientBridge25.class",
+      "size": 2381,
+      "sha256": "5c500a08ece89a7319401e1820741172b6c9f1a47cd80401b97575e705168ed9"
+    },
+    {
+      "path": "assets/java25/classes/ClientContinuousSDL25.class",
+      "size": 29338,
+      "sha256": "da50e2f9795f678b49d743a70eb77fa5f49da541b8d02a3d630e61051302dc62"
+    },
+    {
+      "path": "assets/java25/classes/ClientDirectScene25.class",
+      "size": 32584,
+      "sha256": "a5070a5aa8ecdf4bbfebca9daaba2c8940fc81591df53408ecb2090afee1716b"
+    },
+    {
+      "path": "assets/java25/classes/ClientGpu25.class",
+      "size": 6221,
+      "sha256": "ad6a68170fba8efbe1b420edabfcbe5f285e6756188488dfa439b6c7fd91db26"
+    },
+    {
+      "path": "assets/java25/classes/ClientInventory25.class",
+      "size": 604,
+      "sha256": "5a249e4061007c749ec75c0a398bffd4201eae424b29d5e10b7c36fd46b035c3"
+    },
+    {
+      "path": "assets/java25/classes/ClientLibrary25.class",
+      "size": 1976,
+      "sha256": "fb690acdf7982229f2824310282bbb753851e1e5d8172190587d4e9b15f224af"
+    },
+    {
+      "path": "assets/java25/classes/ClientLwjglCore25.class",
+      "size": 6552,
+      "sha256": "05af968a009789c9bac3d792a5d12b8c1e9aab7cafce327b10e84411e5ddc924"
+    },
+    {
+      "path": "assets/java25/classes/ClientNativeBootstrap25.class",
+      "size": 7774,
+      "sha256": "c4c2e7e47b4a43c08ad365c1c6cf6c9a8002d9c786fbf01475736d2e85fee8ed"
+    },
+    {
+      "path": "assets/java25/classes/ClientPlatform25.class",
+      "size": 1607,
+      "sha256": "42bc7817f27fd289bf04624fe7b2750ab0fee46142613d68625cee93f7d98a86"
+    },
+    {
+      "path": "assets/java25/classes/ClientPresentCode25.class",
+      "size": 7952,
+      "sha256": "e20f7c4469b550cb0077da78d127b9f55a75106f853d8c490b9be21071798d43"
+    },
+    {
+      "path": "assets/java25/classes/ClientRuntimeShader25.class",
+      "size": 28387,
+      "sha256": "9daf1603405857698641db51be6dcf54bfb501f6ba97d240a573bac2f7098ca9"
+    },
+    {
+      "path": "assets/java25/classes/ClientSTB25.class",
+      "size": 5729,
+      "sha256": "68f3131b1d5cd734536611ac5b4c06cdd4fcc2633af636449d5aba13c2fb25fd"
+    },
+    {
+      "path": "assets/java25/classes/ClientScene25.class",
+      "size": 46375,
+      "sha256": "a9d98b355b1642c97efb568a55cfab665eac5d8da8ab77aad879bb4dfcae5a10"
+    },
+    {
+      "path": "assets/java25/classes/ClientSceneCode25.class",
+      "size": 5728,
+      "sha256": "82d276883112bc14346b03cb33697206890fb21dc2a1f8a812ed217e3a66e46b"
+    },
+    {
+      "path": "assets/java25/classes/ClientShader25.class",
+      "size": 24653,
+      "sha256": "ff835a4854136643e92e04c8a906c5dadeb367d6677f8a03d92e3297d72496af"
+    },
+    {
+      "path": "assets/java25/classes/ClientShaderCode25.class",
+      "size": 3255,
+      "sha256": "540094e903e0cec56345e0d840a3d2360a7bd57aa2cfcd79cec7ed4b921801b4"
+    },
+    {
+      "path": "assets/java25/classes/ClientTexture25.class",
+      "size": 43204,
+      "sha256": "0f473c53b563b5233c456ab59d1315a1d21015530c48f39d752459ddb3eab2a8"
+    },
+    {
+      "path": "assets/java25/classes/ClientTextureCode25.class",
+      "size": 5559,
+      "sha256": "8d14b30400ee9d5a382d29a8d62291d4e181bc9ccbc99e9a7c5dd03eb6f37be4"
+    },
+    {
+      "path": "assets/java25/classes/ClientVulkan25$Allocation.class",
+      "size": 3982,
+      "sha256": "c16d8b7ba7de9ce0bbe7d149ee4d7da178ab215fe6328838636d65e2cb4c30fb"
+    },
+    {
+      "path": "assets/java25/classes/ClientVulkan25.class",
+      "size": 17643,
+      "sha256": "efefa9e500e4113cd513fc59d49d5983426a8c177498e35e934d8d1aea8ef949"
+    },
+    {
+      "path": "assets/java25/client/assets-index-34.json",
+      "size": 597035,
+      "sha256": "286d76e66c3dbaecb60fdafd2ba4dcaaef3983e36b59a132306f679bedaa5015"
+    },
+    {
+      "path": "assets/java25/client/client-inventory.properties",
+      "size": 4829,
+      "sha256": "28b03f57bf34b1b2cd13a1f4db6287987ba187e84743e56eb1072a0feb5c1922"
+    },
+    {
+      "path": "assets/java25/client/execution-audit.json",
+      "size": 508,
+      "sha256": "f9c9b5e731ac547948c3ae7de5c9cc21f8367310ee1543085bb4aaba9b2c2ca3"
+    },
+    {
+      "path": "assets/java25/client-probe.jar",
+      "size": 113856,
+      "sha256": "7c54b49b1a561ab2094ab04a47a68cdd5b59cff9fc3ef3677b4a34afc59a947f"
+    },
+    {
+      "path": "assets/java25/conf/net.properties",
+      "size": 7341,
+      "sha256": "f0093906820c30e079cbf79bd744d761aaf32ae917598c7ce71fac7eae16f86d"
+    },
+    {
+      "path": "assets/java25/conf/security/java.security",
+      "size": 74132,
+      "sha256": "7c43432bc33b890d4e750f6886f383785a35a9b6021c34c84fcde11bb15c152d"
+    },
+    {
+      "path": "assets/java25/conf/security/policy/README.txt",
+      "size": 2390,
+      "sha256": "6da0747334b0fea7592fd92614b2bbc8b126535e129b1fee483774d914e98eb5"
+    },
+    {
+      "path": "assets/java25/conf/security/policy/limited/default_US_export.policy",
+      "size": 146,
+      "sha256": "758b930a526fc670ab7537f8c26321527050a31f5f42149a2dda623c56a0a1a9"
+    },
+    {
+      "path": "assets/java25/conf/security/policy/limited/default_local.policy",
+      "size": 647,
+      "sha256": "2b2627548e61316150d47ffc3e6cad465ca05b3cccd4785eb7d21aa7baa0f441"
+    },
+    {
+      "path": "assets/java25/conf/security/policy/limited/exempt_local.policy",
+      "size": 566,
+      "sha256": "8c3d7648abcd95a272ce12db870082937f4d7f6878d730d83cb7fbb31eb8b2c9"
+    },
+    {
+      "path": "assets/java25/conf/security/policy/unlimited/default_US_export.policy",
+      "size": 146,
+      "sha256": "758b930a526fc670ab7537f8c26321527050a31f5f42149a2dda623c56a0a1a9"
+    },
+    {
+      "path": "assets/java25/conf/security/policy/unlimited/default_local.policy",
+      "size": 193,
+      "sha256": "8d8a318e6d90dfd7e26612d2b6385aa704f686ca6134c551f8928418d92b851a"
+    },
+    {
+      "path": "assets/java25/cpp-allocation-audit.json",
+      "size": 579,
+      "sha256": "0904a65b67cd53a4371300f1db85cef845d96f1246ba9093836217f0bc8e061b"
+    },
+    {
+      "path": "assets/java25/dependency-port-audit.json",
+      "size": 1263,
+      "sha256": "161057920d805536c662e5cdffc943427086af664370efe0d08aa4d443f221ee"
+    },
+    {
+      "path": "assets/java25/ffi-audit.json",
+      "size": 2795,
+      "sha256": "a644b99e286d1150d1e5aae618661c21f2a26c820ddbe57294ca27ba298d38d9"
+    },
+    {
+      "path": "assets/java25/gpu-integration-audit.json",
+      "size": 19093,
+      "sha256": "2234b1869d9278d9869249628a3f62ea833f6e9640206a97ad83c13f85bcaffb"
+    },
+    {
+      "path": "assets/java25/legal/java.base/aes.md",
+      "size": 1444,
+      "sha256": "45c6d4da48325edfbff3dcf71c704e504c057904435ed23c6d57046d551eb69d"
+    },
+    {
+      "path": "assets/java25/legal/java.base/c-libutl.md",
+      "size": 1556,
+      "sha256": "bef40679922d6fdfb7e4ddb223ad6722300f6054ba737bbf6188d60fcec517f9"
+    },
+    {
+      "path": "assets/java25/legal/java.base/cldr.md",
+      "size": 8790,
+      "sha256": "472e341c36efc1136860ed7a6461a2af4a53ae95d55d1126726340f5ba62b06a"
+    },
+    {
+      "path": "assets/java25/legal/java.base/gcc.md",
+      "size": 128099,
+      "sha256": "589e34f142cdf7d1430daa573e61c2e3dd0330c9eb5a2c00d4a98b3a4450810b"
+    },
+    {
+      "path": "assets/java25/legal/java.base/icu.md",
+      "size": 4147,
+      "sha256": "be23ad20a8231d2241b37fcf401548febd8597de8373f89268882020cb7c8818"
+    },
+    {
+      "path": "assets/java25/legal/java.base/public_suffix.md",
+      "size": 17783,
+      "sha256": "861de1e4992a7d28f1de25c73cd50d26a94779ebd749c0643fecfa56442c3429"
+    },
+    {
+      "path": "assets/java25/legal/java.base/siphash.md",
+      "size": 8256,
+      "sha256": "5a792b5a74ad2a5f3d6a7ad8b7a841116e58a772c18bc6e392320a365b222c76"
+    },
+    {
+      "path": "assets/java25/legal/java.base/unicode.md",
+      "size": 15098,
+      "sha256": "5194d6760f2e7eccc07804196cc619f84e730fa9d10c0529b71416186f4d12dc"
+    },
+    {
+      "path": "assets/java25/legal/java.base/zlib.md",
+      "size": 1010,
+      "sha256": "c9c70c36a1f0325e8788771906202d42ba6ab4205caca44ec0f665707e83226b"
+    },
+    {
+      "path": "assets/java25/lib/libjava.so",
+      "size": 225600,
+      "sha256": "d9b701a7586bb32acd0a5fd0b50f16d61a6d15c8b76fad91ff15f9e7c192721f"
+    },
+    {
+      "path": "assets/java25/lib/libjimage.so",
+      "size": 499992,
+      "sha256": "3269e16bdc14e25c10f50c923b4620d1f7cf991ad5794fd5a00fa72d6f4259e6"
+    },
+    {
+      "path": "assets/java25/lib/libmanagement.so",
+      "size": 64288,
+      "sha256": "ea4fb83157ab4054ff9036f42b22ad587c9587ad855e133c268177a8fbc5d6a7"
+    },
+    {
+      "path": "assets/java25/lib/libnet.so",
+      "size": 112624,
+      "sha256": "8cb79d3dbe80b5b2074844694613cd78b943e304dbddbfeaca6f2186d1721a8c"
+    },
+    {
+      "path": "assets/java25/lib/libnio.so",
+      "size": 176704,
+      "sha256": "955c49a9a161c998aebf6da8c6b1ab203543de3117c805034564f46b91b90bbd"
+    },
+    {
+      "path": "assets/java25/lib/libverify.so",
+      "size": 103376,
+      "sha256": "1cf654bb8aef41e3756013edfea89decddf0d46b64698f2ca92f8c15f740b161"
+    },
+    {
+      "path": "assets/java25/lib/libzip.so",
+      "size": 174304,
+      "sha256": "a6b521d7bbaf1230e2d9ddead0b5ef47e376d39b182213a4d686dc0177c99fd7"
+    },
+    {
+      "path": "assets/java25/lib/modules",
+      "size": 28086206,
+      "sha256": "77db70be6f1f98385d4db0fd9902b06bd20703ea272ee4298e8807bbcfe41f8b"
+    },
+    {
+      "path": "assets/java25/lib/security/cacerts",
+      "size": 134174,
+      "sha256": "2675a0aa6e7c158bbccf1181383ee794319e362df9a6bc88e1a5f8469a4c1dd7"
+    },
+    {
+      "path": "assets/java25/lib/server/libjvm.so",
+      "size": 33504984,
+      "sha256": "608a56b38401604b8ffde7c152b6d73abf39aed595a852966d81f23455d37fd5"
+    },
+    {
+      "path": "assets/java25/lib/tzdb.dat",
+      "size": 102956,
+      "sha256": "5906b44e25a8a730131d7ba1beb5d15af27043f6536f1a169ca8a5d8b8bed8f8"
+    },
+    {
+      "path": "assets/java25/lwjgl-native-audit.json",
+      "size": 2627,
+      "sha256": "f583bd4b405c7053d316f855b6f24259e1eaed1052dd3fbde29b4aba3754b311"
+    },
+    {
+      "path": "assets/java25/module-platform-audit.json",
+      "size": 2465,
+      "sha256": "b1a6b3dd99c717c6cf737a15528ab4c5fcdb0dfb218ae5f258ea17a29d23eb75"
+    },
+    {
+      "path": "assets/java25/native-bootstrap-licenses/GSL-LICENSE.txt",
+      "size": 1157,
+      "sha256": "4c21dc82a1c7186ea754fd59d504c00947953a3401fe8e24eaa44109ef8e2555"
+    },
+    {
+      "path": "assets/java25/native-bootstrap-licenses/OpenAL-BSD.txt",
+      "size": 1652,
+      "sha256": "b5a08cf98996dd83aa906a72c163600f6cb17a65ce546a553815a1267abd43ff"
+    },
+    {
+      "path": "assets/java25/native-bootstrap-licenses/OpenAL-COPYING.txt",
+      "size": 23330,
+      "sha256": "d808ce217e5b611854da622b57ec29fe545584c48bc5352fae72a4b6e5074a15"
+    },
+    {
+      "path": "assets/java25/native-bootstrap-licenses/PFFFT-LICENSE.txt",
+      "size": 1669,
+      "sha256": "64056328b3e7bc104e24ef96accc1a7abead156f0c02d1b87c97e3f3a28030de"
+    },
+    {
+      "path": "assets/java25/native-bootstrap-licenses/fmt-LICENSE.txt",
+      "size": 1431,
+      "sha256": "07580f2a3b35709ce703d523f447b242f6dfec7582a8c0df102c7fa2849375f8"
+    },
+    {
+      "path": "assets/java25/native-bootstrap-licenses/libffi-LICENSE.txt",
+      "size": 1132,
+      "sha256": "17b64dc60f3b6897a60f971e288b973f655c2edcdf08b25f3c3dd5549857881c"
+    },
+    {
+      "path": "assets/java25/openal-audit.json",
+      "size": 10727,
+      "sha256": "def39b498727e0645826308a76502a8a8c5e7dd3de2680b566d5089c57870e68"
+    },
+    {
+      "path": "assets/java25/ports/lwjgl-3.4.3-ps5-modules.jar",
+      "size": 25548,
+      "sha256": "405794e84a917d7936a113a355dd3c634fffae52c241dd183d90eaa7629d183e"
+    },
+    {
+      "path": "assets/java25/ports/lwjgl-3.4.3-ps5-platform.jar",
+      "size": 1260022,
+      "sha256": "ba6dd26db497394a71584200399778cb4517667a28d362b5250fb083220d05c1"
+    },
+    {
+      "path": "assets/java25/present-audit.json",
+      "size": 1150,
+      "sha256": "426361ed57f68639d5d1436ab797493125da0c2a97628be6db586714766f7dac"
+    },
+    {
+      "path": "assets/java25/release",
+      "size": 339,
+      "sha256": "0bd38a414d69cc0034c2aef11367c8b1c153c5ea45f76f5a750c568c24dd5140"
+    },
+    {
+      "path": "assets/java25/resident-libraries-audit.json",
+      "size": 2738,
+      "sha256": "90143410b8ac8bc893f29a0d8aada9e39ab084093e767334557aa34e345211c0"
+    },
+    {
+      "path": "assets/java25/scene-audit.json",
+      "size": 1185,
+      "sha256": "f7caf244d4bad8d416bfcae340a3926186b3d284e32fb9b3466109bd4bfa2ea5"
+    },
+    {
+      "path": "assets/java25/sdl-audit.json",
+      "size": 2402,
+      "sha256": "dc539f577c929c61ca7755196738ed7e8228bf2cc0f8e735bff6648c7fd04f2e"
+    },
+    {
+      "path": "assets/java25/sdl-licenses/MIT.txt",
+      "size": 1081,
+      "sha256": "d8db1712b2a1383b27cebeab2ddb8840a6e31ea820b0d56552a0f1c65f920983"
+    },
+    {
+      "path": "assets/java25/sdl-licenses/SDL-LICENSE.txt",
+      "size": 884,
+      "sha256": "1c040b8271b37e5076359f8fd54240e371114112924d2df81ef87c7d6a1dfdfd"
+    },
+    {
+      "path": "assets/java25/sdl-licenses/Zlib.txt",
+      "size": 833,
+      "sha256": "bd9162684043a9d1d7fd18ea992233a24d82d97b7f70471b6ed25e85848dd677"
+    },
+    {
+      "path": "assets/java25/shader-audit.json",
+      "size": 736,
+      "sha256": "d62b65e29c3ea208d1aa74e28bb41f6641b49676d17afc32fbb8e5820dc31eaf"
+    },
+    {
+      "path": "assets/java25/shaderc-audit.json",
+      "size": 9806,
+      "sha256": "11b151e84cbecada3d0d113c71ef10c5118b1bdb29a03dbaccb4432cd5133354"
+    },
+    {
+      "path": "assets/java25/shaderc-licenses/SPIRV-Headers-LICENSE.txt",
+      "size": 23503,
+      "sha256": "ea43b1de38a6f90c488800d66dec1ed671e68cda530266bc96951fb5b6307613"
+    },
+    {
+      "path": "assets/java25/shaderc-licenses/SPIRV-Tools-LICENSE.txt",
+      "size": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "assets/java25/shaderc-licenses/glslang-LICENSE.txt",
+      "size": 54615,
+      "sha256": "17e70c676e1521ff3e4686f04a2053d93a7e28a33be8de7ec37ab0ff72feb677"
+    },
+    {
+      "path": "assets/java25/shaderc-licenses/shaderc-LICENSE.txt",
+      "size": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "assets/java25/shaders/present/fullscreen.vert",
+      "size": 147,
+      "sha256": "1a3422e424aec808a1c6116d5e187b47569442a70d23f6fd216becd36dcebd64"
+    },
+    {
+      "path": "assets/java25/shaders/present/fullscreen.vert.spv",
+      "size": 1092,
+      "sha256": "a6bedde41bb9b09b5fc60820f3a87cf3716bd53a07091ce8b6da70679af091d6"
+    },
+    {
+      "path": "assets/java25/shaders/present/pattern.frag",
+      "size": 548,
+      "sha256": "3c4df56cacf6fa695a903b4aa9fa2aaffe3b5df99b40179c45003268a909525c"
+    },
+    {
+      "path": "assets/java25/shaders/present/pattern.frag.spv",
+      "size": 2884,
+      "sha256": "8d8e0a923ad67ce569f68c6475f84a2cab8a90cb62fa5acae46e8d3d66cec877"
+    },
+    {
+      "path": "assets/java25/shaders/scene/panel.frag",
+      "size": 297,
+      "sha256": "910cf18cead258bb695b5b9f887f8446fe4fa3cf785fdf8a383a9a1e5bc4f5c8"
+    },
+    {
+      "path": "assets/java25/shaders/scene/panel.frag.spv",
+      "size": 1132,
+      "sha256": "af1e252511e57ac824d48d75f6898f4a1a9d15b7bf53b8a3b4196900cb53db6e"
+    },
+    {
+      "path": "assets/java25/shaders/scene/panel.vert",
+      "size": 503,
+      "sha256": "fe05fad163f18df2f6cdb7206c75b480456b71d7681e1f28e9d5c9ebcc77b2b8"
+    },
+    {
+      "path": "assets/java25/shaders/scene/panel.vert.spv",
+      "size": 1628,
+      "sha256": "9810e5fb1f2f58197fc5a0599d219988c315f96aab26f9b4505ba73907dfe855"
+    },
+    {
+      "path": "assets/java25/shaders/texture/fullscreen.vert",
+      "size": 224,
+      "sha256": "ff64fbe2fc76327a05c01bb417d83f12df83777965a1e665a3b6d9951a46cf7a"
+    },
+    {
+      "path": "assets/java25/shaders/texture/fullscreen.vert.spv",
+      "size": 1360,
+      "sha256": "ef98f62666014ccfa6558d41336e6514557c82d327a41eec12a32d9f1d1623ac"
+    },
+    {
+      "path": "assets/java25/shaders/texture/texture.frag",
+      "size": 281,
+      "sha256": "dc19f5764c3f40db4677c8d56b255c7b2a9c3994455bf531fa340eee951b99a7"
+    },
+    {
+      "path": "assets/java25/shaders/texture/texture.frag.spv",
+      "size": 1276,
+      "sha256": "11fe7ca50302fc4f32735d35889c24c78e0dcdb33f96a0282540927f21571d12"
+    },
+    {
+      "path": "assets/java25/shaders/workload.comp",
+      "size": 350,
+      "sha256": "08358dd56baf7981060c1c7a2c2dcc352c77006afeb9adbdf1634e68b216407f"
+    },
+    {
+      "path": "assets/java25/shaders/workload.spv",
+      "size": 1320,
+      "sha256": "0816ca062aa40de20c0435eaef74a472adb241b4fae255ad5c7450fdee02f833"
+    },
+    {
+      "path": "assets/java25/stb-audit.json",
+      "size": 9864,
+      "sha256": "d22134bc06770d551b44b930deb1374a2e9b969679d8541b73cd72d35220bc2c"
+    },
+    {
+      "path": "assets/java25/stb-licenses/LWJGL-LICENSE.txt",
+      "size": 1518,
+      "sha256": "4c2f770897d0cfda4d9a65bb4d6d6983dccfd57d4c7eb74ea5ded0762cbc0e75"
+    },
+    {
+      "path": "assets/java25/stb-licenses/common_tools.h",
+      "size": 2379,
+      "sha256": "2a37d331c8bfc89fb87eb52546a092639f2c6159dec74467bd73d69a6f47c313"
+    },
+    {
+      "path": "assets/java25/stb-licenses/lwjgl_malloc.h",
+      "size": 1900,
+      "sha256": "f8f93778642d2e6796fd225396aef7ba6315dc4833a2020275737d9c5348573f"
+    },
+    {
+      "path": "assets/java25/stb-licenses/macOSConfig.h",
+      "size": 553,
+      "sha256": "6ed2bb82e1ccdfd50cf84a8e924ca93003adc0ed7f2501fc36cb9b4c2d9ebc95"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_LibSTB.c",
+      "size": 233,
+      "sha256": "e94afb62c9e703604e78ea1033862089637f32b0ae6bb13a7d39e6b61db92b4f"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_STBDXT.c",
+      "size": 1722,
+      "sha256": "8771475610ef8b98c5c2ffca3b5ae22f40848c442836706e49a48040271c7179"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_STBEasyFont.c",
+      "size": 1482,
+      "sha256": "35aa649dbb7e2888cfe4f937e5c13e42d0bcc666e39dbc6509c05a6bd819346f"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_STBImage.c",
+      "size": 28527,
+      "sha256": "9d5d8932dfa4e30d881c533d75717fe21758d86f79c54256146d01bd90613de1"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_STBImageResize.c",
+      "size": 11217,
+      "sha256": "83f403b846aebfa799d848195b5bf900b253060dde5d7346ab62052c0f97ce4b"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_STBImageWrite.c",
+      "size": 7537,
+      "sha256": "004d9cea0012d21ad2daf225b3e406f75fb71ba0e21dd95c2496f014d0f1dd8f"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_STBPerlin.c",
+      "size": 2154,
+      "sha256": "6927c680cedf84e1fc2f7401e84b3023368aa6e27c21353e8b6c2a34aed3d4d8"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_STBRectPack.c",
+      "size": 1772,
+      "sha256": "338be934991f1e3072da09478015a87682f060393c4c253bdcd554888e0ccce0"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_STBTTFontinfo.c",
+      "size": 648,
+      "sha256": "f93609b3774203a75ce550544df681c8ed6e248f1f61e5ceff908e269b88b0d3"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_STBTruetype.c",
+      "size": 56471,
+      "sha256": "d2a7c5b971bdf413c80b24ae7ba52143820b5deeb3fa733ca3d7d377355c9032"
+    },
+    {
+      "path": "assets/java25/stb-licenses/org_lwjgl_stb_STBVorbis.c",
+      "size": 18164,
+      "sha256": "bf475e9ae2c4592fa0d0ff9f3a3d131a73b2d4cd672f717df2a8d7e41ea746d4"
+    },
+    {
+      "path": "assets/java25/stb-licenses/stb_dxt.h",
+      "size": 28319,
+      "sha256": "807667ef98e0fd749cdb65cca0c2d980bc148109d2fed6f1873c81ae0f449933"
+    },
+    {
+      "path": "assets/java25/stb-licenses/stb_easy_font.h",
+      "size": 12813,
+      "sha256": "7b48b52a316477766c0a7a096b33a29bcbd847b6fab4fabd32bb3fdb7cea1a60"
+    },
+    {
+      "path": "assets/java25/stb-licenses/stb_image.h",
+      "size": 283010,
+      "sha256": "594c2fe35d49488b4382dbfaec8f98366defca819d916ac95becf3e75f4200b3"
+    },
+    {
+      "path": "assets/java25/stb-licenses/stb_image_resize2.h",
+      "size": 457734,
+      "sha256": "5de9c29faed66feb70d7f5a6e94a95ea30c6581a808c045fe56b84df4c949940"
+    },
+    {
+      "path": "assets/java25/stb-licenses/stb_image_write.h",
+      "size": 71221,
+      "sha256": "cbd5f0ad7a9cf4468affb36354a1d2338034f2c12473cf1a8e32053cb6914a05"
+    },
+    {
+      "path": "assets/java25/stb-licenses/stb_perlin.h",
+      "size": 17918,
+      "sha256": "17e688447a02776fe667e0b6a5d1155bf85c827a83f787ae2d44f57699274960"
+    },
+    {
+      "path": "assets/java25/stb-licenses/stb_rect_pack.h",
+      "size": 20199,
+      "sha256": "6388366a30de57c1b4c29b6eed4ed1c7d758fc1443d2dd95cfce943370bb3aa1"
+    },
+    {
+      "path": "assets/java25/stb-licenses/stb_truetype.h",
+      "size": 199033,
+      "sha256": "a34d8d536ce7c11b9163ab2d524721c1f4df1452cce6595c4f11d3048384f925"
+    },
+    {
+      "path": "assets/java25/stb-licenses/stb_vorbis.c",
+      "size": 192790,
+      "sha256": "4c7cb2ff1f7011e9d67950446b7eb9ca044f2e464d76bfbb0b84dd2e23e65636"
+    },
+    {
+      "path": "assets/java25/texture-audit.json",
+      "size": 1165,
+      "sha256": "34e11376eaf69ec248c635ee202e522728ec17800d07568f2b62507a01b44d4b"
+    },
+    {
+      "path": "eboot.bin",
+      "size": 58424136,
+      "sha256": "97756e97128d810fd7c5b8f430363a8389c3863d6b7f8e2ab8e6df869f2e11df"
+    },
+    {
+      "path": "licenses/ADDITIONAL_LICENSE_INFO",
+      "size": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916"
+    },
+    {
+      "path": "licenses/ASSEMBLY_EXCEPTION",
+      "size": 1514,
+      "sha256": "75292f03bf23d3db7c985aecc191029b93883200721ed23ed34a2e601463df33"
+    },
+    {
+      "path": "licenses/EMBEDDED-RUNTIME-NOTICES.md",
+      "size": 1646,
+      "sha256": "c8231e2ccb7b96325c446663ab6c137a931541287dcc49db770d50abe72cb9de"
+    },
+    {
+      "path": "licenses/GPL-3.0.txt",
+      "size": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "licenses/Inter-OFL.txt",
+      "size": 4377,
+      "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57"
+    },
+    {
+      "path": "licenses/LICENSE",
+      "size": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726"
+    },
+    {
+      "path": "licenses/THIRD_PARTY_NOTICES.md",
+      "size": 1609,
+      "sha256": "61f28ff35f9247eefdc298c4a2acc7daa01c2050dd8a6d87e2014d46edb9d66a"
+    },
+    {
+      "path": "licenses/graphics/LLVM-LICENSE.txt",
+      "size": 15141,
+      "sha256": "8d85c1057d742e597985c7d4e6320b015a9139385cff4cbae06ffc0ebe89afee"
+    },
+    {
+      "path": "licenses/graphics/Mesa/Apache-2.0",
+      "size": 10045,
+      "sha256": "7e4d3fba250d15e9e0afa380d4b611828fa2560cc8fdebe95bcf2f01a487de12"
+    },
+    {
+      "path": "licenses/graphics/Mesa/BSL-1.0",
+      "size": 1649,
+      "sha256": "9b9fea7520a816107fcac2598b7c0155222f16bc430e989706b22f4367f1df7d"
+    },
+    {
+      "path": "licenses/graphics/Mesa/GPL-1.0-or-later",
+      "size": 13047,
+      "sha256": "8ff76f1528e6e4e9400c0f6b1f2d19d4979aaac3bcc44bb707a55389132825c4"
+    },
+    {
+      "path": "licenses/graphics/Mesa/GPL-2.0-only",
+      "size": 18424,
+      "sha256": "6667ad4063569cd53b13500550d93fcd3dc11bcf82c5514296af013a0b720ba5"
+    },
+    {
+      "path": "licenses/graphics/Mesa/MIT",
+      "size": 1372,
+      "sha256": "323c587d0ccf10e376f8bf9a7f31fb4ca6078105194b42e0b1e0ee2bc9bde71f"
+    },
+    {
+      "path": "licenses/graphics/Mesa/SGI-B-2.0",
+      "size": 1822,
+      "sha256": "686bf035a1fd22076416fd3b90370ac67771e884bf57f55693d51f8ce7c710a7"
+    },
+    {
+      "path": "licenses/graphics/Mesa/exceptions/Linux-Syscall-Note",
+      "size": 1257,
+      "sha256": "9b4084655174654608fd037e9ddb4feeadfada01cd042e9c17b05aa7105b2b9f"
+    },
+    {
+      "path": "licenses/graphics/Mesa-Apache-2.0.txt",
+      "size": 10045,
+      "sha256": "7e4d3fba250d15e9e0afa380d4b611828fa2560cc8fdebe95bcf2f01a487de12"
+    },
+    {
+      "path": "licenses/graphics/Mesa-MIT.txt",
+      "size": 1372,
+      "sha256": "323c587d0ccf10e376f8bf9a7f31fb4ca6078105194b42e0b1e0ee2bc9bde71f"
+    },
+    {
+      "path": "licenses/graphics/Mesa-license-guide.rst",
+      "size": 1816,
+      "sha256": "0d1a0472ecc81830e75c20d59b0ea02841e3db21255e0ebad97ab682c54d6615"
+    },
+    {
+      "path": "licenses/graphics/PS5-PayloadSDK-GPL-3.0.txt",
+      "size": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "licenses/graphics/PS5-Vulkan-GPL-3.0.txt",
+      "size": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "licenses/graphics/SOURCES.txt",
+      "size": 383,
+      "sha256": "83f8c2633ebc5d3553c3a0208720386efaac56ca46cb89e8eaf021cb276122ed"
+    },
+    {
+      "path": "licenses/graphics/UPSTREAM-NOTICES.txt",
+      "size": 5361903,
+      "sha256": "faf3d88b6df0160bb2a5862e3d0a2d84c8c33397d96913e6476735dc2e255498"
+    },
+    {
+      "path": "licenses/graphics/musl-regex-COPYRIGHT.txt",
+      "size": 6204,
+      "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
+    },
+    {
+      "path": "sce_module/libc.prx",
+      "size": 1284674,
+      "sha256": "e6ff45d16adf687855cc3b33b0c8a4132b6504360b221e0a34c7e99fb3ba0036"
+    },
+    {
+      "path": "sce_sys/icon0.png",
+      "size": 23764,
+      "sha256": "52fb7430adc1e667b35269ad76109997a220ac271992e2ff3c3d223c46608f6a"
+    },
+    {
+      "path": "sce_sys/param.json",
+      "size": 871,
+      "sha256": "7ab412b1456243aab893a7d02d483da9561342b96b6873e45ed4d2dea3403513"
+    }
+  ],
+  "checks": "PASS exact accepted ZIP preserved without rebuilding,CRC/signatures,54original artifact pins,private STB allocator pointers/8resident groups/359+4+5+15staged constructors,real host normal+PS5 dispatch codec checks;human console acceptance and matching saved session;detailed startup retrieval incomplete",
+  "stb_audit": {
+    "sources": {
+      "repository": "https://github.com/LWJGL/lwjgl3",
+      "commit": "30fac9b95f99cda97312232be25ba55297bf9951",
+      "files": [
+        {
+          "file": "org_lwjgl_stb_LibSTB.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_LibSTB.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_LibSTB.c",
+          "size": 233,
+          "sha256": "e94afb62c9e703604e78ea1033862089637f32b0ae6bb13a7d39e6b61db92b4f"
+        },
+        {
+          "file": "org_lwjgl_stb_STBDXT.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBDXT.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBDXT.c",
+          "size": 1722,
+          "sha256": "8771475610ef8b98c5c2ffca3b5ae22f40848c442836706e49a48040271c7179"
+        },
+        {
+          "file": "org_lwjgl_stb_STBEasyFont.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBEasyFont.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBEasyFont.c",
+          "size": 1482,
+          "sha256": "35aa649dbb7e2888cfe4f937e5c13e42d0bcc666e39dbc6509c05a6bd819346f"
+        },
+        {
+          "file": "org_lwjgl_stb_STBImage.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBImage.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBImage.c",
+          "size": 28527,
+          "sha256": "9d5d8932dfa4e30d881c533d75717fe21758d86f79c54256146d01bd90613de1"
+        },
+        {
+          "file": "org_lwjgl_stb_STBImageResize.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBImageResize.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBImageResize.c",
+          "size": 11217,
+          "sha256": "83f403b846aebfa799d848195b5bf900b253060dde5d7346ab62052c0f97ce4b"
+        },
+        {
+          "file": "org_lwjgl_stb_STBImageWrite.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBImageWrite.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBImageWrite.c",
+          "size": 7537,
+          "sha256": "004d9cea0012d21ad2daf225b3e406f75fb71ba0e21dd95c2496f014d0f1dd8f"
+        },
+        {
+          "file": "org_lwjgl_stb_STBPerlin.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBPerlin.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBPerlin.c",
+          "size": 2154,
+          "sha256": "6927c680cedf84e1fc2f7401e84b3023368aa6e27c21353e8b6c2a34aed3d4d8"
+        },
+        {
+          "file": "org_lwjgl_stb_STBRectPack.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBRectPack.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBRectPack.c",
+          "size": 1772,
+          "sha256": "338be934991f1e3072da09478015a87682f060393c4c253bdcd554888e0ccce0"
+        },
+        {
+          "file": "org_lwjgl_stb_STBTTFontinfo.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBTTFontinfo.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBTTFontinfo.c",
+          "size": 648,
+          "sha256": "f93609b3774203a75ce550544df681c8ed6e248f1f61e5ceff908e269b88b0d3"
+        },
+        {
+          "file": "org_lwjgl_stb_STBTruetype.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBTruetype.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBTruetype.c",
+          "size": 56471,
+          "sha256": "d2a7c5b971bdf413c80b24ae7ba52143820b5deeb3fa733ca3d7d377355c9032"
+        },
+        {
+          "file": "org_lwjgl_stb_STBVorbis.c",
+          "path": "modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBVorbis.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBVorbis.c",
+          "size": 18164,
+          "sha256": "bf475e9ae2c4592fa0d0ff9f3a3d131a73b2d4cd672f717df2a8d7e41ea746d4"
+        },
+        {
+          "file": "stb_dxt.h",
+          "path": "modules/lwjgl/stb/src/main/c/stb_dxt.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/main/c/stb_dxt.h",
+          "size": 28319,
+          "sha256": "807667ef98e0fd749cdb65cca0c2d980bc148109d2fed6f1873c81ae0f449933"
+        },
+        {
+          "file": "stb_easy_font.h",
+          "path": "modules/lwjgl/stb/src/main/c/stb_easy_font.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/main/c/stb_easy_font.h",
+          "size": 12813,
+          "sha256": "7b48b52a316477766c0a7a096b33a29bcbd847b6fab4fabd32bb3fdb7cea1a60"
+        },
+        {
+          "file": "stb_image.h",
+          "path": "modules/lwjgl/stb/src/main/c/stb_image.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/main/c/stb_image.h",
+          "size": 283010,
+          "sha256": "594c2fe35d49488b4382dbfaec8f98366defca819d916ac95becf3e75f4200b3"
+        },
+        {
+          "file": "stb_image_resize2.h",
+          "path": "modules/lwjgl/stb/src/main/c/stb_image_resize2.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/main/c/stb_image_resize2.h",
+          "size": 457734,
+          "sha256": "5de9c29faed66feb70d7f5a6e94a95ea30c6581a808c045fe56b84df4c949940"
+        },
+        {
+          "file": "stb_image_write.h",
+          "path": "modules/lwjgl/stb/src/main/c/stb_image_write.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/main/c/stb_image_write.h",
+          "size": 71221,
+          "sha256": "cbd5f0ad7a9cf4468affb36354a1d2338034f2c12473cf1a8e32053cb6914a05"
+        },
+        {
+          "file": "stb_perlin.h",
+          "path": "modules/lwjgl/stb/src/main/c/stb_perlin.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/main/c/stb_perlin.h",
+          "size": 17918,
+          "sha256": "17e688447a02776fe667e0b6a5d1155bf85c827a83f787ae2d44f57699274960"
+        },
+        {
+          "file": "stb_rect_pack.h",
+          "path": "modules/lwjgl/stb/src/main/c/stb_rect_pack.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/main/c/stb_rect_pack.h",
+          "size": 20199,
+          "sha256": "6388366a30de57c1b4c29b6eed4ed1c7d758fc1443d2dd95cfce943370bb3aa1"
+        },
+        {
+          "file": "stb_truetype.h",
+          "path": "modules/lwjgl/stb/src/main/c/stb_truetype.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/main/c/stb_truetype.h",
+          "size": 199033,
+          "sha256": "a34d8d536ce7c11b9163ab2d524721c1f4df1452cce6595c4f11d3048384f925"
+        },
+        {
+          "file": "stb_vorbis.c",
+          "path": "modules/lwjgl/stb/src/main/c/stb_vorbis.c",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/stb/src/main/c/stb_vorbis.c",
+          "size": 192790,
+          "sha256": "4c7cb2ff1f7011e9d67950446b7eb9ca044f2e464d76bfbb0b84dd2e23e65636"
+        },
+        {
+          "file": "common_tools.h",
+          "source_path": "modules/lwjgl/core/src/main/c/common_tools.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/core/src/main/c/common_tools.h",
+          "size": 2379,
+          "sha256": "2a37d331c8bfc89fb87eb52546a092639f2c6159dec74467bd73d69a6f47c313"
+        },
+        {
+          "file": "macOSConfig.h",
+          "source_path": "modules/lwjgl/core/src/main/c/macos/macOSConfig.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/core/src/main/c/macos/macOSConfig.h",
+          "size": 553,
+          "sha256": "6ed2bb82e1ccdfd50cf84a8e924ca93003adc0ed7f2501fc36cb9b4c2d9ebc95"
+        },
+        {
+          "file": "lwjgl_malloc.h",
+          "path": "modules/lwjgl/core/src/main/c/lwjgl_malloc.h",
+          "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/30fac9b95f99cda97312232be25ba55297bf9951/modules/lwjgl/core/src/main/c/lwjgl_malloc.h",
+          "size": 1900,
+          "sha256": "f8f93778642d2e6796fd225396aef7ba6315dc4833a2020275737d9c5348573f"
+        }
+      ],
+      "scope": "Original STB implementation and generated JNI;no game classes or success stubs"
+    },
+    "tls": "Compiler-managed emulated TLS;no native TLS segment",
+    "allocator": "Private clientstb_org_lwjgl_* pointer variables initialized by original LibSTB.setupMalloc;core globals unchanged",
+    "compile_units": 11,
+    "jni_exports": 224,
+    "object_sha256": "db307e77fc115beb494de70b1fdaf52c11ca2de49803413765c2f68c4172697e",
+    "scope": "Genuine original generated JNI dispatch;actual original embedded STB codecs/algorithms with private allocator pointers;PS5 behavior pending",
+    "console": "component only;PS5 acceptance pending"
+  },
+  "module_platform_audit": {
+    "scope": "PS5 platform dispatch for real upstream VK/ALC/GL;no game classes or native stubs",
+    "units": [
+      {
+        "module": "vulkan",
+        "unit": "org/lwjgl/vulkan/VK.java",
+        "source_archive_sha256": "d3dcd19770fc1c762c94e1cbd702f5d15b7cb94d197b60031a9c9cc84267d9ed",
+        "original_unit_sha256": "7f3002cafab9c2443c978581866ef52cf62d366ced84b0432a02e32b3603b1ec",
+        "patched_unit_sha256": "b55b9ac4c2902d03f659c3cd36b73c6f8eba12d5a2f8fc1fa7001a8d01b88147",
+        "patch_sha256": "b1df0ebce470ac247314fbb528679a576b28cb844c18734926c42b5cc5bd87f9"
+      },
+      {
+        "module": "openal",
+        "unit": "org/lwjgl/openal/ALC.java",
+        "source_archive_sha256": "cda313bdbf70d3e8a7e844b641a0972265085be86e2e156532843e109ca21de1",
+        "original_unit_sha256": "975a6140209f15e382790cc9cbfa743c754e586623d9a03353a3fbd3af021e41",
+        "patched_unit_sha256": "66f1db1cd9e52f248074cc00adca47b5c6783e84ed6bf0a7c4048071c59906c0",
+        "patch_sha256": "70a82680d99d033102ae0eb7b4befd9abb476ceabee48b27738e34a5ffcba44b"
+      },
+      {
+        "module": "opengl",
+        "unit": "org/lwjgl/opengl/GL.java",
+        "source_archive_sha256": "2a6ba57894d500bbf694758e65a098a162dcdde05a75a98a3004458583a795a8",
+        "original_unit_sha256": "fdb8d205fbeb5bea14a61a2058e0661220e8488dc08d30437ed46edc94447b22",
+        "patched_unit_sha256": "d4d67a666b8d6a7261bd683efcb3c0baf39b83a12c88e06054796258ef791abc",
+        "patch_sha256": "9b0dd4ab9df1e058e606408124e778a31e719e0203ce0a12c79bd57c70ad4b45"
+      }
+    ],
+    "classes": [
+      "org/lwjgl/openal/ALC$1.class",
+      "org/lwjgl/openal/ALC$ICD.class",
+      "org/lwjgl/openal/ALC$ICDStatic$WriteOnce.class",
+      "org/lwjgl/openal/ALC$ICDStatic.class",
+      "org/lwjgl/openal/ALC$SharedLibraryAL.class",
+      "org/lwjgl/openal/ALC.class",
+      "org/lwjgl/opengl/GL$1.class",
+      "org/lwjgl/opengl/GL$2.class",
+      "org/lwjgl/opengl/GL$ICD.class",
+      "org/lwjgl/opengl/GL$ICDStatic$WriteOnce.class",
+      "org/lwjgl/opengl/GL$ICDStatic.class",
+      "org/lwjgl/opengl/GL.class",
+      "org/lwjgl/vulkan/VK$1.class",
+      "org/lwjgl/vulkan/VK$GlobalCommands.class",
+      "org/lwjgl/vulkan/VK.class"
+    ],
+    "output_sha256": "405794e84a917d7936a113a355dd3c634fffae52c241dd183d90eaa7629d183e",
+    "game_jar_modified": false,
+    "native_implementations_added": false,
+    "console": "Native implementations are supplied separately;actual per-app PS5 validation required.026 module dispatch/callback/OpenAL acceptance is frozen separately."
+  }
+}

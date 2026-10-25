@@ -52,19 +52,22 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Development:STB codec acceptance031
+## Client STB Codecs — PS5 ALL5 PASS
 
-030reached original Minecraft Main and stopped loading STB at index0:
-`liblwjgl_stb.so` was absent. Saved reports show Minecraft exit-3,not a
-reported native VM fault. The passing029 OpenGL snapshot remains intact.
+Client **01.000.031** passes all five checks on the actual PS5. The matching
+saved session reports STB PNG/codecs/JVM stop. Its accepted fixture tests three
+real PNG encode/read/decode/free cycles,768exact RGBA bytes,384input guards,
+truncated PNG and invalid Vorbis rejection,Perlin/native structs and JVM shutdown.
+The larger startup download is incomplete;per-cycle output was not independently
+retrieved. This distinction is preserved in the validation record.
 
-031packages11original STB implementation/generated JNI units with224native
-exports,private allocator pointers and compiler-managed PS5 TLS. Actual host
-PNG encode/decode/free cycles,guards and malformed-input controls pass under
-normal and PS5 dispatch. Full package checks pass;**five actual PS5 acceptance
-rows remain pending**. This probe does not launch Minecraft. Valid Vorbis/font/
-resize/callback coverage and remaining game native dependencies need further
-work. See [candidate scope](client/stb_bootstrap/status.json).
+[Frozen source and validation](Client_STB_Codecs) ·
+[Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_STB_Codecs-v01.000.031)
+
+031resolves the native STB component missing in030. Minecraft startup remains
+unvalidated;the next retry can combine031STB with029OpenGL. Valid Vorbis decode,
+font/resize/DXT/callback coverage,large/concurrent workloads and full native
+cleanup remain unvalidated. All original game JARs stay intact;endurance deferred.
 
 ## Client OpenGL Provider — PS5 ALL5 PASS
 
@@ -472,6 +475,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client STB Codecs · 01.000.031** | PS5 ALL5 PASS,human+saved session:real PNG/codecs/guards and JVM stop;detailed startup download incomplete | [Frozen source & validation](Client_STB_Codecs) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_STB_Codecs-v01.000.031) |
 | **Client OpenGL Provider · 01.000.029** | PS5 ALL5 PASS:3real software GL contexts,192RGBA pixels,768guards and JVM shutdown | [Frozen source & validation](Client_OpenGL_Provider) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_OpenGL_Provider-v01.000.029) |
 | **Client Callbacks/OpenAL · 01.000.026** | PS5 ALL5 PASS:192callbacks,3real loopback mixer lifecycles,Vulkan native bootstrap and JVM shutdown | [Frozen source & validation](Client_Callbacks_OpenAL) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Callbacks_OpenAL-v01.000.026) |
 | **Client Continuous Direct Scene · 01.000.023** | PS5 ALL15 PASS:494direct FIFO frames/1,482draws,all3phases,input masks15 and JVM shutdown | [Frozen source & validation](Client_Continuous_Direct_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Continuous_Direct_Scene-v01.000.023) |

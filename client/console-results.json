@@ -357,11 +357,15 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.031",
       "package_sha256": "061d1ab8b40fcd90cf5e3854ee6d5220a7410685ddb69634faaf688db92cb42c",
-      "console": "pending actual PS5 all5rows",
+      "console": "Human ALL5 PASS corroborated by matching saved session:STB PNG/codecs/JVM stop. Detailed startup download incomplete;per-cycle output not independently retrieved.",
       "host": "PASS original STB implementations and generated JNI under Java25 Xint/XcheckJNI/verification/UBSan:normal host and PS5 enum dispatch each3PNG encode/file-read/decode/free cycles,768exact RGBA bytes/384input guards,truncated PNG and invalid Vorbis rejection,finite Perlin and native struct sizes. Expected Unsafe deprecation warnings come from host-only enum selector;no JNI-check or UBSan failures.",
       "package_checks": "PASS031 CRC/signatures/identity,54 original JARs/exact023 runtime image/native libraries,real STB codecs and original JNI plus existing native providers,359+4+5+15 staged constructors/no auto ctors,8resident groups,dependency overlay,128MiB/five-row fixture/no game or speaker success claim,preserved023/failed025 packages. PS5 pending.SHA256 061d1ab8b40fcd90cf5e3854ee6d5220a7410685ddb69634faaf688db92cb42c",
       "change": "Original STB11Cunits/224JNI exports,private allocator pointer globals,compiler emulated TLS;actual codec acceptance instead of game rewrite",
-      "candidate_record": "docs/validation/client031-stb-candidate-2026-10-25.json"
+      "candidate_record": "docs/validation/client031-stb-candidate-2026-10-25.json",
+      "reported_date": "2026-10-25",
+      "milestone": "Client_STB_Codecs",
+      "run": "client-01.000.031-1792921801-581678467",
+      "evidence": "Client_STB_Codecs/validation.json"
     }
   ]
 }

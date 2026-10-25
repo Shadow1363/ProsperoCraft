@@ -56,3 +56,17 @@ PASS or a failing-row notification;no game window or sound is expected. Keep
 it open afterward for logs. Once this real native component is accepted on the
 console,the next original Main attempt can include it alongside029's genuine
 OpenGL provider. Other game native libraries and server endurance remain pending.
+
+
+## Client031 console acceptance
+
+Human ALL5 PASS and saved session client-01.000.031-1792921801-581678467
+establish the passing Client_STB_Codecs milestone. The saved session explicitly
+reports STB PNG/codecs/JVM stop. The large startup download was incomplete and
+contains historical text only in its partial local file;no independent detailed
+current-run stage verification is claimed. Preserve that limitation in any
+follow-up evidence. Frozen source/package/symbols/validation and app-only release
+are retained. Original54JAR reprovisioning reproduces every accepted file and
+rejects corrupt retained files;matching OpenAL relink reproduces the exact native
+ELF. Continue new work outside the snapshot. Valid Vorbis/font/resize/DXT/callback
+coverage,Minecraft startup and server endurance remain unvalidated.

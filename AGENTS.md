@@ -281,3 +281,15 @@ Minecraft startup or broad GL coverage. Vulkan remains the game renderer plan.
 The release includes matching OpenAL source/relink materials;unmodified relink
 reproduces the accepted native ELF. Game JARs remain original and are omitted
 publicly. Continue development outside the frozen folder;endurance deferred.
+
+Client_STB_Codecs is the frozen passing031 milestone,PPSA99874
+01.000.031,human ALL5 PASS and matching saved session
+client-01.000.031-1792921801-581678467 on2026-10-25. Detailed startup
+download was incomplete;do not claim independent per-cycle log verification.
+Accepted fixture covers3real PNG encode/read/decode/free cycles,768RGBA bytes/
+384input guards,truncated PNG/invalid Vorbis controls,Perlin/native structs
+and JVM shutdown. Preserve exact source/package/symbols/validation/release.
+This is not valid Vorbis decode,font/resize/DXT/callback coverage or game startup.
+Release includes exact matching OpenAL source/relink materials;unmodified relink
+reproduces the accepted native ELF. Game JARs are omitted publicly and remain
+original locally. Continue development outside the frozen folder;endurance deferred.
