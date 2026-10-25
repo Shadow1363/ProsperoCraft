@@ -317,11 +317,24 @@
       "title_id": "PPSA99874",
       "app_version": "01.000.028",
       "package_sha256": "db19d2731496c82f77b6d88276f201517fca2d786e251d94520718986c5f7596",
-      "console": "pending;not run on PS5",
+      "console": "FAIL row4:Real OSMesa OpenGL contexts and readback;codeFFFFFAE5(-1307)",
       "host": "PASS same ClientOpenGL25 bytecode under Java25 Xint/XcheckJNI/Xverify:all with actual Mesa softpipe and original OpenGL JNI;3contexts,192RGBA pixels,768guards,heap/undersized buffer rejection;UBSan on JNI/helper",
       "package_checks": "PASS028 CRC/signatures/identity,54 original JARs/exact023 runtime image/native libraries,real OSMesa/OpenGL JNI plus preserved native providers,359+4+5+15+GL1 staged constructors/no auto ctors,9resident groups,dependency overlay,128MiB/five-row fixture/no game or speaker success claim,preserved023/failed025 packages. PS5 pending.SHA256 db19d2731496c82f77b6d88276f201517fca2d786e251d94520718986c5f7596",
       "change": "Genuine private OSMesa24.3.4/softpipe,compiler-managed PS5 GL TLS,original LWJGL OpenGL JNI and explicit retained constructor;five-row acceptance before game retry. No game/runtime rewrites.",
-      "candidate_record": "docs/validation/client028-candidate-2026-10-25.json"
+      "candidate_record": "docs/validation/client028-candidate-2026-10-25.json",
+      "reported_date": "2026-10-25",
+      "run": "client-01.000.028-1792918591-814097997",
+      "evidence": "docs/validation/client028-failure-2026-10-25.json"
+    },
+    {
+      "title_id": "PPSA99874",
+      "app_version": "01.000.029",
+      "package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
+      "console": "pending actual PS5 acceptance",
+      "host": "PASS exact candidate fixture on actual Mesa/OpenGL JNI:normal host and forced PS5 enum dispatch each3contexts/192RGBA pixels/768guards,under Xint/XcheckJNI/verification/UBSan on JNI helpers;original GL without overlay fails the same PS5 host check as expected. Host-only enum selector emits expected Unsafe deprecation warnings and is excluded from the app.",
+      "package_checks": "PASS029 CRC/signatures/identity,54 original JARs/exact023 runtime image/native libraries,real OSMesa/OpenGL JNI plus preserved native providers,359+4+5+15+GL1 staged constructors/no auto ctors,9resident groups,dependency overlay,128MiB/five-row fixture/no game or speaker success claim,preserved023/failed025 packages. PS5 pending.SHA256 ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
+      "change": "Explicit real resident PS5 OpenGL provider dispatch in dependency GL.loadOSMesa bypasses desktop defaults;original game JAR intact;fixture logs nested causes and stack frames before rethrowing actual failure.",
+      "candidate_record": "docs/validation/client029-candidate-2026-10-25.json"
     }
   ]
 }

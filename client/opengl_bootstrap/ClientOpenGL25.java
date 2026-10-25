@@ -6,11 +6,21 @@ import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.opengl.GL30C.*;
 public class ClientOpenGL25 {
  public static native void checkpoint(String text);
- static void stage(String text){checkpoint("OpenGL028: "+text);}
+ static void stage(String text){checkpoint("OpenGL029: "+text);}
  static native long create(ByteBuffer pixels);
  static native void destroy(long context);
  static void check(boolean ok,String what){if(!ok)throw new AssertionError(what);}
  public static void main(String[]args){
+  try{run(args);}catch(RuntimeException|Error failure){
+   Throwable cause=failure;
+   for(int depth=0;cause!=null&&depth<8;depth++,cause=cause.getCause()){
+    checkpoint("OpenGL029 diagnostic: cause"+depth+" "+cause);
+    StackTraceElement[]trace=cause.getStackTrace();for(int i=0;i<Math.min(trace.length,16);i++)checkpoint("OpenGL029 diagnostic: at "+trace[i]);
+   }
+   throw failure;
+  }
+ }
+ private static void run(String[]args){
   boolean host=System.getProperty("ps5.test.ffiCore")!=null;
   Configuration.MEMORY_ALLOCATOR.set("system");Configuration.OPENGL_CONTEXT_API.set("OSMesa");
   if(host){Configuration.LIBRARY_NAME.set(System.getProperty("ps5.test.ffiCore"));Configuration.OPENGL_OSMESA_LIBRARY_NAME.set(System.getProperty("ps5.test.osmesa"));System.load(System.getProperty("ps5.test.hostLoader"));System.load(System.getProperty("ps5.test.osmesa"));}

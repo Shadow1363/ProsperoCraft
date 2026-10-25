@@ -140,3 +140,49 @@ original JNI function-table dispatch,readback/guards and VM shutdown remain
 pending until the actual PS5 result. Do not freeze a milestone or infer game
 startup from host/package checks. A future public OpenAL-linked release still
 requires matching corresponding-source/relink materials;028 is local development.
+
+
+## Client028 failure and029 dispatch repair — 2026-10-25
+
+Saved startup and VM reports identify028run
+client-01.000.028-1792918591-814097997. VM creation,54artifact checks,graphics
+constructors and the real retained Mesa initializer complete. Row4then reports
+ClientOpenGL25 ExceptionInInitializerError (-1307);no readback or VM shutdown
+pass follows. The session was observed in Safari;exceptions.log was unavailable.
+The complete underlying PS5 exception chain was not captured. Raw reports stay
+local;docs/validation/client028-failure-2026-10-25.json records these limits.
+
+Local source inspection and a real-provider host regression identify a concrete
+PS5 dispatch defect:GL.loadOSMesa passes both the configured name and eagerly
+computed Configuration.OPENGL_OSMESA_LIBRARY_NAME_DEFAULTS to Library.loadNative.
+The defaults method has no PS5 case and throws even when a provider name is
+configured. Original GL catches it and ultimately reports no available context
+management API. The normal Mac host test passed because that platform is
+supported. The PS5-enum test fails with original GL and passes after the repair.
+This supports the029fix;it does not independently establish that this was the
+sole underlying PS5 failure.
+
+029extends the separate dependency platform overlay with the original,pinned
+LWJGL GL unit and a PS5-only loadOSMesa branch. It opens the actual configured
+resident OSMesa library through the existing real PS5Library resolver,keeping
+missing-provider errors real and avoiding desktop defaults. Native JNI loading,
+GL capabilities/function calls,and desktop branches remain upstream. No game
+classes or original game JARs change. The fixture now records nested exceptions
+and stack frames before rethrowing the failure;diagnostic lines do not trigger
+repeated notifications.
+
+The actual029fixture passes three contexts/192RGBA pixels/768guards under normal
+host dispatch and again under actual PS5 enum dispatch with real Mesa and native
+JNI (six contexts/384pixels/1536guards total). An original-GL control without the
+overlay fails the PS5 check as expected. The host-only enum selector uses Unsafe
+and produces expected deprecation warnings;there are no JNI-check/UBSan failure
+reports. It is excluded from the package. This is a loader/dispatch regression
+check,not PS5 hardware validation.
+
+029passes package integrity,signature,identity,54original JAR/runtime preservation,
+9resident groups,GL overlay/diagnostic fixture checks,unchanged native constructor
+counts and exact frozen026/failed028 package preservation. Failed028source,
+package and symbols remain recoverable. See client/opengl_bootstrap/status.json
+and docs/validation/client029-candidate-2026-10-25.json for the checksum. Install029,
+press X once,and leave it open after its result for logs. ALL5on actual PS5,
+full game startup and the deferred server endurance run remain pending.

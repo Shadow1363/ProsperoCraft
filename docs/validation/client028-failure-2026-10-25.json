@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.028",
+  "package_sha256": "db19d2731496c82f77b6d88276f201517fca2d786e251d94520718986c5f7596",
+  "run": "client-01.000.028-1792918591-814097997",
+  "console": "FAIL row4:Real OSMesa OpenGL contexts and readback;codeFFFFFAE5(-1307)",
+  "observed": [
+    "JNI_CreateJavaVM returned0",
+    "original54artifact inventory passed",
+    "graphics constructors complete",
+    "actual Mesa retained constructor initialized",
+    "fixturecheckpoint reached before GL initialization",
+    "ClientOpenGL25 raised ExceptionInInitializerError;no subsequent readback PASS or VM shutdown"
+  ],
+  "retrieval": {
+    "method": "Safari native UI after direct shell TCP failed",
+    "session": "Current run/status read from Safari accessibility;not saved as a downloaded session file",
+    "saved_reports": {
+      "startup-tail.log": "16725f78f1bd687c5b597d94514a3d46e179d6f7c9fd46469945774847f6ddb1",
+      "vm-trace.log": "e45ce9c8c04a70c66f2f854684b951d621ab5112b48c9128ec91acc03f0fae51"
+    },
+    "exceptions.log": "Reported unavailable;no full underlying PS5 exception chain retrieved",
+    "later_session_retry": "Safari could no longer connect after reports had been saved"
+  },
+  "analysis": {
+    "confirmed_host_defect": "Original GL.loadOSMesa eagerly evaluates Configuration.OPENGL_OSMESA_LIBRARY_NAME_DEFAULTS even when an explicit provider name is configured;unsupported PS5 platform throws,then original GL class initialization fails. Real-provider host PS5-enum regression reproduces ExceptionInInitializerError/no context management API;patched class passes.",
+    "console_cause_limit": "PS5 reports only the wrapper error;host reproduction/local source identify a concrete dispatch bug,not an independently captured complete PS5 cause chain.029 console rerun needed to establish whether this is the sole failure."
+  },
+  "preservation": "Exact failed package/symbols retained locally in dist/failures/Client_OpenGL_Provider-01.000.028;raw console reports remain local",
+  "next_candidate": "01.000.029"
+}

@@ -1,12 +1,12 @@
 {
   "date": "2026-10-25",
   "title_id": "PPSA99874",
-  "app_version": "01.000.028",
+  "app_version": "01.000.029",
   "stage": "Real OSMesa/OpenGL provider acceptance candidate",
-  "package_sha256": "db19d2731496c82f77b6d88276f201517fca2d786e251d94520718986c5f7596",
+  "package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
   "console": "pending;not run on PS5",
-  "host": "PASS same ClientOpenGL25 bytecode under Java25 Xint/XcheckJNI/Xverify:all with actual Mesa softpipe and original OpenGL JNI;3contexts,192RGBA pixels,768guards,heap/undersized buffer rejection;UBSan on JNI/helper",
-  "package_checks": "PASS028 CRC/signatures/identity,54 original JARs/exact023 runtime image/native libraries,real OSMesa/OpenGL JNI plus preserved native providers,359+4+5+15+GL1 staged constructors/no auto ctors,9resident groups,dependency overlay,128MiB/five-row fixture/no game or speaker success claim,preserved023/failed025 packages. PS5 pending.SHA256 db19d2731496c82f77b6d88276f201517fca2d786e251d94520718986c5f7596",
+  "host": "PASS exact candidate fixture on actual Mesa/OpenGL JNI:normal host and forced PS5 enum dispatch each3contexts/192RGBA pixels/768guards,under Xint/XcheckJNI/verification/UBSan on JNI helpers;original GL without overlay fails the same PS5 host check as expected. Host-only enum selector emits expected Unsafe deprecation warnings and is excluded from the app.",
+  "package_checks": "PASS029 CRC/signatures/identity,54 original JARs/exact023 runtime image/native libraries,real OSMesa/OpenGL JNI plus preserved native providers,359+4+5+15+GL1 staged constructors/no auto ctors,9resident groups,dependency overlay,128MiB/five-row fixture/no game or speaker success claim,preserved023/failed025 packages. PS5 pending.SHA256 ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
   "game_jar_modified": false,
   "runtime_implementation_modified": false,
   "java_heap_max_mib": 128,
@@ -24,7 +24,7 @@
     "Destroy Java VM"
   ],
   "user_steps": [
-    "Install the local028package,which replaces the app with the same title ID",
+    "Install the local029package,which replaces the app with the same title ID",
     "Open the app and press X once",
     "Wait for ALL5 PASS or a failed-row notification;no game window or visible RGB sequence is expected",
     "Leave app open for log sharing"
@@ -37,5 +37,11 @@
     "Minecraft menu/gameplay;hardware OpenGL not claimed",
     "Global module teardown and broader/larger GL workloads"
   ],
-  "server_two_hour_endurance": "deferred by user"
+  "server_two_hour_endurance": "deferred by user",
+  "predecessor": {
+    "version": "01.000.028",
+    "console": "FAIL row4 ExceptionInInitializerError",
+    "record": "docs/validation/client028-failure-2026-10-25.json"
+  },
+  "repair": "Explicit real resident PS5 OpenGL provider dispatch in dependency GL.loadOSMesa bypasses desktop defaults;original game JAR intact;fixture logs nested causes and stack frames before rethrowing actual failure."
 }

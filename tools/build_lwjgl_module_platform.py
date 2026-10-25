@@ -22,7 +22,7 @@ def build(java_home,offline=False):
  cp=':'.join([str(ROOT/'build/client-ports/lwjgl/lwjgl-3.4.3-ps5-platform.jar'),*[str(ROOT/'.tools/client'/r['file'])for r in lock['artifacts']]])
  subprocess.run([str(java_home/'bin/javac'),'--release','8','-proc:none','-cp',cp,'-d',str(classes),*[str(p)for p in sources]],check=True)
  emitted=sorted(classes.rglob('*.class'));assert emitted
- for path in emitted:assert str(path.relative_to(classes)).startswith(('org/lwjgl/vulkan/VK','org/lwjgl/openal/ALC'))
+ for path in emitted:assert str(path.relative_to(classes)).startswith(('org/lwjgl/vulkan/VK','org/lwjgl/openal/ALC','org/lwjgl/opengl/GL'))
  jar=out/'lwjgl-3.4.3-ps5-modules.jar'
  with zipfile.ZipFile(jar,'w',zipfile.ZIP_DEFLATED)as z:
   for path in emitted:
