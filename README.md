@@ -65,7 +65,8 @@ retrieved. This distinction is preserved in the validation record.
 [Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_STB_Codecs-v01.000.031)
 
 031resolves the native STB component missing in030. Minecraft startup remains
-unvalidated;the next retry can combine031STB with029OpenGL. Valid Vorbis decode,
+unvalidated;development032 combines031STB with029OpenGL for the next original
+Main retry. [Build scope and test instructions](docs/client-startup-032.md). Valid Vorbis decode,
 font/resize/DXT/callback coverage,large/concurrent workloads and full native
 cleanup remain unvalidated. All original game JARs stay intact;endurance deferred.
 

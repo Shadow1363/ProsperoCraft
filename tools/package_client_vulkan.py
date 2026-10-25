@@ -19,7 +19,7 @@ parser.add_argument('--render', action='store_true', help='Build client010 graph
 parser.add_argument('--present', action='store_true', help='Build client011 standalone direct presentation candidate')
 parser.add_argument('--sdl', action='store_true', help='Build client014 SDL window/input candidate')
 parser.add_argument('--runtime-shader', action='store_true', help='Build client023 runtime GLSL compiler candidate')
-parser.add_argument('--startup',action='store_true',help='Build030 original Minecraft Main startup with validated029 OpenGL provider')
+parser.add_argument('--startup',action='store_true',help='Build032 original Minecraft Main startup with validated029 OpenGL and031 STB')
 parser.add_argument('--native-bootstrap',action='store_true',help='Build026 genuine libffi/OpenAL native acceptance')
 parser.add_argument('--opengl-bootstrap',action='store_true',help='Build029 genuine Mesa/OpenGL acceptance')
 parser.add_argument('--stb-bootstrap',action='store_true',help='Build031 genuine STB codec acceptance')
@@ -29,7 +29,7 @@ if args.startup or args.opengl_bootstrap or args.stb_bootstrap:args.native_boots
 if args.startup or args.native_bootstrap:args.runtime_shader=True
 runtime = args.runtime_workspace.resolve()
 variant="stb_bootstrap" if args.stb_bootstrap else "opengl_bootstrap" if args.opengl_bootstrap else "startup" if args.startup else "native_bootstrap" if args.native_bootstrap else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.030" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+version="01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.032" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -173,7 +173,7 @@ if args.opengl_bootstrap or args.startup:
  shutil.copyfile(ROOT/'.tools/mesa-osmesa-24.3.4.tar.xz',licenses/'mesa-24.3.4-source.tar.xz')
  for patch in sorted((ROOT/'client/ports/opengl').glob('*.patch')):shutil.copyfile(patch,licenses/patch.name)
 
-if args.stb_bootstrap:
+if args.stb_bootstrap or args.startup:
  from build_lwjgl_stb_native import build as build_stb
  stb=build_stb(runtime,args.java_home,offline=args.offline)
  spec['resident_libraries'].append({'name':'lwjgl_stb','objects':[str(stb)]})
