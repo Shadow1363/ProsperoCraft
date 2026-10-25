@@ -52,6 +52,14 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Development client037 — combined original Minecraft startup retry
+
+037 combines all accepted native components,including036SPIRV-Cross and035VMA,
+and configures the resident ps5spvc library before invoking original Minecraft
+Main. Game JARs remain unchanged and Vulkan is selected. Host/package verification
+precedes console testing;**actual PS5 window/menu validation remains pending**.
+[Build scope and test instructions](docs/client-startup-037.md).
+
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 
 Client **01.000.036** passes all five checks on the actual PS5. Saved session
