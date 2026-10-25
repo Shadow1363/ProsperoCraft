@@ -41,3 +41,9 @@ does not establish successful game startup.
 Host and full package checks pass. Full local package SHA-256:
 `ca7fb7e5b5c5c0bdcbd3ee92d5f58ed160652a50f107bf5f470a967a208f9ff0`.
 Actual PS5 original Main/window/menu validation remains pending.
+
+Follow-up:037failed on PS5 with Java heap space while constructing an
+initialization crash report;the live session already reported FAIL. No menu
+was established. See validation/client037-startup-failure-2026-10-25.json.
+038tests256MiB and GC diagnostics;the earlier initialization throwable may
+have been masked by the recorded OOM.

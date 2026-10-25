@@ -1,17 +1,17 @@
 {
-  "stage": "Original Minecraft Client Startup037 with all accepted native components",
+  "stage": "Original Minecraft Client Startup038 with256MiB heap",
   "date": "2026-10-25",
   "title_id": "PPSA99874",
-  "app_version": "01.000.037",
-  "package_sha256": "ca7fb7e5b5c5c0bdcbd3ee92d5f58ed160652a50f107bf5f470a967a208f9ff0",
-  "console": "PENDING actual PS5 original Main/window/menu",
+  "app_version": "01.000.038",
+  "package_sha256": "9f9a871285686b43e6abe12df66552a20f6022133646ac2452eb270dfcef93f5",
+  "console": "PENDING real PS5 VM256MiB reservation/startup/menu",
   "host": "PASS launch policy/writable workdir/existing options preservation,unchanged original JAR;separate original host Main reaches native-library bootstrap then exits253 with unprovided host natives. No host menu pass.",
-  "package_checks": "PASS037 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 ca7fb7e5b5c5c0bdcbd3ee92d5f58ed160652a50f107bf5f470a967a208f9ff0",
+  "package_checks": "PASS038 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 9f9a871285686b43e6abe12df66552a20f6022133646ac2452eb270dfcef93f5",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
   "game_jar_modified": false,
   "runtime_implementation_modified": false,
   "runtime_sdk_replaced": false,
-  "java_heap_max_mib": 128,
+  "java_heap_max_mib": 256,
   "compressed_class_space_mib": 64,
   "startup_rows": 4,
   "assets": {
@@ -36,21 +36,20 @@
   "native_coverage": "Exact accepted036 SPIRV-Cross,035 VMA,033 FreeType,031 STB,029 OSMesa/OpenGL and026 callbacks/OpenAL;existing SDL/shaderc/RADV. Combined original game initialization and broader native API use remain unvalidated.",
   "baseline": "All passing snapshots including036/035 and failed034/032/030 preserved",
   "not_validated": [
-    "PS5 original Main/window/menu/gameplay with037 combined native integration",
-    "Remaining native dependencies and broad callbacks/audio output",
-    "Minecraft128MiB heap adequacy and game performance",
-    "Global teardown/prolonged low-memory robustness;server two-hour endurance deferred"
+    "PS5 reservation/commit of256MiB heap and original Main/window/menu/gameplay",
+    "Underlying initialization exception masked by037crash-report OOM",
+    "Broader native API use/memory adequacy/performance/global teardown;server endurance deferred"
   ],
-  "previous_failure": "docs/validation/client034-startup-failure-2026-10-25.json",
-  "memory_limit": "128MiB reservation matches passing023;later Minecraft heap requirements may exceed this. No guarantee of startup/menu or full memory adequacy.",
-  "development_repair": "Add accepted VMA and SPIRV-Cross residents;set supported SPVC library-name configuration to ps5spvc before original Spvc initializes. Vulkan remains selected.",
+  "previous_failure": "docs/validation/client037-startup-failure-2026-10-25.json",
+  "memory_limit": "037exhausted128MiB during crash-report construction;038tries256MiB.024512MiB reservation failed.256MiB reservation and later game memory adequacy unvalidated.",
+  "development_repair": "Raise only consumer game max heap to256MiB;GC info logging and heap checkpoint. Preserve exact accepted native components and original game JARs.",
   "native_dependency_baseline": {
     "milestone": "Client_OpenGL_Provider",
     "version": "01.000.029",
     "full_package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
     "console": "Human ALL5 PASS and saved reports;037 packaged provider/JNI/overlay hashes match029"
   },
-  "development": "037 original Main retry;four diagnostic rows are not automatic menu validation.",
+  "development": "038heap-headroom diagnostic original Main retry;prior initialization throwable may be masked by037OOM. No automatic menu pass.",
   "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports.",
   "stb_baseline": {
     "milestone": "Client_STB_Codecs",

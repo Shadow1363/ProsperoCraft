@@ -52,13 +52,15 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Development client037 — combined original Minecraft startup retry
+## Development client038 — Minecraft heap-headroom test
 
-037 combines all accepted native components,including036SPIRV-Cross and035VMA,
-and configures the resident ps5spvc library before invoking original Minecraft
-Main. Game JARs remain unchanged and Vulkan is selected. Host/package verification
-precedes console testing;**actual PS5 window/menu validation remains pending**.
-[Build scope and test instructions](docs/client-startup-037.md).
+037 got through native bootstrap but exhausted the128MiB Java heap during
+crash-report construction;an earlier initialization error may be hidden. Saved
+[diagnostics](docs/validation/client037-startup-failure-2026-10-25.json) identify
+FAIL despite the black screen.038tries256MiB with GC info and an actual heap
+checkpoint. All accepted native components and original game JARs are retained.
+**PS5 larger-heap reservation/startup/window/menu remain pending.**
+[Build scope and test instructions](docs/client-startup-038.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

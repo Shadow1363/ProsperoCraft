@@ -56,7 +56,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.037";
+constexpr const char* build_version="01.000.038";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -84,7 +84,7 @@ void network_checkpoint(JNIEnv *env,jclass,jstring stage) {
  const char *utf=env->GetStringUTFChars(stage,nullptr);
  if(!utf) return;
  log_stage(utf);
- if(std::strncmp(utf,"MC Startup037:",14)==0)notify(utf);
+ if(std::strncmp(utf,"MC Startup038:",14)==0)notify(utf);
  env->ReleaseStringUTFChars(stage,utf);
 }
 int vm_print(FILE *,const char *format,va_list arguments) {
@@ -214,11 +214,12 @@ void run_test(int i) {
    {const_cast<char *>("-XX:UseAVX=0"),nullptr},
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
    {const_cast<char *>("-Xms16m"),nullptr},
-   {const_cast<char *>("-Xmx128m"),nullptr},
-   // Keep the proven128MiB reservation:024 failed reserving512MiB before Main.
+   {const_cast<char *>("-Xmx256m"),nullptr},
+   // 037 exhausted128MiB;try256MiB.024 could not reserve512MiB.
    // Bootstrap class metadata needs far less than the default 1 GiB reservation.
    {const_cast<char *>("-XX:CompressedClassSpaceSize=64m"),nullptr},
    {const_cast<char *>("-Xshare:off"),nullptr},
+   {const_cast<char *>("-Xlog:gc=info"),nullptr},
    {const_cast<char *>("-XX:+UseSerialGC"),nullptr},
    {const_cast<char *>("-XX:ActiveProcessorCount=2"),nullptr},
    {const_cast<char *>("-XX:-UsePerfData"),nullptr},
@@ -258,7 +259,7 @@ void run_test(int i) {
   if(startup_log) {std::fprintf(startup_log,"JNI_CreateJavaVM returned %d\n",rc);std::fflush(startup_log);}
   if(rc==JNI_OK && (!java_vm||!java_env)) rc=-1302;
   if(rc!=JNI_OK) {java_vm=nullptr;java_env=nullptr;skip_vm_dependents();read_previous_log();}
-  result(i,rc,"Real JNI_CreateJavaVM, -Xint, 128 MiB max heap");
+  result(i,rc,"Real JNI_CreateJavaVM, -Xint, 256 MiB max heap");
  } else if(!java_vm||!java_env) {
   result(i,-1303,"Create the VM first; relaunch to retry");
  } else if(i>=2 && i<=3) {
@@ -331,7 +332,7 @@ void run_test(int i) {
 }
 extern "C" void client_sdl_diagnostic(const char* text) {log_stage(text);}
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU037 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU038 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 extern "C" int sceKernelSendNotificationRequest(std::uint32_t,void*,std::size_t,int);
 extern "C" int sceSystemServiceHideSplashScreen();
@@ -341,14 +342,14 @@ static void notify(const char* text) {
  (void)sceKernelSendNotificationRequest(0,&n,sizeof(n),0);
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.037 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.038 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
  if(sceUserServiceGetInitialUser(&user)>=0 && scePadInit()>=0) pad=scePadOpen(user,0,0,nullptr);
 
- notify("Client037 ready: press X once to try ORIGINAL Minecraft startup. Demo mode;no automatic menu PASS. Keep open for logs.");
- if(pad<0){notify("Client037 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
+ notify("Client038 ready: press X once to try ORIGINAL Minecraft startup. Demo mode;no automatic menu PASS. Keep open for logs.");
+ if(pad<0){notify("Client038 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
  bool armed=false,start=false;std::uint32_t previous=0;
  while(!start) {
   PadSample batch[64]{};int count=scePadRead(pad,batch,64);
@@ -362,7 +363,7 @@ int main() {
  }
  scePadClose(pad);pad=-1;
  (void)sceSystemServiceHideSplashScreen();
- notify("Client037 starting original Minecraft26.3 demo. Native ports incomplete;startup may stop at a missing dependency. Keep open for logs.");
+ notify("Client038 starting original Minecraft26.3 demo. Native ports incomplete;startup may stop at a missing dependency. Keep open for logs.");
  // Compiler and texture/depth/blend acceptance precede retained SDL display resources.
  // This also avoids repeating manual inputs when compiler startup fails.
  for(int step=0;step<test_count;++step) {
@@ -370,11 +371,11 @@ int main() {
   if(i){char state[200];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}
   run_test(i);
   if(status[i]!=1) {
-   char note[240];std::snprintf(note,sizeof(note),"Client037 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
+   char note[240];std::snprintf(note,sizeof(note),"Client038 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
    for(;;)(void)sceKernelUsleep(1000000);
   }
  }
  char state[240];std::snprintf(state,sizeof(state),"STARTUP RETURNED: inspect logs and actual screen;menu/world success unverified.");session_status(state);
- notify("Client037 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
+ notify("Client038 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
  for(;;)(void)sceKernelUsleep(1000000);
 }

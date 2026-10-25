@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.037",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.037-1792930004-148036491",
+  "tested_source_commit": "f9c29a7d7e7342d6a95adf2d36eb114bb7a4b296",
+  "package_sha256": "ca7fb7e5b5c5c0bdcbd3ee92d5f58ed160652a50f107bf5f470a967a208f9ff0",
+  "human": "Black screen for30minutes;appears frozen",
+  "observed": "Live session reports FAIL/codeFFFFFAE5(-1307);exception endpoint and complete console/native logs show ClientStartup25 OutOfMemoryError:Java heap space. Main passed native bootstrap,reached Datafixer/Render thread initialization. Captured OOM arises during Main crash-report construction/JAR manifest class loading;the triggering prior initialization exception is not recovered.",
+  "heap_max_mib": 128,
+  "not_established": "No successful menu/window or completed native game initialization;no claim all native APIs work. Cannot attribute every black-screen minute to heap pressure or identify earlier init throwable from this trace.",
+  "reports": {
+    "session.txt": {
+      "bytes": 161,
+      "sha256": "e87014e70492201de33751067456514591b03d05ed4c170e0aad177764496b4b"
+    },
+    "exceptions.log": {
+      "bytes": 5790,
+      "sha256": "00c4230f23415a7e5034d960aeccca98b07cd5b2b996b064cd6fd8251794a793"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "51288ddff64b4e3cf325f23d230ab1807ada4a20b847fa6a5319d1181368b56c"
+    }
+  },
+  "additional_live_UI_evidence": {
+    "session": "FAIL: Start original Minecraft26.3 Main(menu unvalidated)/codeFFFFFAE5",
+    "exception.txt": "ClientStartup25:java.lang.OutOfMemoryError:Java heap space"
+  },
+  "repair": "038256MiB heap candidate with GC logging/heap checkpoint;larger reservation and original menu remain console pending;024512MiB reservation failed"
+}
