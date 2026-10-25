@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.052",
+  "package_sha256": "096b371c3927f0125922c591eb8c3033a206068ee6c2c3e39376736cd84f5a2e",
+  "implementation": "Consumer observer cadence/depth and version labels only. Parent826c7ea;see commit containing this manifest for source revision.",
+  "source_sha256": {
+    "client/startup/ClientStartup25.java": "42b04d067cb0005b5269af84d3a38ebfe56140edc92ee127b604c952abbbf8bd",
+    "client/startup/bootstrap.cpp": "6a1c9796d305152fc381262ee9d326adc2d021d097d56bd97a7398e4bc1e9bb8",
+    "client/startup/param.json": "3f227a6496e363d326d8138ae067609ce0b0fe87def52d43d11fd5c9d1587152",
+    "tools/package_client_vulkan.py": "ca33d5e4930cbf6f2f520e80d2bf44209beac00a82d46ea18ad9d611f9f54e47",
+    "tools/test_client_startup_host.py": "6f7c0e7e04b70184039c668b71c539ef0d399447745b4b4c1035dd0600161368",
+    "tools/test_client_startup_package.py": "e2521efdcd3ebe6822dedd5895da12b1609d03da45f47ab299c4389232d40a69"
+  },
+  "symbols_sha256": "2bcf0d7709f14962f1544332b6f83edc1922f4629b0f5a086876d799194f9bbf",
+  "runtime_commit": "6382528c7aee066002d1c2c6a7b5c7116987ae8c",
+  "checks": {
+    "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,late cadence boundary,daemon and interrupted close without later writes;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+    "package": "PASS052 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 096b371c3927f0125922c591eb8c3033a206068ee6c2c3e39376736cd84f5a2e",
+    "target": "Packaging command exit0;SELF integrity and private WSI/native construction checks passed.",
+    "baseline002": "Exact convenience ZIP restored:d0b9f815ff68c5ad821b2166509879c623c813019d2f70bbacf53769f35e3971",
+    "preserved051": "Exact package checksum rechecked:a4108d61b82c8dae40f8f5babe99dce772dfb45790e21e110d57233f096cf80d"
+  },
+  "console": "PENDING052;no menu/crash resolution/gameplay/stability acceptance.051human crash confirmed;screen/timing unknown.",
+  "scope": "150samples:first90at1s,then60at5s;64frames/32threads. Approx389s plus overhead;finite diagnostic only. Original game/runtime/native dependencies unchanged.",
+  "release": "Not a passing milestone or full client release;Store remains reservation. Server2H deferred."
+}

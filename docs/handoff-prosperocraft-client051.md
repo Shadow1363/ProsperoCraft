@@ -1,5 +1,7 @@
 # Handoff — ProsperoCraft client051, retrieved snapshots, original-client investigation and eventual full release
 
+Update: [current052handoff](handoff-prosperocraft-client052.md) records the later human051crash confirmation and new diagnostic candidate. The text below preserves the prior handoff knowledge.
+
 Continue the existing project from its actual files/history;do not recreate/reset.
 Read the runtime workspace AGENTS.md and consumer AGENTS.md before editing.
 The user wants the actual original Minecraft Java client to reach a working menu

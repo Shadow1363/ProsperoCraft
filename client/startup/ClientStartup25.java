@@ -9,7 +9,7 @@ import org.lwjgl.system.MemoryUtil;
 /** Invokes the original client entry point; no game class replacement/hooks. */
 public final class ClientStartup25 {
  public static native void checkpoint(String text);
- private static void stage(String text){checkpoint("MC Startup051: "+text);}
+ private static void stage(String text){checkpoint("MC Startup052: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -39,13 +39,15 @@ public final class ClientStartup25 {
   private final PrintStream console;
   private final Thread owner,worker;
   private final int samples;
-  private final long intervalMillis;
+  private final long intervalMillis,laterIntervalMillis;
   private final long startedNanos=System.nanoTime();
   private volatile boolean running=true;
-  StartupObserver(PrintStream console,int samples,long intervalMillis){
-   this.console=console;this.samples=samples;this.intervalMillis=intervalMillis;owner=Thread.currentThread();
+  StartupObserver(PrintStream console,int samples,long intervalMillis){this(console,samples,intervalMillis,intervalMillis);}
+  StartupObserver(PrintStream console,int samples,long intervalMillis,long laterIntervalMillis){
+   this.console=console;this.samples=samples;this.intervalMillis=intervalMillis;this.laterIntervalMillis=laterIntervalMillis;owner=Thread.currentThread();
    worker=new Thread(null,this::run,"PS5 startup observer",256*1024,false);worker.setDaemon(true);
   }
+  long intervalAfter(int sample){return sample<90?intervalMillis:laterIntervalMillis;}
   void start(){worker.start();}
   private void run(){
    try{
@@ -62,12 +64,12 @@ public final class ClientStartup25 {
       if(count++==32){text.append("  [thread limit32]\n");break;}
       text.append("THREAD ").append(thread.threadId()).append(' ').append(thread.getName()).append(" state=").append(thread.getState()).append(thread==owner?" MAIN":"").append('\n');
       StackTraceElement[] frames=traces.get(thread);
-      for(int frame=0;frame<Math.min(frames.length,24);frame++)text.append("  at ").append(frames[frame]).append('\n');
-      if(frames.length>24)text.append("  [frame limit24]\n");
+      for(int frame=0;frame<Math.min(frames.length,64);frame++)text.append("  at ").append(frames[frame]).append('\n');
+      if(frames.length>64)text.append("  [frame limit64]\n");
      }
      text.append("PS5 END SNAPSHOT ").append(sample).append('\n');
      synchronized(console){if(running){console.print(text);console.flush();}}
-     if(sample<samples)Thread.sleep(intervalMillis);
+     if(sample<samples)Thread.sleep(intervalAfter(sample));
     }
    }catch(InterruptedException stopped){Thread.currentThread().interrupt();}
    catch(Throwable failure){synchronized(console){if(running)console.println("PS5 startup observer stopped: "+failure);}}
@@ -97,7 +99,7 @@ public final class ClientStartup25 {
    Class<?> main=Class.forName("net.minecraft.client.main.Main",false,ClassLoader.getSystemClassLoader());Method method=main.getMethod("main",String[].class);
    stage("ENTER original net.minecraft.client.main.Main.main;menu/world not yet validated");
    console.println("Original Minecraft26.3 Main entry;offline demo test. Native dependency coverage remains incomplete.");
-   try{observer=new StartupObserver(console,90,1000);observer.start();}
+   try{observer=new StartupObserver(console,150,1000,5000);observer.start();}
    catch(Throwable unavailable){console.println("PS5 startup observer unavailable;continuing original Main: "+unavailable);observer=null;}
    try{method.invoke(null,(Object)launchArguments(work,assets));}
    catch(InvocationTargetException failure){throw failure.getCause();}

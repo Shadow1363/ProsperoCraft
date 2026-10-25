@@ -59,24 +59,24 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client051 — startup thread snapshots
+## Development client052 — later startup observations
 
-050 reached the original Mojang loading screen and then crashed on PS5. Its
-matching reports show eight successful fence waits and eight accepted native flips,
-390 shader entries/returns, and no recorded fatal signal, VM abort or driver error.
-The later crash cause remains unknown; these observations do not establish a menu.
-051 adds an optional daemon that records up to90 startup thread-stack/heap snapshots
-at one-second intervals. Original Main and resource workers are listed first;
-output is limited to32 threads and24 frames each. Setup failure continues Main.
-Stack collection adds safepoints, allocations and one256KiB-requested-stack thread;
-051reports confirm all90snapshots:render waits for a pipeline future while the
-resource worker remains active in sampled stacks. This does not prove deadlock or
-crash cause;final051screen outcome remains unreported. Frozen passes remain intact.
-**Crash resolution, menu/gameplay and stable presentation remain unvalidated.**
-[Build/test scope](docs/client-startup-051.md) ·
-[050 report evidence](docs/validation/client050-startup-failure-2026-10-25.json) ·
-[051 observations](docs/validation/client051-startup-observations-2026-10-25.json) ·
-[Current continuation handoff](docs/handoff-prosperocraft-client051.md).
+051 crashed and was restarted,as now confirmed by the user;its last screen and
+elapsed crash time remain unknown. Refreshed reports match the earlier saved
+run byte for byte:90snapshots completed normally,render waited on a shared
+background-executor pipeline future while resource-worker stacks changed. There
+is no captured fatal context or established deadlock/allocator/crash cause.
+050's original Mojang-loading-screen report remains separate.
+
+052 extends the optional observer to150snapshots:first90at1s,then60at5s,with
+32thread/64frame output bounds. The nominal window is389seconds plus sampling
+overhead. Original game material,runtime,heap and native dependencies are unchanged.
+Stack collection adds safepoints,allocations and thread/I/O pressure.
+**052 console validation,crash resolution,menu/gameplay and stable presentation
+remain pending.** Exact051and all frozen passes are preserved.
+[Build and investigation](docs/client-startup-052.md) ·
+[051 follow-up evidence](docs/validation/client051-crash-followup-2026-10-25.json) ·
+[Current continuation handoff](docs/handoff-prosperocraft-client052.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

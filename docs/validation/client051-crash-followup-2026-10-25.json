@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.051",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.051-1792950523-73596505",
+  "tested_source_commit": "ca9a65e01b7d322c1df626f7db37c576dc6224ce",
+  "package_sha256": "a4108d61b82c8dae40f8f5babe99dce772dfb45790e21e110d57233f096cf80d",
+  "human_exact": "i restarted it, it crashed",
+  "human_scope": "Reply explicitly asked about051. Crash and restart confirmed;last screen and elapsed time not supplied.050Mojang loading report remains separate.",
+  "refreshed_reports": "Safari index refreshed;all eight canonical reports downloaded before any new X press/restart by agent. All bytes identical to prior retrieval. No later progress or fatal context added.",
+  "local_reports": "logs/client051-result-20261025-refresh/ in runtime workspace",
+  "reports": {
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "7c98b2c2daea04f589ec5309000f439ab31513dd514286c0aed9dcb9a322163f"
+    },
+    "session.txt": {
+      "bytes": 143,
+      "sha256": "f0776f11dd1f6b5c331035c707b96c8958ca908a2eb714a8328a4266a1736888"
+    },
+    "native-stderr.log": {
+      "bytes": 411,
+      "sha256": "c9a948a96e1fda5d4931fbdabc374e7e7c12d0dccb55545b47ccea8d93f9fe64"
+    },
+    "vm-trace.log": {
+      "bytes": 1711078,
+      "sha256": "1d2ef04bcb601861a5d4870112b5532a7d19d200394510a68f07566f595df7a7"
+    },
+    "exceptions.log": {
+      "bytes": 529973,
+      "sha256": "9efa98a206ed13979ae58fc3e0c9ee957549ae03eb94818cdf5255d57564f775"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "e6bca6680143999ff004f8d65e29fd3a409693d1d60770ea8a14a45ee3484f8c"
+    },
+    "abort.txt": {
+      "bytes": 132,
+      "sha256": "8fcafd81b54065a8c2dd26aa49423f09e97d6d311a02883f68ffdd2908aa16fa"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    }
+  },
+  "cause": "Unknown. Normal90sample completion is not crash timing;the crash may be later. Saved RUN is not live-process evidence.",
+  "preservation": "Exact full ZIP,symbols,status,prior validation,source references and refreshed report hashes retained under ignored dist/failures/Client_Original_Startup-01.000.051. No passing milestone.",
+  "next": "052extends bounded observation beyond89147ms and stack output depth;no speculative game/runtime/GPU/heap change."
+}
