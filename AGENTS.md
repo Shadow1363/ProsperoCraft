@@ -409,3 +409,15 @@ apps/PPSA99874.json now says ProsperoCraft with updated client/server/native-Jav
 description. Reservation release/icon/source fields remain null. Do not duplicate
 the rename PR or assume a downloadable listing/live website update. Detailed
 continuation prompt:docs/handoff-prosperocraft-client044.md.
+
+Client044 retrieved session client-01.000.044-1792941998-299539155 records two
+actual sceVideoOutOpen results0x80020023 (kernel EAGAIN/resource unavailable).
+Retry executed but registration/images/menu remain blocked;no fatal signal/VM
+abort captured. Do not infer the unavailable resource or a crash stack. Exact044
+package/symbols/status/evidence preserved. Client045 adds read-only configured/
+available flexible memory and largest direct range with raw query statuses before/
+after the same bounded open calls;no extra output,allocation,heap/resolution change.
+Original game JARs/private source boundary/frozen passes preserved. Actual PS5
+resources/open/presentation/menu and later crash remain pending;server2H deferred.
+See docs/client-startup-045.md and matching044failure evidence. The044handoff
+is historical;current candidate045 supersedes its version/status directions.

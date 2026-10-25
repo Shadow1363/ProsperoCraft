@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.044",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.044-1792941998-299539155",
+  "tested_source_commit": "647a310b16ed723dfb044be94d519c477811c6f7",
+  "package_sha256": "3a940fa1e3280b8f665f065ce5af50a00b1b9d2884b608a5a123f41666670443",
+  "human": "No new human outcome supplied in this chat;retrieved reports identify044",
+  "session": "RUN original Main saved;not proof of current liveness",
+  "observed": "Two actual VideoOut open calls return0x80020023;retry occurs and remains refusal. Matching1920x1080/3images/max5/hostImport1. Registration/image allocation never reached. Trace ends during shader compilation without captured fatal signal;abort says no VM abort and hs-error unavailable.",
+  "cause": "Inspected upstream SDK reference b5efad528e0ac1b8289f39d72a0e890ff68ff0a6 platform/src/libc.c kernel_errno maps0x8002xxxx to low16-bit errno;target sys/errno.h defines35 EAGAIN/EWOULDBLOCK. Resource-unavailable does not identify the exhausted/blocked resource or prove transience. Ownership,internal module resources and memory pressure remain unresolved.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "71fce3dd97d324ce07c366c4a3f97fef62228df5556bff08058a265ba59c2410"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "3e8f04b5a6fe7e0389b994fda35572a6c1ca92786368c7a5c50a239b6b65b47f"
+    },
+    "exceptions.log": {
+      "bytes": 124612,
+      "sha256": "a365af017ee674edc747497a885b33df38b6a84ad768d8111eddfdcddee64d82"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "40decbf4aaa6edb521a307e010ec70bd871f99e09706321223008b3afabafeaf"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "e4328994b58382d2e0762a0dddc1116fc3a10e5716ca7aa302f4f4121d8152db"
+    },
+    "vm-trace.log": {
+      "bytes": 1573170,
+      "sha256": "0160f63f71d9099a0f0fbd075519d3ed36317264dbd7cd4d924af7446571bdc8"
+    }
+  },
+  "next": "045 read-only kernel configured/available flexible memory and largest available direct range before/after each open,with raw query statuses;no allocation/extra open/resolution/heap changes.",
+  "limits": "No console menu/presentation pass;later crash cause unknown;server2H deferred.",
+  "error_mapping_reference": {
+    "sdk_commit": "b5efad528e0ac1b8289f39d72a0e890ff68ff0a6",
+    "mapping": "platform/src/libc.c:kernel_errno",
+    "errno": "local graphics-sdk/target/include/sys/errno.h:EAGAIN35",
+    "dependency_upgrade": false
+  }
+}

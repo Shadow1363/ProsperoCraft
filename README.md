@@ -59,16 +59,16 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client044 — bounded VideoOut open retry
+## Development client045 — VideoOut resource diagnostics
 
-043identified the swapchain rejection before image allocation:VideoOut open
-returned negative. The driver permanently cached that failed first open.044
-caches successful handles only and allows one delayed retry before buffers or
-a swapchain exist,with a maximum of two OS attempts and raw error-code logging.
-**The original OS refusal,later crash and PS5 presentation/menu remain pending.**
-No game JAR or JVM-global changes;the native adapter uses a private driver archive.
-[Build/test scope](docs/client-startup-044.md) ·
-[043failure evidence](docs/validation/client043-startup-failure-2026-10-25.json).
+044's actual PS5 trace records two VideoOut open refusals,each `0x80020023`.
+The delayed retry ran but did not recover;framebuffer registration was not reached.
+045 records read-only configured/available flexible memory and largest available
+direct range before/after each open,including raw query statuses. The unavailable
+resource and later process exit remain unresolved. **PS5 presentation/menu remain
+unvalidated.** Original game JARs and frozen milestones are preserved.
+[Build/test scope](docs/client-startup-045.md) ·
+[044failure evidence](docs/validation/client044-startup-failure-2026-10-25.json).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

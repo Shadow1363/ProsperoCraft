@@ -58,3 +58,11 @@ performance/network/teardown remain pending. Server2H endurance stays deferred.
 Host retry/helper/launch/allocation checks,target WSI compile and full-package
 checks pass. Full local ZIP SHA-256:`3a940fa1e3280b8f665f065ce5af50a00b1b9d2884b608a5a123f41666670443`.
 PS5 open/retry/presentation and initial refusal/crash remain pending.
+
+## Retrieved console outcome
+
+Run client-01.000.044-1792941998-299539155 records two actual opens returning
+0x80020023;neither succeeds. Registration/images/menu remain blocked. No VM
+abort/fatal signal captured. [Evidence](validation/client044-startup-failure-2026-10-25.json).
+[045resource diagnostic follow-up](client-startup-045.md) supersedes the pending
+open/retry statements above;underlying refusal and later exit remain unresolved.

@@ -5,6 +5,7 @@ import subprocess
 ROOT=Path(__file__).resolve().parents[1];w=ROOT/'build/wsi-diagnostics';s=(w/'wsi_common_videoout.c').read_text();start=s.index('static unsigned videoout_open_attempts;');end=s.index('PUBLIC int wsi_videoout_set_flip_rate',start)
 source=r'''
 #include <stdint.h>
+#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdarg.h>
