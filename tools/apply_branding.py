@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply user-provided ProsperoCraft title/icon to future consumer app packages."""
+"""Apply user-selected ProsperoCraft title/icon to future consumer app packages."""
 from pathlib import Path
 import argparse,hashlib,json,shutil,zipfile
 ROOT=Path(__file__).resolve().parents[1];BRANDING=ROOT/'assets/branding'

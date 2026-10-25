@@ -5,7 +5,9 @@
   "original": "ProsperoCraft-original.png",
   "original_sha256": "dafc5c7af256bca9bf92754fe42b5016ea04ea33909a9a2e4a3d58e95b51aa93",
   "icon": "icon0.png",
-  "icon_sha256": "028e5f073217ffb01be013128f34bf95711d515f30f9a2382c31557e1c205978",
-  "processing": "User-provided360x360PNG;512x512RGBA PNG using nearest-neighbour resampling;no generated artwork",
-  "scope": "Future development packaging only;frozen snapshots,release assets and existing038 candidate unchanged"
+  "icon_sha256": "aaf0615d11a6448f16ad742bf4419e4c827a6735bac0a2e83c0ed1344358101f",
+  "processing": "User-selected AI-generated v3 source with corrected full letter outlines;512x512RGBA packaging resize using Lanczos;no further artwork changes",
+  "scope": "Next development build after040 and future client/server packaging;existing candidates/frozen snapshots/releases unchanged",
+  "source": "ProsperoCraft-icon-v3-source.png",
+  "source_sha256": "4bc8be65c08875719290a7ebce8c84bb4c261996d0eaaeebcd1b5bec775c42d2"
 }

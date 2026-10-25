@@ -355,3 +355,10 @@ rejects named-layer extensions/enabled-layer creation,and delegates actual GPU
 commands to resident ICD. Host MoltenVK/UBSan regressions pass;PS5 instance,
 window/menu/gameplay remain pending. Original game JARs remain intact;do not
 claim validation layers,menu success or a new passing milestone from host checks.
+
+User artwork selection2026-10-25 supersedes the initial no-regeneration preference:
+use the approved generated ProsperoCraft-icon-v3-source.png (complete dark-green
+P/C outlines) in the next development build after040. Active icon0.png is its
+512RGBA packaging resize;branding.json pins both checksums. Keep original/user
+artwork and v2/v3 masters,frozen snapshots and already-built040 intact. Existing
+client/server apply_branding.py hooks automatically consume the new icon.
