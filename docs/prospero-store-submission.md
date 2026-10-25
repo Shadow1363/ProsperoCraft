@@ -10,8 +10,10 @@ The reservation update is submitted at:
 
 https://github.com/darkxex/ps5-homebrew-catalog/pull/737
 
-Status:submitted;upstream review/merge pending. This does not confirm the live
-store/website already shows the new name. Only apps/PPSA99874.json changes.
+Status:MERGED2026-10-25 (PR737,mergedAt12:49:50UTC). Verified during the
+client044handoff:upstream apps/PPSA99874.json contains ProsperoCraft and the
+description below. Live store/website propagation was not independently checked.
+Only apps/PPSA99874.json changed.
 
 Name:ProsperoCraft
 

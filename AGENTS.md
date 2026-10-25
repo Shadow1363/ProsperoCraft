@@ -403,3 +403,9 @@ refusal/crash/menu/presentation need actual PS5 validation;server2H deferred.
 
 When incrementing build versions,replace complete version/label tokens rather
 than bare digits;historical SHA-256 strings must remain exact and unchanged.
+
+Prospero Store status verified2026-10-25:rename PR737 is MERGED;upstream
+apps/PPSA99874.json now says ProsperoCraft with updated client/server/native-Java
+description. Reservation release/icon/source fields remain null. Do not duplicate
+the rename PR or assume a downloadable listing/live website update. Detailed
+continuation prompt:docs/handoff-prosperocraft-client044.md.
