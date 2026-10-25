@@ -41,3 +41,47 @@ must not be deleted under the assumption that GitHub already stores them.
 Do not indiscriminately delete .tools,build/java25 or native dependency objects:
 these support current builds and expensive native/runtime compilation. Source
 snapshots themselves are small compared with generated binaries and caches.
+
+## Deeper cleanup on2026-10-25
+
+Inactive failed client ZIPs/symbols now live losslessly in ignored
+`dist/archives/failed-client-builds.tar.zst`,with a per-file SHA256 manifest
+`failed-client-builds.json`. Original7652216276bytes compacted to1212395195bytes.
+Every decompressed file was verified against its original hash before removing
+expanded dist/failures. These are private local archives,not GitHub uploads.
+
+```sh
+python3 tools/compact_failed_client_builds.py verify
+python3 tools/compact_failed_client_builds.py restore
+```
+
+Restore recreates exact dist/failures files and refuses to overwrite an existing
+failures directory. Before running older checks which require dist/failures,
+restore first. The compact archive remains after restoration. Pack refuses to
+overwrite an existing archive. A later failed candidate can have its own active
+failure folder;move that folder aside before whole-archive restoration.
+Zstandard is required;compression/decompression uses a1GiB long-distance window.
+
+Historical server full ZIPs from the runtime workspace's build/java25 directory
+are similarly compacted into `dist/archives/legacy-server-packages.tar.zst` plus
+`legacy-server-packages.json`. The helper is:
+
+```sh
+python3 tools/compact_legacy_server_packages.py --runtime-workspace /path/to/PS5_Homebrew
+```
+
+It archives only PPSA99874-*-full-local.zip in that historical build directory,
+verifies every restored byte against its manifest,and removes only those originals.
+The current consumer/server release/fallback and active client packages stay intact.
+To restore one server ZIP,verify the archive SHA256 against its JSON manifest,
+then use zstd decompression piped into tar extraction with that exact filename
+and destination runtime build/java25. Compare the resulting file with the
+manifest's SHA256 before use. Keep all private archives and manifests together.
+No credentials,logs or game JARs from these archives are published to GitHub.
+
+Frozen passing milestones,source/validation records,raw logs,active037 and native
+build dependencies remain directly available. This cleanup changes storage layout,
+not native/game/runtime implementations;037 console startup validation is pending.
+
+Historical server compaction verified31ZIPs:4240004177bytes reduced to609246671bytes.
+Removed 14 duplicate build-directory symbol copies (1990508984logical bytes),after matching each to a preserved milestone or verified failed-build archive.
