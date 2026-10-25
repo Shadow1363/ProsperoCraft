@@ -76,3 +76,11 @@ Host recorder delegation/lifetime tests and original launch/allocation checks pa
 target build and full-package verification pass,including original pins,SELF
 integrity,recorder symbols/marker and exact046preservation;recorded in startup/status.json.
 Actual PS5 crash capture/resolution and menu remain pending.
+
+## Retrieved console evidence
+
+Matching047run client-01.000.047-1792945285-415061738 confirms outer recorder4,
+early VideoOut0x4e100100/prepare0 and3successful imports. No signal/VM abort;
+hs-error unavailable. Trace ends after shaderc return,not proof of crash location.
+[Evidence](validation/client047-startup-failure-2026-10-25.json) ·
+[048native-stderr follow-up](client-startup-048.md).

@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.047",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.047-1792945285-415061738",
+  "tested_source_commit": "f5b1bd0d94e5665c83e6623447ac865269cdb360",
+  "package_sha256": "52cc98ea6b779f8bdf9b8a2b185a555f5e9bba5a970e33e55fd1bde3907f54f3",
+  "human": "Logs ready;no new menu acceptance or detailed visual outcome supplied",
+  "observed": "Outer original startup recorder installed handlers4. Early VideoOut0x4e100100/prepare0;3successful swapchain image imports. No SHADERC FAULT/signal/VM abort captured;hs-error unavailable. Trace ends after real shaderc return during resource reload/font loading.",
+  "cause": "Unresolved. Installed signal handlers do not prove delivery or exclude process kill/GPU/system failure. Driver native stderr is not included in existing reports:RADV submission refusals/GPU completion timeout messages use fprintf(stderr),so these potential diagnostics were unavailable. No evidence yet identifies a GPU fault or timeout.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "0bb62fcb9f447ccf7e2b1e92c1ddc2e97a2d01b6bcd9d5479d0d86f6cdc2b8f9"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "1c446e07e68b71042afcd8efdf338f6ebd49f18c7a88df40b2758445f73056ce"
+    },
+    "exceptions.log": {
+      "bytes": 13468,
+      "sha256": "2cac0e7f3e02f6e978a924578ba3d4d17306229f06d365f47793a79ccffc2a98"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "265d52c091dec155e722dae6d078074df025bd5e254181b30d8432b44ecf1de7"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "4e8266604fd9d8f9edb2dfcb048fd6545f8f2f4b44e7a08cf5e417d1e362e4ee"
+    },
+    "vm-trace.log": {
+      "bytes": 1569935,
+      "sha256": "c7713b344545ab906194b7b05d84c308164ebbf03c95bdaa7651e35684afe0b1"
+    }
+  },
+  "next": "048 captures actual native stderr descriptor2 to separate identity-stamped file before native services,and adds fixed current/previous report endpoints. Existing rendering/fault recorder behavior retained.",
+  "limits": "No ALL PASS/menu/gameplay pass. Exact047 retained;crash mechanism/capture remain pending;server2H deferred."
+}

@@ -443,3 +443,14 @@ Existing recorder implementation/delegation unchanged;historical SHADERC FAULT
 prefix no longer implies compiler origin and signals can be JVM-handled normally.
 Requires4handlers/descriptor;RAII restores on returns. PS5 capture/crash cause/
 menu/stability pending;server2H deferred. Current047supersedes earlier candidates.
+
+Client047 reports show outer fault recorder4 and retained successful VideoOut/
+3image imports,but no signal/VM abort/fatal report. Crash cause unknown;last shader
+return is not crash-location evidence. Exact047retained.048 adds real native
+stderr capture before constructors and fixed current/previous download endpoints.
+Native driver submission/timeout diagnostics previously went only to stderr;
+no such GPU failure is established yet. Preserve early owner/outer recorder.
+Reopen without X after failure;collect native-stderr.log with VM/build/session/
+exceptions/abort/fatal reports. PS5 descriptor capture/crash resolution/menu pending;
+server2H deferred. Runtime helper/server/collector changes publish separately.
+Current048supersedes earlier candidate instructions.

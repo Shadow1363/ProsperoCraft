@@ -59,18 +59,17 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client047 — investigate crash after original Mojang loading screen
+## Development client048 — capture native driver errors after loading progress
 
-**046 displayed the original Mojang loading screen on PS5,then crashed.** Matching
-reports confirm positive early VideoOut handle0x4e100100 and three successful
-swapchain image imports. Keep the early same-owner display initialization.
-No fatal signal/VM abort was captured;the crash cause remains unknown.047 keeps
-the existing delegating native fault recorder active across original startup,
-including intervals between shader compilations. Original game JARs and frozen
-passing milestones are preserved. **Menu/gameplay and crash resolution remain
-unvalidated;this is not ALL PASS.**
-[Build/test scope](docs/client-startup-047.md) ·
-[046loading-screen/crash evidence](docs/validation/client046-loading-screen-crash-2026-10-25.json).
+046 displayed the original Mojang loading screen on PS5.047 again initializes
+VideoOut and all3swapchain image imports,but its extended signal recorder captures
+no fatal signal/VM abort. The crash cause remains unresolved.048 captures actual
+native stderr in a separate downloadable report,including RADV messages that Java
+console redirection does not intercept. The existing rendering/fault paths and
+original game JARs are retained. **Menu/gameplay and crash resolution remain
+unvalidated;no new passing milestone.**
+[Build/test scope](docs/client-startup-048.md) ·
+[047report evidence](docs/validation/client047-startup-failure-2026-10-25.json).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 
