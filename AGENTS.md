@@ -270,3 +270,14 @@ The release includes original OpenAL corresponding source and exact relink
 objects/helper;unmodified relink reproduces the frozen native ELF. Original
 game JARs are omitted publicly and reprovisioned locally. Continue development
 outside the frozen folder;server two-hour endurance remains deferred.
+
+Client_OpenGL_Provider is the frozen passing029 milestone,PPSA99874
+01.000.029,human ALL5 PASS and saved session/startup for
+client-01.000.029-1792919308-523542436 on2026-10-25. Preserve exact
+source/package/symbols/validation and release assets.3real Mesa softpipe/OpenGL
+JNI contexts verify192RGBA pixels/768guards and JVM shutdown. This validates
+software GL bootstrap and tested PS5 dependency dispatch,not hardware OpenGL,
+Minecraft startup or broad GL coverage. Vulkan remains the game renderer plan.
+The release includes matching OpenAL source/relink materials;unmodified relink
+reproduces the accepted native ELF. Game JARs remain original and are omitted
+publicly. Continue development outside the frozen folder;endurance deferred.

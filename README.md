@@ -13,7 +13,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Status: Fabric/Paper playtests and continuous direct client rendering pass on PS5.** Client **01.000.023** passes all fifteen checks;retrieved reports confirm494direct FIFO frames,1,482scene draws,all3phases,physical inputs and JVM shutdown. Camera controls and Minecraft startup remain ahead;server two-hour endurance stays deferred.
+> **Status: Fabric/Paper playtests, continuous direct rendering and software OpenGL bootstrap pass on PS5.** Client **01.000.023** passes all fifteen checks;retrieved reports confirm494direct FIFO frames,1,482scene draws,all3phases,physical inputs and JVM shutdown. Camera controls and Minecraft startup remain ahead;server two-hour endurance stays deferred.
 
 ## The goal
 
@@ -52,19 +52,20 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Current client work:OpenGL native bootstrap
+## Client OpenGL Provider — PS5 ALL5 PASS
 
-027 enters original Minecraft Main but stops loading OpenGL:the native
-`liblwjgl_opengl.so` binding is absent. [Development](docs/client-opengl-bindings-development.md)
-now packages193 original OpenGL JNI units/2,270exports and a pinned Mesa
-OSMesa/softpipe software provider in **client01.000.029**. 028failed during GL initialization;029fixes a reproduced PS5 dependency-loader
-dispatch bug. Normal and PS5 host dispatch each verify three real contexts,
-192RGBA pixels and768guard bytes;package checks pass.
-**All five PS5 acceptance rows remain pending.** This tests OpenGL native
-bootstrap support before retrying the game;it does not launch Minecraft or
-claim hardware OpenGL. Vulkan remains the intended game renderer. Original
-game JARs and frozen026 callback/OpenAL acceptance remain intact.
+Client **01.000.029** passes all five checks on the actual PS5. Saved reports
+confirm three genuine Mesa softpipe/OpenGL JNI context lifecycles,192RGBA pixels,
+768guard bytes and clean JVM shutdown. The PS5 dependency-loader repair is
+validated for this workload;all54original game/Java JARs remain unchanged.
 
+[Frozen source and validation](Client_OpenGL_Provider) ·
+[Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_OpenGL_Provider-v01.000.029)
+
+This is software OpenGL bootstrap acceptance;Minecraft startup,hardware OpenGL,
+broader GL workloads and full native-module cleanup remain unvalidated. Vulkan
+remains the intended game renderer. Continue development outside the frozen
+snapshot;server two-hour endurance remains deferred.
 
 ## Client Callbacks/OpenAL — PS5 ALL5 PASS
 
@@ -457,6 +458,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client OpenGL Provider · 01.000.029** | PS5 ALL5 PASS:3real software GL contexts,192RGBA pixels,768guards and JVM shutdown | [Frozen source & validation](Client_OpenGL_Provider) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_OpenGL_Provider-v01.000.029) |
 | **Client Callbacks/OpenAL · 01.000.026** | PS5 ALL5 PASS:192callbacks,3real loopback mixer lifecycles,Vulkan native bootstrap and JVM shutdown | [Frozen source & validation](Client_Callbacks_OpenAL) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Callbacks_OpenAL-v01.000.026) |
 | **Client Continuous Direct Scene · 01.000.023** | PS5 ALL15 PASS:494direct FIFO frames/1,482draws,all3phases,input masks15 and JVM shutdown | [Frozen source & validation](Client_Continuous_Direct_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Continuous_Direct_Scene-v01.000.023) |
 | **Client Visible Perspective Scene · 01.000.022** | PS5 ALL15 PASS:vertex-buffer perspective scene,verified image handoff,295SDL FIFO frames/input and JVM shutdown | [Frozen source & validation](Client_Visible_Perspective_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Visible_Perspective_Scene-v01.000.022) |

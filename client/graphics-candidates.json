@@ -14,7 +14,7 @@
   },
   "client_backend": "Pinned official26.3 client contains RenderPearl VulkanBackend and SDL window/event interfaces; VulkanInstance references SDL_Vulkan_GetInstanceExtensions and Vulkan1.2 instance setup",
   "first_known_boundary": "Unmodified LWJGL3.4.3 Platform initialization rejects os.name=PS5 with LinkageError before native initialization",
-  "next": "Run029 real OSMesa/OpenGL five-row acceptance on PS5 before retrying original Minecraft startup;Vulkan remains the intended game renderer.",
+  "next": "Preserve passing029 provider snapshot;retry original Minecraft startup with supported OSMesa native bootstrap and Vulkan selected. Remaining native libraries and game menu unvalidated.",
   "opengl_provider_candidate": {
     "repository": "https://github.com/blackbearreloaded/ps5-opengl",
     "checked_date": "2026-10-24",
@@ -25,7 +25,7 @@
     "sources": "client/ports/opengl/mesa-sources.json",
     "implementation": "Original Mesa24.3.4 OSMesa/softpipe;private resident symbols and compiler-managed emulated GL TLS",
     "candidate": "01.000.029",
-    "console": "pending;host/package checks pass",
+    "console": "Human ALL5 PASS corroborated by saved current session/startup:3 actual Mesa softpipe/OpenGL JNI contexts,192RGBA pixels,768guard bytes and clean JVM shutdown",
     "scope": "Software OpenGL provider for unconditional native bootstrap;not hardware GL or a replacement Vulkan renderer",
     "dispatch": "Actual LWJGL GL dependency overlay bypasses unsupported desktop OSMesa defaults only on PS5;original GL regression fails without it,passes with actual Mesa"
   }

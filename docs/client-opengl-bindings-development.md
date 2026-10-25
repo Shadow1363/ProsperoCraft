@@ -186,3 +186,15 @@ package and symbols remain recoverable. See client/opengl_bootstrap/status.json
 and docs/validation/client029-candidate-2026-10-25.json for the checksum. Install029,
 press X once,and leave it open after its result for logs. ALL5on actual PS5,
 full game startup and the deferred server endurance run remain pending.
+
+
+## Client029 console acceptance
+
+The human reports ALL5 PASS. Safari-saved session/startup identify
+client-01.000.029-1792919308-523542436 and confirm all three actual softpipe
+readback/guard cycles plus DestroyJavaVM completion. Client_OpenGL_Provider
+is now the frozen passing source/package/checksum milestone. Its release omits
+original game JARs and includes corresponding OpenAL source/relink materials;
+the unmodified relink reproduces the exact accepted ELF. Preserve the snapshot
+and continue new work in root client/. This acceptance does not establish
+Minecraft startup,hardware GL,full native-module cleanup or endurance.
