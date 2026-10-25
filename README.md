@@ -59,24 +59,23 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client056 — preserve dedicated JVM log destinations
+## Development client057 — targeted main-thread transition capture
 
-The user confirms055crashed. Saved reports show120complete snapshots,language
-resource application and no accepted menu. Recovered startup history contains
-63GC starts with63completed summaries;last full collection232M->176M(247M),
-then later thread-dump safepoints. **Game crash cause remains unknown.**
+The user confirms056crashed. Its repaired dedicated GC file works on PS5:
+406780bytes,63collection starts/63completed summaries,last full232M->176M(247M),
+then later thread-dump safepoints.121complete Java snapshots end in language
+resource application;no fatal/abort/JavaOOM/driver error is captured.
+**Crash cause remains unknown;no working menu accepted.** Exact056preserved.
 
-A concrete diagnostic bug is repaired:the embedded JVM print callback previously
-ignored its FILE argument,redirecting even GC-file writes into startup.log and
-leaving gc.log empty.056preserves dedicated file destinations while retaining
-stdout/stderr capture. Actual embedded-host-JVM regression reproduces the055bug
-and checks repaired GC output/rotation. Exact055package/symbols/evidence preserved.
-Original54JARs/5147assets,heap,runtime image and graphics behavior stay.
-PS5 file routing/rotation,crash resolution and working menu remain pending.
-No client release/Store download;server endurance remains deferred.
-[Diagnostic repair and test instructions](docs/client-startup-056.md) ·
-[055console evidence](docs/validation/client055-startup-failure-2026-10-25.json) ·
-[Current handoff](docs/handoff-prosperocraft-client056.md).
+057adds one bounded500sample main-thread-only burst after observing language
+apply through LanguageManager and Minecraft.runTick.10ms sleeps target the missing
+sub250ms transition;unchanged stacks reference their previous full record. Same
+observer daemon,existing native/GC logs,no game hooks or heap/graphics changes.
+PS5 trigger/capture/crash resolution/menu remain pending. Original54JARs/5147assets
+stay intact;no client release/Store download,server endurance deferred.
+[057diagnostic](docs/client-startup-057.md) ·
+[056console evidence](docs/validation/client056-startup-failure-2026-10-25.json) ·
+[Current handoff](docs/handoff-prosperocraft-client057.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

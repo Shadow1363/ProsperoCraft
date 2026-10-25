@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.057",
+  "package_sha256": "8e7b84a3af448df8bc35f4660829ed9771191860fe075646d0b24badb20e4168",
+  "source_revision": "Consumer commit containing this manifest,parent2294d97be3c82e9e75a742f9cdc0ff5cc95a4612",
+  "source_sha256": {
+    "client/startup/ClientStartup25.java": "e44aad5417cb40c28d366588784b83816c769f50767087016c5b3e44d700a5f5",
+    "client/startup/bootstrap.cpp": "a5327ae14c2e9a1da36a8032a24123ec174261f1a7560b2acb8c0302352eb841",
+    "client/startup/observer_native.hpp": "789c5f4cba765139616448200c01a609e3488813c43c5325b300b8a927080e7d",
+    "client/startup/param.json": "80a030dece18d93f1aa7c6f32a2ce9380ea55732b104c2c608be57267047a393",
+    "tools/package_client_vulkan.py": "446060320b49e1a285124d813542ee9d895d2b9d11a4c448af8637676c56bd94",
+    "tools/test_client_startup_host.py": "b91f5962d3d04eaff37f9111f7b55e4270e8772a110a81e4b07cad784259507d",
+    "tools/test_client_startup_package.py": "b60ceeaf57e7c4c1b8031e16c181f856cb9f49f3f9bbde30d22e51945357c7cd"
+  },
+  "symbols_sha256": "c3ae9e12b06acd2c63fa7884a391e5e71b81780fb41a1eaca89c284546ed9b37",
+  "runtime_commit": "1e9fb4f23a2e84e26c50fe67cc4e746ff371dfa2",
+  "runtime_image_implementation": "6382528c7aee066002d1c2c6a7b5c7116987ae8c;unchanged image/SDK",
+  "checks": {
+    "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual owner-only transition burst:precise language trigger,finite samples/live owner stacks,elapsed/heap records,close without later writes;host only\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS exact startup GC/safepoint JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+    "target": "Packaging exit0,target compile/link/SELF passed. Exact final nested/outer classes match host compile.",
+    "package": "PASS057 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 8e7b84a3af448df8bc35f4660829ed9771191860fe075646d0b24badb20e4168",
+    "retained_file_callback": "Exact vm_print function body matches console-verified056;prior embedded-JVM regression remains applicable.",
+    "preserved056": "Exact fullZIP587ca6053d121d6cfd5d49d695adc61ff5edb73c03c111e420a5f3ddf74794e1 and symbols/source/status/build/console validation retained.",
+    "baseline002": "Exact convenienceZIP restored:d0b9f815ff68c5ad821b2166509879c623c813019d2f70bbacf53769f35e3971"
+  },
+  "scope": "Diagnostic only:single500sample owner-only burst,10ms sleeps,triggered by Language.loadFromJson+LanguageManager.reload+Minecraft.runTick in regular snapshot.64frames/unchanged references. Same daemon,no nativequeryloop/gamehooks. Original54JARs/5147assets,heap/runtime image/graphics intact.",
+  "console": "PENDING057actual trigger/burst capture/crash resolution/menu.056FILE repair confirmed;63GCs complete,gamecrash cause unknown.",
+  "release": "No menu/new passing milestone/client release/Store download;server2Hdeferred."
+}

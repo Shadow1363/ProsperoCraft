@@ -10,7 +10,7 @@ import org.lwjgl.system.MemoryUtil;
 public final class ClientStartup25 {
  public static native void checkpoint(String text);
  public static native void nativeSnapshot(long elapsedMillis,int phase);
- private static void stage(String text){checkpoint("MC Startup056: "+text);}
+ private static void stage(String text){checkpoint("MC Startup057: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -54,6 +54,37 @@ public final class ClientStartup25 {
    if(sample>=90&&sample<170)return Math.max(1,intervalMillis/4);
    return intervalMillis;
   }
+  static boolean isLanguageApply(StackTraceElement[] frames){
+   boolean language=false,reload=false,mainLoop=false;
+   if(frames!=null)for(var frame:frames){
+    if(frame.getClassName().equals("net.minecraft.locale.Language")&&frame.getMethodName().equals("loadFromJson"))language=true;
+    if(frame.getClassName().equals("net.minecraft.client.resources.language.LanguageManager")&&frame.getMethodName().equals("onResourceManagerReload"))reload=true;
+    if(frame.getClassName().equals("net.minecraft.client.Minecraft")&&frame.getMethodName().equals("runTick"))mainLoop=true;
+   }
+   return language&&reload&&mainLoop;
+  }
+  // One bounded burst on this same daemon,triggered by an observed original
+  // language-apply stack. No game calls/hooks,extra thread or native query loop.
+  void captureMainTransitions(int count,long pauseMillis)throws InterruptedException{
+   StackTraceElement[] previous=null;int previousSample=0;
+   synchronized(console){if(running)console.println("PS5 MAIN TRANSITION BEGIN samples="+count+" intervalMs="+pauseMillis);}
+   for(int sample=1;running&&sample<=count;sample++){
+    var frames=owner.getStackTrace();Runtime heap=Runtime.getRuntime();
+    boolean unchanged=java.util.Arrays.equals(previous,frames);
+    StringBuilder text=new StringBuilder(4096);
+    text.append("PS5 MAIN TRANSITION ").append(sample).append(" elapsedMs=").append((System.nanoTime()-startedNanos)/1_000_000).append(" heapUsed=").append(heap.totalMemory()-heap.freeMemory()).append(" state=").append(owner.getState()).append(" frames=").append(frames.length).append('\n');
+    if(unchanged)text.append("  unchangedFromTransition=").append(previousSample).append('\n');
+    else{
+     for(int frame=0;frame<Math.min(frames.length,64);frame++)text.append("  at ").append(frames[frame]).append('\n');
+     if(frames.length>64)text.append("  [frame limit64]\n");
+     previous=frames;previousSample=sample;
+    }
+    text.append("PS5 END MAIN TRANSITION ").append(sample).append('\n');
+    synchronized(console){if(running){console.print(text);console.flush();}}
+    if(sample<count)Thread.sleep(pauseMillis);
+   }
+   synchronized(console){if(running)console.println("PS5 MAIN TRANSITION COMPLETE;bounded diagnostic only");}
+  }
   private void observeNative(int phase){
    synchronized(console){
     if(!running||!nativeSampling)return;
@@ -64,6 +95,7 @@ public final class ClientStartup25 {
   void start(){worker.start();}
   private void run(){
    try{
+    boolean transitionCaptured=false;
     for(int sample=1;running&&sample<=samples;sample++){
      observeNative(0);
      var traces=Thread.getAllStackTraces();
@@ -84,6 +116,7 @@ public final class ClientStartup25 {
      text.append("PS5 END SNAPSHOT ").append(sample).append('\n');
      synchronized(console){if(running){console.print(text);console.flush();}}
      observeNative(1);
+     if(!transitionCaptured&&isLanguageApply(traces.get(owner))){transitionCaptured=true;captureMainTransitions(500,10);}
      if(sample<samples)Thread.sleep(intervalAfter(sample));
     }
    }catch(InterruptedException stopped){Thread.currentThread().interrupt();}

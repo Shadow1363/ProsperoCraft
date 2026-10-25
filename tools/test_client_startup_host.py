@@ -5,7 +5,7 @@ import argparse,subprocess,json,tempfile,hashlib,os
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--java-home',type=Path,required=True);a=p.parse_args();lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
 cp=':'.join(str(ROOT/'.tools/client'/r['file'])for r in lock['artifacts'])
-out=ROOT/'build/startup-host-056';out.mkdir(exist_ok=True)
+out=ROOT/'build/startup-host-057';out.mkdir(exist_ok=True)
 (out/'StartupPolicy.java').write_text('''import java.nio.file.*;import java.util.*;public class StartupPolicy{public static void main(String[]a)throws Exception{Path w=Path.of(a[0]);ClientStartup25.prepareWork(w);String text=Files.readString(w.resolve("options.txt"));if(!text.contains("soundCategory_music:0.0"))throw new AssertionError();Files.writeString(w.resolve("options.txt"),"existing");ClientStartup25.prepareWork(w);if(!Files.readString(w.resolve("options.txt")).equals("existing"))throw new AssertionError("existing options overwritten");String[]args=ClientStartup25.launchArguments(w,Path.of(a[1]));List<String>l=Arrays.asList(args);for(String flag:new String[]{"--demo","--disableMultiplayer","--disableChat","--graphicsBackend","vulkan","--accessToken","0"})if(!l.contains(flag))throw new AssertionError(flag);if(l.contains("--quickPlayMultiplayer"))throw new AssertionError();System.out.println("PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check");}}''')
 subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(out),str(ROOT/'client/startup/ClientStartup25.java'),str(out/'StartupPolicy.java')],check=True)
 with tempfile.TemporaryDirectory(prefix='mc-startup-policy-')as temp:
@@ -30,6 +30,22 @@ public class StartupObserverCheck{
   long deadline=System.nanoTime()+TimeUnit.SECONDS.toNanos(5);
   while(!bytes.toString().contains("PS5 END SNAPSHOT 1")&&System.nanoTime()<deadline)Thread.sleep(5);
   if(!bytes.toString().contains("PS5 END SNAPSHOT 1"))throw new AssertionError("no first snapshot");observer.close();joinObserver();int size=bytes.size();Thread.sleep(20);if(bytes.size()!=size||bytes.toString().contains("SNAPSHOT 2"))throw new AssertionError("writes after close");
+  var languageFrame=new StackTraceElement("net.minecraft.locale.Language","loadFromJson","Language.java",85);
+  var reloadFrame=new StackTraceElement("net.minecraft.client.resources.language.LanguageManager","onResourceManagerReload","LanguageManager.java",75);
+  var loopFrame=new StackTraceElement("net.minecraft.client.Minecraft","runTick","Minecraft.java",1240);
+  if(!ClientStartup25.StartupObserver.isLanguageApply(new StackTraceElement[]{languageFrame,reloadFrame,loopFrame})||ClientStartup25.StartupObserver.isLanguageApply(new StackTraceElement[]{languageFrame})||ClientStartup25.StartupObserver.isLanguageApply(new StackTraceElement[]{languageFrame,reloadFrame})||ClientStartup25.StartupObserver.isLanguageApply(null))throw new AssertionError("transition trigger");
+  bytes.reset();ClientStartup25.StartupObserver burst=new ClientStartup25.StartupObserver(console,1,1);
+  java.util.concurrent.atomic.AtomicReference<Throwable> burstError=new java.util.concurrent.atomic.AtomicReference<>();
+  Thread sampler=new Thread(()->{try{burst.captureMainTransitions(3,1);}catch(Throwable e){burstError.set(e);}},"host transition sampler");sampler.setDaemon(true);sampler.start();sampler.join(5000);
+  if(sampler.isAlive()||burstError.get()!=null)throw new AssertionError("burst lifecycle",burstError.get());
+  String captured=bytes.toString(java.nio.charset.StandardCharsets.UTF_8);
+  if(captured.split("PS5 END MAIN TRANSITION ",-1).length!=4||!captured.contains("StartupObserverCheck.main")||!captured.contains("PS5 MAIN TRANSITION COMPLETE")||!captured.contains("heapUsed=")||!captured.contains("elapsedMs="))throw new AssertionError(captured);burst.close();
+  bytes.reset();ClientStartup25.StartupObserver stoppedBurst=new ClientStartup25.StartupObserver(console,1,1);
+  sampler=new Thread(()->{try{stoppedBurst.captureMainTransitions(500,10);}catch(Throwable e){burstError.set(e);}},"host stopped transition sampler");sampler.setDaemon(true);sampler.start();
+  deadline=System.nanoTime()+TimeUnit.SECONDS.toNanos(5);while(!bytes.toString().contains("PS5 END MAIN TRANSITION 1")&&System.nanoTime()<deadline)Thread.sleep(1);
+  if(!bytes.toString().contains("PS5 END MAIN TRANSITION 1"))throw new AssertionError("no transition");stoppedBurst.close();sampler.join(5000);size=bytes.size();Thread.sleep(20);
+  if(sampler.isAlive()||bytes.size()!=size||bytes.toString().contains("TRANSITION COMPLETE"))throw new AssertionError("burst writes after close");
+  System.out.println("PASS actual owner-only transition burst:precise language trigger,finite samples/live owner stacks,elapsed/heap records,close without later writes;host only");
   release.countDown();System.out.println("PASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only");
  }
 }''')

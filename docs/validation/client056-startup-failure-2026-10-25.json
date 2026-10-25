@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.056",
+  "run": "client-01.000.056-1792956807-188322125",
+  "tested_source_commit": "2294d97be3c82e9e75a742f9cdc0ff5cc95a4612",
+  "package_sha256": "587ca6053d121d6cfd5d49d695adc61ff5edb73c03c111e420a5f3ddf74794e1",
+  "human": "User confirms crashed app reopened. No exact timing/error/menu acceptance supplied.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "2db5853dd9e2eb275b0f35a1d01fc42c16d46afd2ff4abedf7c9aafab3984a91"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "bc4547287b89a356ffc7c68508bc7171f2ecdabcc50c3b92e8f4f59dc9a54cdf"
+    },
+    "exceptions.log": {
+      "bytes": 949670,
+      "sha256": "2786a735236a9efde07baef3f8eff4d0d08b8566bd465873365eaecaeb21ab93"
+    },
+    "gc-rotated.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "gc.log": {
+      "bytes": 406780,
+      "sha256": "0f4f87567d4d3e294164a09e0f4ff1de4862cdad9e2c1dd40900842de15a450c"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 412,
+      "sha256": "3e1783dc03cd1c4c85c9701df2884f37c3139fec61cc9233d014ae4b345afb27"
+    },
+    "process-usage.log": {
+      "bytes": 197414,
+      "sha256": "e0792afd0b9f9c5eb87afd5181e12b31de45999f9ed18a851a84eb7fa8090520"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "542196420b1009d531a13803bab8bd6a92fab19e4b57d3442acbf7d875112b73"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "59ad7d8a694fa113d6bb02fcef83738284d5a931b152dd1429df91d14dcbf312"
+    },
+    "startup.log": {
+      "bytes": 1378407,
+      "sha256": "5d1b39638f09799af638a4d12de17151130d7bbe66fbec3d9b904b54daff4ecf"
+    },
+    "vm-trace.log": {
+      "bytes": 1711159,
+      "sha256": "8c006240b43f8afaf12548732d83d73979f2b98a7ac680d75f57d7edd5058b44"
+    }
+  },
+  "observed": {
+    "snapshots": 121,
+    "snapshot_ends": 121,
+    "last_snapshot_ms": 97194,
+    "native_records": 242,
+    "last_native_ms": 97195,
+    "last_heap_used_bytes": 244191456,
+    "heap_max_bytes": 259522560,
+    "last_render": "Language.loadFromJson85/regex via resource apply/Minecraft.runTick/run;worker idle. Last observed stack,not fatal instruction.",
+    "gc_file_bytes": 406780,
+    "gc_file_routing": "Actual056dedicated file populated;055redirect bug repaired on PS5. Rotation did not occur under4MiB threshold,remains console-unvalidated.",
+    "gc_start_count": 63,
+    "gc_end_count": 63,
+    "unmatched_gc_start_ids": [],
+    "last_gc": [
+      "62",
+      "Pause Full (Allocation Failure) 232M->176M(247M) 343.553ms"
+    ],
+    "last_gc_uptime_ms": 158134,
+    "last_safepoint_uptime_ms": 162422,
+    "clocks": "JVM uptime and observer elapsed have different origins. Last saved activity is not exact crash time.",
+    "flexible_min_bytes": 339738624,
+    "direct_largest_min_bytes": 12124291072,
+    "raw_maxrss_last": "1162112",
+    "raw_maxrss_units": "Unverified;do not convert based on desktop assumptions.",
+    "handler_owned_masks": [
+      "0xf"
+    ],
+    "query_statuses": {
+      "getrusage_rc": [
+        "0"
+      ],
+      "flexible_rc": [
+        "0x00000000"
+      ],
+      "direct_rc": [
+        "0x00000000"
+      ],
+      "fault_query_errors": [
+        "0x0"
+      ],
+      "rlimit_data_rc": [
+        "0"
+      ],
+      "rlimit_as_rc": [
+        "0"
+      ],
+      "rlimit_rss_rc": [
+        "0"
+      ]
+    },
+    "fatal": "No captured signal/abort/JavaOOM/driver error. Does not exclude later native/GPU/system termination.",
+    "allocation": "Ordinary reserve/initial metadata-null traces retain documented fallback/retry caveats;no new allocator failure established."
+  },
+  "cause": "Unknown. Completed collections and last language stacks do not diagnose crash.",
+  "next": "No supported new defect. Preserve056;small bounded owner-only stack burst after observed language apply to capture missing sub250ms transition,without game hooks or memory/graphics policy changes.",
+  "limits": "No menu acceptance/milestone/client release/Store download. Deferred server2H untouched."
+}

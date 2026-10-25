@@ -1,3 +1,5 @@
+> Continuation:056crash confirmed,reports saved;dedicated GC file populated on PS5,63collections complete. No new supported defect/cause. See [056evidence](validation/client056-startup-failure-2026-10-25.json) and [057targeted capture](client-startup-057.md).
+
 # Current ProsperoCraft handoff — client056
 
 Continue existing files/history;read both workspace/consumer AGENTS.md.
