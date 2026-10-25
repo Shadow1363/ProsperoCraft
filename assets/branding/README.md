@@ -21,3 +21,12 @@ prompt. This is a flattened PNG rather than layered/vector artwork. A matching
 copy was delivered to Downloads as ProsperoCraft-icon-source.png. The existing
 icon0.png and compiled packages have not been replaced;future integration can
 use this source while preserving frozen milestones.
+
+## Outline correction v3
+
+ProsperoCraft-icon-v3-source.png is the user-requested correction to v2:
+continuous dark-green pixel outlines follow both letters,including the P hole.
+The built-in image_gen edit and visual inspection are recorded in
+icon-v3-source.json with exact prompt,dimensions and checksum. Original v2 is
+preserved. Delivered in Downloads as ProsperoCraft-icon-outline-fixed.png.
+Packaging icon0.png and compiled/frozen packages remain unchanged.

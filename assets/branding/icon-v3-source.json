@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-25",
+  "file": "ProsperoCraft-icon-v3-source.png",
+  "sha256": "4bc8be65c08875719290a7ebce8c84bb4c261996d0eaaeebcd1b5bec775c42d2",
+  "size": [
+    1254,
+    1254
+  ],
+  "format": "PNG",
+  "tool": "Built-in image_gen",
+  "parent": "ProsperoCraft-icon-v2-source.png",
+  "change": "Complete dark-green pixel outlines around P and C including P counter;visually inspected generated output.",
+  "prompt": "Precise-object-edit. Edit this exact icon with ONE localized correction only: the bright green P and C on the two wood faces currently have incomplete dark green outlines that look like shifted shadows. Replace those fragmented shadows with a complete continuous dark forest-green pixel outline of uniform face-space thickness around EVERY exterior edge of BOTH green letters, and around the internal hole of the P. The outline must follow the full letter silhouettes, all top/bottom/left/right edges and C opening/end caps, aligned to each wooden face's isometric perspective. Crisp angular pixel corners, no rounded strokes, no detached patches, no offset drop shadows, no gaps in the outline. Keep the original bright green letter fills/shapes/positions, crafting table geometry, wood textures, 3x3 top grid, framing, background and lighting otherwise unchanged. No red markup or annotations, no added text. Deliver a single square standalone finished icon.",
+  "integration": "Standalone revised source only;current packaged icon and frozen snapshots unchanged."
+}
