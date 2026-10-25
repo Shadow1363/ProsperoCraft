@@ -80,3 +80,12 @@ Actual PS5 capture/crash resolution/menu remain pending.
 
 Full-package verification passes,including actual native-capture marker/routes,
 original pins,SELF integrity and preserved047checksum;recorded in startup/status.json.
+
+## Console regression and superseding049
+
+048stopped before the JVM:live session FAIL Initialize embedded runtime/code1,
+native report only identity. PS5 refuses dup2EPERM;native-active marker absent.
+Earlier host descriptor tests did not establish title capability. This run did
+not test the original crash. [Evidence](validation/client048-diagnostic-setup-failure-2026-10-25.json).
+[049](client-startup-049.md) removes dup2,uses a configured replacement stderr FILE
+and makes optional diagnostic failure nonfatal. Raw descriptor2 is not captured.

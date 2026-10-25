@@ -59,17 +59,16 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client048 — capture native driver errors after loading progress
+## Development client049 — repair native diagnostic setup
 
-046 displayed the original Mojang loading screen on PS5.047 again initializes
-VideoOut and all3swapchain image imports,but its extended signal recorder captures
-no fatal signal/VM abort. The crash cause remains unresolved.048 captures actual
-native stderr in a separate downloadable report,including RADV messages that Java
-console redirection does not intercept. The existing rendering/fault paths and
-original game JARs are retained. **Menu/gameplay and crash resolution remain
-unvalidated;no new passing milestone.**
-[Build/test scope](docs/client-startup-048.md) ·
-[047report evidence](docs/validation/client047-startup-failure-2026-10-25.json).
+048's prolonged black screen was an early diagnostic failure:PS5 refuses dup2
+with EPERM1,so the JVM never started.049 replaces stderr through a configured
+FILE stream without dup2 and makes optional capture failure nonfatal. Native
+fprintf(stderr,...) can be captured;raw descriptor2 writes stay unchanged.
+046's original Mojang loading progress and047's outer fault recorder are retained.
+**PS5 stream capture,original crash resolution and menu/gameplay remain pending.**
+[Build/test scope](docs/client-startup-049.md) ·
+[048setup-failure evidence](docs/validation/client048-diagnostic-setup-failure-2026-10-25.json).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

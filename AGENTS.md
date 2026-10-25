@@ -454,3 +454,12 @@ Reopen without X after failure;collect native-stderr.log with VM/build/session/
 exceptions/abort/fatal reports. PS5 descriptor capture/crash resolution/menu pending;
 server2H deferred. Runtime helper/server/collector changes publish separately.
 Current048supersedes earlier candidate instructions.
+
+Client048 black screen was diagnostic setup FAIL check1/code1 before JVM;matching
+run client-01.000.048-1792946164-359674616/native header only. PS5 title dup2EPERM
+is documented by inspected SDK source. Do not treat stale VM traces as048. Exact
+048retained.049uses open/fdopen/unbuffered FILE then stderr pointer replacement,
+no dup2/no pipe/thread;raw descriptor2 remains unchanged/not captured. Optional
+capture failure now logs/notifies and continues startup. Preserve early WSI owner/
+outer recorder/original artifacts. PS5 FILE capture/loading/crash/menu pending;
+server2H deferred. Current049supersedes earlier candidate instructions.

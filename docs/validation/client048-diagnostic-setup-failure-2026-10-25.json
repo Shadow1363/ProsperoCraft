@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.048",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.048-1792946164-359674616",
+  "tested_source_commit": "f5ab4533a405c09f6118136269ea7d9941cd2493",
+  "package_sha256": "ede64e69349767fa6dcf425155e5b00210eb20ce48408c6c5c36c7e59179dca4",
+  "human": "Black for too long;asked to check live app",
+  "observed": "Live report server responds. Session FAIL Initialize embedded runtime/code00000001. Native log has only matching build/run identity,not native-active marker. This occurs before startup_log/open or constructors/JVM. Previous-run VM traces must not be treated as048.",
+  "cause": "048 introduced a diagnostic regression:dup2 in native stderr setup returnsEPERM1 and harness stops check1. Report header creation succeeds,helper open shares same path;helper setvbuf errors useEIO5. Pinned source reference explicitly documents PS5 title dup2EPERM and stderr stream replacement.",
+  "reference": "https://github.com/mihawk-99/PS5_PayloadSDK/blob/7a82030dcff6457936d75be97f52aa509b770e1f/platform/src/klog.c",
+  "reports": {
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "347e286b4b544027e2e56e904464361ff194347dbfaae67c64b1cde45ab2d13a"
+    },
+    "native-stderr.log": {
+      "bytes": 84,
+      "sha256": "a1863caf33534008832f9ddd1c1eb188aeff0f23c35f95bd7e43432d5d72bacf"
+    },
+    "session.txt": {
+      "bytes": 136,
+      "sha256": "c2f5a1af1437f389357aa2d9811721c4c2d43d5327f044eac0f9d9b1ae5dfc9d"
+    }
+  },
+  "repair": "049 uses open/fdopen/unbuffered FILE before publishing stderr,no dup2. Capture setup failure logs/notifies and continues. Raw descriptor2 unchanged/not captured. Preserve early VideoOut/outer fault recorder.",
+  "limits": "048did not test original Main/rendering/crash.049capture and original crash/menu/stability still needPS5;server2H deferred."
+}

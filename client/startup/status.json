@@ -1,12 +1,12 @@
 {
-  "stage": "ProsperoCraft original startup048:native stderr capture",
+  "stage": "ProsperoCraft original startup049:repair diagnostic setup without dup2",
   "date": "2026-10-25",
   "title_id": "PPSA99874",
-  "app_version": "01.000.048",
-  "package_sha256": "ede64e69349767fa6dcf425155e5b00210eb20ce48408c6c5c36c7e59179dca4",
-  "console": "PENDING PS5 native stderr path/driver diagnostics/crash investigation/menu",
+  "app_version": "01.000.049",
+  "package_sha256": "b8edd18c63a6572c483c7c6e203e772bf48c974c50b56a1199fe7d2151d11b40",
+  "console": "PENDING PS5 native FILE capture/return to original loading/crash investigation/menu",
   "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
-  "package_checks": "PASS048 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 ede64e69349767fa6dcf425155e5b00210eb20ce48408c6c5c36c7e59179dca4",
+  "package_checks": "PASS049 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 b8edd18c63a6572c483c7c6e203e772bf48c974c50b56a1199fe7d2151d11b40",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
   "game_jar_modified": false,
   "runtime_implementation_modified": false,
@@ -36,20 +36,20 @@
   "native_coverage": "Exact accepted036 SPIRV-Cross,035 VMA,033 FreeType,031 STB,029 OSMesa/OpenGL and026 callbacks/OpenAL;existing SDL/shaderc/RADV. Combined original game initialization and broader native API use remain unvalidated.",
   "baseline": "All passing snapshots including036/035 and failed034/032/030 preserved",
   "not_validated": [
-    "PS5 native stderr output/capture,crash cause/resolution,menu/gameplay/loading stability",
+    "PS5 FILE stream capture,return to original loading,original crash resolution and menu/gameplay/stability",
     "Further native feature/API coverage and network-service failures",
     "Game memory adequacy/performance/global teardown;server endurance deferred"
   ],
-  "previous_failure": "docs/validation/client047-startup-failure-2026-10-25.json",
+  "previous_failure": "docs/validation/client048-diagnostic-setup-failure-2026-10-25.json",
   "memory_limit": "040used130MiB after last Java GC/247MiB committed;separate4MiB native allocator failure. Console-wide memory pressure and full game adequacy unmeasured.",
-  "development_repair": "Capture real descriptor2/native FILE stderr before embedded constructors using generic runtime header;unbuffered append,explicit setup failure,standard fixed allowlisted current/previous report routes/session archiving/collector. No GPU/JVM/game behavior fix claimed.",
+  "development_repair": "open/fdopen/unbuffered new stream,then publish stderr pointer;old stream/raw descriptor2 retained. Failure closes unpublished resources,logs/notifies and continues. Early WSI/outer recorder unchanged.",
   "native_dependency_baseline": {
     "milestone": "Client_OpenGL_Provider",
     "version": "01.000.029",
     "full_package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
     "console": "Human ALL5 PASS and saved reports;037 packaged provider/JNI/overlay hashes match029"
   },
-  "development": "048 captures actual native stderr to identity-stamped current/previous report;retain early WSI owner and startup-wide signal scope",
+  "development": "049 replaces stderr FILE without sandbox-denied dup2;optional capture setup failure is nonfatal",
   "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports.",
   "stb_baseline": {
     "milestone": "Client_STB_Codecs",
@@ -112,13 +112,14 @@
   "startup_fault_host_regression": "PASS real fault recorder:outer reference survives nested compiler end;SIGILL/SIGSEGV record then delegate to one-argument/SA_SIGINFO prior handlers;last-reference restoration/mask preserved. Host context4words,PS5existing96raw words pending.",
   "startup_fault_console_evidence": "047 installed outer recorder handlers4,positive early VideoOut and3image imports;no recorded signal/VM abort;fatal report unavailable. Does not exclude nondelivered signal/system/GPU/process termination.",
   "native_stderr_capture": {
-    "runtime_source_commit": "12b03cd",
-    "helper_sha256": "466836cf9a5a1eb47a7178c6b8cbe76d5059696d0852b347af13562663aeb6bb",
+    "runtime_source_commit": "6382528",
+    "helper_sha256": "cba8267a4294ec468013319630bf6237aa39d47ca43be5fcf44cc9be4e3cccaf",
     "log_share_sha256": "1529e920337adc1e2b4f9d5f0e961925b2e33349bcbabcd7d9df36386050dd4d",
-    "host": "PASS real stdio/raw descriptor2/unbuffered _exit/append/open2/errno/stdout/failed-open;HTTP native current/previous routes/archive/ZIP collector;ASan/UBSan",
+    "host": "PASS actual stdio/unbuffered _exit/append;raw descriptor2/stdout unchanged;errno preserved;failed open/fdopen old stream retained/unpublished-fd cleanup;HTTP routes/archive/collector;ASan/UBSan",
     "path": "/download0/probe-native-stderr.log",
     "endpoint": "/native-stderr.log",
     "previous_endpoint": "/previous-native-stderr.log",
-    "scope": "Opt-in title lifetime,before native constructors;runtime JVM/image unchanged;PS5 pending"
+    "scope": "Opt-in title-lifetime FILE stderr capture only,no dup2/raw2 capture;failure nonfatal;JVM/image unchanged;PS5 pending",
+    "console_failure_048": "dup2EPERM1 stopped check1 before constructors/JVM;live session and identity-only report.049removes denied call."
   }
 }

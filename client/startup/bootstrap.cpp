@@ -67,7 +67,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.048";
+constexpr const char* build_version="01.000.049";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -95,7 +95,7 @@ void network_checkpoint(JNIEnv *env,jclass,jstring stage) {
  const char *utf=env->GetStringUTFChars(stage,nullptr);
  if(!utf) return;
  log_stage(utf);
- if(std::strncmp(utf,"MC Startup048:",14)==0)notify(utf);
+ if(std::strncmp(utf,"MC Startup049:",14)==0)notify(utf);
  env->ReleaseStringUTFChars(stage,utf);
 }
 int vm_print(FILE *,const char *format,va_list arguments) {
@@ -176,15 +176,16 @@ void run_test(int i) {
   }
   ps5::log_share::begin_session(build_version,run_id);
   char native_identity[256];std::snprintf(native_identity,sizeof(native_identity),"Build: %s\nRun: %s\nNative stderr capture\n",build_version,run_id);
-  if(!ps5::log_share::write_note("/download0/probe-native-stderr.log",native_identity)) {
-   result(i,errno?errno:-1321,"Cannot create native stderr report");return;
-  }
-  int native_stderr_error=ps5::native_stderr::begin("/download0/probe-native-stderr.log");
-  if(native_stderr_error){result(i,native_stderr_error,"Cannot redirect native stderr");return;}
-  std::fprintf(stderr,"Client048 native stderr active before embedded constructors\n");
+  int native_stderr_error=0;
+  if(!ps5::log_share::write_note("/download0/probe-native-stderr.log",native_identity))
+   native_stderr_error=errno?errno:EIO;
+  else native_stderr_error=ps5::native_stderr::begin("/download0/probe-native-stderr.log");
+  if(!native_stderr_error)std::fprintf(stderr,"Client049 native stderr stream active before embedded constructors\n");
+  else notify("Client049 native stderr capture unavailable;continuing original startup. Inspect startup reports.");
   startup_log=std::fopen("/download0/java25-startup.log","a");
   if(!startup_log) {result(i,errno,"Cannot open persistent startup log");return;}
   std::fprintf(startup_log,"\n=== CLIENT RUN %s BUILD %s ===\n",run_id,build_version);std::fflush(startup_log);
+  char capture_status[160];std::snprintf(capture_status,sizeof(capture_status),"Native stderr FILE capture status%d;raw descriptor2 unchanged;diagnostic failure is nonfatal",native_stderr_error);log_stage(capture_status);
   log_stage("Prior startup/VM diagnostic tails retained: max512KiB each before new run");
   log_stage("Begin embedded core constructors");
   size_t count=0;
@@ -358,7 +359,7 @@ void run_test(int i) {
 }
 extern "C" void client_sdl_diagnostic(const char* text) {log_stage(text);}
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU048 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU049 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 extern "C" int sceKernelSendNotificationRequest(std::uint32_t,void*,std::size_t,int);
 extern "C" int sceSystemServiceHideSplashScreen();
@@ -368,14 +369,14 @@ static void notify(const char* text) {
  (void)sceKernelSendNotificationRequest(0,&n,sizeof(n),0);
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.048 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.049 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
  if(sceUserServiceGetInitialUser(&user)>=0 && scePadInit()>=0) pad=scePadOpen(user,0,0,nullptr);
 
- notify("Client048 ready: press X once to try ORIGINAL Minecraft startup. Demo mode;no automatic menu PASS. Keep open for logs.");
- if(pad<0){notify("Client048 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
+ notify("Client049 ready: press X once to try ORIGINAL Minecraft startup. Demo mode;no automatic menu PASS. Keep open for logs.");
+ if(pad<0){notify("Client049 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
  bool armed=false,start=false;std::uint32_t previous=0;
  while(!start) {
   PadSample batch[64]{};int count=scePadRead(pad,batch,64);
@@ -389,7 +390,7 @@ int main() {
  }
  scePadClose(pad);pad=-1;
  (void)sceSystemServiceHideSplashScreen();
- notify("Client048 starting original Minecraft26.3 demo. Native ports incomplete;startup may stop at a missing dependency. Keep open for logs.");
+ notify("Client049 starting original Minecraft26.3 demo. Native ports incomplete;startup may stop at a missing dependency. Keep open for logs.");
  // Compiler and texture/depth/blend acceptance precede retained SDL display resources.
  // This also avoids repeating manual inputs when compiler startup fails.
  for(int step=0;step<test_count;++step) {
@@ -397,11 +398,11 @@ int main() {
   if(i){char state[200];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}
   run_test(i);
   if(status[i]!=1) {
-   char note[240];std::snprintf(note,sizeof(note),"Client048 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
+   char note[240];std::snprintf(note,sizeof(note),"Client049 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
    for(;;)(void)sceKernelUsleep(1000000);
   }
  }
  char state[240];std::snprintf(state,sizeof(state),"STARTUP RETURNED: inspect logs and actual screen;menu/world success unverified.");session_status(state);
- notify("Client048 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
+ notify("Client049 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
  for(;;)(void)sceKernelUsleep(1000000);
 }
