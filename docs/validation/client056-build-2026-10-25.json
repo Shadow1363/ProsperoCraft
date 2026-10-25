@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.056",
+  "package_sha256": "587ca6053d121d6cfd5d49d695adc61ff5edb73c03c111e420a5f3ddf74794e1",
+  "source_revision": "Consumer commit containing this manifest,parenta751f330df4dc5a1ebc989d8c7477ee92e3a0aad",
+  "source_sha256": {
+    "client/startup/ClientStartup25.java": "332dfb1fa3bfcdfa4d6163972409165caec9dbc22f39093024f181f95805c63c",
+    "client/startup/bootstrap.cpp": "fad9e93f1c3a07d366ce30cc830216349b2283c387c036fd569719afc8257e9d",
+    "client/startup/observer_native.hpp": "789c5f4cba765139616448200c01a609e3488813c43c5325b300b8a927080e7d",
+    "client/startup/param.json": "30259c9efae76e518a10b5c992e0dd2e020a23d8823a6bf423620bb47d318485",
+    "tools/package_client_vulkan.py": "85ca64cf8d3f696608a761fd1a5ffe147f259edb85ebe3a911f5e9adf73fc4c8",
+    "tools/test_client_startup_host.py": "1a8811afe518e928f482eed81bccdfb826cbbc29d229ea86d0e2df543644a99b",
+    "tools/test_client_startup_package.py": "508d60490882009fc7dc44440b90a7ae9929a57d1aaed647097a1bb02a1e8bcc",
+    "tools/test_client_startup_vm_output.py": "8ebf49d99b45c28828cdc77aaf23d6e2b893f1b5e3ae63d9b45fd19db651eb4f"
+  },
+  "symbols_sha256": "8ce5aea0e9891165b615e77218f896b51aa5ce4d8043eefe5998cccb461e4947",
+  "runtime_commit": "1e9fb4f23a2e84e26c50fe67cc4e746ff371dfa2",
+  "runtime_image_implementation": "6382528c7aee066002d1c2c6a7b5c7116987ae8c;unchanged image/SDK",
+  "checks": {
+    "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS exact startup GC/safepoint JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+    "embedded_jvm_callback": "PASS actual embedded JVM:055 callback reproduces empty dedicated/GC files;fixed callback preserves console capture,dedicated FILE,GC/safepoints and bounded rollover. Host only;PS5 pending.",
+    "target": "Packaging exit0,target compile/link/SELF integrity passed",
+    "package": "PASS056 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 587ca6053d121d6cfd5d49d695adc61ff5edb73c03c111e420a5f3ddf74794e1",
+    "preserved055": "Full ZIP verified33b22e7241dcaf2bd003badd4f7f5fbdbd2781bb51b229918de0e87a687e939c;matching symbols/source/status/build/console record retained",
+    "baseline002": "Exact convenience ZIP restored:d0b9f815ff68c5ad821b2166509879c623c813019d2f70bbacf53769f35e3971"
+  },
+  "scope": "Consumer Invocation API print callback preserves dedicated FILE destinations,retains stdout/stderr capture. No game/asset/runtime image/heap/graphics change. Diagnostic repair,game crash cause unknown.",
+  "console": "PENDING056nonempty GC file/rotation/crash resolution/menu.055crash human-confirmed with63completed collections.",
+  "release": "No menu acceptance/new passing milestone/client release/Store download;server2Hdeferred."
+}

@@ -1,3 +1,5 @@
+> Continuation:055crash confirmed,reports retrieved. Dedicated GC file stayed empty because vm_print ignored its FILE argument;GC records recovered from full startup.log. See [056repair](client-startup-056.md) and [055evidence](validation/client055-startup-failure-2026-10-25.json).
+
 # Current ProsperoCraft handoff — client055
 
 Continue existing files/history. Read both workspace/consumer AGENTS.md files.

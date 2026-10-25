@@ -59,23 +59,24 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client055 — GC and safepoint transition capture
+## Development client056 — preserve dedicated JVM log destinations
 
-The user confirms054crashed close to the end of loading;timing is unknown.
-Saved054reports show main-loop language resource application after the earlier
-pipeline wait resolves. **Cause remains unknown;no menu is accepted.** Exact054
-package/symbols/evidence are preserved. Read-only original resource/font/texture
-inspection found no concrete compatibility defect.
+The user confirms055crashed. Saved reports show120complete snapshots,language
+resource application and no accepted menu. Recovered startup history contains
+63GC starts with63completed summaries;last full collection232M->176M(247M),
+then later thread-dump safepoints. **Game crash cause remains unknown.**
 
-055adds bounded native HotSpot GC/safepoint file diagnostics to show collection
-starts/ends,heap phases and JVM pauses independently of Java stack samples.
-The256MiBheap,original54JARs/5147assets,runtime image and graphics behavior stay.
-PS5 log creation/rotation,crash resolution and working menu remain pending.
+A concrete diagnostic bug is repaired:the embedded JVM print callback previously
+ignored its FILE argument,redirecting even GC-file writes into startup.log and
+leaving gc.log empty.056preserves dedicated file destinations while retaining
+stdout/stderr capture. Actual embedded-host-JVM regression reproduces the055bug
+and checks repaired GC output/rotation. Exact055package/symbols/evidence preserved.
+Original54JARs/5147assets,heap,runtime image and graphics behavior stay.
+PS5 file routing/rotation,crash resolution and working menu remain pending.
 No client release/Store download;server endurance remains deferred.
-[Diagnostic scope and test instructions](docs/client-startup-055.md) ·
-[054human/evidence record](docs/validation/client054-startup-observations-2026-10-25.json) ·
-[Resource-path inspection](docs/validation/client054-resource-path-inspection-2026-10-25.json) ·
-[Current handoff](docs/handoff-prosperocraft-client055.md).
+[Diagnostic repair and test instructions](docs/client-startup-056.md) ·
+[055console evidence](docs/validation/client055-startup-failure-2026-10-25.json) ·
+[Current handoff](docs/handoff-prosperocraft-client056.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.055",
+  "run": "client-01.000.055-1792955969-469497698",
+  "tested_source_commit": "a751f330df4dc5a1ebc989d8c7477ee92e3a0aad",
+  "package_sha256": "33b22e7241dcaf2bd003badd4f7f5fbdbd2781bb51b229918de0e87a687e939c",
+  "human": "User confirms055crashed,then reopened. No separate timing/error/menu acceptance supplied.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "92871fc5a406997901e80dfe85417da047b6f67c36704bb30211f73a5059a997"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "6a8ff4efe93f3668ebeac3ff22202a67f51ce137a38af81b78f8148c9a885703"
+    },
+    "exceptions.log": {
+      "bytes": 931205,
+      "sha256": "3db096b1cd746df048b81dc4fe2481324dfa58965471ae2f3fc800ce474b821d"
+    },
+    "gc-rotated.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "gc.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 412,
+      "sha256": "970f129047b62565fd6597a98b83cbc8331857a45a5f51d22c99cc731a3669e3"
+    },
+    "process-usage.log": {
+      "bytes": 195782,
+      "sha256": "ac43d01e86645da0af77ee30f4c6fab3941ef0c562900ec143d1211192f79018"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "fe63635d592ea723d16aef204ab64ce1c558bb689d4d9a451f6503b77e1e56eb"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "8025a99f499f1eb337d85bbf2374e02062f2ad629d8751c77faaf07403454ac8"
+    },
+    "startup.log": {
+      "bytes": 1784700,
+      "sha256": "22073fc8443815a06481fd5e816743d8980a8ca7ba38c7e906c4eb05b1a708b2"
+    },
+    "vm-trace.log": {
+      "bytes": 1712200,
+      "sha256": "5ab56717e39681ce52fd4ee023d8a5ceba243b9bb9c913c45ce1de2dc8987e25"
+    }
+  },
+  "observed": {
+    "snapshots": 120,
+    "snapshot_ends": 120,
+    "last_snapshot_ms": 96966,
+    "last_heap_used": 244159344,
+    "heap_max": 259522560,
+    "native_records": 240,
+    "gc_starts": 63,
+    "gc_ends": 63,
+    "unmatched_gc_start_ids": [],
+    "last_gc_summary": [
+      "62",
+      "Pause Full (Allocation Failure) 232M->176M(247M) 342.517ms"
+    ],
+    "last_gc_uptime_ms": 158188,
+    "last_jvm_safepoint_uptime_ms": 162475,
+    "clock_caveat": "GC/safepoint uptime uses JVM clock;observer elapsed starts later before Main. Do not equate their numeric timestamps. Last saved record is not exact crash time.",
+    "last_render": "Language.loadFromJson85/Matcher.reset via ClientLanguage/LanguageManager/resource apply/Minecraft.runTick/run. Worker idle. No proven failing instruction.",
+    "gc_file": "Created but0bytes;rotated endpoint unavailable. Full startup history contains redirected GC/safepoint records for matching055run.",
+    "gc_interpretation": "All63GC starts(0..62) have matching summary ends. Last full GC232M->176M(247M),342.517ms,completed at158188ms JVM uptime,then ThreadDump safepoints through162475ms. No recorded unfinished GC or Java OOM. Does not prove total memory adequacy or exclude later GC/fatal activity.",
+    "logger_defect": "consumer vm_print(FILE*,...) ignores supplied FILE and redirects all jio_vfprintf writes to startup_log. HotSpot jvm.cpp dispatches file-log writes through that hook. Explains empty gc.log and displaced records;not established game crash cause."
+  },
+  "cause": "Unknown. Supported defect is diagnostic file routing,not a diagnosed game crash.",
+  "next": "Preserve exact055;repair callback to retain dedicated FILE destinations,exercise actual embedded JVM hook with file logging,version056,build/check/publish.",
+  "limits": "No menu/ALL PASS/client release/Store download;server2H deferred."
+}
