@@ -47,3 +47,8 @@ Server two-hour endurance remains deferred.
 Host loader/launch-policy and full-package checks pass. Full local ZIP SHA-256:
 `3950044b662911773ad5d262174b873d7bd48ab44e3e532086880430f94265b5`.
 PS5 console integration remains pending.
+
+Console result:failed after successful Vulkan selection/SDL window creation,
+with off-heap4MiB render-buffer allocation failure. See
+[040failure evidence](validation/client040-startup-failure-2026-10-25.json) and
+[041development repair](client-startup-041.md). No menu pass.

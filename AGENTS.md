@@ -362,3 +362,12 @@ P/C outlines) in the next development build after040. Active icon0.png is its
 512RGBA packaging resize;branding.json pins both checksums. Keep original/user
 artwork and v2/v3 masters,frozen snapshots and already-built040 intact. Existing
 client/server apply_branding.py hooks automatically consume the new icon.
+
+Client040 original Main selected PS5 RADV Vulkan and logged SDL window creation,
+then failed4MiB ByteBufferBuilder off-heap malloc. Exact040package/symbols/status
+preserved;full exceptions/startup reports hashed in public failure record with
+matching run ID. Client041 scopes only MemoryAccessJNI/LibCStdlib native objects
+to existing clientgpu title-heap malloc/calloc/realloc/free/alignment family,with
+audit and pre-Main checked large-buffer allocation/cleanup. No game JAR or JVM
+global allocator changes. Approved v3 icon included. PS5 allocation/preflight,
+render buffers/menu/gameplay and memory/performance remain pending;no new pass.

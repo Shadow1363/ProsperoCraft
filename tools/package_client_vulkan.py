@@ -19,7 +19,7 @@ parser.add_argument('--render', action='store_true', help='Build client010 graph
 parser.add_argument('--present', action='store_true', help='Build client011 standalone direct presentation candidate')
 parser.add_argument('--sdl', action='store_true', help='Build client014 SDL window/input candidate')
 parser.add_argument('--runtime-shader', action='store_true', help='Build client023 runtime GLSL compiler candidate')
-parser.add_argument('--startup',action='store_true',help='Build040 original Minecraft Main startup with all accepted native components')
+parser.add_argument('--startup',action='store_true',help='Build041 original Minecraft Main startup with all accepted native components')
 parser.add_argument('--native-bootstrap',action='store_true',help='Build026 genuine libffi/OpenAL native acceptance')
 parser.add_argument('--opengl-bootstrap',action='store_true',help='Build029 genuine Mesa/OpenGL acceptance')
 parser.add_argument('--spvc-bootstrap',action='store_true',help='Build036 genuine SPIRV-Cross translation/reflection acceptance')
@@ -32,7 +32,7 @@ if args.startup or args.opengl_bootstrap or args.stb_bootstrap or args.freetype_
 if args.startup or args.native_bootstrap:args.runtime_shader=True
 runtime = args.runtime_workspace.resolve()
 variant="spvc_bootstrap" if args.spvc_bootstrap else "vma_bootstrap" if args.vma_bootstrap else "freetype_bootstrap" if args.freetype_bootstrap else "stb_bootstrap" if args.stb_bootstrap else "opengl_bootstrap" if args.opengl_bootstrap else "startup" if args.startup else "native_bootstrap" if args.native_bootstrap else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.036" if args.spvc_bootstrap else "01.000.035" if args.vma_bootstrap else "01.000.033" if args.freetype_bootstrap else "01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.040" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+version="01.000.036" if args.spvc_bootstrap else "01.000.035" if args.vma_bootstrap else "01.000.033" if args.freetype_bootstrap else "01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.041" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -124,6 +124,23 @@ subprocess.run(['/opt/homebrew/opt/llvm/bin/clang','-target','x86_64-sie-ps5','-
 native_objects=build_native(runtime,args.java_home,offline=args.offline)
 from build_client_gpu import build as build_gpu
 gpu_support,gpu_bridge,gpu_audit=build_gpu(runtime,args.java_home)
+# Only the original LWJGL memory JNI entry points use the graphics title heap.
+# Keep the entire allocation family paired;never replace JVM/global libc symbols.
+if args.startup:
+ allocation_names=['malloc','calloc','realloc','free','posix_memalign','aligned_alloc']
+ allocation_bindings={name:gpu_audit['graphics_bindings'][name] for name in allocation_names}
+ allocation_map=work/'lwjgl-memory-bindings.txt';allocation_map.write_text(''.join(a+' '+b+'\n' for a,b in sorted(allocation_bindings.items())))
+ scoped_memory=[]
+ for unit in native_objects:
+  if unit.name in ['org_lwjgl_system_MemoryAccessJNI.c.o','org_lwjgl_system_libc_LibCStdlib.c.o']:
+   target=work/('scoped-'+unit.name)
+   subprocess.run(['/opt/homebrew/opt/llvm/bin/llvm-objcopy','--redefine-syms='+str(allocation_map),str(unit),str(target)],check=True)
+   scoped_memory.append(target)
+  else:scoped_memory.append(unit)
+ native_objects=scoped_memory
+ allocation_audit={'scope':'Only startup LWJGL MemoryAccessJNI/LibCStdlib objects;existing scoped graphics title-heap family;JVM globals unchanged','bindings':allocation_bindings,'objects_sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in native_objects if p.name.startswith('scoped-')},'runtime_global_allocator_modified':False,'console':'PENDING PS5 large render-buffer allocation'}
+ assert len(allocation_audit['objects_sha256'])==2
+ (java/'lwjgl-allocation-audit.json').write_text(json.dumps(allocation_audit,indent=2)+'\n')
 # Standard loader entry into the actual resident ICD; no VK Java class rewrite.
 loader=work/'vulkan-loader.o'
 subprocess.run(['/opt/homebrew/opt/llvm/bin/clang','-std=c11','-O2','-Wall','-Wextra','-Werror','-fPIC','-target','x86_64-sie-ps5','-march=x86-64','-mno-avx','-mno-avx2','-mno-fma','-fvisibility-nodllstorageclass=default','-isysroot',str(runtime/'.tools/native-sdk/ps5-payload-sdk'),'-I'+str(ROOT/'.tools/PS5_Mesa/include'),'-c',str(ROOT/'client/vulkan/loader.c'),'-o',str(loader)],check=True)

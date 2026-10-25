@@ -59,15 +59,16 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client040 — ProsperoCraft Vulkan layer discovery
+## Development client041 — native render-buffer allocation
 
-039passed the previous SDL/LWJGL loader-address rejection,then failed check4:
-the resident ICD returned VK_ERROR_LAYER_NOT_PRESENT while Minecraft enumerated
-installed validation layers.040implements the loader's truthful empty layer
-list,delegates driver extensions/instance creation,and rejects requests to enable
-unavailable layers. Original game JARs remain unchanged. **PS5 instance creation,
-renderer/window/menu remain pending.** [Build/test scope](docs/client-startup-040.md) ·
-[039failure evidence](docs/validation/client039-startup-failure-2026-10-25.json).
+040selected Vulkan on the real PS5 GPU and logged SDL window creation,then
+failed to allocate a4MiB off-heap render buffer.041routes LWJGL's system memory
+JNI allocation/free/realloc family through the existing scoped graphics title
+heap and adds checked large native allocations before original Main. The approved
+corrected ProsperoCraft icon is included. Original game JARs and JVM global
+allocation stay unchanged. **PS5 allocation/rendering/menu remains pending.**
+[Build/test scope](docs/client-startup-041.md) ·
+[040failure evidence](docs/validation/client040-startup-failure-2026-10-25.json).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

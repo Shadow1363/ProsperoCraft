@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.040",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.040-1792935600-381088939",
+  "tested_source_commit": "cc35244fcc7c048192d543a399ce20206bb3a104",
+  "package_sha256": "3950044b662911773ad5d262174b873d7bd48ab44e3e532086880430f94265b5",
+  "human": "failed",
+  "session": "FAIL original Main/codeFFFFFAE5",
+  "observed": "Vulkan backend selected,RADV PS5 GPU/extensions identified,SDL ps5 window created. GameRenderer then fails:Unable to allocate render buffers;ByteBufferBuilder system MemoryAllocator.malloc(4194304) returns0. Main returns;harness correctly fails.",
+  "cause": "LWJGL system allocation entry points resolve to process libc allocator,unlike graphics dependencies using the scoped title heap. Actual libc refusal reason/total console memory pressure not established.",
+  "heap": "Java GC last reports130MiB used/247MiB committed;recorded failure is off-heap allocation,not Java heap OOM.",
+  "reports": {
+    "exceptions.log": {
+      "bytes": 12965,
+      "sha256": "b3d314fe1651b6877698099d012a669ef45ea6834d02f5c29b5199bd815512d2"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "cff3e07d75bc0718c9d2632afcef00f964ce7b6a8e2ddf2a6ac5ca5e5b3e123b"
+    }
+  },
+  "repair": "041 scopes two LWJGL memory JNI objects to existing real graphics title-heap allocation family,adds checked4MiB/grow/aligned allocation preflight;original game JARs/JVM globals unchanged. Includes approved corrected icon.",
+  "limits": "Window creation log is not a visible menu/rendering pass. Full menu/gameplay/performance/PS5 allocation validation pending.",
+  "session_evidence": "Session contents/run ID were read through live Safari UI;subsequent attempt to save session.txt could not connect. Full exceptions.log and startup-tail.log saved locally."
+}

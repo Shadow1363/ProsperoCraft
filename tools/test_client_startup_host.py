@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
 """Check launch policy/workdir and exercise the actual unchanged Main on host."""
 from pathlib import Path
-import argparse,subprocess,json,tempfile,hashlib
+import argparse,subprocess,json,tempfile,hashlib,os
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--java-home',type=Path,required=True);a=p.parse_args();lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
 cp=':'.join(str(ROOT/'.tools/client'/r['file'])for r in lock['artifacts'])
-out=ROOT/'build/startup-host-040';out.mkdir(exist_ok=True)
+out=ROOT/'build/startup-host-041';out.mkdir(exist_ok=True)
 (out/'StartupPolicy.java').write_text('''import java.nio.file.*;import java.util.*;public class StartupPolicy{public static void main(String[]a)throws Exception{Path w=Path.of(a[0]);ClientStartup25.prepareWork(w);String text=Files.readString(w.resolve("options.txt"));if(!text.contains("soundCategory_music:0.0"))throw new AssertionError();Files.writeString(w.resolve("options.txt"),"existing");ClientStartup25.prepareWork(w);if(!Files.readString(w.resolve("options.txt")).equals("existing"))throw new AssertionError("existing options overwritten");String[]args=ClientStartup25.launchArguments(w,Path.of(a[1]));List<String>l=Arrays.asList(args);for(String flag:new String[]{"--demo","--disableMultiplayer","--disableChat","--graphicsBackend","vulkan","--accessToken","0"})if(!l.contains(flag))throw new AssertionError(flag);if(l.contains("--quickPlayMultiplayer"))throw new AssertionError();System.out.println("PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check");}}''')
 subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(out),str(ROOT/'client/startup/ClientStartup25.java'),str(out/'StartupPolicy.java')],check=True)
 with tempfile.TemporaryDirectory(prefix='mc-startup-policy-')as temp:
  subprocess.run([str(a.java_home/'bin/java'),'-cp',str(out)+':'+cp,'StartupPolicy',str(Path(temp)/'work'),str(ROOT/'build/client-assets')],check=True)
+# Exercise the same native allocation preflight with actual upstream JNI on host.
+(out/'StartupAllocation.java').write_text('public class StartupAllocation{public static void main(String[]args){org.lwjgl.system.Configuration.MEMORY_ALLOCATOR.set("system");System.out.println(ClientStartup25.verifyNativeAllocation());}}')
+subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',str(out)+':'+cp,'-d',str(out),str(out/'StartupAllocation.java')],check=True)
+result=subprocess.run([str(a.java_home/'bin/java'),'-Xint','-Xcheck:jni','--enable-native-access=ALL-UNNAMED','-Dorg.lwjgl.librarypath='+str(ROOT/'build/client-ports/lwjgl-native/host'),'-cp',str(out)+':'+cp,'StartupAllocation'],capture_output=True,text=True,timeout=30,env=dict(os.environ,UBSAN_OPTIONS='handle_segv=0:handle_sigbus=0:handle_sigfpe=0:halt_on_error=1'))
+(out/'allocation.log').write_text(result.stdout+result.stderr);result.check_returncode();assert 'PASS real LWJGL system allocator:3x4MiB' in result.stdout
+assert not any(marker in result.stdout+result.stderr for marker in ['WARNING in native method','FATAL ERROR in native method','runtime error:'])
+print(result.stdout.strip());print('Host uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending')
 # Run original upstream Main in a separate process so its System.exit is real.
 with tempfile.TemporaryDirectory(prefix='mc-original-main-')as temp:
  args=['--demo','--disableMultiplayer','--disableChat','--username','PS5Probe','--uuid','00000000-0000-3000-8000-000000000000','--accessToken','0','--version','26.3','--versionType','release','--gameDir',temp,'--assetsDir',str(ROOT/'build/client-assets'),'--assetIndex','34','--graphicsBackend','vulkan','--width','1280','--height','720']
