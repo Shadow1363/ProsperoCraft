@@ -1,3 +1,5 @@
+> Continuation:057crashed;17burst records show language completion,shader apply,and audio initialization. See [057evidence](validation/client057-startup-failure-2026-10-25.json) and [058OpenAL trace](client-startup-058.md).
+
 # Current ProsperoCraft handoff — client057
 
 Continue files/history;read workspace/consumer AGENTS.md. No subagents and no

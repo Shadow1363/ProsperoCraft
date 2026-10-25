@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.058",
+  "package_sha256": "cd41f2fd2e98d455a1501e6e5b281894f8e5dba07396093e0cc501abec5a3cef",
+  "source_revision": "Consumer commit containing this manifest,parent0d35aa395016beb42e064201085de5468ab67836",
+  "source_sha256": {
+    "client/startup/ClientStartup25.java": "28842646eeeea1d02198abead7446437427a9a2fc1c42260fd5e35199e56c60a",
+    "client/startup/bootstrap.cpp": "b3a4e347bf2f45864cd0319b5f3c65331db00da2d1f21772a82fbf1a454bdad9",
+    "client/startup/observer_native.hpp": "789c5f4cba765139616448200c01a609e3488813c43c5325b300b8a927080e7d",
+    "client/startup/openal_trace_env.c": "643ffe63c2bcc487db9098677704d9004994e053078ef2a372c094ed2ddea272",
+    "client/startup/param.json": "c7814404acb1449cd7424669fab9d91ac031bf5d0fd3f2555bd9c562567033f6",
+    "tools/package_client_vulkan.py": "4d79d8d379c3c831526a79d5d85ac98abb41fda1cd86426a1a7e7b91e256818a",
+    "tools/test_client_startup_host.py": "f815e768c2a0352bd572f80794d4d2470b0bbdd7ac89a2080f34cb74f5f6db31",
+    "tools/test_client_startup_package.py": "efc9c2467ae0614931da4e5c781ee8b9a26ab618ebd4d2a6a6c9eaef6ae4adc1",
+    "tools/test_startup_openal_trace.py": "2e055d72228c669cb0da71e30f8658acea73f58e6ded09fbb5cd3d85a470c060"
+  },
+  "symbols_sha256": "f498be8c1da7abf8611d60fce5af431aab720e3d9bf57117ded63e1360fccc01",
+  "runtime_commit": "1e9fb4f23a2e84e26c50fe67cc4e746ff371dfa2",
+  "runtime_image_implementation": "6382528c7aee066002d1c2c6a7b5c7116987ae8c;unchanged image/SDK",
+  "openal_trace": {
+    "scope": "Startup-private OpenAL getenv selects upstreamALSOFT_LOGLEVEL3;other lookups forwarded,global getenv/backend unchanged",
+    "source_sha256": "643ffe63c2bcc487db9098677704d9004994e053078ef2a372c094ed2ddea272",
+    "private_object_sha256": "741b6c81d3cf3ebea390099c7ed4a4b335b98c96696d2d9b67d51f24dbdc7e68",
+    "shim_object_sha256": "e2c64f025b2648204e31d06f267852403ec989a141618fc4428a9c2d1b917802",
+    "original_object_sha256": "6ca60627c1d8151168662553b3073b5ede8bd4805021e1bae3ba0c4cbec36a80",
+    "output": "existing native-stderr.log;native trace timing/coverage pending PS5",
+    "backend_selection_changed": false
+  },
+  "checks": {
+    "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual owner-only transition burst:precise language trigger,finite samples/live owner stacks,elapsed/heap records,close without later writes;host only\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS exact startup GC/safepoint JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+    "openal_trace_host": "actual alcOpenDevice nonnull=1 error=0\nactual alcCreateContext nonnull=1 error=0\nactual alcMakeContextCurrent=1\nactual alcCloseDevice=1\nPASS private OpenAL trace lookup:level3 only,other environment forwarded,process state unchanged,ASan/UBSan;real pinned host OpenAL trace/control and actual device/context calls. PS5 pending.",
+    "target": "Packaging exit0,target compile/link/SELF passed;startup-private OpenAL getenv binding/source/object hashes verified.",
+    "package": "PASS058 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 cd41f2fd2e98d455a1501e6e5b281894f8e5dba07396093e0cc501abec5a3cef",
+    "preserved057": "ExactfullZIP8e7b84a3af448df8bc35f4660829ed9771191860fe075646d0b24badb20e4168,matching symbols/source/status/build/console record retained.",
+    "baseline002": "Exact convenience ZIP restored:d0b9f815ff68c5ad821b2166509879c623c813019d2f70bbacf53769f35e3971"
+  },
+  "scope": "Startup-only upstream OpenALLOGLEVEL3diagnostic through private getenv binding. All other lookups/process environment/backend selection unchanged. Original JAR/assets/runtime/heap/graphics retained;no game hooks.",
+  "console": "PENDING058actual OpenAL trace/device/context progress/crash resolution/menu.05717burstrecords narrow activity,not cause.",
+  "release": "No menu/new passing milestone/client release/Store download;server2Hdeferred. Future accepted relink kit must include exact startup shim/private binding."
+}

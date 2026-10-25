@@ -1,0 +1,213 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.057",
+  "run": "client-01.000.057-1792957885-18345136",
+  "tested_source_commit": "0d35aa395016beb42e064201085de5468ab67836",
+  "package_sha256": "8e7b84a3af448df8bc35f4660829ed9771191860fe075646d0b24badb20e4168",
+  "human": "User confirms crashed app reopened;no exact timing/error/menu acceptance supplied.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 132,
+      "sha256": "0a77fc0b9e2d7a69874b1244088b222329f118d7c6c2e9dd16f4f932d0338e70"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "36f12054600fd13274ec8f022bb9a4f94d82bd5f3b0d30b0456d5d633c585b20"
+    },
+    "class-load.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "exceptions.log": {
+      "bytes": 998061,
+      "sha256": "9c3ac2d3abee8f5ed69ed804942ae1d56fc3e75f9b1b652e033a6e5b74ca1caf"
+    },
+    "gc-rotated.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "gc.log": {
+      "bytes": 406291,
+      "sha256": "189dd8b4b867d5737b4142d7992d668045234b1588691e07c50fe3abe222fb64"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 411,
+      "sha256": "ab159eff7e8beebdf19093b34c8cca4ed36ee6e38017197ae92bb63eb95642b2"
+    },
+    "process-usage.log": {
+      "bytes": 195781,
+      "sha256": "304a122a26dc1bfc5847699344be46a0de2b78ebdbb4ec383f2b4d53ea7e0e62"
+    },
+    "session.txt": {
+      "bytes": 143,
+      "sha256": "5263b80f70a4d684a0636dad48ee07af7bcdce03936462c2bb08abdd7949b8e0"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "96dc0367cd9115723c19697c8917cc924235a28711af8152a5f789be91cd1cf2"
+    },
+    "startup.log": {
+      "bytes": 1378406,
+      "sha256": "4a786b4521448fd9c533e8af90d42d31046bf0343c72e25a182213fc536eecba"
+    },
+    "vm-trace.log": {
+      "bytes": 1744244,
+      "sha256": "37dd6d5926b398e921309b7e8c57c635e91ef8f6f1769f3f83b109fefe2805a5"
+    }
+  },
+  "observed": {
+    "regular_snapshots": 120,
+    "regular_ends": 120,
+    "burst_samples": 17,
+    "burst_ends": 17,
+    "burst_complete_marker": false,
+    "first_burst": "PS5 MAIN TRANSITION 1 elapsedMs=97110 heapUsed=244468384 state=RUNNABLE frames=27",
+    "last_burst": "PS5 MAIN TRANSITION 17 elapsedMs=97278 heapUsed=247389872 state=RUNNABLE frames=29",
+    "gc_starts": 63,
+    "gc_ends": 63,
+    "last_gc_summary": [
+      "62",
+      "Pause Full (Allocation Failure) 232M->175M(247M) 342.192ms"
+    ],
+    "unmatched_gc_start_ids": [],
+    "native_records": 240,
+    "progress": "Language parsing and immutable translation map finish;sample16ShaderManager.apply/PipelineCache.clear with lambda generation;sample17Library.tryOpenDevice283 viaSoundEngine/SoundManager apply,ClassLoader.defineClass1. No menu accepted.",
+    "fatal": "No captured fatal signal/VMabort/JavaOOM/driver error;fatal report unavailable. Last record is not exact crash time/instruction.",
+    "clock_caveat": "JVM uptime and observer elapsed have different origins. Burst uses owner.getStackTrace,so it need not produce ThreadDump safepoints in GC log."
+  },
+  "transition_timeline": [
+    {
+      "sample": 1,
+      "elapsed_ms": 97110,
+      "heap_used_bytes": 244468384,
+      "frames": 27,
+      "activity": "Language JSON/format processing"
+    },
+    {
+      "sample": 2,
+      "elapsed_ms": 97121,
+      "heap_used_bytes": 244483776,
+      "frames": 36,
+      "activity": "Language JSON/format processing"
+    },
+    {
+      "sample": 3,
+      "elapsed_ms": 97131,
+      "heap_used_bytes": 244506232,
+      "frames": 35,
+      "activity": "Language JSON/format processing"
+    },
+    {
+      "sample": 4,
+      "elapsed_ms": 97142,
+      "heap_used_bytes": 244521640,
+      "frames": 34,
+      "activity": "Language JSON/format processing"
+    },
+    {
+      "sample": 5,
+      "elapsed_ms": 97152,
+      "heap_used_bytes": 244537032,
+      "frames": 32,
+      "activity": "Language JSON/format processing"
+    },
+    {
+      "sample": 6,
+      "elapsed_ms": 97163,
+      "heap_used_bytes": 244552408,
+      "frames": 25,
+      "activity": "Language JSON/format processing"
+    },
+    {
+      "sample": 7,
+      "elapsed_ms": 97173,
+      "heap_used_bytes": 245447520,
+      "frames": 25,
+      "activity": "Same stack as prior full transition record"
+    },
+    {
+      "sample": 8,
+      "elapsed_ms": 97183,
+      "heap_used_bytes": 245451632,
+      "frames": 32,
+      "activity": "Language JSON/format processing"
+    },
+    {
+      "sample": 9,
+      "elapsed_ms": 97194,
+      "heap_used_bytes": 245474088,
+      "frames": 25,
+      "activity": "Language JSON/format processing"
+    },
+    {
+      "sample": 10,
+      "elapsed_ms": 97204,
+      "heap_used_bytes": 245487472,
+      "frames": 27,
+      "activity": "Language JSON/format processing"
+    },
+    {
+      "sample": 11,
+      "elapsed_ms": 97214,
+      "heap_used_bytes": 246378456,
+      "frames": 27,
+      "activity": "Same stack as prior full transition record"
+    },
+    {
+      "sample": 12,
+      "elapsed_ms": 97225,
+      "heap_used_bytes": 246389664,
+      "frames": 44,
+      "activity": "Language resource apply;intermediate runtime work"
+    },
+    {
+      "sample": 13,
+      "elapsed_ms": 97235,
+      "heap_used_bytes": 246405064,
+      "frames": 44,
+      "activity": "Language resource apply;intermediate runtime work"
+    },
+    {
+      "sample": 14,
+      "elapsed_ms": 97246,
+      "heap_used_bytes": 246431224,
+      "frames": 47,
+      "activity": "Language resource apply;intermediate runtime work"
+    },
+    {
+      "sample": 15,
+      "elapsed_ms": 97257,
+      "heap_used_bytes": 246458984,
+      "frames": 21,
+      "activity": "Immutable translation-map construction"
+    },
+    {
+      "sample": 16,
+      "elapsed_ms": 97267,
+      "heap_used_bytes": 247355096,
+      "frames": 47,
+      "activity": "Lambda generation during shader resource apply"
+    },
+    {
+      "sample": 17,
+      "elapsed_ms": 97278,
+      "heap_used_bytes": 247389872,
+      "frames": 29,
+      "activity": "Class definition during original audio device path"
+    }
+  ],
+  "inspection": {
+    "Library.tryOpenDevice": "Original bytecode invokes alcOpenDevice atbci1,line281;line283 startsbci5 withdevice comparison,then nonzero branch invokes OpenAlUtil.checkALCError. A line283class-load stack does not identify the defined class or exact later failing operation.",
+    "OpenAlUtil": "Original checkALCError calls alcGetError and logs errors;no game rewrite.",
+    "OpenAL": "Pinned1.25.2,b2c48f7718ef3fcf67921a8b6534c4914e328970,actual null/loopback;only loopback console acceptance026. Native playback/context path broader than accepted loopback. No native fault established."
+  },
+  "cause": "Unknown. New samples show language completion and audio initialization;do not blame language,class loader or OpenAL from final sample.",
+  "next": "Preserve057. Enable pinned upstream OpenAL trace via startup-private getenv selection forALSOFT_LOGLEVEL only,keep backend/configuration unchanged;native-stderr captures initialization/device/context progress. Host actual-library trace test and shim forwarding,then build/package/publish058.",
+  "limits": "No menu/milestone/client release/Store download;server2Hdeferred.",
+  "report_boundary": "Raw reports/full stacks remain local. Timeline is interpreted sample activity and measurements only."
+}

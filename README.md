@@ -59,23 +59,22 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client057 — targeted main-thread transition capture
+## Development client058 — native OpenAL startup trace
 
-The user confirms056crashed. Its repaired dedicated GC file works on PS5:
-406780bytes,63collection starts/63completed summaries,last full232M->176M(247M),
-then later thread-dump safepoints.121complete Java snapshots end in language
-resource application;no fatal/abort/JavaOOM/driver error is captured.
-**Crash cause remains unknown;no working menu accepted.** Exact056preserved.
+The user confirms057crashed. Its main-thread burst captured17records:language
+loading completes,ShaderManager applies resources,then SoundManager/SoundEngine
+enters Library.tryOpenDevice. Last sample is class definition at Library line283;
+this does not identify a failing class/native instruction.63GCs complete.
+**Game crash cause remains unknown;no menu accepted.** Exact057preserved.
 
-057adds one bounded500sample main-thread-only burst after observing language
-apply through LanguageManager and Minecraft.runTick.10ms sleeps target the missing
-sub250ms transition;unchanged stacks reference their previous full record. Same
-observer daemon,existing native/GC logs,no game hooks or heap/graphics changes.
-PS5 trigger/capture/crash resolution/menu remain pending. Original54JARs/5147assets
-stay intact;no client release/Store download,server endurance deferred.
-[057diagnostic](docs/client-startup-057.md) ·
-[056console evidence](docs/validation/client056-startup-failure-2026-10-25.json) ·
-[Current handoff](docs/handoff-prosperocraft-client057.md).
+058enables pinned OpenAL's existing trace logging through a startup-private
+ALSOFT_LOGLEVEL3lookup. Other environment/backend selection,original54JARs/
+5147assets,heap/runtime image/graphics remain. Native-stderr should expose device/
+context progress;PS5coverage/crash resolution/menu pending. No new supported crash
+fix,client release or Store download;server endurance deferred.
+[058scope](docs/client-startup-058.md) ·
+[057console evidence](docs/validation/client057-startup-failure-2026-10-25.json) ·
+[Current handoff](docs/handoff-prosperocraft-client058.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 
