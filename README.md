@@ -52,6 +52,16 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
+## Development client036 — SPIRV-Cross acceptance pending
+
+036 adds real SPIRV-Cross C API0.68.0 through original LWJGL downcalls. Its five-row
+probe tests3contexts/9GLSL-HLSL-MSL translations,exact source fingerprints,
+compute resource reflection,malformed SPIR-V controls and input guards/cleanup.
+Host checks pass;generated GLSL/HLSL also recompile and pass spirv-val.
+**PS5 validation is pending.** One PS5 locale adapter uses the native localeconv
+API;game JARs and the Java runtime implementation stay unchanged.
+[Build scope and test instructions](docs/client-spvc-development.md).
+
 ## Client VMA Allocator — PS5 ALL5 PASS
 
 Client **01.000.035** passes all five checks on the actual PS5. The matching
