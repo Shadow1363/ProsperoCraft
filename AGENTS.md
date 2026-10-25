@@ -473,3 +473,12 @@ within existing64event cap,in private WSI object. Behavior/results unchanged,
 including existing failed-fence continuation (logged,not repaired/claimed success).
 No new output/thread/timeout/resolution/heap change. PS5 frame progression/crash/
 menu/stability pending;server2H deferred. Current050supersedes earlier candidates.
+
+Latest continuation handoff:docs/handoff-prosperocraft-client050.md. Read it for
+current050package/symbols,known049evidence,Safari report retrieval/repair follow-through,
+and eventual full release/Prospero Store conversion.050has no console outcome yet.
+ProsperoCraft reservation/PR737MERGED and null release/icon fields reverified during
+handoff;Coming soon remains a reservation,not a downloadable client. Prepare a
+full release only after exact console acceptance,without downloaded game files,
+with complete startup provisioning and exact matching OpenAL source/relink kit.
+Older044handoff is historical;do not revert current fixes to that state.

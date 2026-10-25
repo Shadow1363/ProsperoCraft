@@ -36,3 +36,17 @@ Consumer artwork/name live in assets/branding and tools/apply_branding.py.
 Future client/server packagers apply them while preserving title/content identity
 and build versions. Frozen validation/release assets and already-built038 stay
 intact. Branding changes do not establish client/menu acceptance.
+
+## Client050 continuation and eventual release
+
+PR737MERGED and the upstream ProsperoCraft record were reverified via GitHub
+on2026-10-25 during the050handoff. All six optional release/source/icon/license
+fields remain null. This check does not establish live website propagation.
+See [the complete050handoff](handoff-prosperocraft-client050.md) for current logs,
+repair steps and release readiness. A downloadable listing must follow actual
+accepted client behavior,verified public app-only release artifacts,pinned icon/
+checksum,and working provisioning for omitted original JARs AND startup assets.
+Existing milestone JAR-only provisioning is not yet complete startup provisioning.
+Provide exact matching OpenAL source/relink materials for the accepted binary;
+do not publish the full local game-containing development ZIP. Re-read current
+upstream submission/artifact/versioning rules before converting this reservation.
