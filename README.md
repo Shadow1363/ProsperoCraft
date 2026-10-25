@@ -52,17 +52,23 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 
 The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
 
-## Development client033 — FreeType font acceptance pending
+## Client FreeType Fonts — PS5 ALL5 PASS
 
-Startup032 stops at its first native dependency,`libfreetype.so`,before creating
-a window. Saved session,exception and startup reports identify the failure;
-[diagnostic record](docs/validation/client032-startup-failure-2026-10-25.json).
-Client033 adds genuine FreeType2.14.1 with original LWJGL downcalls and a pinned
-OFL font. Its five-row probe checks three library/face lifecycles,nine glyphs
-plus repeat renders,exact pixels/metrics,invalid font/space controls and guards,
-then JVM shutdown. Host checks pass;**actual PS5 validation is pending**.
-This is a dependency acceptance test without a Minecraft window.
-[Build and test instructions](docs/client-freetype-development.md).
+Client **01.000.033** passes all five checks on the actual PS5. The matching
+saved session and detailed current-run log confirm FreeType glyphs/guards and
+JVM shutdown. The accepted
+fixture verifies three real FreeType2.14.1 library/face lifecycles,nine Abel
+glyphs at16/24/32px plus exact repeat renders,an exact bitmap fingerprint,
+metadata/metrics,invalid font/space controls and384input guards.
+
+[Frozen source and validation](Client_FreeType_Fonts) ·
+[Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_FreeType_Fonts-v01.000.033)
+
+This addresses the missing FreeType component in032;original Minecraft startup
+still needs another console test with the accepted native dependencies combined.
+Other font formats/features,VMA,SPIRV-Cross,remaining SDL paths and full native
+teardown remain unvalidated. Game JARs remain unchanged;server endurance deferred.
+[Build details and limitations](docs/client-freetype-development.md).
 
 ## Client STB Codecs — PS5 ALL5 PASS
 
@@ -487,6 +493,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Client FreeType Fonts · 01.000.033** | PS5 ALL5 PASS,human+saved reports:real FreeType glyph rasterization/guards and JVM stop | [Frozen source & validation](Client_FreeType_Fonts) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_FreeType_Fonts-v01.000.033) |
 | **Client STB Codecs · 01.000.031** | PS5 ALL5 PASS,human+saved session:real PNG/codecs/guards and JVM stop;detailed startup download incomplete | [Frozen source & validation](Client_STB_Codecs) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_STB_Codecs-v01.000.031) |
 | **Client OpenGL Provider · 01.000.029** | PS5 ALL5 PASS:3real software GL contexts,192RGBA pixels,768guards and JVM shutdown | [Frozen source & validation](Client_OpenGL_Provider) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_OpenGL_Provider-v01.000.029) |
 | **Client Callbacks/OpenAL · 01.000.026** | PS5 ALL5 PASS:192callbacks,3real loopback mixer lifecycles,Vulkan native bootstrap and JVM shutdown | [Frozen source & validation](Client_Callbacks_OpenAL) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Callbacks_OpenAL-v01.000.026) |
