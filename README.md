@@ -59,16 +59,17 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client042 — consistent enumerated display mode
+## Development client043 — native swapchain diagnostics
 
-041got past the native render-buffer refusal and entered resource loading and
-the render loop,but repeatedly failed to create a4K Vulkan swapchain;the user
-then reported a crash.042uses one actual mode-selection policy for SDL's display
-and Vulkan surface,preferring enumerated1080p at normal refresh. It logs selected
-mode and surface capabilities. **PS5 presentation/menu and the later crash remain
-unresolved until retested.** No game JAR changes or invented720p mode.
-[Build/test scope](docs/client-startup-042.md) ·
-[041failure evidence](docs/validation/client041-startup-failure-2026-10-25.json).
+042confirmed matching SDL/Vulkan1920x1080 at59.94Hz,but original Minecraft still
+repeatedly failed swapchain creation and the user reported a crash.043adds bounded
+checkpoints inside the native VideoOut WSI path to distinguish its guards,
+framebuffer registration,image requirements and host-memory import failures.
+**Diagnostic build:the driver rejection and later crash remain unresolved.**
+Original game JARs/results/parameters and the pinned driver archive stay intact;
+one instrumented native object is linked from a private archive copy.
+[Build/test scope](docs/client-startup-043.md) ·
+[042failure evidence](docs/validation/client042-startup-failure-2026-10-25.json).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

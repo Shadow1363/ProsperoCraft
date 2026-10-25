@@ -54,3 +54,7 @@ performance/network/teardown remain pending. Server2H endurance stays deferred.
 
 Host display-policy/loader/allocation/launch and full-package checks pass.
 Full local ZIP SHA-256:`0bfa7f9d36b1882e36b9d53f79e4f025b197cf2ec1a022cc0aa8202c56a7c280`. PS5 validation pending.
+
+Console outcome:matching1080p mode/surface confirmed;swapchain still fails and
+user reports crash. See[042evidence](validation/client042-startup-failure-2026-10-25.json)
+and[043diagnostics](client-startup-043.md). No menu/presentation pass.

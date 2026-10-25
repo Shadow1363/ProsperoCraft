@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.042",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.042-1792939125-381634840",
+  "tested_source_commit": "8540e30a3c9b5030c6a6a3c39a97bd5f3676eebd",
+  "package_sha256": "0bfa7f9d36b1882e36b9d53f79e4f025b197cf2ec1a022cc0aa8202c56a7c280",
+  "human": "crashed",
+  "session": "RUN original Main preserved after crash",
+  "observed": "SDL selected actual1920x1080/59.94Hz and surface created with matching caps1920x1080/images2-5/usage0x9f. Original game repeatedly fails swapchain creation with VK_ERROR_INITIALIZATION_FAILED at1080p/FIFO. Mode reduction did not resolve rejection.",
+  "swapchain_failure_count": 116,
+  "cause": "Precise driver rejection and later crash instruction unresolved. Full retrieved VM trace/startup tail contain no captured fatal signal;VM trace ends DONE:Metadata zeroing.",
+  "reports": {
+    "exceptions.log": {
+      "bytes": 125579,
+      "sha256": "975a608782fd1f05f511894a76aaa8fa7b8087f5f7edc4d4ea7267a8f2c4afdc"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "514a15ca8aeb74e646a867f1110957675bdbfe1e832aba8ece73fc7271bfdc4a"
+    },
+    "vm-trace.log": {
+      "bytes": 1568288,
+      "sha256": "fa7795eb9e41513652575676e824d1b42db1cde5d8cc31ec14607d4039a2452e"
+    }
+  },
+  "repair": "043 diagnostic native WSI checkpoints for actual swapchain/registration/layout/import failures;no result/parameter bypass and no claim of crash fix.",
+  "limits": "PS5 menu/presentation/crash resolution pending;server2H deferred."
+}

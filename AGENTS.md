@@ -380,3 +380,13 @@ surface selection with actual enumerated1080p <=60Hz preference,plane/capability
 checks and logging. Driver offers1080p/1440p/4K;never claim invented720p scanout.
 PS5 swapchain/menu and later crash remain unresolved;host inventory regression
 is synthetic policy validation,not GPU acceptance. Preserve frozen snapshots.
+
+Client042 selected matching real1080p59.94 SDL/Vulkan surface but continued
+VK_ERROR_INITIALIZATION_FAILED swapchain errors and human-reported crash.
+Full native VM trace ends DONE:Metadata zeroing with no captured fatal signal.
+Exact042package/symbols/status preserved. Client043 is explicitly diagnostic:
+bounded64-event native Mesa WSI checkpoints identify initialization guards,
+registration,image layout and host import errors without changing results or
+parameters. A private RADV archive replaces one native WSI object;original pinned
+source/archive unchanged. Original game JARs and frozen passes stay intact.
+Driver rejection/crash/menu remain unresolved pending next PS5 diagnostic run.

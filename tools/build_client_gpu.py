@@ -8,7 +8,7 @@ import argparse,hashlib,json,os,re,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];LLVM=Path('/opt/homebrew/opt/llvm/bin');LLD=Path('/opt/homebrew/opt/lld/bin/ld.lld')
 def run(*args,**kw):subprocess.run(list(map(str,args)),check=True,**kw)
-def build(runtime,java_home):
+def build(runtime,java_home,wsi_diagnostics=False):
  out=ROOT/'build/client-gpu';out.mkdir(exist_ok=True);sdk=ROOT/'.tools/graphics-sdk';driver=ROOT/'.tools/ps5-vulkan'
  # The native003 build already supplies a verified recipe with a real target
  # compiler-runtime archive path, independent of Linux host directory layout.
@@ -18,9 +18,13 @@ def build(runtime,java_home):
   if flag.startswith('--defsym='):
    a,b=flag.removeprefix('--defsym=').split('=');compatibility[a]=b
   if flag.startswith('--wrap='):wraps.append(flag.removeprefix('--wrap='))
+ radv_archive=ROOT/'build/graphics-radv/src/amd/vulkan/libvulkan_radeon.a';wsi_audit=None
+ if wsi_diagnostics:
+  from build_wsi_diagnostics import build as build_wsi
+  radv_archive,wsi_audit=build_wsi()
  platform=out/'platform-raw.o';mesa=out/'radv-raw.o'
  run(LLD,'-r','--whole-archive',sdk/'target/lib/libps5platform.a','--no-whole-archive','-o',platform)
- run(LLD,'-r','--whole-archive',ROOT/'build/graphics-radv/src/amd/vulkan/libvulkan_radeon.a','--no-whole-archive','-o',mesa)
+ run(LLD,'-r','--whole-archive',radv_archive,'--no-whole-archive','-o',mesa)
  text=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only','--extern-only',str(platform)],text=True)
  definitions={line.split()[-1]for line in text.splitlines()if len(line.split())==3}
  prefix={name:'clientgpu_'+name for name in definitions}
@@ -75,6 +79,7 @@ def build(runtime,java_home):
  bridge=out/'gpu-bridge.o';headers=runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_include/java.base'
  run(LLVM/'clang','-std=c11','-O2','-Wall','-Wextra','-Werror','-fPIC','-target','x86_64-sie-ps5','-march=x86-64','-mno-avx','-mno-avx2','-mno-fma','-fvisibility-nodllstorageclass=default','-isysroot',sdk,'-isystem',sdk/'target/include','-I'+str(ROOT/'.tools/PS5_Mesa/include'),'-I'+str(headers),'-I'+str(headers/'freebsd'),'-c',ROOT/'client/gpu/bridge.c','-o',bridge)
  audit={'scope':'Consumer-owned scoped graphics dependency providers; JVM process-wide allocation/thread/DNS behavior retained','provider_definitions':prefix,'graphics_bindings':binding,'constructors':{'sections':names,'normalized_priorities':priorities,'execution':'Explicit single JNI_OnLoad after VM creation; retained functions, no automatic startup execution'},'callback':'The SDK C++ ABI optional TLS destructor callback resolves to the real scoped platform provider for this combined title','objects_sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in [merged,bridge]},'console':'pending'}
+ if wsi_audit is not None:audit['wsi_diagnostics']=wsi_audit
  (out/'audit.json').write_text(json.dumps(audit,indent=2)+'\n')
  print('Built scoped graphics support and resident JNI bridge',out)
  return merged,bridge,audit
