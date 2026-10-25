@@ -4,7 +4,7 @@
   "title_id": "PPSA99874",
   "app_version": "01.000.054",
   "package_sha256": "4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc",
-  "console": "PENDING054.053crash/restart;98complete snapshots through97185ms. Earlier pipeline wait resolves;Main enters Minecraft.run and applies language resources. No menu acceptance/crash cause.",
+  "console": "054matching run confirms120complete snapshots/120native phase pairs through96993ms;reportedAS/RSSlimitsinfinite,data32GiB,flexible>=324MiB,direct-largest>=12124160000bytes,handlers0xf. Main applies language resources after pipeline wait resolves. Actual054screen/final outcome/timing,crash cause and menu unvalidated.",
   "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
   "package_checks": "PASS054 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
@@ -135,7 +135,7 @@
     "max_frames_printed_per_thread": 64,
     "output": "/exceptions.log;PS5 STARTUP SNAPSHOT/PS5 END SNAPSHOT markers",
     "scope": "One optional daemon;phase0native/Java stacks/phase1native.240samples;1s sleeps after1..89,250ms90..169,1s170..179,5s180..239.32threads/64frames. Native resource/limits/direct-range/handler query observations;errors explicit. No limit/handler/game changes;can perturb timing,not atomic crash context.",
-    "console": "053confirmed98complete Java snapshots/native phase pairs through97186ms. Main moves from pipeline join toMinecraft.run and language-resource apply. Handler mask0xf/errors0,flexible minimum339738624bytes. Cause unknown;054pending.",
+    "console": "054matching run confirms120complete snapshots/120native phase pairs through96993ms;reportedAS/RSSlimitsinfinite,data32GiB,flexible>=324MiB,direct-largest>=12124160000bytes,handlers0xf. Main applies language resources after pipeline wait resolves. Actual054screen/final outcome/timing,crash cause and menu unvalidated.",
     "early_samples": 90,
     "later_interval_ms": 5000,
     "nominal_last_sample_seconds": 419,
@@ -147,7 +147,7 @@
     "later_interval_after_sample": 180
   },
   "startup_observer_host_regression": "PASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only",
-  "latest_console_observations": "docs/validation/client053-startup-failure-2026-10-25.json",
+  "latest_console_observations": "docs/validation/client054-startup-observations-2026-10-25.json",
   "native_observer_host": "PASS actual native observer helper ASan/UBSan: raw resource/limit/direct-range values/errors/infinity/invalid-total skip,phase/elapsed formatting,append/write failure and errno preservation;controlled query results,not PS5 resource validation",
   "native_observer_report": "/process-usage.log build/run,phase0/1. getrusage and available flexible memory plus raw RLIMIT_DATA/AS/RSS and direct total/largest-range/status/sentinels. All raw result codes explicit;RSS units unverified. Ownership masks query only;no reinstallation."
 }

@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.054",
+  "run": "client-01.000.054-1792954563-796299341",
+  "tested_source_commit": "b94d32466a368881e510dfaad37716d88f58e0a6",
+  "package_sha256": "4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc",
+  "human": "User requested latest logs and detailed fresh-context handoff;no explicit054visual/final-outcome/timing supplied. Earlier053crash/restart and052Mojang-near-finish/~1\u00bdminute reports remain separate.",
+  "observed": {
+    "identity": "Build/session/native-stderr/abort/resource header all054matching run. Saved RUN does not prove live progress.",
+    "snapshots": 120,
+    "first_snapshot_ms": 8,
+    "last_snapshot_ms": 96992,
+    "observer": "No sample121,normal240sample completion,error/unavailable marker.120is not configured limit;last capture is not exact crash/termination time.",
+    "last_render": "RUNNABLE String.isLatin1/charAt -> Pattern/Matcher.replaceAll -> Language.loadFromJson:85 -> ClientLanguage/LanguageManager -> resource reload -> Minecraft.runTick/run/Main292.",
+    "worker": "Resource preparation progresses to real shaderc/SPIRV-Cross pipeline work;last2samplesWorker-Main-1TIMED_WAITING in ForkJoinPool.awaitWork. Earlier pipeline join resolves;not permanent deadlock.",
+    "heap_used_min_bytes": 60917200,
+    "heap_used_max_bytes": 244209408,
+    "last_heap_used_bytes": 244209408,
+    "heap_max_bytes": 259522560,
+    "native_records": 240,
+    "native_phase_pairs": 120,
+    "last_native_ms": 96993,
+    "query_status_sets": {
+      "getrusage_rc": [
+        "0"
+      ],
+      "flexible_rc": [
+        "0x00000000"
+      ],
+      "direct_rc": [
+        "0x00000000"
+      ],
+      "fault_owned_mask": [
+        "0xf"
+      ],
+      "fault_query_errors": [
+        "0x0"
+      ],
+      "rlimit_data_rc": [
+        "0"
+      ],
+      "rlimit_as_rc": [
+        "0"
+      ],
+      "rlimit_rss_rc": [
+        "0"
+      ]
+    },
+    "raw_maxrss_first": 509584,
+    "raw_maxrss_last": 1162320,
+    "raw_maxrss_units": "Not independently established for PS5;no conversion or exhaustion diagnosis.",
+    "flexible_min_bytes": 339738624,
+    "direct_total_bytes": 12884901888,
+    "direct_largest_first_bytes": 12738560000,
+    "direct_largest_min_last_bytes": 12124160000,
+    "data_limit_soft_hard_raw": [
+      [
+        "34359738368",
+        "34359738368"
+      ]
+    ],
+    "as_rss_limits": "Both soft/hard9223372036854775807with explicit infinity flags1throughout. Reported queries do not establish a1GiBlimit or total-memory adequacy/absence of other policy.",
+    "shader_entries": 390,
+    "shader_returns": 390,
+    "presentation": "First8successful fences/accepted flips;later presents not exhaustively observed.",
+    "fatal": "No recorded fatal signal,VM abort,driver error or Java OOM;hs-error unavailable. Does not exclude later native/GPU/system termination.",
+    "allocation": "81ordinary reserve errno12attempts (64x64MiB,16x4MiB,1x68MiB) with existing direct fallback context;4initial metadata nulls632/752/240/88bytes. No per-request retry-result/fatal-OOM proof."
+  },
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "fc783fcb4fec3519c61e95b57c54a3396b47c94642241a964f802c6e6a605da1"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "96a17d248c88b5c3d6e8fce425bee1df0fd7ab2ced9f0238b8ecc23c0e7cf4ea"
+    },
+    "exceptions.log": {
+      "bytes": 949125,
+      "sha256": "7acca07f3623542043e3fa55608992cf6a07a3dc5a554a393c660ebcff885dd6"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 412,
+      "sha256": "103d48da4819d7e5dfeee6e55ce54d98fd96c48c2ac72b3a847e1ff9797eb6bc"
+    },
+    "process-usage.log": {
+      "bytes": 195782,
+      "sha256": "4f6f9d9bce6d47120399ec92dc7747a6d69d39d7712e400bcc6a8206fb82cc15"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "d39dfd7bd41f4f514a59d5b003cb027b62d76dfc40fc7e5ae58db6268eb6c99f"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "fb26567b7fd3b8efd627ddc2c22e14c7b9db3b1513ad0efc42f9d0c280814369"
+    },
+    "vm-trace.log": {
+      "bytes": 1732259,
+      "sha256": "1f7f489323f25babc1b55a1a00ef7325a3b5188921d5707bd7d69e1b22284f66"
+    }
+  },
+  "cause": "Unknown. Repeated final language resource-apply observations narrow sampled activity;do not diagnose String/regex/Gson or memory exhaustion from last stacks.",
+  "next": "Establish054actual screen/outcome/timing;read full reports and inspect original language/resource-apply dependencies read-only. Consider smallest targeted capture at that later transition if needed;no speculative heap/graphics/game changes. Preserve exact054before changed055or later.",
+  "limits": "This handoff turn changes evidence/docs only;054binary unchanged. No menu/gameplay/ALL PASS/new milestone/full client release/Store download;server2H deferred."
+}

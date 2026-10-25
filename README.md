@@ -59,24 +59,23 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client054 — resource-apply transition observations
+## Development client054 — retrieved resource-apply observations
 
-053 crashed and was restarted. Matching reports show98complete snapshots through
-97.185s:the earlier pipeline wait resolves,Main enters Minecraft.run and applies
-language resources while the worker becomes idle. This is progress beyond the
-constructor,not a working-menu pass. Native queries succeed,all four recorder
-handlers still match,and available flexible memory stays at least324MiB. Raw
-maximum-RSS rises;its units and applicable process policy remain unverified.
-No fatal signal,VM abort,driver error or Java OOM was captured. **Cause unknown.**
+054reports confirm120complete snapshots through96.992s and120native phase pairs.
+The earlier pipeline wait resolves;Main entersMinecraft.run and applies language
+resources while the worker becomes idle. This is progress,not menu acceptance.
+Raw process-limit queries reportAS/RSSinfinite anddata32GiB;flexible availability
+stays>=324MiB and largest direct range>=12,124,160,000bytes. RSS units remain
+unverified;no1GiBlimit or exhaustion diagnosis follows. No fatal signal,VM abort,
+driver error or Java OOM was captured. **Cause unknown;actual054human final screen/
+outcome/timing,menu/gameplay and stability remain unvalidated.**
 
-054 adds read-only process-limit/direct-memory queries and denser250ms snapshots
-around the observed90–110s transition. No limit,heap,game or graphics behavior is
-changed. Diagnostics can affect timing. Host/target/package validation is recorded
-in the build record;**054console capture,crash resolution and menu/gameplay/stability
-remain pending.** Exact053and frozen passes are preserved.
+Host/target/package checks passed. Latest handoff turn changes docs/evidence only;
+054binary is unchanged. Preserve exact054before any changed055candidate.
 [Diagnostic scope](docs/client-startup-054.md) ·
-[053 failure evidence](docs/validation/client053-startup-failure-2026-10-25.json) ·
-[Current handoff](docs/handoff-prosperocraft-client054.md).
+[054 retrieved evidence](docs/validation/client054-startup-observations-2026-10-25.json) ·
+[Complete current handoff](docs/handoff-prosperocraft-client054.md) ·
+[Copyable fresh-context prompt](docs/fresh-context-prompt-client054.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

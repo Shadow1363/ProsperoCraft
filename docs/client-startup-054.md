@@ -71,3 +71,14 @@ abort/fatal reports before launching again. Keep actual version/run identity.
 
 Host/native-helper tests,target build and full-package checks passed.
 [Build validation](validation/client054-build-2026-10-25.json). PS5 validation pending.
+
+## Latest retrieved054evidence
+
+See [hashed observations](validation/client054-startup-observations-2026-10-25.json)
+and [complete current handoff](handoff-prosperocraft-client054.md). Run
+client-01.000.054-1792954563-796299341 has120complete snapshots/phase pairs through
+96993ms. Main applies language resources after earlier pipeline wait resolves;
+worker idle. AS/RSSlimits report infinity,data32GiB,flexible>=324MiB,largest direct
+range>=12124160000bytes. RSSunits unverified,no fatal context/cause/menu acceptance.
+Actual054human final screen/outcome/timing not supplied. Docs/evidence-only update;
+implementation/package remains exact054,b94d324,checksum listed in handoff.
