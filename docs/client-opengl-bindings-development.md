@@ -99,3 +99,44 @@ installer has been produced;027 remains a failed startup build and must not be
 presented as the new candidate. PS5 context/JNI/readback/shutdown acceptance and
 original Minecraft menu startup remain pending. No original game JAR,server
 configuration,frozen milestone or runtime implementation was changed.
+
+
+## Client028 resident acceptance candidate
+
+028 now packages the genuine OpenGL JNI and private Mesa OSMesa implementation.
+13,241 Mesa definitions,including TLS descriptors and internal C++ definitions,
+are isolated from the existing RADV Mesa. Existing scoped graphics providers
+supply libc/thread services. One real Mesa constructor is retained in an explicit
+ordered linker range and invoked by resident JNI_OnLoad after the VM exists.
+The automatic constructor table remains empty. The original game/runtime code
+is unchanged;this fixture does not call Minecraft Main.
+
+A fourth dependency patch uses `__thread` for the constant-initialized GL TLS
+slots when the explicit PS5 Meson option is enabled. This matches upstream's
+Apple declaration strategy and avoids Clang's optional C++ TLS-init thunk,which
+our native conversion tool otherwise treats as an import. No fake initializer
+or zero-call shim is linked. The platform still uses compiler-managed emulated
+TLS. Prior component build records remain historical evidence,not028 validation.
+
+The exact packaged ClientOpenGL25 bytecode passes the real host provider test.
+Target checks verify original54JAR hashes,unchanged runtime libraries,image and
+shared application identity,all real provider/JNI exports,private GLAPI symbols,
+359JVM+4graphics+5shaderc+15OpenAL+1Mesa staged constructors,signatures and ZIP
+CRC. Frozen026 and preceding validation packages are preserved. The local app
+includes the original pinned Mesa source archive and all four dependency patches
+so upstream per-file copyright/license notices are retained.
+
+Build with tools/package_client_vulkan.py --opengl-bootstrap plus the existing
+--runtime-workspace,--java-home and --offline arguments. Check with
+ tools/test_client_opengl_package.py --runtime-workspace and run the same
+fixture on host with tools/test_opengl_bootstrap_host.py --java-home. The new
+build is PPSA99874 01.000.028;see client/opengl_bootstrap/status.json and
+ docs/validation/client028-candidate-2026-10-25.json for its exact checksum.
+
+Install028,open it and press X once. It runs five rows automatically;no game
+window,visible RGB sequence or sound is expected. Wait for ALL5 PASS or the
+failed-row notification and keep the app open for logs. Console context creation,
+original JNI function-table dispatch,readback/guards and VM shutdown remain
+pending until the actual PS5 result. Do not freeze a milestone or infer game
+startup from host/package checks. A future public OpenAL-linked release still
+requires matching corresponding-source/relink materials;028 is local development.

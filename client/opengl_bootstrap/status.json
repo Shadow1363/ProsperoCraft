@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-25",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.028",
+  "stage": "Real OSMesa/OpenGL provider acceptance candidate",
+  "package_sha256": "db19d2731496c82f77b6d88276f201517fca2d786e251d94520718986c5f7596",
+  "console": "pending;not run on PS5",
+  "host": "PASS same ClientOpenGL25 bytecode under Java25 Xint/XcheckJNI/Xverify:all with actual Mesa softpipe and original OpenGL JNI;3contexts,192RGBA pixels,768guards,heap/undersized buffer rejection;UBSan on JNI/helper",
+  "package_checks": "PASS028 CRC/signatures/identity,54 original JARs/exact023 runtime image/native libraries,real OSMesa/OpenGL JNI plus preserved native providers,359+4+5+15+GL1 staged constructors/no auto ctors,9resident groups,dependency overlay,128MiB/five-row fixture/no game or speaker success claim,preserved023/failed025 packages. PS5 pending.SHA256 db19d2731496c82f77b6d88276f201517fca2d786e251d94520718986c5f7596",
+  "game_jar_modified": false,
+  "runtime_implementation_modified": false,
+  "java_heap_max_mib": 128,
+  "resident_groups": 9,
+  "gl_constructor_count": 1,
+  "private_mesa_definitions": 13241,
+  "component_source_identity": "6d05e0164d4c80967a9c1e0ac5f25d04a98888b4866b1bac2695662367f2720b",
+  "tls": "PS5 opt-in compiler-generated dispatch and __thread for constant-initialized GL TLS;no fabricated initializer or zero-function shim",
+  "initialization": "Existing graphics platform first;one actual Mesa constructor via resident JNI_OnLoad after VM creation;automatic constructor table empty",
+  "test_rows": [
+    "Initialize embedded runtime",
+    "Create Java VM",
+    "Verify54original client JARs",
+    "Real Mesa/LWJGL3context clear/readback and guard checks",
+    "Destroy Java VM"
+  ],
+  "user_steps": [
+    "Install the local028package,which replaces the app with the same title ID",
+    "Open the app and press X once",
+    "Wait for ALL5 PASS or a failed-row notification;no game window or visible RGB sequence is expected",
+    "Leave app open for log sharing"
+  ],
+  "distribution": "Local development candidate;no public binary release or passing milestone. Original game JARs stay local. Preserve OpenAL corresponding-source/relink materials before any public binary release. Mesa original source archive/port patches and notices are included locally.",
+  "remaining": [
+    "Actual PS5 GL context/JNI/readback/shutdown acceptance",
+    "Original Minecraft Main retry with explicit OSMesa bootstrap and Vulkan selected",
+    "STB/FreeType/VMA/SPIRV-Cross and remaining SDL dependencies",
+    "Minecraft menu/gameplay;hardware OpenGL not claimed",
+    "Global module teardown and broader/larger GL workloads"
+  ],
+  "server_two_hour_endurance": "deferred by user"
+}

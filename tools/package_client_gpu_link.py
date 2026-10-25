@@ -33,7 +33,10 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  archives=[p for p in inputs if p.endswith('.a')]
  inputs=[*flags,str(build/'embedded-jvm.o'),*old_objects,str(gpu_support),*backends,*archives,'--defsym=__cxa_thread_atexit_impl=clientgpu_ps5___cxa_thread_atexit_impl']
  layout=work/'gpu-probe.ld';s=(build/'jni-probe.ld').read_text();needle='        *(.data.rel.ro .data.rel.ro.*)';assert needle in s
- s=s.replace(needle,'''        PROVIDE_HIDDEN(__client_openal_init_start = .);
+ s=s.replace(needle,'''        PROVIDE_HIDDEN(__client_gl_init_start = .);
+        KEEP(*(SORT(.data.rel.ro.clientgl.init_array.*)))
+        PROVIDE_HIDDEN(__client_gl_init_end = .);
+        PROVIDE_HIDDEN(__client_openal_init_start = .);
         KEEP(*(SORT(.data.rel.ro.clientopenal.init_array.*)))
         PROVIDE_HIDDEN(__client_openal_init_end = .);
         PROVIDE_HIDDEN(__client_shaderc_init_start = .);
@@ -52,7 +55,7 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  for name,source in [('main',consumer/'bootstrap.cpp'),('renderer',runtime/'native/renderer/demo_renderer.cpp'),('crt',native/'app_crt.cpp'),('cpp_runtime',native/'app_cpp_runtime.cpp')]:
   obj=work/(name+'.o')
   run(LLVM/'clang++','-target','x86_64-sie-ps5','-fvisibility-nodllstorageclass=default','-isysroot',sdk,'-isystem',sdk/'target/include/c++/v1','-isystem',sdk/'target/include','-I'+str(runtime/'native/renderer'),'-I'+str(runtime/'build/native'),'-I'+str(runtime/'src'),'-I'+str(runtime/'native'),'-I'+str(work),'-I'+str(ROOT/'client/native'),'-I'+str(runtime/'java25/probe'),'-std=c++20','-O2','-Wall','-Wextra','-Werror','-fno-stack-protector','-fno-plt','-femulated-tls','-fno-exceptions','-fno-rtti','-ffunction-sections','-fdata-sections','-c',source,'-o',obj);objects.append(obj)
- if variant in {'runtime_shader','startup','native_bootstrap'}:
+ if variant in {'runtime_shader','startup','native_bootstrap','opengl_bootstrap'}:
   # Only this consumer title's C++ allocation operators need the existing
   # graphics heap. Pair new/delete (including aligned/nothrow/sized variants)
   # without changing raw libc, JVM os::malloc or global --wrap policies.

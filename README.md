@@ -56,12 +56,14 @@ The runtime now has **nine passing console milestones**, including inbound IPv4,
 
 027 enters original Minecraft Main but stops loading OpenGL:the native
 `liblwjgl_opengl.so` binding is absent. [Development](docs/client-opengl-bindings-development.md)
-now builds193 original OpenGL JNI units/2,270exports and a pinned Mesa
-OSMesa/softpipe software provider for PS5. Real host OpenGL context/pixel/guard
-checks pass. **PS5 resident-provider integration and console validation remain
-pending;there is no new startup app or PS5 GL/menu pass yet.** Vulkan remains
-the intended game renderer. Original game JARs stay intact,and frozen026
-callback/OpenAL acceptance remains available.
+now packages193 original OpenGL JNI units/2,270exports and a pinned Mesa
+OSMesa/softpipe software provider in **client01.000.028**. Host tests verify
+three real contexts,192RGBA pixels and768guard bytes;package checks pass.
+**All five PS5 acceptance rows remain pending.** This tests OpenGL native
+bootstrap support before retrying the game;it does not launch Minecraft or
+claim hardware OpenGL. Vulkan remains the intended game renderer. Original
+game JARs and frozen026 callback/OpenAL acceptance remain intact.
+
 
 ## Client Callbacks/OpenAL — PS5 ALL5 PASS
 
