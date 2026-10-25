@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-25",
+  "app_version": "01.000.050",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.050-1792949111-939372034",
+  "tested_source_commit": "429c6550e690697f98990903b5b527df590a97b3",
+  "package_sha256": "ffc3b7d47132e7c426b42e1215033fd6649ca36f4a9c5c589bf44e59d935062f",
+  "human": "Mojang loading screen, then crash;reported during retrieval",
+  "observed": "Matching build/session/native headers. Early VideoOut open0x4e100100 and prepare0;three image imports. Flip-thread create0;first8 enqueues,8 fence results VK_SUCCESS and8 SubmitFlip results0.390 shader entries/390 returns. Java resource reload/font loading is last application output. No recorded fatal signal/VM abort/native driver error;hs-error unavailable.",
+  "cause": "Unknown. Accepted first8 flips do not prove visible frames or successful later frames;no captured crash instruction/stack. Last shader return and sampled metadata allocation do not identify crash location.",
+  "reports": {
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "1c232eae6a2bc7ce95a9964dc43b803560430d0b1710023a0f7aa86c60d9e94a"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "b365040ed8b8180a70509d9d38c1e2fb73ee4da6fc173f1791f4825e75019043"
+    },
+    "native-stderr.log": {
+      "bytes": 412,
+      "sha256": "9650cc3b9e0b9bfbc6c4c6fe2102dae1424fb02d9d0a9a4a00c52e8ff18173eb"
+    },
+    "vm-trace.log": {
+      "bytes": 1572284,
+      "sha256": "b7d70e23fbb2a9eb29d4d2ce66fd012696a4af492dbc051ed6ae45604c73efd5"
+    },
+    "exceptions.log": {
+      "bytes": 13468,
+      "sha256": "e5f7792a3933290ef6f6557e364a35b05362ca77ede603001ebb09bda4fc69bc"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "f42acaf6f539b1114931190ad539cfcf62af24a142a55b655e0d6ace38ceaaad"
+    },
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "64499469e5855b9b68d7b977437cbca8bd7257682964b6b9436e2dca5796f380"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "class-load.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1",
+      "availability": "Log not created or unavailable"
+    },
+    "process-usage.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1",
+      "availability": "Log not created or unavailable"
+    }
+  },
+  "next": "051 adds a bounded optional Java thread-stack/heap observer during original Main to locate later resource/render progress. No game JAR transformations or speculative GPU/memory changes.",
+  "limits": "No menu/gameplay/ALL PASS or new milestone.050exact package/symbols/status retained. Observer thread/safepoints/logging can perturb timing and require PS5 validation. Server2H deferred."
+}

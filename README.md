@@ -59,17 +59,20 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client050 — presentation progress diagnostics
+## Development client051 — startup thread snapshots
 
-049 repairs the048setup regression and captures actual native stderr,including
-successful1080p buffer registration. No GPU refusal/timeout or signal/VM abort is
-recorded.046/047/049each finish390recorded shader compiles;the last compile is
-not a known crash location.050adds bounded native presentation enqueue,fence
-wait and flip-result checkpoints,without changing their behavior. Keep the early
-same-owner output,outer fault recorder and nonfatal FILE capture.
-**Crash resolution,menu/gameplay and stable presentation remain unvalidated.**
-[Build/test scope](docs/client-startup-050.md) ·
-[049report evidence](docs/validation/client049-startup-failure-2026-10-25.json).
+050 reached the original Mojang loading screen and then crashed on PS5. Its
+matching reports show eight successful fence waits and eight accepted native flips,
+390 shader entries/returns, and no recorded fatal signal, VM abort or driver error.
+The later crash cause remains unknown; these observations do not establish a menu.
+051 adds an optional daemon that records up to90 startup thread-stack/heap snapshots
+at one-second intervals. Original Main and resource workers are listed first;
+output is limited to32 threads and24 frames each. Setup failure continues Main.
+Stack collection adds safepoints, allocations and one256KiB-requested-stack thread;
+its PS5 operation and timing effects require validation. Frozen passes remain intact.
+**Crash resolution, menu/gameplay and stable presentation remain unvalidated.**
+[Build/test scope](docs/client-startup-051.md) ·
+[050 report evidence](docs/validation/client050-startup-failure-2026-10-25.json).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

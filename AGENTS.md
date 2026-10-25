@@ -482,3 +482,14 @@ handoff;Coming soon remains a reservation,not a downloadable client. Prepare a
 full release only after exact console acceptance,without downloaded game files,
 with complete startup provisioning and exact matching OpenAL source/relink kit.
 Older044handoff is historical;do not revert current fixes to that state.
+
+Client050 human reports Mojang loading then crash;matching run
+client-01.000.050-1792949111-939372034 confirms8successful fence waits/8accepted
+native flips and390shader entries/returns,no captured signal/VM abort/driver error.
+Cause remains unknown,not the last compile. Exact050package/symbols/status retained.
+051 adds optional bounded startup Java thread-stack/heap snapshots:90samples/1s,
+32printed threads/24frames,Main/resource workers first;one daemon requesting256KiB.
+Setup/sampler failure disables diagnostics and continues original Main. Safepoints,
+allocation and timing effects require PS5 validation. No game-JAR changes/menu pass/
+new milestone. Current051 supersedes050 candidate instructions;see
+docs/client-startup-051.md and050 validation record. Server2H remains deferred.

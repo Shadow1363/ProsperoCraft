@@ -9,7 +9,7 @@ import org.lwjgl.system.MemoryUtil;
 /** Invokes the original client entry point; no game class replacement/hooks. */
 public final class ClientStartup25 {
  public static native void checkpoint(String text);
- private static void stage(String text){checkpoint("MC Startup050: "+text);}
+ private static void stage(String text){checkpoint("MC Startup051: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -34,12 +34,54 @@ public final class ClientStartup25 {
   }finally{if(aligned!=0)allocator.aligned_free(aligned);if(zeroed!=0)allocator.free(zeroed);for(long pointer:pointers)if(pointer!=0)allocator.free(pointer);}
   return "PASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup";
  }
+ /** Diagnostic only: one daemon, finite sampling, no changes to game threads. */
+ static final class StartupObserver implements AutoCloseable {
+  private final PrintStream console;
+  private final Thread owner,worker;
+  private final int samples;
+  private final long intervalMillis;
+  private final long startedNanos=System.nanoTime();
+  private volatile boolean running=true;
+  StartupObserver(PrintStream console,int samples,long intervalMillis){
+   this.console=console;this.samples=samples;this.intervalMillis=intervalMillis;owner=Thread.currentThread();
+   worker=new Thread(null,this::run,"PS5 startup observer",256*1024,false);worker.setDaemon(true);
+  }
+  void start(){worker.start();}
+  private void run(){
+   try{
+    for(int sample=1;running&&sample<=samples;sample++){
+     var traces=Thread.getAllStackTraces();
+     var threads=new java.util.ArrayList<>(traces.keySet());
+     // Always include the invoking Main/render thread before bounded other threads.
+     threads.sort(java.util.Comparator.<Thread>comparingInt(t->t==owner?0:t.getName().startsWith("Worker-Main")?1:2).thenComparingLong(Thread::threadId));
+     Runtime heap=Runtime.getRuntime();StringBuilder text=new StringBuilder(8192);
+     text.append("PS5 STARTUP SNAPSHOT ").append(sample).append(" elapsedMs=").append((System.nanoTime()-startedNanos)/1_000_000).append(" heapUsed=").append(heap.totalMemory()-heap.freeMemory()).append(" heapCommitted=").append(heap.totalMemory()).append(" heapMax=").append(heap.maxMemory()).append(" threads=").append(threads.size()).append('\n');
+     int count=0;
+     for(Thread thread:threads){
+      if(thread==worker)continue;
+      if(count++==32){text.append("  [thread limit32]\n");break;}
+      text.append("THREAD ").append(thread.threadId()).append(' ').append(thread.getName()).append(" state=").append(thread.getState()).append(thread==owner?" MAIN":"").append('\n');
+      StackTraceElement[] frames=traces.get(thread);
+      for(int frame=0;frame<Math.min(frames.length,24);frame++)text.append("  at ").append(frames[frame]).append('\n');
+      if(frames.length>24)text.append("  [frame limit24]\n");
+     }
+     text.append("PS5 END SNAPSHOT ").append(sample).append('\n');
+     synchronized(console){if(running){console.print(text);console.flush();}}
+     if(sample<samples)Thread.sleep(intervalMillis);
+    }
+   }catch(InterruptedException stopped){Thread.currentThread().interrupt();}
+   catch(Throwable failure){synchronized(console){if(running)console.println("PS5 startup observer stopped: "+failure);}}
+   finally{synchronized(console){if(running)console.println("PS5 startup observer completed;bounded diagnostic only");}running=false;}
+  }
+  public void close(){synchronized(console){running=false;}worker.interrupt();}
+ }
  public static void main(String[] args)throws Throwable{
   Path work=Path.of("/download0/mc-client"),assets=Path.of("/app0/assets/java25/game-assets");prepareWork(work);
   if(!Files.isRegularFile(assets.resolve("indexes/34.json")))throw new IOException("Packaged original asset index missing");
   PrintStream previousOut=System.out,previousErr=System.err;
   PrintStream console=new PrintStream(new FileOutputStream(Path.of("/download0/java25-exceptions.log").toFile(),false),true,StandardCharsets.UTF_8);
   System.setOut(console);System.setErr(console);
+  StartupObserver observer=null;
   try{
    System.setProperty("user.dir",work.toString());System.setProperty("user.home",work.toString());System.setProperty("java.io.tmpdir",work.resolve("native-cache").toString());
    for(String key:new String[]{"jna.tmpdir","io.netty.native.workdir"})System.setProperty(key,work.resolve("native-cache").toString());
@@ -55,11 +97,13 @@ public final class ClientStartup25 {
    Class<?> main=Class.forName("net.minecraft.client.main.Main",false,ClassLoader.getSystemClassLoader());Method method=main.getMethod("main",String[].class);
    stage("ENTER original net.minecraft.client.main.Main.main;menu/world not yet validated");
    console.println("Original Minecraft26.3 Main entry;offline demo test. Native dependency coverage remains incomplete.");
+   try{observer=new StartupObserver(console,90,1000);observer.start();}
+   catch(Throwable unavailable){console.println("PS5 startup observer unavailable;continuing original Main: "+unavailable);observer=null;}
    try{method.invoke(null,(Object)launchArguments(work,assets));}
    catch(InvocationTargetException failure){throw failure.getCause();}
    stage("Original Main returned;this alone does not establish menu or gameplay success");
    throw new IllegalStateException("Original game main returned;inspect exceptions.log/latest.log and actual visible state;no automatic menu PASS");
   }catch(Throwable failure){failure.printStackTrace(console);stage("Original startup stopped: "+failure);throw failure;}
-  finally{console.flush();System.setOut(previousOut);System.setErr(previousErr);console.close();}
+  finally{if(observer!=null)observer.close();console.flush();System.setOut(previousOut);System.setErr(previousErr);console.close();}
  }
 }
