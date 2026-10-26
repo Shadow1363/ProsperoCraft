@@ -21,10 +21,13 @@ public final class ProsperoAuth {
  }
  public static final class Failure extends Exception {
   public final String code;
-  Failure(String code){super(message(code));this.code=code;}
+  Failure(String code){this(code,null,0);}
+  Failure(String code,Endpoint endpoint,int status){super((endpoint==null?"":"["+endpoint.name()+(status>0?" HTTP "+status:"")+ "] ")+message(code));this.code=code;}
   static String message(String code){return switch(code){
    case "CANCELLED"->"Sign-in cancelled.";case "EXPIRED"->"Code expired. Select Sign in to try again.";
    case "DECLINED"->"Microsoft sign-in was declined.";
+   case "PUBLIC_CLIENT"->"Enable Allow public client flows in the Microsoft app registration.";
+   case "MC_DENIED"->"Minecraft Services denied this app. App approval may be required.";
    case "REGISTRATION"->"Microsoft app setup needs attention. Check public client flow and service approval.";
    case "OWNERSHIP"->"This account does not have a playable Minecraft Java entitlement.";
    case "PROFILE"->"Minecraft Java profile unavailable. Complete setup in the official launcher.";
@@ -33,8 +36,9 @@ public final class ProsperoAuth {
    default->"Sign-in could not be completed. Please try again.";};}
  }
  public static final class Reply {
-  final int status;final JsonObject json;
-  Reply(int status,JsonObject json){this.status=status;this.json=json;}
+  final int status;final JsonObject json;final Endpoint endpoint;
+  Reply(int status,JsonObject json){this(status,json,null);}
+  Reply(int status,JsonObject json,Endpoint endpoint){this.status=status;this.json=json;this.endpoint=endpoint;}
   @Override public String toString(){return "Auth reply HTTP "+status+" [body redacted]";}
  }
  interface Transport {Reply send(Endpoint endpoint,String method,String type,String body,String bearer)throws Exception;}
@@ -47,21 +51,32 @@ public final class ProsperoAuth {
   String accessToken(){return token;}
   @Override public String toString(){return "Minecraft session [credentials redacted]";}
  }
+ interface Connections {HttpsURLConnection open(URL url)throws Exception;}
  static final class Net implements Transport {
+  private final Connections connections;
+  Net(){this(url->(HttpsURLConnection)url.openConnection());}
+  Net(Connections connections){this.connections=connections;}
   public Reply send(Endpoint endpoint,String method,String type,String body,String bearer)throws Exception {
    String address=endpoint.address+(endpoint==Endpoint.LICENSE?"?requestId="+UUID.randomUUID():"");
-   HttpsURLConnection c=(HttpsURLConnection)URI.create(address).toURL().openConnection();
-   c.setConnectTimeout(15000);c.setReadTimeout(20000);c.setInstanceFollowRedirects(false);
+   HttpsURLConnection c=connections.open(URI.create(address).toURL());
+   c.setConnectTimeout(15000);c.setReadTimeout(20000);c.setInstanceFollowRedirects(false);c.setAllowUserInteraction(false);c.setUseCaches(false);
    c.setRequestMethod(method);c.setRequestProperty("Accept","application/json");
-   c.setRequestProperty("User-Agent","ProsperoCraft/075");
+   c.setRequestProperty("User-Agent","ProsperoCraft/078");
    if(bearer!=null)c.setRequestProperty("Authorization","Bearer "+bearer);
    try{
-    if(body!=null){c.setDoOutput(true);c.setRequestProperty("Content-Type",type);byte[] bytes=body.getBytes(StandardCharsets.UTF_8);c.setFixedLengthStreamingMode(bytes.length);try(OutputStream out=c.getOutputStream()){out.write(bytes);}}
+    if(body!=null){c.setDoOutput(true);c.setRequestProperty("Content-Type",type);byte[] bytes=body.getBytes(StandardCharsets.UTF_8);if(bytes.length>256*1024)throw new Failure("RESPONSE");
+     // These small POSTs must be buffered: JDK streaming mode disconnects on
+     // HTTP401 before getErrorStream can preserve the OAuth error response.
+     try(OutputStream out=c.getOutputStream()){out.write(bytes);}}
     int status=c.getResponseCode();InputStream input=status<400?c.getInputStream():c.getErrorStream();
-    if(input==null)throw new Failure("RESPONSE");
+    if(input==null){if(status>=300)return new Reply(status,new JsonObject());throw new Failure("RESPONSE");}
     byte[] bytes;try(input){bytes=input.readNBytes(1024*1024+1);}if(bytes.length>1024*1024)throw new Failure("RESPONSE");
-    JsonElement parsed=JsonParser.parseString(new String(bytes,StandardCharsets.UTF_8));
-    if(!parsed.isJsonObject())throw new Failure("RESPONSE");return new Reply(status,parsed.getAsJsonObject());
+    try{
+     JsonElement parsed=JsonParser.parseString(new String(bytes,StandardCharsets.UTF_8));
+     if(parsed.isJsonObject())return new Reply(status,parsed.getAsJsonObject());
+    }catch(JsonParseException invalid){/* Never log raw JSON or parser text. */}
+    if(status>=300)return new Reply(status,new JsonObject());
+    throw new Failure("RESPONSE");
    }finally{c.disconnect();}
   }
  }
@@ -77,10 +92,43 @@ public final class ProsperoAuth {
  }
  static JsonObject json(String text){return JsonParser.parseString(text).getAsJsonObject();}
  static String form(String... fields){StringJoiner out=new StringJoiner("&");for(int i=0;i<fields.length;i+=2)out.add(URLEncoder.encode(fields[i],StandardCharsets.UTF_8)+"="+URLEncoder.encode(fields[i+1],StandardCharsets.UTF_8));return out.toString();}
- Reply request(Endpoint endpoint,String method,String body,String bearer)throws Exception {
-  return transport.send(endpoint,method,endpoint==Endpoint.DEVICE||endpoint==Endpoint.TOKEN?"application/x-www-form-urlencoded":"application/json",body,bearer);
+ static String safeOAuth(JsonObject json){
+  try{return switch(str(json,"error")){case "invalid_client","unauthorized_client","invalid_scope","authorization_pending","slow_down","expired_token","authorization_declined","access_denied","invalid_grant"->str(json,"error");default->"OTHER";};}catch(Exception ignored){return "NONE";}
  }
- static void success(Reply reply,String phase)throws Failure {if(reply.status<200||reply.status>=300)throw new Failure(phase);}
+ static String aadCodes(JsonObject json){
+  StringJoiner codes=new StringJoiner(",");
+  try{JsonArray values=json.getAsJsonArray("error_codes");if(values!=null)for(int i=0;i<Math.min(values.size(),4);i++){
+   JsonElement value=values.get(i);if(value.isJsonPrimitive()&&value.getAsJsonPrimitive().isNumber()){
+    String digits=value.getAsString();if(digits.matches("[0-9]{1,9}"))codes.add(digits);
+   }
+  }}catch(RuntimeException ignored){}return codes.length()==0?"NONE":codes.toString();
+ }
+ static String issue(Exception error){
+  if(error instanceof javax.net.ssl.SSLException)return "TLS";
+  if(error instanceof UnknownHostException)return "DNS";
+  if(error instanceof SocketTimeoutException)return "TIMEOUT";
+  if(error instanceof ConnectException)return "CONNECT";
+  if(error instanceof HttpRetryException)return "HTTP_RETRY";
+  if(error instanceof InterruptedException)return "INTERRUPTED";
+  if(error instanceof IOException)return "IO";
+  if(error instanceof Failure)return "RESPONSE";
+  return "OTHER";
+ }
+ Reply request(Endpoint endpoint,String method,String body,String bearer)throws Exception {
+  System.err.println("PS5_AUTH endpoint="+endpoint.name()+" event=BEGIN");
+  try{
+   Reply raw=transport.send(endpoint,method,endpoint==Endpoint.DEVICE||endpoint==Endpoint.TOKEN?"application/x-www-form-urlencoded":"application/json",body,bearer);
+   System.err.println("PS5_AUTH endpoint="+endpoint.name()+" event=HTTP status="+raw.status+" oauth="+safeOAuth(raw.json)+" aad="+aadCodes(raw.json));
+   return new Reply(raw.status,raw.json,endpoint);
+  }catch(Exception error){System.err.println("PS5_AUTH endpoint="+endpoint.name()+" event=FAIL category="+issue(error));throw error;}
+ }
+ static void success(Reply reply,String phase)throws Failure {
+  if(reply.status>=200&&reply.status<300)return;
+  String code=phase;
+  if(reply.endpoint==Endpoint.DEVICE&&Arrays.asList(aadCodes(reply.json).split(",")).contains("70002"))code="PUBLIC_CLIENT";
+  if(reply.endpoint==Endpoint.MINECRAFT&&reply.status==403)code="MC_DENIED";
+  throw new Failure(code,reply.endpoint,reply.status);
+ }
  static void active(BooleanSupplier cancelled)throws Failure {if(cancelled.getAsBoolean()||Thread.currentThread().isInterrupted())throw new Failure("CANCELLED");}
  static String hash(JsonObject object)throws Failure {
   try{return str(object.getAsJsonObject("DisplayClaims").getAsJsonArray("xui").get(0).getAsJsonObject(),"uhs");}catch(RuntimeException bad){throw new Failure("RESPONSE");}
@@ -100,10 +148,11 @@ public final class ProsperoAuth {
     active(cancelled);if(clock.millis()+interval>=deadline)throw new Failure("EXPIRED");clock.sleep(interval);active(cancelled);
     Reply token=request(Endpoint.TOKEN,"POST",form("grant_type","urn:ietf:params:oauth:grant-type:device_code","client_id",CLIENT_ID,"device_code",secret),null);
     if(token.status>=200&&token.status<300){msa=str(token.json,"access_token");break;}
+    if(!token.json.has("error"))throw new Failure(token.status==401||token.status==403?"REGISTRATION":"RESPONSE",Endpoint.TOKEN,token.status);
     String error=str(token.json,"error");
     if(error.equals("authorization_pending"))continue;
     if(error.equals("slow_down")){interval=Math.min(60_000,interval+5000);continue;}
-    throw new Failure(switch(error){case "expired_token"->"EXPIRED";case "authorization_declined","access_denied"->"DECLINED";case "invalid_client","unauthorized_client","invalid_scope"->"REGISTRATION";default->"RESPONSE";});
+    throw new Failure(switch(error){case "expired_token"->"EXPIRED";case "authorization_declined","access_denied"->"DECLINED";case "invalid_client","unauthorized_client","invalid_scope"->"REGISTRATION";default->"RESPONSE";},Endpoint.TOKEN,token.status);
    }
    active(cancelled);view.stage("Connecting your Xbox profile");
    JsonObject body=new JsonObject(),props=new JsonObject();props.addProperty("AuthMethod","RPS");props.addProperty("SiteName","user.auth.xboxlive.com");props.addProperty("RpsTicket","d="+msa);body.add("Properties",props);body.addProperty("RelyingParty","http://auth.xboxlive.com");body.addProperty("TokenType","JWT");

@@ -6,6 +6,28 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client078 preserves and identifies authentication rejections
+
+Public-client registration initially returned401/invalid_client/AAD70002 on a
+host service probe. The user enabled that setting and reached approval, then the
+launcher returned to Not signed in with generic registration text. Exact later
+endpoint/status remains unresolved; this is not proof of Minecraft403or ownership
+failure.077did not record authentication errors sufficiently to identify the stage.
+
+Fixes fixed-length streaming POST behavior that loses OAuth401error bodies in
+OpenJDK25. Buffered bounded requests preserve these responses; endpoint/status
+prefixes distinguish failures and safe PS5_AUTH diagnostics record only fixed/
+allowlisted metadata. Minecraft403is labeled a services denial, with approval as
+a possibility. Tokens, live codes, raw bodies and exception text stay excluded.
+
+Real localHTTPS regressions cover old/new401handling,403nonJSON, redirect refusal,
+body bounds, CA/hostname rejection and redaction. Auth pipeline tests include public
+client and Minecraft denial cases. Real PS5 sign-in/rejection diagnosis remains
+pending078. Native-first launcher, icons, original artifacts and074audio/performance
+are retained;077package/symbols preserved. No release or Store work.
+
+[Guide](docs/client-auth-078.md) · [Build record](docs/validation/client078-auth-errors-build-2026-10-26.json).
+
 ## 2026-10-26 — Client077 shows the native launcher before Java/game startup
 
 The user reports the GUI never appears and requests separation from Minecraft

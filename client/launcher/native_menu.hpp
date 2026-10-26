@@ -52,7 +52,7 @@ inline void draw(Canvas& c) noexcept {
  const int selected=std::atoi(fields[9].data()),page=std::atoi(fields[11].data());
  const char* nav[]={"Home","Instances","Account","Settings"};
  for(int i=0;i<4;++i){int y=265+i*88;if(selected==i)c.rounded(65,y-12,292,68,16,ink(0x244e38));c.disc(93,y+13,5,ink(selected==i?0xb5f0b8:0x5d7e6b));label(c,119,y,nav[i],30,selected==i?0xe8ffe7:0xa1b7a9);}
- label(c,79,867,"JAVA EDITION",24,0x9fbaa8);label(c,79,911,"Native on PlayStation 5",24,0xd5e5d8);label(c,79,959,"ProsperoCraft 077",24,0x6d8f7b);
+ label(c,79,867,"JAVA EDITION",24,0x9fbaa8);label(c,79,911,"Native on PlayStation 5",24,0xd5e5d8);label(c,79,959,"ProsperoCraft 078",24,0x6d8f7b);
  label(c,440,78,"YOUR LIBRARY",24,0x99b7a5);c.rounded(1580,65,260,53,26,ink(0x244332));label(c,1605,78,"NATIVE JAVA 25",24,0xaee9b9);
  card(c,440,160,920,690,selected==0);
  label(c,485,200,page==1?"YOUR INSTANCES":page==3?"YOUR SETUP":"A WORLD OF POSSIBILITIES",24,0x9ccd9f);

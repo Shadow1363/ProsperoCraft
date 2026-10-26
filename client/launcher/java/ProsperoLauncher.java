@@ -30,7 +30,7 @@ public final class ProsperoLauncher {
      public void code(String value,String address){synchronized(ProsperoLauncher.this){if(generation==attempt){code=value;uri=address;cached=null;}}}
     },()->{synchronized(ProsperoLauncher.this){return generation!=attempt;}});
     synchronized(ProsperoLauncher.this){if(generation==attempt){session=result;busy=false;code="";uri="";message="Welcome, "+result.name+". Your world is ready.";cached=null;}}
-   }catch(ProsperoAuth.Failure failure){synchronized(ProsperoLauncher.this){if(generation==attempt){busy=false;code="";uri="";message=failure.getMessage();cached=null;}}}
+   }catch(ProsperoAuth.Failure failure){synchronized(ProsperoLauncher.this){if(generation==attempt){busy=false;code="";uri="";message=failure.getMessage();System.err.println("PS5_AUTH event=RESULT code="+failure.code);cached=null;}}}
   },"ProsperoCraft account sign-in");worker.setDaemon(true);worker.start();
  }
  synchronized String[] tick(int buttons){

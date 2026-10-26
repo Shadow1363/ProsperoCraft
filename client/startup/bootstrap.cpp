@@ -71,7 +71,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.077";
+constexpr const char* build_version="01.000.078";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -99,7 +99,7 @@ void network_checkpoint(JNIEnv *env,jclass,jstring stage) {
  const char *utf=env->GetStringUTFChars(stage,nullptr);
  if(!utf) return;
  log_stage(utf);
- if(std::strncmp(utf,"MC Startup077:",14)==0)notify(utf);
+ if(std::strncmp(utf,"MC Startup078:",14)==0)notify(utf);
  env->ReleaseStringUTFChars(stage,utf);
 }
 void native_snapshot(JNIEnv *env,jclass,jlong elapsed,jint phase) {
@@ -202,8 +202,8 @@ void run_test(int i) {
   if(!ps5::log_share::write_note("/download0/probe-native-stderr.log",native_identity))
    native_stderr_error=errno?errno:EIO;
   else native_stderr_error=ps5::native_stderr::begin("/download0/probe-native-stderr.log");
-  if(!native_stderr_error)std::fprintf(stderr,"Client077 native stderr stream active before embedded constructors\n");
-  else notify("Client077 native stderr capture unavailable;continuing original startup. Inspect startup reports.");
+  if(!native_stderr_error)std::fprintf(stderr,"Client078 native stderr stream active before embedded constructors\n");
+  else notify("Client078 native stderr capture unavailable;continuing original startup. Inspect startup reports.");
   startup_log=std::fopen("/download0/java25-startup.log","a");
   if(!startup_log) {result(i,errno,"Cannot open persistent startup log");return;}
   std::fprintf(startup_log,"\n=== CLIENT RUN %s BUILD %s ===\n",run_id,build_version);std::fflush(startup_log);
@@ -402,7 +402,7 @@ void run_test(int i) {
 }
 extern "C" void client_sdl_diagnostic(const char* text) {log_stage(text);}
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU077 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU078 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 extern "C" int sceKernelSendNotificationRequest(std::uint32_t,void*,std::size_t,int);
 extern "C" int sceSystemServiceHideSplashScreen();
@@ -412,21 +412,21 @@ static void notify(const char* text) {
  (void)sceKernelSendNotificationRequest(0,&n,sizeof(n),0);
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.077 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.078 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
  if(sceUserServiceGetInitialUser(&user)>=0 && scePadInit()>=0) pad=scePadOpen(user,0,0,nullptr);
 
  notify("ProsperoCraft: preparing your launcher.");
- if(pad<0){notify("Client077 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
+ if(pad<0){notify("Client078 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
  scePadClose(pad);pad=-1;
  (void)sceSystemServiceHideSplashScreen();
  // Native UI owns VideoOut/controller on its thread before creating Java.
  // Core constructors and early AudioOut init stay on the original startup thread.
  run_test(0);
- if(status[0]!=1){notify("Client077 runtime initialization failed; inspect logs.");for(;;)(void)sceKernelUsleep(1000000);}
- if(!prospero_menu::start_frontend()){notify("Client077 native launcher display could not start; inspect logs.");for(;;)(void)sceKernelUsleep(1000000);}
+ if(status[0]!=1){notify("Client078 runtime initialization failed; inspect logs.");for(;;)(void)sceKernelUsleep(1000000);}
+ if(!prospero_menu::start_frontend()){notify("Client078 native launcher display could not start; inspect logs.");for(;;)(void)sceKernelUsleep(1000000);}
  log_stage("Native launcher first frame presented; now creating Java account services, no Minecraft graphics loaded");
  // The artifact scan (2) is called by gamePreflight only AFTER menu closure.
  for(int i:{1,3}) {
@@ -434,11 +434,11 @@ int main() {
   run_test(i);
   if(status[i]!=1) {
    if(!prospero_menu::display_done.load())prospero_menu::show_failure();
-   char note[240];std::snprintf(note,sizeof(note),"Client077 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
+   char note[240];std::snprintf(note,sizeof(note),"Client078 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
    for(;;)(void)sceKernelUsleep(1000000);
   }
  }
  char state[240];std::snprintf(state,sizeof(state),"STARTUP RETURNED: inspect logs and actual screen;menu/world success unverified.");session_status(state);
- notify("Client077 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
+ notify("Client078 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
  for(;;)(void)sceKernelUsleep(1000000);
 }

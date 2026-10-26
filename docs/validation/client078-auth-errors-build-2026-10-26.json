@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.078",
+  "title_id": "PPSA99874",
+  "package_sha256": "fa13a7468de6735c478931cf9539d59c9f9358fe5035953c185ab8df6591755c",
+  "native_elf_sha256": "b44bdb786c3babaf7b668cf2a9fcbf559da424b4ab7f74cb1d28c323438c5de2",
+  "runtime_commit": "de339155ba78e54be1ddc903e7df0904c866fbdb",
+  "console_evidence": {
+    "build": "01.000.077",
+    "current_session_read_via_safari": "client-01.000.077-1793030265-346553867",
+    "human": "Microsoft approval then Not signed in, generic registration/setup/service approval message",
+    "initial_host_device_probe": {
+      "http_status": 401,
+      "oauth_error": "invalid_client",
+      "aad_codes": [
+        70002
+      ],
+      "description_category": "Client must be mobile/public"
+    },
+    "human_after_public_client_setting": "Device sign-in progressed; not full Minecraft authentication acceptance",
+    "post_approval_endpoint_status": "UNRESOLVED:077didnotlogauthstage/status; do not assumeMinecraft403",
+    "raw_reports": "Ignored local only"
+  },
+  "changes": [
+    "Buffered bounded OAuth/JSONPOSTs retain401errorbody instead of fixed streaming disconnect",
+    "Endpoint/status prefixes and distinct public-client/Minecraft403denial labels",
+    "PS5_AUTH logs fixed endpoint/status/whitelistedOAuth/boundednumericAAD/transportcategories; no rawbodies/headers/tokens/codes/exceptionmessages"
+  ],
+  "host_checks": [
+    "Real localTLS regression reproduces old401bodyloss and fixed buffer preservesOAuth response",
+    "Minecraft403nonJSON, redirect refusal, bodybound and acceptedTLS/negativeCA/hostname verification",
+    "Diagnostic secretredaction including response/request/error/exception text",
+    "Authpipeline including PUBLIC_CLIENT and MC_DENIED cases, asyncUI/ownedargs/demo/sessionguard",
+    "Startup order/policy/observer/logging/allocation/originalMain regressions",
+    "All packaged Prospero*.class match current compiled source"
+  ],
+  "target_checks": "PASS compile/link/SELF integrity, fullpackage CRC/signatures, exact original54JARs/5147assets, runtime/native audits, all packagedauthclasses match hostcompile, preserved077and earlier packages",
+  "console": "PENDING078 exact failing stage/status and successful live account/gameplay validation",
+  "preserved_077_package_sha256": "7cee18c872119b502d2d78427819ae5ad5f9715dada6289c2e75d969f08029eb",
+  "no_release_or_store_update": true
+}

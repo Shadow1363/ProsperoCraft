@@ -657,3 +657,14 @@ Defer artifact inventory/game native loads/C1/Main until Play. Preserve early
 AudioOut init on original startup thread. See docs/handoff-prosperocraft-client077.md.
 Host threading/JNI-table/order tests do not establish PS5 GUI/liveMSA/handoff.
 Keep raw auth secrets out of diagnostics; preserve074/075/076packages. No release.
+
+## Authentication rejection follow-through — 2026-10-26
+
+077user passes public-client setup/code approval but returns to Not signed in
+with generic REGISTRATION text. No full MSA/MC acceptance. Exact later endpoint
+is unresolved; no proven Minecraft403.078preserves HTTP401bodies with bounded
+bufferedPOSTs and adds endpoint/status UI errors and allowlisted diagnostics.
+Never log raw responses, token/code values, headers or exception/cause text.
+Read docs/handoff-prosperocraft-client078.md. Preserve077and earlier packages.
+Use actual078PS5_AUTH logs to identify the failing stage before service changes.
+No new release/Store publication or auth/entitlement bypass.
