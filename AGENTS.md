@@ -765,3 +765,9 @@ as01.000.083withfreshmatchingOpenALsource/relinkkit,checksumsandhonestpending
 PS5click/demo-world/audio/lifecyclechecks. NonewALLPASS/frozenmilestone. Update
 existingStorelisting083andGPL-3.0-or-later;preserveall082assets/source. Root
 sce_sys/param.jsonnowmirrorsthepublished083brandedmanifest.
+
+083publication:GitHub01.000.083public,exact8fcbdc8cb9cc8065aa0eaac26457a834fffb15098725e987df1d33257a76444e
+ZIPwithmatchingOpenALsource/relinkandverifieddownloads. ActiveStoreupdatePR819
+https://github.com/darkxex/ps5-homebrew-catalog/pull/819 . 814remainsmerged082
+history. Track819for083deployment;physical083clicks/demo-world/lifecycle/audio
+stillpending. DonotclaimStoreavailableuntilmerge/deployconfirmed.

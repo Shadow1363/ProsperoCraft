@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.083",
+  "release_url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.083",
+  "published_at": "2026-10-26T20:27:55Z",
+  "release_tag_commit": "35ad86c048163bfc8e1afa6e70db9dcb2ad6221f",
+  "packaged_source_commit": "97d2b14c7e3f0ee35e5d63750d743bf0149fe594",
+  "runtime_commit": "9afa03adfb34dc1049f18de5839d762662b6c306",
+  "assets": [
+    {
+      "name": "client083-build-validation.json",
+      "bytes": 4061,
+      "digest": "sha256:8f6faeb6a14e2833ffc6660c5cd2f6a1b3904fe7c1d495dbdc9f4d3761326b32",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.083/client083-build-validation.json"
+    },
+    {
+      "name": "client083-openal-source-relink.zip",
+      "bytes": 88317301,
+      "digest": "sha256:ca2d6e57807b0287cd0cf6e030a6bf0908dc1ad4083c23b89954f9ee7b3d1560",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.083/client083-openal-source-relink.zip"
+    },
+    {
+      "name": "client083-validation.json",
+      "bytes": 1534,
+      "digest": "sha256:099312201adcdabe9cc290eedb07a5176ec6e8fe00fde21fa0f9e19912690ce7",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.083/client083-validation.json"
+    },
+    {
+      "name": "PPSA99874.zip",
+      "bytes": 109398614,
+      "digest": "sha256:8fcbdc8cb9cc8065aa0eaac26457a834fffb15098725e987df1d33257a76444e",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.083/PPSA99874.zip"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 371,
+      "digest": "sha256:ecc8a4c482385ce0df029cd6ec20731722d120ef0199267e236f96ab6c24b274",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.083/SHA256SUMS"
+    }
+  ],
+  "verification": "Five GitHub asset digests/sizes match localfiles;allassetsdownloadedandSHA256SUMSverified;relocateddownloadedOpenALkitreproducestheexactpackagednativeELF.",
+  "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/819",
+  "catalog_status": "Submitted;fresh remoteCI/merge/deploypending. Onlyexistingapps/PPSA99874.jsonupdatedfrom082to083,includingGPL-3.0-or-later.",
+  "catalog_checks": "Local144recordsvalid,0errors/warnings;online083digest/contentVersion/iconverified,0errors/warnings.",
+  "console_validation": "Exact083physicalX/R2alignment,demo-world,audio/smoothnessandquit/relaunchpending;nonewALLPASSclaimed.",
+  "preservation": "082release/tag/assetsandfrozenmilestoneuntouched;083ZIP/symbolsretainedlocallyindist/published/ProsperoCraft-01.000.083",
+  "runtime_publication": "Syncsucceeded,Everythingup-to-date;reusableruntimesourceunchanged."
+}

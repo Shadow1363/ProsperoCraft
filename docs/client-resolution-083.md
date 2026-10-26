@@ -43,6 +43,7 @@ and Quit returns to the library with relaunch. No083ALLPASS is claimed yet.
 For an existing082installation, choosing1920×1080in launcher Settings before
 launch is the resolution workaround. This candidate makes that selection fixed.
 The published082package/tag and Client_Launcher_Lifecycle snapshot are preserved.
-Root sce_sys/param.json continues to mirror the currently published082release;
-client/startup/param.json is the083candidate manifest. No new083Store/release
-publication is made before this candidate's console result in this work set.
+Root sce_sys/param.json now mirrors the published083brandedmanifest;
+client/startup/param.json remains the083buildsource manifest. The user subsequently explicitly requested publication:083is now a public
+GitHubrelease and its Store update is PR819. Console results are still pending;
+see docs/releases/client-resolution-083.md for the current publication state.

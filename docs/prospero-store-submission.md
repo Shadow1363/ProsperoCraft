@@ -117,3 +117,21 @@ and frozen validation remain unchanged. Separate license/notice/checksum release
 assets accompany the explicit project grant. This follow-up supersedes earlier
 Unlicensed metadata while preserving its historical validation records. See
 [license publication record](validation/client082-license-2026-10-26.json).
+
+## Fixed1080p release083
+
+The user explicitly requested Store publication of083after the reported082
+resolution/click issue. [Release01.000.083](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.083)
+is public with the unchanged083candidate ZIP, fresh matchingOpenALsource/relink
+materials, validation records and SHA256SUMS. ProjectGPLv3and attribution notices
+are included in the ZIP. The existing Store listing update is
+[PR819](https://github.com/darkxex/ps5-homebrew-catalog/pull/819), replacing082with083
+and declaringGPL-3.0-or-later. This is an update of the listed app;814remains merged.
+
+All five upload hashes/sizes match; downloaded assets and exact native relink
+are verified. Local catalog144records and online083digest/version/icon checks
+pass with0errors/warnings. RemoteCI/merge/deploy is tracked on819.
+See [publication record](validation/client083-store-publication-2026-10-26.json)
+and [release guide](releases/client-resolution-083.md). Exact083PS5clickalignment,
+demo-world,retainedaudio/smoothnessandquit/relaunchremainpending. No newALLPASS
+or frozenmilestone is claimed;082andallhistoricalreleaseassetsremainunchanged.

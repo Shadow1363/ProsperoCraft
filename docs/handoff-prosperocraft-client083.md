@@ -17,3 +17,10 @@ frozen. Prior082human acceptance is historical,not universalresolutionproof.
 StorePR814hasmerged;currentpublicreleaseis082. Rootsce_sys/param.jsontracks
 thatpublishedmanifest,notthenewcandidate. GPLv3/NOTICEincludedinnewpackages;
 existingprivateappID/demo-only26.3SDLguardretained. No runtime source changes.
+
+## Publication follow-up
+
+Userexplicitlyrequests083ProsperoStorerelease. GitHub01.000.083ispublicwith
+exactcandidatebytesandfreshmatchingLGPLsource/relinkkit. Rootmanifestnow083.
+TrackStoreupdatePR819anddocs/validation/client083-store-publication-2026-10-26.json.
+No083consolepassinferred;preserve082andnew083publishedpackage/symbols.
