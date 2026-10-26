@@ -52,5 +52,21 @@
   "external_merge_permissions": "Publishing account has pull=true,push=false on upstream catalog;maintainer merge required.",
   "live_store_page": "https://prosperostore.net/app/PPSA99874/",
   "catalog_branch_update": "Merged origin/main62259aa into submission branch96c0af6 without conflicts/force-push;only apps/PPSA99874.json differs from base;remote checks rerun successfully.",
-  "current_merge_gate": "REVIEW_REQUIRED:at least one approving write-access reviewer;darkxex andMarice requested. Publisher has no upstream push permission."
+  "current_merge_gate": "REVIEW_REQUIRED:at least one approving write-access reviewer;darkxex andMarice requested. Publisher has no upstream push permission.",
+  "additive_console_assets": [
+    {
+      "name": "client082-console-validation.json",
+      "digest": "sha256:8f96b07c6832c7af25e7f7c7a00e725989916d7372110a634296c2623e68e3ac",
+      "bytes": 3136,
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.082/client082-console-validation.json"
+    },
+    {
+      "name": "client082-console-SHA256SUMS.txt",
+      "digest": "sha256:b5482dd6222be7938f4f725acde47b1d90965ea89be6a67ef9d4660b74b2062a",
+      "bytes": 180,
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.082/client082-console-SHA256SUMS.txt"
+    }
+  ],
+  "console_snapshot_commit": "549c41f",
+  "original_assets_preserved": true
 }
