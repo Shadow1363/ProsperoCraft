@@ -640,3 +640,10 @@ client secret or token persistence. One Vanilla26.3 instance; settings informati
 Host and target checks do not establish live authentication or display handoff.
 Continue from docs/handoff-prosperocraft-client075.md. Preserve accepted074 bytes
 and performance/audio/settings. No new release or Store publication requested.
+
+076branding update: user supplies Downloads/ProsperoCraft2.png for packaged app
+icon and ProsperoCraftTransparent.png for native launcher corner. Source copies
+and hashes belong in assets/branding; generated bitmap from prepare_launcher_branding.py.
+Keep075exact package/symbols preserved during MSA tests. Candidate076 changes
+branding/version only; inherited live-login/display handoff checks remain pending.
+Current guide docs/client-launcher-076.md. No release requested.

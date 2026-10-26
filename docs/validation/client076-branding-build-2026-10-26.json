@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.076",
+  "title_id": "PPSA99874",
+  "package_sha256": "dcafb141baa6c9464108cb853e083575dc65eb1d560ca6dcae13cf1381330a9b",
+  "native_elf_sha256": "6e33bd19b08fb48af1c9862ecf4e95c4a9fdab0c07c55b7c8dea4c8555712bf7",
+  "runtime_commit": "de339155ba78e54be1ddc903e7df0904c866fbdb",
+  "source_app_icon": "assets/branding/ProsperoCraft2.png",
+  "source_app_sha256": "e338990ab81f0ef0fa219947c448e1bfb3ea6a2a92a0a6a644055a64eaee20b1",
+  "packaged_icon_sha256": "faa5e30509cbcd56d742deabe1f6f8d738e80c11c168ff82c34da3d64eb13350",
+  "source_corner_icon": "assets/branding/ProsperoCraftTransparent.png",
+  "source_corner_sha256": "f759c4b8e6835c4e98112e4fd394c976c804e44bef7e45eac86fc2f7efc0302c",
+  "change_scope": "User-selected branding and candidate version only; authentication/runtime/game files/settings unchanged",
+  "host_checks": [
+    "Supplied PNG byte identity; exact512x512RGBA app resize; transparent source alpha",
+    "Reproducible generated icon/logo/manifest",
+    "Actual native launcher draw and returning renderer cleanup fault fixture",
+    "Original Main host boundary and original JAR unchanged"
+  ],
+  "target_checks": "PASS compile/link/SELF integrity, package CRC/signatures, exact512px icon, all54 original JARs and5147 assets, native/runtime audits, preserved075 and earlier packages",
+  "console": "PENDING076 icon appearance and inherited075 real MSA/display handoff checks",
+  "preserved_075_package_sha256": "660cbfba4095bd98e66d0afc2d32d0b054f6c43a738a4dfba8fe9cca441fabd6",
+  "publication": "Source only, no new release/Store publication"
+}

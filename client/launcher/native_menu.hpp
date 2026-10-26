@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #pragma once
 #include "demo_renderer.hpp"
+#include "branding_logo.hpp"
 #include <array>
 #include <cstdio>
 #include <cstdlib>
@@ -23,12 +24,12 @@ inline void draw(Canvas& c) noexcept {
  c.gradient(ink(0x0b1b17),ink(0x07120f));
  c.disc(1570,260,230,ink(0x102b24));c.disc(1650,200,150,ink(0x16352a));
  c.rounded(40,42,344,996,32,ink(0x10221c));
- c.rounded(75,78,58,58,14,ink(0xa5dfb5));label(c,91,87,"P",42,0x153525);
+ for(unsigned y=0;y<72;++y)for(unsigned x=0;x<72;++x){const auto pixel=logo_pixels[y*72+x];if(pixel)c.rectangle(68+x,68+y,1,1,static_cast<ps5::demo::Color>(pixel));}
  label(c,148,87,"ProsperoCraft",30);label(c,79,164,"MAKE ROOM TO EXPLORE",24,0x87a795);
  const int selected=std::atoi(fields[9].data()),page=std::atoi(fields[11].data());
  const char* nav[]={"Home","Instances","Account","Settings"};
  for(int i=0;i<4;++i){int y=265+i*88;if(selected==i)c.rounded(65,y-12,292,68,16,ink(0x244e38));c.disc(93,y+13,5,ink(selected==i?0xb5f0b8:0x5d7e6b));label(c,119,y,nav[i],30,selected==i?0xe8ffe7:0xa1b7a9);}
- label(c,79,867,"JAVA EDITION",24,0x9fbaa8);label(c,79,911,"Native on PlayStation 5",24,0xd5e5d8);label(c,79,959,"ProsperoCraft 075",24,0x6d8f7b);
+ label(c,79,867,"JAVA EDITION",24,0x9fbaa8);label(c,79,911,"Native on PlayStation 5",24,0xd5e5d8);label(c,79,959,"ProsperoCraft 076",24,0x6d8f7b);
  label(c,440,78,"YOUR LIBRARY",24,0x99b7a5);c.rounded(1580,65,260,53,26,ink(0x244332));label(c,1605,78,"NATIVE JAVA 25",24,0xaee9b9);
  card(c,440,160,920,690,selected==0);
  label(c,485,200,page==1?"YOUR INSTANCES":page==3?"YOUR SETUP":"A WORLD OF POSSIBILITIES",24,0x9ccd9f);

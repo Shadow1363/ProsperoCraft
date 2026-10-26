@@ -6,6 +6,19 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client076 user-supplied app and launcher icons
+
+Uses the user's `ProsperoCraft2.png` for the packaged512x512 app icon and
+`ProsperoCraftTransparent.png` for the native launcher's corner logo. Original
+source PNGs are retained, with SHA-256 provenance in the branding manifest. A
+small generated native bitmap preserves transparency against the sidebar without
+adding a runtime image decoder. Packaging regenerates the artwork from sources.
+
+This is a branding candidate; Microsoft login, game files, audio and performance
+policies are unchanged. Exact075 package/symbols are preserved while the user tests
+MSA. Console appearance and inherited live-login/display-handoff validation remain
+pending. No release or Store update. [Build record](docs/validation/client076-branding-build-2026-10-26.json).
+
 ## 2026-10-26 — Client075 native launcher and Microsoft sign-in candidate
 
 Adds a controller-operated native launcher with a forest palette, installed Vanilla

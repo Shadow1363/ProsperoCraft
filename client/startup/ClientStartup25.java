@@ -12,7 +12,7 @@ public final class ClientStartup25 {
  public static native void nativeSnapshot(long elapsedMillis,int phase);
  public static native boolean launcherMenu();
  public static String[] launcherTick(int buttons){return ProsperoLauncher.nativeTick(buttons);}
- private static void stage(String text){checkpoint("MC Startup075: "+text);}
+ private static void stage(String text){checkpoint("MC Startup076: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
