@@ -53,10 +53,11 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Sound** | The user confirms very good game sound on exact build074. |
 | **Validation ahead** | Save/reload, controller polish, measured frame pacing and extended play remain to be checked. |
 
-Development078 keeps the native launcher separate from Minecraft startup and adds
-clearer sign-in errors. Microsoft/Xbox sign-in reaches Minecraft Services, which
-currently returns403; [application review is the next step](docs/appid-review-request.md).
-[Launcher guide](docs/client-launcher-077.md) · [Sign-in diagnostics](docs/client-auth-078.md).
+Development079 adds a redesigned native launcher, persistent instance library,
+controller navigation and verified on-console demo downloads. New installs start
+empty; no game JARs or assets are bundled. [Preview and setup](docs/client-instances-079.md).
+26.3is the gameplay baseline;26.1/26.2need a separate GLFW native path.
+Microsoft account access remains blocked at Minecraft Services403pending app review.
 
 Development074 now has positive PS5 sound and smoothness feedback, with no active quality caps.
 See the [freeze investigation and candidate guide](docs/client-audio-pacing-074.md).

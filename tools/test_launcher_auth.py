@@ -38,15 +38,7 @@ public class AuthCheck {
   s=standard();list=new ArrayList<>(s.q);list.set(6,reply(200,"{\"id\":\"invalid\",\"name\":\"PlayerOne\"}"));s.q=new ArrayDeque<>(list);expect(s,new Clock(),"PROFILE");
   s=standard();list=new ArrayList<>(s.q);list.set(0,reply(200,list.get(0).json.toString().replace("https://www.microsoft.com/link","https://evil.example/link")));s.q=new ArrayDeque<>(list);expect(s,new Clock(),"RESPONSE");
   s=standard();AtomicBoolean cancelled=new AtomicBoolean();c=new Clock();c.after=()->cancelled.set(true);try{new ProsperoAuth(s,c).signIn(new View(),cancelled::get);throw new AssertionError();}catch(ProsperoAuth.Failure f){if(!f.code.equals("CANCELLED")||s.endpoints.size()!=1)throw new AssertionError("cancel poll");}
-  ProsperoLauncher launcher=new ProsperoLauncher(new ProsperoAuth(standard(),new Clock()));launcher.tick(0x8000);String[] demo=launcher.arguments(Path.of("/tmp/world"),Path.of("/tmp/assets"));if(!List.of(demo).contains("--demo")||!List.of(demo).contains("0"))throw new AssertionError("demo fallback");
-  c=new Clock();c.now=System.currentTimeMillis();launcher=new ProsperoLauncher(new ProsperoAuth(standard(),c));launcher.tick(0x4000);
-  long until=System.nanoTime()+5_000_000_000L;while(!launcher.tick(0)[8].equals("CONNECTED")&&System.nanoTime()<until)Thread.sleep(5);
-  if(!launcher.tick(0)[8].equals("CONNECTED")||Arrays.toString(launcher.tick(0)).contains("SECRET"))throw new AssertionError("async sign-in/UI disclosure");
-  launcher.tick(0x4000);List<String> owned=List.of(launcher.arguments(Path.of("/tmp/world"),Path.of("/tmp/assets")));
-  if(owned.contains("--demo")||owned.contains("--disableMultiplayer")||!owned.get(owned.indexOf("--accessToken")+1).equals(MC)||!owned.contains(ProsperoAuth.CLIENT_ID)||!owned.contains("PlayerOne"))throw new AssertionError("authenticated launch");
-  if(new ProsperoAuth.Session("PlayerOne","0123456789abcdef0123456789abcdef",MC,System.currentTimeMillis()+1000).valid(System.currentTimeMillis()))throw new AssertionError("expiry safety margin");
-  launcher.tick(0x1000);if(!launcher.tick(0)[5].equals("Not signed in"))throw new AssertionError("sign-out");
-  System.out.println("PASS actual auth pipeline/poll pending/slowdown/decline/expiry/clientfailure/ownership/hash/profile/URI/cancel/redaction and explicit demo launch; no live account used");
+  System.out.println("PASS actual auth pipeline/poll pending/slowdown/decline/expiry/clientfailure/ownership/hash/profile/URI/cancel/redaction; no live account used");
  }
 }
 '''

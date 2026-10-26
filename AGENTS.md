@@ -681,3 +681,16 @@ Repository renamed by the user to https://github.com/mateo-cogeanu/ProsperoCraft
 Use that canonical GitHub remote and URL in current documentation. The local
 checkout directory may remain .tools/github-publish/ps5-minecraft-java; do not
 rename local paths or modify frozen validation snapshots for this URL update.
+
+## Native library/instance redesign — 2026-10-26
+
+User requests native top AddInstance/Settings/Account bar (L1/R1), instance grid,
+large-icon detail/Play/settings, rename/icon editing, resolution and fluid UI;
+selected26.xdemo must download on console, not be bundled.079implements the native
+GUI/store/controller/download/loader foundation. Read docs/handoff-prosperocraft-client079.md.
+No preset instances/gameJARs/assets in package. Isolated UUID game directories,
+shared verified original cache, demo-only launch; account review still pending.
+26.1/26.2use GLFW and need an unimplemented native path despite Java25; do not
+claim playable all26.xor replace older selected game with26.3.26.3is the native
+baseline. New downloader/loader/GUI need exact079PS5tests. Preserve078/074packages
+and old world data. No release/Store update. Consumer-only source ownership.

@@ -11,9 +11,9 @@ public final class ClientStartup25 {
  public static native void checkpoint(String text);
  public static native void nativeSnapshot(long elapsedMillis,int phase);
  public static native boolean launcherMenu();
- public static native boolean gamePreflight();
+ public static boolean gamePreflight()throws Exception{return ProsperoLauncher.verifySelected();}
  public static String[] launcherTick(int buttons){return ProsperoLauncher.nativeTick(buttons);}
- private static void stage(String text){checkpoint("MC Startup078: "+text);}
+ private static void stage(String text){checkpoint("MC Startup079: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -192,8 +192,6 @@ public final class ClientStartup25 {
   public void close(){synchronized(console){running=false;}worker.interrupt();}
  }
  public static void main(String[] args)throws Throwable{
-  Path work=Path.of("/download0/mc-client"),assets=Path.of("/app0/assets/java25/game-assets");prepareWork(work);prepareAudio(work);
-  if(!Files.isRegularFile(assets.resolve("indexes/34.json")))throw new IOException("Packaged original asset index missing");
   PrintStream previousOut=System.out,previousErr=System.err;
   PrintStream console=new PrintStream(new FileOutputStream(Path.of("/download0/java25-exceptions.log").toFile(),false),true,StandardCharsets.UTF_8);
   System.setOut(console);System.setErr(console);
@@ -203,6 +201,7 @@ public final class ClientStartup25 {
    String[] selectedArguments=ProsperoLauncher.run(ClientStartup25::launcherMenu);
    stage("Launcher display closed; handing off to original Minecraft Main");
    if(!gamePreflight())throw new IllegalStateException("Original artifact preflight failed; inspect startup logs");
+   Path work=ProsperoLauncher.selectedWork();prepareWork(work);prepareAudio(work);
    console.println(configurationSummary(work));
    System.setProperty("user.dir",work.toString());System.setProperty("user.home",work.toString());System.setProperty("java.io.tmpdir",work.resolve("native-cache").toString());
    for(String key:new String[]{"jna.tmpdir","io.netty.native.workdir"})System.setProperty(key,work.resolve("native-cache").toString());
@@ -220,9 +219,10 @@ public final class ClientStartup25 {
    stage("PASS current-run C1 level1 kernel compiled and verified;performance/world stability still pending");
    stage(verifyNativeAllocation());
    Runtime heap=Runtime.getRuntime();stage("heap maxMiB="+(heap.maxMemory()/1048576)+" committedMiB="+(heap.totalMemory()/1048576)+" usedMiB="+((heap.totalMemory()-heap.freeMemory())/1048576));
-   Class<?> main=Class.forName("net.minecraft.client.main.Main",false,ClassLoader.getSystemClassLoader());Method method=main.getMethod("main",String[].class);
+   Thread.currentThread().setContextClassLoader(ProsperoLauncher.gameLoader());
+   Class<?> main=Class.forName("net.minecraft.client.main.Main",false,ProsperoLauncher.gameLoader());Method method=main.getMethod("main",String[].class);
    stage("ENTER original net.minecraft.client.main.Main.main;menu/world not yet validated");
-   console.println("Original Minecraft26.3 Main entry;launcher-selected mode. Credentials are not logged.");
+   console.println("Original selected Minecraft Main entry;launcher-selected mode. Credentials are not logged.");
    if(startupObserverEnabled()){
     try{observer=new StartupObserver(console,390,1000,5000);observer.start();}
     catch(Throwable unavailable){console.println("PS5 startup observer unavailable;continuing original Main: "+unavailable);observer=null;}

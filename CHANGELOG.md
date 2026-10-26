@@ -6,6 +6,31 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-26 — Client079 instance library, native redesign and on-demand demos
+
+Replaces the fixed-instance home with a three-action top bar, L1/R1navigation,
+paged instance grid, large-icon detail screen and Play/settings/download repair.
+Adds controller name keyboard/case/clear controls, eight built-in icons, isolated
+per-instance worlds/options, persistent resolution/download/motion/snapshot settings,
+short settling animations and held-direction repeat. No sample instance is created.
+
+Removes bundled Minecraft client/assets from the current app. The console installer
+resolves the selected26.xpublisher metadata, verifies size/SHA-1, downloads original
+client/Java libraries/index/assets into a shared cache, and commits only complete
+installs. Bounded background workers support progress, cancellation, cache reuse
+and repair. Desktop native classifiers are excluded; native bindings remain PS5
+ports. Game classes load from the selected verified cache with a separate loader.
+Play is explicitly upstream restricted demo while MSA app approval is pending.
+
+Host fixture tests cover instance persistence/isolation/controllers/settings and
+installer security/failure/cancel/repair behavior. Actual26.3publisher inputs verify
+54originalJARs/5147assets/index34and correct loader separation. Native scenes/JNI
+and package checks are distinct from pending PS5tests.26.1/26.2downloads are supported
+but gameplay needs the unimplemented GLFW path; Java25alone is insufficient.
+No customPNG/removal/archive support yet. Preserve078/074bytes; no new release or
+Store update. [Guide](docs/client-instances-079.md) ·
+[Build record](docs/validation/client079-instances-build-2026-10-26.json).
+
 ## 2026-10-26 — Repository renamed to ProsperoCraft
 
 GitHub confirms the canonical repository is now `mateo-cogeanu/ProsperoCraft`.

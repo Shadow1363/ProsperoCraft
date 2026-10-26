@@ -17,6 +17,7 @@ int sceKernelMapDirectMemory(void**p,size_t,int,int,int64_t,size_t){*p=storage;r
 int sceKernelMunmap(void*,size_t){operations.push_back("unmap");return failure==2?-1:0;}
 int sceKernelReleaseDirectMemory(int64_t,size_t){operations.push_back("release");if(failure==3)return -1;free(storage);storage=nullptr;return 0;}
 int sceKernelSendNotificationRequest(uint32_t,void*,size_t,int){return 0;}
+uint64_t sceKernelGetProcessTime(){return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();}
 int sceKernelUsleep(uint32_t us){std::this_thread::sleep_for(std::chrono::microseconds(us));return 0;}
 int sceUserServiceGetInitialUser(int32_t* user){*user=1;return 0;}
 int scePadOpen(int32_t,int,int,const void*){return 42;}
@@ -40,11 +41,11 @@ namespace ps5::demo {
 extern "C" void sceVideoOutSetBufferAttribute2(VideoAttribute*,uint64_t,uint32_t,uint32_t,uint32_t,uint64_t,uint32_t,uint64_t){}
 extern "C" int sceVideoOutRegisterBuffers2(int32_t,int32_t,int32_t,VideoBuffer*,int32_t,VideoAttribute*,int32_t,void*){return 0;}
 }
-static pthread_t jni_owner{};static std::string ui_strings[12];static unsigned java_calls=0;
+static pthread_t jni_owner{};static std::string ui_strings[80];static unsigned java_calls=0;
 static void check_jni(){assert(pthread_equal(jni_owner,pthread_self()));}
 static jmethodID method_id(JNIEnv*,jclass,const char*,const char*){check_jni();return reinterpret_cast<jmethodID>(1);}
 static jobject java_tick(JNIEnv*,jclass,jmethodID,va_list args){check_jni();++java_calls;unsigned buttons=va_arg(args,jint);if(buttons&0x4000)ui_strings[10]="LAUNCH";return reinterpret_cast<jobject>(1);}
-static jsize array_length(JNIEnv*,jarray){check_jni();return 12;}
+static jsize array_length(JNIEnv*,jarray){check_jni();return 80;}
 static jobject array_element(JNIEnv*,jobjectArray,jsize index){check_jni();return reinterpret_cast<jobject>(uintptr_t(index+10));}
 static const char* utf_chars(JNIEnv*,jstring value,jboolean*){check_jni();return ui_strings[reinterpret_cast<uintptr_t>(value)-10].c_str();}
 static void release_chars(JNIEnv*,jstring,const char*){check_jni();}
@@ -52,12 +53,21 @@ static void delete_ref(JNIEnv*,jobject){check_jni();}
 static jboolean exception_check(JNIEnv*){check_jni();return JNI_FALSE;}
 static bool update() noexcept{return false;}static bool stop() noexcept{return true;}
 int main(int argc,char**argv){assert(argc==2);
- const char* values[]={"Your next world.","Starts right here.","Pick your instance. Make it your world.","","","Not signed in","SIGN IN & PLAY","SQUARE  Play demo     TRIANGLE  Sign out","MICROSOFT ACCOUNT","0","WAIT","0"};
+ const char* values[]={"Your next world.","Starts right here.","Pick your instance. Make it your world.","","","Not signed in","PLAY DEMO","L1 / R1  Top bar     D-PAD  Navigate     X  Select     CIRCLE  Library","MICROSOFT ACCOUNT","0","WAIT","0"};
  for(int i=0;i<12;i++)snprintf(prospero_menu::fields[i].data(),512,"%s",values[i]);
+ snprintf(prospero_menu::fields[13].data(),512,"6");
+ const char* names[]={"Vanilla 26.3","Quiet mornings","Amethyst skies","A fresh start","Vanilla 26.2","Weekend world"};
+ for(int i=0;i<6;i++){int at=32+i*4;snprintf(prospero_menu::fields[at].data(),512,"%s",names[i]);snprintf(prospero_menu::fields[at+1].data(),512,"%s",i==4?"26.2":"26.3");snprintf(prospero_menu::fields[at+2].data(),512,"%d",i);snprintf(prospero_menu::fields[at+3].data(),512,"READY");}
  output=std::string(argv[1])+"/home.ppm";
- assert(ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"preview"));assert((operations==std::vector<std::string>{"close","unmap","release"})&&!storage);
+ prospero_menu::focus={};assert(ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"preview"));assert((operations==std::vector<std::string>{"close","unmap","release"})&&!storage);
+ snprintf(prospero_menu::fields[11].data(),512,"3");
  snprintf(prospero_menu::fields[3].data(),512,"ABCD-EFGH");snprintf(prospero_menu::fields[4].data(),512,"https://www.microsoft.com/link");snprintf(prospero_menu::fields[2].data(),512,"Approve sign-in on your phone or computer");
- output=std::string(argv[1])+"/signin.ppm";operations.clear();assert(ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"preview"));
+ output=std::string(argv[1])+"/signin.ppm";operations.clear();prospero_menu::focus={};assert(ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"preview"));
+ for(const char* scene:{"empty","create","settings","detail","edit","keyboard"}){
+  int page=std::strcmp(scene,"empty")==0?0:std::strcmp(scene,"create")==0?1:std::strcmp(scene,"settings")==0?2:std::strcmp(scene,"detail")==0?4:std::strcmp(scene,"edit")==0?5:6;
+  snprintf(prospero_menu::fields[11].data(),512,"%d",page);snprintf(prospero_menu::fields[13].data(),512,"0");snprintf(prospero_menu::fields[16].data(),512,"Vanilla 26.3");snprintf(prospero_menu::fields[17].data(),512,"26.3");snprintf(prospero_menu::fields[18].data(),512,"1");snprintf(prospero_menu::fields[22].data(),512,"Weekend world");snprintf(prospero_menu::fields[23].data(),512,"26.3");snprintf(prospero_menu::fields[24].data(),512,"2");snprintf(prospero_menu::fields[25].data(),512,"1920 x 1080");snprintf(prospero_menu::fields[26].data(),512,"4");snprintf(prospero_menu::fields[27].data(),512,"ON");snprintf(prospero_menu::fields[29].data(),512,"Weekend world");snprintf(prospero_menu::fields[65].data(),512,"26.3 native gameplay baseline");
+  output=std::string(argv[1])+"/"+scene+".ppm";prospero_menu::focus={};assert(ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"preview"));
+ }
  for(failure=1;failure<=3;failure++){operations.clear();assert(!ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"fixture"));assert(storage);assert(operations.size()==unsigned(failure));free(storage);storage=nullptr;}
  failure=0;operations.clear();unsigned before=flips.load();
  assert(prospero_menu::start_frontend());assert(flips.load()>before); // no JVM exists in this process
@@ -72,7 +82,7 @@ int main(int argc,char**argv){assert(argc==2);
  prospero_menu::exit_requested=true;pthread_join(prospero_menu::ui_thread,nullptr);
  assert(prospero_menu::display_done.load()&&prospero_menu::display_ok.load());assert(!storage);assert((operations==std::vector<std::string>{"close","unmap","release"}));
  operations.clear();assert(prospero_menu::start_frontend());jni_owner=pthread_self();
- for(int i=0;i<12;++i)ui_strings[i]=values[i];
+ for(int i=0;i<80;++i)ui_strings[i]=i<12?values[i]:"";
  JNINativeInterface_ functions{};functions.GetStaticMethodID=method_id;functions.CallStaticObjectMethodV=java_tick;
  functions.GetArrayLength=array_length;functions.GetObjectArrayElement=array_element;functions.GetStringUTFChars=utf_chars;functions.ReleaseStringUTFChars=release_chars;functions.DeleteLocalRef=delete_ref;functions.ExceptionCheck=exception_check;
  JNIEnv environment{&functions};prospero_menu::push_input(0x4000);
@@ -89,6 +99,6 @@ jdk=Path('/Library/Java/JavaVirtualMachines/openjdk-25.jdk/Contents/Home')
 subprocess.run(['clang++','-arch','x86_64','-std=c++20','-O1','-I'+str(runtime/'native/renderer'),'-I'+str(runtime/'build/native'),'-I'+str(runtime/'src'),'-I'+str(jdk/'include'),'-I'+str(jdk/'include/darwin'),str(w/'preview.cpp'),'-o',str(w/'preview')],check=True)
 subprocess.run([str(w/'preview'),str(w)],check=True,timeout=30)
 from PIL import Image
-for name in ['home','signin']:
+for name in ['home','signin','empty','create','settings','detail','edit','keyboard']:
  with Image.open(w/(name+'.ppm'))as picture:picture.save(w/(name+'.png'))
 print(w/'home.png')

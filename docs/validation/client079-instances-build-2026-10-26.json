@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.079",
+  "title_id": "PPSA99874",
+  "package_sha256": "ee4238389de4c454d7b19173fa2613a4515d9c6e685ee083e3e70772b3deb6bf",
+  "package_bytes": 109370751,
+  "native_elf_sha256": "491bf2a752d8395f83a0e852926605a9f0075e6173a1c7e4378280d28bdb3e0c",
+  "runtime_code_ref": "de339155ba78e54be1ddc903e7df0904c866fbdb",
+  "runtime_public_head": "6e88a5dae66d6d83ebdd66f3f93c20473c5939cc",
+  "package_contents": {
+    "minecraft_client_jars": 0,
+    "minecraft_asset_objects": 0,
+    "launcher_binding_java_jars": 12,
+    "new_library": "empty",
+    "game_download": "selected publisher version via HTTPS/size/SHA1",
+    "shared_cache": true,
+    "instance_worlds": "isolated UUID game directories"
+  },
+  "gui": [
+    "Native top AddInstance/Settings/Account bar with L1/R1",
+    "Paged4x2grid, large-icon detail, demoPlay/settings/repair",
+    "Controller name keyboard includingcase/space/clear,8built-in icons",
+    "Persistent game resolution request, boundeddownloadworkers, reducedmotion, snapshots",
+    "Settling selection/page animation and held-direction repeat",
+    "Native frontend beforeVM;80field JNI mailbox on JVMcallerthread"
+  ],
+  "host_instance_checks": "PASS new/reopened empty library, isolatedworlds, rename/icon/settings, keyboard/topbar/controllerinstall/play, selected26.2/index32demoargs, originalbytes, URL/path/classifier rejection, hashfailure/cache/repair/pre/midcancel/partialcleanup",
+  "real_publisher_check": {
+    "input": "pinned original26.3metadata/JARs/assets from verified local cache via actual installer source interface",
+    "jars": 54,
+    "unique_asset_objects": 5147,
+    "asset_index": "34",
+    "window": "SDL",
+    "class_loader": "downloaded Main on separate URLloader; native bindings on parent",
+    "invocation": "Original downloaded Main actually invoked; expected unavailable host-native failure; no PS5gameplay claim"
+  },
+  "auth_tests": "PASS existing pipeline/redaction and real localTLS401/403handling/redirect/bounds/CA/hostname checks",
+  "native_ui_tests": "PASS actual8scene host renders, native frontend beforeJVM/controller/failurestate/mailbox/JNIcallerthread/orderedcleanup includingfaults",
+  "regressions": "PASS startup ordering/observer/logging/nativeallocator/originalMain plus audio migration/configuration preservation",
+  "target_checks": "PASS compile/link/SELF/packageCRC/signatures/launcher-only artifact hashes/zero game/assets/runtimeandnative audits/constructors/all packaged Prospero classes match current source and preserved074-078 packages",
+  "console": "PENDING079 first empty GUI, controllersettings/persistence, actual network/cache download, isolated loader/26.3demo launch/audio/controls/world/framepacing",
+  "version_limits": {
+    "26.1": "Java25/GLFW3.4.1; downloader selectable; native gameplay path not implemented",
+    "26.2": "Java25/GLFW3.4.1; downloader fixture verified exact selection; native gameplay path not implemented",
+    "26.3": "Java25/SDL3.4.3; prior074world/audio baseline; new079download/loader still needs PS5validation"
+  },
+  "other_limits": [
+    "8built-in icons only; no customPNG import",
+    "No removal/archive UI",
+    "No automatic old-world migration; old /download0/mc-client preserved",
+    "MSA Minecraft403/app review pending; current instancePlay is restricted original demo only",
+    "No FPS/fluidity guarantee from hostpreview; PS5animation/resolution behavior pending"
+  ],
+  "preserved_078_sha256": "fa13a7468de6735c478931cf9539d59c9f9358fe5035953c185ab8df6591755c",
+  "no_release_or_store_update": true
+}

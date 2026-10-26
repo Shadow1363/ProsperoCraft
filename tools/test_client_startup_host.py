@@ -5,7 +5,7 @@ import argparse,subprocess,json,tempfile,hashlib,os
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--java-home',type=Path,required=True);a=p.parse_args();lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
 cp=':'.join(str(ROOT/'.tools/client'/r['file'])for r in lock['artifacts'])
-out=ROOT/'build/startup-host-078';out.mkdir(exist_ok=True)
+out=ROOT/'build/startup-host-079';out.mkdir(exist_ok=True)
 (out/'StartupPolicy.java').write_text('''import java.nio.file.*;import java.util.*;public class StartupPolicy{public static void main(String[]a)throws Exception{Path w=Path.of(a[0]);ClientStartup25.prepareWork(w);String text=Files.readString(w.resolve("options.txt"));if(!text.contains("soundCategory_music:0.0"))throw new AssertionError();Files.writeString(w.resolve("options.txt"),"existing");ClientStartup25.prepareWork(w);if(!Files.readString(w.resolve("options.txt")).startsWith("existing\\n")||!Files.readString(w.resolve("options.txt")).contains("inactivityFpsLimit:\\"minimized\\""))throw new AssertionError("menu migration lost options");if(!Files.readString(w.resolve("options.before-menu063.txt")).equals("existing"))throw new AssertionError("original backup missing");String[]args=ClientStartup25.launchArguments(w,Path.of(a[1]));List<String>l=Arrays.asList(args);for(String flag:new String[]{"--demo","--disableMultiplayer","--disableChat","--graphicsBackend","vulkan","--accessToken","0"})if(!l.contains(flag))throw new AssertionError(flag);if(l.contains("--quickPlayMultiplayer"))throw new AssertionError();System.out.println("PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check");}}''')
 subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(out),str(ROOT/'client/startup/ClientStartup25.java'),*[str(p)for p in sorted((ROOT/'client/launcher/java').glob('*.java'))],str(ROOT.parents[2]/'java25/tests/ps5probe/JitWarmup25.java'),str(out/'StartupPolicy.java')],check=True)
 bytecode=subprocess.check_output([str(a.java_home/'bin/javap'),'-c','-p','-classpath',str(out),'ClientStartup25'],text=True)
@@ -14,7 +14,7 @@ positions=[entry.index(marker)for marker in ['ProsperoLauncher.run','gamePreflig
 assert positions==sorted(positions),'Game initialization precedes launcher selection'
 bootstrap=(ROOT/'client/startup/bootstrap.cpp').read_text();native_main=bootstrap[bootstrap.index('int main() {'):]
 assert native_main.index('prospero_menu::start_frontend()')<native_main.index('for(int i:{1,3})')
-assert 'run_test(2)' not in native_main and 'callbacks,i==3?4:1' in bootstrap
+assert 'run_test(2)' not in native_main and 'callbacks,i==3?3:1' in bootstrap
 print('PASS actual Java bytecode: launcher selection precedes artifact preflight/LWJGL initialization/loadLibrary/JIT/Minecraft Main; native frontend precedes VM creation')
 with tempfile.TemporaryDirectory(prefix='mc-startup-policy-')as temp:
  subprocess.run([str(a.java_home/'bin/java'),'-cp',str(out)+':'+cp,'StartupPolicy',str(Path(temp)/'work'),str(ROOT/'build/client-assets')],check=True)
