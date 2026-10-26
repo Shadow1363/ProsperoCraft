@@ -6,6 +6,18 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client069 continued GC pressure;070 distance profile
+
+069starts successfully with768MiBonPS5but stutters recur. Captured logs show
+allocationfullGC up to950.997ms,609MiBretained and view16/simulation12.070caps
+supported vanilla distances to6view/5simulation once, with exact options backup,
+preserving lower values and later edits. Heap/runtime/C1/audio/input/game bytes
+stay unchanged. This trades horizon and active simulation area for a smaller
+world workload. Actual memory plateau, pause improvement and save/reload remain
+pending; no new public release.
+
+[Investigation](docs/client-distance-070.md) · [Evidence](docs/validation/client069-stutters-2026-10-26.json).
+
 ## 2026-10-26 — Client068 heap exhaustion;069 headroom candidate
 
 The user reports two stutters, escalating stutters and a complete freeze. Same-run

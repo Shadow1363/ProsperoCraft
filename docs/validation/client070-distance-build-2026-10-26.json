@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.070",
+  "title_id": "PPSA99874",
+  "package_sha256": "4ce1749199623943a695feb628d30bcafd9088f77e44b65b882d2b327af2d56c",
+  "native_elf_sha256": "745091e11d95d5ce017848771f15a845df5725874902af0e3fdd4e3834a9f7d7",
+  "runtime_commit": "bb013f533e14f01f0d93d5f4133dad8232385e3e",
+  "runtime_implementation_changed": false,
+  "heap_mib": 768,
+  "new_ratio": 3,
+  "codecache_mib": 32,
+  "changes": "One-time supported options cap render6/simulation5; backup exactoriginaloptions; versionlabels",
+  "policy_host": "PASS actual Java function16/12->6/5, exactbackup/CRLF/lower/missing/invalid/integeroverflow/once-onlylateruserchoices",
+  "other_host": [
+    "PASS startup/observer/nativeallocation/originalMainboundarycontrols",
+    "PASS unchanged audio migration controls"
+  ],
+  "game_verification": "Original26.3Options bytecode normal simulationminimum5; IntegratedServer reads render/simulationOptionInstance values via Math.max(2,value)",
+  "preservation": "PASS packaged OpenAL/SDL audits semantically equal069; exact libjvm.so bytes equal069; preserved069fullpackage checksum",
+  "target_package": "PASS actual compile/link/SELF/CRC/signatures,54originalJARs/5147assetSHA1s,exact0119runtime/moduleimage/nativeaudits,constructor/residentgroups andpreserved069/068/067/earlierpackages",
+  "evidence": "docs/validation/client069-stutters-2026-10-26.json",
+  "console": "PENDING effective6/5orlower, stablememory,pause/audio behavior andsave/reload",
+  "tradeoff": "Shorter visiblehorizon and smaller simulationarea. User may adjustlater; larger values maybringpressureback.",
+  "game_jars_modified": false,
+  "raw_reports_public": false,
+  "public_release_created": false
+}

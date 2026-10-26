@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.069",
+  "run": "client-01.000.069-1793019718-823915888",
+  "package_sha256": "59b20b2434071485c5211ff6b61bd1ccff3010ee71d6b219c0bd66f02a90fd11",
+  "human": "Stuttering again",
+  "scope": "Partial GC current/rotated snapshot; earlier events rotated out; last current log ends midcollection; not whole-session counts or human timestamp correlation",
+  "captured_events": 114,
+  "full_gc_count": 40,
+  "full_causes": {
+    "CodeCache GC Threshold": 1,
+    "Allocation Failure": 39
+  },
+  "full_pause_max_ms": 950.997,
+  "last_full_events": [
+    {
+      "uptime_ms": 149558,
+      "gc_id": 198,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 594,
+      "capacity_mib": 748,
+      "pause_ms": 678.318
+    },
+    {
+      "uptime_ms": 150906,
+      "gc_id": 199,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 596,
+      "capacity_mib": 748,
+      "pause_ms": 678.079
+    },
+    {
+      "uptime_ms": 152257,
+      "gc_id": 200,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 600,
+      "capacity_mib": 748,
+      "pause_ms": 685.761
+    },
+    {
+      "uptime_ms": 154011,
+      "gc_id": 201,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 596,
+      "capacity_mib": 748,
+      "pause_ms": 933.026
+    },
+    {
+      "uptime_ms": 155354,
+      "gc_id": 202,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 600,
+      "capacity_mib": 748,
+      "pause_ms": 683.864
+    },
+    {
+      "uptime_ms": 156536,
+      "gc_id": 203,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 600,
+      "capacity_mib": 748,
+      "pause_ms": 695.224
+    },
+    {
+      "uptime_ms": 157741,
+      "gc_id": 204,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 601,
+      "capacity_mib": 748,
+      "pause_ms": 690.619
+    },
+    {
+      "uptime_ms": 159276,
+      "gc_id": 205,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 604,
+      "capacity_mib": 748,
+      "pause_ms": 950.997
+    },
+    {
+      "uptime_ms": 160315,
+      "gc_id": 206,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 614,
+      "capacity_mib": 748,
+      "pause_ms": 725.92
+    },
+    {
+      "uptime_ms": 161544,
+      "gc_id": 207,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 601,
+      "capacity_mib": 748,
+      "pause_ms": 700.217
+    },
+    {
+      "uptime_ms": 162870,
+      "gc_id": 208,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 605,
+      "capacity_mib": 748,
+      "pause_ms": 691.374
+    },
+    {
+      "uptime_ms": 164398,
+      "gc_id": 209,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 604,
+      "capacity_mib": 748,
+      "pause_ms": 937.006
+    },
+    {
+      "uptime_ms": 165704,
+      "gc_id": 210,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 604,
+      "capacity_mib": 748,
+      "pause_ms": 690.053
+    },
+    {
+      "uptime_ms": 166986,
+      "gc_id": 211,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 610,
+      "capacity_mib": 748,
+      "pause_ms": 699.275
+    },
+    {
+      "uptime_ms": 168056,
+      "gc_id": 212,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 607,
+      "capacity_mib": 748,
+      "pause_ms": 702.143
+    },
+    {
+      "uptime_ms": 169552,
+      "gc_id": 213,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 609,
+      "capacity_mib": 748,
+      "pause_ms": 933.059
+    }
+  ],
+  "actual_distances": {
+    "server_view": 16,
+    "simulation": 12,
+    "evidence": "Unmodified game console distance-change messages"
+  },
+  "retained_heap_after_gc213_mib": 609,
+  "codecache": "About44percent of32MiB nearend, not observed exhaustion; compiled-code cache is not the pressure shown by these allocationfullGCs",
+  "server_overload_ms": [
+    25899,
+    2817
+  ],
+  "heap768_console_reservation": "VM startup and Java gameplay establish reservation/startup succeeded; not full memory/GC acceptance",
+  "diagnosis": "Larger heap did not remove retained-world pressure. High active chunk distances identified; lower supported vanilla settings next before more heap/collector changes. This is not proof of a leak or exact allocation owner.",
+  "next": "070once-only backed-up view<=6/simulation<=5; preserve lower values and later edits. Official Options bytecode confirms normal simulation minimum5. Runtime/768MiB/C1/audio unchanged.",
+  "files": {
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "3d9a00163babc6ef32a230fc96790260be91dc9de2202946e079f8321e27b1fa"
+    },
+    "exceptions.log": {
+      "bytes": 3257764,
+      "sha256": "9878ee4a2e30ceb00cf87d5d0196a08689404cffde73529c7c982fe5cc2df596"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194314,
+      "sha256": "c95f543886cb3daa9ad7e7da88cb5085504decec1dc9c8cdc31445f3d25789d1"
+    },
+    "jit.log": {
+      "bytes": 2607308,
+      "sha256": "b27cf14a397fe6f68985f299d77be85ec0d138296004d615af40c993c772ffa9"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "c2341407facd40b921d99b6473481c474b7476dc7a0924687fda31facb2d9f55"
+    },
+    "native-stderr.log": {
+      "bytes": 32507,
+      "sha256": "323b8b41e6ac69c59e0a39c0f4b3d15e4a7e929b99d13762978e3fcc1a31e810"
+    },
+    "gc.log": {
+      "bytes": 1800204,
+      "sha256": "19ce3c19a5a03d4c39ed4c907cd43aef50456d5a8df0085d1150a2e631f4bc2a"
+    }
+  },
+  "raw_reports_public": false
+}

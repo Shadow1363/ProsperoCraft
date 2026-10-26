@@ -52,8 +52,8 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Sound** | The user confirms beautiful game audio on PS5 in development067. |
 | **Validation ahead** | Intermittent freezes are under investigation; save/reload, controller polish and extended play remain to be checked. |
 
-Development069 addresses heap exhaustion after escalating GC freezes, while retaining working audio.
-See the [freeze investigation and candidate guide](docs/client-heap-069.md).
+Development070 reduces active world distances to address continued GC pressure, while retaining working audio.
+See the [freeze investigation and candidate guide](docs/client-distance-070.md).
 The published066 release remains the playable baseline; speaker audio is in067/068development.
 For individual fixes, console evidence and earlier milestones, read the detailed
 **[CHANGELOG.md](CHANGELOG.md)**.

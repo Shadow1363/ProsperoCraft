@@ -599,3 +599,8 @@ reports confirm Java heap OOM and chunk-save failure, repeated499M->499MfullGC.
 Preserve068as failed GC candidate; do not claim save success.069requests768MiB
 heap/NewRatio3 using separate runtime0119bounded ceiling; console reservation/
 headroom/sufficiency/stability pending. Current continuation:docs/handoff-prosperocraft-client069.md.
+
+069follow-up:768MiBstartup works but stutters recur; retrieved console showsview16/
+simulation12and continued fullGC/live-setgrowth.070uses backed-up once-only vanilla
+options caps6/5, preserving lower values/later choices; heap/runtime unchanged.
+Do not infer a stable live set or GCpass from hostchecks. Current070handoff applies.

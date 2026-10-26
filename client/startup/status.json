@@ -1,27 +1,26 @@
 {
-  "stage": "Client069 heap exhaustion headroom candidate",
+  "stage": "Client070 active world distance profile",
   "date": "2026-10-26",
   "title_id": "PPSA99874",
-  "app_version": "01.000.069",
-  "console": "PENDING069reservation/extended gameplay/pause behavior.068confirmedGCthrash,JavaheapOOMandfailedchunksave.",
-  "previous_accepted": "Client_Audio-01.000.067 human audio result;068GCcandidate failed withheapOOM",
+  "app_version": "01.000.070",
+  "console": "PENDING070settings6/5acceptance,memoryplateau,pause/audio andsave.069768MiBstartsbutcontinuedfullGC/livegrowthwithview16/simulation12.",
+  "previous_accepted": "067 human audio result;069 preserved continued-GC candidate",
   "native_changes": "PrivateOpenALPS5factory/backend,pacedAudioOutSYSTEM/main48kHzstereoS16/256frames,realOpenALrenderSamples,joinbeforeclose,error-disconnect;originalsource/archive retained",
   "menu_policy": "Supported inactivityFpsLimit JSON value minimized,original options backed up once as options.before-menu063.txt;all other option bytes retained. Removes AFK timer cap;not a general frame-rate/GC/JIT fix.",
-  "runtime_implementation_modified": true,
+  "runtime_implementation_modified": false,
   "game_jar_modified": false,
   "java_heap_max_mib": 768,
   "jit": "Mixed C1 level1, one compiler, thresholdscale4,2MiBpercompilation,32MiBcodecache,SweeperThreshold50/10percent aggressive cleanup retained; current-run kernel gate",
   "pending": [
-    "PS5 768MiBdirectreservation/physicalbacking availability",
-    "Sameworld extendedplay/live-setgrowth/pausefrequency",
-    "Audio continuity/native headroom",
-    "Save/reload and endurance"
+    "PS5 effective6view/5simulation orlower",
+    "Sameworld memoryplateau/pausefrequency/audio continuity",
+    "Save/reload/endurance"
   ],
   "controlify_direction": "User prefers upstream Controlify later on compatible Fabric/NeoForge client;not installed or validated onPS5. Existing raw SDL gamepad driver retained;no double input when handing off.",
-  "package_sha256": "59b20b2434071485c5211ff6b61bd1ccff3010ee71d6b219c0bd66f02a90fd11",
-  "host_checks": "PASS actual768MiBreservation/alignment/ownership/failurecontrolsASanUBSan;472MiBretained+48MiBringOOM512/passes768;C1gateandstartupcontrols",
-  "target_checks": "PASS targetHotSpot and fullnativecompile/link/SELF; packagevalidationrecordedseparately",
-  "previous_console_evidence": "docs/validation/client068-stutters-2026-10-26.json",
+  "package_sha256": "4ce1749199623943a695feb628d30bcafd9088f77e44b65b882d2b327af2d56c",
+  "host_checks": "PASS actual one-time distances16/12->6/5,exactbackup/CRLF/lower/missing/invalid/overflow/lateruseredits;existingstartup/audio policy",
+  "target_checks": "PASS final070compile/link/SELF/fullpackageCRC/JAR/asset/runtime/nativeaudit/constructor checks and069preservation",
+  "previous_console_evidence": "docs/validation/client069-stutters-2026-10-26.json",
   "observer_samples": 390,
   "compressed_oops": false,
   "runtime_patch": "0119-ps5-direct-heap-headroom.patch",
@@ -34,5 +33,13 @@
     "old_max_mib": 576,
     "young_reserved_max_mib": 192,
     "scope": "Headroom candidate, not proven world memory sufficiency"
+  },
+  "distance_policy": {
+    "render_max_first_launch": 6,
+    "simulation_max_first_launch": 5,
+    "backup": "options.before-distances070.txt",
+    "marker": "distances-enabled-070.txt",
+    "preserves": "Lower initial values/unrelated optionbytes/lateruseredits",
+    "tradeoff": "Shorter horizon and smaller simulation area"
   }
 }

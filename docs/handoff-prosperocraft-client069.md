@@ -38,3 +38,11 @@ when shellLANfails. Keep raw logs local; publish hashes/interpretation only.
 README stays concise; build history in CHANGELOG.md. Publish consumer source here;
 reusable runtime fixes separately through runtime sync script. Preserve accepted
 bytes and official game files; no gameclass replacements or bytecode hooks.
+
+## Superseded by070
+
+069starts with768MiBonPS5but user reports stutters again. Logs show40captured
+fullGCs(up to950.997ms),609MiBretained, and integrated-server view16/simulation12.
+Next070caps supported distances6/5once with exactoptionsbackup; no more heap
+increase. See[070handoff](handoff-prosperocraft-client070.md) and
+[evidence](validation/client069-stutters-2026-10-26.json). Exact069bytes retained.

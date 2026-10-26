@@ -10,7 +10,7 @@ import org.lwjgl.system.MemoryUtil;
 public final class ClientStartup25 {
  public static native void checkpoint(String text);
  public static native void nativeSnapshot(long elapsedMillis,int phase);
- private static void stage(String text){checkpoint("MC Startup069: "+text);}
+ private static void stage(String text){checkpoint("MC Startup070: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -32,6 +32,28 @@ public final class ClientStartup25 {
     Files.move(temporary,options,StandardCopyOption.REPLACE_EXISTING);
    }
   }
+ }
+ public static void prepareDistances(Path work)throws IOException{
+  Path marker=work.resolve("distances-enabled-070.txt");if(Files.exists(marker))return;
+  Path options=work.resolve("options.txt");String original=Files.readString(options,StandardCharsets.UTF_8),desired=original;
+  for(String key:new String[]{"renderDistance","simulationDistance"}){
+   int limit=key.equals("renderDistance")?6:5;
+   var pattern=java.util.regex.Pattern.compile("(?m)^"+key+":([0-9]+)(?=\r?$)");
+   var matcher=pattern.matcher(desired);StringBuffer changed=new StringBuffer();boolean found=false;
+   while(matcher.find()){
+    found=true;String value=matcher.group(1);boolean above;
+    try{above=Integer.parseInt(value)>limit;}catch(NumberFormatException error){above=true;}
+    matcher.appendReplacement(changed,java.util.regex.Matcher.quoteReplacement(above?key+":"+limit:matcher.group()));
+   }
+   matcher.appendTail(changed);desired=changed.toString();
+   if(!found && !desired.lines().anyMatch(line->line.startsWith(key+":")))desired+=(desired.endsWith("\n")?"":"\n")+key+":"+limit+"\n";
+  }
+  if(!desired.equals(original)){
+   Path backup=work.resolve("options.before-distances070.txt");if(!Files.exists(backup))Files.copy(options,backup);
+   Path temporary=work.resolve("options.distances070.tmp");Files.writeString(temporary,desired,StandardCharsets.UTF_8);
+   Files.move(temporary,options,StandardCopyOption.REPLACE_EXISTING);
+  }
+  Files.writeString(marker,"070:initial view<=6/simulation<=5;backup options.before-distances070.txt. Later user edits preserved.\n",StandardCharsets.UTF_8,StandardOpenOption.CREATE_NEW);
  }
  public static void prepareAudio(Path work)throws IOException{
   Path marker=work.resolve("audio-enabled-067.txt");if(Files.exists(marker))return;
@@ -156,7 +178,7 @@ public final class ClientStartup25 {
   public void close(){synchronized(console){running=false;}worker.interrupt();}
  }
  public static void main(String[] args)throws Throwable{
-  Path work=Path.of("/download0/mc-client"),assets=Path.of("/app0/assets/java25/game-assets");prepareWork(work);prepareAudio(work);
+  Path work=Path.of("/download0/mc-client"),assets=Path.of("/app0/assets/java25/game-assets");prepareWork(work);prepareAudio(work);prepareDistances(work);
   if(!Files.isRegularFile(assets.resolve("indexes/34.json")))throw new IOException("Packaged original asset index missing");
   PrintStream previousOut=System.out,previousErr=System.err;
   PrintStream console=new PrintStream(new FileOutputStream(Path.of("/download0/java25-exceptions.log").toFile(),false),true,StandardCharsets.UTF_8);
