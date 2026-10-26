@@ -20,6 +20,7 @@ int sceAudioOutOpen(int,int,int,unsigned,unsigned,unsigned);
 int sceAudioOutOutput(int,const void*);
 int sceAudioOutClose(int);
 int sceKernelUsleep(unsigned);
+extern int client_ps5_audio_early_init_result;
 }
 namespace {
 constexpr auto DeviceName="PS5 Speakers";
@@ -36,6 +37,10 @@ int initialize()
 {
     auto& state=audioState();const auto lock=std::lock_guard{state.mutex};
     if(state.ready)return 0;
+    const int early=client_ps5_audio_early_init_result;
+    if(early>=0 || static_cast<std::uint32_t>(early)==AudioAlreadyInit) {
+        report("using successful pre-JVM initialization",early);state.ready=true;return 0;
+    }
     const int result=sceAudioOutInit();report("init",result);
     if(result>=0 || static_cast<std::uint32_t>(result)==AudioAlreadyInit)state.ready=true;
     return result;

@@ -1,0 +1,44 @@
+# ProsperoCraft074 continuation
+
+Humanreports073hasnosoundandannoyingsmallstutters. Retrievedrun
+client-01.000.073-1793023452-211762662:20lateAudioOutInitBusy0x80260002/portNotInit
+0x8026000ffailures,noopen/PCMsuccess.99capturedG1pausesmedian18.082ms,max41.608ms,
+nofullGC; startupobserverThreadDumpsafepointmax8.927444ms. Quality16/12fancy.
+[Evidence](validation/client073-audio-stutters-2026-10-26.json).
+
+074callsrawSDKAudioOutInitonthenativestartupthreadaftercorectorsbutbeforeVM/heap,
+logsresultandstoresbootstrapdatumclient_ps5_audio_early_init_result. Onlyrealearly
+success/AlreadyInit seedsbackendready;failed/unattemptedearlyinitusesbounded073
+latepath. Realportopen/PCMandaudibilitystillrequired. NoearlyOpenALconstructors/
+scopedproviders,useoffakeport,servicereset orotherappsports. Timing/affinity/resource
+hypothesesuntesteduntilactualPS5run;do notclaimG1causedinitfailure.
+
+G1softpausegoal30->8ms,parallelworkers2->4;keep1536MiBheap/Xms128/20percentreserve/
+1concurrentworker/processorhint4/C1level1/32MiBcache/cleanup/quality/input. Startup
+stackobservernowopt-inps5.startupObserver;defaultoff,ordinarylogsremain. Candidate
+batchesorder/GC/diagnosticchanges;notisolatedbenchmarkor8msguarantee. Moreworkers
+neednativeheadroom/cancompeteCPU. Runtimeunchanged1b9206f4290432548b94d19b0a177dba47f6fb47.
+
+RealOpenALASanUBSan15modespass,includingearlysuccess/no duplicateinit,earlyalready,
+earlyfailurelatefallback,earlysuccessactualopenfailure,andall073recovery/PCM/
+lifecyclecontrols. ActualG1candidateworkload600MiBretained/48MiBring/4GiBchurn,
+C1gate/options/defaultobserver/startup/audio tests pass. Targetcompile/link/SELF/
+packagechecks pass. [Guide](client-audio-pacing-074.md) ·
+[buildrecord](validation/client074-audio-pacing-build-2026-10-26.json).
+
+Install dist/client-startup/PPSA99874.zip,titlePPSA99874/version01.000.074,SHA256
+acba867efee8c503e4516a20ec4f2af69009a8ebcc647b370bd260dabed03326.
+Exact073failed-audiorecoverypackage/symbolspreserved at
+ dist/accepted/Client_Audio_Recovery-01.000.073. Earlier072G1/071/070/069/068/067
+and066public/serverfallbacksremain. No newpublicrelease/Storepublication.
+
+Nextactual074menu/worldsoundandpausefeedback;retrievefreshstartup/native/Java/
+GC/build/sessionreports. Comparepre-JVMinitresult,backendusingearlyinit,actual
+open/firstPCM,human-audiblesound. CheckUsingG1/workerheadroom/pauses,ThreadDump
+samplerabsence. Ifsilent/crashedreopenwithoutXbeforelogs. PreciseSDKinitcause,
+smallstutters/pinning/nativeheadroom/save/reload/endurance remainpending. Noquality
+reduction;070migrationdiscrepancyremainsunresolved. Rawreportslocal/publichashes
+andinterpretationonly. NativePS5Java25/noWine;officialJARs/assetsintact.
+
+READMEconcise/historyinCHANGELOG;publishconsumerchangeshere,reusableJavafixes
+separatelyviaruntimesync. Preserveacceptedbinaryidentityandnoformalpassinference.

@@ -6,6 +6,18 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client073 audio recovery failed;074 initialization/pacing
+
+073stillhasnosound:all20lateinit/portprobesreturnBusy/NotInit. PartialG1snapshot:
+99pauses,median18.082ms/max41.608ms,nofullGC; stackobserverThreadDumpmax8.927444ms.
+074initializesAudioOutonthenativestartupthreadbeforeVM/heap,acceptsonlyactualearly
+success/AlreadyInitandstillrequiresactualport/PCM. Failed earlyinit retainsbounded
+laterecovery. G1pausegoal8ms/workers4andopt-instackobserver targetsmallhitches;
+quality/heap/nativebudgetunchanged. Hostchecks/targetbuildpass;PS5audio/order/
+workerheadroom/latency pending. No newpublicrelease.
+
+[Guide](docs/client-audio-pacing-074.md) · [Evidence](docs/validation/client073-audio-stutters-2026-10-26.json).
+
 ## 2026-10-26 — Client072 tiny stutters/audio failure;073 recovery
 
 Human reports tiny stutters on072but no sound. CapturedG1window has92pauses,

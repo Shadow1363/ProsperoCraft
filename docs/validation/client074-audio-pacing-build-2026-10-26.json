@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.074",
+  "title_id": "PPSA99874",
+  "package_sha256": "acba867efee8c503e4516a20ec4f2af69009a8ebcc647b370bd260dabed03326",
+  "native_elf_sha256": "296345874fd3043b474a6d55a1817e8650f026f9752086476d69271f9a6f9e1a",
+  "runtime_commit": "1b9206f4290432548b94d19b0a177dba47f6fb47",
+  "runtime_implementation_changed": false,
+  "changes": {
+    "audio": "RawSDKAudioOutInitonstartupthreadaftercorectorsbeforeVM/heap/workers;onlyactualsuccess/AlreadyInitseedsready;failed/unattemptedearlyinituses073boundedlatepath;actualport/PCMrequired",
+    "g1_pause_soft_goal_ms": 8,
+    "parallel_gc_threads": 4,
+    "stack_observer_default": false,
+    "stack_observer_opt_in": "ps5.startupObserver"
+  },
+  "preserved": {
+    "heap_mib": 1536,
+    "xms_mib": 128,
+    "collector": "G1",
+    "concurrent_gc_threads": 1,
+    "processor_hint": 4,
+    "reserve_percent": 20,
+    "codecache_mib": 32,
+    "c1": "level1/onecompiler/2MiBarenalimit",
+    "quality": "Existingoptions/noactivecaps",
+    "audio_format": "48000HzstereoS16/256frames",
+    "runtime_sdl": "PASSexactlibjvm.sobytes/SDLauditvaluesunchanged073"
+  },
+  "host_audio": "PASSactualpinnedOpenAL/backend/sink/driverASanUBSan15modes,earlysuccess/alreadyinit/no duplicatebackendinit/failedorunattemptedearlylatefallback/actualopenfailure;allpriorretry/error/PCM/lifecyclechecks",
+  "g1_host_workload": {
+    "workload": "600MiBretained/48MiBring/4GiBtransient",
+    "contents": "PASS",
+    "collector": "ActualG1",
+    "concurrent_mark_cycle": true,
+    "full_pauses": 0,
+    "explicit_gc": false,
+    "scope": "Host only, notPS5timing/physicalreservation/native-pressure/Minecraftacceptance"
+  },
+  "other_host": [
+    "PASS actualC1checksum40960/negativecontrolswithcandidateGCflags",
+    "PASS actualconfigurationSummaryanddefaultobserveroff/explicitoptingate/Mainnoactivequalitycap",
+    "PASS startup/explicitobserverhelpers/exactlogging/JNIallocation/originalMainboundary",
+    "PASS unchangedaudiooptionsmigration"
+  ],
+  "target_checks": "PASS nativecompile/link/SELF/fullpackageCRC/signatures/54originalJARs/5147assets/exactruntime/nativeaudits/constructors/preserved073/earlierpackages;earlydatumdefinedandcallorderingbeforeJNI_CreateJavaVMchecked",
+  "evidence": "docs/validation/client073-audio-stutters-2026-10-26.json",
+  "console": "PENDING074earlyinit/audibleaudio/workerheadroom/framepacing",
+  "limitations": [
+    "EarlyinitnotyettestedonPS5;preciseSDKbusycauseunresolved",
+    "8mssoftgoalnotbound;moreworkersmaycompetewithgameplay",
+    "Combinedcandidatechangesnotisolatedbenchmark",
+    "Smallstutters/pinning/saveandreload/endurancepending"
+  ],
+  "raw_reports_public": false,
+  "public_release_created": false,
+  "game_jars_modified": false
+}

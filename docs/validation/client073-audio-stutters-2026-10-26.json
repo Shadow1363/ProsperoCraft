@@ -1,0 +1,158 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.073",
+  "run": "client-01.000.073-1793023452-211762662",
+  "package_sha256": "b88028c2c4d11b0a90332f04c20ee899eb7ced0434f09622d37d767a9d85f084",
+  "human": "No sound atall; annoying smallstutters",
+  "scope": "PartialGCcurrent/rotatedsnapshots,notmatchedbenchmarkorhumanstuttertimestampcorrelation",
+  "pause_count": 99,
+  "pause_max_ms": 41.608,
+  "pause_median_ms": 18.082,
+  "pause_p95_nearest_rank_ms": 28.212,
+  "full_pause_count": 0,
+  "longest_pauses": [
+    {
+      "uptime_ms": 17449,
+      "gc_id": 42,
+      "description": "Pause Young (Mixed) (G1 Evacuation Pause) 337M->280M(533M)",
+      "pause_ms": 41.608
+    },
+    {
+      "uptime_ms": 15981,
+      "gc_id": 41,
+      "description": "Pause Young (Mixed) (G1 Evacuation Pause) 351M->256M(533M)",
+      "pause_ms": 39.11
+    },
+    {
+      "uptime_ms": 64855,
+      "gc_id": 54,
+      "description": "Pause Young (Prepare Mixed) (G1 Evacuation Pause) 451M->300M(533M)",
+      "pause_ms": 34.017
+    },
+    {
+      "uptime_ms": 94131,
+      "gc_id": 105,
+      "description": "Pause Young (Mixed) (G1 Evacuation Pause) 951M->690M(1120M)",
+      "pause_ms": 30.862
+    },
+    {
+      "uptime_ms": 65424,
+      "gc_id": 55,
+      "description": "Pause Young (Mixed) (G1 Evacuation Pause) 394M->300M(533M)",
+      "pause_ms": 28.212
+    },
+    {
+      "uptime_ms": 72419,
+      "gc_id": 66,
+      "description": "Pause Young (Mixed) (G1 Evacuation Pause) (Evacuation Failure: Pinned) 442M->393M(580M)",
+      "pause_ms": 26.956
+    },
+    {
+      "uptime_ms": 63486,
+      "gc_id": 51,
+      "description": "Pause Young (Mixed) (G1 Evacuation Pause) 451M->284M(533M)",
+      "pause_ms": 26.79
+    },
+    {
+      "uptime_ms": 90922,
+      "gc_id": 99,
+      "description": "Pause Young (Prepare Mixed) (G1 Evacuation Pause) 855M->657M(1074M)",
+      "pause_ms": 26.136
+    },
+    {
+      "uptime_ms": 87998,
+      "gc_id": 93,
+      "description": "Pause Young (Prepare Mixed) (G1 Evacuation Pause) 867M->613M(1025M)",
+      "pause_ms": 25.374
+    },
+    {
+      "uptime_ms": 83869,
+      "gc_id": 87,
+      "description": "Pause Young (Mixed) (G1 Evacuation Pause) 781M->563M(1025M)",
+      "pause_ms": 25.267
+    }
+  ],
+  "nongc_safepoints_longest": [
+    {
+      "operation": "ThreadDump",
+      "total_ms": 8.927444
+    },
+    {
+      "operation": "ThreadDump",
+      "total_ms": 4.24237
+    },
+    {
+      "operation": "ThreadDump",
+      "total_ms": 3.752197
+    },
+    {
+      "operation": "ThreadDump",
+      "total_ms": 3.732872
+    },
+    {
+      "operation": "ThreadDump",
+      "total_ms": 3.246628
+    },
+    {
+      "operation": "ThreadDump",
+      "total_ms": 2.981134
+    },
+    {
+      "operation": "ThreadDump",
+      "total_ms": 2.672901
+    },
+    {
+      "operation": "ThreadDump",
+      "total_ms": 2.593277
+    },
+    {
+      "operation": "ThreadDump",
+      "total_ms": 2.506035
+    },
+    {
+      "operation": "ThreadDump",
+      "total_ms": 1.964703
+    }
+  ],
+  "audio": {
+    "init_hex": "0x80260002",
+    "open_hex": "0x8026000f",
+    "init_failure_count": 20,
+    "open_failure_count": 20,
+    "first_pcm_present": false,
+    "result": "073boundedlateinit/probe/retrydidnotrecover;actualportneveropened. Noimplicitmute/PCMsuccessclaim. Preciseservicecauseunresolved."
+  },
+  "options": "PS5_OPTIONS_BEFORE_MAIN version=5023 graphicsPreset=\"fancy\" renderDistance=16 simulationDistance=12 migration070=true distancePolicy=preserve-existing/no-new-cap",
+  "next": "074earlyrawAudioOutinitonthenativestartupthreadbeforeVM/heap;onlyconfirmedearlysuccessseedsOpenALready,actualport/PCMstillrequired. G1pausegoal8/workers4,stackobserveropt-in;heap/qualityunchanged.",
+  "files": {
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "622176428be75846f0ebe5b52051cb57c3162874b9d712083ed6bff70d805b74"
+    },
+    "exceptions.log": {
+      "bytes": 2801538,
+      "sha256": "741d9fef94f365a8cf2471aa4c2abc17bc9b0df2f48db5995157bb875565d79c"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194471,
+      "sha256": "aeb9e90852828856464d8219b6bbda7019814016e9ea579c1412372773911b85"
+    },
+    "jit.log": {
+      "bytes": 2503980,
+      "sha256": "fc1aca17c3a60898d4856bc98774d298fb61c9376d1f28f0cb0f218aa2d1b7a7"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "cdc9dc711e26f083fe30da9d1ed1dee03604f5b53a9e60394f4770a28750df72"
+    },
+    "native-stderr.log": {
+      "bytes": 30461,
+      "sha256": "2966bb25d44b0c25961033d607efd8c879e80f99cc504cce68290a9c497f972e"
+    },
+    "gc.log": {
+      "bytes": 4171362,
+      "sha256": "026da19b5b143d90cfa9a6016545741b4fb30c185a9cea54b7475c6efb266e08"
+    }
+  },
+  "raw_reports_public": false
+}

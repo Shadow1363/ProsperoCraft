@@ -620,3 +620,8 @@ heapceiling;actualPS5G1startup/nativeheadroom/pausespending. Current072handoff.
 median20.8335ms/max49.747ms/nofullGC;qualifiedimprovement,notformalpass. Audioinit
 0x80260002failsbeforeportopen.073boundedBusyactual-portprobe/retry/AlreadyInit
 handlingonly;preserveG1/heap/quality. AudiblePS5recoverypending. Current073handoff.
+
+073audiofixfailed(all20Busy/NotInit),smallstuttersannoying.074testsAudioOutinit
+onthenativestartupthreadbeforeVM/heap,validatesrealearlyresultandrealport;no
+forcedservicereset. G1goal8/workers4anddefaultstackobserveroff;quality/heapretained.
+ActualPS5audibility/initorder/GCworkers/latency pending. Current074handoff.

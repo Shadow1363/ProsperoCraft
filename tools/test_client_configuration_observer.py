@@ -9,6 +9,8 @@ source=r'''
 import java.nio.file.*;
 public class ConfigurationCheck {
  public static void main(String[]args)throws Exception {
+  System.clearProperty("ps5.startupObserver");if(ClientStartup25.startupObserverEnabled())throw new AssertionError("observer enabled by default");
+  System.setProperty("ps5.startupObserver","true");if(!ClientStartup25.startupObserverEnabled())throw new AssertionError("observer override unavailable");System.clearProperty("ps5.startupObserver");
   Path w=Path.of(args[0]);Files.createDirectories(w);
   String text="version:123\r\ngraphicsPreset:\"fancy\"\r\nrenderDistance:16\r\nsimulationDistance:12\r\nother:private-value\r\n";
   Files.writeString(w.resolve("options.txt"),text);

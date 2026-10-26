@@ -42,3 +42,10 @@ noactivecaporqualityreduction. NativeJavaPS5port/noWine;nogamebytecodehooks.
 
 READMEconcise/historyinCHANGELOG. Publishconsumerchangeshere; reusableJavafixes
 separatelythroughruntime syncscript. Preserveacceptedbinaryidentities/sources.
+
+## Superseded by074
+
+Humanreportsnosoundandannoyingsmallstutters.073all20lateinit/portprobesfailed
+Busy/NotInit.074testsrawAudioOutinitbeforeVM/heap,onlyearlyactualsuccessseeds
+backend,plusG1goal8ms/workers4/opt-instackobserver. Samequality/heap. See
+[074handoff](handoff-prosperocraft-client074.md)and[evidence](validation/client073-audio-stutters-2026-10-26.json).
