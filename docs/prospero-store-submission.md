@@ -100,3 +100,20 @@ The bot again reports “the release is not the newest of
 mateo-cogeanu/ProsperoCraft” and leaves the PR for a maintainer. Recreating the
 PR did not resolve the release-order issue. Current state is REVIEW_REQUIRED;
 darkxex and Marice are requested reviewers. Original packages/assets unchanged.
+
+## GPLv3 and fork credit
+
+At the user's request, ProsperoCraft's original code/build scripts are now
+explicitly GPL-3.0-or-later, consistent with the existing source headers. Root
+LICENSEcontains the standard GPLv3 text;NOTICEidentifies copyright
+“mateo-cogeanu — ProsperoCraft” and retained upstream credits. Distributed forks
+must preserve applicable copyright/license notices and meet GPL source and
+modification-notice requirements. No advertising or splash-screen condition is
+added. Upstream code keeps its own license; official game files are not relicensed.
+
+GitHub detects GPL-3.0 and activePR814now declaresGPL-3.0-or-later instead of
+Unlicensed. The existing082ZIPalready includes the fullGPLv3text; its bytes,tag
+and frozen validation remain unchanged. Separate license/notice/checksum release
+assets accompany the explicit project grant. This follow-up supersedes earlier
+Unlicensed metadata while preserving its historical validation records. See
+[license publication record](validation/client082-license-2026-10-26.json).

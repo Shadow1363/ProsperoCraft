@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-26",
+  "user_request": "Add GPL3.0 and make clear forks must credit the project",
+  "project_spdx": "GPL-3.0-or-later",
+  "github_detected_spdx": "GPL-3.0",
+  "copyright_notice": "Copyright (C) 2026 mateo-cogeanu \u2014 ProsperoCraft",
+  "grant_scope": "Original ProsperoCraft code/buildscripts including copyright-holder original082contributions;existing file-specific/upstream licenses and exceptions retained",
+  "fork_credit": "Preserve applicable original copyright/license/warranty notices,mark modifications and provide corresponding source under GPL;no additional advertising/splash/noncommercial restrictions",
+  "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+  "notice_sha256": "85475f282965eac71dbbd3b6e6c7a726e34071b43fb9633817fb85b0a9098c78",
+  "license_source_commit": "f75dd54",
+  "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/814",
+  "catalog_license": "GPL-3.0-or-later",
+  "additive_release_assets": [
+    {
+      "name": "ProsperoCraft-LICENSE-GPL-3.0.txt",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.082/ProsperoCraft-LICENSE-GPL-3.0.txt"
+    },
+    {
+      "name": "ProsperoCraft-NOTICE.txt",
+      "sha256": "85475f282965eac71dbbd3b6e6c7a726e34071b43fb9633817fb85b0a9098c78",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.082/ProsperoCraft-NOTICE.txt"
+    },
+    {
+      "name": "client082-license-SHA256SUMS.txt",
+      "sha256": "ce59f342cc02eeff916362eabdc1095c0b97e24b8502811d27830e8cb39b7cc5",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.082/client082-license-SHA256SUMS.txt"
+    }
+  ],
+  "published_package_sha256": "ab49cad8977736be2be72230743232a270dba9bd17fa70a66b64a93c48230820",
+  "package_verification": "Existing082ZIPcontains fullGPLv3text;ZIP/tag/symbols/frozen snapshots and previous assets unchanged. Newlicense/attribution supplied as additional releaseassets.",
+  "checks": [
+    "PASS verbatim standard GPLv3 text",
+    "PASS GitHub API recognizes rootLICENSEasGPL-3.0",
+    "PASS exact082package checksum unchanged",
+    "PASS GitHub asset digests match all added license/notice/checksum assets",
+    "PASS local catalog record validation",
+    "PASS git diff --check"
+  ],
+  "console_tests": "None required for this license/metadata-only follow-up;scoped082human pass preserved,endurance remains separate"
+}
