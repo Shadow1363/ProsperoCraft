@@ -1,0 +1,205 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.060",
+  "run": "client-01.000.060-1793005053-213311378",
+  "tested_source_commit": "f2b414ebac16d7398c7d54dadbf98f3d7f7ffa3b",
+  "package_sha256": "899252e805cff1031446cdcceaf6e44c331545601599d7e5b4e04c737502873c",
+  "human": "User explicitly reports crashed,i reopened. No exactscreen/error/timing supplied. Full playable nativeJava25PS5client remains goal,not only menu.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "1c5007573e1f3662876f160cce3115713c12181b5cc1c617dde25ec447852195"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "b995a01638c32d1a0c30f0017305d42d7cfbbd726eb3fc5bc165ecee05659540"
+    },
+    "exceptions.log": {
+      "bytes": 1015060,
+      "sha256": "edfc8f748d0e2d977744647e37bce44a7e7acd2c08ad73d39aa5f8dc7043781d"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194437,
+      "sha256": "b32e28cad3106b3f4b0e5c2341962135d30082885f8d02385435c427b084e9f0"
+    },
+    "gc.log": {
+      "bytes": 3817672,
+      "sha256": "a04d869064494ab28796bbe907c72eca346632f1f1e84c6e10eaa426b820e787"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 3260,
+      "sha256": "bc1ab8ff395f7e8074331a06b14041ca0557fa72a4da70576f1cb23dc522eba4"
+    },
+    "process-usage.log": {
+      "bytes": 205572,
+      "sha256": "6c92ac0d0ef39417e7a269fc821a385d26fd6b716b5a1882c358597b9e3408c4"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "ae40e5c8da261593dab5090b39c723d06b6ce3929eb51e118f1cf43cb216e157"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "87485f7290cc80be635bd4b35afed1c683dc209c1085ba9b49b47c6e9fadfd98"
+    },
+    "startup.log": {
+      "bytes": 1378407,
+      "sha256": "8fd3e83c8573060549460c67f5ba8558fed3cd6638073f5dec615d9f47c678c7"
+    },
+    "vm-trace.log": {
+      "bytes": 1745603,
+      "sha256": "da56f7923774e750fc26ad860fb4921f97b216f8791b32f3006a0b12ad3f0d9c"
+    }
+  },
+  "observed": {
+    "regular_snapshots": 126,
+    "burst_records": 12,
+    "boundary_records": 31,
+    "completed_scope_pairs": 15,
+    "last_boundary": {
+      "api": "alcGetIntegerv",
+      "phases": [
+        "enter"
+      ]
+    },
+    "last_boundary_id": 16,
+    "budget_consumed": 16,
+    "budget_limit": 128,
+    "native_sequence": "Devicecreated;IDs10getError,11getString,12/13getIntegerv,14getString,15getError each enter+scopeexit.16getIntegerv enter only. No context enter/completion captured. Scopeexit is not success/APIreturn proof.",
+    "query_arguments": "060did not record param,size,output pointer;therefore no exactquery/branch proven fromthistrace.",
+    "last_class": "ALC$ICDStatic$WriteOnce initialization-start;nativepairs demonstrate laterALC activity,not a proven stuck capability initializer. INFOinitialization-start alone notcause.",
+    "retained_gc_starts": 18,
+    "retained_gc_ends": 18,
+    "gc_coverage": "Earlier records rotatedout;counts describe retainedcoverage only.",
+    "fatal": "No captured fatal signal/VMabort/JavaOOM/driver error;hs-error unavailable. Last record not exactcrashtiming/instruction."
+  },
+  "boundary_scope_summary": {
+    "1": {
+      "api": "alcGetIntegerv",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "2": {
+      "api": "alcGetIntegerv",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "3": {
+      "api": "alcGetString",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "4": {
+      "api": "alcGetString",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "5": {
+      "api": "alcGetString",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "6": {
+      "api": "alcGetString",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "7": {
+      "api": "alcGetString",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "8": {
+      "api": "alcGetString",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "9": {
+      "api": "alcGetString",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "10": {
+      "api": "alcGetError",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "11": {
+      "api": "alcGetString",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "12": {
+      "api": "alcGetIntegerv",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "13": {
+      "api": "alcGetIntegerv",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "14": {
+      "api": "alcGetString",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "15": {
+      "api": "alcGetError",
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "16": {
+      "api": "alcGetIntegerv",
+      "phases": [
+        "enter"
+      ]
+    }
+  },
+  "inspection": {
+    "original_game": "Library.createAttributes firstscalarquery6548(0x1994,ALC_NUM_HRTF_SPECIFIERS_SOFT). This is consistent with observed sequence but060queryparamnotcaptured.",
+    "native_hrtf": "GetIntegerv HRTFcount -> Device.enumerateHrtfs -> EnumerateHrtf -> SearchDataFiles -> throwing fs.current_path outsideDirectorySearchcatch. Exported alcGetIntegerv noexcept catches onlyal::base_exception,not filesystem_error.",
+    "host_reproduction": "Actual pinned original OpenAL1.25.2:open null device,remove currentdirectory,query0x1994;abortsSIGABRT/-6 due uncaught filesystem_error,current_path/getcwdENOENT.",
+    "host_repair": "Private POSIXhelpers.cpp uses current_path(error_code),logs+skips unavailable app-local search,retains other discovery. Actual patched library returns count0/error0 and creates context;valid .mhr filename enumeration remains1 onbaseline+patched. No HRTF decoding/mixing or PS5cause established.",
+    "sdk_note": "Read-only060filesystem.current_path disassembly includes AVXinstructions;targetOSfeature/fault evidence absent. No AVXdiagnosis/SDKchange made."
+  },
+  "cause": "PS5termination cause not proven. Concrete optional-file-discovery exception-safety defect reproduced onhost and repaired incandidate061.",
+  "next": "Preserve060.061repair private helpers.cpp and capture getIntegerv param/size/output with same scopebudget;retain all native/class/GC/burst diagnostics,build/check/publish.",
+  "report_boundary": "Raw/fullstacks/hosterrorlogs stay local;publichashes,measurements and interpretedfacts only.",
+  "limits": "No menu/fullplayableclient/newmilestone/release/Storedownload;server2Hdeferred."
+}

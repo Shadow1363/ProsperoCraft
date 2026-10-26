@@ -1,3 +1,5 @@
+> Continuation:060crashed;15paired native scopes then unmatched alcGetIntegerv16. Host reproduces optional HRTF discovery abort with missingcwd;061repairs lookup error handling and captures query arguments. PS5cause/resolution unproven. See [060evidence](validation/client060-startup-failure-2026-10-26.json) and [061repair](client-startup-061.md).
+
 # ProsperoCraft client060 — native ALC API body scopes
 
 Final product goal is a polished,playable Minecraft Java client on nativeJava25PS5:

@@ -66,23 +66,24 @@ native Java25onPS5:responsive controls,smooth rendering,working audio,world game
 saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
 Those full-client features still require actual exact-build console validation.
 
-## Development client060 — bounded native ALC body observations
+## Development client061 — graceful unavailable-directory HRTF discovery
 
-The user confirms059crashed. Combined class logs show OpenAlUtil and LWJGL's
-ALC cached-capability classes verifying and beginning initialization after native
-No Output device creation. Last class record is ALC$ICDStatic$WriteOnce;this does
-not prove failed initialization or a bad function pointer. **Cause unknown.**
-Earlier JVM records rotated out;retained18GCstarts/18ends are partial-run coverage.
-Exact059package/symbols/evidence preserved.
+060native records have15paired ALCbody scopes,then alcGetIntegerv call16 enters
+without a recorded scope exit. Device creation succeeded;no context entry appears.
+Its query arguments were not recorded,so the precise query/PS5cause remains unknown.
+Exact060package/symbols/evidence preserved.
 
-060observes enter/scope-exit in5pinned native ALC API bodies,at most128calls/
-256records,using a private alc.cpp/archive copy. Original source/archive,gameJARs/
-assets,runtimeimage,heap/graphics/backend policies stay. Host baseline/private
-native APIresults match;PS5observations/crash resolution/gameplay remain pending.
-No client release/Store download;server endurance deferred.
-[060scope](docs/client-startup-060.md) ·
-[059evidence](docs/validation/client059-startup-failure-2026-10-26.json) ·
-[Current handoff](docs/handoff-prosperocraft-client060.md).
+A concrete OpenAL defect was reproduced on host:HRTF-count query with unavailable
+currentdirectory throws filesystem_error through a noexcept API and aborts.061uses
+an error-code directory lookup,logs/skips unavailable app-local discovery and retains
+other HRTFpaths. Patched host returns0/error0 and creates context;valid local filename
+enumeration remains1. Native query records now include param/size/output pointer.
+**PS5crash resolution and full playable-client validation remain pending.**
+Original54JARs/5147assets,runtimeimage,heap/backend/graphics remain. No client release/
+Storedownload;server endurance deferred.
+[061repair](docs/client-startup-061.md) ·
+[060evidence](docs/validation/client060-startup-failure-2026-10-26.json) ·
+[Current handoff](docs/handoff-prosperocraft-client061.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.061",
+  "package_sha256": "d1a338b5e7c3d542bf5d4be974e3780c8ea3260ccd812939ea290dd755629429",
+  "source_revision": "Consumer commit containing this manifest,parentf2b414ebac16d7398c7d54dadbf98f3d7f7ffa3b",
+  "source_sha256": {
+    "client/startup/ClientStartup25.java": "7105ace8c127ee936abdf4739bb6d7391f463ef40a6ce917bc1655d1b773c7a5",
+    "client/startup/bootstrap.cpp": "c6c89ce305f0c85906c607bfa84ac183f22aa5abd48ea2ca675318aa0c69e2b6",
+    "client/startup/observer_native.hpp": "789c5f4cba765139616448200c01a609e3488813c43c5325b300b8a927080e7d",
+    "client/startup/openal_trace_env.c": "643ffe63c2bcc487db9098677704d9004994e053078ef2a372c094ed2ddea272",
+    "client/startup/param.json": "9bd0746d5365d8eacddc14873126ba6d2d828d59afdca42feb7a28e9acbdbb83",
+    "client/ports/openal/startup_boundary.hpp": "21036974a51f491894a5b3af3130b43f4d884ddef6b5f54a5809b012fd46737e",
+    "tools/build_openal_startup_boundaries.py": "8c75d85542726f5598b88b2e35c6fdfd787b018470cd60e78d99d28e4b79ccbc",
+    "tools/test_openal_startup_boundaries.py": "d85ea16e832f4af837c81aa0715f103ea7c0b985cfb1770329d1cacaebc61b52",
+    "tools/package_client_vulkan.py": "8bd52701c8ab2410843924064b69361ff81cc5cb941eef39a615e721318a5e0f",
+    "tools/test_client_startup_host.py": "c63dea3380804a54c69d0b89c00ad76d306a14a6f5e1bec1c516c786fbb7c883",
+    "tools/test_client_startup_package.py": "13cf632d234a02131791d876f0b791bf1a12425920d8cfb4ddcef1a4f289f6b8"
+  },
+  "symbols_sha256": "479455ad150f71bca2bc043bacc71d04bd2cd0191cc831d76020a7ed1a5b415d",
+  "runtime_commit": "1e9fb4f23a2e84e26c50fe67cc4e746ff371dfa2",
+  "runtime_image_implementation": "6382528c7aee066002d1c2c6a7b5c7116987ae8c;unchanged image/SDK",
+  "openal_boundaries": {
+    "pin": {
+      "repository": "https://github.com/kcat/openal-soft.git",
+      "tag": "1.25.2",
+      "commit": "b2c48f7718ef3fcf67921a8b6534c4914e328970",
+      "scope": "Real OpenAL Soft mixer,upstream loopback and null output;no PS5 speaker output yet",
+      "license": "LGPL-2.0-or-later with bundled BSD/MIT components;retain source/relink inputs for distribution"
+    },
+    "original_source_sha256": "12846e8c1bce29aa157b562540c73f446f8fa7fc64255faae8e26c46f416c41e",
+    "patched_source_sha256": "c4bde77ee39ac31f6aec42c171bae27e4a08499779f28f0edcfcd0985692925b",
+    "header_sha256": "21036974a51f491894a5b3af3130b43f4d884ddef6b5f54a5809b012fd46737e",
+    "unit_object_sha256": "5c3a5d1e7c43c1b1eb2aa4711d9c0d289edbc38b20dea286fcb1e2a346cda1c1",
+    "functions": [
+      "alcGetError",
+      "alcGetString",
+      "alcGetIntegerv",
+      "alcCreateContext",
+      "alcMakeContextCurrent"
+    ],
+    "scope": "At most128native API body scopes/256records,errno preserved;scope-exit includes exception unwinding,not success/return proof",
+    "game_jar_modified": false,
+    "cwd_discovery_repair": {
+      "original_source_sha256": "3abcbd9c7b21257c144934e7de78b37d7ee6fbb2533d81a1c45217cbbb7ed040",
+      "patched_source_sha256": "55c1632405b344a24be7a9772a59d1fe6aba045b032b4ab4ce526f7fd7f4b253",
+      "unit_object_sha256": "340de84ff6a0b714401a71307d68ef12df7d6e8d45de87ccfe3ce875683f1725",
+      "behavior": "Nonthrowing current_path(error_code);skip unavailable app-local search with warning,retain configured/local-valid/global/default HRTF discovery",
+      "console": "Host missing-cwd abort reproduced;PS5 cause/resolution unverified"
+    },
+    "original_archive_sha256": "c51312806793e0a505b94c82d7bb939370b57373e2ab566ccdca50fa1f405ca9",
+    "private_archive_sha256": "272cdc704d00ad0531f3a37a2d94a18a82be4b036da4cd9bd962215ab4e4caf8",
+    "original_archive_unchanged": true,
+    "constructor_sections": [
+      ".ctors"
+    ],
+    "replaced_members": [
+      "alc.cpp.o",
+      "helpers.cpp.o"
+    ],
+    "output_sha256": "a1d7e91b1c1ec9aaeb70d17e9b5868960e47979ff1100f8ae22e62d941aa159c"
+  },
+  "openal_trace": {
+    "scope": "Startup-private OpenAL getenv selects upstreamALSOFT_LOGLEVEL3;other lookups forwarded,global getenv/backend unchanged",
+    "source_sha256": "643ffe63c2bcc487db9098677704d9004994e053078ef2a372c094ed2ddea272",
+    "private_object_sha256": "3f90f477b5ef3a2e88b7f733c492d0f315ab3f77ec96a7a882eab96697091a23",
+    "shim_object_sha256": "e2c64f025b2648204e31d06f267852403ec989a141618fc4428a9c2d1b917802",
+    "original_object_sha256": "6ca60627c1d8151168662553b3073b5ede8bd4805021e1bae3ba0c4cbec36a80",
+    "output": "existing native-stderr.log;native trace timing/coverage pending PS5",
+    "backend_selection_changed": false,
+    "console": "060createsnullplaybackdevice,no contextentry.061querymetadata/lookupmarkers/repairpendingonPS5."
+  },
+  "checks": {
+    "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual owner-only transition burst:precise language trigger,finite samples/live owner stacks,elapsed/heap records,close without later writes;host only\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS exact startup GC/safepoint/class-load/class-init JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+    "native_boundary_and_cwd_host": "open=1 error=0 name=OpenAL Soft\nmajor=1\ncontext=1 current=1 error=0\nclose=1\nPASS actual HRTF count regression:original pinned library aborts on missing cwd;private repair returns0/error0 and creates context;valid local .mhr filename enumeration remains1 on both. Fixture does not validate HRTF decoding/mixing or PS5 cause.\nPASS actual private pinned OpenAL ALC unit:all5body scope pairs,baseline device/error/name/version/context/current/close results unchanged;actual helper128scope cap,4threads,exception unwinding,errno under ASan/UBSan. PS5 behavior pending.",
+    "target": "Packaging exit0,targetcompile/link/SELF passed;bothprivatealc/helpersmembers/source/unit/archive/output hashes,unchanged originalarchive,constructors verified.",
+    "package": "PASS061 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 d1a338b5e7c3d542bf5d4be974e3780c8ea3260ccd812939ea290dd755629429",
+    "preserved060": "ExactfullZIP899252e805cff1031446cdcceaf6e44c331545601599d7e5b4e04c737502873c,symbols/source/status/build/console record retained.",
+    "baseline002": "Exact convenienceZIP restored:d0b9f815ff68c5ad821b2166509879c623c813019d2f70bbacf53769f35e3971"
+  },
+  "repair": "Actual originalhostOpenALabortsSIGABRT onHRTFquerywithmissingcwd. PrivatePOSIXhelper handles lookup viaerror_code,skips unavailable app-local search,keeps configured/valid/global HRTFdiscovery. Patchedactualhostcount0/error0/contextcreation;validlocalfilename enumeration1onboth,notdecoding/mixing proof.",
+  "diagnostic": "getIntegervparam/size/output recorded,without pointerdereference.128scopes/256records,errno retained,scopeexitnotreturnproof.",
+  "console": "PS5causeand061resolution unproven;060lackedactualqueryarguments. Needexact061run and native lookup/query/context records,thenfullplayableclient acceptance.",
+  "unresolved_sdk_note": "060filesystem.current_pathdisassemblyhasAVX;no targetOS/fault evidence establishesISAcausality,noSDK/AVXpolicychange.",
+  "product_goal": "Fullpolished playable MinecraftJava/nativeJava25PS5,not justmenu;input/render/audio/worldplay/save-reload/stabilityconsolevalidationpending.",
+  "release": "No menu/fullclient/newmilestone/clientrelease/Storedownload;server2Hdeferred. ExactmatchingOpenALsource/relink needs bothprivateunits/header/compilerinputs/058shim."
+}
