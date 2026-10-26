@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.058",
+  "run": "client-01.000.058-1793002231-31904375",
+  "tested_source_commit": "0eb453224730ec638eeb6adf4c5c8c7ab9378403",
+  "package_sha256": "cd41f2fd2e98d455a1501e6e5b281894f8e5dba07396093e0cc501abec5a3cef",
+  "human": "User confirms crashed app reopened;no exact timing/error/menu acceptance supplied.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 132,
+      "sha256": "7de69ae1fc49408ec14bdc3d5808585ca2fae69cba2f02aafd5591f5f957872f"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "dbf787240cdd6ed7279051e6ce904fc23eda9db922baff685c547f4359257e2b"
+    },
+    "exceptions.log": {
+      "bytes": 977671,
+      "sha256": "f37b3703927dbb1e98232417856e43b1287bc1a3806a50be109a5f7a48cc34eb"
+    },
+    "gc-rotated.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "gc.log": {
+      "bytes": 407273,
+      "sha256": "087421ac4c7606d1f817494351d71e0184026467d4382c9ec8e389f76d27b0cf"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 1087,
+      "sha256": "ad35a567e584e2e167e772ac5689fb78f17d9366933da49da20232ad40dae986"
+    },
+    "process-usage.log": {
+      "bytes": 199045,
+      "sha256": "7529e058d75e98ff6c921ddc272de4e826acb63e359e6c95cb0ba5b204cb12f7"
+    },
+    "session.txt": {
+      "bytes": 143,
+      "sha256": "918085aaef11f2d902a140e8fed4532d756f1fab53a26143bd48c4b54ebc664f"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "8f9fdc88a7cdfd25200d47d4ba20f3b9de11927e1c70b170373202f0df573d70"
+    },
+    "startup.log": {
+      "bytes": 1378406,
+      "sha256": "770e09d8130d5eb8ba44e456406f1d2537fb186c560fa55d8a243e94605785be"
+    },
+    "vm-trace.log": {
+      "bytes": 1730022,
+      "sha256": "2608af8d356d9051a50d2f05bec482c90edd9c05040d623713fbc7acc50ba5ea"
+    }
+  },
+  "observed": {
+    "regular_snapshots": 122,
+    "regular_ends": 122,
+    "burst_samples": 12,
+    "burst_ends": 12,
+    "burst_complete_marker": false,
+    "native_records": 244,
+    "last_burst_elapsed_ms": 97727,
+    "last_burst_heap_used_bytes": 246144128,
+    "gc_starts": 63,
+    "gc_ends": 63,
+    "unmatched_gc_start_ids": [],
+    "last_gc_summary": [
+      "62",
+      "Pause Full (Allocation Failure) 232M->175M(247M) 349.955ms"
+    ],
+    "openal": "Actual1.25.2-b2c48f7initializes null backend/adds null playback. No capture backend. Created No Output playback device. No Created context completion recorded;absence does not prove context entry or failure.",
+    "openal_warnings": "sysctl kern.proc.pathname unavailable;binary path empty;no capture backend. These are recorded warnings,not established crash causes.",
+    "last_main": "Class.initClassName/getName/getPackageName/ClassLoader.postDefineClass viaLibrary.tryOpenDevice283/SoundEngine/SoundManager apply/Minecraft.runTick/run. Exact class/next operation unknown.",
+    "fatal": "No captured fatal signal/VMabort/JavaOOM/driver error;fatal report unavailable. Last records are not exact crash timing/instruction.",
+    "clocks": "Observer elapsed and JVM uptime differ;owner-only burst need not emit ThreadDump safepoints."
+  },
+  "transition_timeline": [
+    {
+      "sample": 1,
+      "elapsed_ms": 97612,
+      "heap_used_bytes": 243317392,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 2,
+      "elapsed_ms": 97622,
+      "heap_used_bytes": 244209104,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 3,
+      "elapsed_ms": 97632,
+      "heap_used_bytes": 244221424,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 4,
+      "elapsed_ms": 97643,
+      "heap_used_bytes": 244237816,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 5,
+      "elapsed_ms": 97653,
+      "heap_used_bytes": 244250128,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 6,
+      "elapsed_ms": 97664,
+      "heap_used_bytes": 245141816,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 7,
+      "elapsed_ms": 97674,
+      "heap_used_bytes": 245158248,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 8,
+      "elapsed_ms": 97685,
+      "heap_used_bytes": 245182776,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 9,
+      "elapsed_ms": 97695,
+      "heap_used_bytes": 245199168,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 10,
+      "elapsed_ms": 97706,
+      "heap_used_bytes": 245236112,
+      "activity": "Immutable translation-map construction"
+    },
+    {
+      "sample": 11,
+      "elapsed_ms": 97717,
+      "heap_used_bytes": 246127704,
+      "activity": "Shader resource apply/lambda generation"
+    },
+    {
+      "sample": 12,
+      "elapsed_ms": 97727,
+      "heap_used_bytes": 246144128,
+      "activity": "Class definition/post-definition during audio device path"
+    }
+  ],
+  "inspection": "Original Library.tryOpenDevice line283 spans device comparison and OpenAlUtil.checkALCError;Library.init subsequently queries device name/capabilities and creates context. Successful native device creation is observed;no specific later failing API/class established.",
+  "cause": "Unknown. No new concrete supported defect.",
+  "next": "Preserve058.059adds class+load/info and class+init/info to existing bounded JVM file output with unchanged GC/safepoint/OpenAL/burst diagnostics;identify class loading/initialization after successful native device creation. No game/memory/graphics changes.",
+  "report_boundary": "Raw reports/full stacks remain local;commit hashes,measurements and interpreted activity only.",
+  "limits": "No menu/new milestone/client release/Store download;server2Hdeferred."
+}

@@ -59,22 +59,23 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client058 — native OpenAL startup trace
+## Development client059 — class loading after native audio device creation
 
-The user confirms057crashed. Its main-thread burst captured17records:language
-loading completes,ShaderManager applies resources,then SoundManager/SoundEngine
-enters Library.tryOpenDevice. Last sample is class definition at Library line283;
-this does not identify a failing class/native instruction.63GCs complete.
-**Game crash cause remains unknown;no menu accepted.** Exact057preserved.
+The user confirms058crashed. Its OpenAL trace initializes the null backend and
+creates a No Output playback device. No context-creation completion is captured.
+The main-thread burst ends during class definition/post-definition at
+Library.tryOpenDevice283;63GCs complete. **Cause remains unknown;no menu accepted.**
+Exact058package/symbols/evidence are preserved.
 
-058enables pinned OpenAL's existing trace logging through a startup-private
-ALSOFT_LOGLEVEL3lookup. Other environment/backend selection,original54JARs/
-5147assets,heap/runtime image/graphics remain. Native-stderr should expose device/
-context progress;PS5coverage/crash resolution/menu pending. No new supported crash
-fix,client release or Store download;server endurance deferred.
-[058scope](docs/client-startup-058.md) ·
-[057console evidence](docs/validation/client057-startup-failure-2026-10-25.json) ·
-[Current handoff](docs/handoff-prosperocraft-client058.md).
+059adds class-load and class-initialization info records to the existing bounded
+JVM GC/safepoint log. This targets the class-definition gap after successful
+native device creation;058OpenAL trace and057main burst remain. Original54JARs/
+5147assets,runtime image/heap/graphics stay intact. PS5class records/crash resolution/
+menu pending. No supported new crash fix,client release or Store download;
+server endurance deferred.
+[059scope](docs/client-startup-059.md) ·
+[058console evidence](docs/validation/client058-startup-failure-2026-10-26.json) ·
+[Current handoff](docs/handoff-prosperocraft-client059.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

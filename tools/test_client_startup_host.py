@@ -5,7 +5,7 @@ import argparse,subprocess,json,tempfile,hashlib,os
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--java-home',type=Path,required=True);a=p.parse_args();lock=json.loads((ROOT/'client/26.3.lock.json').read_text())
 cp=':'.join(str(ROOT/'.tools/client'/r['file'])for r in lock['artifacts'])
-out=ROOT/'build/startup-host-058';out.mkdir(exist_ok=True)
+out=ROOT/'build/startup-host-059';out.mkdir(exist_ok=True)
 (out/'StartupPolicy.java').write_text('''import java.nio.file.*;import java.util.*;public class StartupPolicy{public static void main(String[]a)throws Exception{Path w=Path.of(a[0]);ClientStartup25.prepareWork(w);String text=Files.readString(w.resolve("options.txt"));if(!text.contains("soundCategory_music:0.0"))throw new AssertionError();Files.writeString(w.resolve("options.txt"),"existing");ClientStartup25.prepareWork(w);if(!Files.readString(w.resolve("options.txt")).equals("existing"))throw new AssertionError("existing options overwritten");String[]args=ClientStartup25.launchArguments(w,Path.of(a[1]));List<String>l=Arrays.asList(args);for(String flag:new String[]{"--demo","--disableMultiplayer","--disableChat","--graphicsBackend","vulkan","--accessToken","0"})if(!l.contains(flag))throw new AssertionError(flag);if(l.contains("--quickPlayMultiplayer"))throw new AssertionError();System.out.println("PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check");}}''')
 subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(out),str(ROOT/'client/startup/ClientStartup25.java'),str(out/'StartupPolicy.java')],check=True)
 with tempfile.TemporaryDirectory(prefix='mc-startup-policy-')as temp:
@@ -54,7 +54,7 @@ subprocess.run([str(a.java_home/'bin/java'),'-Xint','-cp',str(out)+':'+cp,'Start
 # Exercise the exact target GC/safepoint selection through the actual host JVM.
 # This verifies syntax/content and bounded rollover,not PS5 collector correctness.
 import re
-flag=re.search(r'"(-Xlog:gc\*=debug,safepoint\*=debug:[^"]+)"',(ROOT/'client/startup/bootstrap.cpp').read_text()).group(1)
+flag=re.search(r'"(-Xlog:gc\*=debug,safepoint\*=debug,class\+load=info,class\+init=info:[^"]+)"',(ROOT/'client/startup/bootstrap.cpp').read_text()).group(1)
 (out/'StartupGcCheck.java').write_text('public class StartupGcCheck{public static void main(String[]a){byte[][]keep=new byte[32][];for(int i=0;i<512;i++)keep[i%32]=new byte[1024*1024];System.gc();System.out.println("GC fixture complete");}}')
 subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-d',str(out),str(out/'StartupGcCheck.java')],check=True)
 with tempfile.TemporaryDirectory(prefix='mc-startup-gc-')as temp:
@@ -68,8 +68,8 @@ with tempfile.TemporaryDirectory(prefix='mc-startup-gc-')as temp:
    assert log.with_name(log.name+'.0').is_file(),'no rolled log'
    assert set(p.name for p in Path(temp).glob('rolled.log*'))=={'rolled.log','rolled.log.0'}
   else:
-   text=log.read_text();assert all(x in text for x in ('[gc,start','[gc,heap','[gc,phases','[safepoint','Pause Full (System.gc())')),text[-4000:]
-print('PASS exact startup GC/safepoint JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only')
+   text=log.read_text();assert all(x in text for x in ('[gc,start','[gc,heap','[gc,phases','[safepoint','[class,load','[class,init','Pause Full (System.gc())')),text[-4000:]
+print('PASS exact startup GC/safepoint/class-load/class-init JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only')
 # Exercise the same native allocation preflight with actual upstream JNI on host.
 (out/'StartupAllocation.java').write_text('public class StartupAllocation{public static void main(String[]args){org.lwjgl.system.Configuration.MEMORY_ALLOCATOR.set("system");System.out.println(ClientStartup25.verifyNativeAllocation());}}')
 subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',str(out)+':'+cp,'-d',str(out),str(out/'StartupAllocation.java')],check=True)

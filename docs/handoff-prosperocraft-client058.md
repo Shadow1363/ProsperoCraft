@@ -1,3 +1,5 @@
+> Continuation:058crashed;OpenAL null playback device creation is recorded,no context completion. Last burst has class post-definition atLibrary.tryOpenDevice283. See [058evidence](validation/client058-startup-failure-2026-10-26.json) and [059class diagnostics](client-startup-059.md).
+
 # Current ProsperoCraft handoff — client058
 
 Continue existing files/history;read both workspace/consumer AGENTS.md.

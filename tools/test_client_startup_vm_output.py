@@ -12,7 +12,7 @@ p.add_argument('--java-home', type=Path, required=True)
 a = p.parse_args()
 current = (ROOT/'client/startup/bootstrap.cpp').read_text()
 old = subprocess.check_output(['git', 'show', 'a751f330df4dc5a1ebc989d8c7477ee92e3a0aad:client/startup/bootstrap.cpp'], cwd=ROOT, text=True)
-flag = re.search(r'"(-Xlog:gc\*=debug,safepoint\*=debug:[^"]+)"', current).group(1)
+flag = re.search(r'"(-Xlog:gc\*=debug,safepoint\*=debug,class\+load=info,class\+init=info:[^"]+)"', current).group(1)
 with tempfile.TemporaryDirectory(prefix='startup-vm-output-') as temp:
     root = Path(temp)
     (root/'GcFixture.java').write_text('public class GcFixture{public static void main(String[]a){byte[][]k=new byte[32][];for(int i=0;i<512;i++)k[i%32]=new byte[1024*1024];System.gc();}}')
@@ -65,6 +65,7 @@ int main(int argc,char **argv){
                 logs = list(case.glob('gc.log*'))
                 combined = ''.join(log.read_text() for log in logs)
                 assert '[gc' in combined and '[safepoint' in combined
+                if not rotate:assert '[class,load' in combined and '[class,init' in combined
                 if rotate:
                     assert {log.name for log in logs} == {'gc.log', 'gc.log.0'}
                 else:

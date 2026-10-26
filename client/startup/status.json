@@ -1,12 +1,12 @@
 {
-  "stage": "ProsperoCraft original startup058:upstream OpenAL native trace",
-  "date": "2026-10-25",
+  "stage": "ProsperoCraft original startup059:bounded JVM class load/init records after native device creation",
+  "date": "2026-10-26",
   "title_id": "PPSA99874",
-  "app_version": "01.000.058",
-  "package_sha256": "cd41f2fd2e98d455a1501e6e5b281894f8e5dba07396093e0cc501abec5a3cef",
-  "console": "PENDING058native OpenAL trace/device/context/crash resolution/menu.057crash confirms17burst records through language completion,shader apply,Library.tryOpenDevice class definition;no fatal cause.",
-  "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual owner-only transition burst:precise language trigger,finite samples/live owner stacks,elapsed/heap records,close without later writes;host only\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS exact startup GC/safepoint JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
-  "package_checks": "PASS058 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 cd41f2fd2e98d455a1501e6e5b281894f8e5dba07396093e0cc501abec5a3cef",
+  "app_version": "01.000.059",
+  "package_sha256": "53ce7cc8ff6c83ebec57044951bc44707cbce1322c6188d5e3585745c4857c09",
+  "console": "PENDING059PS5class-load/init records,crash resolution/menu.058trace creates null No Output playback device,no context completion;mainclass post-definition atLibrary.tryOpenDevice283;cause unknown.",
+  "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual owner-only transition burst:precise language trigger,finite samples/live owner stacks,elapsed/heap records,close without later writes;host only\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS exact startup GC/safepoint/class-load/class-init JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+  "package_checks": "PASS059 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 53ce7cc8ff6c83ebec57044951bc44707cbce1322c6188d5e3585745c4857c09",
   "game_main": "net.minecraft.client.main.Main.main(String[]) invoked reflectively without game transformations",
   "game_jar_modified": false,
   "runtime_implementation_modified": false,
@@ -40,16 +40,16 @@
     "Further native feature/API coverage and network-service failures",
     "Game memory adequacy/performance/global teardown;server endurance deferred"
   ],
-  "previous_failure": "docs/validation/client057-startup-failure-2026-10-25.json",
+  "previous_failure": "docs/validation/client058-startup-failure-2026-10-26.json",
   "memory_limit": "040used130MiB after last Java GC/247MiB committed;separate4MiB native allocator failure. Console-wide memory pressure and full game adequacy unmeasured.",
-  "development_repair": "No supported new crash fix. Diagnostic only:private startup OpenAL getenv binding returns upstreamALSOFT_LOGLEVEL3,forwards all other lookups,retains process environment/backend. Existing native-stderr captures trace.",
+  "development_repair": "No supported new defect. Diagnostic only:add class+load=info/class+init=info to existing bounded GC/safepoint file,unchanged058OpenALtrace/burst/game/runtime/heap/graphics.",
   "native_dependency_baseline": {
     "milestone": "Client_OpenGL_Provider",
     "version": "01.000.029",
     "full_package_sha256": "ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685",
     "console": "Human ALL5 PASS and saved reports;037 packaged provider/JNI/overlay hashes match029"
   },
-  "development": "058adds upstream OpenAL trace after057shows sound-library initialization following language/shader apply. Original game/assets/runtime image/heap/graphics remain.",
+  "development": "059targets unknown class load/initialization after native OpenAL device creation;no game hooks or memory/backend changes.",
   "startup_expectation": "Press X once to invoke actual Main. No automatic ALL PASS or successful-menu claim from native init/Main return;inspect actual display and reports.",
   "stb_baseline": {
     "milestone": "Client_STB_Codecs",
@@ -135,7 +135,7 @@
     "max_frames_printed_per_thread": 64,
     "output": "/exceptions.log;PS5 STARTUP SNAPSHOT/PS5 END SNAPSHOT markers",
     "scope": "Existing240regular samples/phase0+1native queries,plus one owner-only500sample burst after exact language/reload/main-loop frames.10ms sleeps,64printed frames,unchanged-stack references. Same daemon;regular native/full snapshots pause during burst. Observations can perturb timings/memory,not atomic crash context.",
-    "console": "057trigger worked:120regular snapshots/native phase pairs then17burst records97110..97278ms;language completes,shader apply then audioLibrary.tryOpenDevice/classdefinition;crash confirmed.058pending.",
+    "console": "058has122regular snapshots/nativepairs then12burst records,last97727ms,class post-definition viaaudioLibrary.tryOpenDevice283. Crashconfirmed,exactcauseunknown.059pending.",
     "early_samples": 90,
     "later_interval_ms": 5000,
     "nominal_last_sample_seconds": 419,
@@ -158,24 +158,25 @@
       "extra_threads": 0,
       "native_queries_inside_burst": false,
       "records": "PS5 MAIN TRANSITION + END,elapsed/heap/state/frame count;changed64frames or unchangedFromTransition reference",
-      "console": "057trigger/17samplesverified;500sample completion not reached.058pending."
+      "console": "058trigger/12samplesverified;500completionnotreached.059pending."
     }
   },
   "startup_observer_host_regression": "PASS actual owner-only transition burst:precise language trigger,finite samples/live owner stacks,elapsed/heap records,close without later writes;host only",
-  "latest_console_observations": "docs/validation/client057-startup-failure-2026-10-25.json",
+  "latest_console_observations": "docs/validation/client058-startup-failure-2026-10-26.json",
   "native_observer_host": "PASS actual native observer helper ASan/UBSan: raw resource/limit/direct-range values/errors/infinity/invalid-total skip,phase/elapsed formatting,append/write failure and errno preservation;controlled query results,not PS5 resource validation",
   "native_observer_report": "/process-usage.log build/run,phase0/1. getrusage and available flexible memory plus raw RLIMIT_DATA/AS/RSS and direct total/largest-range/status/sentinels. All raw result codes explicit;RSS units unverified. Ownership masks query only;no reinstallation.",
   "runtime_report_transport_commit": "1e9fb4f23a2e84e26c50fe67cc4e746ff371dfa2",
   "gc_safepoint_logging": {
-    "option": "-Xlog:gc*=debug,safepoint*=debug:file=/download0/java25-gc.log:uptimemillis,level,tags:filecount=1,filesize=4M",
+    "option": "-Xlog:gc*=debug,safepoint*=debug,class+load=info,class+init=info:file=/download0/java25-gc.log:uptimemillis,level,tags:filecount=1,filesize=4M",
     "reports": [
       "/gc.log",
       "/gc-rotated.log",
       "/previous-gc.log",
       "/previous-gc-rotated.log"
     ],
-    "console": "057dedicatedGC file406291bytes,63starts/63ends,lastfull232M->175M(247M)342.192ms;no unfinishedGC captured. Gamecrash cause unknown.",
-    "host": "PASS actual embedded JVM:055 callback reproduces empty dedicated/GC files;fixed callback preserves console capture,dedicated FILE,GC/safepoints and bounded rollover. Host only;PS5 pending."
+    "console": "059class recordspending;05863GCstarts/63ends,lastfull232M->175M(247M)349.955ms. Cause unknown.",
+    "host": "PASS exact startup GC/safepoint/class-load/class-init JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only",
+    "content": "GC/safepoint ANDclass-load/class-init records,active+one4MiBrotation;retrieve both routes."
   },
   "vm_output_host_regression": "PASS actual embedded JVM:055 callback reproduces empty dedicated/GC files;fixed callback preserves console capture,dedicated FILE,GC/safepoints and bounded rollover. Host only;PS5 pending.",
   "openal_trace": {
@@ -185,7 +186,8 @@
     "shim_object_sha256": "e2c64f025b2648204e31d06f267852403ec989a141618fc4428a9c2d1b917802",
     "original_object_sha256": "6ca60627c1d8151168662553b3073b5ede8bd4805021e1bae3ba0c4cbec36a80",
     "output": "existing native-stderr.log;native trace timing/coverage pending PS5",
-    "backend_selection_changed": false
+    "backend_selection_changed": false,
+    "console": "058trace confirmed actual null playback device creation. No capture backend/no context completion/physical audio acceptance;cause unknown."
   },
   "openal_trace_host": "actual alcOpenDevice nonnull=1 error=0\nactual alcCreateContext nonnull=1 error=0\nactual alcMakeContextCurrent=1\nactual alcCloseDevice=1\nPASS private OpenAL trace lookup:level3 only,other environment forwarded,process state unchanged,ASan/UBSan;real pinned host OpenAL trace/control and actual device/context calls. PS5 pending."
 }
