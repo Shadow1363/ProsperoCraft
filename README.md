@@ -26,13 +26,13 @@ rendering, working sound, reliable saves and an easy-to-use launcher.
 > **Sound works and gameplay feels buttery smooth on PS5.** The latest
 > **01.000.074** playtest confirms both, with native Java 25 and G1 GC.
 > [Playtest evidence](docs/validation/client074-smooth-audio-confirmation-2026-10-26.json) ·
-> [Published playable release066 →](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Playable-v01.000.066)
+> [Download the native launcher082 →](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082)
 
 ## Downloads
 
 | Release | What to expect | Get started |
 | :--- | :--- | :--- |
-| **Playable client · 01.000.066** | Minecraft Java 26.3, playable worlds and temporary DualSense controls. Sound and smoother gameplay are confirmed in development074; this release remains066. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Playable-v01.000.066) · [Setup](docs/releases/client-playable-066.md) |
+| **Native launcher · 01.000.082** | Download26.3demo instances on the console. Native library, DualSense controls, sound implementation and saved settings; exact082quit/relaunch and regression checks pending. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082) · [Setup](docs/releases/client-launcher-082.md) |
 | **Fabric / Paper servers · 01.000.108** | Separate server builds with positive console playtests. Full lifecycle and endurance checks remain pending. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Fabric-Paper-v01.000.108) · [Setup](docs/releases/fabric-paper-108.md) |
 
 Follow the matching release's provisioning instructions to obtain and verify the
@@ -53,7 +53,7 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Sound** | The user confirms very good game sound on exact build074. |
 | **Validation ahead** | Save/reload, controller polish, measured frame pacing and extended play remain to be checked. |
 
-Development082 requests 4 GiB of app storage for the redesigned native launcher,
+Release082 requests 4 GiB of app storage for the redesigned native launcher,
 persistent instance library, controller navigation and verified on-console demo downloads. New installs start
 empty; no game JARs or assets are bundled. [Preview and setup](docs/client-instances-079.md) · [Storage update](docs/client-storage-080.md) · [Controls and launcher polish](docs/client-controls-081.md) · [Checkbox, stick navigation and quit lifecycle](docs/client-launcher-082.md).
 082 adds a compact saved checkbox, native left-stick navigation and bounded focus animation.
@@ -63,7 +63,7 @@ Microsoft account access remains blocked at Minecraft Services403pending app rev
 
 Development074 now has positive PS5 sound and smoothness feedback, with no active quality caps.
 See the [freeze investigation and candidate guide](docs/client-audio-pacing-074.md).
-The published release remains066; this074playtest does not create a new public release.
+Release082 retains that implementation; the074playtest does not establish an082regression pass. Earlier066 remains available as a checkpoint.
 For individual fixes, console evidence and earlier milestones, read the detailed
 **[CHANGELOG.md](CHANGELOG.md)**.
 

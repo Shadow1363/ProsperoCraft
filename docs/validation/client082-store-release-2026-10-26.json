@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "version": "01.000.082",
+  "tag": "01.000.082",
+  "packaged_source_commit": "a7b70eac899941f7d60eb2ece5f27257e9a8f4d1",
+  "runtime_source_commit": "9afa03adfb34dc1049f18de5839d762662b6c306",
+  "user_publication_request": "lets publicate it on ProsperoStore!!!! this is the one!",
+  "authorization_scope": "Publish this exact082 release and convert existing ProsperoCraft Store reservation to downloadable; not a formal ALL PASS or a new frozen milestone",
+  "artifact_sha256": "ab49cad8977736be2be72230743232a270dba9bd17fa70a66b64a93c48230820",
+  "native_elf_sha256": "d93c3507dcf1df1284631d09963fc5d9ed73c4638a241b550313d5a9a14011df",
+  "openal_kit_sha256": "115bca4ac0ab4cbb4e4d3874c02cec8a0a32dfdfd8de584acc1e19d111bc9274",
+  "checks": [
+    "PASS exact082 public ZIP byte-for-byte matches full current launcher package",
+    "PASS complete target/package/CRC/signature/bytecode/frozen snapshot audit from082 build record",
+    "PASS no official game JARs/assets/credentials/photos/logs in public app",
+    "PASS native title root,4096MiB metadata,branding,pinned launcher dependencies and license notices",
+    "PASS OpenAL kit all input checksums and original/modified corresponding sources",
+    "PASS unmodified kit relink reproduces exact packaged ELF",
+    "PASS accepted-library replacement reproduces exact packaged ELF",
+    "PASS included edited-source-compatible builder rebuilds OpenAL and replacement links",
+    "PASS native navigation/session/draw/controller/auth/storage/audio/options fixtures from082 build record"
+  ],
+  "relink_outputs_sha256": {
+    "client082-release-relinked.elf": "d93c3507dcf1df1284631d09963fc5d9ed73c4638a241b550313d5a9a14011df",
+    "client082-release-replacement.elf": "d93c3507dcf1df1284631d09963fc5d9ed73c4638a241b550313d5a9a14011df",
+    "client082-release-source-relinked.elf": "30ea4de2441c7e24fec7adb1547ab325e1b6b3d9e3f62edc1756461f2439e2c0"
+  },
+  "console_status": "Exact082 launch/quit/relaunch,stick/checkbox persistence and audio/performance regression checks remain pending; no ALL PASS inferred",
+  "limits": [
+    "Microsoft application approval pending;26.3SDLdemo only",
+    "In-memory account session resets on process replacement",
+    "Current-run081 logs unavailable;diagnosis uses inspected photos and original bytecode",
+    "Existing server installation shares title ID and is replaced by client;preserve server packages/data"
+  ]
+}

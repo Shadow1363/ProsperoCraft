@@ -72,6 +72,15 @@ def build(runtime,output,variant="native_bootstrap",version="01.000.026",tested_
   with (kit/'README.txt').open('a')as readme:readme.write('''\nSTARTUP VARIANT ADDENDUM\nThe accepted library differs from pristine upstream: openal-startup-source/\ncontains the exact startup alc.cpp and helpers.cpp changes, plus the local scope header.
 If this build enables PS5 speakers, it also includes ps5_backend.cpp/.h and the
 CMake recipe to build that backend into OpenAL.\nconsumer-source/client/startup/openal_trace_env.c supplies the explicit game-data\npath and trace setting. Its exact object is retained and automatically linked\nwhen --openal-object replaces the library. To retain the accepted private getenv\nbinding, build from openal-startup-source using build_openal_replacement.py, then:\nllvm-objcopy --redefine-sym getenv=client_startup_openal_getenv /path/to/build/openal.o\npython3 relink.py --lld /path/to/ld.lld --objcopy /path/to/llvm-objcopy --openal-object /path/to/build/openal.o --output modified-symbols.elf\nYou may edit the sources and shim; an edited shim requires updating its manifest\ninput/hash. There is no pristine-source restriction on replacement builds.\naccepted-startup-openal.o is the exact already-staged library before lifecycle/\nshim grouping; it also exercises the replacement path against the accepted ELF.\nNo game assets are included. Provision BOTH JARs and all asset objects using\nprovision_client_menu.py and the release manifest before installing.\nMenu confirmation does not establish world gameplay, real speaker output or stability.\n''')
+ if variant=='startup' and (work/'assets/java25/launcher-dependencies.json').exists():
+  # Native launcher releases install directly; historical pre-provisioning
+  # instructions apply only to earlier game-containing startup packages.
+  readme=kit/'README.txt';text=readme.read_text()
+  text=text.replace('Use the public app-only ZIP and its provision helper to add your exact original\nclient/Java JARs. No game JARs are in this kit.',
+                    'Install the public launcher ZIP directly. Its native instance downloader fetches\noriginal game JARs and assets on the console. No game JARs are in this kit.')
+  text=text.replace('No game assets are included. Provision BOTH JARs and all asset objects using\nprovision_client_menu.py and the release manifest before installing.\nMenu confirmation does not establish world gameplay, real speaker output or stability.',
+                    'No game assets are included. This launcher release needs no desktop provisioning.\nIts on-console downloader verifies original publisher artifacts. Relink/build checks\ndo not establish console lifecycle, speaker output, gameplay or stability.')
+  readme.write_text(text)
  with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED)as z:
   for p in sorted(kit.rglob('*')):
    if p.is_file():z.write(p,p.relative_to(kit))
