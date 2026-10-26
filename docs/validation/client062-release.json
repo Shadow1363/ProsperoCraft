@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "version": "01.000.062",
+  "release_tag": "Client_Menu-v01.000.062",
+  "release_url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062",
+  "release_type": "Full GitHub release, human-confirmed visible-menu scope; no formal full-client ALL PASS",
+  "store_publication": false,
+  "tested_source_commit": "f3349a1fb90a9304d7aa808b339bd37738607d14",
+  "runtime_source_commit": "1e9fb4f23a2e84e26c50fe67cc4e746ff371dfa2",
+  "native_elf_sha256": "df5074be95daae364f7f49fc8e7a91749e41e1888042ef59fe04b18ef02b43f2",
+  "full_local_zip_sha256": "26f31cc26bc960d3c7e35205c0280e8b83bc6e475a17b8383c778583cf952b88",
+  "human_evidence": "client062-menu-confirmation-2026-10-26.json",
+  "build_evidence": "client062-build-2026-10-26.json",
+  "retained_files": 235,
+  "excluded_original_jars": 54,
+  "excluded_original_asset_objects": 5147,
+  "excluded_bytes": 599244598,
+  "provisioning": "PASS actual all-file/all-byte reconstruction against accepted full ZIP; actual publisher JAR+asset downloads; corrupted JAR/asset/retained-file refusal before app mutation. Python3.11+ standalone helper supports local originals or pinned downloads.",
+  "openal_relink": "PASS unmodified native relink and accepted-library replacement both match tested ELF exactly. Included modified OpenAL sources compile and link as replacement; resulting changed ELF does not inherit console acceptance.",
+  "openal_corresponding_source": "Original pinned source plus modified alc/helpers/scope header, explicit-path getenv shim source and object, exact link objects, generated config/build records/SDK headers and edit/replacement instructions. All original notices retained.",
+  "binary_rebuilt": false,
+  "public_package_policy": "Derived only from accepted062 bytes,excluding all original downloaded JARs and asset objects. No saves/credentials/raw logs included; exact original app layout/icon/SELF/metadata retained.",
+  "checks": {
+    "client062-release-provision-check.log": {
+      "sha256": "259af9de405fa130feba0dddcecf7255f42681f57fd3f86e86ba583138bc7566",
+      "bytes": 376
+    },
+    "client062-release-relink-check.log": {
+      "sha256": "3854a60f5d77b4ed7ea73e872a87e369dc52423db90c92a7da18a8adc8d51ad7",
+      "bytes": 121
+    },
+    "client062-release-replacement-check.log": {
+      "sha256": "188aa76db5b7330c04823fc500167cb4e32b8f6b15aeae3e6ae58aad567f7bce",
+      "bytes": 148
+    },
+    "client062-release-openal-source-check.log": {
+      "sha256": "881bdf713a1967fada0f56fe62bbfe872b65be939b1df43e0e65aaefa89881c5",
+      "bytes": 30777
+    },
+    "client062-release-source-relink-check.log": {
+      "sha256": "edb7e256ce71cdc6633d1935550f9631300ab66761cbc2a8eaa655b08b0ad089",
+      "bytes": 148
+    }
+  },
+  "assets": {
+    "ProsperoCraft-01.000.062-menu-app-only.zip": {
+      "sha256": "bc655b0991a44e67109c674a52ba3203b537877783f33a28b6b48d16a2753a43",
+      "bytes": 97129327
+    },
+    "client062-install-manifest.json": {
+      "sha256": "186dce2f9d43c51a254fc46b9931444c57813429108828e95c46987efa3a97d8",
+      "bytes": 2185837
+    },
+    "provision_client_menu.py": {
+      "sha256": "3ba252d8cc8183c39eaf0959381917ad6dc6d0912fe52bba643f5cec747a7a9d",
+      "bytes": 4836
+    },
+    "client062-openal-source-relink.zip": {
+      "sha256": "eb6eafcb78e777da550f34d178a9cae0390a0157b4e576aec8184090bf0716b7",
+      "bytes": 88246462
+    },
+    "README-client062.md": {
+      "sha256": "859651c20ca593b427d59232ea2e17a00bc732b349750520861b5b0e507a69a3",
+      "bytes": 7929
+    }
+  },
+  "pending_console_validation": [
+    "Menu interaction/controller navigation",
+    "World creation/rendering/play/save/reload",
+    "PS5 speaker audio;null/loopback port currently only",
+    "Repeated startup/full native teardown/endurance/performance"
+  ],
+  "preservation": "Exact full ZIP,symbols,build status/validation/human report retained in independent copy-on-write accepted snapshot;source implementation and release tag retained. Earlier frozen/failed packages/server fallbacks unchanged.",
+  "publication": "Release upload/download verification recorded separately in client062-release-publication.json after publishing."
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="310" viewBox="0 0 1200 310" role="img" aria-labelledby="title description">
+  <title id="title">ProsperoCraft — Minecraft Java on PS5</title>
+  <desc id="description">ProsperoCraft: the original Minecraft Java client reaches its menu on PS5 with native Java 25, confirmed by the user on build 01.000.062. World gameplay, controls, speaker audio and stability remain under development.</desc>
+  <defs>
+    <linearGradient id="background" x2="1" y2="1"><stop stop-color="#122720"/><stop offset="1" stop-color="#081610"/></linearGradient>
+    <linearGradient id="grass"><stop stop-color="#a5e1a2"/><stop offset="1" stop-color="#5ba783"/></linearGradient>
+  </defs>
+  <rect x="1" y="1" width="1198" height="308" rx="24" fill="url(#background)" stroke="#2b483b"/>
+  <path d="M920 0v310M1000 0v310M1080 0v310M1160 0v310M870 75h330M870 155h330M870 235h330" stroke="#1c3328"/>
+  <g stroke="#b2dfb9" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M1010 107l70-39 70 39-70 40z" fill="url(#grass)"/>
+    <path d="M1010 107l70 40v82l-70-40z" fill="#395845"/>
+    <path d="M1080 147l70-40v82l-70 40z" fill="#244536"/>
+    <path d="M1034 121v26l23 13v-25M1103 133v27l24-14v-27" fill="none" stroke="#5e866c"/>
+  </g>
+  <rect x="50" y="46" width="4" height="23" rx="2" fill="#98dab1"/>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif">
+    <text x="69" y="63" font-size="15" font-weight="600" letter-spacing="3" fill="#b0ccb9">JAVA EDITION · NATIVE PS5 HOMEBREW</text>
+    <text x="48" y="142" font-size="65" font-weight="700" letter-spacing="-2" fill="#f1f7f2">Prospero<tspan fill="#a5dfb5">Craft</tspan></text>
+    <text x="51" y="182" font-size="21" fill="#b3ccbc">Minecraft Java reaches its menu on PS5. Native Java 25. First menu release.</text>
+    <rect x="50" y="225" width="230" height="35" rx="17" fill="#243e30" stroke="#3d634c"/>
+    <text x="72" y="247" font-size="14" font-weight="600" fill="#bbdfc1">FIRST MENU · 01.000.062</text>
+    <text x="307" y="247" font-size="16" fill="#92b09d">Built on the separate PS5 Java 25 runtime port</text>
+  </g>
+</svg>

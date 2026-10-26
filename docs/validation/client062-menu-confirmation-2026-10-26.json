@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.062",
+  "tested_source_commit": "f3349a1fb90a9304d7aa808b339bd37738607d14",
+  "full_local_zip_sha256": "26f31cc26bc960d3c7e35205c0280e8b83bc6e475a17b8383c778583cf952b88",
+  "symbols_sha256": "df5074be95daae364f7f49fc8e7a91749e41e1888042ef59fe04b18ef02b43f2",
+  "human_report": "MENU IS HERE!!!!!!! lets make a release a very nice one, no prospero store but on GH please!",
+  "accepted_scope": "Original Minecraft Java client reaches visible menu on actual PS5 with native Java25. Human confirmation, not independently retrieved current-run logs or a screenshot.",
+  "not_validated": [
+    "Menu interaction and controller gameplay",
+    "World creation/rendering/play/save/reload",
+    "Real PS5 speaker output (OpenAL null/loopback only)",
+    "Repeated startup, full native teardown and long-duration stability"
+  ],
+  "formal_all_pass": false,
+  "release_authorization": "Full GitHub release for confirmed menu scope; no Prospero Store changes."
+}

@@ -15,7 +15,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Status: Fabric/Paper playtests, continuous direct rendering and software OpenGL bootstrap pass on PS5.** Client **01.000.023** passes all fifteen checks;retrieved reports confirm494direct FIFO frames,1,482scene draws,all3phases,physical inputs and JVM shutdown. Camera controls and Minecraft startup remain ahead;server two-hour endurance stays deferred.
+> **The Minecraft Java menu is running on PS5.** The user confirmed the visible menu in **01.000.062**, running on native Java 25. [Get the GitHub release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062) · [Setup and validation scope](docs/releases/client-menu-062.md). World gameplay, controls, speaker audio, saves and long-run stability still need validation. Fabric/Paper server releases remain available; server two-hour endurance stays deferred.
 
 ## The goal
 
@@ -56,7 +56,7 @@ The runtime now has **nine passing console milestones**, including inbound IPv4,
 
 ProsperoCraft brings Minecraft Java Edition client and server development to PS5,
 powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
-console playtests;client startup/menu is still under development.
+console playtests; the original client now reaches its menu on PS5.
 [Project artwork](assets/branding/README.md).
 
 ## Product goal
@@ -66,24 +66,28 @@ native Java25onPS5:responsive controls,smooth rendering,working audio,world game
 saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
 Those full-client features still require actual exact-build console validation.
 
-## Development client062 — explicit native app-local data directory
+## First Minecraft Java menu on PS5 — 01.000.062
 
-061confirms HRTFcount query0x1994enters app-local current_path lookup without a
-recorded result. Its error-code repair cannot help before that SDKoperation returns.
-Hostmissing-cwd exception handling remains valid;PS5failure mechanism unproven.
-Exact061package/symbols/evidence preserved.
+**The loading screen now leads to Minecraft's menu.** On 2026-10-26 the user
+confirmed the visible menu on the actual PS5 using the exact 062 package.
+This is the first confirmed menu checkpoint after the native dependency and
+rendering milestones. The game JARs and 5,147 original assets remain unchanged.
 
-062uses OpenAL's supportedALSOFT_LOCAL_PATH input:honor an existing nonempty value,
-otherwise use the same /download0/mc-client directory already created for the game.
-This removes default reliance on ambient nativecwd while preserving file discovery.
-Hostoriginal/private OpenAL enumerate1filename/error0 with explicitlocalpath even
-when currentdirectory is removed. Shimfallback/override/forwarding checks passed.
-Following filesystem stages are logged. **PS5crash resolution and full playable
-client validation remain pending.** No gameJAR/assets/runtime/heap/backend/graphics
-change,no clientrelease/Storedownload;serverendurance deferred.
-[062configuration](docs/client-startup-062.md) ·
-[061evidence](docs/validation/client061-startup-failure-2026-10-26.json) ·
-[Current handoff](docs/handoff-prosperocraft-client062.md).
+[Download the release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062) ·
+[Install guide and what's tested](docs/releases/client-menu-062.md) ·
+[Human console confirmation](docs/validation/client062-menu-confirmation-2026-10-26.json).
+
+The release preserves the tested executable and includes complete hash-pinned
+JAR **and asset** provisioning, checksums, and matching OpenAL source/relink materials.
+Official downloaded game files are restored locally rather than redistributed.
+The client shares PPSA99874 with the server and replaces that installation.
+
+062 supplies OpenAL with the explicit game-data directory, avoiding the ambient
+current-directory lookup where 061's trace stopped. The exact prior crash mechanism
+is still unproven. [Technical change](docs/client-startup-062.md).
+The menu report does not establish playable worlds, controller navigation, speaker
+output, save/reload, shutdown or endurance. This GitHub release is scoped to menu
+startup; it is not a formal full-client ALL PASS. No Store submission is included.
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 
@@ -565,6 +569,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **First Minecraft menu · 01.000.062** | Human-confirmed visible menu on actual PS5 / native Java 25; gameplay and stability pending | [Evidence & setup](docs/releases/client-menu-062.md) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062) |
 | **Client SPIRV-Cross · 01.000.036** | PS5 ALL5 PASS,saved reports:9shader translations/reflection/error controls/guards and JVM stop | [Frozen source & validation](Client_SPIRV_Cross) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SPIRV_Cross-v01.000.036) |
 | **Client VMA Allocator · 01.000.035** | PS5 ALL5 PASS,human+saved reports:12RADV transfers,3VMA allocator/device cycles,guards and JVM stop | [Frozen source & validation](Client_VMA_Allocator) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_VMA_Allocator-v01.000.035) |
 | **Client FreeType Fonts · 01.000.033** | PS5 ALL5 PASS,human+saved reports:real FreeType glyph rasterization/guards and JVM stop | [Frozen source & validation](Client_FreeType_Fonts) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_FreeType_Fonts-v01.000.033) |

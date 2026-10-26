@@ -537,3 +537,17 @@ including responsive controls,smooth rendering,working audio,world gameplay,
 saving/reloading and stability. A working menu is an intermediate debugging
 checkpoint,not the final product or sufficient full-client release acceptance.
 Continue beyond startup while keeping exact-build console scope/results honest.
+
+## User menu confirmation and GitHub release authorization — 2026-10-26
+
+The user confirms the visible Minecraft Java menu on exact client01.000.062
+and explicitly requests a polished GitHub release with no Prospero Store work.
+Tested implementation f3349a1fb90a9304d7aa808b339bd37738607d14; full-local ZIP
+26f31cc26bc960d3c7e35205c0280e8b83bc6e475a17b8383c778583cf952b88. Preserve
+these accepted bytes/symbols/source. This accepts visible menu startup only,
+not formal ALL PASS, menu interaction, world gameplay, speaker audio, save/reload,
+full teardown or stability. Publish a full release accurately qualified to that
+scope; retain server fallbacks. No Store/catalog changes are authorized here.
+Do not rebuild or change the accepted binary under the same version. Public
+app-only artifacts exclude original JARs AND asset objects; provision both with
+verified publisher pins. Include exact startup OpenAL source/relink/shim inputs.

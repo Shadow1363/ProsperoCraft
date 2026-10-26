@@ -87,3 +87,23 @@ inputs ifretained,notold026/036kit;alldependency notices;version/tag/layout/icon
 upload/downloadSHA checks;existingreservation undercurrentcatalogrules/checks.
 PR737merged,noduplicate title/PR/full-localZIPupload. Finishwith verifiedGitHubstatus,
 currentpackage/version/checksum and exactconsolevalidation pending.
+
+## Superseding human result — 2026-10-26
+
+The user explicitly confirms the Minecraft menu on exact062 and requests a full
+GitHub release, with no Store work. See docs/validation/client062-menu-confirmation-2026-10-26.json
+and docs/releases/client-menu-062.md. Menu startup is accepted; formal full-client
+ALL PASS, interaction, world gameplay, audio, saves and stability are not. Exact
+ZIP/symbols/build records are preserved under ignored dist/accepted/Client_Menu-01.000.062.
+Do not rebuild accepted062. The release tag preserves the source implementation
+f3349a1 plus release helpers/docs. Continue later native/game fixes in a new version.
+Public app-only excludes all54JARs/all5147asset objects; new standalone
+provision_client_menu.py restores all files from pinned originals and verifies the
+whole inventory. Complete reconstruction matches every accepted file byte for byte;
+actual downloads and corruption controls pass. OpenAL startup kit includes modified
+alc/helpers/header/envshim,exact objects/build records; exact ELF relink and
+accepted-library replacement hash df5074be95daae364f7f49fc8e7a91749e41e1888042ef59fe04b18ef02b43f2.
+Included modified sources also build and link as a replacement; edited/rebuilt bytes
+do not inherit console acceptance. Record release publication and downloaded asset
+verification in docs/validation/client062-release-publication.json once complete.
+No catalog/Store update; keep Fabric/Paper108 and earlier frozen snapshots intact.

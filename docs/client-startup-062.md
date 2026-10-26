@@ -69,3 +69,12 @@ reload/stability still need consolevalidation. Server2H remains deferred;complet
 accepted-byte/provisioning/license/relink/catalog gates from054handoff stillapply.
 
 Host/native/configuration/target/full-package checks passed. [Buildvalidation](validation/client062-build-2026-10-26.json). Full local ZIP SHA256 `26f31cc26bc960d3c7e35205c0280e8b83bc6e475a17b8383c778583cf952b88`.062PS5pending.
+
+## Console result — 2026-10-26
+
+The user confirms the visible Minecraft menu on exact01.000.062 and requests a
+GitHub release without Store publication. This supersedes the pending-menu status
+above for this exact package; it does not establish interaction/gameplay/audio/
+save-reload/stability or a formal full-client ALL PASS. See
+[menu confirmation](validation/client062-menu-confirmation-2026-10-26.json) and
+[release/setup](releases/client-menu-062.md). Accepted app bytes are preserved.
