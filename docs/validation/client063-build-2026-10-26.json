@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.063",
+  "package_sha256": "a1c62a8a6ccc8554c77ea3166633545fd08da6ca2b8e1ebffaf0c843677545f0",
+  "symbols_sha256": "6458009ec3d08df45989f33230e9e7ed73634c714f19a3c7e456691df166d274",
+  "source_revision": "Consumer commit containing this build record;parent89aa99d672374561455fae94da6ceb4f5a4050be",
+  "source_sha256": {
+    "client/ports/sdl/SDL_ps5video.c": "ae2c1f9a6b0589be7496a5b425176bcce22d3c6f20b10757d1c376a9447b01ef",
+    "client/ports/sdl/platform-input.c": "1b9d06557a91c24aa014519f9cb121d8942dbcd9bdb4f742968bbb2b1327a0ef",
+    "client/ports/sdl/ps5_temporary_input.h": "97068160112caffec629f5c3238431ba8c277bf5e0323a9d45b7177478f246a9",
+    "client/startup/ClientStartup25.java": "ffb174e7e1f4c1a5b2149ee8373608a4d92bd2b472933eec29db06f91a7fc3b2",
+    "client/startup/bootstrap.cpp": "51348cd63bf8ca4d61ec626e4704f70ee551fffd920117b8c28b78e89535102a",
+    "client/startup/param.json": "27283d35523a5f8d78f0abf97ff60b0012d93c744a5eb4081a47e23f27ab2715",
+    "tools/test_ps5_temporary_input.py": "8b94bb5dccb1d17e28186587723e1b5213ea1c5dd246b1d227f9e7bce4498d00",
+    "tools/test_menu_policy.py": "311c04b12076e2f066ee82b8051535232c9b7607438c604e1ad9976978e2a87e",
+    "tools/test_sdl_pad_platform.py": "0dd1babad0b0a51d505733abc279421a7f9371aec1bf6374d0b2477ba5acdbd4",
+    "tools/package_client_vulkan.py": "0800e604382eaea9c52bd10f89e3cb0ca15377d4b8f878247d98ee33fc0de882",
+    "tools/test_client_startup_package.py": "b16a6aa1b4477ac38cf395b35c7b6216150ded8de9aeda45e10b59ee527df94b",
+    "tools/test_client_startup_host.py": "dcd98eeb76b4d48887bfd63f1d19fbb8216d2cb60c4b4dc4c5c17cba95b57100"
+  },
+  "runtime_commit": "1e9fb4f23a2e84e26c50fe67cc4e746ff371dfa2",
+  "runtime_implementation_modified": false,
+  "java_heap_mib": 256,
+  "mode": "Existing interpreter/SerialGC unchanged",
+  "game_transformations": [],
+  "console": "PENDING exact063controls/menu idle comparison;062menu accepted separately. No new formal pass/release/Store change.",
+  "checks": {
+    "client063-host.log": {
+      "sha256": "b5772090b849814504c82405c82d4d154c54d998f4ab91c846a3115484ac9478",
+      "bytes": 1131,
+      "result": "PASS"
+    },
+    "client063-input-host.log": {
+      "sha256": "80a02636cff25529182c098ba4a5c1d871f04f147f9f54fd0301699df4ddc1c2",
+      "bytes": 292,
+      "result": "PASS"
+    },
+    "client063-menu-policy-host.log": {
+      "sha256": "f9e6268cecd12ef59b9ba78643efa1139f5860cbb7ee5126939614fa3c0714ee",
+      "bytes": 202,
+      "result": "PASS"
+    },
+    "client063-sdl-target.log": {
+      "sha256": "6d02998d236eefea3c470e8e50a6f08d58fd165315175f2a672d539d4588f7e1",
+      "bytes": 24488,
+      "result": "PASS"
+    },
+    "client063-package.log": {
+      "sha256": "74e3deac3d520085a1cc627e9bca7239d9f749531476c80c6657d722213b2a9a",
+      "bytes": 77225,
+      "result": "PASS"
+    },
+    "client063-package-check.log": {
+      "sha256": "4258e33762bf0a4ec2f93716f3a396854cf521469828cb034cb4376a3c5d0214",
+      "bytes": 531,
+      "result": "PASS"
+    }
+  },
+  "accepted062_preserved": "26f31cc26bc960d3c7e35205c0280e8b83bc6e475a17b8383c778583cf952b88",
+  "evidence": "client062-menu-analysis-2026-10-26.json",
+  "controlify": "Preferred future mod with exact compatible game/loader/native APIs;not installed or validated onPS5."
+}

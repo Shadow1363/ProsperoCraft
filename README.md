@@ -66,6 +66,24 @@ native Java25onPS5:responsive controls,smooth rendering,working audio,world game
 saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
 Those full-client features still require actual exact-build console validation.
 
+## Development063 — temporary controls and idle menu policy
+
+Candidate **01.000.063** adds temporary DualSense keyboard/mouse translation
+through normal SDL events: D-pad/left stick navigate menus, X selects, Circle goes
+back, Triangle sends Tab, and Square sends Backspace. It retains buffered taps,
+releases held inputs on interruption, and hands off when SDL gamepads initialize.
+The raw gamepad driver remains available for the user's preferred future
+[Controlify](https://github.com/isXander/Controlify) integration.
+
+The harness sets vanilla `inactivityFpsLimit:"minimized"`, backing up existing
+options and preserving other settings. This targets the AFK-related gradual idle
+slowdown; measured full-GC stutter remains separate. Heap, interpreter, game JARs
+and assets are unchanged. Host/native/package checks pass; **actual063controls
+and smoother idle behavior require PS5 validation**. The public release remains062.
+[Controls and test guide](docs/client-controls-063.md) ·
+[Build record](docs/validation/client063-build-2026-10-26.json) ·
+[Current handoff](docs/handoff-prosperocraft-client063.md).
+
 ## First Minecraft Java menu on PS5 — 01.000.062
 
 **The loading screen now leads to Minecraft's menu.** On 2026-10-26 the user

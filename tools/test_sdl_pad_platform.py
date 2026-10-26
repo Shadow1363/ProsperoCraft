@@ -19,7 +19,7 @@ int scePadClose(int32_t h){assert(h==7);return 0;}
 int sceKernelUsleep(uint32_t t){(void)t;return 0;}
 int scePadRead(int32_t h,void*data,int32_t capacity){assert(h==7&&capacity==64);unsigned char*p=data;memset(p,0,120);memcpy(p,&buttons,4);p[4]=255;p[5]=p[6]=p[7]=128;memcpy(p+0x4c,&connected,4);reads++;return 1;}
 void client_sdl_diagnostic(const char*t){assert(t&&*t);}
-int main(void){assert(pad_open());assert(opens==1&&init_calls==0);struct pad p={0};pad_poll(&p);assert(reads==1&&pad_players()==1);assert(p.held==PAD_CROSS&&p.left_x>0.9f);buttons=0;pad_poll(&p);assert(p.held==0);connected=0;pad_poll(&p);assert(pad_players()==0);puts("PASS real SDL input adapter: bootstrap-owned init reused, real open/read path, button/axis/release/disconnect state; host OS fixtures, not PS5 hardware");}
+int main(void){assert(pad_open());assert(pad_open());assert(opens==1&&init_calls==0);struct pad p={0};pad_poll(&p);assert(reads==1&&pad_players()==1);assert(p.held==PAD_CROSS&&p.left_x>0.9f);buttons=0;pad_poll(&p);assert(p.held==0);connected=0;pad_poll(&p);assert(pad_players()==0);puts("PASS real SDL input adapter: bootstrap-owned init reused, real open/read path, button/axis/release/disconnect state; host OS fixtures, not PS5 hardware");}
 '''
 with tempfile.TemporaryDirectory(prefix='sdl-pad-test-')as folder:
  p=Path(folder);(p/'test.c').write_text(source)

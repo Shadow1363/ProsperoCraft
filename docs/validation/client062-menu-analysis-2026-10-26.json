@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.062",
+  "run": "client-01.000.062-1793009308-660533772",
+  "human": "Visible menu accepted;user reports no button controls and initially normal menu that gets laggier.",
+  "retrieval": "Read-only Safari current report downloads;no restart/X;raw reports retained locally. Saved RUN is not liveness or frame-rate proof.",
+  "reports": {
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "3b728236fc342cd2f947475a990d057c552bbc8c945c926c8745bb6e3e9eb933"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "9fad3127ba32ef7e43673e3c947a4a1bdb48f59478772717012787fdacf1ecbf"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "a30093bbc20477f828579c33132cda58ce2e5950a2ba6038c76978de239cda97"
+    },
+    "native-stderr.log": {
+      "bytes": 34650,
+      "sha256": "c07b166c029d252cdcdae4e777e7b0d833bfe06293cbdee32e9877167f504cbd"
+    },
+    "vm-trace.log": {
+      "bytes": 2088447,
+      "sha256": "97b4008f838e448a837cb440a1dca14aa53744796542021a113f83bbb7bfbb5e"
+    },
+    "process-usage.log": {
+      "bytes": 388819,
+      "sha256": "0125f71b44955bcd2e084aec487928828ad30f7408e5db176be266ff63a22be1"
+    },
+    "exceptions.log": {
+      "bytes": 2923987,
+      "sha256": "e296869b233cb519c2cd52ad2d7d6990041cd64561705a8783a6f2fbb604644c"
+    },
+    "gc.log": {
+      "bytes": 340453,
+      "sha256": "d7c7d55d80de423c3fb14136af00faabe0d9c3c33388d177c5f7b86ae8327eb8"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194370,
+      "sha256": "bbe5e9ad4cd3474e8cb645eb8437d6e72fcce6fdadf42ffce6147ba06eb9b626"
+    }
+  },
+  "findings": [
+    "Existing PS5 SDL video PumpEvents was empty;joystick driver alone does not supply vanilla keyboard/mouse actions.",
+    "Late render-thread samples are in FramerateLimiter.limitDisplayFPS/parkNanos. No measured before/after FPS or directly recorded throttle reason.",
+    "Read-only original26.3 FramerateLimitTracker bytecode defaults via Options to AFK,limits to30FPS after60000ms without input and10FPS after600000ms. MINIMIZED skips AFK timers;out-of-level menu limit remains60. Inactivity is a supported likely contributor,not proof of all lag.",
+    "Retained late SerialGC full collections occur roughly16.3seconds apart,around286\u2013403ms with roughly172MiB live after full collections;separate potential stutter remains. No heap/JIT adjustment in063."
+  ],
+  "implementation_direction": "Temporary normal SDL event bridge plus supported options migration;no game class/bytecode modifications;Controlify preferred later."
+}

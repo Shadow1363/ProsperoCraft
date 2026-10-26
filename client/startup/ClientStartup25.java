@@ -10,14 +10,28 @@ import org.lwjgl.system.MemoryUtil;
 public final class ClientStartup25 {
  public static native void checkpoint(String text);
  public static native void nativeSnapshot(long elapsedMillis,int phase);
- private static void stage(String text){checkpoint("MC Startup062: "+text);}
+ private static void stage(String text){checkpoint("MC Startup063: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
  }
  public static void prepareWork(Path work)throws IOException{
   Files.createDirectories(work);Files.createDirectories(work.resolve("native-cache"));Files.createDirectories(work.resolve("resourcepacks"));
-  Path options=work.resolve("options.txt");if(!Files.exists(options))Files.writeString(options,"soundCategory_master:0.0\nsoundCategory_music:0.0\n",StandardCharsets.UTF_8,StandardOpenOption.CREATE_NEW);
+  Path options=work.resolve("options.txt");
+  if(!Files.exists(options))Files.writeString(options,"soundCategory_master:0.0\nsoundCategory_music:0.0\ninactivityFpsLimit:\"minimized\"\n",StandardCharsets.UTF_8,StandardOpenOption.CREATE_NEW);
+  else {
+   String original=Files.readString(options,StandardCharsets.UTF_8);
+   String desired=original.replaceAll("(?m)^inactivityFpsLimit:[^\\r\\n]*","inactivityFpsLimit:\"minimized\"");
+   if(desired.equals(original)&&!original.lines().anyMatch(line->line.startsWith("inactivityFpsLimit:")))
+    desired=original+(original.isEmpty()||original.endsWith("\n")?"":"\n")+"inactivityFpsLimit:\"minimized\"\n";
+   if(!desired.equals(original)) {
+    Path backup=work.resolve("options.before-menu063.txt");
+    if(!Files.exists(backup))Files.copy(options,backup);
+    Path temporary=work.resolve("options.menu063.tmp");
+    Files.writeString(temporary,desired,StandardCharsets.UTF_8);
+    Files.move(temporary,options,StandardCopyOption.REPLACE_EXISTING);
+   }
+  }
  }
  /** Real LWJGL system allocator,including paired grow/free and alignment. */
  public static String verifyNativeAllocation(){
@@ -141,6 +155,9 @@ public final class ClientStartup25 {
    Configuration.MEMORY_ALLOCATOR.set("system");Configuration.OPENAL_LIBRARY_NAME.set(System.mapLibraryName("ps5openal"));Configuration.SDL_LIBRARY_NAME.set(System.mapLibraryName("ps5sdl"));Configuration.VULKAN_LIBRARY_NAME.set(System.mapLibraryName("ps5clientgpu"));Configuration.SHADERC_LIBRARY_NAME.set(System.mapLibraryName("ps5shaderc"));Configuration.SHARED_LIBRARY_EXTRACT_PATH.set(work.resolve("native-cache").toString());
    stage("configure validated036 SPIRV-Cross,035 VMA,033 FreeType,031 STB and029 real OSMesa/OpenGL plus026 libffi/OpenAL and resident SDL/Vulkan/shaderc;other native bindings remain incomplete");
    System.loadLibrary("ps5clientgpu");System.loadLibrary("ps5clientgl");System.loadLibrary("ps5shaderc");System.loadLibrary("ps5sdl");System.loadLibrary("ps5openal");
+   boolean controls=org.lwjgl.sdl.SDLHints.SDL_SetHint("PS5_TEMPORARY_CONTROLS",System.getProperty("ps5.temporaryControls","1"));
+   stage("Temporary SDL controls hint="+org.lwjgl.sdl.SDLHints.SDL_GetHint("PS5_TEMPORARY_CONTROLS")+" accepted="+controls+";D-pad/left stick=menu arrows,X=select,Circle=back,Triangle=Tab,Square=Backspace;gamepad subsystem hands off to future mods");
+   stage("Menu inactivity FPS policy=minimized;other options retained,original backed up when migrated");
    stage(verifyNativeAllocation());
    Runtime heap=Runtime.getRuntime();stage("heap maxMiB="+(heap.maxMemory()/1048576)+" committedMiB="+(heap.totalMemory()/1048576)+" usedMiB="+((heap.totalMemory()-heap.freeMemory())/1048576));
    stage("original Main class lookup;offline demo arguments,no credentials or multiplayer");

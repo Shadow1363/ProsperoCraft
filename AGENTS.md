@@ -551,3 +551,15 @@ scope; retain server fallbacks. No Store/catalog changes are authorized here.
 Do not rebuild or change the accepted binary under the same version. Public
 app-only artifacts exclude original JARs AND asset objects; provision both with
 verified publisher pins. Include exact startup OpenAL source/relink/shim inputs.
+
+## User control and menu performance direction — 2026-10-26
+
+After the062menu release, the user requests temporary functional controls and a
+menu-lag fix. The user prefers upstream Controlify for the eventual modded client,
+on an exactly compatible Fabric/NeoForge build. Do not treat desktop mod support
+as PS5 acceptance. Temporary063SDL keyboard/mouse translation is opt-in through
+PS5_TEMPORARY_CONTROLS and must hand off to real gamepad/mod support without double
+input. Preserve the raw SDL joystick path. No game JAR rewrites/replacement classes.
+The observed gradual idle slowdown has a supported vanilla AFK policy alternative;
+GC stutter remains distinct. Preserve accepted062release bytes/tag and continue
+candidates at063or later;no Store updates or new release without separate request.

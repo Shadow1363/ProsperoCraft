@@ -170,6 +170,9 @@ pad_scan(void)
 bool
 pad_open(void)
 {
+   /* Video's temporary mapper and the real joystick driver share these handles. */
+   if (pad_service)
+      return pad_states[0].handle >= 0;
    for (int player = 0; player < PAD_PLAYERS; player++)
       pad_rest(&pad_states[player]);
    /* Altered: this title's bootstrap already initializes UserService/Pad and
