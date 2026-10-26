@@ -12,11 +12,11 @@ from provision_client_menu import provision
 ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--release-dir', type=Path, required=True)
-p.add_argument('--version', choices=['01.000.062','01.000.065'],default='01.000.062')
+p.add_argument('--version', choices=['01.000.062','01.000.065','01.000.066'],default='01.000.062')
 p.add_argument('--full-package',type=Path,default=ROOT/'dist/client-startup/PPSA99874.zip')
 a = p.parse_args()
 number=a.version.rsplit('.',1)[-1]
-scope='world' if number=='065' else 'menu'
+scope='playable' if number=='066' else 'world' if number=='065' else 'menu'
 release = a.release_dir.resolve()
 record = json.loads((release / ('client'+number+'-install-manifest.json')).read_text())
 assert len([r for r in record['excluded_files'] if r['kind'] == 'jar']) == 54

@@ -574,3 +574,13 @@ stability. Preserve065accepted bytes/symbols/source/tag. No Store work.
 Proceed with performance investigation and a new066candidate;guardedC1 and SDL
 relative-input repair are in scope. Fullhardwareutilization is the goal,not a
 claim justified by enabling flags. No gameJAR transformations/replacementclasses.
+
+## Playable066release and audio work — 2026-10-26
+
+The user confirms066is blazinglyfast,worldplayable,startuproughly30seconds,and
+requests release then sound before further instructions. Publish exact066asfull
+GitHubplayableworldrelease,accuratelyqualified humanresult—notFPS/ALLPASS/save/
+audio/enduranceguarantee. Preserve exactZIP/symbols/source/tag. NoStorework.
+Next067isrealPS5AudioOut/OpenALspeakerbackendplusbacked-upunmutingoflegacy
+launcherdefaults. Keep gameJARs/assetsintact,working066fallback andspeedsettings.
+No further performance-tuning scope beyond maintaining working C1 is requested.

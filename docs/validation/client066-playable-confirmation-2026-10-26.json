@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "version": "01.000.066",
+  "tested_source_commit": "59c3d1018102c8662572d6179c7e489bbb7245b1",
+  "runtime_commit": "44fdf26ccb74cf8dd9127f1256b85416856981de",
+  "package_sha256": "0b549873222b155fd21b4a441535390660598096f3f32c27081a963d00ea7802",
+  "symbols_sha256": "a32603dffb9d86448fac0b22917e9eac1220b79c4ef90439f625188ac148c437",
+  "human": "Blazinglyfast,worldplayable,gameloadswithinroughly30sec,worldloadingnice;requestreleaseandsoundnext",
+  "scope": "Human playable-world and major responsiveness improvement;approximate observed startup,notbenchmark/general30secguarantee. NoformalALLPASS,FPSnumber,fullhardwareutilization,save-reload,audio/enduranceacceptance.",
+  "release": "FullGitHubreleaseofexact066,noStore;next067speakeroutputcandidate."
+}

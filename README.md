@@ -15,7 +15,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **Minecraft Java now loads a world on PS5.** Build **01.000.065** reaches a world and punching works on native Java25. **Severe lag, very long loading and movement failure remain.** [First world release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_World-v01.000.065) · [Setup and known issues](docs/releases/client-world-065.md). This is an experimental world-entry checkpoint, not a playable-performance pass.
+> **Minecraft Java is now playable on PS5.** The user reports a major speed improvement and roughly30second startup in **01.000.066**,with guarded C1 compilation and repaired captured input. [Playable release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066) · [Setup and limits](docs/releases/client-playable-066.md). Sound,save/reload,controller polish and endurance remain pending;startup time is an observation,not a guarantee.
 
 ## The goal
 
@@ -65,6 +65,13 @@ ProsperoCraft aims to be a polished,playable Minecraft Java client running on
 native Java25onPS5:responsive controls,smooth rendering,working audio,world gameplay,
 saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
 Those full-client features still require actual exact-build console validation.
+
+## Playable world release — 01.000.066
+
+The user confirms playable worlds,major responsiveness improvement and roughly
+30second startup. ActualPS5reports confirm the C1correctness gate and playerjoin.
+[Release and setup](docs/releases/client-playable-066.md). Sound remains absent;
+this is not a formal full-client ALLPASS or a measured FPS/hardware-utilization claim.
 
 ## Development066 — compile Java and repair captured input
 
@@ -637,6 +644,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **Playable world · 01.000.066** | Human playable world/major speed improvement,~30secstartup;C1gate/joinreports | [Scope/setup](docs/releases/client-playable-066.md) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066) |
 | **First world · 01.000.065** | Human world entry/punching,joined/rendered reports;severe lag and movement failure | [Scope/setup](docs/releases/client-world-065.md) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_World-v01.000.065) |
 | **First Minecraft menu · 01.000.062** | Human-confirmed visible menu on actual PS5 / native Java 25; gameplay and stability pending | [Evidence & setup](docs/releases/client-menu-062.md) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062) |
 | **Client SPIRV-Cross · 01.000.036** | PS5 ALL5 PASS,saved reports:9shader translations/reflection/error controls/guards and JVM stop | [Frozen source & validation](Client_SPIRV_Cross) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SPIRV_Cross-v01.000.036) |

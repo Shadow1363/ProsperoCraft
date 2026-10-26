@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.066",
+  "session": "Run: client-01.000.066-1793014848-745603202",
+  "warmup_markers": [
+    "JIT_WARMUP_BEGIN compiler=HotSpot 64-Bit Tiered Compilers",
+    "JIT_WARMUP_OK level=1 checked=40960 checksum=-6768279547524641561"
+  ],
+  "oom_count": 0,
+  "player_join_messages": 2,
+  "jit_kernel_records_retained": 1,
+  "scope": "RetrievedreportsconfirmactualC1gate/joinwhenpresent;JITlogrotates,earlierrecordsmaybeoutofcoverage. Humanplayability/startup~30secisobservationalnotcontrolledbenchmark/FPSguarantee.",
+  "reports": {
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "4fd580c5b33bd14b5443e20b2d0137630cd3850fcdaf0d3c8eb95b17a4d50360"
+    },
+    "session.txt": {
+      "bytes": 161,
+      "sha256": "3add93706aa48265b7c8589411cfe0b2ff617131161b57908791ea4307e9ac7b"
+    },
+    "exceptions.log": {
+      "bytes": 2767356,
+      "sha256": "7665526fe1d7e42508aa8f47e8468e6ed03e85abe1b74a5b87343ffe8dfe9e0f"
+    },
+    "jit.log": {
+      "bytes": 2418394,
+      "sha256": "99aebfb81d85ab9516e3a28fd0eb805333d27ccbb2bf6df9340e8e4c6683694c"
+    },
+    "native-stderr.log": {
+      "bytes": 32675,
+      "sha256": "002df918d6c6fb3761dbec8cdd63e69a61dbbc6ad31a16ce49c3011968f5ea0a"
+    },
+    "gc.log": {
+      "bytes": 1156173,
+      "sha256": "ff0fd8192e09907d16a45f592ef5f33d698b9ac70f4958f4c759601c9e0d02bb"
+    }
+  },
+  "end_of_run": "OriginalMainlaterloggedStoppingandreturned;harnessmarksreturnFAILbydesign. Userintentforclosingnotestablished;notautomaticcrashorcleanlifecycleproof."
+}

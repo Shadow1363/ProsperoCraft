@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "version": "01.000.066",
+  "tag": "Client_Playable-v01.000.066",
+  "tested_source_commit": "59c3d1018102c8662572d6179c7e489bbb7245b1",
+  "runtime_commit": "44fdf26ccb74cf8dd9127f1256b85416856981de",
+  "full_local_zip_sha256": "0b549873222b155fd21b4a441535390660598096f3f32c27081a963d00ea7802",
+  "accepted_scope": "Humanplayableworld/majorresponsiveness/startup~30sec;actualC1gateandjoinreports. Notcontrolledbenchmark/FPS/fullhardware/ALLPASS/save/audio/enduranceguarantee.",
+  "native_elf_sha256": "a32603dffb9d86448fac0b22917e9eac1220b79c4ef90439f625188ac148c437",
+  "openal_kit": "Fresh066matchinginputs/source/header/shim/buildrecords/SDKheaders/editableinstructions. Exactunmodified+acceptedreplacementELF;includedmodifiedsourcesbuild/link.",
+  "provisioning": "Everyacceptedfile/byte reconstructed fromapp-only+54originalJARs/5147assets;actualdownloads/corruptionandretainedtampercontrolspass.",
+  "checks": {
+    "client066-release-provision.log": {
+      "sha256": "259af9de405fa130feba0dddcecf7255f42681f57fd3f86e86ba583138bc7566",
+      "bytes": 376,
+      "result": "PASS"
+    },
+    "client066-release-relink.log": {
+      "sha256": "3e2b536f2faa4273e5f03a74e52cab2316963abed932b13dffd8583b4ddd4bc2",
+      "bytes": 121,
+      "result": "PASS"
+    },
+    "client066-release-replacement.log": {
+      "sha256": "5560fd1f2311f23f56d6d32b49fa20b14d3a40dfbad8d85c785acb1c748b3d7f",
+      "bytes": 148,
+      "result": "PASS"
+    },
+    "client066-release-source-build.log": {
+      "sha256": "953fd26beefd33612e1576c592af091e1e29ff931f58c76085de0680ba6445ce",
+      "bytes": 30777,
+      "result": "PASS"
+    },
+    "client066-release-source-relink.log": {
+      "sha256": "4a4163b68e896e447b180dbfb5e0741666939741f8244e5f18a694a0334d2b2b",
+      "bytes": 148,
+      "result": "PASS"
+    }
+  },
+  "assets": {
+    "ProsperoCraft-01.000.066-playable-app-only.zip": {
+      "sha256": "00b3d5dfcc927c47b0481146715a9da72215f2219df1c7678401c79c62bb80b6",
+      "bytes": 97177979
+    },
+    "client066-install-manifest.json": {
+      "sha256": "528dae8b79fbacb1ce6b137eee00db647f26cfec2aa2fe19d1dbf7df3d36223c",
+      "bytes": 2186021
+    },
+    "provision_client_menu.py": {
+      "sha256": "3ba252d8cc8183c39eaf0959381917ad6dc6d0912fe52bba643f5cec747a7a9d",
+      "bytes": 4836
+    },
+    "README-client066.md": {
+      "sha256": "02cd227b9e445a3a6c0129980b7b66da1c5b100b1e597aa12579fabec397a05e",
+      "bytes": 6358
+    },
+    "client066-openal-source-relink.zip": {
+      "sha256": "c6318e504ef118c923db4e7b3398e5233124ceb81277516ef158c0e43f703802",
+      "bytes": 88264397
+    }
+  },
+  "store_changed": false
+}
