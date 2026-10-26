@@ -26,13 +26,13 @@ rendering, working sound, reliable saves and an easy-to-use launcher.
 > **Sound works and gameplay feels buttery smooth on PS5.** The latest
 > **01.000.074** playtest confirms both, with native Java 25 and G1 GC.
 > [Playtest evidence](docs/validation/client074-smooth-audio-confirmation-2026-10-26.json) ·
-> [Download the native launcher082 →](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082)
+> [Download the native launcher083 →](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.083)
 
 ## Downloads
 
 | Release | What to expect | Get started |
 | :--- | :--- | :--- |
-| **Native launcher · 01.000.082** | Download26.3demo instances on the console. Native library, DualSense controls, sound implementation and saved settings; human-confirmed ALL PASS for the082launcher and quit/relaunch fixes. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082) · [Setup](docs/releases/client-launcher-082.md) |
+| **Native launcher · 01.000.083** | Download26.3demo instances on the console. Fixed1080p logical/display size addresses reported click misalignment; exact083PS5confirmation pending. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.083) · [Setup](docs/releases/client-resolution-083.md) |
 | **Fabric / Paper servers · 01.000.108** | Separate server builds with positive console playtests. Full lifecycle and endurance checks remain pending. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Fabric-Paper-v01.000.108) · [Setup](docs/releases/fabric-paper-108.md) |
 
 Follow the matching release's provisioning instructions to obtain and verify the
@@ -53,7 +53,7 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Sound** | The user confirms very good game sound on exact build074. |
 | **Validation ahead** | Save/reload, controller polish, measured frame pacing and extended play remain to be checked. |
 
-Release082 requests 4 GiB of app storage for the redesigned native launcher,
+Release083 requests 4 GiB of app storage for the redesigned native launcher,
 persistent instance library, controller navigation and verified on-console demo downloads. New installs start
 empty; no game JARs or assets are bundled. [Preview and setup](docs/client-instances-079.md) · [Storage update](docs/client-storage-080.md) · [Controls and launcher polish](docs/client-controls-081.md) · [Checkbox, stick navigation and quit lifecycle](docs/client-launcher-082.md).
 082 adds a compact saved checkbox, native left-stick navigation and bounded focus animation.
@@ -97,7 +97,9 @@ A Store-installed082report identifies misaligned game-menu clicks when using
 lower logical resolutions. On082, select1920×1080in launcher Settings before
 launching. [Development083](docs/client-resolution-083.md) locks1080pin launch,
 SDLwindow and display selection and migrates saved settings. Its exactPS5
-pointer/demo-world check is pending; the published082package remains unchanged.
+pointer/demo-world check remains pending. [Release083](docs/releases/client-resolution-083.md)
+is published at the user’s request; the Store catalog update follows separately.
+The published082package remains unchanged as a fallback.
 
 ## Runtime foundation
 

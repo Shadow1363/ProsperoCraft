@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.083",
+  "title_id": "PPSA99874",
+  "user_authorization": "and qill you make a prosperostore release?",
+  "packaged_source_commit": "97d2b14c7e3f0ee35e5d63750d743bf0149fe594",
+  "runtime_commit": "9afa03adfb34dc1049f18de5839d762662b6c306",
+  "package_sha256": "8fcbdc8cb9cc8065aa0eaac26457a834fffb15098725e987df1d33257a76444e",
+  "native_elf_sha256": "f30b545880d8a78aec5f99d6259c81425365d9eddaf77ebdc30fb9897d2a5ac9",
+  "openal_source_relink_sha256": "ca2d6e57807b0287cd0cf6e030a6bf0908dc1ad4083c23b89954f9ee7b3d1560",
+  "checks": [
+    "PASS public ZIP byte-identical to candidate083",
+    "PASS installable root/metadata/4096MiB and completeGPL/attribution notices",
+    "PASS no bundled official game JARs/assets/photos/logs",
+    "PASS all OpenAL kit input hashes",
+    "PASS exact unmodified and accepted-library replacement nativeELF",
+    "PASS included OpenAL source rebuild and modified replacement link",
+    "PASS target/host/package checks in original083build record"
+  ],
+  "console_status": "Pending exact083physical X/R2clickalignment,demo-world,retainedaudio/smoothness andQuit/relaunch;publicationauthorizedwithoutclaimingALLPASS",
+  "requirements": [
+    "Actual enumerated1920x1080displaymode required",
+    "26.3SDLdemo only;Microsoftapprovalpending",
+    "Installcompletefolder/paramandpreserveexisting/download0/ProsperoCraftdata"
+  ],
+  "preserved082_sha256": "ab49cad8977736be2be72230743232a270dba9bd17fa70a66b64a93c48230820",
+  "no_new_frozen_milestone": true
+}
