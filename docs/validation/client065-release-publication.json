@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-26",
+  "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_World-v01.000.065",
+  "tag": "Client_World-v01.000.065",
+  "source_commit": "1fb48ecb485fd883d8c2971d273edb096df5d063",
+  "published_at": "2026-10-26T11:27:07Z",
+  "is_draft": false,
+  "is_prerelease": false,
+  "assets": [
+    {
+      "name": "client065-install-manifest.json",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_World-v01.000.065/client065-install-manifest.json",
+      "bytes": 2185838,
+      "sha256": "08c393145c2425d1a783811595d625d051ca9557483ed40b3cef4d01f2ebeaf4",
+      "public_download_verified": true,
+      "github_digest_matches": true
+    },
+    {
+      "name": "client065-openal-source-relink.zip",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_World-v01.000.065/client065-openal-source-relink.zip",
+      "bytes": 88264105,
+      "sha256": "f4f66100da5d25f1a0888130e0172ebd625379c302ab5c3a7d55f206a65ee886",
+      "public_download_verified": true,
+      "github_digest_matches": true
+    },
+    {
+      "name": "client065-validation.json",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_World-v01.000.065/client065-validation.json",
+      "bytes": 3028,
+      "sha256": "c1953c4469b18501fe56ea71db9942037c8acf539195904b03803b04a4210331",
+      "public_download_verified": true,
+      "github_digest_matches": true
+    },
+    {
+      "name": "ProsperoCraft-01.000.065-world-app-only.zip",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_World-v01.000.065/ProsperoCraft-01.000.065-world-app-only.zip",
+      "bytes": 97171833,
+      "sha256": "198cebbb036f6760906da4166eb01fd2115f6bd69a5d51995b5efeb91a2f8f10",
+      "public_download_verified": true,
+      "github_digest_matches": true
+    },
+    {
+      "name": "provision_client_menu.py",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_World-v01.000.065/provision_client_menu.py",
+      "bytes": 4836,
+      "sha256": "3ba252d8cc8183c39eaf0959381917ad6dc6d0912fe52bba643f5cec747a7a9d",
+      "public_download_verified": true,
+      "github_digest_matches": true
+    },
+    {
+      "name": "README-client065.md",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_World-v01.000.065/README-client065.md",
+      "bytes": 6564,
+      "sha256": "b090e054a8d53ff46bc29cb2dbfd1fd17a497f55c8c7c196a4f88aff528c42f3",
+      "public_download_verified": true,
+      "github_digest_matches": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_World-v01.000.065/SHA256SUMS",
+      "bytes": 578,
+      "sha256": "a89146accc37f295b3177e9a06dbf073943f132b91e1300aa599790fea9078b6",
+      "public_download_verified": true,
+      "github_digest_matches": true
+    }
+  ],
+  "downloaded_relink": "PASSdownloadedkitextractedinseparatedirectoryreproducesexacttestedELF5b949082a152320871f0bb790620f943fd850c7cf2e9aa8f96c973e8dba2bd48",
+  "store_changed": false,
+  "acceptance": "Worldentry/punchingonly;severelag,movementfailureknown. NoformalALLPASS/playableperformance/save-reload/audio/stabilitypass."
+}

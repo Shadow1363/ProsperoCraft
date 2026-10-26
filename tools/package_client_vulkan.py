@@ -19,7 +19,7 @@ parser.add_argument('--render', action='store_true', help='Build client010 graph
 parser.add_argument('--present', action='store_true', help='Build client011 standalone direct presentation candidate')
 parser.add_argument('--sdl', action='store_true', help='Build client014 SDL window/input candidate')
 parser.add_argument('--runtime-shader', action='store_true', help='Build client023 runtime GLSL compiler candidate')
-parser.add_argument('--startup',action='store_true',help='Build065 original Minecraft Main startup with all accepted native components')
+parser.add_argument('--startup',action='store_true',help='Build066 original Minecraft Main startup with all accepted native components')
 parser.add_argument('--native-bootstrap',action='store_true',help='Build026 genuine libffi/OpenAL native acceptance')
 parser.add_argument('--opengl-bootstrap',action='store_true',help='Build029 genuine Mesa/OpenGL acceptance')
 parser.add_argument('--spvc-bootstrap',action='store_true',help='Build036 genuine SPIRV-Cross translation/reflection acceptance')
@@ -32,7 +32,7 @@ if args.startup or args.opengl_bootstrap or args.stb_bootstrap or args.freetype_
 if args.startup or args.native_bootstrap:args.runtime_shader=True
 runtime = args.runtime_workspace.resolve()
 variant="spvc_bootstrap" if args.spvc_bootstrap else "vma_bootstrap" if args.vma_bootstrap else "freetype_bootstrap" if args.freetype_bootstrap else "stb_bootstrap" if args.stb_bootstrap else "opengl_bootstrap" if args.opengl_bootstrap else "startup" if args.startup else "native_bootstrap" if args.native_bootstrap else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.036" if args.spvc_bootstrap else "01.000.035" if args.vma_bootstrap else "01.000.033" if args.freetype_bootstrap else "01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.065" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+version="01.000.036" if args.spvc_bootstrap else "01.000.035" if args.vma_bootstrap else "01.000.033" if args.freetype_bootstrap else "01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.066" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -66,7 +66,7 @@ if args.vma_bootstrap:sources += [ROOT/'client/vma_bootstrap/ClientVMA25.java']
 if args.freetype_bootstrap:sources += [ROOT/'client/freetype_bootstrap/ClientFreeType25.java']
 if args.stb_bootstrap:sources += [ROOT/'client/stb_bootstrap/ClientSTB25.java']
 if args.opengl_bootstrap:sources += [ROOT/'client/opengl_bootstrap/ClientOpenGL25.java']
-if args.startup:sources += [ROOT/'client/startup/ClientStartup25.java']
+if args.startup:sources += [ROOT/'client/startup/ClientStartup25.java',runtime/'java25/tests/ps5probe/JitWarmup25.java']
 if args.native_bootstrap:sources += [ROOT/'client/native_bootstrap/ClientNativeBootstrap25.java']
 if args.shader or args.render or args.present or args.sdl or args.runtime_shader:
  from compile_client_shader import compile_shader

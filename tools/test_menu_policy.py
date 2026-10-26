@@ -38,5 +38,5 @@ public class MenuPolicyCheck {
 '''
 with tempfile.TemporaryDirectory(prefix='mc-menu-policy-')as folder:
     w=Path(folder);(w/'MenuPolicyCheck.java').write_text(source)
-    subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(w),str(ROOT/'client/startup/ClientStartup25.java'),str(w/'MenuPolicyCheck.java')],check=True)
+    subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(w),str(ROOT/'client/startup/ClientStartup25.java'),str(ROOT.parents[2]/'java25/tests/ps5probe/JitWarmup25.java'),str(w/'MenuPolicyCheck.java')],check=True)
     subprocess.run([str(a.java_home/'bin/java'),'-Xint','--enable-native-access=ALL-UNNAMED','-cp',str(w)+':'+cp,'MenuPolicyCheck',str(w/'profile')],check=True)

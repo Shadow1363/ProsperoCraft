@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.066",
+  "package_sha256": "0b549873222b155fd21b4a441535390660598096f3f32c27081a963d00ea7802",
+  "symbols_sha256": "a32603dffb9d86448fac0b22917e9eac1220b79c4ef90439f625188ac148c437",
+  "source_revision": "Consumercommitcontainingthisrecord,parent1fb48ecb485fd883d8c2971d273edb096df5d063",
+  "runtime_commit": "44fdf26ccb74cf8dd9127f1256b85416856981de",
+  "runtime_implementation_changed": false,
+  "java_heap_mib": 512,
+  "compressed_oops": false,
+  "jit": "MixedC1level1,onecompiler,thresholdscale4,2MiBpercompilationlimit,16MiBcodecache/sweeper50;current-runcompiledintegerkernelgatebeforeMain",
+  "cpu_exposure": "ActiveProcessorCount2unchanged;notfullhardwareutilizationclaim",
+  "input": "PS5software-relativebackendcallbackletsactualSDLretaincapture/windowflags;existingtemporaryadapterWASD/lookthenactivates. NoOScursorcapture,SDLnormalfocus/routing/state.",
+  "source_sha256": {
+    "client/startup/bootstrap.cpp": "40aa176a13dca7d76adcd9a35abb88f4ffece127c109cc55b1a4e0684840fbda",
+    "client/startup/ClientStartup25.java": "803705a716c4a67e5d678e0b050b4524bbb08cc85433f7847f6b65839b034b30",
+    "client/startup/param.json": "8e495098f0393c5343eadd07f951994bb23fc9102f0f020c9f60cbacea87093c",
+    "client/ports/sdl/SDL_ps5video.c": "e5a5b8851f70e698571c390229a5bbd3654c84284bee31760e8d5aa73771b777",
+    "client/ports/sdl/ps5_relative_mouse.h": "f668854c09e4b1bac98a33b4e636338e32b4e63d1406887ffd3fb9f40ceea3b3",
+    "client/ports/sdl/ps5_temporary_input.h": "97068160112caffec629f5c3238431ba8c277bf5e0323a9d45b7177478f246a9",
+    "tools/package_client_vulkan.py": "48e831f6b7de348045941f49214a55e7ed844f3590b4da9ede863b6f48aaf5f2",
+    "tools/test_client_startup_package.py": "660ed76ac7113d9e4e8f98ec1b0280475a602261414f042128765df7b40c89ab",
+    "tools/test_client_startup_host.py": "bf653b0099b03ddddf21811bd374e6aac253c9b6581de630fda9cd76a255f7cb",
+    "tools/test_client_c1.py": "14fd2287a0f3fbbd2af2d64a77a0876a3ee24c177c9d50681f9761d455c8d73c",
+    "tools/test_client_relative_mouse.py": "4e17e18d6ccae3630b11acce852a0435f201ec0c1d896ece609afb070e2410c7",
+    "tools/test_menu_policy.py": "757692623ac0a6776bca04b10ed20cb906b4a50dab901d5f1c83fe21b0c9df30"
+  },
+  "runtime_gate_source_sha256": "6330276343729ebe1ac3ff816c9a37a3753799bc922bbbd04844dc1cc237a0ca",
+  "checks": {
+    "client066-host.log": {
+      "sha256": "b5772090b849814504c82405c82d4d154c54d998f4ab91c846a3115484ac9478",
+      "bytes": 1131,
+      "result": "PASS"
+    },
+    "client066-menu-policy.log": {
+      "sha256": "f9e6268cecd12ef59b9ba78643efa1139f5860cbb7ee5126939614fa3c0714ee",
+      "bytes": 202,
+      "result": "PASS"
+    },
+    "client066-relative-host.log": {
+      "sha256": "6bab6789f0cb3e98c3084a4e1802982f1785f805924e2d4e74de20e2a0563e8f",
+      "bytes": 211,
+      "result": "PASS"
+    },
+    "client066-input-host.log": {
+      "sha256": "80a02636cff25529182c098ba4a5c1d871f04f147f9f54fd0301699df4ddc1c2",
+      "bytes": 292,
+      "result": "PASS"
+    },
+    "client066-c1-host.log": {
+      "sha256": "1e4fbd328f91c7d18812829e2dfde3ca36282db6c7a903f714e8226e7082e54a",
+      "bytes": 340,
+      "result": "PASS"
+    },
+    "client066-package.log": {
+      "sha256": "1cf37144532a89a1350e3a88f5613b404580263dd0f17448d91cf5443edffc50",
+      "bytes": 77225,
+      "result": "PASS"
+    },
+    "client066-package-check.log": {
+      "sha256": "81bb6f0d839403dbecda4ff93716a9e2a6f0f494d596eaa66b1bcdc884417aa6",
+      "bytes": 585,
+      "result": "PASS"
+    }
+  },
+  "console": "PENDING066C1gate/nativeexecution/menu/worldspeed/inputcapture/save-reload/stability. NoPS5speedclaimfromhosttests.",
+  "originals": "All54originalJARs/5147assetsunchanged;noMinecraftbytecodetransformation/replacementclasses/worldreset",
+  "preservation": "Accepted065exactfullZIPa85c900937525c04cbae29c1a3f3018e3341e07f0ae6a85a14c733564ad3461a andsymbols/status/source/evidence independentCOW;publicworldreleasefull/latesttag1fb48ec retained,all7assetsdownloadhashverified.002convenienceZIPrestored.",
+  "release": "066developmentonly;065worldentry/punchingreleaseknownseverelag/movementfailure. NoStorechanges."
+}

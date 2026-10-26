@@ -82,3 +82,14 @@ GC86at296915->GC88at341970ms;young415->304MiB/429MiBcommitted15.104ms.
 Useradvisedleaveitactivefornow.Worldcompletionnotestablished,ETA/FPSunknown.
 Publichashes/interpretation docs/validation/client065-live-loading-2026-10-26.json.
 Noimplementation/packagechangesfromthischeck;065remainscurrent.
+
+## Superseding world acceptance and publication
+
+HumanWORLDLOADED,punchworks,cannotmove,severelag/longload. Current-runreports
+corroboratejoin/worldrender/overload;noOOM.065exactacceptedZIP/symbols/status/build
+/console preservedindependentCOWin dist/accepted/Client_World-01.000.065.
+FullGitHubreleaseClient_World-v01.000.065tag1fb48ecb485fd883d8c2971d273edb096df5d063
+public;all7assetsdownloadedunauthenticatedSHAverified;downloadedkitexactELFrelink.
+Seeclient065-world-confirmation/reports/release/publicationJSONs. NoformalALLPASS
+orplayableperformance/movement/save/audio/stability. NoStore. Userauthorizesnext
+speedcandidate066;guardedC1+SDLrelativecapturefix. Readhandoff066beforecontinuing.

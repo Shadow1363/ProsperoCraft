@@ -20,6 +20,7 @@
 #include "events/SDL_keyboard_c.h"
 #include "events/SDL_mouse_c.h"
 #include "ps5_temporary_input.h"
+#include "ps5_relative_mouse.h"
 
 /* Use the same public resident loader as LWJGL. Minecraft checks pointer identity.
  * The public entry delegates to the real static ICD;all returned commands stay real. */
@@ -129,6 +130,7 @@ static bool PS5_VideoInit(SDL_VideoDevice *_this)
 {
     SDL_DisplayMode mode;
     if(!PS5_QueryDisplay(&mode))return false;
+    SDL_GetMouse()->SetRelativeMouseMode=PS5_SetRelativeMouseMode;
     return SDL_AddBasicVideoDisplay(&mode)!=0;
 }
 

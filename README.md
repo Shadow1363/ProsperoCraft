@@ -66,6 +66,19 @@ native Java25onPS5:responsive controls,smooth rendering,working audio,world game
 saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
 Those full-client features still require actual exact-build console validation.
 
+## Development066 — compile Java and repair captured input
+
+The next candidate enables guarded C1 level1 compilation with one compiler and
+an actual compiled-kernel correctness gate before Minecraft. It also supplies the
+missing SDL software-relative mouse callback so the temporary mapping can switch
+to WASD and right-stick look. Heap/runtime/game JARs/assets stay unchanged.
+
+Host checks exercise the real SDL failure/fix and C1 gate;actualPS5speed,movement,
+worldloading and stability remain pending. This is the first compilation-focused
+client step,not a full-hardware-utilization or FPS claim. The published065world
+release remains unchanged. [Candidate and test guide](docs/client-performance-066.md) ·
+[Current handoff](docs/handoff-prosperocraft-client066.md).
+
 ## First world loaded — 01.000.065
 
 The user confirms world entry and punching on PS5. Current-run reports corroborate

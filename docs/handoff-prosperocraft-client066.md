@@ -1,0 +1,95 @@
+# Current ProsperoCraft handoff — client066
+
+Continue existing files/history. Read both AGENTS.md and handoffs063–065 plus
+complete054 for release/history/source ownership requirements. No subagents or
+server two-hour run. Goal remains polished playable Minecraft Java on nativePS5.
+
+## Accepted065world and release
+
+User:worldloaded,punchworks,cannotmove,severelag/verylongloading. Human scope is
+worldentry/punching only,not formal ALLPASS/playableperformance/movement/saves/
+audio/stability. Actual run client-01.000.065-1793013277-161947157 reports player
+join/worldrender and serveroverload warnings,noOOM. Raw logs/client065-world-loaded-20261026
+and earlier client065-livecheck-20261026 retained locally;publichashes/interpretations
+in docs/validation/client065-world-confirmation/reports/live-loading JSONs.
+
+Exact065fullZIP a85c900937525c04cbae29c1a3f3018e3341e07f0ae6a85a14c733564ad3461a,
+symbols/status/build/humanrecord independently preserved in ignored
+`dist/accepted/Client_World-01.000.065`. Source implementation
+f7c1abb1502b1ef64b2413b75b78d6fcb93df1ae;runtime44fdf26ccb74cf8dd9127f1256b85416856981de.
+Full GitHub release Client_World-v01.000.065,tag1fb48ecb485fd883d8c2971d273edb096df5d063,
+public/latest/notdraft/notprerelease. Sevenassetsuploadedanddownloadedunauthenticated
+SHA/bytes/GitHubdigestsverified. Newmatching065OpenALkitincludesnewruntimeobjects,
+modifiedalc/helpers/header/envshim/buildrecords/source/headers/editableinstructions.
+Unmodified+acceptedlibraryreplacementmatchELF
+5b949082a152320871f0bb790620f943fd850c7cf2e9aa8f96c973e8dba2bd48.
+Includedmodifiedsourcesalsobuild/link;downloadedrelocatedkitreproducesexactELF.
+Full54JAR/5147assetprovisionreconstructioneverybyte/download/corruptiontestspass.
+See client065-release.json/publication.json and docs/releases/client-world-065.md.
+NoStoreaction. Earlier062release/frozenpasses/serverfallbacksunchanged.
+
+## Current066candidate
+
+Read docs/client-performance-066.md. Guarded mixed C1level1 replaces-Xint:
+onecompiler,thresholdscale4,per-compilationMemLimit2M,16MiBcodecache/sweeper50.
+Usesexistingruntimehelper java25/tests/ps5probe/JitWarmup25.java fromruntime repo,
+compiled into consumerharness;calledbeforeoriginalMain. Itrequirescurrentrun
+level1kernelcompileandknownintegerresults,refusesinterpreter/stale/missinglogs.
+JITlog /download0/java25-jit.log rotates4MiB/onebackup;existing/jit.logroute,
+rotatedJITendpointmaynotexist—don'tinventcoverageorrequirelastmethodasalive.
+512MiBuncompressedheap,16MiBinitial,SerialGC,compactheaders,AVX0/SSE2,
+ActiveProcessorCount2andSDK/runtimeimplementationunchanged. NoC2/moreworkersyet;
+firstisolatecompilationbeforeotherresourcechanges. Fullhardwareutilization/FPS
+notestablished. Existingdiagnosticloggingand390sampleobservercanperturbtiming.
+
+Movementdefect:PS5SDLvideo lackedSetRelativeMouseMode callback.Actualupstream
+SDLrejectsmodeandrollsbackwindowflagwhenabsent;temporarymapperthereforestays
+inmenuarrowsinsteadWASD/look.066registerssoftware-relativecallback;nostickmouse
+OScursortocapture,SDLnormalfocus/state/routingretained.Adapteractuallysendspad
+relativeevents.NoMinecraftclassesmodified.HosttestextractsactualSDLwindow/global
+modefunctions,reproduces065failure,thenfix/focusloss/reacquire/menu-release/
+idempotenceASan/UBSan.Baselineadapterbufferedtap/release/mappingtestsalsoPASS.
+Captured:leftstickWASD,rightsticklook,Xjump,Triangleinventory,R2punch,L2use,
+Circlepause. Menumappingsremain. Nofullinventory/text/rebinding/rumble/gyroUX.
+FutureControlifyexplicitlydisablesbridge;SDLgamepadinitautohandoffretained.
+
+All54originalJARs/5147assetsintact,nohooks/replacementgameclasses,nosavesreset.
+NewC1gatehostcompiled40,960correctresultswithactualguards;stale/interpreter/
+missinglogcontrolsrejected.Hostpolicy/observer/log/Mainboundarypasses;menuoption
+migrationoriginalcodecpasses.TargetfullnativebuildandSELFcheckrequired;package
+checkmustverifyactualgateclass/flags/currentSDLsourceandalloriginals,accepted065.
+
+## Nextconsoletest
+
+Install066pressXonce;watchC1warmupgate/menu.Loadsamedemo;checkapproximateloadtime,
+worldresponsiveness,movement/look/jump/punch/inventory/pause.Inputcapturefixand
+JITbothneedactualPS5acceptance.Fasterreusedworldloadingcanreflectsavedchunks,
+notjustcompilation.NoFPSclaimwithoutmeasurements. CheckJITcurrentlog/warmup
+markers/codecache/fullGC/CPUstacksandrender/tickwork. CompilerOOM/cachefull/new
+nativefeaturefaultmustbediagnosed;do notblindlyincreaseallbudgets/threadcounts.
+Ifcrash,close/reopenwithoutX,retrievecurrentreportsbeforeanyrerun.SafarifreshAX/
+Option-clickworksatknownexternalruntimeaddress;strictdownloadmtime/basename/
+runidentity.NopresetIP/filterininboundapps.Rawlogslocalonly;publichashsummaries.
+065releasealwaysremainsinterpretedknownissues;066developmentnotnewrelease.
+
+## Preservation/publication/storage
+
+Beforechanging066preserveexactZIP/symbols/status/build/source/evidencefor067.
+Keep065accepted,064failure,063controls,062menu/allfrozenpasses/serverfallbacks.
+037–061privatearchive+manifestlossless;don'twhole19.3GBrestore.Sourceownership:
+consumercommit/pushmain;runtimechangesonlyroottools/sync_github.py.066usesexisting
+44fdf26runtime,nonewimplementationpatch. Verifybothremotesbeforefinal.
+Removedonlyverifiedduplicate065releasedownload/extractedkits/regeneratedcheckELFs;
+retainedpublishedZIPs/notices/source/acceptedsymbols/rawlogs/nativeSDK/JDKobjects.
+FuturebinaryreleasesneednewmatchingOpenALobjects/source/relink+completeJAR/assets
+provisioning/exactacceptance;neverold026kit.NoStore/catalogworkauthorized.
+
+## Checked066 package
+
+PPSA99874client01.000.066. Local:
+`/Users/mateocogeanu/Documents/ChatGPT/PS5_Homebrew/dist/PPSA99874.zip`.
+Matching consumer `dist/client-startup/PPSA99874.zip`.
+SHA256 `0b549873222b155fd21b4a441535390660598096f3f32c27081a963d00ea7802`.
+Symbols `build/client-startup-probe/bootstrap-01.000.066-symbols.elf`.
+Allhost/native/packagecheckspass;actualPS5speed/movement/stabilitypending.
+Source/checkhashes:docs/validation/client066-build-2026-10-26.json.
