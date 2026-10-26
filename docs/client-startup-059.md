@@ -1,3 +1,5 @@
+> Continuation:059crash confirmed,class/GC rotation works;last class record isALC$ICDStatic$WriteOnce initialization start,not a proven fault. See [059evidence](validation/client059-startup-failure-2026-10-26.json) and [060native scope capture](client-startup-060.md). Final goal is full playable nativeJava25client,menu only a checkpoint.
+
 # ProsperoCraft client059 — class load/initialization boundary
 
 User confirms058crashed and reopened. Run

@@ -529,3 +529,11 @@ worker idle. AS/RSSreported infinite,data32GiB,flexible>=324MiB,largest direct r
 context/OOM/driver error. No explicit054human final outcome/timing supplied. This
 handoff turn changes docs/evidence only,054binary unchanged. Preserve exact054before
 changed055;read complete saved logs and establish actual outcome before assumptions.
+
+## Client product goal clarified on2026-10-26
+
+The user wants a polished,playable Minecraft Java client on native Java25forPS5,
+including responsive controls,smooth rendering,working audio,world gameplay,
+saving/reloading and stability. A working menu is an intermediate debugging
+checkpoint,not the final product or sufficient full-client release acceptance.
+Continue beyond startup while keeping exact-build console scope/results honest.

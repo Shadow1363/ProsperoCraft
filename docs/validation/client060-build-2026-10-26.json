@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.060",
+  "package_sha256": "899252e805cff1031446cdcceaf6e44c331545601599d7e5b4e04c737502873c",
+  "source_revision": "Consumer commit containing this manifest,parentc18b6e406d23eae9cc0760ccf1d201b550c0d9f3",
+  "source_sha256": {
+    "client/startup/ClientStartup25.java": "ae6ff7ed5301e468e0b2a87c9f55ef605fd8783435e30b9b8dc0dd613f2daf53",
+    "client/startup/bootstrap.cpp": "fb9684a8f50b9ee2bf4884b879886c519cf06abaab7c7ddd66fd2f5731160eeb",
+    "client/startup/observer_native.hpp": "789c5f4cba765139616448200c01a609e3488813c43c5325b300b8a927080e7d",
+    "client/startup/openal_trace_env.c": "643ffe63c2bcc487db9098677704d9004994e053078ef2a372c094ed2ddea272",
+    "client/startup/param.json": "9409bc589c3ecec217107610dd2ad887f5293a8048f15f3c972632124a897469",
+    "client/ports/openal/startup_boundary.hpp": "8fe866eb8c6cd3b736a89ce64a4f04b5de0a947f3a9786cd1b1bbb31ef4a4e3f",
+    "tools/build_openal_startup_boundaries.py": "f5c98354e060e2f8a900eab6c6bd77ded27854a8793e5188b7d0d1892dba375e",
+    "tools/test_openal_startup_boundaries.py": "0528bfa6bec5ba2392b278d6e9686c41e56f7115d5c3be086bf7fabe45e934f7",
+    "tools/package_client_vulkan.py": "98d144041540b754b0bee6a0a90ef69157a4a5f4bf015f32191dd74799bf40d2",
+    "tools/test_client_startup_host.py": "b42f01d61f2395bc5a260694d8b513384fa087c139cf308ab63949ccbdacb61e",
+    "tools/test_client_startup_package.py": "d400c96820f8220a6cf02c42717bb18fabec4205931d33e8fe566b883a34ca08"
+  },
+  "symbols_sha256": "68bf475d3e42513182cd6ed6a429a9474e1fdcdb0ca23bbb8ff692f0f26c323f",
+  "runtime_commit": "1e9fb4f23a2e84e26c50fe67cc4e746ff371dfa2",
+  "runtime_image_implementation": "6382528c7aee066002d1c2c6a7b5c7116987ae8c;unchanged image/SDK",
+  "openal_boundaries": {
+    "pin": {
+      "repository": "https://github.com/kcat/openal-soft.git",
+      "tag": "1.25.2",
+      "commit": "b2c48f7718ef3fcf67921a8b6534c4914e328970",
+      "scope": "Real OpenAL Soft mixer,upstream loopback and null output;no PS5 speaker output yet",
+      "license": "LGPL-2.0-or-later with bundled BSD/MIT components;retain source/relink inputs for distribution"
+    },
+    "original_source_sha256": "12846e8c1bce29aa157b562540c73f446f8fa7fc64255faae8e26c46f416c41e",
+    "patched_source_sha256": "9a5025832def188bb0f0931316ed187cb1c9c71d9839de19704bea1d17d12b0f",
+    "header_sha256": "8fe866eb8c6cd3b736a89ce64a4f04b5de0a947f3a9786cd1b1bbb31ef4a4e3f",
+    "unit_object_sha256": "8f921de70ecf430bc88c7508177248acfef9a4a8ed7ca71c49d467ddffe4f816",
+    "functions": [
+      "alcGetError",
+      "alcGetString",
+      "alcGetIntegerv",
+      "alcCreateContext",
+      "alcMakeContextCurrent"
+    ],
+    "scope": "At most128native API body scopes/256records,errno preserved;scope-exit includes exception unwinding,not success/return proof",
+    "game_jar_modified": false,
+    "original_archive_sha256": "c51312806793e0a505b94c82d7bb939370b57373e2ab566ccdca50fa1f405ca9",
+    "private_archive_sha256": "7ebce4a82ea0a80998da3af2c22c7a664cbdaa77c29a5b85c93a6c7481c76e7e",
+    "original_archive_unchanged": true,
+    "constructor_sections": [
+      ".ctors"
+    ],
+    "replaced_member": "alc.cpp.o",
+    "output_sha256": "acef89b6475fdbde7b8d0a1d5240499dd6e3e6e9e714ff8cacc25f5fd653bfd4"
+  },
+  "openal_trace": {
+    "scope": "Startup-private OpenAL getenv selects upstreamALSOFT_LOGLEVEL3;other lookups forwarded,global getenv/backend unchanged",
+    "source_sha256": "643ffe63c2bcc487db9098677704d9004994e053078ef2a372c094ed2ddea272",
+    "private_object_sha256": "c4a3efcaf620f026f25f05a5b058ab795c0633c04c213d9f06489633830c830f",
+    "shim_object_sha256": "e2c64f025b2648204e31d06f267852403ec989a141618fc4428a9c2d1b917802",
+    "original_object_sha256": "6ca60627c1d8151168662553b3073b5ede8bd4805021e1bae3ba0c4cbec36a80",
+    "output": "existing native-stderr.log;native trace timing/coverage pending PS5",
+    "backend_selection_changed": false,
+    "console": "059nativeNoOutputdevicecreated;no context completion/cause.060private unit scope capture pending."
+  },
+  "checks": {
+    "host": "PASS original-client launch policy:demo/no credentials/multiplayer disabled,writable workdir,existing options preserved;no game invocation in policy check\nPASS actual owner-only transition burst:precise language trigger,finite samples/live owner stacks,elapsed/heap records,close without later writes;host only\nPASS actual startup observer:live Main/blocked resource stacks,heap/elapsed time,32thread/64frame bounds,finite sampling,dense and late cadence boundaries,absent-native fallback,daemon and interrupted close without later writes;host only\nPASS exact startup GC/safepoint/class-load/class-init JVM logging option,actual SerialGC phases/heap/full pause and one-file rollover;host only\nPASS real LWJGL system allocator:3x4MiB,grow8MiB/preserved pages,new extent,calloc64KiB zeroes,4096-aligned4MiB and paired cleanup\nHost uses real upstream JNI and host libc;PS5 scoped heap mapping checked separately,console pending\nPASS actual unmodified host Main executed and reached native-library bootstrap;expected unprovided host-native failure captured,exit 253 ;no host menu or PS5 startup pass\nPASS original client JAR unchanged",
+    "native_boundary_host": "open=1 error=0 name=OpenAL Soft\nmajor=1\ncontext=1 current=1 error=0\nclose=1\nPASS actual private pinned OpenAL ALC unit:all5body scope pairs,baseline device/error/name/version/context/current/close results unchanged;actual helper128scope cap,4threads,exception unwinding,errno under ASan/UBSan. PS5 behavior pending.",
+    "target": "Packaging exit0,target compile/link/SELF passed;private singlealcunit/archive/header/source/object hashes,originalarchive unchanged and constructorcounts verified.",
+    "package": "PASS060 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256 899252e805cff1031446cdcceaf6e44c331545601599d7e5b4e04c737502873c",
+    "preserved059": "ExactfullZIP53ce7cc8ff6c83ebec57044951bc44707cbce1322c6188d5e3585745c4857c09,symbols/source/status/build/console record retained.",
+    "baseline002": "Exact convenienceZIP restored:d0b9f815ff68c5ad821b2166509879c623c813019d2f70bbacf53769f35e3971"
+  },
+  "scope": "Native diagnostic only:5ALCbodyScopes in startup-private pinned alc.cpp,128calls/256records,errno preserved. Scopeexit includesunwind,not success/APIreturn. No gamehooks or memory/backend/graphics policy changes.",
+  "console": "PENDING060native scopes/crash resolution/playableclient.059lastWriteOnce classinit/devicecreated not a diagnosedbadpointer/nativefault.",
+  "product_goal": "Polished fullyplayable MinecraftJava on nativeJava25PS5,not justmenu;input/rendering/audio/worldplay/save-reload/stability need consolevalidation.",
+  "release": "No menu/gameplay/newmilestone/client release/Storedownload;server2Hdeferred. Future matchingOpenALsource/relink needs060privateunit/header/compilerinputs and058shim."
+}

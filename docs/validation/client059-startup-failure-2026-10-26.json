@@ -1,0 +1,181 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.059",
+  "run": "client-01.000.059-1793003380-157747534",
+  "tested_source_commit": "c18b6e406d23eae9cc0760ccf1d201b550c0d9f3",
+  "package_sha256": "53ce7cc8ff6c83ebec57044951bc44707cbce1322c6188d5e3585745c4857c09",
+  "human": "User explicitly confirms059crashed before reopen. No different final screen/error/timing supplied. Ultimate goal clarified:full enjoyable Minecraft Java client on native Java25PS5,not just menu.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "21767f78983703858b34e3cd361ea064930fd86021cb7965055adf37b28aa728"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "47a56abe5f048d2b1fd1fdc51312fd7f17d3f5ee8d709bbbfe0664ac37fecd13"
+    },
+    "exceptions.log": {
+      "bytes": 1024897,
+      "sha256": "88fe29b13b8951f5224bce86d021d4953f5014dd6c4b70ed1c07dfc9fc89a0b7"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194424,
+      "sha256": "a1613aa6138b4c49f2f03257c53bd18846379146ecd15cb8f7f29d8c162d19ef"
+    },
+    "gc.log": {
+      "bytes": 3817673,
+      "sha256": "29b9124d39fd01ce7c261f7ae3b6eb1e159d59a4f6079367f32a8cee124e3003"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 1088,
+      "sha256": "1f0dfc66899bc63c39e3affbaf5feb5bba03c47bcf2a1910989601738e66676c"
+    },
+    "process-usage.log": {
+      "bytes": 205572,
+      "sha256": "dc86bab82f44f90f6d6e2a5181de0da87b7a66f13bcf4c7dd76ff71c896c6fe3"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "1cfad2b5af7d1bce78faec7897a5e36664bccd6bf8d8110e5bd39e911297397e"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "41b7e8c9b888c82e3a916c2331f387709798c69da2850cf17098a5f1616f3593"
+    },
+    "startup.log": {
+      "bytes": 1378407,
+      "sha256": "a9989db5818bfb0ae95b36ff7b3a840b6bff579383dffbdbd1bc336ba5f293a1"
+    },
+    "vm-trace.log": {
+      "bytes": 1741488,
+      "sha256": "bc83697a788077e5547b6be24ed0810a7037bf73891c8e0ec0ec0fc6fdf34b91"
+    }
+  },
+  "observed": {
+    "regular_snapshots": 126,
+    "burst_records": 11,
+    "last_burst": {
+      "sample": 11,
+      "elapsed_ms": 98751,
+      "heap_used_bytes": 246654848,
+      "activity": "Sound event lookup/reload"
+    },
+    "native_records": 252,
+    "combined_log_active_bytes": 3817673,
+    "combined_log_rotated_bytes": 4194424,
+    "log_coverage": "Rotation works on PS5;earliest retained record97501ms JVM uptime,initialization index7962. Earlier startup/class/GC records have rotated out;counts are retained coverage only.",
+    "retained_gc_starts": 18,
+    "retained_gc_ends": 18,
+    "retained_gc_ids": [
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "59",
+      "60",
+      "61",
+      "62"
+    ],
+    "unmatched_retained_gc_starts": [],
+    "last_gc_summary": [
+      "62",
+      "Pause Full (Allocation Failure) 232M->176M(247M) 345.321ms"
+    ],
+    "class_records": "OpenAlUtil loads/verifies,then ALC$ICD/ICDStatic/ICDStatic$WriteOnce load/verify and initialization-start records. Last isWriteOnce at164040ms JVM uptime. INFOlogs initialization start;absence of a generic completion record does not establish failed/stuck initialization.",
+    "openal": "Null No Output playback device created;no context completion captured. Existing sysctl/capture warnings not diagnosed causal.",
+    "fatal": "No captured signal/VMabort/JavaOOM/driver error;hs-error unavailable. Last records not exact crash time/instruction.",
+    "clocks": "JVMuptime/observerelapsed differ;main-only burst may not emit ThreadDump safepoints."
+  },
+  "transition_timeline": [
+    {
+      "sample": 1,
+      "elapsed_ms": 98646,
+      "heap_used_bytes": 243877320,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 2,
+      "elapsed_ms": 98656,
+      "heap_used_bytes": 244766512,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 3,
+      "elapsed_ms": 98667,
+      "heap_used_bytes": 244780472,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 4,
+      "elapsed_ms": 98677,
+      "heap_used_bytes": 244794432,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 5,
+      "elapsed_ms": 98688,
+      "heap_used_bytes": 244808408,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 6,
+      "elapsed_ms": 98698,
+      "heap_used_bytes": 245697608,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 7,
+      "elapsed_ms": 98709,
+      "heap_used_bytes": 245715656,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 8,
+      "elapsed_ms": 98719,
+      "heap_used_bytes": 245733632,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 9,
+      "elapsed_ms": 98730,
+      "heap_used_bytes": 245747592,
+      "activity": "Language resource application"
+    },
+    {
+      "sample": 10,
+      "elapsed_ms": 98741,
+      "heap_used_bytes": 245761544,
+      "activity": "Texture apply/lambda generation"
+    },
+    {
+      "sample": 11,
+      "elapsed_ms": 98751,
+      "heap_used_bytes": 246654848,
+      "activity": "Sound event lookup/reload"
+    }
+  ],
+  "inspection": {
+    "ALC.getICD": "Original LWJGL router/cached capabilities logic;ICDStatic.WriteOnce captures tempCaps,then ALC10.alcGetError uses capabilities function pointer through JNI.invokePI. Last classinit does not establish a null/bad capability pointer or failing native call.",
+    "OpenAL": "Read-only current pinned alcGetError/device query/context bodies and call sequence;026loopback path differs from original game initialization order. No new concrete supported compatibility defect."
+  },
+  "cause": "Unknown. Narrowed to capability cache/native ALC boundary;not diagnosed class/ALC fault.",
+  "next": "Preserve059.060private pinned alc.cpp observes enter/scope-exit for5ALC bodies,128scopes/256records,errno preserved;original vendor source/archive retained. Host compare real baseline/private APIresults and bounded helper,then target/package/publication.",
+  "report_boundary": "Raw reports/fullstacks stay local;public hashes,measurements and interpreted activity only.",
+  "goal": "Working menu is an intermediate checkpoint;full responsive/performant rendered client,input,audio,world play/save/reload and stability on nativeJava25are final product goals,all unvalidated beyond existing scoped passes.",
+  "limits": "No menu/gameplay/newmilestone/client release/Store download;server2Hdeferred."
+}

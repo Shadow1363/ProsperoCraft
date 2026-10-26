@@ -59,23 +59,30 @@ powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
 console playtests;client startup/menu is still under development.
 [Project artwork](assets/branding/README.md).
 
-## Development client059 — class loading after native audio device creation
+## Product goal
 
-The user confirms058crashed. Its OpenAL trace initializes the null backend and
-creates a No Output playback device. No context-creation completion is captured.
-The main-thread burst ends during class definition/post-definition at
-Library.tryOpenDevice283;63GCs complete. **Cause remains unknown;no menu accepted.**
-Exact058package/symbols/evidence are preserved.
+ProsperoCraft aims to be a polished,playable Minecraft Java client running on
+native Java25onPS5:responsive controls,smooth rendering,working audio,world gameplay,
+saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
+Those full-client features still require actual exact-build console validation.
 
-059adds class-load and class-initialization info records to the existing bounded
-JVM GC/safepoint log. This targets the class-definition gap after successful
-native device creation;058OpenAL trace and057main burst remain. Original54JARs/
-5147assets,runtime image/heap/graphics stay intact. PS5class records/crash resolution/
-menu pending. No supported new crash fix,client release or Store download;
-server endurance deferred.
-[059scope](docs/client-startup-059.md) ·
-[058console evidence](docs/validation/client058-startup-failure-2026-10-26.json) ·
-[Current handoff](docs/handoff-prosperocraft-client059.md).
+## Development client060 — bounded native ALC body observations
+
+The user confirms059crashed. Combined class logs show OpenAlUtil and LWJGL's
+ALC cached-capability classes verifying and beginning initialization after native
+No Output device creation. Last class record is ALC$ICDStatic$WriteOnce;this does
+not prove failed initialization or a bad function pointer. **Cause unknown.**
+Earlier JVM records rotated out;retained18GCstarts/18ends are partial-run coverage.
+Exact059package/symbols/evidence preserved.
+
+060observes enter/scope-exit in5pinned native ALC API bodies,at most128calls/
+256records,using a private alc.cpp/archive copy. Original source/archive,gameJARs/
+assets,runtimeimage,heap/graphics/backend policies stay. Host baseline/private
+native APIresults match;PS5observations/crash resolution/gameplay remain pending.
+No client release/Store download;server endurance deferred.
+[060scope](docs/client-startup-060.md) ·
+[059evidence](docs/validation/client059-startup-failure-2026-10-26.json) ·
+[Current handoff](docs/handoff-prosperocraft-client060.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 
