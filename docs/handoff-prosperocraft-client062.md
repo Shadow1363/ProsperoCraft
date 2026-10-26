@@ -107,3 +107,12 @@ Included modified sources also build and link as a replacement; edited/rebuilt b
 do not inherit console acceptance. Record release publication and downloaded asset
 verification in docs/validation/client062-release-publication.json once complete.
 No catalog/Store update; keep Fabric/Paper108 and earlier frozen snapshots intact.
+
+Publication complete: full (not prerelease/draft), latest GitHub release
+https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062
+Tag adf7db9538679e1a132868ec6f724d3e4f6f731e. Seven assets uploaded; every asset
+was downloaded and checked, including a second unauthenticated public download
+against SHA256/bytes and GitHub digests. Downloaded relocated OpenAL kit reproduces
+exact accepted ELF. See docs/validation/client062-release-publication.json.
+Runtime repo unchanged/clean at1e9fb4f;no Store/catalog action. Preserve release tag
+and accepted bytes;new candidate versions must not replace this menu checkpoint.

@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-26",
+  "release_url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062",
+  "tag": "Client_Menu-v01.000.062",
+  "tag_commit": "adf7db9538679e1a132868ec6f724d3e4f6f731e",
+  "published_at": "2026-10-26T10:03:32Z",
+  "is_draft": false,
+  "is_prerelease": false,
+  "assets": [
+    {
+      "name": "client062-install-manifest.json",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Menu-v01.000.062/client062-install-manifest.json",
+      "bytes": 2185837,
+      "sha256": "186dce2f9d43c51a254fc46b9931444c57813429108828e95c46987efa3a97d8",
+      "github_digest_matches": true,
+      "unauthenticated_public_download_verified": true
+    },
+    {
+      "name": "client062-openal-source-relink.zip",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Menu-v01.000.062/client062-openal-source-relink.zip",
+      "bytes": 88246462,
+      "sha256": "eb6eafcb78e777da550f34d178a9cae0390a0157b4e576aec8184090bf0716b7",
+      "github_digest_matches": true,
+      "unauthenticated_public_download_verified": true
+    },
+    {
+      "name": "client062-validation.json",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Menu-v01.000.062/client062-validation.json",
+      "bytes": 4215,
+      "sha256": "3e4d07ffeb38846c31ecef5d8ad48c580f7d3eb54f1a1127e28ae064fc831727",
+      "github_digest_matches": true,
+      "unauthenticated_public_download_verified": true
+    },
+    {
+      "name": "ProsperoCraft-01.000.062-menu-app-only.zip",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Menu-v01.000.062/ProsperoCraft-01.000.062-menu-app-only.zip",
+      "bytes": 97129327,
+      "sha256": "bc655b0991a44e67109c674a52ba3203b537877783f33a28b6b48d16a2753a43",
+      "github_digest_matches": true,
+      "unauthenticated_public_download_verified": true
+    },
+    {
+      "name": "provision_client_menu.py",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Menu-v01.000.062/provision_client_menu.py",
+      "bytes": 4836,
+      "sha256": "3ba252d8cc8183c39eaf0959381917ad6dc6d0912fe52bba643f5cec747a7a9d",
+      "github_digest_matches": true,
+      "unauthenticated_public_download_verified": true
+    },
+    {
+      "name": "README-client062.md",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Menu-v01.000.062/README-client062.md",
+      "bytes": 7929,
+      "sha256": "859651c20ca593b427d59232ea2e17a00bc732b349750520861b5b0e507a69a3",
+      "github_digest_matches": true,
+      "unauthenticated_public_download_verified": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Menu-v01.000.062/SHA256SUMS",
+      "bytes": 577,
+      "sha256": "c670451e9018a8a6609a45750d9d5644571229a84abafa15bb0a1699ae396a7f",
+      "github_digest_matches": true,
+      "unauthenticated_public_download_verified": true
+    }
+  ],
+  "downloaded_relink_check": "PASS downloaded source/relink ZIP extracted in a separate directory;verified all input hashes and reproduced accepted native ELF df5074be95daae364f7f49fc8e7a91749e41e1888042ef59fe04b18ef02b43f2 without original SDK search paths.",
+  "console_scope": "Human-confirmed visible menu only,not formal full-client ALL PASS;gameplay/input/speaker audio/saves/stability pending.",
+  "store_changed": false,
+  "latest_release_verified": true
+}
