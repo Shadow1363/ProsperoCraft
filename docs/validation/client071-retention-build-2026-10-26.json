@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.071",
+  "title_id": "PPSA99874",
+  "package_sha256": "ea3fb4a81dc2401d0a4a3007e8c14790c42031aa8b717ce287c6ddf29ede9d2c",
+  "native_elf_sha256": "cc53bd7455668cdc56123ec17712f4729997ef7aed68845ee5bbd52755feb501",
+  "runtime_commit": "1ef9b719c749684f4f30f09f928ec599d44c7de8",
+  "runtime_patch": "0120-ps5-bounded-retained-heap-diagnostics.patch",
+  "purpose": "Diagnostic only, not a claimedstutterfix; existing quality settings retained, no active070distance migration",
+  "policy": {
+    "heap_mib": 768,
+    "new_ratio": 3,
+    "codecache_mib": 32,
+    "collector": "SerialGC retained",
+    "c1": "level1/onecompiler/2MiBpercompilation"
+  },
+  "histogram": {
+    "trigger": "Opt-ingc+classhisto=trace,onlyafterexistingfullGC/retained>=512MiB",
+    "cap": 3,
+    "stride_eligible_full_gc": 16,
+    "top_rows": 40,
+    "totals": "Allclasses;omittedrowcount",
+    "forces_extra_gc": false,
+    "overhead": "Extraexistingupstreamheapwalk/table/sort/logoutputinside sampled fullGC; notcleanbenchmark",
+    "scope": "PS5only;otherPS5histogramoutputalso40rowcap"
+  },
+  "host_checks": [
+    "PASS actualPS5samplinggate/outputloopASanUBSan,before/thresholdrejection,stride/cap,top40/all-classtotals/smallhistograms",
+    "PASS actualreadonlyconfigurationSummary,bounds/CRLF/selectedfields/privatefieldexclusion/missing/marker,actualMainbytecodenoprepareDistances invocation",
+    "PASS actualstartupobserver/launch/JNIallocation/originalMainboundary",
+    "PASS exactnewGCclasshisto/safepoint/classloggingoption onactualhostSerialGC,before/afterhistogramcontentandfile-rollover",
+    "PASS unchanged audio options migration"
+  ],
+  "target_checks": "PASS HotSpot/nativecompile/link/SELF/fullpackageCRC/signatures,54originalJARs/5147assets,exactruntime/nativeaudits/constructorgroups andpreserved070/069/068/067/earlierpackages",
+  "audio_input_preservation": "PASS all packagedOpenAL/SDLauditvalues/hashesunchangedfrom070",
+  "game_jars_modified": false,
+  "console": "PENDING actualPS5heapinspection/nativeheadroom/retainedcategories/highsettingsmemorygrowth/saveandreload",
+  "evidence": "docs/validation/client070-stutters-2026-10-26.json",
+  "migration070": "Notaneffective6/5comparison;actual16/12despitehumanleavingsettingsalone,mechanismunresolved",
+  "raw_reports_public": false,
+  "public_release_created": false
+}

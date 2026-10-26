@@ -6,6 +6,22 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client070 comparison invalid;071 retained-heap diagnostics
+
+The user wants smooth highsettings and tried070only as a comparison. It briefly
+felt responsive before heavy stutter. Reports still show16/12; the user didnot
+change settings.070's intended6/5migration didnot establish effective6/5, and its
+mechanism remains unresolved. Captured fullGC reaches917.602ms.
+
+071preserves existing settings, disables the active070distance migration and logs
+selected configuration beforeMain. Runtime0120adds opt-inbounded classhistograms
+after existing fullGCs:retained>=512MiB,atmost3samples16eligibleGCsapart,top40rows
+withall-class totals. This adds diagnostic overhead and is not a stutter fix.
+Hostgate/output/options/startup checks and targetbuild pass; actualPS5inspection
+and retainedcategories remain pending. No gameJARchanges or newpublicrelease.
+
+[Investigation](docs/client-retention-071.md) · [070evidence](docs/validation/client070-stutters-2026-10-26.json).
+
 ## 2026-10-26 — Client069 continued GC pressure;070 distance profile
 
 069starts successfully with768MiBonPS5but stutters recur. Captured logs show

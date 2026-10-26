@@ -37,3 +37,11 @@ may bring pressure back.
 KeepREADMEconcise, historyinCHANGELOG. Publishchecked consumerchangeshere; runtime
 fixesseparatelyviaJava syncscript. Preserveacceptedbytes and official gamefiles.
 No replacementgameclasses/bytecodehooks. Java25nativePS5port, noWine.
+
+## Superseded by071
+
+User wants highsettings,070comparison only. Human reports short responsiveness
+then super stutters and confirms no settings edits.070reports still16/12,34fullGCs
+in partialwindow,max917.602ms.070migration effectiveness notestablished; cause
+unresolved.071disablesactivecap,logsselectedoptionsandboundedafterfullGChistograms.
+See[071handoff](handoff-prosperocraft-client071.md). Do notclaim a6/5comparisonpass.

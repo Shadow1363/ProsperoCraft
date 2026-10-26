@@ -10,7 +10,7 @@ import org.lwjgl.system.MemoryUtil;
 public final class ClientStartup25 {
  public static native void checkpoint(String text);
  public static native void nativeSnapshot(long elapsedMillis,int phase);
- private static void stage(String text){checkpoint("MC Startup070: "+text);}
+ private static void stage(String text){checkpoint("MC Startup071: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -32,6 +32,16 @@ public final class ClientStartup25 {
     Files.move(temporary,options,StandardCopyOption.REPLACE_EXISTING);
    }
   }
+ }
+ public static String configurationSummary(Path work)throws IOException{
+  StringBuilder result=new StringBuilder("PS5_OPTIONS_BEFORE_MAIN");
+  String text=Files.readString(work.resolve("options.txt"),StandardCharsets.UTF_8);
+  for(String key:new String[]{"version","graphicsPreset","renderDistance","simulationDistance"}){
+   String value=text.lines().filter(line->line.startsWith(key+":")).map(line->line.substring(key.length()+1)).findFirst().orElse("<missing>");
+   result.append(" ").append(key).append("=").append(value.substring(0,Math.min(value.length(),64)));
+  }
+  result.append(" migration070=").append(Files.exists(work.resolve("distances-enabled-070.txt")));
+  result.append(" distancePolicy=preserve-existing/no-new-cap");return result.toString();
  }
  public static void prepareDistances(Path work)throws IOException{
   Path marker=work.resolve("distances-enabled-070.txt");if(Files.exists(marker))return;
@@ -178,13 +188,14 @@ public final class ClientStartup25 {
   public void close(){synchronized(console){running=false;}worker.interrupt();}
  }
  public static void main(String[] args)throws Throwable{
-  Path work=Path.of("/download0/mc-client"),assets=Path.of("/app0/assets/java25/game-assets");prepareWork(work);prepareAudio(work);prepareDistances(work);
+  Path work=Path.of("/download0/mc-client"),assets=Path.of("/app0/assets/java25/game-assets");prepareWork(work);prepareAudio(work);
   if(!Files.isRegularFile(assets.resolve("indexes/34.json")))throw new IOException("Packaged original asset index missing");
   PrintStream previousOut=System.out,previousErr=System.err;
   PrintStream console=new PrintStream(new FileOutputStream(Path.of("/download0/java25-exceptions.log").toFile(),false),true,StandardCharsets.UTF_8);
   System.setOut(console);System.setErr(console);
   StartupObserver observer=null;
   try{
+   console.println(configurationSummary(work));
    System.setProperty("user.dir",work.toString());System.setProperty("user.home",work.toString());System.setProperty("java.io.tmpdir",work.resolve("native-cache").toString());
    for(String key:new String[]{"jna.tmpdir","io.netty.native.workdir"})System.setProperty(key,work.resolve("native-cache").toString());
    System.setProperty("jna.nosys","true");

@@ -604,3 +604,9 @@ headroom/sufficiency/stability pending. Current continuation:docs/handoff-prospe
 simulation12and continued fullGC/live-setgrowth.070uses backed-up once-only vanilla
 options caps6/5, preserving lower values/later choices; heap/runtime unchanged.
 Do not infer a stable live set or GCpass from hostchecks. Current070handoff applies.
+
+Userclarification:target is smooth highsettings, not quality cuts as finalfix.
+070was diagnostic only; userdidnoteditsettings, butreportsstill16/12andstutters.
+071disablesactive070cap,preservesexistingconfiguration,andusesboundedretainedheap
+diagnostics/runtime0120. No claim of a lower-distancecomparison orperformancefix.
+Currentcontinuation docs/handoff-prosperocraft-client071.md.

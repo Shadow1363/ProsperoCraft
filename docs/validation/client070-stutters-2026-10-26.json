@@ -1,0 +1,178 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.070",
+  "run": "client-01.000.070-1793020510-120920601",
+  "package_sha256": "4ce1749199623943a695feb628d30bcafd9088f77e44b65b882d2b327af2d56c",
+  "human": [
+    "Briefly superresponsive then super stutters",
+    "Did not raise settings after launch",
+    "Goal remains smooth high settings,070onlydiagnosticcomparison"
+  ],
+  "scope": "Partial current/rotated snapshot, ends duringGC184, not whole-session total or exact human freeze correlation",
+  "captured_gc_events": 83,
+  "full_gc_count": 34,
+  "full_pause_max_ms": 917.602,
+  "full_causes": {
+    "CodeCache GC Threshold": 1,
+    "Allocation Failure": 33
+  },
+  "last_full_events": [
+    {
+      "uptime_ms": 89406,
+      "gc_id": 172,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 589,
+      "capacity_mib": 748,
+      "pause_ms": 674.812
+    },
+    {
+      "uptime_ms": 91063,
+      "gc_id": 173,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 580,
+      "capacity_mib": 748,
+      "pause_ms": 915.098
+    },
+    {
+      "uptime_ms": 92456,
+      "gc_id": 174,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 590,
+      "capacity_mib": 748,
+      "pause_ms": 674.641
+    },
+    {
+      "uptime_ms": 93619,
+      "gc_id": 175,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 596,
+      "capacity_mib": 748,
+      "pause_ms": 700.143
+    },
+    {
+      "uptime_ms": 94695,
+      "gc_id": 176,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 582,
+      "capacity_mib": 748,
+      "pause_ms": 673.589
+    },
+    {
+      "uptime_ms": 96204,
+      "gc_id": 177,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 587,
+      "capacity_mib": 748,
+      "pause_ms": 793.062
+    },
+    {
+      "uptime_ms": 97587,
+      "gc_id": 178,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 586,
+      "capacity_mib": 748,
+      "pause_ms": 672.577
+    },
+    {
+      "uptime_ms": 98822,
+      "gc_id": 179,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 594,
+      "capacity_mib": 748,
+      "pause_ms": 699.814
+    },
+    {
+      "uptime_ms": 100109,
+      "gc_id": 180,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 591,
+      "capacity_mib": 748,
+      "pause_ms": 682.576
+    },
+    {
+      "uptime_ms": 101704,
+      "gc_id": 181,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 592,
+      "capacity_mib": 748,
+      "pause_ms": 917.602
+    },
+    {
+      "uptime_ms": 103127,
+      "gc_id": 182,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 592,
+      "capacity_mib": 748,
+      "pause_ms": 684.191
+    },
+    {
+      "uptime_ms": 104387,
+      "gc_id": 183,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 729,
+      "after_mib": 592,
+      "capacity_mib": 748,
+      "pause_ms": 681.726
+    }
+  ],
+  "effective_console_distances": {
+    "view": 16,
+    "simulation": 12
+  },
+  "migration_result": "0706/5intendedcaps did not establish effective6/5onconsole. User didnotedit. Actualmainbytecode includesprepareDistances invocation but optionsfile/marker/version/preset were not captured, so mechanismunresolved. Do not claim a lower-distance comparison or blameuser.",
+  "next": "071preserveexistingdistanceoptions/noactive070migration; log selectedoptionsbeforeMain; opt-inboundedafterfullGCclasshistograms to identify retainedcategories",
+  "files": {
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "4d5c47ff4f5c244cedb4c3751664d3c6ba2e9ffb5b5066bec5cd1af67e69e17c"
+    },
+    "exceptions.log": {
+      "bytes": 1781903,
+      "sha256": "88453764ab14f63eba5211e1f52f2270b20e4b14010171d337783dcdbe8d2e46"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194442,
+      "sha256": "4546c5c82f660b825abf4cbe2c887126914cefb5f11c91f725b644d98ef99692"
+    },
+    "jit.log": {
+      "bytes": 2427846,
+      "sha256": "2112422a3085cffc6e5cc988d3e7283eea5f0f92ad65548b4ba537616c5d3c30"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "38ffd72fd7a17e74283c68b2da53ea9a4dbca5194781f397c80346e6a8fe8b42"
+    },
+    "native-stderr.log": {
+      "bytes": 32044,
+      "sha256": "ce1d9559c39e1fd70f57136e0840db466d602db1aa74a0b24041ec362ff9ccb9"
+    },
+    "gc.log": {
+      "bytes": 1460121,
+      "sha256": "7d2e4139476a2adfe91812634d3e145ae307b7f624c3c0ae164d867cae8ba711"
+    }
+  },
+  "raw_reports_public": false
+}
