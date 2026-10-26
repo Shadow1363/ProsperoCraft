@@ -36,7 +36,9 @@
     "PASS exact082package checksum unchanged",
     "PASS GitHub asset digests match all added license/notice/checksum assets",
     "PASS local catalog record validation",
-    "PASS git diff --check"
+    "PASS git diff --check",
+    "PASS future folder/ZIP license-notice inclusion and repeat packaging without duplicates"
   ],
-  "console_tests": "None required for this license/metadata-only follow-up;scoped082human pass preserved,endurance remains separate"
+  "console_tests": "None required for this license/metadata-only follow-up;scoped082human pass preserved,endurance remains separate",
+  "future_packaging": "apply_branding.py automatically includes project LICENSE and NOTICE in future app directories/ZIPs;temporary fixture and repeated packaging verified,existing native payload preserved"
 }
