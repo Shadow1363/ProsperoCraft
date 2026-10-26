@@ -17,7 +17,7 @@ static bool enabled,captured,mod;
 static Uint64 tick=1;
 static int opens,events,downs,ups,motions;
 static bool keys[SDL_SCANCODE_COUNT],mouse[4];
-static float motion_x;
+static float motion_x;static int wheels,cursor_calls,character,texts;static char typed;
 static struct pad_reading samples[64];static int count=1;static uint32_t players=1;
 Uint64 SDL_GetTicksNS(void){return tick;}
 SDL_Window *SDL_GetKeyboardFocus(void){return focus;}
@@ -29,7 +29,12 @@ void SDL_AddKeyboard(SDL_KeyboardID id,const char*name){assert(id&&name);}
 void SDL_AddMouse(SDL_MouseID id,const char*name){assert(id&&name);}
 bool SDL_SendKeyboardKey(Uint64 time,SDL_KeyboardID id,int raw,SDL_Scancode key,bool down){assert(time==tick&&id&&raw==0);keys[key]=down;events++;if(down)downs++;else ups++;return true;}
 void SDL_SendMouseButton(Uint64 time,SDL_Window*w,SDL_MouseID id,Uint8 b,bool down){assert(time==tick&&id);mouse[b]=down;events++;}
-void SDL_SendMouseMotion(Uint64 time,SDL_Window*w,SDL_MouseID id,bool relative,float x,float y){assert(time==tick&&id&&relative&&isfinite(x)&&isfinite(y));motion_x=x;motions++;}
+void SDL_SendMouseMotion(Uint64 time,SDL_Window*w,SDL_MouseID id,bool relative,float x,float y){assert(time==tick&&id&&isfinite(x)&&isfinite(y));motion_x=x;motions++;}
+size_t SDL_strlen(const char*s){return strlen(s);}
+bool SDL_GetWindowSize(SDL_Window*w,int*x,int*y){*x=1920;*y=1080;return true;}
+int client_wsi_cursor(bool show,float x,float y,int ch){if(show){assert(x>=0&&x<=1&&y>=0&&y<=1);cursor_calls++;character=ch;}return 0;}
+void SDL_SendMouseWheel(Uint64 t,SDL_Window*w,SDL_MouseID m,float x,float y,SDL_MouseWheelDirection d){assert(y==1||y==-1);wheels++;}
+void SDL_SendKeyboardText(const char*t){texts++;typed=t[0];}
 bool pad_open(void){opens++;return true;}
 void pad_poll(struct pad*p){memset(p,0,sizeof(*p));}
 uint32_t pad_players(void){return players;}
@@ -40,22 +45,25 @@ static void pump(void){tick+=16000000;PS5_PumpTemporaryInput(window);}
 int main(void){
  focus=window;sample(0);pump();assert(!opens&&!events);
  enabled=true;sample(PAD_CROSS);pump();assert(opens==1&&!events); /* no launch-held activation */
- sample(0);pump();sample(PAD_CROSS);pump();assert(keys[SDL_SCANCODE_RETURN]);int prior=events;
+ sample(0);pump();sample(PAD_CROSS);pump();assert(mouse[SDL_BUTTON_LEFT]);int prior=events;
  tick+=500000000;pump();assert(events==prior); /* no repeated confirmation */
- sample(0);pump();assert(!keys[SDL_SCANCODE_RETURN]);
- sample(PAD_CROSS);samples[1]=samples[0];samples[1].buttons=0;count=2;prior=events;pump();assert(events==prior+2&&!keys[SDL_SCANCODE_RETURN]);
+ sample(0);pump();assert(!mouse[SDL_BUTTON_LEFT]);
+ sample(PAD_CROSS);samples[1]=samples[0];samples[1].buttons=0;count=2;prior=events;pump();assert(events==prior+2&&!mouse[SDL_BUTTON_LEFT]);
  sample(PAD_DOWN);pump();assert(keys[SDL_SCANCODE_DOWN]);prior=downs;tick+=400000000;pump();assert(downs==prior+1);sample(0);pump();assert(!keys[SDL_SCANCODE_DOWN]);
  sample(0);samples[0].left_x=255;pump();assert(keys[SDL_SCANCODE_RIGHT]);
- captured=true;sample(PAD_CROSS|PAD_TRIANGLE);samples[0].left_x=255;samples[0].right_x=255;samples[0].r2=255;pump();
+ captured=true;sample(0);pump();sample(PAD_CROSS|PAD_TRIANGLE);samples[0].left_x=255;samples[0].right_x=255;samples[0].r2=255;pump();
  assert(!keys[SDL_SCANCODE_RIGHT]&&keys[SDL_SCANCODE_D]&&keys[SDL_SCANCODE_SPACE]&&keys[SDL_SCANCODE_E]&&mouse[SDL_BUTTON_LEFT]);
  tick+=2000000000;pump();assert(motions&&motion_x<=32.51f); /* bounded after stall */
+ sample(PAD_L3|PAD_CIRCLE|PAD_SQUARE|PAD_L1);pump();assert(keys[SDL_SCANCODE_LCTRL]&&keys[SDL_SCANCODE_LSHIFT]&&keys[SDL_SCANCODE_F]&&wheels==1);pump();assert(wheels==1);sample(0);pump();assert(!keys[SDL_SCANCODE_LCTRL]&&!keys[SDL_SCANCODE_LSHIFT]);
  sample(PAD_INTERCEPTED);pump();assert(!keys[SDL_SCANCODE_D]&&!keys[SDL_SCANCODE_SPACE]&&!mouse[SDL_BUTTON_LEFT]);
  sample(PAD_CROSS);pump();assert(!keys[SDL_SCANCODE_SPACE]);sample(0);pump();sample(PAD_CROSS);pump();assert(keys[SDL_SCANCODE_SPACE]);
  players=0;count=0;pump();assert(!keys[SDL_SCANCODE_SPACE]);players=1;
  sample(0);captured=false;pump();sample(PAD_CIRCLE);pump();assert(keys[SDL_SCANCODE_ESCAPE]);
+ sample(0);pump();assert(cursor_calls);sample(PAD_TOUCH_PAD|PAD_R3);pump();assert(character=='A');sample(0);pump();sample(PAD_CROSS);pump();assert(texts==1&&typed=='A'&&!mouse[SDL_BUTTON_LEFT]);sample(0);pump();sample(PAD_RIGHT);pump();assert(character=='B');sample(0);pump();sample(PAD_CROSS);pump();assert(typed=='B');sample(0);pump();sample(PAD_CIRCLE);pump();
  mod=true;pump();assert(!keys[SDL_SCANCODE_ESCAPE]);prior=events;pump();assert(events==prior);mod=false;
  sample(0);pump();sample(PAD_UP);pump();assert(keys[SDL_SCANCODE_UP]);focus=NULL;pump();assert(!keys[SDL_SCANCODE_UP]);focus=window;
  enabled=false;prior=events;pump();assert(events==prior);
+ enabled=true;sample(0);pump();sample(PAD_CROSS);pump();assert(mouse[SDL_BUTTON_LEFT]);captured=true;pump();assert(!mouse[SDL_BUTTON_LEFT]&&!keys[SDL_SCANCODE_SPACE]);sample(0);pump();sample(PAD_CROSS);pump();assert(keys[SDL_SCANCODE_SPACE]);captured=false;pump();assert(!keys[SDL_SCANCODE_SPACE]&&!mouse[SDL_BUTTON_LEFT]);
  puts("PASS actual PS5 temporary SDL adapter under ASan/UBSan:opt-in,launch-held suppression,buffered tap,menu navigation/repeat,mode mapping,trigger releases,capped look,interception/disconnect/focus release,gamepad-mod handoff,no idle keepalive;SDL/OS boundaries are host fixtures,console pending");
 }
 '''

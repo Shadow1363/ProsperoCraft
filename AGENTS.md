@@ -703,3 +703,10 @@ mounted capacity and existing-volume expansion remain unverified. Completeparam
 update+loaderrefresh/relaunch thenRepairDownloadpast212MBneedsPS5validation.
 Capacity0fromunsupportedJavaqueriesisunknown,neverphysicalfree0. Read
  docs/handoff-prosperocraft-client080.md. Preserve079/074bytes; no release.
+
+081userrequestspropertemporarycontrols,visiblejoystickcursor,quietroutine startup,
+Instancesheading/fullversion,explicitpending-versionlaunchblockandsavedapproval/
+roadmapnotice. See docs/client-controls-081.md and081handoff. Onlyexact26.3SDLdemo
+allowed;nootherAppID/fullaccountbypass. Controller/cursor/textpickerhostfixtures
+are notPS5pass. Preserve080bytesand074fallback;existingdataand4096MiBunchanged.
+Runtimequietreadynotificationpublishedseparately;nofrozenmilestonereplacement.

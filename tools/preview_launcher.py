@@ -8,7 +8,7 @@ w=ROOT/'build/launcher-preview';w.mkdir(parents=True,exist_ok=True)
 source='''#include <cstdlib>\n#include <cassert>\n#include <vector>\n#include <string>\n#include <fstream>\n#include <thread>\n#include <chrono>\n#include "jni.h"\n#include "pad.h"\n#include "'''+str(runtime/'native/renderer/demo_renderer.cpp')+'''"\n#include "'''+str(ROOT/'client/launcher/native_menu.hpp')+'''"\n'''
 source+=r'''
 static std::atomic<unsigned> fake_buttons{0},pad_reads{0},flips{0};
-static void* storage=nullptr;static std::vector<std::string> operations;static int failure=0;static std::string output;
+static void* storage=nullptr;static std::vector<std::string> operations;static int notifications=0,failure=0;static std::string output;
 extern "C" {
 bool ps5ObserveOwnedAllocation(const void* p) noexcept{return p!=nullptr;}
 size_t sceKernelGetDirectMemorySize(){return 256*1024*1024;}
@@ -16,7 +16,7 @@ int sceKernelAllocateDirectMemory(int64_t,int64_t,size_t n,size_t alignment,int,
 int sceKernelMapDirectMemory(void**p,size_t,int,int,int64_t,size_t){*p=storage;return 0;}
 int sceKernelMunmap(void*,size_t){operations.push_back("unmap");return failure==2?-1:0;}
 int sceKernelReleaseDirectMemory(int64_t,size_t){operations.push_back("release");if(failure==3)return -1;free(storage);storage=nullptr;return 0;}
-int sceKernelSendNotificationRequest(uint32_t,void*,size_t,int){return 0;}
+int sceKernelSendNotificationRequest(uint32_t,void*,size_t,int){notifications++;return 0;}
 uint64_t sceKernelGetProcessTime(){return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();}
 int sceKernelUsleep(uint32_t us){std::this_thread::sleep_for(std::chrono::microseconds(us));return 0;}
 int sceUserServiceGetInitialUser(int32_t* user){*user=1;return 0;}
@@ -63,14 +63,17 @@ int main(int argc,char**argv){assert(argc==2);
  snprintf(prospero_menu::fields[11].data(),512,"3");
  snprintf(prospero_menu::fields[3].data(),512,"ABCD-EFGH");snprintf(prospero_menu::fields[4].data(),512,"https://www.microsoft.com/link");snprintf(prospero_menu::fields[2].data(),512,"Approve sign-in on your phone or computer");
  output=std::string(argv[1])+"/signin.ppm";operations.clear();prospero_menu::focus={};assert(ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"preview"));
- for(const char* scene:{"empty","create","settings","detail","edit","keyboard"}){
-  int page=std::strcmp(scene,"empty")==0?0:std::strcmp(scene,"create")==0?1:std::strcmp(scene,"settings")==0?2:std::strcmp(scene,"detail")==0?4:std::strcmp(scene,"edit")==0?5:6;
-  snprintf(prospero_menu::fields[11].data(),512,"%d",page);snprintf(prospero_menu::fields[13].data(),512,"0");snprintf(prospero_menu::fields[16].data(),512,"Vanilla 26.3");snprintf(prospero_menu::fields[17].data(),512,"26.3");snprintf(prospero_menu::fields[18].data(),512,"1");snprintf(prospero_menu::fields[22].data(),512,"Weekend world");snprintf(prospero_menu::fields[23].data(),512,"26.3");snprintf(prospero_menu::fields[24].data(),512,"2");snprintf(prospero_menu::fields[25].data(),512,"1920 x 1080");snprintf(prospero_menu::fields[26].data(),512,"4");snprintf(prospero_menu::fields[27].data(),512,"ON");snprintf(prospero_menu::fields[29].data(),512,"Weekend world");snprintf(prospero_menu::fields[65].data(),512,"26.3 native gameplay baseline");
+ for(const char* scene:{"empty","create","settings","detail","edit","keyboard","intro","controls","pending"}){
+  int page=std::strcmp(scene,"pending")==0?4:std::strcmp(scene,"controls")==0?8:std::strcmp(scene,"intro")==0?7:std::strcmp(scene,"empty")==0?0:std::strcmp(scene,"create")==0?1:std::strcmp(scene,"settings")==0?2:std::strcmp(scene,"detail")==0?4:std::strcmp(scene,"edit")==0?5:6;
+  snprintf(prospero_menu::fields[11].data(),512,"%d",page);snprintf(prospero_menu::fields[13].data(),512,"0");snprintf(prospero_menu::fields[16].data(),512,"Vanilla 26.3");snprintf(prospero_menu::fields[17].data(),512,"26.3");snprintf(prospero_menu::fields[18].data(),512,"1");snprintf(prospero_menu::fields[22].data(),512,"Weekend world");snprintf(prospero_menu::fields[23].data(),512,"26.3");snprintf(prospero_menu::fields[24].data(),512,"2");snprintf(prospero_menu::fields[25].data(),512,"1920 x 1080");snprintf(prospero_menu::fields[26].data(),512,"4");snprintf(prospero_menu::fields[27].data(),512,"ON");snprintf(prospero_menu::fields[29].data(),512,"Weekend world");snprintf(prospero_menu::fields[2].data(),512,"");snprintf(prospero_menu::fields[68].data(),512,"ON");snprintf(prospero_menu::fields[65].data(),512,"26.3 native gameplay baseline");
+  if(page==7){snprintf(prospero_menu::fields[15].data(),512,"1");snprintf(prospero_menu::fields[7].data(),512,"D-PAD  Choose     X  Confirm");}
+  if(page==8)snprintf(prospero_menu::fields[7].data(),512,"CIRCLE / OPTIONS  Back");
+  if(std::strcmp(scene,"pending")==0){snprintf(prospero_menu::fields[16].data(),512,"Vanilla 26.2");snprintf(prospero_menu::fields[17].data(),512,"26.2");snprintf(prospero_menu::fields[69].data(),512,"PENDING");snprintf(prospero_menu::fields[6].data(),512,"LAUNCH NOT AVAILABLE YET");snprintf(prospero_menu::fields[65].data(),512,"Download available. Launch support is not ready yet.");}
   output=std::string(argv[1])+"/"+scene+".ppm";prospero_menu::focus={};assert(ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"preview"));
  }
  for(failure=1;failure<=3;failure++){operations.clear();assert(!ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"fixture"));assert(storage);assert(operations.size()==unsigned(failure));free(storage);storage=nullptr;}
  failure=0;operations.clear();unsigned before=flips.load();
- assert(prospero_menu::start_frontend());assert(flips.load()>before); // no JVM exists in this process
+ int notifications_before=notifications;assert(prospero_menu::start_frontend());assert(notifications==notifications_before);assert(flips.load()>before); // no JVM exists in this process
  auto await=[&](auto predicate){auto until=std::chrono::steady_clock::now()+std::chrono::seconds(3);while(!predicate()&&std::chrono::steady_clock::now()<until)std::this_thread::sleep_for(std::chrono::milliseconds(1));assert(predicate());};
  // Simulate blocked/unavailable Java initialization. Native drawing/controller
  // polling must remain responsive and preserve ordered button edges.
@@ -81,7 +84,7 @@ int main(int argc,char**argv){assert(argc==2);
  prospero_menu::show_failure();reads=pad_reads.load();await([&]{return pad_reads.load()>reads+1;});assert(!prospero_menu::display_done.load());
  prospero_menu::exit_requested=true;pthread_join(prospero_menu::ui_thread,nullptr);
  assert(prospero_menu::display_done.load()&&prospero_menu::display_ok.load());assert(!storage);assert((operations==std::vector<std::string>{"close","unmap","release"}));
- operations.clear();assert(prospero_menu::start_frontend());jni_owner=pthread_self();
+ operations.clear();notifications_before=notifications;assert(prospero_menu::start_frontend());assert(notifications==notifications_before);jni_owner=pthread_self();
  for(int i=0;i<80;++i)ui_strings[i]=i<12?values[i]:"";
  JNINativeInterface_ functions{};functions.GetStaticMethodID=method_id;functions.CallStaticObjectMethodV=java_tick;
  functions.GetArrayLength=array_length;functions.GetObjectArrayElement=array_element;functions.GetStringUTFChars=utf_chars;functions.ReleaseStringUTFChars=release_chars;functions.DeleteLocalRef=delete_ref;functions.ExceptionCheck=exception_check;
@@ -99,6 +102,6 @@ jdk=Path('/Library/Java/JavaVirtualMachines/openjdk-25.jdk/Contents/Home')
 subprocess.run(['clang++','-arch','x86_64','-std=c++20','-O1','-I'+str(runtime/'native/renderer'),'-I'+str(runtime/'build/native'),'-I'+str(runtime/'src'),'-I'+str(jdk/'include'),'-I'+str(jdk/'include/darwin'),str(w/'preview.cpp'),'-o',str(w/'preview')],check=True)
 subprocess.run([str(w/'preview'),str(w)],check=True,timeout=30)
 from PIL import Image
-for name in ['home','signin','empty','create','settings','detail','edit','keyboard']:
+for name in ['home','signin','empty','create','settings','detail','edit','keyboard','intro','controls','pending']:
  with Image.open(w/(name+'.ppm'))as picture:picture.save(w/(name+'.png'))
 print(w/'home.png')

@@ -6,6 +6,26 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-26 — Client081 controller layout and launcher polish
+
+Adds sprint/sneak, hotbar cycling, offhand swap, drop, camera/player-list/debug
+and utility bindings through normal SDL events. Menu right-stick pointer,
+click/right-click/drag/quick-move/scroll and a compact ASCII text picker cover
+more vanilla UI interactions. The WSI-owned VideoOut cursor uses64KiB retained
+direct memory; original game files remain intact. A launcher Options guide
+explains the layout. Full Controlify and mod shortcut coverage remain planned.
+
+Changes the library heading to Instances, removes its subtitle and routine
+system startup notifications, shows01.000.081at bottom right, blocks unsupported
+versions before launch, and adds a saved startup approval/roadmap notice with
+OK and Show next time. Only exact26.3SDLdemo is eligible to launch. The existing
+4096MiBstorage request, worlds/cache and074audio/performance settings remain.
+
+Host/controller/cursor/notice tests and target packaging are development evidence;
+physical controls, cursor alignment, text entry, download completion and retained
+PS5smoothness/audio need console validation.080human report says downloading,
+not completed or gameplay accepted. [Guide](docs/client-controls-081.md).
+
 ## 2026-10-26 — Client080 increases the app-local download reservation
 
 079downloads repeatedly stop at212MBwithENOSPCwhile the console reports382GBfree.

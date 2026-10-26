@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.081",
+  "title_id": "PPSA99874",
+  "package_sha256": "3455e3fa1121eaaf6ae404ba7b4aa8ba9297f352ae46a76f5535f36fcdf182ad",
+  "native_elf_sha256": "92f30dcac632db55ccadd891b212892e27806ab698709ad1fa0ddb4db955d9d1",
+  "runtime_public_commit": "9afa03adfb34dc1049f18de5839d762662b6c306",
+  "consumer_baseline_commit": "3128fb94848ae8207605cd1219b1baa961688b44",
+  "source_sha256": {
+    "client/launcher/auth-config.json": "08e23432fed587876093e2f8e1918b374ec0450237a8072dc017c3711c8ebbe1",
+    "client/launcher/branding_logo.hpp": "894ba889d2a33726227770184db20370ab4e0b3b286fc1732097c87b8aa7bc08",
+    "client/launcher/java/ProsperoAuth.java": "3286d4e87360d4a523524d88cf31eb8442dfae79dbe343c23dbb153f70190a91",
+    "client/launcher/java/ProsperoInstall.java": "4d80302f8c3076a275387e57e673544292f198e5fb084c48640dca5da40f29b4",
+    "client/launcher/java/ProsperoLauncher.java": "2c7b8baea6175b9b81b210cb907fdb739289e5359b60d12e6b6cc1ba16aa1c83",
+    "client/launcher/java/ProsperoLibrary.java": "ad929f2481266f09baba9b149bd2335fc8e2c6d8f205f3941109bc6f89d0d83c",
+    "client/launcher/java/ProsperoStorage.java": "011fd981f75e4915c749d41585259941d8f80a4d9f92db72a0c2a561169939f5",
+    "client/launcher/native_menu.hpp": "ab1d99a3f0ee124d55f4b7ba642550135f78262f1234c721b3e67c06944d2b75",
+    "client/ports/sdl/ps5_temporary_input.h": "c482bcde08ffb467ba24def10d6adb86c06671783b564d1f294c9eee0e763f4a",
+    "client/ports/mesa/0006-videoout-menu-cursor.patch": "8e22498e8431d735cf0a15da79deb0fc19c9d121c35d2d73ef2ea0a7ed24a7e8",
+    "client/startup/bootstrap.cpp": "943c5cd20bae2a74e6bd63f5ecd662e94790497b577dbb51868f58d7a1ecea5a",
+    "client/startup/param.json": "1654f3a5af8e768e46886d65ca1b56cec060a7998dae94870acf2e7398f833d8"
+  },
+  "changes": [
+    "Expanded normal SDL controller keyboard/mouse/text mapping; no game transformation",
+    "Visible WSI-owned hardware cursor and compact ASCII picker, no touch tracking",
+    "Instances heading and no subtitle, full version, no routine system startup notifications",
+    "Saved approval/full-roadmap notice and Settings toggle",
+    "Only exact26.3SDLreceipt can launch; other versions explicitly not yet supported"
+  ],
+  "host_checks": [
+    "PASS actual SDL input ASan/UBSan fixtures",
+    "PASS actual WSI cursor/glyph ASan/UBSan fixtures and target compile",
+    "PASS actual Java instance/notice migration/persistence/unsupported guard and supported demo launch arguments",
+    "PASS auth/HTTPS and storage fixtures",
+    "PASS native UI preview/JNI ownership/silent startup/cleanup failure ordering",
+    "PASS startup host bytecode/original JAR/allocator/GC checks",
+    "PASS actual package CRC/signatures/source audits/4096MiB/no bundled game/preserved milestones",
+    "PASS audio policy and configuration preservation"
+  ],
+  "console_status": "PENDING exact081 test; no formal ALL PASS",
+  "console_checks": [
+    "Cursor visibility/alignment and text picker at game resolution",
+    "Gameplay and menu/inventory buttons, drag, quick move, scroll",
+    "Disconnect/focus/capture transition releases",
+    "Notice persistence and unsupported-version launch block",
+    "Download completion, demo world startup, retained audio/smoothness"
+  ],
+  "prior_human_report": "080is downloading; completion and gameplay not established",
+  "preserved080_sha256": "c374781d33249b019e268eac391350bdbb1dd78c8f19de6909c86b9c67d84dba",
+  "limits": [
+    "Temporary default-key mapping, no arbitrary mod shortcuts or full Unicode keyboard",
+    "Microsoft app approval still pending; demo-only launch and ownership checks retained",
+    "No release or Store update"
+  ]
+}

@@ -82,7 +82,7 @@ inline void draw(Canvas& c) noexcept {
  const char* tabs[]={"+  Add instance","Settings","Account"};const int tx[]={865,1245,1555},tw[]={350,280,280};
  for(int i=0;i<3;i++){bool current=(top&&tab==i)||(page>0&&page<=3&&page==i+1);if(current&&top)selection(c,tx[i],52,tw[i],68);c.rounded(tx[i],52,tw[i],68,18,ink(current?0x284f3c:0x172e24));label(c,tx[i]+24,72,tabs[i],30,current?0xc7f4cf:0xb0c4b5);}
  if(page==0){
-  label(c,70,192+slide,"Your worlds, together.",64);label(c,74,276+slide,"A little space for your next big idea.",24,0x90ad9c);
+  label(c,70,192+slide,"Instances",64);
   const int count=number(13),start=number(14);
   if(count==0){
    c.rounded(70,337+slide,1770,528,30,ink(0x10251d));block(c,325,470+slide,170,1);block(c,210,590+slide,86,2);block(c,510,405+slide,100,3);
@@ -95,12 +95,12 @@ inline void draw(Canvas& c) noexcept {
  }else if(page==1||page==5){
   label(c,70,185+slide,page==1?"A world of your own.":"Make it yours.",64);label(c,75,269+slide,page==1?"One instance. Its own settings, worlds and memories.":"Your worlds stay right where they are.",24,0x91ad9b);
   c.rounded(70,338+slide,620,548,28,ink(0x10221c));block(c,275,402+slide,204,page==1?number(24):number(18));title(c,105,690+slide,page==1?fields[22].data():fields[16].data(),42,540);label(c,108,761+slide,"JAVA EDITION / DEMO",24,0x8db69a);
-  if(page==1){row_control(c,340+slide,"VERSION",fields[23].data(),row==0);row_control(c,458+slide,"NAME",fields[22].data(),row==1);const char* icons[]={"Crafting table","Grass","Amethyst","Ocean","Redstone","Forest","Gold","Snow"};int icon=number(24);row_control(c,576+slide,"ICON",icons[icon>=0&&icon<8?icon:0],row==2);action(c,760,738+slide,1080,"CREATE & DOWNLOAD",row==3,true);}
+  if(page==1){row_control(c,340+slide,"VERSION",fields[23].data(),row==0);row_control(c,458+slide,"NAME",fields[22].data(),row==1);const char* icons[]={"Crafting table","Grass","Amethyst","Ocean","Redstone","Forest","Gold","Snow"};int icon=number(24);row_control(c,576+slide,"ICON",icons[icon>=0&&icon<8?icon:0],row==2);action(c,760,738+slide,1080,"CREATE & DOWNLOAD",row==3,true);wrap(c,790,861+slide,fields[70].data(),1000,1);}
   else{row_control(c,340+slide,"INSTANCE NAME",fields[16].data(),row==0);const char* icons[]={"Crafting table","Grass","Amethyst","Ocean","Redstone","Forest","Gold","Snow"};int icon=number(18);row_control(c,458+slide,"INSTANCE ICON",icons[icon>=0&&icon<8?icon:0],row==1);action(c,760,640+slide,1080,"DONE",row==2,true);wrap(c,791,759+slide,"Version files are shared. Your worlds and options belong only to this instance.",1000,3);}
  }else if(page==2){
   label(c,70,185+slide,"Settle in.",64);label(c,75,270+slide,"A few thoughtful defaults. You're in control.",24,0x91ad9b);
   c.rounded(70,340+slide,620,548,28,ink(0x10221c));label(c,112,391+slide,"YOUR SETUP",24,0x8fbb9b);label(c,112,459+slide,"Native Java 25",42);wrap(c,114,545+slide,"Resolution applies to the game window on the next launch. Your in-game video and audio options stay with each instance.",520,5);wrap(c,114,747+slide,fields[67].data(),510,3);
-  row_control(c,340+slide,"GAME RESOLUTION",fields[25].data(),row==0);row_control(c,465+slide,"PARALLEL DOWNLOADS",fields[26].data(),row==1);row_control(c,590+slide,"REDUCED MOTION",fields[30].data(),row==2);row_control(c,715+slide,"SHOW SNAPSHOTS",fields[27].data(),row==3);
+  row_control(c,340+slide,"GAME RESOLUTION",fields[25].data(),row==0);row_control(c,465+slide,"PARALLEL DOWNLOADS",fields[26].data(),row==1);row_control(c,590+slide,"REDUCED MOTION",fields[30].data(),row==2);row_control(c,715+slide,"SHOW SNAPSHOTS",fields[27].data(),row==3);row_control(c,840+slide,"STARTUP NOTICE",fields[68].data(),row==4);
  }else if(page==3){
   label(c,70,185+slide,"Your account. Your adventure.",64);label(c,75,270+slide,"Sign in on your phone. Your password stays with Microsoft.",24,0x91ad9b);
   c.rounded(70,340+slide,1000,548,28,ink(0x10221c));label(c,116,391+slide,"MICROSOFT ACCOUNT",24,0x8fbb9b);title(c,116,447+slide,fields[5].data(),42,900);
@@ -108,9 +108,24 @@ inline void draw(Canvas& c) noexcept {
   else wrap(c,117,547+slide,"Demo instances work while application review is pending. Full account access completes only when all sign-in and ownership checks succeed.",850,5);
   action(c,1140,366+slide,700,"SIGN IN WITH MICROSOFT",row==0,true);action(c,1140,481+slide,700,"SIGN OUT",row==1);wrap(c,1167,634+slide,fields[2].data(),620,6);
  }else if(page==4){
-  label(c,70,185+slide,"Ready when you are.",64);c.rounded(70,330+slide,620,560,28,ink(0x10221c));block(c,245,385+slide,270,number(18));title(c,109,721+slide,fields[16].data(),42,540);label(c,112,794+slide,fields[17].data(),24,0x97bea3);
+  label(c,70,185+slide,std::strcmp(fields[69].data(),"PENDING")==0?"Launch support coming.":"Ready when you are.",64);c.rounded(70,330+slide,620,560,28,ink(0x10221c));block(c,245,385+slide,270,number(18));title(c,109,721+slide,fields[16].data(),42,540);label(c,112,794+slide,fields[17].data(),24,0x97bea3);
   title(c,762,352+slide,fields[16].data(),64,1060);label(c,768,441+slide,"JAVA EDITION    /    DEMO INSTANCE",24,0x94b69f);
-  action(c,760,505+slide,1080,fields[6].data(),row==0,true);action(c,760,621+slide,1080,"INSTANCE SETTINGS",row==1);action(c,760,737+slide,1080,"REPAIR DOWNLOAD",row==2);wrap(c,790,857+slide,fields[65].data(),1000,1);
+  action(c,760,505+slide,1080,fields[6].data(),row==0,std::strcmp(fields[69].data(),"PENDING")!=0);action(c,760,621+slide,1080,"INSTANCE SETTINGS",row==1);action(c,760,737+slide,1080,"REPAIR DOWNLOAD",row==2);wrap(c,790,857+slide,fields[65].data(),1000,1);
+ }else if(page==8){
+  label(c,70,190,"Controller guide",64);
+  label(c,78,290,"IN THE WORLD",30,0xa9eab6);label(c,1000,290,"MENUS AND INVENTORY",30,0xa9eab6);
+  const char* world[]={"Left stick  Move     Right stick  Look","X  Jump     CIRCLE  Sneak (hold)","L3  Sprint (hold)     TRIANGLE  Inventory","R2  Attack / mine     L2  Use / place","L1 / R1  Previous / next hotbar slot","SQUARE  Swap hands     D-PAD DOWN  Drop","R3  Camera view     OPTIONS  Pause","D-PAD LEFT / RIGHT  Hotbar slot 1 / 9","Hold touchpad + LEFT  HUD / RIGHT  Screenshot","Touchpad + UP  Debug / DOWN  Advancements"};
+  const char* menu[]={"Right stick  Pointer     X / R2  Left click","L2  Right click     R3  Middle click","SQUARE + click  Quick move (Shift)","L1 / R1  Scroll     CIRCLE  Back","D-PAD / left stick  Keyboard navigation","Touchpad + R3  Toggle text picker","Text: D-PAD  Choose letter     X  Type","Text: SQUARE  Space     TRIANGLE  Backspace","Text: R2  Case     OPTIONS  Enter / done","Text: CIRCLE  Close     L1 / R1  Letters"};
+  for(int i=0;i<10;i++){label(c,78,360+i*51,world[i],24,0xa9c6b2);label(c,1000,360+i*51,menu[i],24,0xa9c6b2);}
+  label(c,78,915,"Hold touchpad: TRIANGLE  Chat / SQUARE  Command / X  Enter / CIRCLE  Backspace / R3  Pick block",24,0x83a58d);
+ }else if(page==7){
+  c.rounded(170,190,1580,745,32,ink(0x142e23));
+  label(c,235,240,"Welcome to ProsperoCraft",64);
+  wrap(c,240,347,"Microsoft is reviewing our application ID. Please wait for approval before full account play becomes available.",1390,3);
+  wrap(c,240,468,"For now, you can download instances and play the 26.3 demo. Other versions cannot launch yet; native compatibility is in progress.",1390,3);
+  wrap(c,240,570,"Roadmap: full play after approval and ownership checks; full settings; all 26.x releases and snapshots; Fabric, Forge, NeoForge; SDL3 / Controlify; shader performance. Later: CogiArt menu music, mrpack imports, USB keyboard / mouse, themes, JVM21 and JVM17 for older versions.",1390,5);
+  if(row==0)selection(c,760,747,900,96);c.rounded(760,747,900,96,20,ink(0x1e3c30));label(c,790,765,"SHOW NEXT TIME",24,0x8fae9d);label(c,1510,791,fields[68].data(),30);
+  action(c,240,753,440,"OK",row==1,true);
  }else if(page==6){
   label(c,70,185,"Give it a name.",64);c.rounded(70,300,1770,116,22,ink(0x183c2a));title(c,103,330,fields[29].data(),42,1650);
   const char* chars=std::strcmp(fields[66].data(),"LOWER")==0?"abcdefghijklmnopqrstuvwxyz0123456789 ._-":"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ._-";int chosen=number(31);
@@ -120,7 +135,7 @@ inline void draw(Canvas& c) noexcept {
  if(std::strcmp(fields[64].data(),"BUSY")==0){
   if(page!=3)title(c,78,942,fields[2].data(),24,1300,0xaac8b2);label(c,1450,942,fields[21].data(),24,0xaac8b2);c.rounded(72,982,1770,5,2,ink(0x233c2c));if(number(20)>0)c.rounded(72,982,unsigned(1770*number(20)/1000),5,2,ink(0xa9eab6));
  }else if(page!=3)title(c,78,949,fields[2].data(),24,1760,0x83a58d);
- label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1740,1020,"080",24,0x4e715b);
+ label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1650,1020,"01.000.081",24,0x7d9f89);
 }
 inline bool update() noexcept {
  // The second update follows the initial submit/WaitVblank in run_ui_until.
@@ -146,14 +161,14 @@ inline bool update() noexcept {
 }
 inline bool stop() noexcept{return exit_requested.load(std::memory_order_acquire);}
 inline void* ui_main(void*) noexcept {
- const bool closed=ps5::demo::run_ui_until(draw,update,stop,"ProsperoCraft native launcher visible before Java and Minecraft graphics");
+ const bool closed=ps5::demo::run_ui_until(draw,update,stop,"");
  scePadClose(controller);controller=-1;
  display_ok.store(closed,std::memory_order_release);display_done.store(true,std::memory_order_release);return nullptr;
 }
 inline bool start_frontend() noexcept {
  visible=false;online=false;exit_requested=false;display_done=false;display_ok=false;
  updates=0;previous=0;held_direction=0;repeat_at=0;armed=false;focus={};transition_start=now_ms();animating=false;event_read=event_write=0;fields={};published={};
- const char* boot[]={"Your worlds, together.","A little space for your next big idea.","Opening your library...","","","Not signed in","PLAY DEMO","L1 / R1  Top bar     X  Select","PREPARING","0","WAIT","0"};
+ const char* boot[]={"Instances","","Opening your library...","","","Not signed in","PLAY DEMO","L1 / R1  Top bar     X  Select","PREPARING","0","WAIT","0"};
  for(int i=0;i<12;++i)std::snprintf(fields[i].data(),512,"%s",boot[i]);
  std::int32_t user=-1;if(sceUserServiceGetInitialUser(&user)<0)return false;controller=scePadOpen(user,0,0,nullptr);if(controller<0)return false;
  if(pthread_create(&ui_thread,nullptr,ui_main,nullptr)!=0){scePadClose(controller);controller=-1;return false;}
