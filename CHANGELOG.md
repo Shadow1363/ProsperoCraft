@@ -6,6 +6,16 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client074 sound and smoothness confirmed
+
+The user reports “very good sound and very butter smooth” on exact074. Its package,
+symbols and tested source identity are preserved without rebuilding. This confirms
+human-audible game sound and subjective smooth gameplay for this playtest; precise
+FPS/GC metrics, save/reload and endurance remain unvalidated. No formal ALL PASS
+or new public release is inferred. High-settings support remains the goal.
+
+[Confirmation and exact hashes](docs/validation/client074-smooth-audio-confirmation-2026-10-26.json).
+
 ## 2026-10-26 — Client073 audio recovery failed;074 initialization/pacing
 
 073stillhasnosound:all20lateinit/portprobesreturnBusy/NotInit. PartialG1snapshot:

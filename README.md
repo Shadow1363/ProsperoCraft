@@ -23,15 +23,16 @@ ProsperoCraft brings Java Edition worlds, servers and the modding ecosystem to
 PS5 homebrew. The goal is a polished client with responsive controls, smooth
 rendering, working sound, reliable saves and an easy-to-use launcher.
 
-> **Worlds are playable on PS5.** Client **01.000.066** has confirmed playable
-> worlds, a major speed improvement and roughly **30-second game startup** in the
-> user's playtest. [Get the playable release →](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066)
+> **Sound works and gameplay feels buttery smooth on PS5.** The latest
+> **01.000.074** playtest confirms both, with native Java 25 and G1 GC.
+> [Playtest evidence](docs/validation/client074-smooth-audio-confirmation-2026-10-26.json) ·
+> [Published playable release066 →](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066)
 
 ## Downloads
 
 | Release | What to expect | Get started |
 | :--- | :--- | :--- |
-| **Playable client · 01.000.066** | Minecraft Java 26.3, playable worlds and temporary DualSense controls. Sound is available in development067. | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066) · [Setup](docs/releases/client-playable-066.md) |
+| **Playable client · 01.000.066** | Minecraft Java 26.3, playable worlds and temporary DualSense controls. Sound and smoother gameplay are confirmed in development074; this release remains066. | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066) · [Setup](docs/releases/client-playable-066.md) |
 | **Fabric / Paper servers · 01.000.108** | Separate server builds with positive console playtests. Full lifecycle and endurance checks remain pending. | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108) · [Setup](docs/releases/fabric-paper-108.md) |
 
 Follow the matching release's provisioning instructions to obtain and verify the
@@ -47,14 +48,14 @@ other. Keep your world backups and the matching server package for reinstalling.
 | Area | Status |
 | :--- | :--- |
 | **Native Java 25** | Runs on PS5, with guarded C1 compilation used by the playable client. |
-| **Client gameplay** | Worlds load and are playable on exact build066. Startup timing is a playtest observation; FPS has not been benchmarked. |
+| **Client gameplay** | The user reports buttery-smooth gameplay on exact build074. FPS has not been benchmarked. |
 | **Controls** | Temporary DualSense keyboard/mouse mapping works. Full Controlify integration is planned. |
-| **Sound** | Game audio was confirmed on067. Development074 tests earlier native audio initialization after073failed to restore sound. |
-| **Validation ahead** | Intermittent freezes are under investigation; save/reload, controller polish and extended play remain to be checked. |
+| **Sound** | The user confirms very good game sound on exact build074. |
+| **Validation ahead** | Save/reload, controller polish, measured frame pacing and extended play remain to be checked. |
 
-Development074 tests earlier audio initialization, shorter G1 pauses and reduced diagnostic overhead at unchanged quality settings.
+Development074 now has positive PS5 sound and smoothness feedback, with no active quality caps.
 See the [freeze investigation and candidate guide](docs/client-audio-pacing-074.md).
-The published066 release remains the playable baseline; speaker audio is in067/068development.
+The published release remains066; this074playtest does not create a new public release.
 For individual fixes, console evidence and earlier milestones, read the detailed
 **[CHANGELOG.md](CHANGELOG.md)**.
 

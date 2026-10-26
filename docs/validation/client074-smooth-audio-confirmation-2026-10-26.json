@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "version": "01.000.074",
+  "tested_source_commit": "72eca7fccf79c81c2cb7a057afdffcad51207b90",
+  "package_sha256": "acba867efee8c503e4516a20ec4f2af69009a8ebcc647b370bd260dabed03326",
+  "native_elf_sha256": "296345874fd3043b474a6d55a1817e8650f026f9752086476d69271f9a6f9e1a",
+  "runtime_commit": "1b9206f4290432548b94d19b0a177dba47f6fb47",
+  "evidence_type": "Direct human PS5 playtest feedback",
+  "human_quote": "WOW!! very good sound and very butter smooth",
+  "accepted_scope": [
+    "Human-audible game sound works well",
+    "Subjectively buttery-smooth gameplay in this playtest"
+  ],
+  "preserved_policy": "G1/1536MiBheap/4parallelGCworkers/8mssoftgoal/defaultstackobserveroff/earlyAudioOutinit;noactivequalitycap",
+  "limits": [
+    "No new current-run logs retrieved this turn; early API result and precise frame/GC metrics not established by human feedback",
+    "No formal ALL PASS, measured FPS, full stability, save/reload or endurance acceptance",
+    "No new public release requested or created"
+  ],
+  "preservation": "Exactpackage/symbols/statusindependentlyCOWcopiedtoignoredacceptedfolder;no rebuild or binary changes",
+  "public_release_unchanged": "Client_Playable-v01.000.066"
+}

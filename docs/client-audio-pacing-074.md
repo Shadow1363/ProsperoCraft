@@ -63,3 +63,13 @@ No newpublicrelease or Storepublication requested. Runtimeimplementation stays
 1b9206f4290432548b94d19b0a177dba47f6fb47; officialgameJARs/assetsstayintact. Rawlogs
 remainlocal;publicevidencehashes/interpretation only. Currenthandoff:
 [074](handoff-prosperocraft-client074.md).
+
+## Human confirmation — 2026-10-26
+
+The user confirms very good sound and buttery-smooth gameplay on exact074.
+[Confirmation/hashes](validation/client074-smooth-audio-confirmation-2026-10-26.json).
+Exactpackage/symbols/statuspreserved underdist/accepted/Client_Smooth_Audio-01.000.074.
+Do not rebuild or overwrite these accepted bytes. Earlier pending audio/smoothness
+notes describe the candidate handoff; current feedback accepts those subjective
+playtest results. No newlogs/FPS/save-reload/endurance orformalALLPASS inferred.
+No further change or release requested; preserve this working baseline.

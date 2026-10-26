@@ -3,8 +3,8 @@
   "date": "2026-10-26",
   "title_id": "PPSA99874",
   "app_version": "01.000.074",
-  "console": "PENDING074audiblesound/earlyinitorder/GCworkerheadroom/latency.073all20lateBusy/NotInitfailed;annoyingpausesremain.",
-  "previous_accepted": "067 human audio result;069 preserved continued-GC candidate",
+  "console": "Human PS5 confirmation2026-10-26:verygoodsoundandbuttersmoothgameplayonexact074. NoformalALLPASS/measuredFPS/save/endurance acceptance.",
+  "previous_accepted": "Client_Smooth_Audio-01.000.074 human sound/smoothness result; exactbinarypreserved",
   "native_changes": "RawSDKAudioOutInitaftercorectors/beforeVMheapandworkers;onlyconfirmedearlysuccessseedsbackend;existingboundedrecovery/actualport/PCMrequired",
   "menu_policy": "Supported inactivityFpsLimit JSON value minimized,original options backed up once as options.before-menu063.txt;all other option bytes retained. Removes AFK timer cap;not a general frame-rate/GC/JIT fix.",
   "runtime_implementation_modified": false,
@@ -12,9 +12,8 @@
   "java_heap_max_mib": 1536,
   "jit": "Mixed C1 level1, one compiler, thresholdscale4,2MiBpercompilation,32MiBcodecache,SweeperThreshold50/10percent aggressive cleanup retained; current-run kernel gate",
   "pending": [
-    "PS5pre-JVMaudioinit/result/actualport/PCM/audibility",
-    "G1workers4/softgoal8/nativeheadroom/pauses",
-    "Save/reload/pinning/endurance"
+    "Current-run API/GC/frame metrics for074",
+    "Save/reload/controllerpolish/extendedplay/endurance"
   ],
   "controlify_direction": "User prefers upstream Controlify later on compatible Fabric/NeoForge client;not installed or validated onPS5. Existing raw SDL gamepad driver retained;no double input when handing off.",
   "package_sha256": "acba867efee8c503e4516a20ec4f2af69009a8ebcc647b370bd260dabed03326",
@@ -61,5 +60,6 @@
     "default": false,
     "opt_in_property": "ps5.startupObserver",
     "reason": "MeasuredThreadDumpsafepointsup to8.927444ms;retainhelperforexplicitdiagnosis"
-  }
+  },
+  "human_confirmation": "docs/validation/client074-smooth-audio-confirmation-2026-10-26.json"
 }
