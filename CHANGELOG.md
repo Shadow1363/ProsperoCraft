@@ -6,6 +6,19 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client068 heap exhaustion;069 headroom candidate
+
+The user reports two stutters, escalating stutters and a complete freeze. Same-run
+logs confirm Java heap OOM, failed chunk save and repeated fullGC499M->499M. The
+larger code cache relieved earlier pressure, but068did not contain the live set.
+069requests768MiBheap/NewRatio3 and retains32MiBcodecache, C1, working audio/input
+and original game files. Runtime0119raises only the bounded direct-heap ceiling;
+native budget and ownership gates remain. Host reservation/occupancy/C1/startup
+checks pass; PS5 reservation, memory sufficiency, pause improvement and save
+integrity remain pending. No new public release.
+
+[Investigation](docs/client-heap-069.md) · [068evidence](docs/validation/client068-stutters-2026-10-26.json).
+
 ## 2026-10-26 — Native-port identity clarified
 
 Made the README introduction explicit: Minecraft Java runs on the PS5-native

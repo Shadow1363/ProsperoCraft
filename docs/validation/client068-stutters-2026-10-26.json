@@ -1,0 +1,483 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.068",
+  "run": "client-01.000.068-1793018012-623066325",
+  "package_sha256": "24e65f1020e97437b4ce0316e53f41aa1c56b8732bd9768663f2208ac7531efb",
+  "human_feedback": [
+    "2stutters",
+    "many more stutters",
+    "completely frozen"
+  ],
+  "snapshots": {
+    "client068-stutters-20261026": {
+      "scope": "Partial snapshot, not an independent session; do not sum snapshots. Current file may end during a collection. Earlier events can rotate out.",
+      "completed_events": 209,
+      "full_gc_count": 4,
+      "full_causes": {
+        "CodeCache GC Threshold": 1,
+        "Allocation Failure": 3
+      },
+      "max_full_pause_ms": 713.728,
+      "last_full_events": [
+        {
+          "uptime_ms": 58061,
+          "gc_id": 248,
+          "kind": "Full",
+          "cause": "CodeCache GC Threshold",
+          "before_mib": 358,
+          "after_mib": 310,
+          "capacity_mib": 505,
+          "pause_ms": 476.356
+        },
+        {
+          "uptime_ms": 123636,
+          "gc_id": 312,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 496,
+          "after_mib": 360,
+          "capacity_mib": 505,
+          "pause_ms": 525.336
+        },
+        {
+          "uptime_ms": 171878,
+          "gc_id": 350,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 491,
+          "after_mib": 397,
+          "capacity_mib": 505,
+          "pause_ms": 640.757
+        },
+        {
+          "uptime_ms": 186968,
+          "gc_id": 364,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 496,
+          "after_mib": 369,
+          "capacity_mib": 505,
+          "pause_ms": 713.728
+        }
+      ],
+      "files": {
+        "session.txt": {
+          "bytes": 144,
+          "sha256": "f37d4c3438c8111f529c646d2b0f736b7521ef840bcc9e4d2063d050082a2511"
+        },
+        "exceptions.log": {
+          "bytes": 3017218,
+          "sha256": "c6df75b5ef4573f718f1bee989a5be50396227d6fea54bac385838306beb525b"
+        },
+        "gc-rotated.log": {
+          "bytes": 4194502,
+          "sha256": "a27d670e6e49b3048ba5db8503d152b77484c399286e0c76451072038e45a022"
+        },
+        "jit.log": {
+          "bytes": 2408765,
+          "sha256": "1ce6e642fc7476203029d1c7f7c455206deaa429eb736cd4c31c8cf2326760e1"
+        },
+        "build.txt": {
+          "bytes": 57,
+          "sha256": "502468e3e21fa5bb527666abf34ba4c0ebe02e53a6679adc8c8b9c52a461b681"
+        },
+        "native-stderr.log": {
+          "bytes": 35305,
+          "sha256": "6f14d1ec3b2ffb41516c9520718f5ab0a8dad8912edaa89a3c7b1a5f818f67e8"
+        },
+        "gc.log": {
+          "bytes": 2695140,
+          "sha256": "e9e537935dc333620fce5ce086bfed29b3cb22349baa60b9ca58f99113805b7d"
+        }
+      }
+    },
+    "later": {
+      "scope": "Partial snapshot, not an independent session; do not sum snapshots. Current file may end during a collection. Earlier events can rotate out.",
+      "completed_events": 333,
+      "full_gc_count": 87,
+      "full_causes": {
+        "CodeCache GC Threshold": 1,
+        "Allocation Failure": 86
+      },
+      "max_full_pause_ms": 775.23,
+      "last_full_events": [
+        {
+          "uptime_ms": 271842,
+          "gc_id": 505,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 467,
+          "capacity_mib": 505,
+          "pause_ms": 768.152
+        },
+        {
+          "uptime_ms": 272585,
+          "gc_id": 506,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 468,
+          "capacity_mib": 505,
+          "pause_ms": 573.45
+        },
+        {
+          "uptime_ms": 273325,
+          "gc_id": 507,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 469,
+          "capacity_mib": 505,
+          "pause_ms": 571.376
+        },
+        {
+          "uptime_ms": 274049,
+          "gc_id": 508,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 469,
+          "capacity_mib": 505,
+          "pause_ms": 571.226
+        },
+        {
+          "uptime_ms": 274967,
+          "gc_id": 509,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 468,
+          "capacity_mib": 505,
+          "pause_ms": 769.841
+        },
+        {
+          "uptime_ms": 275704,
+          "gc_id": 510,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 469,
+          "capacity_mib": 505,
+          "pause_ms": 571.815
+        },
+        {
+          "uptime_ms": 276392,
+          "gc_id": 511,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 471,
+          "capacity_mib": 505,
+          "pause_ms": 576.983
+        },
+        {
+          "uptime_ms": 277095,
+          "gc_id": 512,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 471,
+          "capacity_mib": 505,
+          "pause_ms": 586.464
+        },
+        {
+          "uptime_ms": 277984,
+          "gc_id": 513,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 469,
+          "capacity_mib": 505,
+          "pause_ms": 756.362
+        },
+        {
+          "uptime_ms": 278730,
+          "gc_id": 514,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 467,
+          "capacity_mib": 505,
+          "pause_ms": 574.273
+        },
+        {
+          "uptime_ms": 279495,
+          "gc_id": 515,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 468,
+          "capacity_mib": 505,
+          "pause_ms": 573.51
+        },
+        {
+          "uptime_ms": 280254,
+          "gc_id": 516,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 469,
+          "capacity_mib": 505,
+          "pause_ms": 576.641
+        },
+        {
+          "uptime_ms": 281105,
+          "gc_id": 517,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 469,
+          "capacity_mib": 505,
+          "pause_ms": 715.795
+        },
+        {
+          "uptime_ms": 281848,
+          "gc_id": 518,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 471,
+          "capacity_mib": 505,
+          "pause_ms": 577.419
+        },
+        {
+          "uptime_ms": 282601,
+          "gc_id": 519,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 472,
+          "capacity_mib": 505,
+          "pause_ms": 579.009
+        },
+        {
+          "uptime_ms": 283340,
+          "gc_id": 520,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 472,
+          "capacity_mib": 505,
+          "pause_ms": 577.476
+        }
+      ],
+      "files": {
+        "session.txt": {
+          "bytes": 144,
+          "sha256": "f37d4c3438c8111f529c646d2b0f736b7521ef840bcc9e4d2063d050082a2511"
+        },
+        "gc-rotated.log": {
+          "bytes": 4194502,
+          "sha256": "a27d670e6e49b3048ba5db8503d152b77484c399286e0c76451072038e45a022"
+        },
+        "jit.log": {
+          "bytes": 2638710,
+          "sha256": "6718a4d25df14e59091cc4d591f124d1977e6ab40d2487c67bdc148568c0f9f6"
+        },
+        "gc.log": {
+          "bytes": 3598545,
+          "sha256": "c5a98ce710f95832811b582b383462e7a0703b1da837d30020c6f22cb5d16ed1"
+        }
+      }
+    },
+    "frozen": {
+      "scope": "Partial snapshot, not an independent session; do not sum snapshots. Current file may end during a collection. Earlier events can rotate out.",
+      "completed_events": 106,
+      "full_gc_count": 106,
+      "full_causes": {
+        "Allocation Failure": 106
+      },
+      "max_full_pause_ms": 833.621,
+      "last_full_events": [
+        {
+          "uptime_ms": 402142,
+          "gc_id": 695,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 609.825
+        },
+        {
+          "uptime_ms": 402880,
+          "gc_id": 696,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 737.544
+        },
+        {
+          "uptime_ms": 403541,
+          "gc_id": 697,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 660.22
+        },
+        {
+          "uptime_ms": 404168,
+          "gc_id": 698,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 625.813
+        },
+        {
+          "uptime_ms": 404794,
+          "gc_id": 699,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 623.825
+        },
+        {
+          "uptime_ms": 405420,
+          "gc_id": 700,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 622.837
+        },
+        {
+          "uptime_ms": 406256,
+          "gc_id": 701,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 833.621
+        },
+        {
+          "uptime_ms": 406864,
+          "gc_id": 702,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 608.118
+        },
+        {
+          "uptime_ms": 407474,
+          "gc_id": 703,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 609.081
+        },
+        {
+          "uptime_ms": 408083,
+          "gc_id": 704,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 608.93
+        },
+        {
+          "uptime_ms": 408693,
+          "gc_id": 705,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 608.602
+        },
+        {
+          "uptime_ms": 409302,
+          "gc_id": 706,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 608.825
+        },
+        {
+          "uptime_ms": 409912,
+          "gc_id": 707,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 609.681
+        },
+        {
+          "uptime_ms": 410521,
+          "gc_id": 708,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 609.005
+        },
+        {
+          "uptime_ms": 411130,
+          "gc_id": 709,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 608.95
+        },
+        {
+          "uptime_ms": 411754,
+          "gc_id": 710,
+          "kind": "Full",
+          "cause": "Allocation Failure",
+          "before_mib": 499,
+          "after_mib": 499,
+          "capacity_mib": 505,
+          "pause_ms": 623.349
+        }
+      ],
+      "files": {
+        "session.txt": {
+          "bytes": 144,
+          "sha256": "f37d4c3438c8111f529c646d2b0f736b7521ef840bcc9e4d2063d050082a2511"
+        },
+        "exceptions.log": {
+          "bytes": 3509156,
+          "sha256": "25ab2337db1d997241728f3c98b81dcc88189ed9b81fca1efe523c4fdf8b184a"
+        },
+        "native-stderr.log": {
+          "bytes": 36796,
+          "sha256": "0fb02349f96dff2778dfb6d149f663a3e18042e10be75f8b1fc645d3afb9cae6"
+        },
+        "gc.log": {
+          "bytes": 790022,
+          "sha256": "0ae51ff66bf3153be12c8eac7bf3fd5916c4ef34ed447121bea3df62c7abb177"
+        }
+      }
+    }
+  },
+  "initial_latest_pauses_ms": [
+    640.757,
+    713.728
+  ],
+  "frozen_result": "Actual Java heap OOM; observer stops, chunk-save failure, completionexception caused by heapOOM. FullGC499M->499M repeats roughly610ms with essentially no allocation time between. Final retrieved log ends during GC711; it does not prove a deadlocked native renderer.",
+  "diagnosis": "068generation split and32MiBcodecache did not prevent live-set exhaustion at512MiB. Codecache pressure reduced in this captured run; no matched workload/rate benchmark. Userstuttertimestamps unavailable.",
+  "save_warning": "Chunk-save failure captured; successful save/persistence cannot be assumed for this run.",
+  "next_candidate": "069 explicitly bounded768MiBheap andNewRatio3, same32MiBcache; native runtime ceiling patched0119. Actual console reservation and pause behavior pending.",
+  "raw_reports_public": false
+}

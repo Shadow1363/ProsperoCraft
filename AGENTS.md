@@ -593,3 +593,9 @@ audio fallback. Current-run GC evidence confirms full pauses; do not assume ever
 freeze is GC or claim a latency pass from host tests. Continue at068or later,
 retain working audio/input/C1 and untouched game files. No new release or Store
 publication requested. Keep build history in CHANGELOG.md; README stays concise.
+
+068follow-up:human reports escalating stutters then complete freeze. Same-run
+reports confirm Java heap OOM and chunk-save failure, repeated499M->499MfullGC.
+Preserve068as failed GC candidate; do not claim save success.069requests768MiB
+heap/NewRatio3 using separate runtime0119bounded ceiling; console reservation/
+headroom/sufficiency/stability pending. Current continuation:docs/handoff-prosperocraft-client069.md.

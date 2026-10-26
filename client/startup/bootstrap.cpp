@@ -68,7 +68,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.068";
+constexpr const char* build_version="01.000.069";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -96,7 +96,7 @@ void network_checkpoint(JNIEnv *env,jclass,jstring stage) {
  const char *utf=env->GetStringUTFChars(stage,nullptr);
  if(!utf) return;
  log_stage(utf);
- if(std::strncmp(utf,"MC Startup068:",14)==0)notify(utf);
+ if(std::strncmp(utf,"MC Startup069:",14)==0)notify(utf);
  env->ReleaseStringUTFChars(stage,utf);
 }
 void native_snapshot(JNIEnv *env,jclass,jlong elapsed,jint phase) {
@@ -194,8 +194,8 @@ void run_test(int i) {
   if(!ps5::log_share::write_note("/download0/probe-native-stderr.log",native_identity))
    native_stderr_error=errno?errno:EIO;
   else native_stderr_error=ps5::native_stderr::begin("/download0/probe-native-stderr.log");
-  if(!native_stderr_error)std::fprintf(stderr,"Client068 native stderr stream active before embedded constructors\n");
-  else notify("Client068 native stderr capture unavailable;continuing original startup. Inspect startup reports.");
+  if(!native_stderr_error)std::fprintf(stderr,"Client069 native stderr stream active before embedded constructors\n");
+  else notify("Client069 native stderr capture unavailable;continuing original startup. Inspect startup reports.");
   startup_log=std::fopen("/download0/java25-startup.log","a");
   if(!startup_log) {result(i,errno,"Cannot open persistent startup log");return;}
   std::fprintf(startup_log,"\n=== CLIENT RUN %s BUILD %s ===\n",run_id,build_version);std::fflush(startup_log);
@@ -254,7 +254,7 @@ void run_test(int i) {
    {const_cast<char *>("-XX:UseAVX=0"),nullptr},
    {const_cast<char *>("-XX:UseSSE=2"),nullptr},
    {const_cast<char *>("-Xms16m"),nullptr},
-   {const_cast<char *>("-Xmx512m"),nullptr},
+   {const_cast<char *>("-Xmx768m"),nullptr},
    {const_cast<char *>("-XX:-UseCompressedOops"),nullptr},
    // 063 world generation hit a real Java heap OOM at256MiB.
    // 064 anonymous384MiBreservationfailed. Runtime0118supports separatelybounded
@@ -264,8 +264,8 @@ void run_test(int i) {
    {const_cast<char *>("-Xshare:off"),nullptr},
    {const_cast<char *>("-Xlog:gc*=debug,safepoint*=debug,class+load=info,class+init=info:file=/download0/java25-gc.log:uptimemillis,level,tags:filecount=1,filesize=4M"),nullptr},
    {const_cast<char *>("-XX:+UseSerialGC"),nullptr},
-   // 067 retained ~330MiB in a341MiB old generation; reserve more old space.
-   {const_cast<char *>("-XX:NewRatio=7"),nullptr},
+   // 068 retained472MiB and entered full-GC thrash; allow576MiB old/192MiB young.
+   {const_cast<char *>("-XX:NewRatio=3"),nullptr},
    {const_cast<char *>("-XX:ActiveProcessorCount=2"),nullptr},
    {const_cast<char *>("-XX:-UsePerfData"),nullptr},
    {const_cast<char *>("-XX:ErrorFile=/download0/hs_err_java25.log"),nullptr},
@@ -386,7 +386,7 @@ void run_test(int i) {
 }
 extern "C" void client_sdl_diagnostic(const char* text) {log_stage(text);}
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU068 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU069 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 extern "C" int sceKernelSendNotificationRequest(std::uint32_t,void*,std::size_t,int);
 extern "C" int sceSystemServiceHideSplashScreen();
@@ -396,14 +396,14 @@ static void notify(const char* text) {
  (void)sceKernelSendNotificationRequest(0,&n,sizeof(n),0);
 }
 int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.068 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.069 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
  if(sceUserServiceGetInitialUser(&user)>=0 && scePadInit()>=0) pad=scePadOpen(user,0,0,nullptr);
 
- notify("Client068 ready: press X once to try ORIGINAL Minecraft startup. Demo mode;no automatic menu PASS. Keep open for logs.");
- if(pad<0){notify("Client068 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
+ notify("Client069 ready: press X once to try ORIGINAL Minecraft startup. Demo mode;no automatic menu PASS. Keep open for logs.");
+ if(pad<0){notify("Client069 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
  bool armed=false,start=false;std::uint32_t previous=0;
  while(!start) {
   PadSample batch[64]{};int count=scePadRead(pad,batch,64);
@@ -417,7 +417,7 @@ int main() {
  }
  scePadClose(pad);pad=-1;
  (void)sceSystemServiceHideSplashScreen();
- notify("Client068 starting original Minecraft26.3 demo. Native ports incomplete;startup may stop at a missing dependency. Keep open for logs.");
+ notify("Client069 starting original Minecraft26.3 demo. Native ports incomplete;startup may stop at a missing dependency. Keep open for logs.");
  // Compiler and texture/depth/blend acceptance precede retained SDL display resources.
  // This also avoids repeating manual inputs when compiler startup fails.
  for(int step=0;step<test_count;++step) {
@@ -425,11 +425,11 @@ int main() {
   if(i){char state[200];std::snprintf(state,sizeof(state),"RUN: %s",names[i]);session_status(state);}
   run_test(i);
   if(status[i]!=1) {
-   char note[240];std::snprintf(note,sizeof(note),"Client068 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
+   char note[240];std::snprintf(note,sizeof(note),"Client069 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
    for(;;)(void)sceKernelUsleep(1000000);
   }
  }
  char state[240];std::snprintf(state,sizeof(state),"STARTUP RETURNED: inspect logs and actual screen;menu/world success unverified.");session_status(state);
- notify("Client068 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
+ notify("Client069 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
  for(;;)(void)sceKernelUsleep(1000000);
 }

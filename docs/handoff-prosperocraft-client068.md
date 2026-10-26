@@ -33,3 +33,11 @@ belongs in this repo and must be checked/committed/pushed; reusable runtime fixe
 belong in ps5-java25-homebrew via its sync script. Official JARs/assets stay intact.
 Runtime pin44fdf26ccb74cf8dd9127f1256b85416856981de. No Store work. Roadmap remains
 in README; this step addresses pauses while preserving the playable client.
+
+## Superseded by069 investigation
+
+The user reports2stutters, then many more and a complete freeze. Same-run reports
+confirm heap exhaustion, failed chunk save and repeated499M->499MfullGC.068did
+not fix the increasing memory pressure. See [evidence](validation/client068-stutters-2026-10-26.json)
+and [069handoff](handoff-prosperocraft-client069.md). Exact068bytes/symbols remain
+preserved; do not infer successful save or a renderer deadlock from this capture.

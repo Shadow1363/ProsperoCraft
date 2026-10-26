@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.069",
+  "title_id": "PPSA99874",
+  "package_sha256": "59b20b2434071485c5211ff6b61bd1ccff3010ee71d6b219c0bd66f02a90fd11",
+  "native_elf_sha256": "7d8b7dd4b99c910afedc6b2df74bb551704fb1da19a9a941d8d7765cecde5689",
+  "runtime_commit": "bb013f533e14f01f0d93d5f4133dad8232385e3e",
+  "runtime_patch": "0119-ps5-direct-heap-headroom.patch",
+  "policy": {
+    "maximum_heap_mib": 768,
+    "new_ratio": 3,
+    "max_old_reserved_mib": 576,
+    "max_young_reserved_mib": 192,
+    "native_direct_data_budget_mib": 256,
+    "code_cache_mib": 32,
+    "collector": "SerialGC retained"
+  },
+  "runtime_host_test": "PASS actual768MiBalignedreservation/zero/protection/NMT/subrangeuncommit/recommit/adjacentdata/whole/interiorrelease/ordinary/compressed/fixed/exec/errorgates/rollback/cleanupretention/independentbudgets/overbudget underASanUBSan",
+  "runtime_target": "PASS HotSpot build; initial attempt missing LLVM_CONFIG failed before compile, retried with configured LLVM22.1.7 and succeeded",
+  "heap_model": {
+    "512": "Real Java heap OOM in the occupancy control",
+    "768": "CompileCommand: MemLimit *.* intx MemLimit = 2097152\nPASS retained472MiB plus48MiB ring and512MiB transient churn,contents preserved,maxHeap=785186816"
+  },
+  "other_host_checks": [
+    "PASS actual C1level1 checksum40960results and stale/interpreter/missinglog controls with768MiB/NewRatio3",
+    "PASS existing startup/observer/GC-logrotation/JNIallocation/originalMainboundary controls",
+    "PASS one-time audio migration and lateruser setting preservation"
+  ],
+  "target_package": "PASS compile/link/SELF/CRC/signatures;54originalJARs/5147assets;exact0119runtime and native audits/constructor groups; preserved067/068and earlier packages",
+  "audio_input": "PASS all packaged OpenAL/SDL audit values/hashes unchanged from human-audible067",
+  "console": "PENDING069 reservation, physical backing, pause rate, memory growth and save/reload",
+  "game_jar_modified": false,
+  "raw_reports_public": false,
+  "public_release_created": false,
+  "limitations": [
+    "Host occupancy model notMinecraft/PS5performance or memory sufficiency proof",
+    "Largerheap fullcollections may take longer; no zero-pause guarantee",
+    "068actualchunk-save failure; no save success assumed",
+    "Growinglive-set/leak/source of allocations not determined"
+  ],
+  "evidence": "docs/validation/client068-stutters-2026-10-26.json"
+}
