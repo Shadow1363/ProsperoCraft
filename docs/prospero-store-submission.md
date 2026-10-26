@@ -50,3 +50,28 @@ Existing milestone JAR-only provisioning is not yet complete startup provisionin
 Provide exact matching OpenAL source/relink materials for the accepted binary;
 do not publish the full local game-containing development ZIP. Re-read current
 upstream submission/artifact/versioning rules before converting this reservation.
+
+## Downloadable launcher082 — 26 October 2026
+
+The user explicitly requested Store publication of exact082. Release
+[01.000.082](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082)
+is public, with an installable app-folder ZIP, matching OpenAL corresponding
+source/relink kit, validation records and SHA256SUMS. No game JARs/assets are
+bundled: the native launcher downloads verified originals on the console.
+The existing reservation conversion is
+[PR811](https://github.com/darkxex/ps5-homebrew-catalog/pull/811); no new title ID
+or duplicate listing. Only its apps/PPSA99874.json record changes.
+
+Local catalog check passes for144records with0errors/warnings. Online verification
+passes for the exact public ZIP digest,01.000.082 content version and pinned icon,
+with0errors/warnings. All five assets were downloaded and hashes rechecked; the
+downloaded relocated OpenAL kit reproduces the exact packaged ELF. See the
+[publication record](validation/client082-store-publication-2026-10-26.json) and
+[release guide](releases/client-launcher-082.md). Remote CI/merge/deploy is tracked
+on PR811; this paragraph records submission, not a claim of live propagation.
+
+Only26.3SDLdemo is enabled; Microsoft approval/full-account access remain pending.
+Exact082PS5quit/relaunch,input,checkbox/world persistence and audio/performance
+regression checks remain pending. The publication request does not establish
+a formal ALL PASS or replace frozen milestones. The earlier reservation-only
+paragraphs above describe historical state and are superseded by this submission.

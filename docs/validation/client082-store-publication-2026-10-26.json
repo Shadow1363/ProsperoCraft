@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-26",
+  "tag": "01.000.082",
+  "release_url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082",
+  "published_at": "2026-10-26T19:10:12Z",
+  "release_tag_commit": "4b358dd91d1d893cf8d9529b3beb4f0047a0a652",
+  "packaged_source_commit": "a7b70eac899941f7d60eb2ece5f27257e9a8f4d1",
+  "runtime_commit": "9afa03adfb34dc1049f18de5839d762662b6c306",
+  "assets": [
+    {
+      "name": "client082-build-validation.json",
+      "bytes": 5429,
+      "digest": "sha256:4142a3a86e0d85e5e10977cd1818e1ace7661d9150729957c714f106b4fe9db6",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.082/client082-build-validation.json"
+    },
+    {
+      "name": "client082-openal-source-relink.zip",
+      "bytes": 88317276,
+      "digest": "sha256:115bca4ac0ab4cbb4e4d3874c02cec8a0a32dfdfd8de584acc1e19d111bc9274",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.082/client082-openal-source-relink.zip"
+    },
+    {
+      "name": "client082-validation.json",
+      "bytes": 2459,
+      "digest": "sha256:b18028915a4770a93d5cae332faa1fc98e4d491d51a91085c146cf49d8311760",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.082/client082-validation.json"
+    },
+    {
+      "name": "PPSA99874.zip",
+      "bytes": 109383105,
+      "digest": "sha256:ab49cad8977736be2be72230743232a270dba9bd17fa70a66b64a93c48230820",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.082/PPSA99874.zip"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 371,
+      "digest": "sha256:93bc02020b7a18aef375314927079c6943a5f542f29632e084008b19256967ee",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.082/SHA256SUMS"
+    }
+  ],
+  "upload_verification": "All five GitHub asset digests/sizes match local files. Published assets downloaded again and SHA256SUMS verified. App ZIP byte-identical to candidate082.",
+  "downloaded_kit_relink": "Relocated downloaded kit reproduces exact packaged ELF d93c3507dcf1df1284631d09963fc5d9ed73c4638a241b550313d5a9a14011df",
+  "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/811",
+  "catalog_record": "apps/PPSA99874.json",
+  "catalog_local_check": "144valid records;0errors/warnings",
+  "catalog_online_verify": "Release SHA256,source manifest contentVersion01.000.082 and pinned icon verified;0errors/warnings",
+  "catalog_status": "Submission created; remote CI/merge/deploy in progress. See live PR/API for subsequent state.",
+  "console_validation": "Exact082 quit/relaunch,input,persistence,audio/performance regression pending; no formal ALL PASS inferred",
+  "runtime_publication": "Sync succeeded,Everything up-to-date; no runtime source changes",
+  "preservation": "Exact082ZIP/symbols additionally retained locally in dist/published/ProsperoCraft-01.000.082; older accepted/frozen artifacts unchanged"
+}
