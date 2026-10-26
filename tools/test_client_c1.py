@@ -7,7 +7,7 @@ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--java-home',type
 with tempfile.TemporaryDirectory(prefix='client-c1-check-')as folder:
  w=Path(folder);log=w/'jit.log'
  subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-d',str(w),str(a.runtime_workspace/'java25/tests/ps5probe/JitWarmup25.java')],check=True)
- common=[str(a.java_home/'bin/java'),'-Xms16m','-Xmx512m','-XX:-UseCompressedOops','-XX:+UseCompactObjectHeaders','-XX:+UseSerialGC','-XX:ReservedCodeCacheSize=16m','-XX:SweeperThreshold=50.0','-Dps5.probe.jitLog='+str(log),'-cp',str(w)]
+ common=[str(a.java_home/'bin/java'),'-Xms16m','-Xmx512m','-XX:-UseCompressedOops','-XX:+UseCompactObjectHeaders','-XX:+UseSerialGC','-XX:NewRatio=7','-XX:ReservedCodeCacheSize=32m','-XX:SweeperThreshold=50.0','-Dps5.probe.jitLog='+str(log),'-cp',str(w)]
  flags=['-Xmixed','-XX:TieredStopAtLevel=1','-XX:CICompilerCount=1','-XX:CompileThresholdScaling=4.0','-XX:CompileCommand=MemLimit,*.*,2M']
  logflag='-Xlog:jit+compilation=debug,codecache=info:file='+str(log)+':uptime,level,tags:filecount=1,filesize=4M'
  result=subprocess.run(common+flags+[logflag,'ps5probe.JitWarmup25'],capture_output=True,text=True,timeout=60)

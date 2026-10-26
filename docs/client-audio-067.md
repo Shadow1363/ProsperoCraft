@@ -1,5 +1,11 @@
 # Client067 — real PS5 speaker output candidate
 
+**2026-10-26 update:** the user confirms sound works beautifully on actual PS5.
+The exact067package and symbols are preserved. Intermittent freezes are being
+investigated in [068](client-gc-068.md); formal lifecycle/endurance and detailed
+stereo/latency checks remain open. Earlier pending notes below describe the
+original candidate handoff.
+
 The user confirms066is fast and the world playable,with roughly30secondstartup.
 The exact066build is now a full GitHub release and independently preserved.
 067keeps those C1,input,heap,renderer and game settings while adding audio.

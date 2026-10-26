@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.068",
+  "package_sha256": "24e65f1020e97437b4ce0316e53f41aa1c56b8732bd9768663f2208ac7531efb",
+  "native_elf_sha256": "eba628dc6384b8d2d4a44e3c9134abe996666742eb1a14874662d60cd2ecce39",
+  "runtime_commit": "44fdf26ccb74cf8dd9127f1256b85416856981de",
+  "runtime_implementation_changed": false,
+  "game_jars_modified": false,
+  "console": "PENDING068 exact-build startup/native headroom/freeze frequency and duration/audio continuity",
+  "changes": {
+    "maximum_heap_mib": 512,
+    "collector": "SerialGC retained",
+    "new_ratio": 7,
+    "maximum_old_mib": 448,
+    "code_cache_mib": 32,
+    "cleanup": "SweeperThreshold50, aggressive at10percentfree and flushing retained"
+  },
+  "host_gc_fixture": {
+    "067": {
+      "full_allocation_pauses": 23,
+      "young_pauses": 26,
+      "maximum_old_capacity_kib": 349568,
+      "contents_preserved": true
+    },
+    "068": {
+      "full_allocation_pauses": 20,
+      "young_pauses": 84,
+      "maximum_old_capacity_kib": 458752,
+      "contents_preserved": true
+    }
+  },
+  "other_host_checks": [
+    "PASS actual C1 level1 kernel checksum40960 and stale/interpreter/missing-log refusal using32MiBcache/NewRatio7",
+    "PASS existing actual startup/observer/GC-log-rotation/JNI-allocation/native-boundary/original Main controls",
+    "PASS actual one-time audio configuration migration with custom volumes and later mute preservation"
+  ],
+  "target_checks": "PASS native compile/link/SELF, full package CRC,54originalJARs/5147assetSHA1s, exact runtime/module image and native audits, constructors/resident groups, previous accepted packages including067",
+  "audio_input_preservation": "PASS all packaged OpenAL/audio and SDL audit values/hashes equal accepted067; JSON whitespace differs",
+  "source_check": "Python compile,JSON parse,SVG XML and diff checks",
+  "limitations": [
+    "Host allocation fixture is not Minecraft/PS5; only modest fullGC reduction and more young pauses",
+    "Codecache may use16MiB more native code memory; console headroom pending",
+    "All pauses not attributed; no timestamped human freeze markers",
+    "No save/reload/endurance or full stability acceptance"
+  ],
+  "evidence": "docs/validation/client067-audio-freezes-2026-10-26.json",
+  "public_release_created": false,
+  "raw_reports_public": false
+}

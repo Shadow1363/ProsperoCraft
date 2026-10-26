@@ -27,7 +27,7 @@ rendering, working sound, reliable saves and an easy-to-use launcher.
 
 | Release | What to expect | Get started |
 | :--- | :--- | :--- |
-| **Playable client · 01.000.066** | Minecraft Java 26.3, playable worlds and temporary DualSense controls. Sound is still pending. | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066) · [Setup](docs/releases/client-playable-066.md) |
+| **Playable client · 01.000.066** | Minecraft Java 26.3, playable worlds and temporary DualSense controls. Sound is available in development067. | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066) · [Setup](docs/releases/client-playable-066.md) |
 | **Fabric / Paper servers · 01.000.108** | Separate server builds with positive console playtests. Full lifecycle and endurance checks remain pending. | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108) · [Setup](docs/releases/fabric-paper-108.md) |
 
 Follow the matching release's provisioning instructions to obtain and verify the
@@ -45,10 +45,12 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Native Java 25** | Runs on PS5, with guarded C1 compilation used by the playable client. |
 | **Client gameplay** | Worlds load and are playable on exact build066. Startup timing is a playtest observation; FPS has not been benchmarked. |
 | **Controls** | Temporary DualSense keyboard/mouse mapping works. Full Controlify integration is planned. |
-| **Sound** | Development067 adds real OpenAL-to-PS5 speaker output. Host/build checks pass; audible PS5 sound still needs confirmation. |
-| **Validation ahead** | Save/reload, controller polish, audio stability and extended play remain to be checked. |
+| **Sound** | The user confirms beautiful game audio on PS5 in development067. |
+| **Validation ahead** | Intermittent freezes are under investigation; save/reload, controller polish and extended play remain to be checked. |
 
-For the current sound candidate, see the [audio test guide](docs/client-audio-067.md).
+Development068 targets confirmed full-GC pauses while retaining working audio.
+See the [freeze investigation and candidate guide](docs/client-gc-068.md).
+The published066 release remains the playable baseline; speaker audio is in067/068development.
 For individual fixes, console evidence and earlier milestones, read the detailed
 **[CHANGELOG.md](CHANGELOG.md)**.
 

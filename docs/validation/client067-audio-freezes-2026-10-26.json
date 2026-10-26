@@ -1,0 +1,213 @@
+{
+  "date": "2026-10-26",
+  "build": "01.000.067",
+  "run": "client-01.000.067-1793016824-383235260",
+  "package_sha256": "95f0af47359b48493afab6e9af23e81de1097796332c4b32e64d03123030397f",
+  "source_commit": "707ebd7fff2dd5b9b7d36f0004fc273cd3975830",
+  "human": "Sound works beautifully; intermittent freezes; sound continuity during freezes unknown",
+  "scope": "Partial rotated/current GC log window; earlier events rotated out. Retrieved reports are snapshots, not a liveness or whole-session count guarantee. No human freeze timestamps available.",
+  "completed_gc_events_captured": 47,
+  "captured_gc_ids": [
+    76,
+    122
+  ],
+  "full_collections": 15,
+  "full_causes": {
+    "CodeCache GC Threshold": 7,
+    "Allocation Failure": 7,
+    "CodeCache GC Aggressive": 1
+  },
+  "full_pause_ms_total": 7562.291,
+  "full_pause_ms_max": 647.647,
+  "full_events": [
+    {
+      "uptime_ms": 97161,
+      "gc_id": 85,
+      "kind": "Full",
+      "cause": "CodeCache GC Threshold",
+      "before_mib": 336,
+      "after_mib": 276,
+      "capacity_mib": 494,
+      "pause_ms": 407.399
+    },
+    {
+      "uptime_ms": 102715,
+      "gc_id": 89,
+      "kind": "Full",
+      "cause": "CodeCache GC Threshold",
+      "before_mib": 410,
+      "after_mib": 303,
+      "capacity_mib": 494,
+      "pause_ms": 449.253
+    },
+    {
+      "uptime_ms": 104061,
+      "gc_id": 90,
+      "kind": "Full",
+      "cause": "CodeCache GC Threshold",
+      "before_mib": 435,
+      "after_mib": 293,
+      "capacity_mib": 494,
+      "pause_ms": 597.35
+    },
+    {
+      "uptime_ms": 109740,
+      "gc_id": 92,
+      "kind": "Full",
+      "cause": "CodeCache GC Threshold",
+      "before_mib": 304,
+      "after_mib": 294,
+      "capacity_mib": 494,
+      "pause_ms": 424.319
+    },
+    {
+      "uptime_ms": 125115,
+      "gc_id": 95,
+      "kind": "Full",
+      "cause": "CodeCache GC Threshold",
+      "before_mib": 400,
+      "after_mib": 294,
+      "capacity_mib": 494,
+      "pause_ms": 441.483
+    },
+    {
+      "uptime_ms": 179202,
+      "gc_id": 105,
+      "kind": "Full",
+      "cause": "CodeCache GC Threshold",
+      "before_mib": 384,
+      "after_mib": 300,
+      "capacity_mib": 494,
+      "pause_ms": 443.547
+    },
+    {
+      "uptime_ms": 181358,
+      "gc_id": 107,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 473,
+      "after_mib": 314,
+      "capacity_mib": 494,
+      "pause_ms": 633.895
+    },
+    {
+      "uptime_ms": 202839,
+      "gc_id": 113,
+      "kind": "Full",
+      "cause": "CodeCache GC Threshold",
+      "before_mib": 328,
+      "after_mib": 321,
+      "capacity_mib": 494,
+      "pause_ms": 461.378
+    },
+    {
+      "uptime_ms": 206955,
+      "gc_id": 116,
+      "kind": "Full",
+      "cause": "CodeCache GC Aggressive",
+      "before_mib": 433,
+      "after_mib": 343,
+      "capacity_mib": 494,
+      "pause_ms": 487.672
+    },
+    {
+      "uptime_ms": 209909,
+      "gc_id": 117,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 477,
+      "after_mib": 342,
+      "capacity_mib": 494,
+      "pause_ms": 485.484
+    },
+    {
+      "uptime_ms": 212783,
+      "gc_id": 118,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 477,
+      "after_mib": 328,
+      "capacity_mib": 494,
+      "pause_ms": 647.647
+    },
+    {
+      "uptime_ms": 216351,
+      "gc_id": 119,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 465,
+      "after_mib": 330,
+      "capacity_mib": 494,
+      "pause_ms": 476.006
+    },
+    {
+      "uptime_ms": 217894,
+      "gc_id": 120,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 466,
+      "after_mib": 339,
+      "capacity_mib": 494,
+      "pause_ms": 481.374
+    },
+    {
+      "uptime_ms": 221158,
+      "gc_id": 121,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 475,
+      "after_mib": 342,
+      "capacity_mib": 494,
+      "pause_ms": 483.003
+    },
+    {
+      "uptime_ms": 223722,
+      "gc_id": 122,
+      "kind": "Full",
+      "cause": "Allocation Failure",
+      "before_mib": 477,
+      "after_mib": 330,
+      "capacity_mib": 494,
+      "pause_ms": 642.481
+    }
+  ],
+  "old_generation_kib": {
+    "capacity": 349568,
+    "before_gc122": 349567,
+    "after_gc122": 338711
+  },
+  "code_cache": "16MiB; threshold and aggressive GC explicitly logged, aggressive trigger at9.999percent free. GC heuristic source inspected in upstream HotSpot codeCache.cpp.",
+  "audio_api": "init0/open536870912/firstPCM256 corroborates submission only; audible sound established by human feedback",
+  "diagnosis": "Confirmed stop-the-world GC contributor, not a proven explanation of every observed freeze. Heap old-generation pressure and actual code-cache GC both present.",
+  "raw_reports_public": false,
+  "files": {
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "8814d3e2609da1d0ef300f50ef9953fc7d913d73271dface897baeac69981673"
+    },
+    "exceptions.log": {
+      "bytes": 2292086,
+      "sha256": "1dcc505451f163ecaefe0e64ca6933e0cf9ae0cfa8617e12a6994a1a1094e9de"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194411,
+      "sha256": "e2d7888093cd6e99b4e32ee564abc2b4acf1668c2147dcdfb17da41e9f55740f"
+    },
+    "jit.log": {
+      "bytes": 2258291,
+      "sha256": "8ec93a06bd8f28057cb84604c2ce2c80189b809553a319c9218ca75a44d6caf6"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "5af20c9d488307fd0ae2e97cce46b987314c098baa4766661d61eb0dbe44edf8"
+    },
+    "native-stderr.log": {
+      "bytes": 33434,
+      "sha256": "71be7f2ded0f9494c86445c404a29fdc92bf3a5396bc5c1265153c93201321d8"
+    },
+    "gc.log": {
+      "bytes": 1095116,
+      "sha256": "d1c43ccba51363b0001562db062b4e6314c02a1d84058a77cde4c64f4479f0da"
+    }
+  }
+}

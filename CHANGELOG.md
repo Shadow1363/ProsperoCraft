@@ -6,6 +6,24 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client067 sound confirmed;068 freeze candidate
+
+The user confirms beautiful game audio on PS5 in exact067, then reports random
+freezes. Current-run reports capture15fullGCpauses, up to647.647ms, caused by
+old-generation allocation pressure and actual compiled-code cache GC triggers.
+The retained067audio package and symbols are preserved; this is human playtest
+feedback, not formal ALL PASS or endurance acceptance.
+
+068 keeps the512MiB SerialGC heap and working audio/input/C1, changes NewRatio
+to7 and raises the code cache from16to32MiB. Host occupancy controls show modest
+full-GC reduction with more young collections. Console startup, native memory
+headroom and actual freeze improvement remain pending. Original game JARs/assets
+and runtime implementation are unchanged. No new public release.
+
+[Investigation and test guide](docs/client-gc-068.md) ·
+[067 evidence](docs/validation/client067-audio-freezes-2026-10-26.json) ·
+[068 handoff](docs/handoff-prosperocraft-client068.md).
+
 ## 2026-10-26 — Documentation refresh
 
 - Simplified the README around the project, current status, downloads and setup.

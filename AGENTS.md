@@ -584,3 +584,12 @@ audio/enduranceguarantee. Preserve exactZIP/symbols/source/tag. NoStorework.
 Next067isrealPS5AudioOut/OpenALspeakerbackendplusbacked-upunmutingoflegacy
 launcherdefaults. Keep gameJARs/assetsintact,working066fallback andspeedsettings.
 No further performance-tuning scope beyond maintaining working C1 is requested.
+
+## Audio confirmation and intermittent freezes — 2026-10-26
+
+The user confirms067sound works beautifully on PS5 and now authorizes investigating
+and fixing intermittent freezes. Preserve exact067package/symbols as the working
+audio fallback. Current-run GC evidence confirms full pauses; do not assume every
+freeze is GC or claim a latency pass from host tests. Continue at068or later,
+retain working audio/input/C1 and untouched game files. No new release or Store
+publication requested. Keep build history in CHANGELOG.md; README stays concise.
