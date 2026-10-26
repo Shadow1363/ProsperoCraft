@@ -6,6 +6,16 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client078 reaches Minecraft Services; review request prepared
+
+Human reports `[MINECRAFT HTTP 403]` after Microsoft approval. This confirms the
+upstream Microsoft/Xbox/XSTS flow reached Minecraft login; it does not establish
+an authenticated Minecraft session, entitlement/profile success or game handoff.
+App allowlisting is the leading explanation; the raw server reason is unconfirmed.
+Verified the official AppID Review form and prepared a transparent project-owner
+[request draft](docs/appid-review-request.md). No form submitted, app ID changed,
+authentication bypass added or package rebuilt. App review remains pending.
+
 ## 2026-10-26 — Client078 preserves and identifies authentication rejections
 
 Public-client registration initially returned401/invalid_client/AAD70002 on a

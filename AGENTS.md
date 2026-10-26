@@ -668,3 +668,11 @@ Never log raw responses, token/code values, headers or exception/cause text.
 Read docs/handoff-prosperocraft-client078.md. Preserve077and earlier packages.
 Use actual078PS5_AUTH logs to identify the failing stage before service changes.
 No new release/Store publication or auth/entitlement bypass.
+
+078follow-up: human reports [MINECRAFT HTTP403] after Microsoft approval. Upstream
+Microsoft/Xbox/XSTS reached MC login, but entitlement/profile/fullgame auth remain
+unvalidated. App allowlist rejection is a leading explanation, not a captured raw
+server reason. Official https://aka.ms/mce-reviewappid form verified; request draft
+at docs/appid-review-request.md. No submission or legal attestation performed.
+Do not change to another app ID or bypass checks. Preserve exact078package bytes;
+source docs only. Await human application review and/or safe current-run diagnostics.

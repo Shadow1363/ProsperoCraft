@@ -35,7 +35,16 @@
     "All packaged Prospero*.class match current compiled source"
   ],
   "target_checks": "PASS compile/link/SELF integrity, fullpackage CRC/signatures, exact original54JARs/5147assets, runtime/native audits, all packagedauthclasses match hostcompile, preserved077and earlier packages",
-  "console": "PENDING078 exact failing stage/status and successful live account/gameplay validation",
+  "console": "Human reports Minecraft login HTTP403 after upstream Microsoft/Xbox/XSTS steps. Official application review is next; no complete Minecraft authentication or game handoff pass.",
   "preserved_077_package_sha256": "7cee18c872119b502d2d78427819ae5ad5f9715dada6289c2e75d969f08029eb",
-  "no_release_or_store_update": true
+  "no_release_or_store_update": true,
+  "console_follow_up": {
+    "date": "2026-10-26",
+    "human_message": "[MINECRAFT HTTP 403] Minecraft Services denied this app. App approval may be required",
+    "scope": "Microsoft token, Xbox user token and XSTS steps succeeded sufficiently to reach the Minecraft login endpoint; full Minecraft session/ownership/profile not established",
+    "evidence_limit": "User-reported UI message; raw response errorMessage and current run reports not obtained",
+    "next_step": "Official AppID Review request using ProsperoCraft public client ID; approval remains pending, not guaranteed",
+    "official_review_url": "https://aka.ms/mce-reviewappid",
+    "compiled_package_changed": false
+  }
 }

@@ -54,7 +54,8 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Validation ahead** | Save/reload, controller polish, measured frame pacing and extended play remain to be checked. |
 
 Development078 keeps the native launcher separate from Minecraft startup and adds
-clearer sign-in errors. Full PS5 authentication is still being validated.
+clearer sign-in errors. Microsoft/Xbox sign-in reaches Minecraft Services, which
+currently returns403; [application review is the next step](docs/appid-review-request.md).
 [Launcher guide](docs/client-launcher-077.md) · [Sign-in diagnostics](docs/client-auth-078.md).
 
 Development074 now has positive PS5 sound and smoothness feedback, with no active quality caps.

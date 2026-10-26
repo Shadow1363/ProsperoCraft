@@ -55,3 +55,18 @@ redirect refusal, size bounds, CA/hostname rejection and diagnostic redaction.
 They do not prove PS5 login or service approval. No release or Store update.
 
 [Build record](validation/client078-auth-errors-build-2026-10-26.json).
+
+## Human follow-up: Minecraft Services403
+
+The user now reports `[MINECRAFT HTTP 403] Minecraft Services denied this app.
+App approval may be required`. This identifies the Minecraft login endpoint;
+the prior Microsoft/Xbox/XSTS steps must have completed to reach it. Full game
+entitlement/profile checks and authenticated launch have not completed. The raw
+server error message has not been obtained, so an app allowlist rejection remains
+the leading explanation rather than a proven response-body diagnosis.
+
+The official [AppID Review form](https://aka.ms/mce-reviewappid) is available and
+accepts new AppID approval requests. Its current instructions say reviews occur
+weekly, require ownership/authentication checks, and require a matching Azure
+contact plus the application and tenant IDs. [Prepared request](appid-review-request.md).
+No form was filled or submitted.078package bytes remain unchanged.
