@@ -72,7 +72,7 @@ The packaging flow currently uses the runtime workspace's macOS toolchain. Nativ
 
 The user reports **ALL PASS** after the exact shared-title000 package on2026-10-22. All six foundation rows are accepted on the actual PS5. The tested package hash is `e2eb90a727fc670418437937b292b152c5177e3e02077aa114049bc6c9c11fbf`.
 
-The frozen [Client_Foundation source/validation](../Client_Foundation/README.md) and [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Foundation-v01.000.000) preserve this milestone. Public packaging excludes54 original upstream JARs without rebuilding retained binaries; the attached helper restores all tested bytes from hash-verified local preparation. Native LWJGL loading, GPU/SDL/Vulkan presentation, audio, controller gameplay and actual Minecraft startup remain unvalidated. Continue future development outside the frozen folder. Server endurance remains deferred.
+The frozen [Client_Foundation source/validation](../Client_Foundation/README.md) and [release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Foundation-v01.000.000) preserve this milestone. Public packaging excludes54 original upstream JARs without rebuilding retained binaries; the attached helper restores all tested bytes from hash-verified local preparation. Native LWJGL loading, GPU/SDL/Vulkan presentation, audio, controller gameplay and actual Minecraft startup remain unvalidated. Continue future development outside the frozen folder. Server endurance remains deferred.
 
 ## Development001: resident JNI loading
 

@@ -676,3 +676,8 @@ server reason. Official https://aka.ms/mce-reviewappid form verified; request dr
 at docs/appid-review-request.md. No submission or legal attestation performed.
 Do not change to another app ID or bypass checks. Preserve exact078package bytes;
 source docs only. Await human application review and/or safe current-run diagnostics.
+
+Repository renamed by the user to https://github.com/mateo-cogeanu/ProsperoCraft.
+Use that canonical GitHub remote and URL in current documentation. The local
+checkout directory may remain .tools/github-publish/ps5-minecraft-java; do not
+rename local paths or modify frozen validation snapshots for this URL update.

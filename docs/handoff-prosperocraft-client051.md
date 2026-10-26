@@ -20,7 +20,7 @@ Consumer repo (work here for Minecraft/native dependency integration):
 `/Users/mateocogeanu/Documents/ChatGPT/PS5_Homebrew/.tools/github-publish/ps5-minecraft-java`
 
 Public repos:
-- https://github.com/mateo-cogeanu/ps5-minecraft-java
+- https://github.com/mateo-cogeanu/ProsperoCraft
 - https://github.com/mateo-cogeanu/ps5-java25-homebrew
 
 Implementation and current051 package source:

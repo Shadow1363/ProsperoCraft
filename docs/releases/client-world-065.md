@@ -9,7 +9,7 @@ GitHub release preserves that exact native Java 25 build. It is an experimental
 world-entry checkpoint: **severe lag, very long loading and inability to move
 remain known issues**. It is not a playable-performance or full-client ALL PASS.
 
-[GitHub release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_World-v01.000.065) ·
+[GitHub release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_World-v01.000.065) ·
 [Human confirmation](../validation/client065-world-confirmation-2026-10-26.json) ·
 [Hashed report analysis](../validation/client065-world-reports-2026-10-26.json).
 
@@ -73,8 +73,8 @@ Expect very slow demo loading and severe lag. If it crashes, reopen without X
 so the reports remain available; do not delete/reset worlds as a troubleshooting step.
 
 **Shared title PPSA99874 replaces the installed server/client app.** Keep the
-[Fabric/Paper server release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108),
-world backups and [062menu fallback](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062).
+[Fabric/Paper server release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Fabric-Paper-v01.000.108),
+world backups and [062menu fallback](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Menu-v01.000.062).
 No Store submission or download-listing change is part of this release.
 
 ## Reproduction, checks and source

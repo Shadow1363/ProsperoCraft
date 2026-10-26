@@ -4,7 +4,15 @@ Detailed development history for **ProsperoCraft**, including client and server
 builds, console results, fixes, known failures and frozen milestones.
 
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
-[All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
+[All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
+
+## 2026-10-26 — Repository renamed to ProsperoCraft
+
+GitHub confirms the canonical repository is now `mateo-cogeanu/ProsperoCraft`.
+Updated current documentation, release links, AppID review draft and generated
+source references, plus the Git remote. Local checkout paths, frozen validation
+snapshots and compiled packages remain unchanged. Minecraft Services403/app review
+is still pending.
 
 ## 2026-10-26 — Client078 reaches Minecraft Services; review request prepared
 
@@ -321,7 +329,7 @@ The user confirms world entry and punching on PS5. Current-run reports corrobora
 player join and actual world rendering. The512MiB direct-backed Java heap starts
 successfully. **Very slow loading, severe lag and movement failure remain known
 issues.** No useful frame rate,save/reload,audio or stability acceptance is claimed.
-[GitHub release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_World-v01.000.065) ·
+[GitHub release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_World-v01.000.065) ·
 [Setup and scope](docs/releases/client-world-065.md).
 
 ## Development065 — direct-backed Java heap
@@ -377,7 +385,7 @@ confirmed the visible menu on the actual PS5 using the exact 062 package.
 This is the first confirmed menu checkpoint after the native dependency and
 rendering milestones. The game JARs and 5,147 original assets remain unchanged.
 
-[Download the release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062) ·
+[Download the release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Menu-v01.000.062) ·
 [Install guide and what's tested](docs/releases/client-menu-062.md) ·
 [Human console confirmation](docs/validation/client062-menu-confirmation-2026-10-26.json).
 
@@ -404,7 +412,7 @@ Java runtime implementation remain unchanged. Host GLSL/HLSL outputs independent
 recompile and pass spirv-val;translated-shader GPU execution is not established.
 
 [Frozen source and validation](Client_SPIRV_Cross) ·
-[Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SPIRV_Cross-v01.000.036)
+[Release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_SPIRV_Cross-v01.000.036)
 
 The next original Main attempt must combine the accepted SPIRV-Cross,VMA,
 FreeType,STB,OpenGL and existing providers,including the supported ps5spvc library
@@ -423,7 +431,7 @@ transfers across3allocator/device lifecycles,two mapped65536-byte buffers each,
 with exact output/source/guards,NEVER_ALLOCATE rejection and native cleanup.
 
 [Frozen source and validation](Client_VMA_Allocator) ·
-[Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_VMA_Allocator-v01.000.035)
+[Release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_VMA_Allocator-v01.000.035)
 
 This addresses the missing VMA component in034. SPIRV-Cross is now independently accepted in036;the combined
 native configuration still needs an original Minecraft startup/menu test.
@@ -442,7 +450,7 @@ glyphs at16/24/32px plus exact repeat renders,an exact bitmap fingerprint,
 metadata/metrics,invalid font/space controls and384input guards.
 
 [Frozen source and validation](Client_FreeType_Fonts) ·
-[Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_FreeType_Fonts-v01.000.033)
+[Release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_FreeType_Fonts-v01.000.033)
 
 This addresses the missing FreeType component in032;original Minecraft startup
 still needs another console test with the accepted native dependencies combined.
@@ -460,7 +468,7 @@ The larger startup download is incomplete;per-cycle output was not independently
 retrieved. This distinction is preserved in the validation record.
 
 [Frozen source and validation](Client_STB_Codecs) ·
-[Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_STB_Codecs-v01.000.031)
+[Release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_STB_Codecs-v01.000.031)
 
 031resolves the native STB component missing in030. Minecraft startup remains
 unvalidated;032 combined031STB with029OpenGL but stopped at missing FreeType. [Build scope and test instructions](docs/client-startup-032.md). Valid Vorbis decode,
@@ -475,7 +483,7 @@ confirm three genuine Mesa softpipe/OpenGL JNI context lifecycles,192RGBA pixels
 validated for this workload;all54original game/Java JARs remain unchanged.
 
 [Frozen source and validation](Client_OpenGL_Provider) ·
-[Release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_OpenGL_Provider-v01.000.029)
+[Release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_OpenGL_Provider-v01.000.029)
 
 This is software OpenGL bootstrap acceptance;Minecraft startup,hardware OpenGL,
 broader GL workloads and full native-module cleanup remain unvalidated. Vulkan
@@ -491,7 +499,7 @@ no-argument Vulkan loader/callback bootstrap and JVM shutdown. This establishes
 native callback and in-memory mixer acceptance;**speaker output and Minecraft
 startup/menu remain unvalidated**. Original game JARs remain unchanged.
 
-[Frozen source/validation](Client_Callbacks_OpenAL) and the [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Callbacks_OpenAL-v01.000.026)
+[Frozen source/validation](Client_Callbacks_OpenAL) and the [release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Callbacks_OpenAL-v01.000.026)
 include app-only artifacts,local JAR provisioning and an OpenAL corresponding-
 source/relink kit. The kit reproduces the exact native ELF and accepts a
 compatible rebuilt OpenAL object. Continue game startup in development while
@@ -509,7 +517,7 @@ in the retrieved current run.
 
 Exact tested source/package are preserved in
 [Client_Continuous_Direct_Scene](Client_Continuous_Direct_Scene/README.md),with a
-[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Continuous_Direct_Scene-v01.000.023).
+[release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Continuous_Direct_Scene-v01.000.023).
 The original frozen validation remains unchanged. An additive
 [log follow-up](docs/validation/client023-log-follow-up-2026-10-24.json) records
 the later corroboration;raw logs stay local. Camera controls,index buffers,
@@ -527,7 +535,7 @@ remains distinct from continuous scene rendering directly into the swapchain.
 
 Exact tested source/package and evidence are frozen in
 [Client_Visible_Perspective_Scene](Client_Visible_Perspective_Scene/README.md),with a
-[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Visible_Perspective_Scene-v01.000.022)
+[release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Visible_Perspective_Scene-v01.000.022)
 and [validation record](Client_Visible_Perspective_Scene/validation.json).
 Continuous/direct rendering,camera movement,index buffers,larger workloads,
 Minecraft startup and full native teardown remain ahead; endurance stays deferred.
@@ -543,7 +551,7 @@ existing SDL baseline.
 
 Exact tested source/package and evidence are frozen in
 [Client_Texture_Depth_Blend](Client_Texture_Depth_Blend/README.md),with a
-[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Texture_Depth_Blend-v01.000.021)
+[release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Texture_Depth_Blend-v01.000.021)
 and [validation record](Client_Texture_Depth_Blend/validation.json). A visible
 textured scene,perspective/vertex buffers,larger workloads,game startup and full
 native teardown remain ahead; server two-hour endurance stays deferred.
@@ -559,7 +567,7 @@ route repair is validated for this workload; no game/Java JAR was modified.
 
 Exact tested source, package and evidence are preserved in
 [Client_Runtime_Shader](Client_Runtime_Shader/README.md), with a
-[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Runtime_Shader-v01.000.020)
+[release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Runtime_Shader-v01.000.020)
 and [validation record](Client_Runtime_Shader/validation.json). Native display
 resources remain retained until app close. Textures/depth/blending, larger shader
 workloads/includes/callbacks/HLSL, game startup, global teardown and server
@@ -573,7 +581,7 @@ DualSense events and polled state for X/Circle/D-pad Left/left stick,537 rendere
 frames with sample/guard checks, and DestroyJavaVM. Actual SDL3 PS5 video and
 Vulkan surface hooks are exercised through original LWJGL SDL bindings. Tested
 source/package are frozen as [Client_SDL_Window_Input](Client_SDL_Window_Input/README.md),
-with a [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SDL_Window_Input-v01.000.014)
+with a [release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_SDL_Window_Input-v01.000.014)
 and [validation record](Client_SDL_Window_Input/validation.json).
 
 SDL/native display resources remain retained until app close. Teardown/resize/
@@ -589,7 +597,7 @@ my eyes.”** Retrieved reports verify90 ordered graphics/FIFO presents, sampled
 pixels/guards and DestroyJavaVM. Original LWJGL display/surface/swapchain calls
 now drive actual RADV/VideoOut without the CPU display owner. The tested source
 and exact package are frozen as [Client_Direct_Presentation](Client_Direct_Presentation/README.md),
-with a [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Direct_Presentation-v01.000.011)
+with a [release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Direct_Presentation-v01.000.011)
 and [validation record](Client_Direct_Presentation/validation.json).
 
 The display context remains alive until app close, preserving the final image
@@ -605,7 +613,7 @@ the twelve-row and colored-preview acceptance instructions. Retrieved PS5 logs
 confirm nine actual vertex/fragment graphics draws, all256x256 pixels and guards,
 three graphics lifecycles, readback publication and DestroyJavaVM. The source and
 exact package are frozen as [Client_Graphics_Pipeline](Client_Graphics_Pipeline/README.md),
-with a [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Graphics_Pipeline-v01.000.010)
+with a [release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Graphics_Pipeline-v01.000.010)
 and [validation record](Client_Graphics_Pipeline/validation.json).
 
 The preview displays actual GPU-readback bytes through the existing CPU menu.
@@ -621,7 +629,7 @@ three shader/device lifecycles and DestroyJavaVM. Original LWJGL Vulkan bindings
 create the descriptors, push constants and pipeline; RADV compiles and executes
 the shader on the PS5 GPU. The tested source/package are frozen as
 [Client_Shader_Pipeline](Client_Shader_Pipeline/README.md), with a
-[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Shader_Pipeline-v01.000.009)
+[release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Shader_Pipeline-v01.000.009)
 and [validation record](Client_Shader_Pipeline/validation.json).
 
 This is offscreen compute. SDL/window integration, visible graphics/fragment
@@ -637,7 +645,7 @@ lifecycles, loader cleanup and DestroyJavaVM. The original LWJGL Vulkan JAR now
 uses actual RADV commands through its upstream structs and capability tables.
 The source and exact tested package are frozen as
 [Client_Vulkan_Bindings](Client_Vulkan_Bindings/README.md), with a
-[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Vulkan_Bindings-v01.000.008)
+[release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Vulkan_Bindings-v01.000.008)
 and [validation record](Client_Vulkan_Bindings/validation.json).
 
 Bounded diagnostic history and sampled tracing also resolve the observed startup
@@ -651,7 +659,7 @@ shaders and Minecraft startup remain ahead. Server endurance stays deferred.
 The user confirms **all nine rows of client01.000.004 pass on the actual PS5**
 on 2026-10-23. The source and matching package are frozen as
 [Client_GPU_Integration](Client_GPU_Integration/README.md), with a
-[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_GPU_Integration-v01.000.004)
+[release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_GPU_Integration-v01.000.004)
 and [validation record](Client_GPU_Integration/validation.json).
 
 Java25 and actual LWJGL native buffers now drive RADV offscreen GPU copy/fill/
@@ -666,7 +674,7 @@ server endurance stays deferred. [Technical details](docs/client-gpu-integration
 The human tester confirms client **01.000.003** displayed the RGB sequence and
 legible result card with no crash or corruption on 2026-10-23. The source and
 exact compiled package are frozen as [Client_Native_Graphics](Client_Native_Graphics/README.md),
-with a [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Native_Graphics-v01.000.003)
+with a [release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Native_Graphics-v01.000.003)
 and [validation record](Client_Native_Graphics/validation.json).
 
 The native Mesa/RADV path now performs GPU clear/copy/readback and VideoOut
@@ -680,7 +688,7 @@ rendering and Minecraft's menu remain ahead; server endurance stays deferred.
 All eight rows of client **01.000.002** pass on the actual PS5, confirmed by
 the human tester on 2026-10-23. The matching source and package are frozen as
 [Client_LWJGL_Core](Client_LWJGL_Core/README.md), with a
-[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_LWJGL_Core-v01.000.002)
+[release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_LWJGL_Core-v01.000.002)
 and [validation record](Client_LWJGL_Core/validation.json).
 
 Actual upstream LWJGL native memory/JNI operations and the PS5 resident function
@@ -694,7 +702,7 @@ server two-hour endurance remains deferred. [Technical details](docs/client-lwjg
 The user confirms all seven rows of client `01.000.001` passed on the actual PS5
 on2026-10-22. The source and matching package are frozen as
 [Client_Native_Loading](Client_Native_Loading/README.md), with a
-[release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Native_Loading-v01.000.001)
+[release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Native_Loading-v01.000.001)
 and [validation record](Client_Native_Loading/validation.json).
 
 Standard JNI loading, OnLoad/discovery and scoped real native-function calls now
@@ -707,7 +715,7 @@ remain preserved; two-hour server endurance remains pending.
 The user confirms all six rows of Client Foundation `01.000.000` passed on the
 actual PS5 on2026-10-22. The matching source and package are frozen as
 [Client_Foundation](Client_Foundation/README.md), with a
-[release download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Foundation-v01.000.000)
+[release download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Foundation-v01.000.000)
 and [validation record](Client_Foundation/validation.json).
 
 This establishes runtime/artifact loading, explicit LWJGL PS5 platform handling,
@@ -717,7 +725,7 @@ pending. The client shares `PPSA99874` and starts its own build counter at zero.
 
 ## Fabric and Paper release
 
-[Fabric and Paper running on PS5 — Fabric094 / Paper108](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108)
+[Fabric and Paper running on PS5 — Fabric094 / Paper108](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Fabric-Paper-v01.000.108)
 is the new full release, with separate app-only downloads, checksums
 and local provisioning instructions. The user reports a satisfying Fabric
 experience and describes Paper108 as the best build yet. See the
@@ -873,31 +881,31 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
-| **Playable world · 01.000.066** | Human playable world/major speed improvement,~30secstartup;C1gate/joinreports | [Scope/setup](docs/releases/client-playable-066.md) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066) |
-| **First world · 01.000.065** | Human world entry/punching,joined/rendered reports;severe lag and movement failure | [Scope/setup](docs/releases/client-world-065.md) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_World-v01.000.065) |
-| **First Minecraft menu · 01.000.062** | Human-confirmed visible menu on actual PS5 / native Java 25; gameplay and stability pending | [Evidence & setup](docs/releases/client-menu-062.md) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062) |
-| **Client SPIRV-Cross · 01.000.036** | PS5 ALL5 PASS,saved reports:9shader translations/reflection/error controls/guards and JVM stop | [Frozen source & validation](Client_SPIRV_Cross) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SPIRV_Cross-v01.000.036) |
-| **Client VMA Allocator · 01.000.035** | PS5 ALL5 PASS,human+saved reports:12RADV transfers,3VMA allocator/device cycles,guards and JVM stop | [Frozen source & validation](Client_VMA_Allocator) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_VMA_Allocator-v01.000.035) |
-| **Client FreeType Fonts · 01.000.033** | PS5 ALL5 PASS,human+saved reports:real FreeType glyph rasterization/guards and JVM stop | [Frozen source & validation](Client_FreeType_Fonts) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_FreeType_Fonts-v01.000.033) |
-| **Client STB Codecs · 01.000.031** | PS5 ALL5 PASS,human+saved session:real PNG/codecs/guards and JVM stop;detailed startup download incomplete | [Frozen source & validation](Client_STB_Codecs) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_STB_Codecs-v01.000.031) |
-| **Client OpenGL Provider · 01.000.029** | PS5 ALL5 PASS:3real software GL contexts,192RGBA pixels,768guards and JVM shutdown | [Frozen source & validation](Client_OpenGL_Provider) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_OpenGL_Provider-v01.000.029) |
-| **Client Callbacks/OpenAL · 01.000.026** | PS5 ALL5 PASS:192callbacks,3real loopback mixer lifecycles,Vulkan native bootstrap and JVM shutdown | [Frozen source & validation](Client_Callbacks_OpenAL) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Callbacks_OpenAL-v01.000.026) |
-| **Client Continuous Direct Scene · 01.000.023** | PS5 ALL15 PASS:494direct FIFO frames/1,482draws,all3phases,input masks15 and JVM shutdown | [Frozen source & validation](Client_Continuous_Direct_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Continuous_Direct_Scene-v01.000.023) |
-| **Client Visible Perspective Scene · 01.000.022** | PS5 ALL15 PASS:vertex-buffer perspective scene,verified image handoff,295SDL FIFO frames/input and JVM shutdown | [Frozen source & validation](Client_Visible_Perspective_Scene) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Visible_Perspective_Scene-v01.000.022) |
-| **Client Texture/Depth/Blend · 01.000.021** | PS5 ALL14 PASS:3texture uploads,27draws/9full images+guards,depth/blend controls,SDL318frames and JVM shutdown | [Frozen source & validation](Client_Texture_Depth_Blend) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Texture_Depth_Blend-v01.000.021) |
-| **Client Runtime Shader · 01.000.020** | PS5 ALL13 PASS: real runtime GLSL/error controls,18 GPU outputs,SDL input/display252frames and JVM shutdown | [Frozen source & validation](Client_Runtime_Shader) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Runtime_Shader-v01.000.020) |
-| **Client SDL Window/Input · 01.000.014** | PS5 automated/input/visual PASS: actual SDL window/surface, physical gamepad events+state,537 GPU frames and JVM shutdown | [Frozen source & validation](Client_SDL_Window_Input) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SDL_Window_Input-v01.000.014) |
-| **Client Direct Presentation · 01.000.011** | PS5 automated and visual PASS:90 direct GPU/FIFO presents, sample/guard checks and JVM shutdown with retained display | [Frozen source & validation](Client_Direct_Presentation) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Direct_Presentation-v01.000.011) |
-| **Client Graphics Pipeline · 01.000.010** | ALL PASS on PS5:9 graphics draws, verified pixels/guards, GPU-readback CPU-menu preview and VM shutdown | [Frozen source & validation](Client_Graphics_Pipeline) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Graphics_Pipeline-v01.000.010) |
-| **Client Shader Pipeline · 01.000.009** | ALL PASS on PS5:18 compute dispatches, guarded readback,3 shader lifecycles and VM shutdown | [Frozen source & validation](Client_Shader_Pipeline) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Shader_Pipeline-v01.000.009) |
-| **Client Vulkan Bindings · 01.000.008** | ALL PASS on PS5: original LWJGL Vulkan commands,12 GPU transfers,3 lifecycles and VM shutdown | [Frozen source & validation](Client_Vulkan_Bindings) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Vulkan_Bindings-v01.000.008) |
-| **Client GPU Integration · 01.000.004** | ALL PASS on PS5: Java/LWJGL GPU copy/fill/readback, three Vulkan session cycles and VM shutdown | [Frozen source & validation](Client_GPU_Integration) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_GPU_Integration-v01.000.004) |
-| **Client Native Graphics · 01.000.003** | ALL PASS on PS5: RADV GPU clear/copy/readback and VideoOut presentation | [Frozen source & validation](Client_Native_Graphics) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Native_Graphics-v01.000.003) |
-| **Client LWJGL Core · 01.000.002** | ALL PASS on PS5: native memory/JNI core and resident function provider | [Frozen source & validation](Client_LWJGL_Core) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_LWJGL_Core-v01.000.002) |
-| **Client Native Loading · 01.000.001** | ALL PASS on PS5: standard JNI loading and scoped real-function calls | [Frozen source & validation](Client_Native_Loading) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Native_Loading-v01.000.001) |
-| **Client Foundation · 01.000.000** | ALL PASS on PS5: runtime, artifacts, platform and JNI buffers | [Frozen source & validation](Client_Foundation) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Foundation-v01.000.000) |
-| **Server Start · 01.000.058** | ALL PASS on PS5: real readiness, saved metadata, clean stop and VM lifecycle | [Frozen source & validation](Server_Start) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Server_Start-v01.000.058) |
-| **Server Bootstrap · 01.000.002** | ALL PASS on PS5 13.60: VM lifecycle, 40-JAR preflight and official server `--help` | [Frozen source & validation](Server_Bootstrap) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Server_Bootstrap-v01.000.002) |
+| **Playable world · 01.000.066** | Human playable world/major speed improvement,~30secstartup;C1gate/joinreports | [Scope/setup](docs/releases/client-playable-066.md) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Playable-v01.000.066) |
+| **First world · 01.000.065** | Human world entry/punching,joined/rendered reports;severe lag and movement failure | [Scope/setup](docs/releases/client-world-065.md) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_World-v01.000.065) |
+| **First Minecraft menu · 01.000.062** | Human-confirmed visible menu on actual PS5 / native Java 25; gameplay and stability pending | [Evidence & setup](docs/releases/client-menu-062.md) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Menu-v01.000.062) |
+| **Client SPIRV-Cross · 01.000.036** | PS5 ALL5 PASS,saved reports:9shader translations/reflection/error controls/guards and JVM stop | [Frozen source & validation](Client_SPIRV_Cross) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_SPIRV_Cross-v01.000.036) |
+| **Client VMA Allocator · 01.000.035** | PS5 ALL5 PASS,human+saved reports:12RADV transfers,3VMA allocator/device cycles,guards and JVM stop | [Frozen source & validation](Client_VMA_Allocator) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_VMA_Allocator-v01.000.035) |
+| **Client FreeType Fonts · 01.000.033** | PS5 ALL5 PASS,human+saved reports:real FreeType glyph rasterization/guards and JVM stop | [Frozen source & validation](Client_FreeType_Fonts) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_FreeType_Fonts-v01.000.033) |
+| **Client STB Codecs · 01.000.031** | PS5 ALL5 PASS,human+saved session:real PNG/codecs/guards and JVM stop;detailed startup download incomplete | [Frozen source & validation](Client_STB_Codecs) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_STB_Codecs-v01.000.031) |
+| **Client OpenGL Provider · 01.000.029** | PS5 ALL5 PASS:3real software GL contexts,192RGBA pixels,768guards and JVM shutdown | [Frozen source & validation](Client_OpenGL_Provider) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_OpenGL_Provider-v01.000.029) |
+| **Client Callbacks/OpenAL · 01.000.026** | PS5 ALL5 PASS:192callbacks,3real loopback mixer lifecycles,Vulkan native bootstrap and JVM shutdown | [Frozen source & validation](Client_Callbacks_OpenAL) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Callbacks_OpenAL-v01.000.026) |
+| **Client Continuous Direct Scene · 01.000.023** | PS5 ALL15 PASS:494direct FIFO frames/1,482draws,all3phases,input masks15 and JVM shutdown | [Frozen source & validation](Client_Continuous_Direct_Scene) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Continuous_Direct_Scene-v01.000.023) |
+| **Client Visible Perspective Scene · 01.000.022** | PS5 ALL15 PASS:vertex-buffer perspective scene,verified image handoff,295SDL FIFO frames/input and JVM shutdown | [Frozen source & validation](Client_Visible_Perspective_Scene) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Visible_Perspective_Scene-v01.000.022) |
+| **Client Texture/Depth/Blend · 01.000.021** | PS5 ALL14 PASS:3texture uploads,27draws/9full images+guards,depth/blend controls,SDL318frames and JVM shutdown | [Frozen source & validation](Client_Texture_Depth_Blend) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Texture_Depth_Blend-v01.000.021) |
+| **Client Runtime Shader · 01.000.020** | PS5 ALL13 PASS: real runtime GLSL/error controls,18 GPU outputs,SDL input/display252frames and JVM shutdown | [Frozen source & validation](Client_Runtime_Shader) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Runtime_Shader-v01.000.020) |
+| **Client SDL Window/Input · 01.000.014** | PS5 automated/input/visual PASS: actual SDL window/surface, physical gamepad events+state,537 GPU frames and JVM shutdown | [Frozen source & validation](Client_SDL_Window_Input) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_SDL_Window_Input-v01.000.014) |
+| **Client Direct Presentation · 01.000.011** | PS5 automated and visual PASS:90 direct GPU/FIFO presents, sample/guard checks and JVM shutdown with retained display | [Frozen source & validation](Client_Direct_Presentation) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Direct_Presentation-v01.000.011) |
+| **Client Graphics Pipeline · 01.000.010** | ALL PASS on PS5:9 graphics draws, verified pixels/guards, GPU-readback CPU-menu preview and VM shutdown | [Frozen source & validation](Client_Graphics_Pipeline) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Graphics_Pipeline-v01.000.010) |
+| **Client Shader Pipeline · 01.000.009** | ALL PASS on PS5:18 compute dispatches, guarded readback,3 shader lifecycles and VM shutdown | [Frozen source & validation](Client_Shader_Pipeline) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Shader_Pipeline-v01.000.009) |
+| **Client Vulkan Bindings · 01.000.008** | ALL PASS on PS5: original LWJGL Vulkan commands,12 GPU transfers,3 lifecycles and VM shutdown | [Frozen source & validation](Client_Vulkan_Bindings) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Vulkan_Bindings-v01.000.008) |
+| **Client GPU Integration · 01.000.004** | ALL PASS on PS5: Java/LWJGL GPU copy/fill/readback, three Vulkan session cycles and VM shutdown | [Frozen source & validation](Client_GPU_Integration) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_GPU_Integration-v01.000.004) |
+| **Client Native Graphics · 01.000.003** | ALL PASS on PS5: RADV GPU clear/copy/readback and VideoOut presentation | [Frozen source & validation](Client_Native_Graphics) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Native_Graphics-v01.000.003) |
+| **Client LWJGL Core · 01.000.002** | ALL PASS on PS5: native memory/JNI core and resident function provider | [Frozen source & validation](Client_LWJGL_Core) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_LWJGL_Core-v01.000.002) |
+| **Client Native Loading · 01.000.001** | ALL PASS on PS5: standard JNI loading and scoped real-function calls | [Frozen source & validation](Client_Native_Loading) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Native_Loading-v01.000.001) |
+| **Client Foundation · 01.000.000** | ALL PASS on PS5: runtime, artifacts, platform and JNI buffers | [Frozen source & validation](Client_Foundation) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Foundation-v01.000.000) |
+| **Server Start · 01.000.058** | ALL PASS on PS5: real readiness, saved metadata, clean stop and VM lifecycle | [Frozen source & validation](Server_Start) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Server_Start-v01.000.058) |
+| **Server Bootstrap · 01.000.002** | ALL PASS on PS5 13.60: VM lifecycle, 40-JAR preflight and official server `--help` | [Frozen source & validation](Server_Bootstrap) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Server_Bootstrap-v01.000.002) |
 
 The public release contains the console-tested app/runtime, with official game/dependency JARs excluded. To provision those, run `tools/prepare_server.py --runtime-workspace /path/to/PS5_Homebrew`, then copy the generated `build/assets/java25/jars/` into the extracted app's `assets/java25/jars/`. The regular packaging command above produces the full local app automatically. Exact full-package and release-asset hashes are recorded separately in [Server_Start validation](Server_Start/validation.json) and [bootstrap validation](Server_Bootstrap/validation.json).
 
@@ -1783,7 +1791,7 @@ VM destruction. The report's ten hours describes development effort, not an
 endurance measurement. Source and package checksums are frozen in
 [Server_Start](Server_Start); the exact full package is preserved locally.
 
-The [release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Server_Start-v01.000.058)
+The [release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Server_Start-v01.000.058)
 omits official/game-derived JARs while preserving all remaining tested bytes.
 Provision locally using the frozen README instructions. No saved-world reload,
 player join, performance or endurance pass is claimed; mount discovery/capacity

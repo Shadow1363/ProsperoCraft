@@ -9,7 +9,7 @@ is playable,game startup takes roughly 30 seconds,and world loading is much bett
 These are real console observations,not a controlled benchmark or universal startup
 promise. This full GitHub release preserves that exact build.
 
-[Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066) ·
+[Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Playable-v01.000.066) ·
 [Human confirmation](../validation/client066-playable-confirmation-2026-10-26.json) ·
 [Hashed reports](../validation/client066-playable-reports-2026-10-26.json).
 
@@ -79,9 +79,9 @@ pressXonce,andreleaseitduringloading. The C1gate must pass before Minecraft star
 
 If it crashes,reopen withoutX to preserve reports. Do not delete/reset worlds.
 TitlePPSA99874 is shared with the server: this replaces that installation. Preserve
-world backups and the [Fabric/Paper release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108).
-Older [065world](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_World-v01.000.065)
-and [062menu](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062)
+world backups and the [Fabric/Paper release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Fabric-Paper-v01.000.108).
+Older [065world](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_World-v01.000.065)
+and [062menu](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Menu-v01.000.062)
 checkpoints remain available. No Store submission/listing change is included.
 
 ## Reproduction and licensing

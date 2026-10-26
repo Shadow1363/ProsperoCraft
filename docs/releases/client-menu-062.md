@@ -8,7 +8,7 @@ visible menu. This release preserves that exact executable and celebrates the
 first menu checkpoint after the native graphics, shader, font, codec and
 callback milestones.
 
-[Download the GitHub release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062)
+[Download the GitHub release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Menu-v01.000.062)
 · [Console confirmation](../validation/client062-menu-confirmation-2026-10-26.json)
 · [Release validation](../validation/client062-release.json)
 
@@ -75,7 +75,7 @@ demo path with multiplayer and chat disabled.
    If it crashes, reopen without pressing X to preserve the reports for diagnosis.
 
 **Shared title ID: PPSA99874. Installing this client replaces the server app.**
-Keep the [Fabric/Paper server release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108)
+Keep the [Fabric/Paper server release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Fabric-Paper-v01.000.108)
 and your server/world backups for restoration. No side-by-side installation is claimed.
 This release does not add a Prospero Store listing or change its reservation.
 
@@ -95,7 +95,7 @@ no world performance or frame-rate claim. There is no SDK, game-JAR or asset rew
 ## Reproduction and source
 
 Tested implementation:
-[`f3349a1`](https://github.com/mateo-cogeanu/ps5-minecraft-java/commit/f3349a1fb90a9304d7aa808b339bd37738607d14).
+[`f3349a1`](https://github.com/mateo-cogeanu/ProsperoCraft/commit/f3349a1fb90a9304d7aa808b339bd37738607d14).
 The release tag adds packaging, provisioning and documentation without rebuilding
 the accepted app. The complete tested local package has SHA-256:
 

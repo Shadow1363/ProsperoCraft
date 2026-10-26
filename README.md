@@ -26,14 +26,14 @@ rendering, working sound, reliable saves and an easy-to-use launcher.
 > **Sound works and gameplay feels buttery smooth on PS5.** The latest
 > **01.000.074** playtest confirms both, with native Java 25 and G1 GC.
 > [Playtest evidence](docs/validation/client074-smooth-audio-confirmation-2026-10-26.json) ·
-> [Published playable release066 →](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066)
+> [Published playable release066 →](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Playable-v01.000.066)
 
 ## Downloads
 
 | Release | What to expect | Get started |
 | :--- | :--- | :--- |
-| **Playable client · 01.000.066** | Minecraft Java 26.3, playable worlds and temporary DualSense controls. Sound and smoother gameplay are confirmed in development074; this release remains066. | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066) · [Setup](docs/releases/client-playable-066.md) |
-| **Fabric / Paper servers · 01.000.108** | Separate server builds with positive console playtests. Full lifecycle and endurance checks remain pending. | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Fabric-Paper-v01.000.108) · [Setup](docs/releases/fabric-paper-108.md) |
+| **Playable client · 01.000.066** | Minecraft Java 26.3, playable worlds and temporary DualSense controls. Sound and smoother gameplay are confirmed in development074; this release remains066. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Playable-v01.000.066) · [Setup](docs/releases/client-playable-066.md) |
+| **Fabric / Paper servers · 01.000.108** | Separate server builds with positive console playtests. Full lifecycle and endurance checks remain pending. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Fabric-Paper-v01.000.108) · [Setup](docs/releases/fabric-paper-108.md) |
 
 Follow the matching release's provisioning instructions to obtain and verify the
 official game files. Public app-only downloads exclude Minecraft JARs and game
@@ -100,7 +100,7 @@ workarounds and their migration history are documented in the changelog.
 
 ## Follow the project
 
-- **[Releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)** — downloads, setup and checksums.
+- **[Releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)** — downloads, setup and checksums.
 - **[Detailed changelog](CHANGELOG.md)** — build-by-build changes, results and known issues.
 - **[Milestone archive](CHANGELOG.md#milestones--releases)** — frozen source snapshots and console validation.
 - **[Java runtime](https://github.com/mateo-cogeanu/ps5-java25-homebrew)** — the native Java foundation.

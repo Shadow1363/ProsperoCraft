@@ -22,7 +22,7 @@ investigation/repairs/build/check/publication in the next context.
 Runtime workspace is `/Users/mateocogeanu/Documents/ChatGPT/PS5_Homebrew`.
 Consumer root is its `.tools/github-publish/ps5-minecraft-java` checkout;work there
 for game pins,harness,native dependency integration,branding and Minecraft docs.
-Repos:https://github.com/mateo-cogeanu/ps5-minecraft-java and
+Repos:https://github.com/mateo-cogeanu/ProsperoCraft and
 https://github.com/mateo-cogeanu/ps5-java25-homebrew.
 Reusable JVM fixes/patches/packaging/image tools belong in runtime,not copied into
 the consumer. Do not put consumer game code/downloaded JARs in runtime source.

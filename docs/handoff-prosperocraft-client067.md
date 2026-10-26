@@ -4,7 +4,7 @@ The user confirms exact066 is blazingly fast, worlds are playable, and game star
 is roughly30seconds. They requested a GitHub release, then sound, before further
 instructions. No further performance tuning is part of this turn.
 
-[Playable066 release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066)
+[Playable066 release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Playable-v01.000.066)
 is published as a full release. All seven public assets were downloaded and their
 checksums verified; the downloaded corresponding-source/relink kit reproduced the
 accepted native ELF. See [publication evidence](validation/client066-release-publication.json).

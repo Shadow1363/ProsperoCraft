@@ -1,7 +1,7 @@
 """Materialize hash-pinned upstream Paper outputs using its original Paperclip."""
 from pathlib import Path
 import hashlib,json,shutil,subprocess,urllib.request,zipfile
-USER_AGENT='ps5-minecraft-java/0.1 (https://github.com/mateo-cogeanu/ps5-minecraft-java)'
+USER_AGENT='ps5-minecraft-java/0.1 (https://github.com/mateo-cogeanu/ProsperoCraft)'
 def checked(path,record):
  data=path.read_bytes()
  if len(data)!=record['size'] or hashlib.sha256(data).hexdigest()!=record['sha256']:raise ValueError('Paper artifact checksum: '+path.name)

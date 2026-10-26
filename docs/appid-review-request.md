@@ -17,7 +17,7 @@ Read the linked EULA/Usage Guidelines yourself before answering its first questi
 | Application (client) ID | `f0c7635e-8d50-4d7e-afa3-d15db4a0a3d3` |
 | Directory (tenant) ID | Copy from the same app registration's Overview page. |
 | Contact | Use the contact email associated with this Azure registration; the form says it cross-checks that contact. |
-| Associated website | https://github.com/mateo-cogeanu/ps5-minecraft-java |
+| Associated website | https://github.com/mateo-cogeanu/ProsperoCraft |
 
 Keep the existing app ID. Do not submit a client secret, password, live device
 code, access token or refresh token.

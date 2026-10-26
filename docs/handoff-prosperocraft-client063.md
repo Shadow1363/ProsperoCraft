@@ -5,7 +5,7 @@ for historical/release requirements. No subagents or deferred server endurance r
 The goal remains a polished playable native Java25 PS5 Minecraft client.
 
 062 reached the visible menu and is a full GitHub release:
-https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062
+https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Menu-v01.000.062
 Preserve accepted062 ZIP/symbols/source and tag; no formal full-client ALL PASS.
 The user then requested temporary controls and a fix for gradual menu lag, with
 upstream Controlify preferred once compatible loaders/native APIs are ready.
