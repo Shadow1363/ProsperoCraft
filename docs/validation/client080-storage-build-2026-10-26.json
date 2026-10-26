@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.080",
+  "title_id": "PPSA99874",
+  "package_sha256": "c374781d33249b019e268eac391350bdbb1dd78c8f19de6909c86b9c67d84dba",
+  "native_elf_sha256": "b142325ab620db201a7c08851b0651d98103836ce892af461514e2ecb3aa1af0",
+  "runtime_code_ref": "de339155ba78e54be1ddc903e7df0904c866fbdb",
+  "console_evidence": {
+    "run": "client-01.000.079-1793035845-430764912",
+    "retrieval": "Safari read-only LAN session and Java exceptions report",
+    "human_error": "No space left on device",
+    "human_progress_plateau": "Always212MB",
+    "human_console_free": "382GB",
+    "report": "Repeated PS5_LAUNCHER task=DOWNLOAD result=FAILED;079didnotrecordnativeerrnocategory",
+    "measured_actual_mounted_capacity": null
+  },
+  "source_finding": {
+    "old_packaged_downloadDataSize": 256,
+    "new_packaged_downloadDataSize": 4096,
+    "requested_unit": "MiB",
+    "same_title_and_data_root": true,
+    "path": "/download0/ProsperoCraft"
+  },
+  "changes": [
+    "Increase app-local reservation to4096MiB; no game/content/identity change",
+    "Fixed storageCode metadata for ENOSPC/quota/access/read-only/otherIO and app-local error guidance",
+    "Settings displays actual project data path; startup records requested reservation, not measured free space"
+  ],
+  "not_changed": [
+    "No migration to /data",
+    "No new filesystem privileges/kernel helper",
+    "No cleanup/reformat/backing-image manipulation",
+    "No capacity-query ABI change or fabricated free space",
+    "Existing worlds/cache/library remain in place"
+  ],
+  "host_checks": [
+    "PASS4096manifest/same identity",
+    "Injected FileSystemException ENOSPC/quota/access/read-only/other categories and app-local full error text",
+    "Existing library/world reopen/path preservation",
+    "Instance/controller/downloader persistence/security regression",
+    "Startup ordering/observer/logging/allocator/originalMain regressions"
+  ],
+  "target_checks": "PASS compile/link/SELF, package CRC/signatures, packaged4096reservation/same title, exact source classes/dependency hashes, native/runtime audits, no bundled game/assets, preserved079/earlier packages",
+  "console": "PENDING080 loader metadata refresh/existing-volume expansion, progress past212MB, download completion and26.3demo launch",
+  "preserved_079_sha256": "ee4238389de4c454d7b19173fa2613a4515d9c6e685ee083e3e70772b3deb6bf",
+  "supporting_upstream": [
+    "https://github.com/blackbearreloaded/ps5-native-app-boilerplate#application-filesystem-paths",
+    "https://github.com/abhi245y/PS5LM-Plus#readme"
+  ],
+  "limitations": [
+    "Exact current volume size/quota unmeasured",
+    "Growth on another project/firmware13.00 is not this console acceptance",
+    "All079GUI/download/GLFW/MSA limitations remain"
+  ],
+  "no_release_or_store_update": true
+}

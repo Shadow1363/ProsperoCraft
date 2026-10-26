@@ -6,6 +6,21 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-26 — Client080 increases the app-local download reservation
+
+079downloads repeatedly stop at212MBwithENOSPCwhile the console reports382GBfree.
+The app still inherited downloadDataSize256from the original probe.080requests
+4096MiBusing the same title and keeps the existing /download0/ProsperoCraft data.
+The normal app sandbox does not guarantee /data access, so no external relocation,
+privilege helper, cleanup or reformat is introduced. Storage error categories and
+app-local messages improve diagnosis; unsupported capacity queries remain unknown,
+not zero. Existing instance/world/cache bytes and079package/symbols are preserved.
+
+Install the complete folder including param.json, refresh loader metadata and
+relaunch. Actual existing-volume expansion, downloads past212MBand completion/
+26.3launch need console validation. [Guide](docs/client-storage-080.md) ·
+[Build record](docs/validation/client080-storage-build-2026-10-26.json).
+
 ## 2026-10-26 — Client079 instance library, native redesign and on-demand demos
 
 Replaces the fixed-instance home with a three-action top bar, L1/R1navigation,

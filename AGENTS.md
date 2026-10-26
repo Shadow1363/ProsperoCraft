@@ -694,3 +694,12 @@ shared verified original cache, demo-only launch; account review still pending.
 claim playable all26.xor replace older selected game with26.3.26.3is the native
 baseline. New downloader/loader/GUI need exact079PS5tests. Preserve078/074packages
 and old world data. No release/Store update. Consumer-only source ownership.
+
+080storagefollow-up: human079ENOSPCat212MBdespite382GBconsolefree. Source param
+stilldownloadDataSize256;080requests4096MiBsame title and retains /download0/
+ProsperoCraft. /data migration idea discarded after checking native template
+sandbox docs; no migration/elevation/backingimage edits/cleanup shipped. Actual
+mounted capacity and existing-volume expansion remain unverified. Completeparam
+update+loaderrefresh/relaunch thenRepairDownloadpast212MBneedsPS5validation.
+Capacity0fromunsupportedJavaqueriesisunknown,neverphysicalfree0. Read
+ docs/handoff-prosperocraft-client080.md. Preserve079/074bytes; no release.

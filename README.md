@@ -53,9 +53,9 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Sound** | The user confirms very good game sound on exact build074. |
 | **Validation ahead** | Save/reload, controller polish, measured frame pacing and extended play remain to be checked. |
 
-Development079 adds a redesigned native launcher, persistent instance library,
-controller navigation and verified on-console demo downloads. New installs start
-empty; no game JARs or assets are bundled. [Preview and setup](docs/client-instances-079.md).
+Development080 requests 4 GiB of app storage for the redesigned native launcher,
+persistent instance library, controller navigation and verified on-console demo downloads. New installs start
+empty; no game JARs or assets are bundled. [Preview and setup](docs/client-instances-079.md) · [Storage update](docs/client-storage-080.md).
 26.3is the gameplay baseline;26.1/26.2need a separate GLFW native path.
 Microsoft account access remains blocked at Minecraft Services403pending app review.
 
