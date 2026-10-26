@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-26",
+  "scope": "Consumer project disk cleanup only;no application/runtime binary change",
+  "duplicate_files_removed": 28,
+  "duplicate_logical_bytes_removed": 5172255416,
+  "failed_build_range": "client037-client061",
+  "archive_file_count": 117,
+  "original_failure_bytes": 19303615609,
+  "archive_bytes": 2230177327,
+  "archive_sha256": "35ffd2133024d4ad4330300527261b4e803bb3f706a14a48b842f6f2050c38c0",
+  "archive_manifest_sha256": "c484a6152f02e2fb769218a43b8d7b0be3f98342ce0af306a147f0c8bdc68a4c",
+  "verification": "All117decompressed members SHA256+size verified,alloriginals rehashed before removal. Every duplicate checked against an independent retained artifact. Full062package check passed with named-archive lookup.",
+  "preserved": [
+    "Exact accepted062full ZIP and symbols,current startup package/staging",
+    "All frozen milestones and server fallbacks",
+    "Earlier private archives,raw crash logs,source andGit history",
+    "SDK/JDK/runtime/native objects and release ZIPs"
+  ],
+  "free_space_observation_gib": 22.11,
+  "recovery_guide": "docs/local-storage.md",
+  "console": "Human-confirmed062menu unchanged;gameplay/input/speaker audio/saves/stability pending."
+}

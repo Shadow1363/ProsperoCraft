@@ -85,3 +85,59 @@ not native/game/runtime implementations;037 console startup validation is pendin
 
 Historical server compaction verified31ZIPs:4240004177bytes reduced to609246671bytes.
 Removed 14 duplicate build-directory symbol copies (1990508984logical bytes),after matching each to a preserved milestone or verified failed-build archive.
+
+## Space recovery after the menu release — 2026-10-26
+
+The disk had only 1.4 GiB available after release preparation. Verified duplicate
+cleanup and lossless compaction restored roughly 22 GiB of available space.
+Free space varies with macOS activity; logical totals differ from APFS physical
+recovery. No game/runtime implementation or release binary changed.
+
+Removed byte-verified duplicate release downloads, extracted relink kits and
+25 older build-directory symbol copies: **5,172,255,416 logical bytes**. Retained
+source/relink ZIPs match every removed kit file. Every removed symbol matched an
+independently preserved failed candidate. Downloaded-kit verification logs remain local.
+
+Failed original-startup candidates 037–061 now live losslessly in:
+
+- `dist/archives/failed-client-builds-client037-061.tar.zst`
+- `dist/archives/failed-client-builds-client037-061.json`
+
+The 117 files, originally **19,303,615,609 bytes**, compressed to **2,230,177,327
+bytes**. Every decompressed file was checked against its original SHA-256 and size;
+all originals were rehashed again before expanded `dist/failures` was removed.
+Earlier failed-client/server archives remain unchanged. No private archive, game
+JAR, raw log or credential was uploaded. Keep each archive with its manifest.
+
+The helper supports additional named batches without replacing old ones:
+
+```sh
+python3 tools/compact_failed_client_builds.py verify --batch client037-061
+# Restore the entire batch only when enough free space is available:
+python3 tools/compact_failed_client_builds.py restore --batch client037-061
+```
+
+A full restore needs around 19.3 GB plus overhead. To restore just one file,
+verify the archive first, then extract that exact manifest path instead:
+
+```sh
+zstd -d --long=30 -c dist/archives/failed-client-builds-client037-061.tar.zst | tar -x -C dist failures/Client_Original_Startup-01.000.061/PPSA99874-full-local.zip
+```
+
+Use an absent destination and compare the extracted file's SHA-256 with the
+manifest before use. Current startup package checks discover and fully verify
+all named failed-client archives, so they no longer require expanding 037–061.
+The actual 062 full package check passed after this storage migration.
+
+Still directly retained: the accepted 062 full package/symbols and current startup
+package/staging; all frozen milestones; Fabric/Paper/vanilla fallbacks; source/Git
+history; private crash logs; SDK/JDK/runtime/native dependency objects; public
+release ZIPs, checksums and notices. The accepted 062 snapshot uses independent
+copy-on-write files, so rewriting a future candidate cannot alter accepted bytes.
+
+For future releases, remove verified downloaded/extracted kit duplicates after
+publication and compact inactive failure batches before they accumulate. Preserve
+needed symbols in one verified snapshot rather than every build directory. These
+are explicit maintenance actions, not a background watcher. Menu confirmation
+stands; world gameplay, controls, speaker audio, saving/reloading and stability
+remain unvalidated. Cleanup does not change those console results.

@@ -116,3 +116,12 @@ against SHA256/bytes and GitHub digests. Downloaded relocated OpenAL kit reprodu
 exact accepted ELF. See docs/validation/client062-release-publication.json.
 Runtime repo unchanged/clean at1e9fb4f;no Store/catalog action. Preserve release tag
 and accepted bytes;new candidate versions must not replace this menu checkpoint.
+
+Storage maintenance2026-10-26:037–061failed packages/symbols are now losslessly
+archived in dist/archives/failed-client-builds-client037-061.tar.zst plus JSON
+manifest. All117members verified,19.3GB->2.23GB. Build-directory old symbols and
+release extracted/downloaded kits removed only after independent byte/hash checks.
+Current062accepted/full/staging/symbols,allfrozen passes,serverfallbacks,source,raw
+logs andSDK/JDK/native objects retained. Package tests now read allnamed failure
+archives and pass without expansion. See docs/local-storage.md for single-file
+recovery;avoid whole19.3GBrestore unless necessary. Disk had~22GiBfree aftercleanup.

@@ -6,9 +6,9 @@ from functools import lru_cache
 ROOT=Path(__file__).resolve().parents[1];LLVM=Path('/opt/homebrew/opt/llvm/bin')
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--runtime-workspace',type=Path,required=True);a=p.parse_args();runtime=a.runtime_workspace
 work=ROOT/'build/client-startup-probe';package=ROOT/'dist/client-startup/PPSA99874.zip';sha=lambda data:hashlib.sha256(data).hexdigest()
-@lru_cache(maxsize=1)
-def archived_failure_hashes():
- archive=ROOT/'dist/archives/failed-client-builds.tar.zst';record=json.loads((archive.parent/'failed-client-builds.json').read_text())
+@lru_cache(maxsize=None)
+def archived_failure_hashes(archive):
+ record=json.loads(archive.with_name(archive.name.removesuffix('.tar.zst')+'.json').read_text())
  with archive.open('rb')as stream:assert hashlib.file_digest(stream,'sha256').hexdigest()==record['archive_sha256']
  proc=subprocess.Popen(['zstd','-d','--long=30','-q','-c',str(archive)],stdout=subprocess.PIPE);actual={}
  try:
@@ -19,7 +19,12 @@ def archived_failure_hashes():
  assert proc.wait()==0 and set(actual)==set(record['files']);return actual
 def failure_hash(path):
  if path.exists():return sha(path.read_bytes())
- return archived_failure_hashes()[path.relative_to(ROOT/'dist').as_posix()]
+ name=path.relative_to(ROOT/'dist').as_posix()
+ for manifest in sorted((ROOT/'dist/archives').glob('failed-client-builds*.json')):
+  record=json.loads(manifest.read_text())
+  if name in record['files']:
+   return archived_failure_hashes(manifest.with_name(manifest.stem+'.tar.zst'))[name]
+ raise FileNotFoundError('No preserved failed package: '+name)
 elf=work/'bootstrap-01.000.062-symbols.elf';text=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(elf)],text=True);symbols={l.split()[-1]:int(l.split()[0],16)for l in text.splitlines()if len(l.split())==3}
 assert symbols['__init_array_start']==symbols['__init_array_end'];assert (symbols['__client_openal_init_end']-symbols['__client_openal_init_start'])//8==15;assert (symbols['__jvm_init_array_end']-symbols['__jvm_init_array_start'])//8==359;assert (symbols['__client_gpu_init_end']-symbols['__client_gpu_init_start'])//8==4;assert (symbols['__client_shaderc_init_end']-symbols['__client_shaderc_init_start'])//8==5
 assert (symbols['__client_gl_init_end']-symbols['__client_gl_init_start'])//8==1
@@ -182,6 +187,6 @@ assert failure_hash(ROOT/'dist/failures/Client_Original_Startup-01.000.058/PPSA9
 assert failure_hash(ROOT/'dist/failures/Client_Original_Startup-01.000.059/PPSA99874-full-local.zip')=='53ce7cc8ff6c83ebec57044951bc44707cbce1322c6188d5e3585745c4857c09'
 assert failure_hash(ROOT/'dist/failures/Client_Original_Startup-01.000.060/PPSA99874-full-local.zip')=='899252e805cff1031446cdcceaf6e44c331545601599d7e5b4e04c737502873c'
 assert failure_hash(ROOT/'dist/failures/Client_Original_Startup-01.000.061/PPSA99874-full-local.zip')=='d1a338b5e7c3d542bf5d4be974e3780c8ea3260ccd812939ea290dd755629429'
-print('PASS062 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. PS5 original startup/menu remains pending. SHA256',sha(package.read_bytes()))
+print('PASS062 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,exact023 runtime image/native libs,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. Menu confirmation recorded separately;gameplay/stability validation pending. SHA256',sha(package.read_bytes()))
 
 assert failure_hash(ROOT/'dist/failures/Client_Original_Startup-01.000.054/PPSA99874-full-local.zip')=='4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc'

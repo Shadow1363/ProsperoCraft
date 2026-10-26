@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Losslessly archive inactive failed-client packages locally;never uploads game JARs."""
 from pathlib import Path
-import argparse,hashlib,json,subprocess,tarfile,shutil,os
+import argparse,hashlib,json,subprocess,tarfile,shutil,os,re
 ROOT=Path(__file__).resolve().parents[1];SOURCE=ROOT/'dist/failures';FOLDER=ROOT/'dist/archives';ARCHIVE=FOLDER/'failed-client-builds.tar.zst';MANIFEST=FOLDER/'failed-client-builds.json'
 def digest(path):
  with path.open('rb')as stream:return hashlib.file_digest(stream,'sha256').hexdigest()
@@ -20,7 +20,11 @@ def verify(record):
  if proc.wait()!=0 or seen!=set(record['files']):raise ValueError('Incomplete/corrupt archive')
  print('Verified exact archived bytes for',len(seen),'files',flush=True)
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['pack','verify','restore']);a=p.parse_args();FOLDER.mkdir(exist_ok=True)
+ global ARCHIVE,MANIFEST
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['pack','verify','restore']);p.add_argument('--batch',help='New archive suffix, preserving all earlier archives');a=p.parse_args();FOLDER.mkdir(exist_ok=True)
+ if a.batch:
+  if not re.fullmatch(r'[A-Za-z0-9_-]+',a.batch):raise ValueError('Invalid batch name')
+  ARCHIVE=FOLDER/('failed-client-builds-'+a.batch+'.tar.zst');MANIFEST=FOLDER/('failed-client-builds-'+a.batch+'.json')
  if a.action=='pack':
   if ARCHIVE.exists()or MANIFEST.exists():raise ValueError('Archive already exists;verify/restore instead')
   files={}
