@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.082",
+  "title_id": "PPSA99874",
+  "consumer_baseline_commit": "1a5a9969a56a83cff9b6f67c5763920ef5086e1d",
+  "runtime_public_commit": "9afa03adfb34dc1049f18de5839d762662b6c306",
+  "package_sha256": "ab49cad8977736be2be72230743232a270dba9bd17fa70a66b64a93c48230820",
+  "native_elf_sha256": "d93c3507dcf1df1284631d09963fc5d9ed73c4638a241b550313d5a9a14011df",
+  "source_sha256": {
+    "client/launcher/java/ProsperoLauncher.java": "3331ae4b6cab2b50903afb45303af5b53f6a8fd682329b7a44ac0aa71e8e5a98",
+    "client/launcher/java/ProsperoSession.java": "664f6926d2e049d5b9acd2ded7c4778afb0ecdab810cd926ef0425ba71af7364",
+    "client/launcher/java/ProsperoLibrary.java": "ad929f2481266f09baba9b149bd2335fc8e2c6d8f205f3941109bc6f89d0d83c",
+    "client/launcher/native_menu.hpp": "6064b965e7fc5695f2071d5572a7e60458d11ab9ec11617b26a42228c5a00989",
+    "client/launcher/navigation.hpp": "6e10ed0ad272eb787c0d24fb6eeac37e0f2c04099159578d2eaedd97ceb6d2f2",
+    "client/startup/ClientStartup25.java": "9fb99865980eda49193e2d6c9be5895e16dfa8d0f08be32452721a050d14bfcf",
+    "client/startup/bootstrap.cpp": "d8e55475d4d97de96c6c296e4b57c2c5f12f919914d5225e942478d4ed3ef677",
+    "client/startup/session_restart.hpp": "cc0b0740d3565661c1dd2172976a643b8e9f2504c183d430e8bc8b8301a3524b",
+    "client/startup/param.json": "c359c0b052d3ab1872da6fc90d9dba748eebebcf34f6c928130526124721af00",
+    "client/ports/sdl/ps5_temporary_input.h": "c482bcde08ffb467ba24def10d6adb86c06671783b564d1f294c9eee0e763f4a",
+    "client/ports/sdl/SDL_ps5video.c": "e5a5b8851f70e698571c390229a5bbd3654c84284bee31760e8d5aa73771b777",
+    "client/ports/mesa/0006-videoout-menu-cursor.patch": "8e22498e8431d735cf0a15da79deb0fc19c9d121c35d2d73ef2ea0a7ed24a7e8"
+  },
+  "changes": [
+    "Compact saved checkbox, initial OK focus and horizontal D-pad/stick navigation",
+    "Shared native stick dead zone/hysteresis, deduplicated directions, 400/100ms repeat, disconnect/intercept/entry-held suppression",
+    "Existing focus interpolation now draws interpolated bounds; bounded press response, Reduced Motion and idle settling",
+    "Verified current-session shutdown followed by OS process replacement to fresh launcher; never reenter Main/JVM or CPU display under old WSI"
+  ],
+  "host_checks": [
+    "PASS welcome persistence/migration/horizontal navigation/Settings restore/idle cache and repeated fresh models with preserved world file",
+    "PASS actual native navigation policy ASan/UBSan",
+    "PASS actual session gate against stale/current/rolling logs, silent early return, running/null singleton, live SDL and startup/shutdown/fatal failures",
+    "PASS actual native restart helper with three host exec replacement cycles and returned OS-call failure; PS5 boundary mocked",
+    "PASS pinned original Main/close bytecode lifecycle audit; official game JAR unchanged",
+    "PASS actual native draw previews, interpolation/settling/Reduced Motion/press, JNI affinity/frontend-before-JVM and ordered display close/unmap/release/join",
+    "PASS existing SDL adapter and WSI cursor ASan/UBSan fixtures",
+    "PASS auth and4096MiB storage fixtures; no live credentials used",
+    "PASS startup host policy/observer/GC/allocator and expected host-native failure; not a host menu pass",
+    "PASS existing audio/configuration preservation",
+    "PASS full target build and package audit, signatures/CRC/bytecode/source/frozen package checks",
+    "PASS git diff --check"
+  ],
+  "console_status": "PENDING exact082; no ALL PASS",
+  "console_checks": [
+    "Launch -> Quit -> library -> relaunch at least three cycles; PS5 LoadExec self replacement and resume argument delivery",
+    "Exactly one display owner, no stale frame/cursor/audio, restored input and early AudioOut on fresh process",
+    "World/save/options/download retention and accepted074 sound/smoothness",
+    "Stick every launcher page, dead zone/repeat/deduplication/disconnect/interception/launch-held actions",
+    "Checkbox persistence/horizontal focus/Settings restore, Reduced Motion and idle redraw settling",
+    "Retained081 gameplay/menu pointer/text picker and download completion; unsupported versions blocked"
+  ],
+  "evidence": {
+    "photos_inspected": [
+      "IMG_2383.HEIC",
+      "IMG_2385.HEIC"
+    ],
+    "personal_photos_committed": false,
+    "observed_popup": "Client081 check4 ClientStartup25 IllegalStateException beginning Original game m; FFFFFAE5",
+    "correlation": "Native Java exception status-1307 matches FFFFFAE5; previous wrapper unconditionally threw after Main returned",
+    "current_run_logs": "Unavailable: last documented endpoint unreachable from shell and in-app browser; not independently verified"
+  },
+  "preserved081": {
+    "path": "dist/accepted/Client_Controls-01.000.081",
+    "package_sha256": "3455e3fa1121eaaf6ae404ba7b4aa8ba9297f352ae46a76f5535f36fcdf182ad",
+    "symbols_sha256": "345f82d2d1f59e1bdfb4c057f770d73303419944494391b96a0d26e7432d06b3"
+  },
+  "limits": [
+    "PS5 LoadExec self replacement, mount/device reclamation and repeated launch remain unvalidated",
+    "Ambiguous shutdown evidence fails explicitly; no blanket Main-return success",
+    "In-memory account credentials are not persisted across process replacement",
+    "Runtime sources unchanged; consumer-only architecture integration",
+    "No new release, Store publication, game-JAR changes or frozen milestone replacement"
+  ]
+}

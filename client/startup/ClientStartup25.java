@@ -11,9 +11,11 @@ public final class ClientStartup25 {
  public static native void checkpoint(String text);
  public static native void nativeSnapshot(long elapsedMillis,int phase);
  public static native boolean launcherMenu();
+ private static boolean normalQuit=false;
+ public static boolean normalQuit(){return normalQuit;}
  public static boolean gamePreflight()throws Exception{return ProsperoLauncher.verifySelected();}
  public static String[] launcherTick(int buttons){return ProsperoLauncher.nativeTick(buttons);}
- private static void stage(String text){checkpoint("MC Startup081: "+text);}
+ private static void stage(String text){checkpoint("MC Startup082: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -227,10 +229,13 @@ public final class ClientStartup25 {
     try{observer=new StartupObserver(console,390,1000,5000);observer.start();}
     catch(Throwable unavailable){console.println("PS5 startup observer unavailable;continuing original Main: "+unavailable);observer=null;}
    }else console.println("PS5 startup observer disabled for performance run;enable ps5.startupObserver explicitly for stack sampling");
+   ProsperoSession session=new ProsperoSession(Path.of("/download0/mc-client/logs"));
    try{method.invoke(null,(Object)selectedArguments);}
    catch(InvocationTargetException failure){throw failure.getCause();}
    stage("Original Main returned;this alone does not establish menu or gameplay success");
-   throw new IllegalStateException("Original game main returned;inspect exceptions.log/latest.log and actual visible state;no automatic menu PASS");
+   session.verifyCleanReturn(ProsperoLauncher.gameLoader());
+   normalQuit=true;
+   stage("PS5_SESSION CLEAN_QUIT; original SDL/window/renderer/audio shutdown complete; replacing process before library/relaunch");
   }catch(Throwable failure){failure.printStackTrace(console);stage("Original startup stopped: "+failure);throw failure;}
   finally{if(observer!=null)observer.close();console.flush();System.setOut(previousOut);System.setErr(previousErr);console.close();}
  }

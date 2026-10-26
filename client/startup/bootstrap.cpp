@@ -6,6 +6,7 @@
 #include "client_classpath.hpp"
 #include "pad.h"
 #include <atomic>
+#include <algorithm>
 #include <cstdarg>
 #include <cerrno>
 #include <cstdio>
@@ -18,6 +19,7 @@
 #include "native_stderr.hpp"
 #include "observer_native.hpp"
 #include "../launcher/native_menu.hpp"
+#include "session_restart.hpp"
 static void notify(const char* text);
 extern "C" int sceAudioOutInit();
 extern "C" {int client_ps5_audio_early_init_result=INT32_MIN;}
@@ -54,6 +56,7 @@ extern "C" int __wrap_open(const char *path,int flags,...) {
 extern "C" int ps5shaderc_fault_begin(void);
 extern "C" void ps5shaderc_fault_end(void);
 namespace {
+bool resume_library=false,return_to_library=false;
 // One outer reference survives nested compiler begin/end calls. Restore the
 // previous JVM handlers on every normal/Java-exception return from run_test.
 struct StartupFaultScope {
@@ -71,7 +74,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.081";
+constexpr const char* build_version="01.000.082";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -198,8 +201,8 @@ void run_test(int i) {
   if(!ps5::log_share::write_note("/download0/probe-native-stderr.log",native_identity))
    native_stderr_error=errno?errno:EIO;
   else native_stderr_error=ps5::native_stderr::begin("/download0/probe-native-stderr.log");
-  if(!native_stderr_error)std::fprintf(stderr,"Client081 native stderr stream active before embedded constructors\n");
-  else notify("Client081 native stderr capture unavailable;continuing original startup. Inspect startup reports.");
+  if(!native_stderr_error)std::fprintf(stderr,"Client082 native stderr stream active before embedded constructors\n");
+  else notify("Client082 native stderr capture unavailable;continuing original startup. Inspect startup reports.");
   startup_log=std::fopen("/download0/java25-startup.log","a");
   if(!startup_log) {result(i,errno,"Cannot open persistent startup log");return;}
   std::fprintf(startup_log,"\n=== CLIENT RUN %s BUILD %s ===\n",run_id,build_version);std::fflush(startup_log);
@@ -297,8 +300,12 @@ void run_test(int i) {
    {const_cast<char *>("exit"),reinterpret_cast<void *>(&vm_exit)},
    {const_cast<char *>("abort"),reinterpret_cast<void *>(&vm_abort)}
   };
+  JavaVMOption resume_option{const_cast<char *>("-Dps5.launcher.resume=true"),nullptr};
   JavaVMInitArgs args{};args.version=JNI_VERSION_24;
-  args.nOptions=sizeof(options)/sizeof(options[0]);args.options=options;args.ignoreUnrecognized=JNI_FALSE;
+  JavaVMOption session_options[sizeof(options)/sizeof(options[0])+1];
+  std::copy(std::begin(options),std::end(options),session_options);
+  const int option_count=sizeof(options)/sizeof(options[0]);session_options[option_count]=resume_option;
+  args.nOptions=option_count+(resume_library?1:0);args.options=session_options;args.ignoreUnrecognized=JNI_FALSE;
   // Verify the raw diagnostic write path before entering JVM code. Each
   // VM milestone then appends a line without stdio or JVM allocation.
   int trace_fd=open("/download0/java25-vm-trace.log",O_CREAT|O_WRONLY|O_TRUNC,0600);
@@ -381,6 +388,11 @@ void run_test(int i) {
   log_stage("Calling Client fixture.main");
   java_env->CallStaticVoidMethod(klass,method,arguments);
   bool failed=java_env->ExceptionCheck();
+  if(!failed&&i==3){
+   jmethodID normal=java_env->GetStaticMethodID(klass,"normalQuit","()Z");
+   return_to_library=normal&&java_env->CallStaticBooleanMethod(klass,normal);
+   failed=java_env->ExceptionCheck()||!return_to_library;
+  }
   if(failed) java_failure(i,-1307,fixture);
   java_env->DeleteLocalRef(arguments);java_env->DeleteLocalRef(string_class);java_env->DeleteLocalRef(klass);
   log_stage(failed?"Client fixture threw exception":"Client fixture returned normally");
@@ -398,7 +410,7 @@ void run_test(int i) {
 }
 extern "C" void client_sdl_diagnostic(const char* text) {log_stage(text);}
 extern "C" void client_gpu_stage(const char *name,int code) {
- char stage[512];std::snprintf(stage,sizeof(stage),"GPU081 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
+ char stage[512];std::snprintf(stage,sizeof(stage),"GPU082 %s code=%d: %s",code==INT32_MIN?"RUN":code==0?"PASS":"FAIL",code,name);log_stage(stage);
 }
 extern "C" int sceKernelSendNotificationRequest(std::uint32_t,void*,std::size_t,int);
 extern "C" int sceSystemServiceHideSplashScreen();
@@ -407,22 +419,24 @@ static void notify(const char* text) {
  Notification n{};std::snprintf(n.message,sizeof(n.message),"%s",text);
  (void)sceKernelSendNotificationRequest(0,&n,sizeof(n),0);
 }
-int main() {
- ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.081 / PPSA99874\n");
+int main(int argc,char** argv) {
+ for(int i=0;i<argc;++i)if(argv[i]&&std::strcmp(argv[i],"--prospero-library")==0)resume_library=true;
+ ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.082 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
  if(sceUserServiceGetInitialUser(&user)>=0 && scePadInit()>=0) pad=scePadOpen(user,0,0,nullptr);
 
 
- if(pad<0){notify("Client081 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
+ if(pad<0){notify("Client082 controller setup failed. Existing logs remain available.");for(;;)(void)sceKernelUsleep(1000000);}
  scePadClose(pad);pad=-1;
  (void)sceSystemServiceHideSplashScreen();
  // Native UI owns VideoOut/controller on its thread before creating Java.
  // Core constructors and early AudioOut init stay on the original startup thread.
  run_test(0);
- if(status[0]!=1){notify("Client081 runtime initialization failed; inspect logs.");for(;;)(void)sceKernelUsleep(1000000);}
- if(!prospero_menu::start_frontend()){notify("Client081 native launcher display could not start; inspect logs.");for(;;)(void)sceKernelUsleep(1000000);}
+ if(resume_library)log_stage("PS5_SESSION RESUME_LIBRARY fresh process; saved notice preference retained");
+ if(status[0]!=1){notify("Client082 runtime initialization failed; inspect logs.");for(;;)(void)sceKernelUsleep(1000000);}
+ if(!prospero_menu::start_frontend()){notify("Client082 native launcher display could not start; inspect logs.");for(;;)(void)sceKernelUsleep(1000000);}
  log_stage("Native launcher first frame presented; now creating Java account services, no Minecraft graphics loaded");
  // Downloaded instance receipts replace the legacy bundled artifact scan (2).
  for(int i:{1,3}) {
@@ -430,11 +444,20 @@ int main() {
   run_test(i);
   if(status[i]!=1) {
    if(!prospero_menu::display_done.load())prospero_menu::show_failure();
-   char note[240];std::snprintf(note,sizeof(note),"Client081 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
+   char note[240];std::snprintf(note,sizeof(note),"Client082 failed check%d: %.160s. Keep open for logs; close/reopen to retry.",i+1,messages[i]);notify(note);
    for(;;)(void)sceKernelUsleep(1000000);
   }
  }
- char state[240];std::snprintf(state,sizeof(state),"STARTUP RETURNED: inspect logs and actual screen;menu/world success unverified.");session_status(state);
- notify("Client081 startup returned. Inspect game logs and actual screen;no automatic menu validation.");
+ // Successful LoadExec replaces this entire session. Never create a second
+ // JVM or reopen CPU VideoOut while the old WSI still owns its process handle.
+ if(return_to_library){
+  log_stage("PS5_SESSION REPLACE_PROCESS clean quit -> native instance library");
+  session_status("CLEAN QUIT: replacing process for native library;not a gameplay PASS");
+  if(startup_log)std::fflush(startup_log);
+  std::fflush(nullptr);
+  int rc=prospero_session::restart_library();
+  char note[240];std::snprintf(note,sizeof(note),"Client082 library restart failed: LoadExec returned0x%08x. Keep open for logs; close/reopen to retry.",unsigned(rc));
+  log_stage(note);session_status(note);notify(note);
+ }
  for(;;)(void)sceKernelUsleep(1000000);
 }

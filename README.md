@@ -53,9 +53,11 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Sound** | The user confirms very good game sound on exact build074. |
 | **Validation ahead** | Save/reload, controller polish, measured frame pacing and extended play remain to be checked. |
 
-Development081 requests 4 GiB of app storage for the redesigned native launcher,
+Development082 requests 4 GiB of app storage for the redesigned native launcher,
 persistent instance library, controller navigation and verified on-console demo downloads. New installs start
-empty; no game JARs or assets are bundled. [Preview and setup](docs/client-instances-079.md) · [Storage update](docs/client-storage-080.md) · [Controls and launcher polish](docs/client-controls-081.md).
+empty; no game JARs or assets are bundled. [Preview and setup](docs/client-instances-079.md) · [Storage update](docs/client-storage-080.md) · [Controls and launcher polish](docs/client-controls-081.md) · [Checkbox, stick navigation and quit lifecycle](docs/client-launcher-082.md).
+082 adds a compact saved checkbox, native left-stick navigation and bounded focus animation.
+Verified clean quit requests a fresh launcher process; exact PS5 quit/relaunch validation is pending.
 26.3is the gameplay baseline;26.1/26.2need a separate GLFW native path.
 Microsoft account access remains blocked at Minecraft Services403pending app review.
 

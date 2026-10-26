@@ -35,7 +35,15 @@ public class InstanceCheck {
   var interrupted=new java.util.concurrent.atomic.AtomicBoolean();var mid=new ProsperoInstall(root.resolve("mid-cancel"),url->{InputStream original=open(url);return new FilterInputStream(original){public int read(byte[] b,int off,int len)throws IOException{int n=super.read(b,off,len);if(url.equals(JAR))interrupted.set(true);return n;}};});
   denied(()->mid.install(versions.get(0),1,(s,d,t)->{},interrupted::get));try(var paths=Files.walk(root.resolve("mid-cancel"))){if(paths.anyMatch(p->p.toString().endsWith(".part")||p.toString().endsWith("receipt.json")))throw new AssertionError("cancel left unverified file/receipt");}
   var model=new ProsperoLauncher(new ProsperoAuth(),root.resolve("model"),InstanceCheck::open);if(!model.tick(0)[13].equals("0"))throw new AssertionError("not empty");
-  if(!model.tick(0)[11].equals("7")||!model.tick(0)[68].equals("ON"))throw new AssertionError("intro default");model.tick(0x10);model.tick(0x4000);model.tick(0x40);model.tick(0x4000);if(!new ProsperoLauncher(new ProsperoAuth(),root.resolve("model"),InstanceCheck::open).tick(0)[11].equals("0"))throw new AssertionError("intro preference");
+  if(model.tick(0)!=model.tick(0))throw new AssertionError("idle notice allocates new state");
+  if(!model.tick(0)[11].equals("7")||!model.tick(0)[68].equals("ON"))throw new AssertionError("intro default");if(!model.tick(0)[15].equals("1"))throw new AssertionError("OK initial focus");
+  model.tick(0x10);model.tick(0x40);if(!model.tick(0)[15].equals("1"))throw new AssertionError("welcome must be horizontal");
+  model.tick(0x20);if(!model.tick(0)[15].equals("0")||!model.tick(0)[68].equals("ON"))throw new AssertionError("right should focus, not toggle");
+  model.tick(0x4000);if(!model.tick(0)[68].equals("OFF"))throw new AssertionError("checkbox X");model.tick(0x80);model.tick(0x4000);if(!new ProsperoLauncher(new ProsperoAuth(),root.resolve("model"),InstanceCheck::open).tick(0)[11].equals("0"))throw new AssertionError("intro preference");
+  var notice=new ProsperoLauncher(new ProsperoAuth(),root.resolve("model"),InstanceCheck::open);
+  notice.tick(0x800);notice.tick(0x4000);for(int i=0;i<4;i++)notice.tick(0x40);notice.tick(0x4000);
+  if(!new ProsperoLauncher(new ProsperoAuth(),root.resolve("model"),InstanceCheck::open).tick(0)[11].equals("7"))throw new AssertionError("Settings restore notice");
+  notice.tick(0x4000); // restore disabled preference for the remaining flow
   model.tick(0x800);if(!model.tick(0)[12].equals("1")||!model.tick(0)[28].equals("TOP"))throw new AssertionError("R1 topbar");model.tick(0x4000);model.tick(0x20);if(!model.tick(0)[25].equals("1600 x 900"))throw new AssertionError("resolution");model.tick(0x2000);
   model.tick(0x400);model.tick(0x4000);waitFor(model);if(!model.tick(0)[23].equals("26.2"))throw new AssertionError("catalog");model.tick(0x40);model.tick(0x4000);if(!model.tick(0)[11].equals("6"))throw new AssertionError("name keyboard");model.tick(0x4000);model.tick(0x8000);
   model.tick(0x40);model.tick(0x20);model.tick(0x40);model.tick(0x4000);waitFor(model);if(!model.tick(0)[13].equals("1")||!model.tick(0)[19].equals("READY"))throw new AssertionError("instance install "+model.tick(0)[2]);
@@ -46,7 +54,17 @@ public class InstanceCheck {
   files.put(META.replace("26.2","26.3"),files.get(META));
   byte[] metadata=files.get(META);String catalog="{\"versions\":[{\"id\":\"26.3\",\"type\":\"release\",\"url\":\""+META+"\",\"sha1\":\""+hash(metadata)+"\"}]}";files.put(ProsperoInstall.MANIFEST,bytes(catalog));
   Path supportedRoot=root.resolve("supported");var supportedLibrary=new ProsperoLibrary(supportedRoot);var supportedInstance=supportedLibrary.add("Playable","26.3",1);supportedLibrary.settings().showIntro=false;supportedLibrary.save();var supportedInstaller=new ProsperoInstall(supportedRoot.resolve("cache"),InstanceCheck::open);var supportedReceipt=supportedInstaller.install(supportedInstaller.catalog(false,()->false).get(0),1,(t,d,n)->{},()->false);supportedLibrary.ready(supportedInstance,true);
+  Files.writeString(supportedLibrary.game(supportedInstance).resolve("keep-world.txt"),"world");
   var supportedModel=new ProsperoLauncher(new ProsperoAuth(),supportedRoot,InstanceCheck::open);supportedModel.tick(0x4000);supportedModel.tick(0x4000);waitFor(supportedModel);if(!supportedModel.tick(0)[10].equals("LAUNCH"))throw new AssertionError("supported launch "+supportedModel.tick(0)[2]);List<String> launch=List.of(supportedModel.arguments(null,null));if(!launch.contains("--demo")||!launch.contains("26.3")||!launch.contains("--graphicsBackend"))throw new AssertionError("supported original demo arguments");
+  // Returning is a fresh process/model; every launch gets a new loader.
+  for(int cycle=0;cycle<3;cycle++){
+   System.setProperty("ps5.launcher.resume","true");supportedLibrary.settings().showIntro=true;supportedLibrary.save();
+   var next=new ProsperoLauncher(new ProsperoAuth(),supportedRoot,InstanceCheck::open);
+   if(!next.tick(0)[11].equals("0")||!next.tick(0)[68].equals("ON"))throw new AssertionError("return must bypass notice without changing preference");
+   next.tick(0x10);next.tick(0x20);if(!next.tick(0)[12].equals("1"))throw new AssertionError("topbar horizontal");next.tick(0x2000);
+   next.tick(0x4000);next.tick(0x4000);waitFor(next);if(!next.tick(0)[10].equals("LAUNCH"))throw new AssertionError("repeat selection/launch");
+   if(!Files.readString(supportedLibrary.game(supportedInstance).resolve("keep-world.txt")).equals("world"))throw new AssertionError("cycle lost world");
+  }System.clearProperty("ps5.launcher.resume");
   var persisted=new ProsperoLibrary(root.resolve("model"));if(persisted.instances().size()!=1||persisted.instances().get(0).icon!=2||!persisted.instances().get(0).name.endsWith("A"))throw new AssertionError("controller persistence");
   System.out.println("PASS empty/persistent instances, isolated worlds, rename/icons/settings, L1/R1/keyboard/install/play controller flow, unsupported26.2 launch guard and startup-notice persistence, original bytes, pin verification/cache/repair/cancel/failure/traversal/HTTPS/native-classifier rejection");
  }

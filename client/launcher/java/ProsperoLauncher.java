@@ -13,7 +13,7 @@ public final class ProsperoLauncher {
  private ProsperoAuth.Session session;private Thread worker;private long completed,total,lastProgress;private String[] cached;
  private ProsperoInstall.Receipt receipt;private java.net.URLClassLoader loader;
  ProsperoLauncher(ProsperoAuth auth)throws Exception{this(auth,Path.of(System.getProperty("ps5.launcher.root","/download0/ProsperoCraft")),null);}
- ProsperoLauncher(ProsperoAuth auth,Path root,ProsperoInstall.Source source)throws Exception{this.auth=auth;library=new ProsperoLibrary(root);installer=source==null?new ProsperoInstall(root.resolve("cache")):new ProsperoInstall(root.resolve("cache"),source);if(library.settings().showIntro){page=7;row=1;}}
+ ProsperoLauncher(ProsperoAuth auth,Path root,ProsperoInstall.Source source)throws Exception{this.auth=auth;library=new ProsperoLibrary(root);installer=source==null?new ProsperoInstall(root.resolve("cache")):new ProsperoInstall(root.resolve("cache"),source);if(library.settings().showIntro&&!Boolean.getBoolean("ps5.launcher.resume")){page=7;row=1;}}
  static String[] run(Menu menu)throws Exception {
   current=new ProsperoLauncher(new ProsperoAuth());
   if(!menu.show()){current.cancel();throw new IllegalStateException("Launcher display handoff failed;game not started");}
@@ -58,13 +58,15 @@ public final class ProsperoLauncher {
  }
  synchronized String[] tick(int buttons){
   try{
-   if(page==7){if((buttons&0x50)!=0)row=1-row;if((buttons&0xa0)!=0&&row==0){library.settings().showIntro=!library.settings().showIntro;library.save();}if((buttons&0x4000)!=0){if(row==0){library.settings().showIntro=!library.settings().showIntro;library.save();}else{page=0;row=0;}}cached=null;return state();}
+   if(page==7){if((buttons&0x80)!=0)row=1;if((buttons&0x20)!=0)row=0;if((buttons&0x4000)!=0){if(row==0){library.settings().showIntro=!library.settings().showIntro;library.save();}else{page=0;row=0;}}if(buttons!=0)cached=null;return state();}
    if(page==8){if((buttons&0x2008)!=0){page=0;cached=null;}return state();}
    if(page==6){keyboard(buttons);if(buttons!=0)cached=null;return state();}
    if((buttons&0x8)!=0){page=8;cached=null;return state();}
    if((buttons&0x400)!=0||(buttons&0x800)!=0){tab=Math.floorMod(tab+((buttons&0x800)!=0?1:-1),3);top=true;page=0;row=0;cached=null;}
    if((buttons&0x2000)!=0){if(busy){cancel();message="Cancelled. Verified downloads are kept for retry.";}page=0;top=false;row=0;cached=null;}
-   if((buttons&0x40)!=0&&top){top=false;cached=null;}
+   if(top&&(buttons&0xa0)!=0){tab=Math.floorMod(tab+((buttons&0x20)!=0?1:-1),3);cached=null;}
+   if(page==0&&!top&&library.instances().isEmpty()&&(buttons&0x10)!=0){top=true;cached=null;}
+   else if((buttons&0x40)!=0&&top){top=false;cached=null;}
    else if(page==0&&!top){int count=library.instances().size();if(count>0){if((buttons&0x80)!=0)selected=Math.max(0,selected-1);if((buttons&0x20)!=0)selected=Math.min(count-1,selected+1);if((buttons&0x10)!=0){if(selected<4)top=true;else selected-=4;}if((buttons&0x40)!=0)selected=Math.min(count-1,selected+4);}}
    else if(!top){if((buttons&0x10)!=0)row=Math.max(0,row-1);if((buttons&0x40)!=0)row=Math.min(page==1?3:page==2?4:page==3?1:page==4?2:2,row+1);}
    int direction=(buttons&0x80)!=0?-1:(buttons&0x20)!=0?1:0;
@@ -86,7 +88,7 @@ public final class ProsperoLauncher {
  }
  private String[] state(){
   if(cached!=null)return cached;String[] f=new String[FIELD_COUNT];Arrays.fill(f,"");
-  f[0]="Instances";f[1]="";f[2]=message;f[3]=code;f[4]=uri;f[5]=session==null?"Not signed in":session.name;f[6]=detail!=null&&!supported(detail.version)?"LAUNCH NOT AVAILABLE YET":detail!=null&&detail.ready?"PLAY DEMO":"DOWNLOAD & PLAY";f[7]=page==7?"D-PAD  Choose     X  Confirm":page==8?"CIRCLE / OPTIONS  Back":busy?"CIRCLE  Cancel task":"L1 / R1  Top bar     D-PAD  Navigate     X  Select     CIRCLE  Back     OPTIONS  Controls";f[8]=busy?task:session==null?"MICROSOFT ACCOUNT":"CONNECTED";f[9]=""+selected;f[10]=launch?"LAUNCH":"WAIT";f[11]=""+page;f[12]=""+tab;f[13]=""+library.instances().size();f[14]=""+(selected/8*8);f[15]=""+row;f[16]=detail==null?"":detail.name;f[17]=detail==null?"":detail.version;f[18]=""+(detail==null?1:detail.icon);f[19]=detail==null?"":detail.ready?"READY":"NOT DOWNLOADED";f[20]=""+(total==0?0:Math.min(1000,completed*1000/total));f[21]=total>1?String.format(java.util.Locale.ROOT,"%.0f / %.0f MB",completed/1048576.0,total/1048576.0):"";f[22]=draftName;f[23]=versions.isEmpty()?"Select to refresh versions":versions.get(versionChoice).id();f[24]=""+draftIcon;int[] size=ProsperoLibrary.RESOLUTIONS[library.settings().resolution];f[25]=size[0]+" x "+size[1];f[26]=""+library.settings().workers;f[27]=library.settings().snapshots?"ON":"OFF";f[28]=top?"TOP":"CONTENT";f[29]=keyboard;f[30]=library.settings().reducedMotion?"ON":"OFF";f[31]=""+key;
+  f[0]="Instances";f[1]="";f[2]=message;f[3]=code;f[4]=uri;f[5]=session==null?"Not signed in":session.name;f[6]=detail!=null&&!supported(detail.version)?"LAUNCH NOT AVAILABLE YET":detail!=null&&detail.ready?"PLAY DEMO":"DOWNLOAD & PLAY";f[7]=page==7?"D-PAD / STICK LEFT / RIGHT  Choose     X  Select / toggle":page==8?"CIRCLE / OPTIONS  Back":busy?"CIRCLE  Cancel task":"L1 / R1  Top bar     D-PAD / STICK  Navigate     X  Select     CIRCLE  Back     OPTIONS  Controls";f[8]=busy?task:session==null?"MICROSOFT ACCOUNT":"CONNECTED";f[9]=""+selected;f[10]=launch?"LAUNCH":"WAIT";f[11]=""+page;f[12]=""+tab;f[13]=""+library.instances().size();f[14]=""+(selected/8*8);f[15]=""+row;f[16]=detail==null?"":detail.name;f[17]=detail==null?"":detail.version;f[18]=""+(detail==null?1:detail.icon);f[19]=detail==null?"":detail.ready?"READY":"NOT DOWNLOADED";f[20]=""+(total==0?0:Math.min(1000,completed*1000/total));f[21]=total>1?String.format(java.util.Locale.ROOT,"%.0f / %.0f MB",completed/1048576.0,total/1048576.0):"";f[22]=draftName;f[23]=versions.isEmpty()?"Select to refresh versions":versions.get(versionChoice).id();f[24]=""+draftIcon;int[] size=ProsperoLibrary.RESOLUTIONS[library.settings().resolution];f[25]=size[0]+" x "+size[1];f[26]=""+library.settings().workers;f[27]=library.settings().snapshots?"ON":"OFF";f[28]=top?"TOP":"CONTENT";f[29]=keyboard;f[30]=library.settings().reducedMotion?"ON":"OFF";f[31]=""+key;
   var all=library.instances();int start=selected/8*8;for(int i=0;i<8&&start+i<all.size();i++){var instance=all.get(start+i);int at=32+i*4;f[at]=instance.name;f[at+1]=instance.version;f[at+2]=""+instance.icon;f[at+3]=!supported(instance.version)?"NOT YET":instance.ready?"READY":"DOWNLOAD";}
   f[69]=detail!=null&&supported(detail.version)?"SUPPORTED":"PENDING";f[70]=versions.isEmpty()?"":supported(versions.get(versionChoice).id())?"26.3 demo can launch on this build.":"Download available. This version cannot launch yet.";f[68]=library.settings().showIntro?"ON":"OFF";f[67]="Data and downloads: "+library.root;f[66]=lowercase?"LOWER":"UPPER";f[64]=busy?"BUSY":"IDLE";f[65]=detail!=null&&!supported(detail.version)?"Download available. Launch support is not ready yet.":"26.3 demo / native SDL gameplay";return cached=f;
  }

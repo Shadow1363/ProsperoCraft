@@ -2,6 +2,7 @@
 #pragma once
 #include "demo_renderer.hpp"
 #include "branding_logo.hpp"
+#include "navigation.hpp"
 #include <array>
 #include <cstdio>
 #include <cstdlib>
@@ -21,16 +22,17 @@ inline pthread_mutex_t mailbox=PTHREAD_MUTEX_INITIALIZER;
 inline pthread_t ui_thread{};
 inline unsigned events[64]{},event_read=0,event_write=0;
 inline std::atomic<bool> visible{false},online{false},exit_requested{false},display_done{false},display_ok{false};
-inline bool armed=false;
-inline std::uint32_t previous=0;
 inline int controller=-1;
 inline unsigned updates=0;
-inline unsigned held_direction=0;inline std::uint64_t repeat_at=0;
+inline Navigation navigation{};inline std::uint64_t pressed_at=0;
 inline void publish(const Fields& values) noexcept {
  pthread_mutex_lock(&mailbox);published=values;pthread_mutex_unlock(&mailbox);
 }
 inline unsigned take_input() noexcept {
  pthread_mutex_lock(&mailbox);unsigned value=0;if(event_read!=event_write){value=events[event_read%64];++event_read;}pthread_mutex_unlock(&mailbox);return value;
+}
+inline void discard_input() noexcept {
+ pthread_mutex_lock(&mailbox);event_read=event_write;pthread_mutex_unlock(&mailbox);
 }
 inline void push_input(unsigned value) noexcept {
  if(!value)return;pthread_mutex_lock(&mailbox);
@@ -64,7 +66,11 @@ inline void selection(Canvas& c,int x,int y,int w,int h){
  if(!focus.initialized||reduced){focus={float(x),float(y),float(w),float(h),true};}
  const float rate=reduced?1.0f:0.34f;focus.x+=(x-focus.x)*rate;focus.y+=(y-focus.y)*rate;focus.w+=(w-focus.w)*rate;focus.h+=(h-focus.h)*rate;
  auto distance=[](float a,float b){return a>b?a-b:b-a;};if(distance(focus.x,float(x))+distance(focus.y,float(y))+distance(focus.w,float(w))+distance(focus.h,float(h))>1.0f)animating=true;
- c.rounded(x-3,y-3,unsigned(w)+6,unsigned(h)+6,22,ink(animating?0x81bd90:0xa9eab6));
+ else focus={float(x),float(y),float(w),float(h),true};
+ const bool press=!reduced&&pressed_at&&now_ms()-pressed_at<110;
+ if(press)animating=true;
+ const int inset=press?2:0;
+ c.rounded(int(focus.x)-4+inset,int(focus.y)-4+inset,unsigned(focus.w)+8-inset*2,unsigned(focus.h)+8-inset*2,22,ink(press?0xe0ffe4:0xa9eab6));
 }
 inline void action(Canvas& c,int x,int y,int w,const char* text,bool active,bool primary=false){
  if(active)selection(c,x,y,w,76);c.rounded(x,y,w,76,18,ink(primary?0xb6f2be:0x244438));label(c,x+28,y+22,text,30,primary?0x102c1b:0xeaf0e8);
@@ -124,8 +130,17 @@ inline void draw(Canvas& c) noexcept {
   wrap(c,240,347,"Microsoft is reviewing our application ID. Please wait for approval before full account play becomes available.",1390,3);
   wrap(c,240,468,"For now, you can download instances and play the 26.3 demo. Other versions cannot launch yet; native compatibility is in progress.",1390,3);
   wrap(c,240,570,"Roadmap: full play after approval and ownership checks; full settings; all 26.x releases and snapshots; Fabric, Forge, NeoForge; SDL3 / Controlify; shader performance. Later: CogiArt menu music, mrpack imports, USB keyboard / mouse, themes, JVM21 and JVM17 for older versions.",1390,5);
-  if(row==0)selection(c,760,747,900,96);c.rounded(760,747,900,96,20,ink(0x1e3c30));label(c,790,765,"SHOW NEXT TIME",24,0x8fae9d);label(c,1510,791,fields[68].data(),30);
-  action(c,240,753,440,"OK",row==1,true);
+  action(c,240,773,330,"OK",row==1,true);
+  if(row==0)selection(c,680,773,430,76);
+  c.rounded(680,773,430,76,18,ink(0x142e23));
+  c.rounded(704,791,40,40,8,ink(row==0?0xe0ffe4:0x8fae9d));
+  c.rounded(707,794,34,34,5,ink(0x142e23));
+  if(std::strcmp(fields[68].data(),"ON")==0){
+   // A two-stroke tick at TV scale; independent of font glyph support.
+   for(int i=0;i<9;++i)c.rectangle(712+i,810+i,5,5,static_cast<ps5::demo::Color>(ink(0xb6f2be)));
+   for(int i=0;i<18;++i)c.rectangle(720+i,818-i,5,5,static_cast<ps5::demo::Color>(ink(0xb6f2be)));
+  }
+  label(c,766,795,"Show next time",30);
  }else if(page==6){
   label(c,70,185,"Give it a name.",64);c.rounded(70,300,1770,116,22,ink(0x183c2a));title(c,103,330,fields[29].data(),42,1650);
   const char* chars=std::strcmp(fields[66].data(),"LOWER")==0?"abcdefghijklmnopqrstuvwxyz0123456789 ._-":"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ._-";int chosen=number(31);
@@ -135,16 +150,20 @@ inline void draw(Canvas& c) noexcept {
  if(std::strcmp(fields[64].data(),"BUSY")==0){
   if(page!=3)title(c,78,942,fields[2].data(),24,1300,0xaac8b2);label(c,1450,942,fields[21].data(),24,0xaac8b2);c.rounded(72,982,1770,5,2,ink(0x233c2c));if(number(20)>0)c.rounded(72,982,unsigned(1770*number(20)/1000),5,2,ink(0xa9eab6));
  }else if(page!=3)title(c,78,949,fields[2].data(),24,1760,0x83a58d);
- label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1650,1020,"01.000.081",24,0x7d9f89);
+ label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1650,1020,"01.000.082",24,0x7d9f89);
 }
 inline bool update() noexcept {
  // The second update follows the initial submit/WaitVblank in run_ui_until.
  if(++updates>=2)visible.store(true,std::memory_order_release);
- std::uint32_t pressed=0;PadSample batch[64]{};const int count=scePadRead(controller,batch,64);
- if(count>=0&&count<=64)for(int i=0;i<count;++i){auto buttons=batch[i].connected&&!(batch[i].buttons&0x80000000u)?batch[i].buttons:0u;if(!(buttons&0x4000))armed=true;if(armed)pressed|=buttons&~previous;previous=buttons;}
- unsigned direction=previous&0xf0u;auto current_time=now_ms();
- if(direction!=held_direction){held_direction=direction;repeat_at=current_time+400;}
- else if(direction&&current_time>=repeat_at){pressed|=direction;repeat_at=current_time+100;}
+ unsigned pressed=0;PadSample batch[64]{};const int count=scePadRead(controller,batch,64);
+ const auto current_time=now_ms();
+ if(count<0||count>64){navigation.clear();discard_input();}
+ else for(int i=0;i<count;++i){
+  if(!batch[i].connected||(batch[i].buttons&0x80000000u)){pressed=0;discard_input();}
+  pressed|=navigation.sample(batch[i].buttons,batch[i].lx,batch[i].ly,batch[i].connected,current_time);
+ }
+ pressed|=navigation.repeat(current_time);
+ if(pressed&0x4000)pressed_at=current_time;
  push_input(pressed);
  bool changed=false;
  if(!online.load(std::memory_order_acquire)){
@@ -155,7 +174,7 @@ inline bool update() noexcept {
   if(changed){if(std::strcmp(fields[11].data(),published[11].data())!=0){transition_start=now_ms();focus.initialized=false;}fields=published;}
   pthread_mutex_unlock(&mailbox);
  }
- if(changed)return true;
+ if(changed||(pressed&0x4000))return true;
  return animating&&now_ms()-last_draw_time>=16;
 
 }
@@ -167,7 +186,7 @@ inline void* ui_main(void*) noexcept {
 }
 inline bool start_frontend() noexcept {
  visible=false;online=false;exit_requested=false;display_done=false;display_ok=false;
- updates=0;previous=0;held_direction=0;repeat_at=0;armed=false;focus={};transition_start=now_ms();animating=false;event_read=event_write=0;fields={};published={};
+ updates=0;navigation.clear();pressed_at=0;focus={};transition_start=now_ms();animating=false;event_read=event_write=0;fields={};published={};
  const char* boot[]={"Instances","","Opening your library...","","","Not signed in","PLAY DEMO","L1 / R1  Top bar     X  Select","PREPARING","0","WAIT","0"};
  for(int i=0;i<12;++i)std::snprintf(fields[i].data(),512,"%s",boot[i]);
  std::int32_t user=-1;if(sceUserServiceGetInitialUser(&user)<0)return false;controller=scePadOpen(user,0,0,nullptr);if(controller<0)return false;

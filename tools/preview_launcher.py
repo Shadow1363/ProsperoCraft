@@ -22,7 +22,7 @@ int sceKernelUsleep(uint32_t us){std::this_thread::sleep_for(std::chrono::micros
 int sceUserServiceGetInitialUser(int32_t* user){*user=1;return 0;}
 int scePadOpen(int32_t,int,int,const void*){return 42;}
 int scePadClose(int){return 0;}
-int scePadRead(int,PadSample* samples,int){samples[0]={};samples[0].connected=1;samples[0].buttons=fake_buttons.load();pad_reads.fetch_add(1);return 1;}
+int scePadRead(int,PadSample* samples,int){samples[0]={};samples[0].connected=1;samples[0].lx=samples[0].ly=128;samples[0].buttons=fake_buttons.load();pad_reads.fetch_add(1);return 1;}
 int sceSystemServiceHideSplashScreen(){return 0;}
 int sceVideoOutOpen(int32_t,int32_t,int32_t,const void*){return 17;}
 int sceVideoOutClose(int32_t){operations.push_back("close");return failure==1?-1:0;}
@@ -52,6 +52,18 @@ static void release_chars(JNIEnv*,jstring,const char*){check_jni();}
 static void delete_ref(JNIEnv*,jobject){check_jni();}
 static jboolean exception_check(JNIEnv*){check_jni();return JNI_FALSE;}
 static bool update() noexcept{return false;}static bool stop() noexcept{return true;}
+static void animation_check(ps5::demo::Canvas& c) noexcept {
+ prospero_menu::fields[30][0]=0;prospero_menu::focus={};
+ prospero_menu::animating=false;prospero_menu::selection(c,100,100,400,80);
+ prospero_menu::selection(c,800,400,300,80);
+ assert(prospero_menu::focus.x>100&&prospero_menu::focus.x<800&&prospero_menu::animating);
+ for(int i=0;i<40;i++){prospero_menu::animating=false;prospero_menu::selection(c,800,400,300,80);}
+ assert(!prospero_menu::animating&&prospero_menu::focus.x==800);
+ prospero_menu::pressed_at=prospero_menu::now_ms();prospero_menu::selection(c,800,400,300,80);assert(prospero_menu::animating);
+ snprintf(prospero_menu::fields[30].data(),512,"ON");prospero_menu::animating=false;prospero_menu::selection(c,400,300,600,90);
+ assert(!prospero_menu::animating&&prospero_menu::focus.x==400&&prospero_menu::focus.w==600);
+ prospero_menu::fields[30][0]=0;prospero_menu::pressed_at=0;
+}
 int main(int argc,char**argv){assert(argc==2);
  const char* values[]={"Your next world.","Starts right here.","Pick your instance. Make it your world.","","","Not signed in","PLAY DEMO","L1 / R1  Top bar     D-PAD  Navigate     X  Select     CIRCLE  Library","MICROSOFT ACCOUNT","0","WAIT","0"};
  for(int i=0;i<12;i++)snprintf(prospero_menu::fields[i].data(),512,"%s",values[i]);
@@ -63,14 +75,17 @@ int main(int argc,char**argv){assert(argc==2);
  snprintf(prospero_menu::fields[11].data(),512,"3");
  snprintf(prospero_menu::fields[3].data(),512,"ABCD-EFGH");snprintf(prospero_menu::fields[4].data(),512,"https://www.microsoft.com/link");snprintf(prospero_menu::fields[2].data(),512,"Approve sign-in on your phone or computer");
  output=std::string(argv[1])+"/signin.ppm";operations.clear();prospero_menu::focus={};assert(ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"preview"));
- for(const char* scene:{"empty","create","settings","detail","edit","keyboard","intro","controls","pending"}){
-  int page=std::strcmp(scene,"pending")==0?4:std::strcmp(scene,"controls")==0?8:std::strcmp(scene,"intro")==0?7:std::strcmp(scene,"empty")==0?0:std::strcmp(scene,"create")==0?1:std::strcmp(scene,"settings")==0?2:std::strcmp(scene,"detail")==0?4:std::strcmp(scene,"edit")==0?5:6;
+ for(const char* scene:{"empty","create","settings","detail","edit","keyboard","intro","intro-checkbox","intro-unchecked","controls","pending"}){
+  int page=std::strcmp(scene,"pending")==0?4:std::strcmp(scene,"controls")==0?8:std::strncmp(scene,"intro",5)==0?7:std::strcmp(scene,"empty")==0?0:std::strcmp(scene,"create")==0?1:std::strcmp(scene,"settings")==0?2:std::strcmp(scene,"detail")==0?4:std::strcmp(scene,"edit")==0?5:6;
   snprintf(prospero_menu::fields[11].data(),512,"%d",page);snprintf(prospero_menu::fields[13].data(),512,"0");snprintf(prospero_menu::fields[16].data(),512,"Vanilla 26.3");snprintf(prospero_menu::fields[17].data(),512,"26.3");snprintf(prospero_menu::fields[18].data(),512,"1");snprintf(prospero_menu::fields[22].data(),512,"Weekend world");snprintf(prospero_menu::fields[23].data(),512,"26.3");snprintf(prospero_menu::fields[24].data(),512,"2");snprintf(prospero_menu::fields[25].data(),512,"1920 x 1080");snprintf(prospero_menu::fields[26].data(),512,"4");snprintf(prospero_menu::fields[27].data(),512,"ON");snprintf(prospero_menu::fields[29].data(),512,"Weekend world");snprintf(prospero_menu::fields[2].data(),512,"");snprintf(prospero_menu::fields[68].data(),512,"ON");snprintf(prospero_menu::fields[65].data(),512,"26.3 native gameplay baseline");
-  if(page==7){snprintf(prospero_menu::fields[15].data(),512,"1");snprintf(prospero_menu::fields[7].data(),512,"D-PAD  Choose     X  Confirm");}
+  if(page==7){snprintf(prospero_menu::fields[15].data(),512,"1");snprintf(prospero_menu::fields[7].data(),512,"D-PAD / STICK LEFT / RIGHT  Choose     X  Select / toggle");}
+  if(std::strncmp(scene,"intro-",6)==0)snprintf(prospero_menu::fields[15].data(),512,"0");
+  if(std::strcmp(scene,"intro-unchecked")==0)snprintf(prospero_menu::fields[68].data(),512,"OFF");
   if(page==8)snprintf(prospero_menu::fields[7].data(),512,"CIRCLE / OPTIONS  Back");
   if(std::strcmp(scene,"pending")==0){snprintf(prospero_menu::fields[16].data(),512,"Vanilla 26.2");snprintf(prospero_menu::fields[17].data(),512,"26.2");snprintf(prospero_menu::fields[69].data(),512,"PENDING");snprintf(prospero_menu::fields[6].data(),512,"LAUNCH NOT AVAILABLE YET");snprintf(prospero_menu::fields[65].data(),512,"Download available. Launch support is not ready yet.");}
   output=std::string(argv[1])+"/"+scene+".ppm";prospero_menu::focus={};assert(ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"preview"));
  }
+ assert(ps5::demo::run_ui_until(animation_check,update,stop,""));
  for(failure=1;failure<=3;failure++){operations.clear();assert(!ps5::demo::run_ui_until(prospero_menu::draw,update,stop,"fixture"));assert(storage);assert(operations.size()==unsigned(failure));free(storage);storage=nullptr;}
  failure=0;operations.clear();unsigned before=flips.load();
  int notifications_before=notifications;assert(prospero_menu::start_frontend());assert(notifications==notifications_before);assert(flips.load()>before); // no JVM exists in this process
@@ -102,6 +117,6 @@ jdk=Path('/Library/Java/JavaVirtualMachines/openjdk-25.jdk/Contents/Home')
 subprocess.run(['clang++','-arch','x86_64','-std=c++20','-O1','-I'+str(runtime/'native/renderer'),'-I'+str(runtime/'build/native'),'-I'+str(runtime/'src'),'-I'+str(jdk/'include'),'-I'+str(jdk/'include/darwin'),str(w/'preview.cpp'),'-o',str(w/'preview')],check=True)
 subprocess.run([str(w/'preview'),str(w)],check=True,timeout=30)
 from PIL import Image
-for name in ['home','signin','empty','create','settings','detail','edit','keyboard','intro','controls','pending']:
+for name in ['home','signin','empty','create','settings','detail','edit','keyboard','intro','intro-checkbox','intro-unchecked','controls','pending']:
  with Image.open(w/(name+'.ppm'))as picture:picture.save(w/(name+'.png'))
 print(w/'home.png')
