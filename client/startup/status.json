@@ -1,27 +1,26 @@
 {
-  "stage": "Client072 G1 measured world headroom candidate",
+  "stage": "Client073 AudioOut busy recovery with unchanged G1",
   "date": "2026-10-26",
   "title_id": "PPSA99874",
-  "app_version": "01.000.072",
-  "console": "PENDING072 G1startup/physicalbacking/GCworkers/nativeheadroom/highsettingspauses.071histogramsretrievedandgrowingworldcategoriesestablished.",
+  "app_version": "01.000.073",
+  "console": "PENDING073audiblesound/recovery/performancepreservation.072humanreporttinystuttersbutaudiofailedinit0x80260002.",
   "previous_accepted": "067 human audio result;069 preserved continued-GC candidate",
-  "native_changes": "PrivateOpenALPS5factory/backend,pacedAudioOutSYSTEM/main48kHzstereoS16/256frames,realOpenALrenderSamples,joinbeforeclose,error-disconnect;originalsource/archive retained",
+  "native_changes": "BoundedAudioOutBusyinitactual-portprobe/retry,max10attempts/450msdelay;explicitAlreadyInit;unknown/open/waitfailurepropagate;realPCM/lifecycle unchanged",
   "menu_policy": "Supported inactivityFpsLimit JSON value minimized,original options backed up once as options.before-menu063.txt;all other option bytes retained. Removes AFK timer cap;not a general frame-rate/GC/JIT fix.",
-  "runtime_implementation_modified": true,
+  "runtime_implementation_modified": false,
   "game_jar_modified": false,
   "java_heap_max_mib": 1536,
   "jit": "Mixed C1 level1, one compiler, thresholdscale4,2MiBpercompilation,32MiBcodecache,SweeperThreshold50/10percent aggressive cleanup retained; current-run kernel gate",
   "pending": [
-    "PS5G1auxiliarymappings/workers/reservation",
-    "Nativeheadroomandhighsettingsmemoryplateau",
-    "Pausefrequency/latency/audio duringextendedplay",
+    "PS5actualspeakeropen/PCM/audibility",
+    "G1gainpreserved/smallstutters/nativeheadroom/pinning",
     "Save/reload/endurance"
   ],
   "controlify_direction": "User prefers upstream Controlify later on compatible Fabric/NeoForge client;not installed or validated onPS5. Existing raw SDL gamepad driver retained;no double input when handing off.",
-  "package_sha256": "cd17b96dd9fcc5fb3cedb60b819dffbadcb37c4ebcd4b1ab83bf76d47b547f83",
-  "host_checks": "PASS actual1536MiBdirectreservationASanUBSan;600MiBretained/48MiBring/4GiBchurnactualG1withconcurrentmark/nofullGCinhostfixture;C1gate/options/startup/audio controls",
-  "target_checks": "PASS targetHotSpot/nativecompile/link/SELF/fullpackageCRC/JAR/asset/runtime/nativeaudits/constructors/preserved071",
-  "previous_console_evidence": "docs/validation/client071-retained-heap-2026-10-26.json",
+  "package_sha256": "b88028c2c4d11b0a90332f04c20ee899eb7ced0434f09622d37d767a9d85f084",
+  "host_checks": "PASSactualOpenALASanUBSan10modes/PCM/lifecycle/error/retrycounts;startup/options/audio policy",
+  "target_checks": "PASS nativecompile/link/SELF/fullpackageCRC/signatures/54originalJARs/5147originalassets/exact0121runtime/nativeaudits/constructorgroups/preserved072andearlierpackages",
+  "previous_console_evidence": "docs/validation/client072-g1-audio-2026-10-26.json",
   "observer_samples": 390,
   "compressed_oops": false,
   "runtime_patch": "0121-ps5-measured-world-heap-headroom.patch",
@@ -47,5 +46,14 @@
   "heap_diagnostic": {
     "trace_enabled": false,
     "reason": "Disable costly071histogramsforperformancecomparison;existing0120codepreservedbutnotenabled"
+  },
+  "audio_recovery": {
+    "observed_init_hex": "0x80260002",
+    "busy_is_success": false,
+    "success_requires": "Actualportopen",
+    "attempts_max": 10,
+    "sleep_delay_max_ms": 450,
+    "already_init_hex": "0x8026000e",
+    "unknown_errors": "Failimmediately"
   }
 }

@@ -19,6 +19,7 @@ int sceAudioOutInit();
 int sceAudioOutOpen(int,int,int,unsigned,unsigned,unsigned);
 int sceAudioOutOutput(int,const void*);
 int sceAudioOutClose(int);
+int sceKernelUsleep(unsigned);
 }
 namespace {
 constexpr auto DeviceName="PS5 Speakers";
@@ -28,15 +29,20 @@ void report(const char* stage,int result)
     std::fprintf(stderr,"PS5 OpenAL AudioOut %s result=%d\n",stage,result);
     std::fflush(stderr);
 }
-bool initialize()
+constexpr std::uint32_t AudioBusy=0x80260002u,AudioAlreadyInit=0x8026000eu,AudioNotInit=0x8026000fu;
+struct AudioState {std::mutex mutex;bool ready=false;};
+AudioState& audioState(){static AudioState state;return state;}
+int initialize()
 {
-    static std::mutex mutex;
-    static bool ready=false;
-    const auto lock=std::lock_guard{mutex};
-    if(ready)return true;
+    auto& state=audioState();const auto lock=std::lock_guard{state.mutex};
+    if(state.ready)return 0;
     const int result=sceAudioOutInit();report("init",result);
-    if(result<0)return false;
-    ready=true;return true;
+    if(result>=0 || static_cast<std::uint32_t>(result)==AudioAlreadyInit)state.ready=true;
+    return result;
+}
+void confirmedOpen()
+{
+    auto& state=audioState();const auto lock=std::lock_guard{state.mutex};state.ready=true;
 }
 struct Ps5Backend final : BackendBase {
     explicit Ps5Backend(gsl::not_null<DeviceBase*> device) noexcept : BackendBase{device}{}
@@ -54,11 +60,27 @@ struct Ps5Backend final : BackendBase {
     void open(std::string_view name) override {
         if(!name.empty() && name!=DeviceName)
             throw al::backend_exception{al::backend_error::NoDevice,"Unknown PS5 audio device {}",name};
-        if(!initialize())
-            throw al::backend_exception{al::backend_error::DeviceError,"PS5 AudioOut initialization failed"};
-        // SYSTEM user,MAIN output,256frames/48kHz/stereoS16,matching proven native profile.
-        port=sceAudioOutOpen(0xff,0,0,Frames,Rate,1);report("open",port);
-        if(port<0)throw al::backend_exception{al::backend_error::DeviceError,"PS5 AudioOut open failed: {}",port};
+        // A busy init is not success. Probe the real port: it must actually open.
+        // Retry only explicit busy/not-initialized recovery, at most450ms total.
+        for(unsigned attempt=0;attempt<10;++attempt) {
+            const int init=initialize();const auto code=static_cast<std::uint32_t>(init);
+            if(init<0 && code!=AudioBusy && code!=AudioAlreadyInit)
+                throw al::backend_exception{al::backend_error::DeviceError,"PS5 AudioOut initialization failed: {}",init};
+            if(code==AudioBusy)report("init busy; real port probe",init);
+            // SYSTEM user,MAIN output,256frames/48kHz/stereoS16.
+            port=sceAudioOutOpen(0xff,0,0,Frames,Rate,1);report("open",port);
+            if(port>=0) {
+                confirmedOpen();
+                if(code==AudioBusy)report("busy recovery confirmed by actual port",port);
+                break;
+            }
+            const auto error=static_cast<std::uint32_t>(port);
+            if(code!=AudioBusy || (error!=AudioBusy && error!=AudioNotInit) || attempt==9)
+                throw al::backend_exception{al::backend_error::DeviceError,"PS5 AudioOut open failed: {}",port};
+            report("busy recovery retry",attempt+1);
+            const int wait=sceKernelUsleep(50000);
+            if(wait<0)throw al::backend_exception{al::backend_error::DeviceError,"PS5 AudioOut retry wait failed: {}",wait};
+        }
         mDeviceName=DeviceName;
     }
     auto reset() -> bool override {

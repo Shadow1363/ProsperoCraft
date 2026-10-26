@@ -615,3 +615,8 @@ Currentcontinuation docs/handoff-prosperocraft-client071.md.
 modelquadcount;notleakproof.072preservesqualityandtestsG1/1536MiB/2GCworkers+
 1concurrentworker/processorhint4,withoutdiagnostichistograms. Runtime0121bounded
 heapceiling;actualPS5G1startup/nativeheadroom/pausespending. Current072handoff.
+
+072follow-up:humanreportsverysmallstuttersbutnosound. PartialG1logs:92pauses,
+median20.8335ms/max49.747ms/nofullGC;qualifiedimprovement,notformalpass. Audioinit
+0x80260002failsbeforeportopen.073boundedBusyactual-portprobe/retry/AlreadyInit
+handlingonly;preserveG1/heap/quality. AudiblePS5recoverypending. Current073handoff.

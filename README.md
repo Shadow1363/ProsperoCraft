@@ -49,11 +49,11 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Native Java 25** | Runs on PS5, with guarded C1 compilation used by the playable client. |
 | **Client gameplay** | Worlds load and are playable on exact build066. Startup timing is a playtest observation; FPS has not been benchmarked. |
 | **Controls** | Temporary DualSense keyboard/mouse mapping works. Full Controlify integration is planned. |
-| **Sound** | The user confirms beautiful game audio on PS5 in development067. |
+| **Sound** | Game audio was confirmed on067. Development073 repairs an audio startup failure observed on072. |
 | **Validation ahead** | Intermittent freezes are under investigation; save/reload, controller polish and extended play remain to be checked. |
 
-Development072 tests G1 collection and measured heap headroom at existing quality settings, while retaining working audio.
-See the [freeze investigation and candidate guide](docs/client-g1-072.md).
+Development072 has much smaller stutters in the latest playtest;073keeps its G1 settings and targets audio startup recovery.
+See the [freeze investigation and candidate guide](docs/client-audio-recovery-073.md).
 The published066 release remains the playable baseline; speaker audio is in067/068development.
 For individual fixes, console evidence and earlier milestones, read the detailed
 **[CHANGELOG.md](CHANGELOG.md)**.

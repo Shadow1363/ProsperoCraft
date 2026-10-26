@@ -6,6 +6,19 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client072 tiny stutters/audio failure;073 recovery
+
+Human reports tiny stutters on072but no sound. CapturedG1window has92pauses,
+median20.8335ms/max49.747ms,andnofullGC;16/12qualityretained. This is qualified
+feedback,notmatchedbenchmark/enduranceacceptance. NativeAudioOutinitfails twice
+with0x80260002beforeanyportopen.073addsboundedBusyrecoveryrequiringrealportopen,
+explicitAlreadyInit handling and failurepropagation;max10attempts/450mswait.
+G1/heap/workers/quality/input remain unchanged. RealOpenALsanitizer/recovery/
+PCM/lifecycle tests pass;PS5audibility/recovery/performancepreservation pending.
+No newpublicrelease.
+
+[Repairguide](docs/client-audio-recovery-073.md) · [Evidence](docs/validation/client072-g1-audio-2026-10-26.json).
+
 ## 2026-10-26 — Client071 retention evidence;072 G1 candidate
 
 All3boundedPS5histogramsretrieved:chunkcontainers179k->252k,longarrays78MB->118MB,

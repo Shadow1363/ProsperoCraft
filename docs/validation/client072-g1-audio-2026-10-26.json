@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.072",
+  "run": "client-01.000.072-1793022349-811312662",
+  "package_sha256": "cd17b96dd9fcc5fb3cedb60b819dffbadcb37c4ebcd4b1ab83bf76d47b547f83",
+  "human": "Superdupertiny stutters now; sound doesnotwork",
+  "console_options": "PS5_OPTIONS_BEFORE_MAIN version=5023 graphicsPreset=\"fancy\" renderDistance=16 simulationDistance=12 migration070=true distancePolicy=preserve-existing/no-new-cap",
+  "gc_scope": "Partialcurrent/rotatedsnapshot,notmatchedbenchmark/entiresession/fullstabilityacceptance",
+  "captured_pause_count": 92,
+  "full_pause_count": 0,
+  "pause_ms_max": 49.747,
+  "pause_ms_median": 20.8335,
+  "pause_ms_p95_nearest_rank": 31.636,
+  "longest_pauses": [
+    {
+      "uptime_ms": 74322,
+      "gc_id": 121,
+      "description": "Pause Young (Normal) (G1 Evacuation Pause) 1022M->826M(1299M)",
+      "pause_ms": 49.747
+    },
+    {
+      "uptime_ms": 74195,
+      "gc_id": 119,
+      "description": "Pause Young (Concurrent Start) (G1 Evacuation Pause) 1102M->797M(1299M)",
+      "pause_ms": 36.837
+    },
+    {
+      "uptime_ms": 74530,
+      "gc_id": 123,
+      "description": "Pause Young (Normal) (G1 Evacuation Pause) 1081M->859M(1299M)",
+      "pause_ms": 35.917
+    },
+    {
+      "uptime_ms": 75029,
+      "gc_id": 125,
+      "description": "Pause Young (Normal) (G1 Evacuation Pause) 976M->879M(1394M)",
+      "pause_ms": 31.729
+    },
+    {
+      "uptime_ms": 74393,
+      "gc_id": 122,
+      "description": "Pause Young (Normal) (G1 Evacuation Pause) 943M->835M(1299M)",
+      "pause_ms": 31.636
+    },
+    {
+      "uptime_ms": 74588,
+      "gc_id": 124,
+      "description": "Pause Young (Normal) (G1 Evacuation Pause) 922M->868M(1299M)",
+      "pause_ms": 30.851
+    },
+    {
+      "uptime_ms": 53952,
+      "gc_id": 96,
+      "description": "Pause Young (Mixed) (G1 Evacuation Pause) (Evacuation Failure: Pinned) 943M->680M(1112M)",
+      "pause_ms": 30.032
+    },
+    {
+      "uptime_ms": 78176,
+      "gc_id": 126,
+      "description": "Pause Young (Prepare Mixed) (G1 Evacuation Pause) 940M->881M(1467M)",
+      "pause_ms": 29.941
+    },
+    {
+      "uptime_ms": 56753,
+      "gc_id": 100,
+      "description": "Pause Young (Mixed) (G1 Evacuation Pause) (Evacuation Failure: Pinned) 973M->702M(1147M)",
+      "pause_ms": 29.899
+    },
+    {
+      "uptime_ms": 29994,
+      "gc_id": 59,
+      "description": "Pause Young (Prepare Mixed) (G1 Evacuation Pause) 715M->477M(917M)",
+      "pause_ms": 28.895
+    },
+    {
+      "uptime_ms": 27739,
+      "gc_id": 52,
+      "description": "Pause Young (Normal) (G1 Evacuation Pause) (Evacuation Failure: Pinned) 618M->343M(917M)",
+      "pause_ms": 27.566
+    },
+    {
+      "uptime_ms": 59604,
+      "gc_id": 104,
+      "description": "Pause Young (Normal) (G1 Evacuation Pause) (Evacuation Failure: Pinned) 972M->724M(1147M)",
+      "pause_ms": 26.861
+    }
+  ],
+  "g1_concurrent_mark_log_records": 24,
+  "pinned_evacuation_log_records": 6,
+  "interpretation": "ActualG1young/mixed/concurrentactivity,qualifiedhumanimprovement atsame16/12;notzero-stutter/fullhardware/stabilityguarantee. Pinned evacuation records remain follow-up evidence.",
+  "audio": {
+    "init_result_signed": -2144993278,
+    "init_result_hex": "0x80260002",
+    "init_failure_count": 2,
+    "actual_open_record_present": false,
+    "first_pcm_present": false,
+    "game_error": "Failed to open OpenAL device",
+    "mechanism": "Nativeinitializationfailurebeforeactualportopen,notmerelymutedvolume. ExactPS5servicecauseunresolved; commonpublicAudioOutdefinitionslabelnumericcodeBusy,notAlreadyInit.",
+    "public_constant_reference": "https://github.com/shadps4-emu/shadPS4/blob/main/src/core/libraries/audio/audioout_error.h",
+    "reference_scope": "PS4emulatorprojectdefinitionscorroboratecommoncodevalues,notproofPS5internalcause"
+  },
+  "next": "073boundedbusyinitreal-portprobe/retry,max10attempts/9x50mssleeps,unknownerrorsfail,successrequiresactualport/PCM. PreserveG1/1536MiB/quality.",
+  "files": {
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "b62b5950e78a24298ff1a1876af4564312c812b87825b80f0d53677407f1e749"
+    },
+    "exceptions.log": {
+      "bytes": 3055609,
+      "sha256": "ff6827fa03de9182e88b5ee8989cc925020ecc040d9a9a93ceae6c21cfd6949d"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194328,
+      "sha256": "f4a786341ec979651f06de0c2d1aa76c532ce87c297f7547d42f8b4e27ad3e40"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "097d2378448ab4190744e20a2af48dab791bd24d4e150f4f14a9fe49228a3516"
+    },
+    "native-stderr.log": {
+      "bytes": 26701,
+      "sha256": "71576c57b4a11898116f82998d6674f7aa52792155aa2412fb23f5f295fb6006"
+    },
+    "gc.log": {
+      "bytes": 177764,
+      "sha256": "13349ea55a96237cef4d9bd1a3efc829169dc77474a8a1c14a45e38bdf6bc9d1"
+    }
+  },
+  "raw_reports_public": false
+}

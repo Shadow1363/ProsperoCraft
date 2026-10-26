@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.073",
+  "title_id": "PPSA99874",
+  "package_sha256": "b88028c2c4d11b0a90332f04c20ee899eb7ced0434f09622d37d767a9d85f084",
+  "native_elf_sha256": "e4ae46f351c1570f4c6b71a3e571aa2c1205ff7426ffc97526dc6f4c9a040414",
+  "runtime_commit": "1b9206f4290432548b94d19b0a177dba47f6fb47",
+  "runtime_implementation_changed": false,
+  "performance_policy": "PASS exactextractedJavaVMOptionstringsidentical072;exactpackagedlibjvm.so identical072;SDLauditvalues/hashesunchanged",
+  "audio_policy": {
+    "observed_busy_init": "0x80260002",
+    "already_init": "0x8026000e",
+    "real_port_required": true,
+    "retry_only": "BusyinitfollowedbyBusy/NotInitopenfailure",
+    "max_attempts": 10,
+    "max_wait_ms": 450,
+    "unknown_or_wait_errors": "Failpromptly",
+    "port_ownership": "Onlyvalidactualhandle;join/drain/closeunchanged"
+  },
+  "host_audio": "PASS realpinnedOpenAL/newbackend/sink/driverASanUBSan,10modes:normalmix/lifecycle/pause/outputdisconnect/unknowninit/openfailure/transientbusy/permanentbusy/busyactualopen/alreadyinit/unrelatedopenfailure/waitfailure;callcounts/waits/portleaksasserted",
+  "other_host": [
+    "PASS startup/observer/exactlogging/JNIallocation/originalMainboundary",
+    "PASS unchangedaudiooptionsmigration",
+    "PASS read-onlyoptionsobserver/Mainnoactivequalitycap"
+  ],
+  "target_checks": "PASS nativecompile/link/SELF/fullpackageCRC/signatures/54originalJARs/5147originalassets/exact0121runtime/nativeaudits/constructorgroups/preserved072andearlierpackages",
+  "evidence": "docs/validation/client072-g1-audio-2026-10-26.json",
+  "console": "PENDING073audioaudibility/actualbusy-recovery/performancepreservation",
+  "limitations": [
+    "ExactPS5initialbusyconditionunresolved;boundedrecoverymayfail",
+    "HostAudioOutfixturesdonotprovePS5audibility",
+    "072G1capturedwindowisnotfullstability/benchmarkacceptance",
+    "Smallstutters/GCpinning/nativeheadroom/saveandreloadpending"
+  ],
+  "raw_reports_public": false,
+  "public_release_created": false,
+  "game_jars_modified": false
+}

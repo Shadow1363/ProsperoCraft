@@ -43,3 +43,11 @@ publichashes/interpretationonly. SafariAXread-onlylinksworkwhenshellLANfails.
 READMEconcise,historyinCHANGELOG;checkedconsumerchangespublishhere,reusableJava
 fixesseparatelyviaruntimesync. Preserveacceptedbytes/officialJARs/assets;nogame
 replacementclasses/bytecodehooks. Nativeport/noWine. Qualitytargetremainshigh.
+
+## Superseded by073audio repair
+
+Humanreports supertiny stutters but noaudio. Actual072G1snapshot92pauses,median
+20.8335ms,max49.747ms,nofullGCinpartialwindow. AudioOutInit0x80260002twice before
+open; exactcauseunresolved.073keepsG1settingsandaddsboundedreal-portBusyrecovery,
+notbusyequalssuccess. See[073handoff](handoff-prosperocraft-client073.md) and
+[evidence](validation/client072-g1-audio-2026-10-26.json). Preserveexact072bytes.
