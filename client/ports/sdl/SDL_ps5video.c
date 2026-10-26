@@ -146,6 +146,10 @@ static void PS5_PumpEvents(SDL_VideoDevice *_this)
 
 static bool PS5_CreateWindow(SDL_VideoDevice *_this, SDL_Window *window, SDL_PropertiesID props)
 {
+    /* SDL logical size must match the fixed physical surface/cursor extent.
+     * Otherwise Java scales mouse coordinates against a different framebuffer. */
+    window->min_w=window->max_w=1920;window->min_h=window->max_h=1080;
+    SDL_SendWindowEvent(window,SDL_EVENT_WINDOW_RESIZED,1920,1080);
     /* The window is the screen, and always has the pad's focus */
     SDL_SetKeyboardFocus(window);
     return true;
@@ -158,7 +162,8 @@ static bool PS5_SetWindowPosition(SDL_VideoDevice *_this, SDL_Window *window)
 
 static void PS5_SetWindowSize(SDL_VideoDevice *_this, SDL_Window *window)
 {
-    /* The size stays the display's */
+    /* Reject logical-size drift even if the game restores an older size. */
+    SDL_SendWindowEvent(window,SDL_EVENT_WINDOW_RESIZED,1920,1080);
 }
 
 static SDL_FullscreenResult PS5_SetWindowFullscreen(SDL_VideoDevice *_this, SDL_Window *window, SDL_VideoDisplay *display, SDL_FullscreenOp fullscreen)

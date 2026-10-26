@@ -91,6 +91,14 @@ will need validation for each supported game version.
 - [ ] **JVM 21** for broader Minecraft support.
 - [ ] **JVM 17** for even broader Minecraft support.
 
+## Resolution follow-up
+
+A Store-installed082report identifies misaligned game-menu clicks when using
+lower logical resolutions. On082, select1920×1080in launcher Settings before
+launching. [Development083](docs/client-resolution-083.md) locks1080pin launch,
+SDLwindow and display selection and migrates saved settings. Its exactPS5
+pointer/demo-world check is pending; the published082package remains unchanged.
+
 ## Runtime foundation
 
 ProsperoCraft is powered by the separate

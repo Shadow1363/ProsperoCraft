@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.083",
+  "title_id": "PPSA99874",
+  "package_sha256": "8fcbdc8cb9cc8065aa0eaac26457a834fffb15098725e987df1d33257a76444e",
+  "native_elf_sha256": "f30b545880d8a78aec5f99d6259c81425365d9eddaf77ebdc30fb9897d2a5ac9",
+  "baseline_consumer_commit": "be05fdbeb830f6e17b6cf7b7469c9f17d7591a86",
+  "runtime_commit": "9afa03adfb34dc1049f18de5839d762662b6c306",
+  "source_sha256": {
+    "client/launcher/java/ProsperoLibrary.java": "5a76e3d1913a717d3229089e764079e9bd7f1e5b76692ec381bdd39f6c3b4523",
+    "client/launcher/java/ProsperoLauncher.java": "c7b3cc127566f59801133426d91aa934ef40be39c6a3c559694cd97eeb1f2967",
+    "client/launcher/native_menu.hpp": "c0644699ad6899749c20813af65a829eab1cad4a044953dfd4d83e98d5f31c68",
+    "client/ports/sdl/SDL_ps5video.c": "a9b5205e5990548bfad9651a89cf8200dc2ee92460d9fd72e0becfe8cad6acd7",
+    "client/ports/sdl/ps5_display_mode.h": "1f8436118d8cea09a671577a6c2acf04b3588edff56667dae8ca8246fb019852",
+    "client/startup/ClientStartup25.java": "8630c90dbf636a5abe46d7aab086936a23a7be1e655246d8d2c4d85c79f29fc9",
+    "client/startup/bootstrap.cpp": "5785cfe7e0263e7c70bfdb36733e7974fc02c6d2f4bbd6249fa54e0f5dfdce69",
+    "client/startup/param.json": "b40c810a1ea0f6af2cd7b3ba93381da773feb15274827c12162a472943105b59"
+  },
+  "user_report": "Store-installed game cannot click demo-world/menu controls with X/R2;user attributes it to resolution misalignment and requests locked1080p.",
+  "source_finding": "Launcher default previously1280x720 and selectable900p;SDL Vulkan display normally1920x1080whilelogicalwindowkeptrequestedsize. Coordinate/framebuffer mismatch is consistent with the report;not independently captured in current-run logs.",
+  "changes": [
+    "Fixed1920x1080launch arguments and default",
+    "Legacy settings0/1/2migrate to resolution2with exact previous-library backup,instances/worlds retained",
+    "Settings labels1080p locked;X/LEFT/RIGHTcannotchangeit",
+    "SDL create/resize callbacks force1920x1080logical size and min/max bounds",
+    "SDL/Vulkan mode chooser accepts only actual enumerated1920x1080modes,normal refresh preferred;no mismatched fallback",
+    "Includes projectGPLv3license and attribution notices in newpackage"
+  ],
+  "host_checks": [
+    "PASS Java instance fixtures:legacy0/1/2migration/persistence/backups/worlds,lockedUIcontrols,1920x1080launcharguments",
+    "PASS actual SDL create/resize callbacks underASan/UBSan",
+    "PASS actual SDL display/surface inventory:1080p59.94preference,1080p-onlyfallback,rejectmissing1080p",
+    "PASS actual native draw/JNI/frontend/ordered displaycleanup preview",
+    "PASS SDL temporaryinput and WSIcursorASan/UBSan fixtures",
+    "PASS startuphost bytecode/policy/observer/GC/allocator;unchangedofficialgameJAR and expectedmissinghostnativefailure",
+    "PASS audio/optionspreservation and lifecyclefixtures",
+    "PASS full targetbuild and complete packageCRC/signatures/source-bytecode/nativeconstructor/milestone/licensenoticeaudits",
+    "PASS historical082publicreleaseauditafterdevelopment083build",
+    "PASS gitdiffcheck"
+  ],
+  "console_status": "PENDING exact083;no ALL PASS or new frozen milestone",
+  "console_checks": [
+    "ExistingStorelibrarymigrateswithoutlosinginstances/downloads/options/worlds",
+    "PointervisuallyalignsandX/R2activatebuttonsacrosstitle/demo-worldmenusat1080p",
+    "Launchdemo world,retainedsound/smoothness,andQuit/library/relaunch",
+    "1080pvaluecannotbechangedorrestoredbyoldergameoptions"
+  ],
+  "preserved082_sha256": "ab49cad8977736be2be72230743232a270dba9bd17fa70a66b64a93c48230820",
+  "publication": "Developmentsourcepublished;083compiledcandidateislocalforPS5validation.Store082release/tag/assetsandrootpublishedmanifestremainunchanged.",
+  "limits": [
+    "Displayswithoutanactual1920x1080modefailinstead ofusingamismatchedresolution",
+    "No current-run consolelogcollectionorphysicalclickconfirmationfor083",
+    "Only26.3SDLdemo;Microsoftapprovalstillpending",
+    "OfficialgameJARsandassetsunchanged;nofrozenvalidationrewritten"
+  ]
+}

@@ -15,10 +15,10 @@ public final class ClientStartup25 {
  public static boolean normalQuit(){return normalQuit;}
  public static boolean gamePreflight()throws Exception{return ProsperoLauncher.verifySelected();}
  public static String[] launcherTick(int buttons){return ProsperoLauncher.nativeTick(buttons);}
- private static void stage(String text){checkpoint("MC Startup082: "+text);}
+ private static void stage(String text){checkpoint("MC Startup083: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
-  return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
+  return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1920","--height","1080"};
  }
  public static void prepareWork(Path work)throws IOException{
   Files.createDirectories(work);Files.createDirectories(work.resolve("native-cache"));Files.createDirectories(work.resolve("resourcepacks"));

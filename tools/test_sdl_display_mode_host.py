@@ -35,9 +35,10 @@ ENTRY(EnumeratePhysicalDevices,devices) ENTRY(GetPhysicalDeviceDisplayProperties
 return NULL;}
 '''
 main=r'''
-int main(void){VkExtent2D native={3840,2160};assert(PS5_SelectDisplayMode(inventory,4,native)==3);assert(PS5_SelectDisplayMode(inventory,3,native)==2);assert(PS5_SelectDisplayMode(NULL,0,native)==-1);assert(PS5_SelectDisplayMode(inventory,33,native)==-1);
+int main(void){VkExtent2D native={3840,2160};assert(PS5_SelectDisplayMode(inventory,4,native)==3);assert(PS5_SelectDisplayMode(inventory,3,native)==1);assert(PS5_SelectDisplayMode(NULL,0,native)==-1);assert(PS5_SelectDisplayMode(inventory,33,native)==-1);
+assert(PS5_SelectDisplayMode(inventory,1,native)==-1);
 VkSurfaceKHR surface=VK_NULL_HANDLE;assert(PS5_Vulkan_CreateSurface(NULL,NULL,(VkInstance)1,NULL,&surface));assert(surface&&chosen.width==1920&&chosen.height==1080&&creates==1);
 bad_alpha=1;assert(!PS5_Vulkan_CreateSurface(NULL,NULL,(VkInstance)1,NULL,&surface)&&!surface&&creates==1);bad_alpha=0;incomplete=1;assert(!PS5_Vulkan_CreateSurface(NULL,NULL,(VkInstance)1,NULL,&surface)&&!surface&&creates==1);
-puts("PASS actual SDL surface hook:enumerated1080p59.94 preference over4K/119.88,real-mode fallback,plane/display/alpha/extent/stack propagation,incomplete/unsupported rejection;host inventory fixture only,PS5 GPU pending");}
+puts("PASS actual SDL surface hook:enumerated1080p59.94 preference over4K/119.88,1080p-only fallback,plane/display/alpha/extent/stack propagation,incomplete/unsupported rejection;host inventory fixture only,PS5 GPU pending");}
 '''
 unit=work/'check.c';unit.write_text(preamble+'\n'+(ROOT/'client/ports/sdl/ps5_display_mode.h').read_text()+'\n'+hook+main);binary=work/'check';subprocess.run(['clang','-std=c11','-Wall','-Wextra','-Werror','-fsanitize=undefined','-I'+str(ROOT/'.tools/lwjgl-vma-src'),str(unit),'-o',str(binary)],check=True);subprocess.run([str(binary)],check=True)

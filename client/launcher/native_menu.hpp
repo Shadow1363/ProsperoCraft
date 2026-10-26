@@ -75,8 +75,8 @@ inline void selection(Canvas& c,int x,int y,int w,int h){
 inline void action(Canvas& c,int x,int y,int w,const char* text,bool active,bool primary=false){
  if(active)selection(c,x,y,w,76);c.rounded(x,y,w,76,18,ink(primary?0xb6f2be:0x244438));label(c,x+28,y+22,text,30,primary?0x102c1b:0xeaf0e8);
 }
-inline void row_control(Canvas& c,int y,const char* name,const char* value,bool active){
- if(active)selection(c,760,y,1080,96);c.rounded(760,y,1080,96,20,ink(active?0x1e3c30:0x142b24));label(c,792,y+16,name,24,0x8fae9d);title(c,792,y+47,value,30,960);label(c,1779,y+43,">",30,0xa9eab6);
+inline void row_control(Canvas& c,int y,const char* name,const char* value,bool active,bool editable=true){
+ if(active)selection(c,760,y,1080,96);c.rounded(760,y,1080,96,20,ink(active?0x1e3c30:0x142b24));label(c,792,y+16,name,24,0x8fae9d);title(c,792,y+47,value,30,960);if(editable)label(c,1779,y+43,">",30,0xa9eab6);
 }
 inline void draw(Canvas& c) noexcept {
  animating=false;last_draw_time=now_ms();
@@ -105,8 +105,8 @@ inline void draw(Canvas& c) noexcept {
   else{row_control(c,340+slide,"INSTANCE NAME",fields[16].data(),row==0);const char* icons[]={"Crafting table","Grass","Amethyst","Ocean","Redstone","Forest","Gold","Snow"};int icon=number(18);row_control(c,458+slide,"INSTANCE ICON",icons[icon>=0&&icon<8?icon:0],row==1);action(c,760,640+slide,1080,"DONE",row==2,true);wrap(c,791,759+slide,"Version files are shared. Your worlds and options belong only to this instance.",1000,3);}
  }else if(page==2){
   label(c,70,185+slide,"Settle in.",64);label(c,75,270+slide,"A few thoughtful defaults. You're in control.",24,0x91ad9b);
-  c.rounded(70,340+slide,620,548,28,ink(0x10221c));label(c,112,391+slide,"YOUR SETUP",24,0x8fbb9b);label(c,112,459+slide,"Native Java 25",42);wrap(c,114,545+slide,"Resolution applies to the game window on the next launch. Your in-game video and audio options stay with each instance.",520,5);wrap(c,114,747+slide,fields[67].data(),510,3);
-  row_control(c,340+slide,"GAME RESOLUTION",fields[25].data(),row==0);row_control(c,465+slide,"PARALLEL DOWNLOADS",fields[26].data(),row==1);row_control(c,590+slide,"REDUCED MOTION",fields[30].data(),row==2);row_control(c,715+slide,"SHOW SNAPSHOTS",fields[27].data(),row==3);row_control(c,840+slide,"STARTUP NOTICE",fields[68].data(),row==4);
+  c.rounded(70,340+slide,620,548,28,ink(0x10221c));label(c,112,391+slide,"YOUR SETUP",24,0x8fbb9b);label(c,112,459+slide,"Native Java 25",42);wrap(c,114,545+slide,"Game resolution is fixed at1920 x1080 so the menu pointer and clicks stay aligned. Other video and audio options stay with each instance.",520,5);wrap(c,114,747+slide,fields[67].data(),510,3);
+  row_control(c,340+slide,"GAME RESOLUTION",fields[25].data(),row==0,false);row_control(c,465+slide,"PARALLEL DOWNLOADS",fields[26].data(),row==1);row_control(c,590+slide,"REDUCED MOTION",fields[30].data(),row==2);row_control(c,715+slide,"SHOW SNAPSHOTS",fields[27].data(),row==3);row_control(c,840+slide,"STARTUP NOTICE",fields[68].data(),row==4);
  }else if(page==3){
   label(c,70,185+slide,"Your account. Your adventure.",64);label(c,75,270+slide,"Sign in on your phone. Your password stays with Microsoft.",24,0x91ad9b);
   c.rounded(70,340+slide,1000,548,28,ink(0x10221c));label(c,116,391+slide,"MICROSOFT ACCOUNT",24,0x8fbb9b);title(c,116,447+slide,fields[5].data(),42,900);
@@ -150,7 +150,7 @@ inline void draw(Canvas& c) noexcept {
  if(std::strcmp(fields[64].data(),"BUSY")==0){
   if(page!=3)title(c,78,942,fields[2].data(),24,1300,0xaac8b2);label(c,1450,942,fields[21].data(),24,0xaac8b2);c.rounded(72,982,1770,5,2,ink(0x233c2c));if(number(20)>0)c.rounded(72,982,unsigned(1770*number(20)/1000),5,2,ink(0xa9eab6));
  }else if(page!=3)title(c,78,949,fields[2].data(),24,1760,0x83a58d);
- label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1650,1020,"01.000.082",24,0x7d9f89);
+ label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1650,1020,"01.000.083",24,0x7d9f89);
 }
 inline bool update() noexcept {
  // The second update follows the initial submit/WaitVblank in run_ui_until.

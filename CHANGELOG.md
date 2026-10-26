@@ -6,6 +6,17 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-26 — Client083 locks logical/display resolution to1080p
+
+Store-installed082has a reported game-menu hit-test/pointer misalignment with
+X/R2; the user identifies resolution mismatch.083replaces the720pdefault and
+selectable sizes with fixed1920×1080launch, SDLlogical window/create/resize and
+enumerated display-mode selection. Existing library settings migrate with backup;
+worlds/downloads/options are preserved. Settings visibly marks the value locked.
+Host/target/package audits pass; physical083clicks/demo-world/audio/lifecycle
+remain pending. [Guide](docs/client-resolution-083.md). Published082and frozen
+source/validation remain intact; no new milestone or Store release is inferred.
+
 ## 2026-10-26 — Client082 launcher/lifecycle fixes confirmed
 
 The user confirms: “yes it all works. all the fixes you added.” Recorded as

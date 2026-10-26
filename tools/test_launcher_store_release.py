@@ -6,7 +6,7 @@ r=Path(__file__).resolve().parents[1];out=r/'dist/releases/client082'
 sha=lambda data:hashlib.sha256(data).hexdigest()
 record=json.loads((r/'docs/validation/client082-launcher-build-2026-10-26.json').read_text())
 app=out/'PPSA99874.zip'
-assert sha(app.read_bytes())==record['package_sha256']==sha((r/'dist/client-startup/PPSA99874.zip').read_bytes())
+assert sha(app.read_bytes())==record['package_sha256']==sha((r/'dist/published/ProsperoCraft-01.000.082/PPSA99874.zip').read_bytes())
 with zipfile.ZipFile(app)as z:
  assert z.testzip()is None
  names=z.namelist();assert all(n.startswith('PPSA99874/')for n in names)
