@@ -135,3 +135,8 @@ See [publication record](validation/client083-store-publication-2026-10-26.json)
 and [release guide](releases/client-resolution-083.md). Exact083PS5clickalignment,
 demo-world,retainedaudio/smoothnessandquit/relaunchremainpending. No newALLPASS
 or frozenmilestone is claimed;082andallhistoricalreleaseassetsremainunchanged.
+
+PR819remote follow-up: submission validation, release scan and offline tests all
+PASS. The bot left it for a maintainer under its release/newest-release eligibility
+notice. Current state OPEN/REVIEW_REQUIRED;darkxex and Marice requested.083is
+public onGitHub;Storeavailability is not claimed before merge/deployment.

@@ -40,9 +40,10 @@
   ],
   "verification": "Five GitHub asset digests/sizes match localfiles;allassetsdownloadedandSHA256SUMSverified;relocateddownloadedOpenALkitreproducestheexactpackagednativeELF.",
   "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/819",
-  "catalog_status": "Submitted;fresh remoteCI/merge/deploypending. Onlyexistingapps/PPSA99874.jsonupdatedfrom082to083,includingGPL-3.0-or-later.",
+  "catalog_status": "PR819OPEN,REVIEW_REQUIRED. Fresh submission validation,release scan andoffline testsPASS. Bot left for maintainer review;darkxex andMarice requested. Not yet a confirmed Store deployment.",
   "catalog_checks": "Local144recordsvalid,0errors/warnings;online083digest/contentVersion/iconverified,0errors/warnings.",
   "console_validation": "Exact083physicalX/R2alignment,demo-world,audio/smoothnessandquit/relaunchpending;nonewALLPASSclaimed.",
   "preservation": "082release/tag/assetsandfrozenmilestoneuntouched;083ZIP/symbolsretainedlocallyindist/published/ProsperoCraft-01.000.083",
-  "runtime_publication": "Syncsucceeded,Everythingup-to-date;reusableruntimesourceunchanged."
+  "runtime_publication": "Syncsucceeded,Everythingup-to-date;reusableruntimesourceunchanged.",
+  "eligibility_notice": "it changes more than the release(version,file,sha256,icon,description,license),or the release is not the newest of mateo-cogeanu/ProsperoCraft"
 }
