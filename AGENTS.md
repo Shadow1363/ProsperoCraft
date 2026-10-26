@@ -742,3 +742,10 @@ https://github.com/darkxex/ps5-homebrew-catalog/pull/814 onfreshbranch
 codex/prosperocraft-082-resubmit fromupstream8566a5f. Track814asactive;no
 releaseasset/package/sourceimplementationchanged. Resubmissiondoesnotitself
 repairthecatalognewest-releaseorderinglogicorremovereviewrequirements.
+
+User2026-10-26requestsGPLv3andclearforkcredit. Projectoriginalcode/buildscripts
+areGPL-3.0-or-later,matchingexistingheaders. RootLICENSEisverbatimGPLv3;NOTICE
+containsmateo-cogeanu—ProsperoCraftcopyrightandupstreamcredit. Distributedforks
+mustpreserveapplicablenoticesandGPLrights;donotaddadvertising/splash/noncommercial
+restrictionsoroverwriteupstreamlicenses. UpdateactiveStorePR814licensefield.
+Preservefrozen082bytes/tag/snapshots;publishlicense/noticeasadditivereleaseassets.

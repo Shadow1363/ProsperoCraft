@@ -86,7 +86,10 @@ included README and source licenses. SHA256SUMS covers every attached asset.
 
 The matching reusable Java runtime source/patches are published at
 [9afa03ad](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/9afa03adfb34dc1049f18de5839d762662b6c306).
-Component license notices remain in the app and source kit. GitHub detects no
-single repository license, so the catalog uses its Unlicensed classification;
-this does not replace or remove upstream components' licenses.
+Component license notices remain in the app and source kit. ProsperoCraft's
+original code is now explicitly GPL-3.0-or-later; see the root LICENSE and NOTICE
+and the additive license/attribution release assets. Distributed forks must
+preserve the applicable original copyright/license credit and meet GPL source
+requirements. Upstream licenses remain in force. This follow-up replaces the
+earlier Unlicensed catalog metadata without changing the accepted ZIP or tag.
 Exact081 and accepted074 packages/symbols and all frozen milestones are preserved.

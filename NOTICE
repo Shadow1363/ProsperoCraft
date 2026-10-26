@@ -1,0 +1,54 @@
+ProsperoCraft
+Copyright (C) 2026 mateo-cogeanu — ProsperoCraft
+Project: https://github.com/mateo-cogeanu/ProsperoCraft
+
+ProsperoCraft's original source code and build scripts, except where a file
+states different terms, are free software: you can redistribute them and/or
+modify them under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version (SPDX: GPL-3.0-or-later).
+
+ProsperoCraft is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License in LICENSE.
+
+Forks and redistributions
+------------------------
+When conveying copies or modified versions of ProsperoCraft-covered code,
+preserve the applicable copyright, license and warranty notices, including
+the ProsperoCraft copyright notice above, as required by GPLv3 sections 4–6.
+Identify modifications and their dates, retain the required notices, and
+provide the corresponding source and GPL rights as the license requires.
+Removing the original copyright notice and presenting ProsperoCraft-origin
+code as solely the fork author's original work does not satisfy those duties.
+
+These statements explain the GPL obligations. They add no advertising,
+mandatory splash-screen, noncommercial-use or other extra restrictions.
+Forks may identify and credit their own modifications. They must also preserve
+the applicable notices and rights of other contributors and upstream authors.
+
+Upstream work and separate licenses
+----------------------------------
+This notice does not claim ownership of upstream code or replace its terms.
+Existing file-level licenses, copyright notices and exceptions take precedence
+for the material to which they apply. Preserve them when redistributing it.
+
+ProsperoCraft uses the separate native PS5 Java runtime port:
+https://github.com/mateo-cogeanu/ps5-java25-homebrew
+Its sources and notices identify OpenJDK, the PS5 native app boilerplate by
+BlackBearReloaded, PS5 payload SDK, graphics providers and their contributors.
+
+Native integration includes SDL and PS5 platform reference work credited in
+client/ports/sdl/sources.json, including the retained Mihawk MIT notices;
+LWJGL and Mesa notices are in client/ports/lwjgl/LICENSE.md and
+client/ports/opengl/LICENSE.md. OpenAL Soft and its bundled components,
+libffi, shaderc/glslang/SPIRV-Tools, SPIRV-Cross, FreeType, STB, VMA and
+other dependencies retain the licenses recorded in their source pins and
+packaged notices. This list supplements, not replaces, those notices.
+
+Official Minecraft JARs/assets, third-party mods and Microsoft/Mojang/Sony
+names or trademarks are not relicensed by this grant. The launcher downloads
+original game files separately. This grant applies to material for which the
+ProsperoCraft copyright holder can grant permission, including that holder's
+original contributions in the published 01.000.082 source; frozen snapshots
+and already published binaries are not rewritten by this notice.

@@ -102,6 +102,23 @@ dependencies, launch configuration, controls and game-specific validation.
 Official game JARs and assets stay intact in current development. Frozen historical
 workarounds and their migration history are documented in the changelog.
 
+## License and fork credit
+
+ProsperoCraft's original code is licensed under **GNU GPL v3.0 or later**
+([LICENSE](LICENSE), SPDX: `GPL-3.0-or-later`).
+
+**Copyright (C) 2026 mateo-cogeanu — ProsperoCraft.** Distributed forks must
+preserve applicable copyright and license notices, identify their changes and
+provide corresponding source under the GPL as required. Keep ProsperoCraft's
+original copyright credit when redistributing its covered code.
+See [NOTICE](NOTICE) for the project attribution and upstream credits.
+
+This requires preserving legal credit; it does not add a mandatory advertising
+or splash-screen credit. Upstream components retain their own licenses and
+exceptions. Official Minecraft files and third-party trademarks are not
+relicensed by this project's grant. The published082binary remains unchanged;
+its release also supplies the project license and attribution notice separately.
+
 ## Follow the project
 
 - **[Releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)** — downloads, setup and checksums.
