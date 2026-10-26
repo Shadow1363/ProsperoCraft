@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.065",
+  "run": "client-01.000.065-1793013277-161947157",
+  "human": "Worldloaded,punchworks,cannotmove,severelag;releaseandnextperformancecandidateauthorized",
+  "findings": {
+    "oom_count": 0,
+    "spawn_log_latest": [
+      "89"
+    ],
+    "world_join_messages": 1,
+    "reported_load_elapsed_ms": [
+      "284084"
+    ],
+    "server_behind_warning_count": 7,
+    "max_reported_server_behind_ms": 12188,
+    "latest_render": "ActualworldrenderstackincludingCloudRenderer/LevelRenderer;lastobserver279at620571ms",
+    "interpretation": "Worldentrycorroborated;severeperformanceproblem,notplayableacceptance. InterpreterCPUoverheadaplausiblemajorconstraint;notallGPUbottlenecksmeasured.",
+    "input_defect": "SDLrelative-mousebackendcallbackabsent;upstreamSDL_SetRelativeMouseModefailswithoutit. Candidate066addsrealsoftware-relativemodeforstickmouse;causalityforhumanmovementfailurestillneedsconsole."
+  },
+  "reports": {
+    "session.txt": {
+      "sha256": "de8a415a5b6e8f46721de8fd3397856fc155293e63b6833529e3e48f45b0b920",
+      "bytes": 144
+    },
+    "exceptions.log": {
+      "sha256": "eaec95f603d7c700e9b258b5268965dc747395e1edf18bbbabf9dfa452bdc261",
+      "bytes": 4163459
+    },
+    "gc-rotated.log": {
+      "sha256": "745ff8b49bbb06442b11d34ddac354e3e3c00b048548f429e876dad87dc93f0a",
+      "bytes": 4194349
+    },
+    "process-usage.log": {
+      "sha256": "51b2b1e1c3eca9a7fb9a8238cbbb8c7971c9d74f3250567d853ef7b57630f555",
+      "bytes": 457562
+    },
+    "build.txt": {
+      "sha256": "469e25f00984843a40bb4eef332dc8d8d3f50c85f8315587a61463c344fad552",
+      "bytes": 57
+    },
+    "native-stderr.log": {
+      "sha256": "ea7b8bfcdfc2747fb53b1c678e5352609da229abdc85adffa4288d296ee76432",
+      "bytes": 36811
+    },
+    "gc.log": {
+      "sha256": "0f9204649a247a92d4411ab2507a013c3bafc82ee6e7b5188c9b6260b881d1e7",
+      "bytes": 1161365
+    }
+  }
+}

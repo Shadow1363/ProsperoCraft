@@ -15,7 +15,7 @@
 
 A homebrew project exploring **Minecraft Java Edition on PlayStation 5** — starting with a stable, unmodified dedicated server, then server-side mods, followed by the client and controller support.
 
-> **The Minecraft Java menu is running on PS5.** The user confirmed the visible menu in **01.000.062**, running on native Java 25. [Get the GitHub release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062) · [Setup and validation scope](docs/releases/client-menu-062.md). World gameplay, controls, speaker audio, saves and long-run stability still need validation. Fabric/Paper server releases remain available; server two-hour endurance stays deferred.
+> **Minecraft Java now loads a world on PS5.** Build **01.000.065** reaches a world and punching works on native Java25. **Severe lag, very long loading and movement failure remain.** [First world release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_World-v01.000.065) · [Setup and known issues](docs/releases/client-world-065.md). This is an experimental world-entry checkpoint, not a playable-performance pass.
 
 ## The goal
 
@@ -65,6 +65,15 @@ ProsperoCraft aims to be a polished,playable Minecraft Java client running on
 native Java25onPS5:responsive controls,smooth rendering,working audio,world gameplay,
 saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
 Those full-client features still require actual exact-build console validation.
+
+## First world loaded — 01.000.065
+
+The user confirms world entry and punching on PS5. Current-run reports corroborate
+player join and actual world rendering. The512MiB direct-backed Java heap starts
+successfully. **Very slow loading, severe lag and movement failure remain known
+issues.** No useful frame rate,save/reload,audio or stability acceptance is claimed.
+[GitHub release](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_World-v01.000.065) ·
+[Setup and scope](docs/releases/client-world-065.md).
 
 ## Development065 — direct-backed Java heap
 
@@ -615,6 +624,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 
 | Minecraft milestone | Console result | Snapshot | Release |
 | :--- | :--- | :--- | :--- |
+| **First world · 01.000.065** | Human world entry/punching,joined/rendered reports;severe lag and movement failure | [Scope/setup](docs/releases/client-world-065.md) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_World-v01.000.065) |
 | **First Minecraft menu · 01.000.062** | Human-confirmed visible menu on actual PS5 / native Java 25; gameplay and stability pending | [Evidence & setup](docs/releases/client-menu-062.md) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Menu-v01.000.062) |
 | **Client SPIRV-Cross · 01.000.036** | PS5 ALL5 PASS,saved reports:9shader translations/reflection/error controls/guards and JVM stop | [Frozen source & validation](Client_SPIRV_Cross) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_SPIRV_Cross-v01.000.036) |
 | **Client VMA Allocator · 01.000.035** | PS5 ALL5 PASS,human+saved reports:12RADV transfers,3VMA allocator/device cycles,guards and JVM stop | [Frozen source & validation](Client_VMA_Allocator) | [Download](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_VMA_Allocator-v01.000.035) |

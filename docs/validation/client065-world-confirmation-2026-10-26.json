@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.065",
+  "tested_source_commit": "f7c1abb1502b1ef64b2413b75b78d6fcb93df1ae",
+  "runtime_commit": "44fdf26ccb74cf8dd9127f1256b85416856981de",
+  "full_local_zip_sha256": "a85c900937525c04cbae29c1a3f3018e3341e07f0ae6a85a14c733564ad3461a",
+  "symbols_sha256": "5b949082a152320871f0bb790620f943fd850c7cf2e9aa8f96c973e8dba2bd48",
+  "human_report": "WORLD LOADED,cannot move,horribly laggy,but punching works after very long load;requestsGitHubreleaseandnextspeedcandidate.",
+  "accepted_scope": "Worldappears andpunchinteractionworks,temporarymenucontrolswork. No playableperformance/movement/fullALLPASS/save-reload/audio/endurance acceptance.",
+  "release_authorization": "FullGitHubreleaseforfirstworldscope;noStore. Thenworkonspeedcandidate."
+}

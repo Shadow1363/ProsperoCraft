@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.065",
+  "title_id": "PPSA99874",
+  "release_tag": "Client_World-v01.000.065",
+  "full_local_zip_sha256": "a85c900937525c04cbae29c1a3f3018e3341e07f0ae6a85a14c733564ad3461a",
+  "tested_source_commit": "f7c1abb1502b1ef64b2413b75b78d6fcb93df1ae",
+  "runtime_commit": "44fdf26ccb74cf8dd9127f1256b85416856981de",
+  "human_evidence": "client065-world-confirmation-2026-10-26.json",
+  "report_evidence": "client065-world-reports-2026-10-26.json",
+  "accepted_scope": "ActualPS5worldentry andpunching. Severelag,verylongload,movementfailureknown. NoformalALLPASS/usefulperformance/save-reload/audio/stabilityacceptance.",
+  "unmodified_relink_elf_sha256": "5b949082a152320871f0bb790620f943fd850c7cf2e9aa8f96c973e8dba2bd48",
+  "openal": "Freshmatching065kitwithoriginal+modifiedunits/header/envshim,exactnativeobjects/SDKheaders/buildrecords/editableinstructions. Unmodifiedandaccepted-libraryreplacementmatchexactELF;includedmodifiedsourcesbuildandlinkasreplacement. Editedbytesnotconsoleaccepted.",
+  "provisioning": "Actualeveryfile/byteappreconstructionandpublisherJAR+assetdownload/corruption/retainedtampercontrolspass;54JARs/5147assetobjectsomittedpublicly.",
+  "assets": {
+    "ProsperoCraft-01.000.065-world-app-only.zip": {
+      "sha256": "198cebbb036f6760906da4166eb01fd2115f6bd69a5d51995b5efeb91a2f8f10",
+      "bytes": 97171833
+    },
+    "client065-install-manifest.json": {
+      "sha256": "08c393145c2425d1a783811595d625d051ca9557483ed40b3cef4d01f2ebeaf4",
+      "bytes": 2185838
+    },
+    "provision_client_menu.py": {
+      "sha256": "3ba252d8cc8183c39eaf0959381917ad6dc6d0912fe52bba643f5cec747a7a9d",
+      "bytes": 4836
+    },
+    "README-client065.md": {
+      "sha256": "b090e054a8d53ff46bc29cb2dbfd1fd17a497f55c8c7c196a4f88aff528c42f3",
+      "bytes": 6564
+    },
+    "client065-openal-source-relink.zip": {
+      "sha256": "f4f66100da5d25f1a0888130e0172ebd625379c302ab5c3a7d55f206a65ee886",
+      "bytes": 88264105
+    }
+  },
+  "checks": {
+    "client065-release-provision.log": {
+      "sha256": "259af9de405fa130feba0dddcecf7255f42681f57fd3f86e86ba583138bc7566",
+      "bytes": 376,
+      "result": "PASS"
+    },
+    "client065-release-relink.log": {
+      "sha256": "7a1ef3456f85d03d7810530033005ceb72fd7f1756824505f51046dc536e6ea1",
+      "bytes": 121,
+      "result": "PASS"
+    },
+    "client065-release-replacement.log": {
+      "sha256": "ce6786d7de5c248f889911ca9047b5da0e0cacf21ccfe3716430f60852fd0201",
+      "bytes": 148,
+      "result": "PASS"
+    },
+    "client065-release-source-build.log": {
+      "sha256": "45835b021e8939c35160cee7699c56183fb063c1e5d81a01be61f8c257dbb951",
+      "bytes": 30777,
+      "result": "PASS"
+    },
+    "client065-release-source-relink.log": {
+      "sha256": "213a221a3be5d9546625e0155815d4a3b9bd0dee1b81b0f5ebded413c89acf2c",
+      "bytes": 148,
+      "result": "PASS"
+    }
+  },
+  "store_changed": false,
+  "release_status": "FullGitHubreleaseforfirstworldentry;publication/downloadverificationrecordedseparately."
+}

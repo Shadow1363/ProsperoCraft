@@ -563,3 +563,14 @@ input. Preserve the raw SDL joystick path. No game JAR rewrites/replacement clas
 The observed gradual idle slowdown has a supported vanilla AFK policy alternative;
 GC stutter remains distinct. Preserve accepted062release bytes/tag and continue
 candidates at063or later;no Store updates or new release without separate request.
+
+## First world and performance work — 2026-10-26
+
+The user confirms065world loads and punching works,but movement fails and severe
+lag/verylongloading make it unplayable. They request a GitHub release of this exact
+checkpoint and then a speed candidate. Publish accurately scoped fullworld-entry
+release;do notinferformalALLPASS,playableperformance,movement,save/reload,audio or
+stability. Preserve065accepted bytes/symbols/source/tag. No Store work.
+Proceed with performance investigation and a new066candidate;guardedC1 and SDL
+relative-input repair are in scope. Fullhardwareutilization is the goal,not a
+claim justified by enabling flags. No gameJAR transformations/replacementclasses.

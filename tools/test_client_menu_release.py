@@ -12,14 +12,18 @@ from provision_client_menu import provision
 ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--release-dir', type=Path, required=True)
+p.add_argument('--version', choices=['01.000.062','01.000.065'],default='01.000.062')
+p.add_argument('--full-package',type=Path,default=ROOT/'dist/client-startup/PPSA99874.zip')
 a = p.parse_args()
+number=a.version.rsplit('.',1)[-1]
+scope='world' if number=='065' else 'menu'
 release = a.release_dir.resolve()
-record = json.loads((release / 'client062-install-manifest.json').read_text())
+record = json.loads((release / ('client'+number+'-install-manifest.json')).read_text())
 assert len([r for r in record['excluded_files'] if r['kind'] == 'jar']) == 54
 assert len([r for r in record['excluded_files'] if r['kind'] == 'asset']) == 5147
 with tempfile.TemporaryDirectory(prefix='client062-release-check-', dir=ROOT / 'build') as folder:
     folder = Path(folder)
-    with zipfile.ZipFile(release / 'ProsperoCraft-01.000.062-menu-app-only.zip') as z:
+    with zipfile.ZipFile(release / ('ProsperoCraft-'+a.version+'-'+scope+'-app-only.zip')) as z:
         assert z.testzip() is None
         assert set(z.namelist()) == {'PPSA99874/' + r['path'] for r in record['retained_files']}
         assert not any('/client/jars/' in n or '/game-assets/objects/' in n for n in z.namelist())
@@ -27,7 +31,7 @@ with tempfile.TemporaryDirectory(prefix='client062-release-check-', dir=ROOT / '
     app = folder / 'PPSA99874'
     # Actual accepted files, not synthetic app fixtures.
     provision(record, app, ROOT / 'build/client/jars', ROOT / 'build/client-assets')
-    with zipfile.ZipFile(ROOT / 'dist/client-startup/PPSA99874.zip') as original:
+    with zipfile.ZipFile(a.full_package) as original:
         actual = {p.relative_to(app).as_posix() for p in app.rglob('*') if p.is_file()}
         expected = {n.removeprefix('PPSA99874/') for n in original.namelist() if not n.endswith('/')}
         assert actual == expected
