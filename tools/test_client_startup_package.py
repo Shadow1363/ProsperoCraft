@@ -39,16 +39,16 @@ def without_build_id(blob):
    result[start+16:start+32]=bytes(16);found+=1
  assert found==1
  return bytes(result)
-elf=work/'bootstrap-01.000.066-symbols.elf';text=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(elf)],text=True);symbols={l.split()[-1]:int(l.split()[0],16)for l in text.splitlines()if len(l.split())==3}
+elf=work/'bootstrap-01.000.067-symbols.elf';text=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(elf)],text=True);symbols={l.split()[-1]:int(l.split()[0],16)for l in text.splitlines()if len(l.split())==3}
 assert symbols['__init_array_start']==symbols['__init_array_end'];assert (symbols['__client_openal_init_end']-symbols['__client_openal_init_start'])//8==15;assert (symbols['__jvm_init_array_end']-symbols['__jvm_init_array_start'])//8==359;assert (symbols['__client_gpu_init_end']-symbols['__client_gpu_init_start'])//8==4;assert (symbols['__client_shaderc_init_end']-symbols['__client_shaderc_init_start'])//8==5
 assert (symbols['__client_gl_init_end']-symbols['__client_gl_init_start'])//8==1
 for name in ['OSMesaGetProcAddress','OSMesaCreateContextAttribs','ps5_builtin_load_ps5clientgl','ps5_builtin_load_lwjgl_opengl','ffi_prep_closure_loc','ffi_call_plan_alloc','alcLoopbackOpenDeviceSOFT','alcRenderSamplesSOFT','ps5_builtin_load_ps5openal','JNI_CreateJavaVM','ps5_builtin_load_ps5sdl','ps5_builtin_load_ps5shaderc','ps5_builtin_load_ps5clientgpu','radv_CreateInstance','ps5_builtin_load_lwjgl_stb','Java_org_lwjgl_stb_LibSTB_setupMalloc','Java_org_lwjgl_stb_STBImage_nstbi_1load_1from_1memory__JIJJJI','clientstb_org_lwjgl_malloc','ps5_builtin_load_freetype','FT_Init_FreeType','FT_Load_Char','FT_Done_FreeType','ps5_builtin_load_lwjgl_vma','Java_org_lwjgl_util_vma_Vma_nvmaCreateAllocator','ps5_builtin_load_ps5spvc','spvc_context_create','spvc_compiler_compile']:assert symbols.get(name),name
 with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_Continuous_Direct_Scene-01.000.023/PPSA99874-full-local.zip')as baseline:
- assert z.testzip()is None;prefix='PPSA99874/';param=json.loads(z.read(prefix+'sce_sys/param.json'));old=json.loads(baseline.read(prefix+'sce_sys/param.json'));assert param['contentVersion']=='01.000.066'
+ assert z.testzip()is None;prefix='PPSA99874/';param=json.loads(z.read(prefix+'sce_sys/param.json'));old=json.loads(baseline.read(prefix+'sce_sys/param.json'));assert param['contentVersion']=='01.000.067'
  assert param['localizedParameters']['en-US']['titleName']=='ProsperoCraft'
  assert z.read(prefix+'sce_sys/icon0.png')==(ROOT/'assets/branding/icon0.png').read_bytes()
  for k in ['titleId','contentId','conceptId']:assert param[k]==old[k]
- assert b'-Xmx512m'in z.read(prefix+'eboot.bin') and b'Minecraft Original Client Startup 01.000.066'in z.read(prefix+'eboot.bin')
+ assert b'-Xmx512m'in z.read(prefix+'eboot.bin') and b'Minecraft Original Client Startup 01.000.067'in z.read(prefix+'eboot.bin')
  for flag in [b'-Xmixed',b'-XX:TieredStopAtLevel=1',b'-XX:CICompilerCount=1',b'-XX:CompileThresholdScaling=4.0',b'-XX:CompileCommand=MemLimit,*.*,2M',b'-XX:ReservedCodeCacheSize=16m',b'java25-jit.log']:
   assert flag in z.read(prefix+'eboot.bin'),flag
  assert '"-Xint"' not in (ROOT/'client/startup/bootstrap.cpp').read_text()
@@ -59,7 +59,7 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  observer=z.read(prefix+'assets/java25/classes/ClientStartup25$StartupObserver.class')
  assert b'PS5 STARTUP SNAPSHOT' in observer and b'getAllStackTraces' in observer and b'heapUsed=' in observer
  assert all(marker in observer for marker in (b'PS5 MAIN TRANSITION',b'getStackTrace',b'isLanguageApply',b'unchangedFromTransition='))
- assert observer==(ROOT/'build/startup-host-066/ClientStartup25$StartupObserver.class').read_bytes()
+ assert observer==(ROOT/'build/startup-host-067/ClientStartup25$StartupObserver.class').read_bytes()
  assert b'PS5 startup observer unavailable;continuing original Main' in fixture
  with zipfile.ZipFile(io.BytesIO(z.read(prefix+'assets/java25/client-probe.jar'))) as launch_jar:
   assert launch_jar.read('ClientStartup25.class')==fixture
@@ -93,6 +93,15 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  al_boundary=json.loads(z.read(prefix+'assets/java25/openal-audit.json'))['startup_boundaries']
  assert al_boundary['original_archive_unchanged']is True
  assert al_boundary['replaced_members']==['alc.cpp.o','helpers.cpp.o']
+ for field,file in [('source_sha256','ps5_backend.cpp'),('header_sha256','ps5_backend.h')]:assert al_boundary['speaker_backend'][field]==sha((ROOT/'client/ports/openal'/file).read_bytes())
+ assert al_boundary['speaker_backend']['object_sha256']==sha((ROOT/'build/openal-startup-boundary-ps5/ps5_backend.cpp.o').read_bytes())
+ assert b'PS5 OpenAL AudioOut' in z.read(prefix+'eboot.bin') and b'PS5 Speakers' in z.read(prefix+'eboot.bin')
+ assert b'audio-enabled-067.txt' in fixture and b'options.before-audio067.txt' in fixture
+ assert b'prepareAudio' in fixture and b'soundCategory_master:0.5' in fixture
+ dynamic=subprocess.check_output([str(LLVM/'llvm-readelf'),'--dynamic',str(elf)],text=True)
+ assert 'Shared library: [libSceAudioOut.sprx]' in dynamic
+ undefined=subprocess.check_output([str(LLVM/'llvm-nm'),'--undefined-only',str(elf)],text=True)
+ for api in ['sceAudioOutInit','sceAudioOutOpen','sceAudioOutOutput','sceAudioOutClose']:assert any(line.split()[-1]==api for line in undefined.splitlines())
  assert al_boundary['cwd_discovery_repair']['unit_object_sha256']==sha((ROOT/'build/openal-startup-boundary-ps5/helpers.cpp.o').read_bytes())
  assert al_boundary['header_sha256']==sha((ROOT/'client/ports/openal/startup_boundary.hpp').read_bytes())
  assert al_boundary['original_archive_sha256']==sha((ROOT/'build/openal-ps5/libopenal.a').read_bytes())
@@ -100,7 +109,7 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  assert al_boundary['output_sha256']==sha((ROOT/'build/openal-startup-boundary-ps5/openal.o').read_bytes())
  assert b'PS5 OpenAL boundary id='in z.read(prefix+'eboot.bin')
  al_trace=json.loads(z.read(prefix+'assets/java25/openal-audit.json'))['startup_trace']
- assert al_trace['backend_selection_changed']is False
+ assert al_trace['backend_selection_changed']is True
  assert al_trace['local_data_directory_default']=='/download0/mc-client' and al_trace['explicit_local_path_honored']is True
  assert b'ALSOFT_LOCAL_PATH'in z.read(prefix+'eboot.bin')
  assert al_trace['source_sha256']==sha((ROOT/'client/startup/openal_trace_env.c').read_bytes())
@@ -123,7 +132,7 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  assert symbols.get('client_wsi_videoout_prepare')
  bridge_refs=subprocess.check_output([str(LLVM/'llvm-nm'),'--undefined-only',str(ROOT/'build/client-gpu/gpu-bridge.o')],text=True)
  assert 'client_wsi_videoout_prepare' in bridge_refs
- assert b'Client066 native stderr stream active before embedded constructors' in z.read(prefix+'eboot.bin')
+ assert b'Client067 native stderr stream active before embedded constructors' in z.read(prefix+'eboot.bin')
  assert b'diagnostic failure is nonfatal' in z.read(prefix+'eboot.bin')
  main_refs=subprocess.check_output([str(LLVM/'llvm-nm'),'--undefined-only',str(work/'main.o')],text=True)
  assert 'dup2' not in main_refs and 'fdopen' in main_refs
@@ -164,7 +173,7 @@ with zipfile.ZipFile(package)as z:
  assert json.loads(z.read('PPSA99874/assets/java25/opengl-provider-audit.json'))['objects_sha256']==validation['opengl_provider_audit']['objects_sha256']
  assert json.loads(z.read('PPSA99874/assets/java25/opengl-jni-audit.json'))['object_sha256']==validation['opengl_jni_audit']['object_sha256']
  assert sha(z.read('PPSA99874/assets/java25/ports/lwjgl-3.4.3-ps5-modules.jar'))==validation['module_platform_audit']['output_sha256']
- assert (work/'classes/ClientStartup25.class').read_bytes()==(ROOT/'build/startup-host-066/ClientStartup25.class').read_bytes()
+ assert (work/'classes/ClientStartup25.class').read_bytes()==(ROOT/'build/startup-host-067/ClientStartup25.class').read_bytes()
  assert b'OSMesa'in z.read('PPSA99874/assets/java25/classes/ClientStartup25.class')
  assert b'ps5clientgl'in z.read('PPSA99874/assets/java25/classes/ClientStartup25.class')
  assert sha((ROOT/'dist/milestones/Client_OpenGL_Provider-01.000.029/PPSA99874-full-local.zip').read_bytes())=='ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685'
@@ -216,7 +225,7 @@ assert failure_hash(ROOT/'dist/failures/Client_Original_Startup-01.000.058/PPSA9
 assert failure_hash(ROOT/'dist/failures/Client_Original_Startup-01.000.059/PPSA99874-full-local.zip')=='53ce7cc8ff6c83ebec57044951bc44707cbce1322c6188d5e3585745c4857c09'
 assert failure_hash(ROOT/'dist/failures/Client_Original_Startup-01.000.060/PPSA99874-full-local.zip')=='899252e805cff1031446cdcceaf6e44c331545601599d7e5b4e04c737502873c'
 assert failure_hash(ROOT/'dist/failures/Client_Original_Startup-01.000.061/PPSA99874-full-local.zip')=='d1a338b5e7c3d542bf5d4be974e3780c8ea3260ccd812939ea290dd755629429'
-print('PASS066 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,unchanged023coreimage/otherlibrarybytes except verifiedGNUbuildIDs plus exact0118HotSpot,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. Menu confirmation recorded separately;gameplay/stability validation pending. SHA256',sha(package.read_bytes()))
+print('PASS067 actual package/CRC/signatures,all54 original JARs/all5147 original asset SHA1s,unchanged023coreimage/otherlibrarybytes except verifiedGNUbuildIDs plus exact0118HotSpot,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. Menu confirmation recorded separately;gameplay/stability validation pending. SHA256',sha(package.read_bytes()))
 
 assert failure_hash(ROOT/'dist/failures/Client_Original_Startup-01.000.054/PPSA99874-full-local.zip')=='4f42a513d81e89777275368e0d5ad36178d0472827998e5a1a59260f7ac6cbbc'
 
@@ -229,3 +238,5 @@ with controls063.open('rb')as stream:assert hashlib.file_digest(stream,'sha256')
 with (ROOT/'dist/failures/Client_Original_Startup-01.000.064/PPSA99874-full-local.zip').open('rb')as stream:assert hashlib.file_digest(stream,'sha256').hexdigest()=='87b09e6d64b86f2f0741b12405abf10e165256e2551b34d19fe2ac8ffac3f4c9'
 
 with (ROOT/'dist/accepted/Client_World-01.000.065/PPSA99874-full-local.zip').open('rb')as stream:assert hashlib.file_digest(stream,'sha256').hexdigest()=='a85c900937525c04cbae29c1a3f3018e3341e07f0ae6a85a14c733564ad3461a'
+
+with (ROOT/'dist/accepted/Client_Playable-01.000.066/PPSA99874-full-local.zip').open('rb')as stream:assert hashlib.file_digest(stream,'sha256').hexdigest()=='0b549873222b155fd21b4a441535390660598096f3f32c27081a963d00ea7802'

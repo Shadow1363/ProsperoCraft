@@ -52,11 +52,11 @@ The runtime project has these **console-tested Java milestones** on PS5 firmware
 | **LAN endurance** | Actual IPv6 link-local LAN and 60-second external TCP/UDP workloads | [LAN_Endurance_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/LAN_Endurance_Probe) |
 | **Dependencies / JNI** | Manifest-linked JARs, services/resources, system class path and real resident JNI calls | [Dependency_Probe](https://github.com/mateo-cogeanu/ps5-java25-homebrew/tree/main/Dependency_Probe) |
 
-The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Development 066 is a guarded C1 candidate; PS5 JIT performance and stability remain unvalidated.
+The runtime now has **nine passing console milestones**, including inbound IPv4, verified HTTPS, IPv6 loopback/link-local LAN, 60-second external load, manifest-linked dependencies, actual system class-path loading and resident JNI calls. The first Minecraft-specific bootstrap probe also now passes on PS5. Frozen passing builds use interpreter mode. Client066 now has a playable PS5 C1 performance report; full endurance and lifecycle validation remain pending.
 
 ProsperoCraft brings Minecraft Java Edition client and server development to PS5,
 powered by the native OpenJDK25 port. Vanilla,Fabric and Paper servers have
-console playtests; the original client now reaches its menu on PS5.
+console playtests; the original client now has playable worlds on PS5.
 [Project artwork](assets/branding/README.md).
 
 ## Product goal
@@ -66,6 +66,15 @@ native Java25onPS5:responsive controls,smooth rendering,working audio,world game
 saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
 Those full-client features still require actual exact-build console validation.
 
+## Development067 — native speaker audio
+
+A new OpenALPS5backend sends the real game mix to AudioOut at48kHz/stereoS16.
+It retains066's guardedC1 and input fixes,and backs up/unmutes the old launcher
+volume defaults once. Actual mixer/output/error/lifecycle tests pass on host;
+**audibility and stability onPS5 remain pending**. Original gameJARs/assets stay
+unchanged. [Audio candidate/test guide](docs/client-audio-067.md) ·
+[Current handoff](docs/handoff-prosperocraft-client067.md).
+
 ## Playable world release — 01.000.066
 
 The user confirms playable worlds,major responsiveness improvement and roughly
@@ -73,17 +82,17 @@ The user confirms playable worlds,major responsiveness improvement and roughly
 [Release and setup](docs/releases/client-playable-066.md). Sound remains absent;
 this is not a formal full-client ALLPASS or a measured FPS/hardware-utilization claim.
 
-## Development066 — compile Java and repair captured input
+## Implemented in066 — compile Java and repair captured input
 
-The next candidate enables guarded C1 level1 compilation with one compiler and
+The066build enables guarded C1 level1 compilation with one compiler and
 an actual compiled-kernel correctness gate before Minecraft. It also supplies the
 missing SDL software-relative mouse callback so the temporary mapping can switch
 to WASD and right-stick look. Heap/runtime/game JARs/assets stay unchanged.
 
-Host checks exercise the real SDL failure/fix and C1 gate;actualPS5speed,movement,
-worldloading and stability remain pending. This is the first compilation-focused
-client step,not a full-hardware-utilization or FPS claim. The published065world
-release remains unchanged. [Candidate and test guide](docs/client-performance-066.md) ·
+Host checks exercise the real SDL failure/fix and C1 gate. The user subsequently
+confirmed playable worlds and fast loading on exact066; full stability remains
+pending. This does not establish a full-hardware-utilization or measured FPS claim.
+The published065world release remains available as an earlier checkpoint. [Candidate and test guide](docs/client-performance-066.md) ·
 [Current handoff](docs/handoff-prosperocraft-client066.md).
 
 ## First world loaded — 01.000.065

@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-26",
+  "app_version": "01.000.067",
+  "title_id": "PPSA99874",
+  "console_result": "PENDING: no PS5 sound result yet",
+  "package_sha256": "95f0af47359b48493afab6e9af23e81de1097796332c4b32e64d03123030397f",
+  "native_elf_sha256": "cabc9463789f50c2c8bb2459d2eeef7d5ebe1d9a266056c8ccddaf3c81d0e240",
+  "runtime_commit": "44fdf26ccb74cf8dd9127f1256b85416856981de",
+  "runtime_implementation_changed": false,
+  "game_jars_modified": false,
+  "original_jars_verified": 54,
+  "original_assets_verified": 5147,
+  "audio": "Actual pinned OpenAL mixer -> PS5 AudioOut; SYSTEM/main; 48000Hz stereoS16; 256 frames; private ps5 backend; output-paced worker",
+  "host_checks": {
+    "actual_openal_ps5_backend": "PASS: ASan/UBSan backend/sink/driver, real44100Hz mono440Hz mix/resample to48000Hz stereoS16, channel balance,64bytealignment,threecycles,pause/resume,init/open failure,output disconnect",
+    "audio_options_migration": "PASS: legacy zeros/obsolete device, exact backup, CRLF/custom volumes, new profile, later mute preservation",
+    "existing_startup": "PASS",
+    "private_audio_config": "PASS: missing/empty default ps5, explicit override, global env untouched",
+    "original_openal_boundaries": "PASS: actual pinned OpenAL baseline and filesystem regression"
+  },
+  "target_checks": "PASS native compile/link/SELF, required AudioOut dynamic import and four APIs, full package CRC, JAR/asset pins, exact runtime image and native audit checks, staged constructors, preserved previous accepted packages",
+  "previous_playable_build": {
+    "version": "01.000.066",
+    "sha256": "0b549873222b155fd21b4a441535390660598096f3f32c27081a963d00ea7802",
+    "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066"
+  },
+  "pending": [
+    "Actual PS5 menu/music/world sound",
+    "Stereo orientation, latency and pops/clicks",
+    "Pause/close/reopen and extended play",
+    "Save/reload/endurance and further controller polish"
+  ],
+  "public_audio_release": false,
+  "raw_logs_published": false,
+  "relink_checks": {
+    "preserved_inputs": "PASS exact candidate ELF reproduced: cabc9463789f50c2c8bb2459d2eeef7d5ebe1d9a266056c8ccddaf3c81d0e240",
+    "corresponding_source": "PASS all190 target build steps including new PS5 backend; compatible replacement object linked with private getenv and original shim",
+    "source_rebuilt_elf_sha256": "ef53c7bea20b8e70daf6fad11f68ca9f4a76c328db18c84d178cf061082458f8",
+    "replacement_console_acceptance": "PENDING; replacement ELF differs from original candidate and is not the install package"
+  }
+}

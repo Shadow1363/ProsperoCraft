@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-26",
+  "tag": "Client_Playable-v01.000.066",
+  "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/tag/Client_Playable-v01.000.066",
+  "published_at": "2026-10-26T11:50:54Z",
+  "source_commit": "57db822bfa506bce62db5106f3ce8aeee160221f",
+  "is_draft": false,
+  "is_prerelease": false,
+  "assets": [
+    {
+      "name": "client066-install-manifest.json",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Playable-v01.000.066/client066-install-manifest.json",
+      "bytes": 2186021,
+      "sha256": "528dae8b79fbacb1ce6b137eee00db647f26cfec2aa2fe19d1dbf7df3d36223c",
+      "public_download_verified": true
+    },
+    {
+      "name": "client066-openal-source-relink.zip",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Playable-v01.000.066/client066-openal-source-relink.zip",
+      "bytes": 88264397,
+      "sha256": "c6318e504ef118c923db4e7b3398e5233124ceb81277516ef158c0e43f703802",
+      "public_download_verified": true
+    },
+    {
+      "name": "client066-validation.json",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Playable-v01.000.066/client066-validation.json",
+      "bytes": 2674,
+      "sha256": "76b5cc9912526be13169c8cc5a42c865d19dc00dc7d074dc010b7adb192585f6",
+      "public_download_verified": true
+    },
+    {
+      "name": "ProsperoCraft-01.000.066-playable-app-only.zip",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Playable-v01.000.066/ProsperoCraft-01.000.066-playable-app-only.zip",
+      "bytes": 97177979,
+      "sha256": "00b3d5dfcc927c47b0481146715a9da72215f2219df1c7678401c79c62bb80b6",
+      "public_download_verified": true
+    },
+    {
+      "name": "provision_client_menu.py",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Playable-v01.000.066/provision_client_menu.py",
+      "bytes": 4836,
+      "sha256": "3ba252d8cc8183c39eaf0959381917ad6dc6d0912fe52bba643f5cec747a7a9d",
+      "public_download_verified": true
+    },
+    {
+      "name": "README-client066.md",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Playable-v01.000.066/README-client066.md",
+      "bytes": 6358,
+      "sha256": "02cd227b9e445a3a6c0129980b7b66da1c5b100b1e597aa12579fabec397a05e",
+      "public_download_verified": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "url": "https://github.com/mateo-cogeanu/ps5-minecraft-java/releases/download/Client_Playable-v01.000.066/SHA256SUMS",
+      "bytes": 581,
+      "sha256": "656ee7bd72a67da879bcdf6ec18454d945c2db96ddfca4b705bcad7b183cebcb",
+      "public_download_verified": true
+    }
+  ],
+  "downloaded_kit_relink": "ExactacceptedELFa32603dffb9d86448fac0b22917e9eac1220b79c4ef90439f625188ac148c437 reproducedfromdownloadedrelocatedkit",
+  "store_changed": false,
+  "scope": "Humanplayableworld/majorresponsiveness/~30secobservedstartup;nospeaker/save/endurance/FPS/fullhardwareguarantee"
+}

@@ -1,28 +1,30 @@
 {
-  "stage": "Client066 guardedC1 and SDLsoftwaremousecapture",
+  "stage": "Client067 real OpenAL PS5 speaker backend",
   "date": "2026-10-26",
   "title_id": "PPSA99874",
-  "app_version": "01.000.066",
-  "console": "PENDING066compiledkernel/menustart/worldload/speed/movement.065worldentryandpunchinghumanconfirmed,severelag/movementfailureknown.",
-  "previous_accepted": "Client_Menu-v01.000.062",
-  "native_changes": "SDL_SetRelativeMouseModecallbackforsticksoftwaremouse;SDLownscapture/focus/state,newactualSDLmodepathhostregression",
+  "app_version": "01.000.067",
+  "console": "PENDING067speakeroutput/channelbalance/clicks/music/worldsound/teardown.066playableperformancehumanacceptedandpublished.",
+  "previous_accepted": "Client_Playable-v01.000.066",
+  "native_changes": "PrivateOpenALPS5factory/backend,pacedAudioOutSYSTEM/main48kHzstereoS16/256frames,realOpenALrenderSamples,joinbeforeclose,error-disconnect;originalsource/archive retained",
   "menu_policy": "Supported inactivityFpsLimit JSON value minimized,original options backed up once as options.before-menu063.txt;all other option bytes retained. Removes AFK timer cap;not a general frame-rate/GC/JIT fix.",
   "runtime_implementation_modified": false,
   "game_jar_modified": false,
   "java_heap_max_mib": 512,
   "jit": "MixedC1level1,onecompiler,thresholdscale4,2MiBper-compilationarenalimit,16MiBcodecache;actualcurrentrunkernelcompile/checksumgatebeforeMain",
   "pending": [
-    "ActualPS5C1warmupandworldspeed/stability",
-    "Movementandcameraaftercapturefix",
-    "Frame/tick/loadperformance,save-reload/audio/endurance"
+    "ActualPS5audibility/mixerthread/pacing",
+    "Menuandworldsound/music/channelbalance",
+    "Audiofailurebehaviorandclose/reopen",
+    "Save/reload/audioendurance"
   ],
   "controlify_direction": "User prefers upstream Controlify later on compatible Fabric/NeoForge client;not installed or validated onPS5. Existing raw SDL gamepad driver retained;no double input when handing off.",
-  "package_sha256": "0b549873222b155fd21b4a441535390660598096f3f32c27081a963d00ea7802",
-  "host_checks": "PASSactualguardedC1kernel40960results+negativecontrols;actualSDLcapturefailure/fixASan/UBSan;existingadapter/launch/observer/logging/menu-policychecks",
-  "target_checks": "PASSfullnativecompile/link/SELF/packageCRC,JITgateclass/flags,SDLsources,all54JARs/5147assets,exactcore/runtimeauditsandaccepted065preservation",
-  "previous_console_evidence": "docs/validation/client064-startup-failure-2026-10-26.json",
+  "package_sha256": "95f0af47359b48493afab6e9af23e81de1097796332c4b32e64d03123030397f",
+  "host_checks": "PASS actual OpenAL mixer with PS5 backend and ASan/UBSan AudioOut fixtures; resampling/stereo/alignment/lifecycle/pause/error controls; one-time Java audio migration; existing startup and private config/boundary regressions",
+  "target_checks": "PASS native compile/link/SELF; final full-package check recorded in client067 validation",
+  "previous_console_evidence": "docs/validation/client066-playable-reports-2026-10-26.json",
   "observer_samples": 390,
   "compressed_oops": false,
   "runtime_patch": "0118-ps5-uncompressed-direct-heap.patch",
-  "runtime_commit": "44fdf26ccb74cf8dd9127f1256b85416856981de"
+  "runtime_commit": "44fdf26ccb74cf8dd9127f1256b85416856981de",
+  "audio_policy": "One-timebacked-upunmutelegacyzero master0.5/music0.25;customnonzerovolumes/devices/laterusereditsretained. ALDEFAULTps5,explicitnonemptydriveroverridehonored."
 }

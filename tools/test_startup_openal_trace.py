@@ -33,7 +33,7 @@ int main(void){
  unsetenv("PS5_OPENAL_TRACE_TEST_OTHER");assert(!client_startup_openal_getenv("PS5_OPENAL_TRACE_TEST_OTHER"));
  assert(setenv("PS5_OPENAL_TRACE_TEST_OTHER","unchanged",1)==0);
  assert(strcmp(client_startup_openal_getenv("PS5_OPENAL_TRACE_TEST_OTHER"),"unchanged")==0);
- assert(client_startup_openal_getenv("ALSOFT_DRIVERS")==getenv("ALSOFT_DRIVERS"));
+ unsetenv("ALSOFT_DRIVERS");assert(strcmp(client_startup_openal_getenv("ALSOFT_DRIVERS"),"ps5")==0);assert(!getenv("ALSOFT_DRIVERS"));assert(setenv("ALSOFT_DRIVERS","",1)==0);assert(strcmp(client_startup_openal_getenv("ALSOFT_DRIVERS"),"ps5")==0);assert(setenv("ALSOFT_DRIVERS","null",1)==0);assert(client_startup_openal_getenv("ALSOFT_DRIVERS")==getenv("ALSOFT_DRIVERS"));
 }
 ''')
     subprocess.run(['clang', '-std=c11', '-fsanitize=address,undefined', str(root/'shim.c'), str(ROOT/'client/startup/openal_trace_env.c'), '-o', str(root/'shim')], check=True)

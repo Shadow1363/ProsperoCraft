@@ -19,7 +19,7 @@ parser.add_argument('--render', action='store_true', help='Build client010 graph
 parser.add_argument('--present', action='store_true', help='Build client011 standalone direct presentation candidate')
 parser.add_argument('--sdl', action='store_true', help='Build client014 SDL window/input candidate')
 parser.add_argument('--runtime-shader', action='store_true', help='Build client023 runtime GLSL compiler candidate')
-parser.add_argument('--startup',action='store_true',help='Build066 original Minecraft Main startup with all accepted native components')
+parser.add_argument('--startup',action='store_true',help='Build067 original Minecraft Main startup with all accepted native components')
 parser.add_argument('--native-bootstrap',action='store_true',help='Build026 genuine libffi/OpenAL native acceptance')
 parser.add_argument('--opengl-bootstrap',action='store_true',help='Build029 genuine Mesa/OpenGL acceptance')
 parser.add_argument('--spvc-bootstrap',action='store_true',help='Build036 genuine SPIRV-Cross translation/reflection acceptance')
@@ -32,7 +32,7 @@ if args.startup or args.opengl_bootstrap or args.stb_bootstrap or args.freetype_
 if args.startup or args.native_bootstrap:args.runtime_shader=True
 runtime = args.runtime_workspace.resolve()
 variant="spvc_bootstrap" if args.spvc_bootstrap else "vma_bootstrap" if args.vma_bootstrap else "freetype_bootstrap" if args.freetype_bootstrap else "stb_bootstrap" if args.stb_bootstrap else "opengl_bootstrap" if args.opengl_bootstrap else "startup" if args.startup else "native_bootstrap" if args.native_bootstrap else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.036" if args.spvc_bootstrap else "01.000.035" if args.vma_bootstrap else "01.000.033" if args.freetype_bootstrap else "01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.066" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+version="01.000.036" if args.spvc_bootstrap else "01.000.035" if args.vma_bootstrap else "01.000.033" if args.freetype_bootstrap else "01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.067" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -182,12 +182,12 @@ if args.native_bootstrap:
   # observes a fixed upstream trace level;global environment/backend unchanged.
   traced=work/'startup-openal.o';trace_env=work/'startup-openal-trace-env.o'
   from build_openal_startup_boundaries import build as build_alc_boundaries
-  boundary_object,boundary_audit=build_alc_boundaries()
+  boundary_object,boundary_audit=build_alc_boundaries(speakers=True)
   al_audit['startup_boundaries']=boundary_audit
   subprocess.run(['/opt/homebrew/opt/llvm/bin/llvm-objcopy','--redefine-sym','getenv=client_startup_openal_getenv',str(boundary_object),str(traced)],check=True)
   subprocess.run(['/opt/homebrew/opt/llvm/bin/clang','-target','x86_64-sie-ps5','-O2','-fPIC','-fvisibility-nodllstorageclass=default','-isysroot',str(ROOT/'.tools/graphics-sdk'),'-c',str(ROOT/'client/startup/openal_trace_env.c'),'-o',str(trace_env)],check=True)
   al_objects=[str(traced),str(al_lifecycle),str(trace_env)]
-  al_audit['startup_trace']={'scope':'Startup-private OpenAL trace3 and explicit app-local data fallback;configured nonempty localpath honored,other lookups/global getenv/backend unchanged','source_sha256':hashlib.sha256((ROOT/'client/startup/openal_trace_env.c').read_bytes()).hexdigest(),'private_object_sha256':hashlib.sha256(traced.read_bytes()).hexdigest(),'shim_object_sha256':hashlib.sha256(trace_env.read_bytes()).hexdigest(),'original_object_sha256':hashlib.sha256(al_object.read_bytes()).hexdigest(),'output':'existing native-stderr.log;native trace timing/coverage pending PS5','backend_selection_changed':False,'local_data_directory_default':'/download0/mc-client','explicit_local_path_honored':True}
+  al_audit['startup_trace']={'scope':'Startup-private trace3,explicit local-data fallback and real PS5 speaker backend default;nonempty driver/localpath overrides honored,globalgetenv unchanged','source_sha256':hashlib.sha256((ROOT/'client/startup/openal_trace_env.c').read_bytes()).hexdigest(),'private_object_sha256':hashlib.sha256(traced.read_bytes()).hexdigest(),'shim_object_sha256':hashlib.sha256(trace_env.read_bytes()).hexdigest(),'original_object_sha256':hashlib.sha256(al_object.read_bytes()).hexdigest(),'output':'existing native-stderr.log;native trace timing/coverage pending PS5','backend_selection_changed':True,'default_backend':'ps5/PS5 Speakers','local_data_directory_default':'/download0/mc-client','explicit_local_path_honored':True}
  spec['resident_libraries'].append({'name':'ps5openal','objects':al_objects});(java/'openal-audit.json').write_text(json.dumps(al_audit,indent=2)+'\n')
  helper=work/'callback-helper-raw.o';headers=runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_include/java.base'
  subprocess.run(['/opt/homebrew/opt/llvm/bin/clang','-target','x86_64-sie-ps5','-O2','-fPIC','-fvisibility-nodllstorageclass=default','-isysroot',str(ROOT/'.tools/graphics-sdk'),'-I'+str(headers),'-I'+str(headers/'freebsd'),'-c',str(ROOT/'client/native_bootstrap/callback_probe.c'),'-o',str(helper)],check=True)

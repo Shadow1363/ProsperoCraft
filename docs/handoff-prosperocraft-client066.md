@@ -93,3 +93,15 @@ SHA256 `0b549873222b155fd21b4a441535390660598096f3f32c27081a963d00ea7802`.
 Symbols `build/client-startup-probe/bootstrap-01.000.066-symbols.elf`.
 Allhost/native/packagecheckspass;actualPS5speed/movement/stabilitypending.
 Source/checkhashes:docs/validation/client066-build-2026-10-26.json.
+
+## Superseding066acceptance/release
+
+Humanconfirmsblazinglyfast/playableworld,startup~30sec,worldloadingnice;requests
+releaseandsoundnextbeforefurtherinstructions.ActualreportsC1warmupOK40960,
+playerjoin2,noOOM;laterStopping/Mainreturnrecorded(notautomaticcrashorclean
+lifecycleacceptance). Exactaccepted066ZIP/symbols/status/build/humanrecords
+independentCOWdist/accepted/Client_Playable-01.000.066. FullGitHubrelease
+Client_Playable-v01.000.066tag57db822;7assetsdownloadedandrelocatedkitexactELF.
+Source/render/runtimeunchanged;humanresultnotbenchmark/FPS/fullhardware/ALLPASS/
+save/audio/enduranceguarantee. Current067realOpenALAudioOutbackend+backed-up
+unmute,readhandoff067. NoStorework. Preserve066asworkingfallback.

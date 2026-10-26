@@ -10,7 +10,7 @@ import org.lwjgl.system.MemoryUtil;
 public final class ClientStartup25 {
  public static native void checkpoint(String text);
  public static native void nativeSnapshot(long elapsedMillis,int phase);
- private static void stage(String text){checkpoint("MC Startup066: "+text);}
+ private static void stage(String text){checkpoint("MC Startup067: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -32,6 +32,22 @@ public final class ClientStartup25 {
     Files.move(temporary,options,StandardCopyOption.REPLACE_EXISTING);
    }
   }
+ }
+ public static void prepareAudio(Path work)throws IOException{
+  Path marker=work.resolve("audio-enabled-067.txt");if(Files.exists(marker))return;
+  Path options=work.resolve("options.txt");String original=Files.readString(options,StandardCharsets.UTF_8);
+  String desired=original.replaceAll("(?m)^soundCategory_master:0(?:\\.0+)?$","soundCategory_master:0.5")
+   .replaceAll("(?m)^soundCategory_music:0(?:\\.0+)?$","soundCategory_music:0.25");
+  if(!original.lines().anyMatch(line->line.startsWith("soundCategory_master:")))desired+=(desired.endsWith("\n")?"":"\n")+"soundCategory_master:0.5\n";
+  if(!original.lines().anyMatch(line->line.startsWith("soundCategory_music:")))desired+=(desired.endsWith("\n")?"":"\n")+"soundCategory_music:0.25\n";
+  // Remove only the obsolete project null-backend device selection,if persisted.
+  desired=desired.replaceAll("(?m)^soundDevice:\"No Output\"$","soundDevice:\"\"");
+  if(!desired.equals(original)){
+   Path backup=work.resolve("options.before-audio067.txt");if(!Files.exists(backup))Files.copy(options,backup);
+   Path temporary=work.resolve("options.audio067.tmp");Files.writeString(temporary,desired,StandardCharsets.UTF_8);
+   Files.move(temporary,options,StandardCopyOption.REPLACE_EXISTING);
+  }
+  Files.writeString(marker,"AudioOut speaker candidate067:legacy zero master/music unmuted once;backup options.before-audio067.txt. Later user volume changes preserved.\n",StandardCharsets.UTF_8,StandardOpenOption.CREATE_NEW);
  }
  /** Real LWJGL system allocator,including paired grow/free and alignment. */
  public static String verifyNativeAllocation(){
@@ -140,7 +156,7 @@ public final class ClientStartup25 {
   public void close(){synchronized(console){running=false;}worker.interrupt();}
  }
  public static void main(String[] args)throws Throwable{
-  Path work=Path.of("/download0/mc-client"),assets=Path.of("/app0/assets/java25/game-assets");prepareWork(work);
+  Path work=Path.of("/download0/mc-client"),assets=Path.of("/app0/assets/java25/game-assets");prepareWork(work);prepareAudio(work);
   if(!Files.isRegularFile(assets.resolve("indexes/34.json")))throw new IOException("Packaged original asset index missing");
   PrintStream previousOut=System.out,previousErr=System.err;
   PrintStream console=new PrintStream(new FileOutputStream(Path.of("/download0/java25-exceptions.log").toFile(),false),true,StandardCharsets.UTF_8);
