@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Audit the exact082 installable launcher ZIP and accompanying relink release."""
 from pathlib import Path
-import hashlib,json,zipfile,tarfile,io
+import hashlib,json,zipfile,tarfile,io,subprocess
 r=Path(__file__).resolve().parents[1];out=r/'dist/releases/client082'
 sha=lambda data:hashlib.sha256(data).hexdigest()
 record=json.loads((r/'docs/validation/client082-launcher-build-2026-10-26.json').read_text())
@@ -11,7 +11,7 @@ with zipfile.ZipFile(app)as z:
  assert z.testzip()is None
  names=z.namelist();assert all(n.startswith('PPSA99874/')for n in names)
  assert all('..' not in n.split('/')and not n.startswith('/')for n in names)
- assert z.read('PPSA99874/sce_sys/param.json')==(r/'sce_sys/param.json').read_bytes()
+ assert z.read('PPSA99874/sce_sys/param.json')==subprocess.check_output(['git','show','01.000.082:sce_sys/param.json'],cwd=r)
  param=json.loads(z.read('PPSA99874/sce_sys/param.json'))
  assert param['titleId']=='PPSA99874'and param['contentVersion']=='01.000.082'and param['downloadDataSize']==4096
  assert z.read('PPSA99874/sce_sys/icon0.png')==(r/'assets/branding/icon0.png').read_bytes()
