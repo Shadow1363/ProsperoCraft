@@ -44,8 +44,11 @@
   "catalog_record": "apps/PPSA99874.json",
   "catalog_local_check": "144valid records;0errors/warnings",
   "catalog_online_verify": "Release SHA256,source manifest contentVersion01.000.082 and pinned icon verified;0errors/warnings",
-  "catalog_status": "Submission created; remote CI/merge/deploy in progress. See live PR/API for subsequent state.",
+  "catalog_status": "PR811OPEN; submission validation,release scan andoffline testsPASS. Bot deferred to maintainer; reviewers requested automatically. Store page still Coming soon,not yet propagated.",
   "console_validation": "Exact082 quit/relaunch,input,persistence,audio/performance regression pending; no formal ALL PASS inferred",
   "runtime_publication": "Sync succeeded,Everything up-to-date; no runtime source changes",
-  "preservation": "Exact082ZIP/symbols additionally retained locally in dist/published/ProsperoCraft-01.000.082; older accepted/frozen artifacts unchanged"
+  "preservation": "Exact082ZIP/symbols additionally retained locally in dist/published/ProsperoCraft-01.000.082; older accepted/frozen artifacts unchanged",
+  "automerge_reason": "Bot says release not newest. GitHub releases/latest returns01.000.082 but releases?per_page=20 is unsorted,with065first and082fourth;catalog.updates.newest_release takes first. Evidence added to PR body;older releases left intact.",
+  "external_merge_permissions": "Publishing account has pull=true,push=false on upstream catalog;maintainer merge required.",
+  "live_store_page": "https://prosperostore.net/app/PPSA99874/"
 }

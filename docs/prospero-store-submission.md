@@ -75,3 +75,11 @@ Exact082PS5quit/relaunch,input,checkbox/world persistence and audio/performance
 regression checks remain pending. The publication request does not establish
 a formal ALL PASS or replace frozen milestones. The earlier reservation-only
 paragraphs above describe historical state and are superseded by this submission.
+
+Final remote check: submission validation, static release scan and offline tests
+all PASS. PR811 is OPEN and awaiting maintainer review; the live Store page still
+shows Coming soon. The bot declined auto-merge because its first-release API
+ordering selects older065, despite /releases/latest correctly returning082 and
+082having the newest publication timestamp. Evidence is in the PR body. Upstream
+push permission is unavailable; reviewers were requested by its workflow. No
+older release was removed/replaced and no catalog automation was bypassed.
