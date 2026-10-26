@@ -53,8 +53,9 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Sound** | The user confirms very good game sound on exact build074. |
 | **Validation ahead** | Save/reload, controller polish, measured frame pacing and extended play remain to be checked. |
 
-Development076 adds the user-selected app and launcher icons to the native
-launcher with Microsoft device-code sign-in, awaiting PS5 validation. [Launcher preview and test guide](docs/client-launcher-076.md).
+Development077 shows the native launcher before Java account startup and defers
+Minecraft initialization until Play. PS5 validation is pending.
+[Launcher architecture and test guide](docs/client-launcher-077.md).
 
 Development074 now has positive PS5 sound and smoothness feedback, with no active quality caps.
 See the [freeze investigation and candidate guide](docs/client-audio-pacing-074.md).

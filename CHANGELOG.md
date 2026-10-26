@@ -6,6 +6,26 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client077 shows the native launcher before Java/game startup
+
+The user reports the GUI never appears and requests separation from Minecraft
+initialization. The old path invoked the native screen after VM startup, artifact
+scan, native libraries and C1 warmup. Current console logs were unreachable, so
+no specific crash location is established. This fixes the confirmed ordering.
+
+A native UI thread presents its first frame before VM creation and stays responsive
+while account services prepare. A bounded mutex mailbox carries public UI text and
+ordered controller edges; JNI remains on the original JVM startup thread. Artifact
+verification, game native loads, C1 warmup and Minecraft Main begin only after
+Play/demo selection and successful native display cleanup/thread join. Java boot
+failures retain a native failure screen for log collection.
+
+User icons, MSA flow and074audio/performance settings are retained. Preserve exact
+075/076candidates and074accepted bytes. Host native/bridge/order/auth tests and
+build verification are recorded separately from pending PS5 GUI/MSA/handoff tests.
+No new release or Store work. [Guide](docs/client-launcher-077.md) ·
+[Build record](docs/validation/client077-native-first-build-2026-10-26.json).
+
 ## 2026-10-26 — Client076 user-supplied app and launcher icons
 
 Uses the user's `ProsperoCraft2.png` for the packaged512x512 app icon and

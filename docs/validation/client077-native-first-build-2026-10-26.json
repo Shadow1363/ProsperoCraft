@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.077",
+  "title_id": "PPSA99874",
+  "package_sha256": "7cee18c872119b502d2d78427819ae5ad5f9715dada6289c2e75d969f08029eb",
+  "native_elf_sha256": "b46524da28a6644284c4c9d2976885cfce41813950c87d74536a520fe47c62f8",
+  "runtime_commit": "de339155ba78e54be1ddc903e7df0904c866fbdb",
+  "trigger": "Human reports launcher GUI never appears on previous candidate; exact075/076 version unspecified. Requires separation from Minecraft graphics.",
+  "current_console_reports": "Unavailable at previous LAN address; no exact current-run crash location established",
+  "confirmed_source_issue": "Previously waited for VM/artifact scan/native setup/C1 warmup before native GUI",
+  "implementation": [
+    "Native UI thread presents first frame before VM creation; original startup thread retains core constructors/early AudioOut and JNI",
+    "Bounded64-event mutex mailbox and12 bounded public UI fields; UI thread never uses JNIEnv",
+    "Artifact scan invoked by new gamePreflight JNI callback only after Play and successful display cleanup/join",
+    "LWJGL configuration/native library loads/C1 warmup/original Main deferred until after selection",
+    "Java boot failure publishes native failure screen; raw auth secrets excluded"
+  ],
+  "host_checks": [
+    "Actual renderer presents with no JVM and polls controller while account initialization is blocked",
+    "Ordered button edges, retained native failure screen, cleanup fault cases",
+    "Actual JNI bridge with fixture table: callbacks on caller thread, launch waits for close/unmap/release/join",
+    "Actual Java bytecode order: menu before inventory/LWJGL native setup/C1/Main",
+    "Startup policy/observer/logging/allocation/original Main boundary regression",
+    "Auth pipeline tests and read-only configuration regression"
+  ],
+  "target_checks": "PASS compile/link/SELF, package CRC/signatures, 54 original JARs/5147 assets, runtime/native constructor/audit checks and preserved074/075/076 packages",
+  "console": "PENDING077 visible GUI/native threading/controller, realMSA, display handoff and retained game/audio/performance",
+  "preserved_075_package_sha256": "660cbfba4095bd98e66d0afc2d32d0b054f6c43a738a4dfba8fe9cca441fabd6",
+  "preserved_076_package_sha256": "dcafb141baa6c9464108cb853e083575dc65eb1d560ca6dcae13cf1381330a9b",
+  "no_release_or_store_update": true
+}

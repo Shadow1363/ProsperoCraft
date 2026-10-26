@@ -647,3 +647,13 @@ and hashes belong in assets/branding; generated bitmap from prepare_launcher_bra
 Keep075exact package/symbols preserved during MSA tests. Candidate076 changes
 branding/version only; inherited live-login/display handoff checks remain pending.
 Current guide docs/client-launcher-076.md. No release requested.
+
+## Launcher startup separation — 2026-10-26
+
+User reports GUI never loads (075/076exact version unspecified) and requires
+separation from MC graphics.077native UI starts/presents before VM creation,
+with account/model work on the JVM startup thread and mailbox-only UI exchange.
+Defer artifact inventory/game native loads/C1/Main until Play. Preserve early
+AudioOut init on original startup thread. See docs/handoff-prosperocraft-client077.md.
+Host threading/JNI-table/order tests do not establish PS5 GUI/liveMSA/handoff.
+Keep raw auth secrets out of diagnostics; preserve074/075/076packages. No release.
