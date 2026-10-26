@@ -1,0 +1,803 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.071",
+  "run": "client-01.000.071-1793021372-949921342",
+  "package_sha256": "ea3fb4a81dc2401d0a4a3007e8c14790c42031aa8b717ce287c6ddf29ede9d2c",
+  "human": "Stutters returned",
+  "selected_options_before_main": "PS5_OPTIONS_BEFORE_MAIN version=5023 graphicsPreset=\"fancy\" renderDistance=16 simulationDistance=12 migration070=true distancePolicy=preserve-existing/no-new-cap",
+  "actual_distances": {
+    "view": 16,
+    "simulation": 12
+  },
+  "snap_scope": "Partialcurrent/rotatedlogs,lastendsduringGC210; histograms add measuredsampleoverhead; no humanstuttertimestamps",
+  "captured_events": 109,
+  "full_gc_count": 47,
+  "full_pause_max_ms": 964.387,
+  "unsampled_full_pause_max_ms": 933.366,
+  "histograms": [
+    {
+      "sample": 1,
+      "gc_id": 152,
+      "uptime_ms": 85576,
+      "classes": [
+        {
+          "rank": 1,
+          "instances": 531958,
+          "bytes": 82095472,
+          "class": "[B (java.base@25.0.4)"
+        },
+        {
+          "rank": 2,
+          "instances": 96668,
+          "bytes": 77685728,
+          "class": "[J (java.base@25.0.4)"
+        },
+        {
+          "rank": 3,
+          "instances": 204712,
+          "bytes": 42737648,
+          "class": "[Ljava.lang.Object; (java.base@25.0.4)"
+        },
+        {
+          "rank": 4,
+          "instances": 37446,
+          "bytes": 29945320,
+          "class": "[Ljdk.internal.vm.FillerElement; (java.base@25.0.4)"
+        },
+        {
+          "rank": 5,
+          "instances": 149288,
+          "bytes": 13137344,
+          "class": "net.minecraft.client.resources.model.geometry.BakedQuad"
+        },
+        {
+          "rank": 6,
+          "instances": 22636,
+          "bytes": 11083896,
+          "class": "[I (java.base@25.0.4)"
+        },
+        {
+          "rank": 7,
+          "instances": 452554,
+          "bytes": 10861296,
+          "class": "java.lang.String (java.base@25.0.4)"
+        },
+        {
+          "rank": 8,
+          "instances": 233281,
+          "bytes": 9331240,
+          "class": "java.util.HashMap$Node (java.base@25.0.4)"
+        },
+        {
+          "rank": 9,
+          "instances": 79255,
+          "bytes": 8788800,
+          "class": "[Ljava.util.HashMap$Node; (java.base@25.0.4)"
+        },
+        {
+          "rank": 10,
+          "instances": 269551,
+          "bytes": 8625632,
+          "class": "net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate$StructureBlockInfo"
+        },
+        {
+          "rank": 11,
+          "instances": 179438,
+          "bytes": 8613024,
+          "class": "net.minecraft.util.ThreadingDetector"
+        },
+        {
+          "rank": 12,
+          "instances": 313827,
+          "bytes": 7531848,
+          "class": "net.minecraft.core.BlockPos"
+        },
+        {
+          "rank": 13,
+          "instances": 179573,
+          "bytes": 7182920,
+          "class": "java.util.concurrent.locks.ReentrantLock$NonfairSync (java.base@25.0.4)"
+        },
+        {
+          "rank": 14,
+          "instances": 179439,
+          "bytes": 7177560,
+          "class": "java.util.concurrent.Semaphore$NonfairSync (java.base@25.0.4)"
+        },
+        {
+          "rank": 15,
+          "instances": 223800,
+          "bytes": 7161600,
+          "class": "net.minecraft.client.model.geom.ModelPart$Vertex"
+        },
+        {
+          "rank": 16,
+          "instances": 140277,
+          "bytes": 6733296,
+          "class": "com.mojang.datafixers.types.templates.Sum$SumType"
+        },
+        {
+          "rank": 17,
+          "instances": 34681,
+          "bytes": 6720496,
+          "class": "java.lang.Class (java.base@25.0.4)"
+        },
+        {
+          "rank": 18,
+          "instances": 109842,
+          "bytes": 6151152,
+          "class": "java.util.LinkedHashMap$Entry (java.base@25.0.4)"
+        },
+        {
+          "rank": 19,
+          "instances": 126680,
+          "bytes": 6080640,
+          "class": "com.mojang.datafixers.types.templates.Product$ProductType"
+        },
+        {
+          "rank": 20,
+          "instances": 35727,
+          "bytes": 6002136,
+          "class": "net.minecraft.world.level.block.state.BlockState"
+        },
+        {
+          "rank": 21,
+          "instances": 74778,
+          "bytes": 5982240,
+          "class": "java.util.LinkedHashMap (java.base@25.0.4)"
+        },
+        {
+          "rank": 22,
+          "instances": 179438,
+          "bytes": 5742016,
+          "class": "net.minecraft.world.level.chunk.PalettedContainer"
+        },
+        {
+          "rank": 23,
+          "instances": 179438,
+          "bytes": 5742016,
+          "class": "net.minecraft.world.level.chunk.PalettedContainer$Data"
+        },
+        {
+          "rank": 24,
+          "instances": 115570,
+          "bytes": 5584560,
+          "class": "[S (java.base@25.0.4)"
+        },
+        {
+          "rank": 25,
+          "instances": 1050,
+          "bytes": 5313496,
+          "class": "[F (java.base@25.0.4)"
+        },
+        {
+          "rank": 26,
+          "instances": 118490,
+          "bytes": 4739600,
+          "class": "com.mojang.datafixers.types.templates.Tag$TagType"
+        },
+        {
+          "rank": 27,
+          "instances": 53983,
+          "bytes": 3454912,
+          "class": "it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap"
+        },
+        {
+          "rank": 28,
+          "instances": 135933,
+          "bytes": 3262392,
+          "class": "net.minecraft.client.gui.font.providers.UnihexProvider$Glyph"
+        },
+        {
+          "rank": 29,
+          "instances": 80577,
+          "bytes": 3223080,
+          "class": "java.util.concurrent.ConcurrentHashMap$Node (java.base@25.0.4)"
+        },
+        {
+          "rank": 30,
+          "instances": 179512,
+          "bytes": 2872192,
+          "class": "java.util.concurrent.locks.ReentrantLock (java.base@25.0.4)"
+        },
+        {
+          "rank": 31,
+          "instances": 179439,
+          "bytes": 2871024,
+          "class": "java.util.concurrent.Semaphore (java.base@25.0.4)"
+        },
+        {
+          "rank": 32,
+          "instances": 48198,
+          "bytes": 2699088,
+          "class": "net.minecraft.world.phys.shapes.SubShape"
+        },
+        {
+          "rank": 33,
+          "instances": 55950,
+          "bytes": 2685600,
+          "class": "[Lnet.minecraft.client.model.geom.ModelPart$Vertex;"
+        },
+        {
+          "rank": 34,
+          "instances": 83184,
+          "bytes": 2661888,
+          "class": "net.minecraft.world.level.chunk.LevelChunkSection"
+        },
+        {
+          "rank": 35,
+          "instances": 65763,
+          "bytes": 2630520,
+          "class": "java.util.Hashtable$Entry (java.base@25.0.4)"
+        },
+        {
+          "rank": 36,
+          "instances": 53788,
+          "bytes": 2581824,
+          "class": "net.minecraft.util.SimpleBitStorage"
+        },
+        {
+          "rank": 37,
+          "instances": 59742,
+          "bytes": 2389680,
+          "class": "com.mojang.datafixers.types.templates.Named$NamedType"
+        },
+        {
+          "rank": 38,
+          "instances": 61002,
+          "bytes": 2243880,
+          "class": "[Lnet.minecraft.world.level.block.state.StateHolder;"
+        },
+        {
+          "rank": 39,
+          "instances": 135472,
+          "bytes": 2167552,
+          "class": "net.minecraft.util.ZeroBitStorage"
+        },
+        {
+          "rank": 40,
+          "instances": 135472,
+          "bytes": 2167552,
+          "class": "net.minecraft.world.level.chunk.SingleValuePalette"
+        }
+      ],
+      "total_instances": 8855040,
+      "total_bytes": 551162968,
+      "inspection_ms": 257.222
+    },
+    {
+      "sample": 2,
+      "gc_id": 180,
+      "uptime_ms": 118451,
+      "classes": [
+        {
+          "rank": 1,
+          "instances": 119941,
+          "bytes": 112050120,
+          "class": "[J (java.base@25.0.4)"
+        },
+        {
+          "rank": 2,
+          "instances": 535153,
+          "bytes": 87943208,
+          "class": "[B (java.base@25.0.4)"
+        },
+        {
+          "rank": 3,
+          "instances": 237081,
+          "bytes": 50664392,
+          "class": "[Ljava.lang.Object; (java.base@25.0.4)"
+        },
+        {
+          "rank": 4,
+          "instances": 28715,
+          "bytes": 13514336,
+          "class": "[I (java.base@25.0.4)"
+        },
+        {
+          "rank": 5,
+          "instances": 149288,
+          "bytes": 13137344,
+          "class": "net.minecraft.client.resources.model.geometry.BakedQuad"
+        },
+        {
+          "rank": 6,
+          "instances": 2839,
+          "bytes": 12788904,
+          "class": "[Ljdk.internal.vm.FillerElement; (java.base@25.0.4)"
+        },
+        {
+          "rank": 7,
+          "instances": 230705,
+          "bytes": 11073840,
+          "class": "net.minecraft.util.ThreadingDetector"
+        },
+        {
+          "rank": 8,
+          "instances": 452861,
+          "bytes": 10868664,
+          "class": "java.lang.String (java.base@25.0.4)"
+        },
+        {
+          "rank": 9,
+          "instances": 234243,
+          "bytes": 9369720,
+          "class": "java.util.HashMap$Node (java.base@25.0.4)"
+        },
+        {
+          "rank": 10,
+          "instances": 230840,
+          "bytes": 9233600,
+          "class": "java.util.concurrent.locks.ReentrantLock$NonfairSync (java.base@25.0.4)"
+        },
+        {
+          "rank": 11,
+          "instances": 230706,
+          "bytes": 9228240,
+          "class": "java.util.concurrent.Semaphore$NonfairSync (java.base@25.0.4)"
+        },
+        {
+          "rank": 12,
+          "instances": 281225,
+          "bytes": 8999200,
+          "class": "net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate$StructureBlockInfo"
+        },
+        {
+          "rank": 13,
+          "instances": 78898,
+          "bytes": 8745408,
+          "class": "[Ljava.util.HashMap$Node; (java.base@25.0.4)"
+        },
+        {
+          "rank": 14,
+          "instances": 359119,
+          "bytes": 8618856,
+          "class": "net.minecraft.core.BlockPos"
+        },
+        {
+          "rank": 15,
+          "instances": 230705,
+          "bytes": 7382560,
+          "class": "net.minecraft.world.level.chunk.PalettedContainer"
+        },
+        {
+          "rank": 16,
+          "instances": 230705,
+          "bytes": 7382560,
+          "class": "net.minecraft.world.level.chunk.PalettedContainer$Data"
+        },
+        {
+          "rank": 17,
+          "instances": 223560,
+          "bytes": 7153920,
+          "class": "net.minecraft.client.model.geom.ModelPart$Vertex"
+        },
+        {
+          "rank": 18,
+          "instances": 35065,
+          "bytes": 6792280,
+          "class": "java.lang.Class (java.base@25.0.4)"
+        },
+        {
+          "rank": 19,
+          "instances": 140277,
+          "bytes": 6733296,
+          "class": "com.mojang.datafixers.types.templates.Sum$SumType"
+        },
+        {
+          "rank": 20,
+          "instances": 1229,
+          "bytes": 6349080,
+          "class": "[F (java.base@25.0.4)"
+        },
+        {
+          "rank": 21,
+          "instances": 109881,
+          "bytes": 6153336,
+          "class": "java.util.LinkedHashMap$Entry (java.base@25.0.4)"
+        },
+        {
+          "rank": 22,
+          "instances": 126680,
+          "bytes": 6080640,
+          "class": "com.mojang.datafixers.types.templates.Product$ProductType"
+        },
+        {
+          "rank": 23,
+          "instances": 35727,
+          "bytes": 6002136,
+          "class": "net.minecraft.world.level.block.state.BlockState"
+        },
+        {
+          "rank": 24,
+          "instances": 74820,
+          "bytes": 5985600,
+          "class": "java.util.LinkedHashMap (java.base@25.0.4)"
+        },
+        {
+          "rank": 25,
+          "instances": 116047,
+          "bytes": 5623432,
+          "class": "[S (java.base@25.0.4)"
+        },
+        {
+          "rank": 26,
+          "instances": 118490,
+          "bytes": 4739600,
+          "class": "com.mojang.datafixers.types.templates.Tag$TagType"
+        },
+        {
+          "rank": 27,
+          "instances": 230779,
+          "bytes": 3692464,
+          "class": "java.util.concurrent.locks.ReentrantLock (java.base@25.0.4)"
+        },
+        {
+          "rank": 28,
+          "instances": 230706,
+          "bytes": 3691296,
+          "class": "java.util.concurrent.Semaphore (java.base@25.0.4)"
+        },
+        {
+          "rank": 29,
+          "instances": 76064,
+          "bytes": 3651072,
+          "class": "net.minecraft.util.SimpleBitStorage"
+        },
+        {
+          "rank": 30,
+          "instances": 54106,
+          "bytes": 3462784,
+          "class": "it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap"
+        },
+        {
+          "rank": 31,
+          "instances": 103608,
+          "bytes": 3315456,
+          "class": "net.minecraft.world.level.chunk.LevelChunkSection"
+        },
+        {
+          "rank": 32,
+          "instances": 135933,
+          "bytes": 3262392,
+          "class": "net.minecraft.client.gui.font.providers.UnihexProvider$Glyph"
+        },
+        {
+          "rank": 33,
+          "instances": 81301,
+          "bytes": 3252040,
+          "class": "java.util.concurrent.ConcurrentHashMap$Node (java.base@25.0.4)"
+        },
+        {
+          "rank": 34,
+          "instances": 62552,
+          "bytes": 3002496,
+          "class": "net.minecraft.world.ticks.ScheduledTick"
+        },
+        {
+          "rank": 35,
+          "instances": 71608,
+          "bytes": 2864320,
+          "class": "net.minecraft.world.ticks.SavedTick"
+        },
+        {
+          "rank": 36,
+          "instances": 48198,
+          "bytes": 2699088,
+          "class": "net.minecraft.world.phys.shapes.SubShape"
+        },
+        {
+          "rank": 37,
+          "instances": 55890,
+          "bytes": 2682720,
+          "class": "[Lnet.minecraft.client.model.geom.ModelPart$Vertex;"
+        },
+        {
+          "rank": 38,
+          "instances": 167663,
+          "bytes": 2682608,
+          "class": "net.minecraft.util.ZeroBitStorage"
+        },
+        {
+          "rank": 39,
+          "instances": 167663,
+          "bytes": 2682608,
+          "class": "net.minecraft.world.level.chunk.SingleValuePalette"
+        },
+        {
+          "rank": 40,
+          "instances": 65763,
+          "bytes": 2630520,
+          "class": "java.util.Hashtable$Entry (java.base@25.0.4)"
+        }
+      ],
+      "total_instances": 9587946,
+      "total_bytes": 608649976,
+      "inspection_ms": 281.43
+    },
+    {
+      "sample": 3,
+      "gc_id": 196,
+      "uptime_ms": 141584,
+      "classes": [
+        {
+          "rank": 1,
+          "instances": 127716,
+          "bytes": 117765672,
+          "class": "[J (java.base@25.0.4)"
+        },
+        {
+          "rank": 2,
+          "instances": 535818,
+          "bytes": 89109160,
+          "class": "[B (java.base@25.0.4)"
+        },
+        {
+          "rank": 3,
+          "instances": 246251,
+          "bytes": 52234776,
+          "class": "[Ljava.lang.Object; (java.base@25.0.4)"
+        },
+        {
+          "rank": 4,
+          "instances": 29645,
+          "bytes": 13844048,
+          "class": "[I (java.base@25.0.4)"
+        },
+        {
+          "rank": 5,
+          "instances": 149288,
+          "bytes": 13137344,
+          "class": "net.minecraft.client.resources.model.geometry.BakedQuad"
+        },
+        {
+          "rank": 6,
+          "instances": 251939,
+          "bytes": 12093072,
+          "class": "net.minecraft.util.ThreadingDetector"
+        },
+        {
+          "rank": 7,
+          "instances": 452961,
+          "bytes": 10871064,
+          "class": "java.lang.String (java.base@25.0.4)"
+        },
+        {
+          "rank": 8,
+          "instances": 252074,
+          "bytes": 10082960,
+          "class": "java.util.concurrent.locks.ReentrantLock$NonfairSync (java.base@25.0.4)"
+        },
+        {
+          "rank": 9,
+          "instances": 251940,
+          "bytes": 10077600,
+          "class": "java.util.concurrent.Semaphore$NonfairSync (java.base@25.0.4)"
+        },
+        {
+          "rank": 10,
+          "instances": 234168,
+          "bytes": 9366720,
+          "class": "java.util.HashMap$Node (java.base@25.0.4)"
+        },
+        {
+          "rank": 11,
+          "instances": 281225,
+          "bytes": 8999200,
+          "class": "net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate$StructureBlockInfo"
+        },
+        {
+          "rank": 12,
+          "instances": 78869,
+          "bytes": 8739056,
+          "class": "[Ljava.util.HashMap$Node; (java.base@25.0.4)"
+        },
+        {
+          "rank": 13,
+          "instances": 363818,
+          "bytes": 8731632,
+          "class": "net.minecraft.core.BlockPos"
+        },
+        {
+          "rank": 14,
+          "instances": 251939,
+          "bytes": 8062048,
+          "class": "net.minecraft.world.level.chunk.PalettedContainer"
+        },
+        {
+          "rank": 15,
+          "instances": 251939,
+          "bytes": 8062048,
+          "class": "net.minecraft.world.level.chunk.PalettedContainer$Data"
+        },
+        {
+          "rank": 16,
+          "instances": 223560,
+          "bytes": 7153920,
+          "class": "net.minecraft.client.model.geom.ModelPart$Vertex"
+        },
+        {
+          "rank": 17,
+          "instances": 35102,
+          "bytes": 6799288,
+          "class": "java.lang.Class (java.base@25.0.4)"
+        },
+        {
+          "rank": 18,
+          "instances": 140277,
+          "bytes": 6733296,
+          "class": "com.mojang.datafixers.types.templates.Sum$SumType"
+        },
+        {
+          "rank": 19,
+          "instances": 109839,
+          "bytes": 6150984,
+          "class": "java.util.LinkedHashMap$Entry (java.base@25.0.4)"
+        },
+        {
+          "rank": 20,
+          "instances": 126680,
+          "bytes": 6080640,
+          "class": "com.mojang.datafixers.types.templates.Product$ProductType"
+        },
+        {
+          "rank": 21,
+          "instances": 35727,
+          "bytes": 6002136,
+          "class": "net.minecraft.world.level.block.state.BlockState"
+        },
+        {
+          "rank": 22,
+          "instances": 74784,
+          "bytes": 5982720,
+          "class": "java.util.LinkedHashMap (java.base@25.0.4)"
+        },
+        {
+          "rank": 23,
+          "instances": 3031,
+          "bytes": 5806696,
+          "class": "[Ljdk.internal.vm.FillerElement; (java.base@25.0.4)"
+        },
+        {
+          "rank": 24,
+          "instances": 116351,
+          "bytes": 5671456,
+          "class": "[S (java.base@25.0.4)"
+        },
+        {
+          "rank": 25,
+          "instances": 1193,
+          "bytes": 4981704,
+          "class": "[F (java.base@25.0.4)"
+        },
+        {
+          "rank": 26,
+          "instances": 118490,
+          "bytes": 4739600,
+          "class": "com.mojang.datafixers.types.templates.Tag$TagType"
+        },
+        {
+          "rank": 27,
+          "instances": 252013,
+          "bytes": 4032208,
+          "class": "java.util.concurrent.locks.ReentrantLock (java.base@25.0.4)"
+        },
+        {
+          "rank": 28,
+          "instances": 251940,
+          "bytes": 4031040,
+          "class": "java.util.concurrent.Semaphore (java.base@25.0.4)"
+        },
+        {
+          "rank": 29,
+          "instances": 83753,
+          "bytes": 4020144,
+          "class": "net.minecraft.util.SimpleBitStorage"
+        },
+        {
+          "rank": 30,
+          "instances": 113832,
+          "bytes": 3642624,
+          "class": "net.minecraft.world.level.chunk.LevelChunkSection"
+        },
+        {
+          "rank": 31,
+          "instances": 54166,
+          "bytes": 3466624,
+          "class": "it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap"
+        },
+        {
+          "rank": 32,
+          "instances": 135933,
+          "bytes": 3262392,
+          "class": "net.minecraft.client.gui.font.providers.UnihexProvider$Glyph"
+        },
+        {
+          "rank": 33,
+          "instances": 81365,
+          "bytes": 3254600,
+          "class": "java.util.concurrent.ConcurrentHashMap$Node (java.base@25.0.4)"
+        },
+        {
+          "rank": 34,
+          "instances": 76708,
+          "bytes": 3068320,
+          "class": "net.minecraft.world.ticks.SavedTick"
+        },
+        {
+          "rank": 35,
+          "instances": 61708,
+          "bytes": 2961984,
+          "class": "net.minecraft.world.ticks.ScheduledTick"
+        },
+        {
+          "rank": 36,
+          "instances": 182740,
+          "bytes": 2923840,
+          "class": "net.minecraft.util.ZeroBitStorage"
+        },
+        {
+          "rank": 37,
+          "instances": 182740,
+          "bytes": 2923840,
+          "class": "net.minecraft.world.level.chunk.SingleValuePalette"
+        },
+        {
+          "rank": 38,
+          "instances": 48198,
+          "bytes": 2699088,
+          "class": "net.minecraft.world.phys.shapes.SubShape"
+        },
+        {
+          "rank": 39,
+          "instances": 55890,
+          "bytes": 2682720,
+          "class": "[Lnet.minecraft.client.model.geom.ModelPart$Vertex;"
+        },
+        {
+          "rank": 40,
+          "instances": 65763,
+          "bytes": 2630520,
+          "class": "java.util.Hashtable$Entry (java.base@25.0.4)"
+        }
+      ],
+      "total_instances": 9836828,
+      "total_bytes": 616281760,
+      "inspection_ms": 284.651
+    }
+  ],
+  "interpretation": "Growingchunkcontainer/section/longarraycategories with comparatively stable modelquad/string populations supports substantial retainedworlddata. Shallowhistograms donot identify referenceowners or proveleak. FillerElementbytes arenot usefulworldobjects. OldSerialgeneration576MiB is nearfull; repeatedwholeheapcompaction remains.",
+  "migration070": "Markertrue,filepresetfancy/render16/simulation12,version5023beforeMain;effective16/12. Filehistoryandpreset/migrationmechanismunresolved;userdidnotedit.",
+  "next": "072G1/1536MiBboundedheap/2GCworkers/1concurrentworker/ActiveProcessorCount4/nohistograms;preserve16/12qualityoptions. ActualPS5collector/nativeheadroomandmemorysufficiency pending.",
+  "files": {
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "5eb15f19e58385e3d22884f7a2fb63408411c5701867620781ec961ac78cd9da"
+    },
+    "exceptions.log": {
+      "bytes": 3025290,
+      "sha256": "7c47eee7c736acd476a4790f60e22b4ffea36d9408adbb6c513f041e23e31dd2"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194346,
+      "sha256": "05c5f2115de0d3cb09641416c18146d365d4ce31638a9998d893546007384a3d"
+    },
+    "jit.log": {
+      "bytes": 2585734,
+      "sha256": "d0f8c4856c35237663fb50c8b89edd6693adb478fd987d55d2e450921228a718"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "78b63fb452257e71d7aa7a4d457412a5180fdcfeee487b6ebe72af20077cf65b"
+    },
+    "native-stderr.log": {
+      "bytes": 32735,
+      "sha256": "46071312cc4eb23d2c9a40caaa6bb1c7d1fdc5aea39c471629b5c3c38e0d3b9d"
+    },
+    "gc.log": {
+      "bytes": 1901950,
+      "sha256": "80bc54487da4c87f8f7be0d5a3686838072e73a414d385c5eaf6d7597a9c5b3d"
+    }
+  },
+  "raw_reports_public": false
+}

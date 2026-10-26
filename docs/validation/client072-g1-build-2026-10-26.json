@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.072",
+  "title_id": "PPSA99874",
+  "package_sha256": "cd17b96dd9fcc5fb3cedb60b819dffbadcb37c4ebcd4b1ab83bf76d47b547f83",
+  "native_elf_sha256": "452e1c015763fd0827e759bdb1df3b06eb08e64ef6a12baad3da72a7567f0518",
+  "runtime_commit": "1b9206f4290432548b94d19b0a177dba47f6fb47",
+  "runtime_patch": "0121-ps5-measured-world-heap-headroom.patch",
+  "policy": {
+    "collector": "G1",
+    "xmx_mib": 1536,
+    "xms_mib": 128,
+    "new_ratio": "unset",
+    "parallel_gc_threads": 2,
+    "concurrent_gc_threads": 1,
+    "processor_hint": 4,
+    "max_pause_goal_ms": 30,
+    "g1_reserve_percent": 20,
+    "codecache_mib": 32,
+    "c1": "level1/onecompiler/2MiBarenalimit",
+    "uncompressed_oops": true,
+    "histogram_trace": false,
+    "quality": "Existingoptionspreserved,actual071baseline16view/12simulation"
+  },
+  "runtime_test": "PASS actual1536MiBalignedreservation/zero/protection/NMT/subrangeuncommit/recommit/adjacentdata/ordinary/compressed/fixed/exec/errorgates/ownership/rollback/overbudget underASanUBSan withsynthetic2GiBkernelpool",
+  "runtime_build": "PASS targetHotSpot,existingG1featurescompiled",
+  "host_g1_workload": {
+    "workload": "600MiBretained/48MiBring/4GiBtransient",
+    "contents": "PASS",
+    "collector": "ActualG1",
+    "concurrent_mark_cycle": true,
+    "full_pauses": 0,
+    "explicit_gc": false,
+    "scope": "Host only, notPS5timing/physicalreservation/native-pressure/Minecraftacceptance"
+  },
+  "other_host_checks": [
+    "PASS C1level1kernelchecksum40960 andstale/interpreter/missinglognegativecontrols usingcandidateG1flags",
+    "PASS startupobserver/launch/logrollover/JNIallocation/originalMainboundarycontrols",
+    "PASS read-onlyselectedoptions/Mainnoactive070migration",
+    "PASS one-timeaudiooptions/lateruseredits"
+  ],
+  "target_checks": "PASS nativecompile/link/SELF/fullpackageCRC/signatures/54originalJARs/5147originalassets/exact0121HotSpot/nativeaudits/constructors andpreserved071/070/069/068/067/earlierpackages",
+  "audio_input": "PASS allOpenAL/SDLauditvalues/hashesidentical071",
+  "evidence": "docs/validation/client071-retained-heap-2026-10-26.json",
+  "pending": [
+    "ActualPS5G1auxiliarymappings/workers/startupreservation",
+    "Physicalavailabilityandnativeheadroomwithlargerheap",
+    "Sustainedhighsettingsretainedset/pausebehavior/audio",
+    "Save/reload/endurance"
+  ],
+  "limitations": [
+    "30mssoftgoalnotbound",
+    "1536MiBceilingnotphysicalavailabilityguarantee",
+    "Directfallbackbacksfullreservationupfront",
+    "HostfixtureisnotMinecraft/PS5timing/leakproof",
+    "G1maystillfullGC; nofullhardwareutilizationclaim"
+  ],
+  "raw_reports_public": false,
+  "public_release_created": false,
+  "game_jars_modified": false
+}

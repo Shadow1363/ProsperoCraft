@@ -610,3 +610,8 @@ Userclarification:target is smooth highsettings, not quality cuts as finalfix.
 071disablesactive070cap,preservesexistingconfiguration,andusesboundedretainedheap
 diagnostics/runtime0120. No claim of a lower-distancecomparison orperformancefix.
 Currentcontinuation docs/handoff-prosperocraft-client071.md.
+
+071retentionfollow-up:3PS5histogramsconfirmgrowingchunk/longarraycategories,stable
+modelquadcount;notleakproof.072preservesqualityandtestsG1/1536MiB/2GCworkers+
+1concurrentworker/processorhint4,withoutdiagnostichistograms. Runtime0121bounded
+heapceiling;actualPS5G1startup/nativeheadroom/pausespending. Current072handoff.

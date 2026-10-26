@@ -1,39 +1,43 @@
 {
-  "stage": "Client071 bounded retained heap diagnosis",
+  "stage": "Client072 G1 measured world headroom candidate",
   "date": "2026-10-26",
   "title_id": "PPSA99874",
-  "app_version": "01.000.071",
-  "console": "PENDING071retainedhistograms/nativeheadroom.070briefresponsiveness thenstutters,actual16/12unchangedbyhuman;6/5comparisonnotestablished.",
+  "app_version": "01.000.072",
+  "console": "PENDING072 G1startup/physicalbacking/GCworkers/nativeheadroom/highsettingspauses.071histogramsretrievedandgrowingworldcategoriesestablished.",
   "previous_accepted": "067 human audio result;069 preserved continued-GC candidate",
   "native_changes": "PrivateOpenALPS5factory/backend,pacedAudioOutSYSTEM/main48kHzstereoS16/256frames,realOpenALrenderSamples,joinbeforeclose,error-disconnect;originalsource/archive retained",
   "menu_policy": "Supported inactivityFpsLimit JSON value minimized,original options backed up once as options.before-menu063.txt;all other option bytes retained. Removes AFK timer cap;not a general frame-rate/GC/JIT fix.",
   "runtime_implementation_modified": true,
   "game_jar_modified": false,
-  "java_heap_max_mib": 768,
+  "java_heap_max_mib": 1536,
   "jit": "Mixed C1 level1, one compiler, thresholdscale4,2MiBpercompilation,32MiBcodecache,SweeperThreshold50/10percent aggressive cleanup retained; current-run kernel gate",
   "pending": [
-    "ActualPS5retainedhistograms/topcategories/growth",
-    "070options/preset/marker discrepancy",
-    "Nativeheapinspectiontableoverhead",
-    "Highqualityperformance/save/reload/endurance"
+    "PS5G1auxiliarymappings/workers/reservation",
+    "Nativeheadroomandhighsettingsmemoryplateau",
+    "Pausefrequency/latency/audio duringextendedplay",
+    "Save/reload/endurance"
   ],
   "controlify_direction": "User prefers upstream Controlify later on compatible Fabric/NeoForge client;not installed or validated onPS5. Existing raw SDL gamepad driver retained;no double input when handing off.",
-  "package_sha256": "ea3fb4a81dc2401d0a4a3007e8c14790c42031aa8b717ce287c6ddf29ede9d2c",
-  "host_checks": "PASS actualruntimegate/outputASanUBSan;read-onlyoptions/mainbytecode;startup/audio controls",
-  "target_checks": "PASS HotSpot/nativecompile/link/SELF/fullpackageCRC/signatures,54originalJARs/5147assets,exactruntime/nativeaudits/constructorgroups andpreserved070/069/068/067/earlierpackages",
-  "previous_console_evidence": "docs/validation/client070-stutters-2026-10-26.json",
+  "package_sha256": "cd17b96dd9fcc5fb3cedb60b819dffbadcb37c4ebcd4b1ab83bf76d47b547f83",
+  "host_checks": "PASS actual1536MiBdirectreservationASanUBSan;600MiBretained/48MiBring/4GiBchurnactualG1withconcurrentmark/nofullGCinhostfixture;C1gate/options/startup/audio controls",
+  "target_checks": "PASS targetHotSpot/nativecompile/link/SELF/fullpackageCRC/JAR/asset/runtime/nativeaudits/constructors/preserved071",
+  "previous_console_evidence": "docs/validation/client071-retained-heap-2026-10-26.json",
   "observer_samples": 390,
   "compressed_oops": false,
-  "runtime_patch": "0120-ps5-bounded-retained-heap-diagnostics.patch",
-  "runtime_commit": "1ef9b719c749684f4f30f09f928ec599d44c7de8",
+  "runtime_patch": "0121-ps5-measured-world-heap-headroom.patch",
+  "runtime_commit": "1b9206f4290432548b94d19b0a177dba47f6fb47",
   "audio_policy": "One-timebacked-upunmutelegacyzero master0.5/music0.25;customnonzerovolumes/devices/laterusereditsretained. ALDEFAULTps5,explicitnonemptydriveroverridehonored.",
   "gc_layout": {
-    "collector": "SerialGC",
-    "max_heap_mib": 768,
-    "new_ratio": 3,
-    "old_max_mib": 576,
-    "young_reserved_max_mib": 192,
-    "scope": "Headroom candidate, not proven world memory sufficiency"
+    "collector": "G1",
+    "max_heap_mib": 1536,
+    "initial_heap_mib": 128,
+    "new_ratio": "unset/adaptiveG1",
+    "parallel_gc_threads": 2,
+    "concurrent_gc_threads": 1,
+    "active_processor_count": 4,
+    "pause_goal_ms": 30,
+    "g1_reserve_percent": 20,
+    "scope": "FirstPS5G1candidate;softgoalnotguarantee"
   },
   "distance_policy": {
     "active": "Preserve existing settings;070migration no longer invoked",
@@ -41,13 +45,7 @@
     "goal": "Smooth highsettings; do not treatqualityreductionasfinalfix"
   },
   "heap_diagnostic": {
-    "opt_in_log": "gc+classhisto=trace",
-    "samples_max": 3,
-    "eligible_gc_stride": 16,
-    "minimum_retained_mib": 512,
-    "rows_max": 40,
-    "totals": "Allclasses",
-    "forces_gc": false,
-    "overhead": "Additionalheapwalk/table/sort inside sampledexistingfullGC"
+    "trace_enabled": false,
+    "reason": "Disable costly071histogramsforperformancecomparison;existing0120codepreservedbutnotenabled"
   }
 }

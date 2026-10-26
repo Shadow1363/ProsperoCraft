@@ -6,6 +6,21 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client071 retention evidence;072 G1 candidate
+
+All3boundedPS5histogramsretrieved:chunkcontainers179k->252k,longarrays78MB->118MB,
+while modelquadcountsremainstable. This supports substantialworldretention,not
+leakproof. UnsampledSerialfullGC reaches933.366ms; sampledinspectionsadd257–285ms.
+Actualoptions/gameconsoleconfirm16/12. Highqualitysettingsremainunchanged.
+
+072usesG1with1536MiBmaximumheap,2parallel/1concurrentGCworkers,processorhint4,
+30mssoftpausegoal and20percentG1reserve. Histogramsdisabled; C1/audio/input/game
+filesretained. Runtime0121raisesonlyboundeduncompresseddirectheapceiling. Host
+actualG1retention/churn andruntimeownershiptests pass;PS5reservation/G1workers/
+auxiliarymappings/nativeheadroom/pauses/saveandreloadremainpending. No newrelease.
+
+[Investigation](docs/client-g1-072.md) · [071evidence](docs/validation/client071-retained-heap-2026-10-26.json).
+
 ## 2026-10-26 — Client070 comparison invalid;071 retained-heap diagnostics
 
 The user wants smooth highsettings and tried070only as a comparison. It briefly

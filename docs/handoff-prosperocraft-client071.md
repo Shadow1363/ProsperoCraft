@@ -43,3 +43,11 @@ mustmatchrun. Rawlogsremainlocal. Save/reload/enduranceandnativeheadroompending;
 READMEconcise,historyinCHANGELOG;publishconsumerchangeshere, reusableJavafixesvia
 runtime syncscript. NoofficialgameJARtransforms/replacementclasses. Nativeport,
 noWine. Do notkeepaddingheapordowngradingsettingswithoutretentionevidence.
+
+## Superseded by072
+
+071retrieved3boundedhistograms:worldchunkcontainer/longarraygrowth,stablequadcount,
+unsampledSerialfullGCmax933.366ms. Samplesadd257–285msinspection. Actual16/12both
+fileandgameconsole.072testsG1/1536MiB/2parallel+1concurrentGCworkers/nohistograms
+whilepreservingquality. See[072handoff](handoff-prosperocraft-client072.md) and
+[evidence](validation/client071-retained-heap-2026-10-26.json). NoleakprooforG1passyet.
