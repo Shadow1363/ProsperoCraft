@@ -1,0 +1,70 @@
+# Current handoff — ProsperoCraft client065
+
+Continueexistingfiles/history.ReadbothAGENTS.md;handoff063/064andcomplete054for
+release/historyrequirements.NoSubagents/deferredserver2Hrun.Fullplayableclientgoal.
+
+064failedimmediatelyafterX,reopened.Matchingrunclient-01.000.064-1793012432-698835298
+anonymous384MiBreserveENOMEM12,VMABORT/exit1,beforeMain.Startuptailgives393216KB
+objectheapreservationfailure.Nativeaborttraceoverridesplaceholderabortnote.
+Rawruntime logs/client064-startup-20261026;publichashesclient064-startup-failure.
+Preservedexact064ZIP87b09e6d64b86f2f0741b12405abf10e165256e2551b34d19fe2ac8ffac3f4c9,
+symbols/status/source39a4ac4/build/consoleinignored dist/failures/Client_Original_Startup-01.000.064.
+063controls/menuimprovementhumanaccepted;demoactualJavaheapOOMchunkgeneration.
+063accepted fullpackage/symbolspreserved;062fullGitHubmenurelease/tagunchanged.
+
+## Runtime change and candidate
+
+Read docs/client-world-065.md.Runtimepatch0118inps5-java25-homebrewDevelopment:
+onlyunhintednonexecmtJavaHeapafterordinaryENOMEMandUseCompressedOopsfalse.
+Separate512MiBheap/unchanged256MiBnativebudgets;directphysicalbackingzeroand
+PROT_NONE,NMTrecord,existingmprotectcommit,ownedheapzero/protectuncommit,
+wholemappingreleaseonly/interiorreject,failedcleanupretainsbudgetownership.
+Noexec/fixed/hinted/file/compressedheapfallback,noSDKchange.Nativeledgerentries
+recordheappurposeandheapheldseparately.HostactualhelperASan/UBSan320MiBtests
+pass;metadata/class/nativeconcurrent/stackregressionspass;targetHotSpotbuildpasses.
+Runtimecommit44fdf26(verifyfullremote);imageclassdataunchanged,newnativeHotSpot.
+
+065Xmx512m,-XX:-UseCompressedOops;Xms16m/SerialGC/compactheaders/-Xintretained.
+Referencefieldsnowlarger;notdoublingeffectivecapacity.Host512MiBuncompressed
+224MiBretained+512MiBtransientchurnpass,256controlheapOOM.NotMinecraft/PS5proof.
+Controladapter/idlepolicy/OpenAL/privateSDL/nativegraphicalportsunchanged.
+Observer390samples+boundedlanguageburstretained;laterworlddiagnosticsfinite.
+All54originalJARs/5147assetsintact;nogamehooks/replacementclasses;nosavesdeleted.
+Packagecheckallowsonlylibjvm.sodifferencefromfrozen023andmatchescurrentruntime
+buildexactly.Othernativecorelibs/imagecompareasbefore.Preserved062/063/064hashes
+checked.HostMain/observer/loggingandtargetpackagechecksrequired.
+
+## Next actions
+
+Install065pressXonce.Checkstartup/menuthentrydemoagain.Noteprogress/time/world.
+Directallocationmaystillfail;mustverifyactualconsoleallocation,commit/GCand
+worldsufficiency.Performancewithinterpretercanremainslow;JITseparateruntimework.
+Ifcrash/stall,reopenwithoutX,retrievebuild/session/nativeVMtrace/startup/GCboth
+rotations/exceptions/native/resources/fatalbeforeanyrerun.Safariworks(shellmay
+fail);freshAX/optionclickdownloads/strictnewmtimebasenames/runidentity.Nopreset
+IP/filterininboundapps.Rawlogslocalonly,publishhashes/interpretation.
+
+NoStore/newreleaseauthorized.Allfrozenpasses/serverfallbacks/062releasepreserved.
+Sourceownership:runtimepatch/test/docsusesroottools/sync_github.py;consumerharness
+/config/evidencecommitpushseparaterepo.Verifybothremotes.Candidate065consolepending.
+Storageprivate037–061archive+JSONretained,do notwhole19.3GBrestore;~27GiBfree.
+Beforechanged066preserveexact065package/symbols/status/source/evidence,avoid
+needlessduplicatebuild/extractedrelinkkits.Futurebinaryreleasehasmatchingfresh
+OpenALsource/relink/shim/allnativeinputs,complete54JAR/5147assetprovisioningand
+checks/notices/exacthumanacceptance.Noold026kitfornewbinary.
+
+Reproducibility note: relinking unchanged core libraries regenerated only their
+16-byte GNU build-ID descriptors. The package check parses the exact ELF note
+shape and verifies every other byte against frozen023. New HotSpot bytes are
+checked against the current runtime build. Core module image and game JARs stay
+unchanged.
+
+## Current package
+
+PPSA99874client01.000.065;runtime dist/PPSA99874.zip andconsumer
+dist/client-startup/PPSA99874.zip matchSHA256
+a85c900937525c04cbae29c1a3f3018e3341e07f0ae6a85a14c733564ad3461a.
+Symbols build/client-startup-probe/bootstrap-01.000.065-symbols.elf.
+Runtime44fdf26ccb74cf8dd9127f1256b85416856981de pushedandremoteverified.
+Fullsource/checkhashesin docs/validation/client065-build-2026-10-26.json.
+002convenienceZIPrestored. ActualPS5reservation/GC/worldprogresspending.

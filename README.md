@@ -66,6 +66,18 @@ native Java25onPS5:responsive controls,smooth rendering,working audio,world game
 saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
 Those full-client features still require actual exact-build console validation.
 
+## Development065 — direct-backed Java heap
+
+064 failed before Minecraft: the PS5 refused its384MiB anonymous heap reservation.
+The Java port now has a separately bounded direct-memory fallback for explicitly
+uncompressed Java heaps. Candidate065requests512MiB with compressed object pointers
+disabled;its512MiBheap allowance is separate from the unchanged256MiBnative budget.
+This addresses the reservation path,while actualPS5startup/GC/worldloading remain
+pending. No game JARs/assets/SDK changes;working controls/menu policy retained.
+[Fix and test guide](docs/client-world-065.md) ·
+[064failure](docs/validation/client064-startup-failure-2026-10-26.json) ·
+[Current handoff](docs/handoff-prosperocraft-client065.md).
+
 ## Development064 — demo-world heap headroom
 
 The user confirms063controls work and the idle menu behavior improved. Demo-world

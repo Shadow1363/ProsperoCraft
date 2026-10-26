@@ -66,3 +66,10 @@ See docs/validation/client064-build-2026-10-26.json for source hashes/checks.
 Targetnativecompile/link/SELFpassed;hoststartup/heapmodelpassed.
 002convenienceZIPrestored;062/063acceptedchecksumsverified bypackagecheck.
 Console064pending;do notclaimworldsuccessor384reservationuntilactualconsole.
+
+## Superseded by actual064console failure
+
+Immediate crash afterX,reopened. VM failed384MiBanonymousreservationENOMEM12
+beforeMain. See client064-startup-failure-2026-10-26.json. ExactZIP/symbols/source/
+build/status/evidence retained underdist/failures/Client_Original_Startup-01.000.064.
+Current065uses runtime0118explicituncompressed directheapfallback;readhandoff065.

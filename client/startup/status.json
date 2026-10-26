@@ -1,15 +1,15 @@
 {
-  "stage": "Client064 world heap headroom after confirmed063generation OOM",
+  "stage": "Client065 explicitly uncompressed512MiB heap with runtime0118directfallback",
   "date": "2026-10-26",
   "title_id": "PPSA99874",
-  "app_version": "01.000.064",
-  "console": "PENDING064heap reservation/world loading/stability.063controls/menu improvement human-confirmed;world failed after actual Java heap OOM.",
+  "app_version": "01.000.065",
+  "console": "PENDING065directheapstartup/GC/world progress;064failedVMreservationbeforeMain;063controls/menuaccepted.",
   "previous_accepted": "Client_Menu-v01.000.062",
   "native_changes": "Same063temporary SDL adapter and062OpenAL repair;no new native port/runtime/SDK changes.",
   "menu_policy": "Supported inactivityFpsLimit JSON value minimized,original options backed up once as options.before-menu063.txt;all other option bytes retained. Removes AFK timer cap;not a general frame-rate/GC/JIT fix.",
-  "runtime_implementation_modified": false,
+  "runtime_implementation_modified": true,
   "game_jar_modified": false,
-  "java_heap_max_mib": 384,
+  "java_heap_max_mib": 512,
   "jit": "Existing -Xint unchanged",
   "pending": [
     "384MiB heap reservation and commit on actualPS5",
@@ -17,9 +17,12 @@
     "Remaining interpreter/world-render/input/audio/save-reload/stability"
   ],
   "controlify_direction": "User prefers upstream Controlify later on compatible Fabric/NeoForge client;not installed or validated onPS5. Existing raw SDL gamepad driver retained;no double input when handing off.",
-  "package_sha256": "87b09e6d64b86f2f0741b12405abf10e165256e2551b34d19fe2ac8ffac3f4c9",
-  "host_checks": "PASS actual256/384MiB SerialGC retained224MiB occupancy control;existing launch/observer/logging/originalMain host-boundary checks",
-  "target_checks": "PASS nativecompile/link/SELF/fullpackage;all54originalJARs/5147assets/runtime/privateaudits;accepted062/063checksums;002convenienceZIPrestored",
-  "previous_console_evidence": "docs/validation/client063-world-failure-2026-10-26.json",
-  "observer_samples": 390
+  "package_sha256": "a85c900937525c04cbae29c1a3f3018e3341e07f0ae6a85a14c733564ad3461a",
+  "host_checks": "PASS actualruntimeheap/metadata/class/native/threadstack ASan/UBSan boundaries;512MiBuncompressedoccupancycontrol;startup/observer/logging/originalMainhostboundary",
+  "target_checks": "PASSfullpackageCRC/SELF,all54JARs/5147assets/image,exactnewHotSpotandverifiedGNUbuildIDonlyothercoredifferences;accepted062/063andfailed064preserved",
+  "previous_console_evidence": "docs/validation/client064-startup-failure-2026-10-26.json",
+  "observer_samples": 390,
+  "compressed_oops": false,
+  "runtime_patch": "0118-ps5-uncompressed-direct-heap.patch",
+  "runtime_commit": "44fdf26ccb74cf8dd9127f1256b85416856981de"
 }
