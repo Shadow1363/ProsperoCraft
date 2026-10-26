@@ -6,6 +6,12 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Native-port identity clarified
+
+Made the README introduction explicit: Minecraft Java runs on the PS5-native
+OpenJDK 25 port with native platform integration, without Wine or a Windows build.
+No other projects are named or compared.
+
 ## 2026-10-26 — Later roadmap updated
 
 Updated the README's Later list: custom **menu** music by CogiArt, `.mrpack`

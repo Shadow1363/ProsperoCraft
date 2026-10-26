@@ -13,7 +13,11 @@
 
 <img src="assets/branding/icon0.png" alt="ProsperoCraft crafting-table PC icon" width="160">
 
-**Minecraft Java Edition, running on native Java 25 for PlayStation 5.**
+**A native PlayStation 5 port of Minecraft Java Edition — no Wine.**
+
+The original Minecraft Java code runs on our PS5-native OpenJDK 25 port, with
+native PS5 graphics, audio and input integration. There is no Windows build or
+Wine compatibility layer involved.
 
 ProsperoCraft brings Java Edition worlds, servers and the modding ecosystem to
 PS5 homebrew. The goal is a polished client with responsive controls, smooth
