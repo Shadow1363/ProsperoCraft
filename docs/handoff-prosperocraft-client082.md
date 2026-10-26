@@ -22,3 +22,13 @@ Only26.3SDLdemo launches; no app-ID/ownership bypass. Same4096MiB request and
 Host/build/package checks are development evidence only. Obtain exact082 console
 launch→quit→library→relaunch results and reports, retained sound/performance/worlds,
 stick/reconnect/held-X and saved notice/Reduced Motion checks. No ALL PASS claimed.
+
+## Current continuation state
+
+Supersedes the pre-publication/pending language above:082is publicly released and
+the user confirms all requested fixes work on PS5. Client_Launcher_Lifecycle is
+the frozen scoped082snapshot with exact package/symbols retained. Read its
+validation.json; no instrumented ownership counts, precise cycle count or
+endurance is inferred. Continue future source edits in root client/,not the
+frozen folder. StorePR811's branch is updated to current main and checks pass;
+a write-access maintainer review is still required.

@@ -5,7 +5,8 @@ DualSense controls, menu pointer/text picker and the accepted074 sound/performan
 baseline to the public release. It adds the compact saved welcome checkbox,
 horizontal focus, native left-stick navigation and bounded focus/press animation.
 A verified clean Minecraft quit requests a fresh launcher process for safe device
-and JVM ownership. Exact082 PS5 quit/relaunch and regression checks remain pending.
+and JVM ownership. The user subsequently confirmed all requested082fixes work
+on PS5; see the [scoped console confirmation](../validation/client082-console-confirmation-2026-10-26.json).
 
 [Release and downloads](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082) ·
 [Build record](../validation/client082-launcher-build-2026-10-26.json) ·
@@ -53,13 +54,18 @@ moves the pointer; X/R2 and L2 click, L1/R1 scroll and Circle returns. Touchpad+
 opens the text picker. The in-launcher guide lists the full081 temporary layout.
 Controlify, full Unicode and touch-surface pointer tracking remain future work.
 
-The publication request approves this exact082 for Store submission; it is not a
-formal full-client ALL PASS. Exact082 launch → quit → library → relaunch, retained
-worlds/sound/smoothness, stick/reconnect behavior and checkbox persistence still
-need PS5 validation. The new quit path uses OS self-replacement, never another
-Minecraft Main or JVM in the existing process. A rejected LoadExec remains an
-explicit failure. Account credentials are memory-only and reset with the process.
-The older074 sound/smoothness report does not establish an082 regression pass.
+On26October2026the user confirmed: “yes it all works. all the fixes you added.”
+This establishes human ALL PASS for the requested082checkbox/horizontal navigation,
+native stick navigation, focus/press animation and Quit→library→relaunch behavior.
+The exact repetition count and individual edge-case steps were not enumerated.
+Independent current-run logs, measured FPS and two-hour endurance remain unverified.
+
+The new quit path uses OS self-replacement, never another Minecraft Main or JVM
+in the existing process. A rejected LoadExec remains an explicit failure. Account
+credentials are memory-only and reset with the process. Full-account approval,
+other versions and complete Controlify support remain outside this confirmation.
+The original release/build validation assets describe pre-confirmation evidence;
+the separate client082-console-validation.json records the later human result.
 
 ## Reproduction and source
 

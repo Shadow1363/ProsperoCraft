@@ -1,7 +1,8 @@
 # Launcher and lifecycle candidate 01.000.082
 
 PPSA99874 development082 continues consumer commit1a5a996 and runtime9afa03ad.
-No new milestone, release or Store publication. Install the complete folder,
+[Published release](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082)
+and [frozen scoped console pass](../Client_Launcher_Lifecycle/README.md). Install the complete folder,
 including sce_sys/param.json. The app still requests4096MiB at
 `/download0/ProsperoCraft`; instances, cache, options and worlds are preserved.
 Only exact26.3 with an SDL receipt can launch in demo mode. Microsoft approval
@@ -79,12 +80,13 @@ credentials remain memory-only, so a fresh process starts signed out.
 
 Any return from LoadExec is a distinct restart failure, logged/notified; the
 old process never opens another output. PS5 support for this self-replacement,
-argument delivery, mount retention and device reclamation is still unvalidated.
+argument delivery and visible return/relaunch behavior are covered by the user’s
+confirmation that all082fixes work. Native handle/thread counts were not independently measured.
 There is no manual close/free of WSI resources while it may still scan them out,
 no thread jump, exit suppression or repeated JVM creation.
 The community API shape is corroborated by the local native-app template's
 LoadExec declaration and [Itemzflow's self-relaunch source](https://github.com/LightningMods/Itemzflow/blob/main/itemz-loader/source/main.c).
-That reference does not establish this PS5 candidate works.
+That reference supported the implementation; the later user report provides console acceptance.
 
 ## Checks and console work
 
@@ -100,7 +102,7 @@ still only reaches its expected missing-native failure; it is not a menu pass.
 Full target build/package audits check sources/bytecode, signatures/CRC,
 launcher-only dependencies,4096MiB metadata and frozen package preservation.
 
-On exact082 PS5, validate:
+The original exact082console test plan was:
 
 1. Launch26.3 → Quit Game → native instance library → select and relaunch.
    Repeat at least three times, including quitting after world save. Confirm
@@ -119,3 +121,11 @@ On exact082 PS5, validate:
 Exact081 package/symbols are preserved locally under
 `dist/accepted/Client_Controls-01.000.081`; accepted074 and frozen milestones
 remain untouched. No console ALL PASS is inferred from photos or host tests.
+
+## Human confirmation after publication
+
+The user reports “yes it all works. all the fixes you added.” This is recorded as
+human ALL PASS for the four requested fix areas in
+[the additive console record](validation/client082-console-confirmation-2026-10-26.json).
+It does not independently enumerate the test-plan cycle count, hardware resource
+counts, measured FPS or endurance. Earlier build/host/photo records remain intact.

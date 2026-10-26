@@ -32,7 +32,7 @@ rendering, working sound, reliable saves and an easy-to-use launcher.
 
 | Release | What to expect | Get started |
 | :--- | :--- | :--- |
-| **Native launcher · 01.000.082** | Download26.3demo instances on the console. Native library, DualSense controls, sound implementation and saved settings; exact082quit/relaunch and regression checks pending. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082) · [Setup](docs/releases/client-launcher-082.md) |
+| **Native launcher · 01.000.082** | Download26.3demo instances on the console. Native library, DualSense controls, sound implementation and saved settings; human-confirmed ALL PASS for the082launcher and quit/relaunch fixes. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082) · [Setup](docs/releases/client-launcher-082.md) |
 | **Fabric / Paper servers · 01.000.108** | Separate server builds with positive console playtests. Full lifecycle and endurance checks remain pending. | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Fabric-Paper-v01.000.108) · [Setup](docs/releases/fabric-paper-108.md) |
 
 Follow the matching release's provisioning instructions to obtain and verify the
@@ -57,7 +57,8 @@ Release082 requests 4 GiB of app storage for the redesigned native launcher,
 persistent instance library, controller navigation and verified on-console demo downloads. New installs start
 empty; no game JARs or assets are bundled. [Preview and setup](docs/client-instances-079.md) · [Storage update](docs/client-storage-080.md) · [Controls and launcher polish](docs/client-controls-081.md) · [Checkbox, stick navigation and quit lifecycle](docs/client-launcher-082.md).
 082 adds a compact saved checkbox, native left-stick navigation and bounded focus animation.
-Verified clean quit requests a fresh launcher process; exact PS5 quit/relaunch validation is pending.
+The user confirms all082fixes work on PS5, including quit → launcher → relaunch.
+[Scoped console confirmation and frozen snapshot](Client_Launcher_Lifecycle/README.md).
 26.3is the gameplay baseline;26.1/26.2need a separate GLFW native path.
 Microsoft account access remains blocked at Minecraft Services403pending app review.
 

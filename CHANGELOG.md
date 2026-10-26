@@ -6,6 +6,21 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-26 — Client082 launcher/lifecycle fixes confirmed
+
+The user confirms: “yes it all works. all the fixes you added.” Recorded as
+human ALL PASS for exact082's saved/horizontal welcome checkbox, native stick
+navigation, bounded focus/press animation and game Quit returning to the native
+library with relaunch. [Frozen source and validation](Client_Launcher_Lifecycle).
+The published package and symbols match the082build hashes and are retained
+without rebuilding. The same release receives additive console evidence; old
+validation assets and all earlier milestones remain unchanged. No exact cycle
+count, measured FPS, independent current-run logs or two-hour endurance is inferred.
+
+ProsperoStore PR811 is updated against current main; its checks pass. Required
+write-access reviewer approval still blocks merge; the publishing account cannot
+supply it.
+
 ## 2026-10-26 — Client081 controller layout and launcher polish
 
 Adds sprint/sneak, hotbar cycling, offhand swap, drop, camera/player-list/debug
@@ -944,6 +959,7 @@ Install the complete `PPSA99874` folder from the generated ZIP through ShadowLoa
 | **Playable world · 01.000.066** | Human playable world/major speed improvement,~30secstartup;C1gate/joinreports | [Scope/setup](docs/releases/client-playable-066.md) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Playable-v01.000.066) |
 | **First world · 01.000.065** | Human world entry/punching,joined/rendered reports;severe lag and movement failure | [Scope/setup](docs/releases/client-world-065.md) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_World-v01.000.065) |
 | **First Minecraft menu · 01.000.062** | Human-confirmed visible menu on actual PS5 / native Java 25; gameplay and stability pending | [Evidence & setup](docs/releases/client-menu-062.md) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_Menu-v01.000.062) |
+| **Client Launcher/Lifecycle · 01.000.082** | Human ALL PASS for requested checkbox/navigation, native stick, focus animation and Quit→library→relaunch fixes; no measured endurance claim | [Frozen source & validation](Client_Launcher_Lifecycle) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.082) |
 | **Client SPIRV-Cross · 01.000.036** | PS5 ALL5 PASS,saved reports:9shader translations/reflection/error controls/guards and JVM stop | [Frozen source & validation](Client_SPIRV_Cross) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_SPIRV_Cross-v01.000.036) |
 | **Client VMA Allocator · 01.000.035** | PS5 ALL5 PASS,human+saved reports:12RADV transfers,3VMA allocator/device cycles,guards and JVM stop | [Frozen source & validation](Client_VMA_Allocator) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_VMA_Allocator-v01.000.035) |
 | **Client FreeType Fonts · 01.000.033** | PS5 ALL5 PASS,human+saved reports:real FreeType glyph rasterization/guards and JVM stop | [Frozen source & validation](Client_FreeType_Fonts) | [Download](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Client_FreeType_Fonts-v01.000.033) |
