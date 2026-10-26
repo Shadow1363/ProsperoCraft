@@ -27,7 +27,7 @@ public class ConfigurationCheck {
 '''
 with tempfile.TemporaryDirectory(prefix='client-configuration-')as folder:
  w=Path(folder);(w/'ConfigurationCheck.java').write_text(source)
- subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(w),str(ROOT/'client/startup/ClientStartup25.java'),str(ROOT.parents[2]/'java25/tests/ps5probe/JitWarmup25.java'),str(w/'ConfigurationCheck.java')],check=True)
+ subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(w),str(ROOT/'client/startup/ClientStartup25.java'),*[str(p)for p in sorted((ROOT/'client/launcher/java').glob('*.java'))],str(ROOT.parents[2]/'java25/tests/ps5probe/JitWarmup25.java'),str(w/'ConfigurationCheck.java')],check=True)
  subprocess.run([str(a.java_home/'bin/java'),'-cp',str(w)+':'+cp,'ConfigurationCheck',str(w/'cases')],check=True)
  code=subprocess.check_output([str(a.java_home/'bin/javap'),'-classpath',str(w),'-c','ClientStartup25'],text=True)
  main=code.split('public static void main(java.lang.String[])',1)[1]

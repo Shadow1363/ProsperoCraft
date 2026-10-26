@@ -10,7 +10,9 @@ import org.lwjgl.system.MemoryUtil;
 public final class ClientStartup25 {
  public static native void checkpoint(String text);
  public static native void nativeSnapshot(long elapsedMillis,int phase);
- private static void stage(String text){checkpoint("MC Startup074: "+text);}
+ public static native boolean launcherMenu();
+ public static String[] launcherTick(int buttons){return ProsperoLauncher.nativeTick(buttons);}
+ private static void stage(String text){checkpoint("MC Startup075: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -213,15 +215,17 @@ public final class ClientStartup25 {
    stage("PASS current-run C1 level1 kernel compiled and verified;performance/world stability still pending");
    stage(verifyNativeAllocation());
    Runtime heap=Runtime.getRuntime();stage("heap maxMiB="+(heap.maxMemory()/1048576)+" committedMiB="+(heap.totalMemory()/1048576)+" usedMiB="+((heap.totalMemory()-heap.freeMemory())/1048576));
-   stage("original Main class lookup;offline demo arguments,no credentials or multiplayer");
+   stage("Opening ProsperoCraft launcher; account credentials remain in memory");
+   String[] selectedArguments=ProsperoLauncher.run(ClientStartup25::launcherMenu);
+   stage("Launcher display closed; handing off to original Minecraft Main");
    Class<?> main=Class.forName("net.minecraft.client.main.Main",false,ClassLoader.getSystemClassLoader());Method method=main.getMethod("main",String[].class);
    stage("ENTER original net.minecraft.client.main.Main.main;menu/world not yet validated");
-   console.println("Original Minecraft26.3 Main entry;offline demo test. Native dependency coverage remains incomplete.");
+   console.println("Original Minecraft26.3 Main entry;launcher-selected mode. Credentials are not logged.");
    if(startupObserverEnabled()){
     try{observer=new StartupObserver(console,390,1000,5000);observer.start();}
     catch(Throwable unavailable){console.println("PS5 startup observer unavailable;continuing original Main: "+unavailable);observer=null;}
    }else console.println("PS5 startup observer disabled for performance run;enable ps5.startupObserver explicitly for stack sampling");
-   try{method.invoke(null,(Object)launchArguments(work,assets));}
+   try{method.invoke(null,(Object)selectedArguments);}
    catch(InvocationTargetException failure){throw failure.getCause();}
    stage("Original Main returned;this alone does not establish menu or gameplay success");
    throw new IllegalStateException("Original game main returned;inspect exceptions.log/latest.log and actual visible state;no automatic menu PASS");

@@ -6,6 +6,24 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Client075 native launcher and Microsoft sign-in candidate
+
+Adds a controller-operated native launcher with a forest palette, installed Vanilla
+26.3 card, Microsoft account panel, device-code sign-in, and explicit demo fallback.
+Uses the public application registration supplied by the user; no client secret.
+Authentication checks Xbox identity, Minecraft entitlement and the Java profile
+before passing the session to the unchanged original Main. Tokens remain in memory.
+The first version has one installed instance and an informational settings page.
+
+A reusable runtime renderer API closes VideoOut, unmaps and releases its buffers
+before game handoff; a failed cleanup refuses launch. Existing074 audio/C1/G1 and
+quality settings are retained. Original JARs/assets and accepted074 bytes remain
+intact. Host auth/native UI/fault-injection/regression tests and target package
+checks pass. Real login, native menu and display/audio/gameplay handoff still need
+PS5 validation. No new release or Store publication.
+
+[Guide](docs/client-launcher-075.md) · [Build record](docs/validation/client075-launcher-build-2026-10-26.json).
+
 ## 2026-10-26 — Client074 sound and smoothness confirmed
 
 The user reports “very good sound and very butter smooth” on exact074. Its package,

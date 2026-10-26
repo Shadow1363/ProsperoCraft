@@ -630,3 +630,13 @@ ActualPS5audibility/initorder/GCworkers/latency pending. Current074handoff.
 074package/symbols/testedsource72eca7fccf79c81c2cb7a057afdffcad51207b90; no rebuild
 ofacceptedbytes. Subjectiveaudio/smoothnessacceptanceonly,nomeasuredFPS/save/
 endurance/formalALLPASS. No newrelease or furtherimplementationrequested.
+
+## Native launcher and MSA direction — 2026-10-26
+
+The user requests a beautiful launcher with Microsoft account login and supplied
+public application ID f0c7635e-8d50-4d7e-afa3-d15db4a0a3d3. Candidate075 adds
+native UI, device-code authentication and original Main session arguments. No
+client secret or token persistence. One Vanilla26.3 instance; settings informational.
+Host and target checks do not establish live authentication or display handoff.
+Continue from docs/handoff-prosperocraft-client075.md. Preserve accepted074 bytes
+and performance/audio/settings. No new release or Store publication requested.

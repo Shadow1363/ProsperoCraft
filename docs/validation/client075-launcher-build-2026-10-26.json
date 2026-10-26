@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-26",
+  "version": "01.000.075",
+  "title_id": "PPSA99874",
+  "package_sha256": "660cbfba4095bd98e66d0afc2d32d0b054f6c43a738a4dfba8fe9cca441fabd6",
+  "native_elf_sha256": "cf63f1102cf7ef37c55285cd4294a3f84973b9c960b1ad33f1fd779a8a7729c5",
+  "runtime_commit": "de339155ba78e54be1ddc903e7df0904c866fbdb",
+  "public_application_id": "f0c7635e-8d50-4d7e-afa3-d15db4a0a3d3",
+  "host_checks": [
+    "Actual auth flow with simulated transport: pending, slowdown, cancellation, decline, expiry, invalid app, ownership denial, hash mismatch, profile validation, URI restrictions and redaction",
+    "Async account UI and authenticated launch arguments; demo fallback; expiry guard; sign out",
+    "Actual native UI rendering and display cleanup order with close/unmap/release fault injection",
+    "Startup original Main boundary; unchanged audio migration; read-only configuration observer; distance migration regression",
+    "Target compile/link/SELF integrity and package CRC, 54 original JAR hashes, 5147 asset hashes, runtime and native audits, preserved accepted074"
+  ],
+  "console": "PENDING: native launcher, real device-code sign-in, ownership/profile, VideoOut-to-game handoff, retained audio and gameplay",
+  "limitations": [
+    "One installed Vanilla26.3 instance; settings page informational",
+    "Tokens in memory only; sign in again after app restart",
+    "No live account credentials used by host tests",
+    "No new release or Store publication"
+  ],
+  "preserved_074_package_sha256": "acba867efee8c503e4516a20ec4f2af69009a8ebcc647b370bd260dabed03326"
+}

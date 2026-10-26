@@ -24,5 +24,5 @@ public class AudioPolicyCheck{
 }'''
 with tempfile.TemporaryDirectory(prefix='client-audio-policy-')as folder:
  w=Path(folder);(w/'AudioPolicyCheck.java').write_text(source)
- subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(w),str(ROOT/'client/startup/ClientStartup25.java'),str(ROOT.parents[2]/'java25/tests/ps5probe/JitWarmup25.java'),str(w/'AudioPolicyCheck.java')],check=True)
+ subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',str(w),str(ROOT/'client/startup/ClientStartup25.java'),*[str(p)for p in sorted((ROOT/'client/launcher/java').glob('*.java'))],str(ROOT.parents[2]/'java25/tests/ps5probe/JitWarmup25.java'),str(w/'AudioPolicyCheck.java')],check=True)
  subprocess.run([str(a.java_home/'bin/java'),'-cp',str(w)+':'+cp,'AudioPolicyCheck',str(w/'profile')],check=True)

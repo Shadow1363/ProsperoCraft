@@ -53,6 +53,9 @@ other. Keep your world backups and the matching server package for reinstalling.
 | **Sound** | The user confirms very good game sound on exact build074. |
 | **Validation ahead** | Save/reload, controller polish, measured frame pacing and extended play remain to be checked. |
 
+Development075 adds a native launcher and Microsoft device-code sign-in, awaiting
+PS5 validation. [Launcher preview and test guide](docs/client-launcher-075.md).
+
 Development074 now has positive PS5 sound and smoothness feedback, with no active quality caps.
 See the [freeze investigation and candidate guide](docs/client-audio-pacing-074.md).
 The published release remains066; this074playtest does not create a new public release.
