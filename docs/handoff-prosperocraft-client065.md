@@ -68,3 +68,17 @@ Symbols build/client-startup-probe/bootstrap-01.000.065-symbols.elf.
 Runtime44fdf26ccb74cf8dd9127f1256b85416856981de pushedandremoteverified.
 Fullsource/checkhashesin docs/validation/client065-build-2026-10-26.json.
 002convenienceZIPrestored. ActualPS5reservation/GC/worldprogresspending.
+
+## Live065loading check — 2026-10-26
+
+Userasksifloadingorbroken.Retrievedmatchingfirst/secondcurrentreportsread-only,
+noX/restart.Rawruntime logs/client065-livecheck-20261026/{first,second}.Run
+client-01.000.065-1793013277-161947157.Directheap512MiBheld,VMstartedandGCactive.
+Snapshot204elapsed244811msworldworkerRUNNABLEbiome/structureringsearch;210at
+274829msRUNNABLEdensity/materialsurfaces/NoiseBasedChunkGeneratorbuildTerrain.
+CPUtimerincreased.NoOOMineitherexceptionsdownload.Spawnlog16percentunchanged
+butdifferentworkstagesgiveconcretecontinuedgenerationevidence,notthe063OOM.
+GC86at296915->GC88at341970ms;young415->304MiB/429MiBcommitted15.104ms.
+Useradvisedleaveitactivefornow.Worldcompletionnotestablished,ETA/FPSunknown.
+Publichashes/interpretation docs/validation/client065-live-loading-2026-10-26.json.
+Noimplementation/packagechangesfromthischeck;065remainscurrent.

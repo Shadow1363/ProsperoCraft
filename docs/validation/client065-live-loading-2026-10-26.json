@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-26",
+  "app_version": "01.000.065",
+  "title_id": "PPSA99874",
+  "run": "client-01.000.065-1793013277-161947157",
+  "request": "Check whether demo world is loading or not working",
+  "comparison": "Two read-only downloads separated by about30seconds of observer elapsed time;noX/restart",
+  "first_snapshot": {
+    "sample": 204,
+    "elapsed_ms": 244811,
+    "world_worker": "RUNNABLE biome search/structure ring position generation",
+    "heap_used_bytes": 357038192,
+    "heap_max_bytes": 518979584
+  },
+  "second_snapshot": {
+    "sample": 210,
+    "elapsed_ms": 274829,
+    "world_worker": "RUNNABLE density/material surface generation in NoiseBasedChunkGenerator.buildTerrain",
+    "heap_used_bytes": 432217736,
+    "heap_max_bytes": 518979584
+  },
+  "finding": "Active world-generation work changes between samples;not the priorcapturedheapOOMstall. Progress indicator alone has not advanced;worldcompletionisnotestablished.",
+  "direct_heap": "ActualPS5trace records512MiBhelddirectheap atseparate512MiBcap. VMstarted;heapcommit/GCactivityobserved. This is scoped allocation/continuedVMexecution evidence,notfullGCsemantics/lifecycle/enduranceacceptance.",
+  "errors": "NoOutOfMemoryError in either retained exceptions download;noabortcaptured. ExistingRealm/narrator/authservicewarningsnotdiagnosedworldcause.",
+  "gc": "GC86at296915ms->GC88at341970ms;secondyoungpause15.104ms,415MiB->304MiB/429MiBcommitted. Fourfullcollectionsrecordedbythen. Heapcapusable~495MiB,notallcommittedyet.",
+  "performance": "InterpreterworldgenerationisCPUwork;noJIT/FPS/ETAclaim. CPUactivityanddifferentstages supportcontinuedloading,notguaranteedcompletion.",
+  "advice": "Leavecurrentrunactivefornow;actualworldappearance/save/reload/input/audio/stabilityremainpending.",
+  "reports": {
+    "first/abort.txt": {
+      "bytes": 133,
+      "sha256": "503e803a4c9e5136512488578da27190c4622b32eb0fe744396e570e826f2d1d"
+    },
+    "first/build.txt": {
+      "bytes": 57,
+      "sha256": "469e25f00984843a40bb4eef332dc8d8d3f50c85f8315587a61463c344fad552"
+    },
+    "first/exceptions.log": {
+      "bytes": 2943024,
+      "sha256": "cb1051eeeba83bf7d6d4b63cf5771a8000b13defb3ed1c4d1369c6cedc8e4051"
+    },
+    "first/gc-rotated.log": {
+      "bytes": 4194353,
+      "sha256": "2c0a2904a3fca799a1ea96b1cc0d7fe5474b22944aae5cb0751ab5840a82c0e0"
+    },
+    "first/gc.log": {
+      "bytes": 3025765,
+      "sha256": "2a013c39de07b130572f3194bcebce4014a146a8b6d2d36537951d056731b72a"
+    },
+    "first/native-stderr.log": {
+      "bytes": 32605,
+      "sha256": "e51d513dc11bb28b9d7efe97afdc50be4c7e630256dfd8415b35cebdf0c27d2f"
+    },
+    "first/process-usage.log": {
+      "bytes": 333180,
+      "sha256": "5229d8eb2c152931d53de02c0ddcea0e7dff29d804d17558c7bbe7e0e1675cd7"
+    },
+    "first/session.txt": {
+      "bytes": 144,
+      "sha256": "de8a415a5b6e8f46721de8fd3397856fc155293e63b6833529e3e48f45b0b920"
+    },
+    "first/startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "022eee2567bbc3b4b6d273ad8a7f3a012e069f2da30d86d576008aa40c81c106"
+    },
+    "first/vm-trace.log": {
+      "bytes": 2284547,
+      "sha256": "74a89468ef4fa5481e6416f700316b9155867bd5d314906a06c143ae4f90975e"
+    },
+    "second/exceptions.log": {
+      "bytes": 3032145,
+      "sha256": "d7ee81867ceb6b08bb94adbe9bdbdd7dfe4c3e1109b7885bc14280a62ee93704"
+    },
+    "second/gc.log": {
+      "bytes": 3274460,
+      "sha256": "4ada6d82f1d44fbca07ae4023dc99e9e77ea83e5dfffdac8247d46f0f22cdc48"
+    },
+    "second/process-usage.log": {
+      "bytes": 342996,
+      "sha256": "0499b8ecb2263780d94793c71f506130ff34bce6d34a1aa1932a3dd6aed6b427"
+    },
+    "second/session.txt": {
+      "bytes": 144,
+      "sha256": "de8a415a5b6e8f46721de8fd3397856fc155293e63b6833529e3e48f45b0b920"
+    }
+  }
+}
