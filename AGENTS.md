@@ -736,3 +736,9 @@ relaunch;notexactcyclecount,independentlogs/handlecounts,FPSorendurance.
 Preservefrozenfolderandcompiledbytes;continuedrootclientdevelopmentonly.
 Addconsoleconfirmationassetstoexisting01.000.082releasewithoutreplacingold
 assets. PR811updatedfromorigin/main;write-accessmaintainerapprovalstillrequired.
+
+Store2026-10-26:atuserrequestclosedPR811andresubmittedidenticallistingasPR814
+https://github.com/darkxex/ps5-homebrew-catalog/pull/814 onfreshbranch
+codex/prosperocraft-082-resubmit fromupstream8566a5f. Track814asactive;no
+releaseasset/package/sourceimplementationchanged. Resubmissiondoesnotitself
+repairthecatalognewest-releaseorderinglogicorremovereviewrequirements.

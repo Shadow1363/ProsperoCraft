@@ -83,3 +83,20 @@ ordering selects older065, despite /releases/latest correctly returning082 and
 082having the newest publication timestamp. Evidence is in the PR body. Upstream
 push permission is unavailable; reviewers were requested by its workflow. No
 older release was removed/replaced and no catalog automation was bypassed.
+
+## Fresh submission814
+
+At the user's explicit request, PR811 was closed and replaced by
+[PR814](https://github.com/darkxex/ps5-homebrew-catalog/pull/814), from fresh branch
+`codex/prosperocraft-082-resubmit` based on current upstream8566a5f. Only
+apps/PPSA99874.json changes; it is byte-identical to the previous submission.
+The exact082release/assets remain unchanged. Local catalog validation passes
+for144records with0errors/warnings. The new PR reruns the automated checks; a
+fresh PR does not itself change the catalog's release-ordering logic. This
+submission supersedes earlier PR811 references as the active Store request.
+
+PR814's fresh submission validation, release scan and offline tests all PASS.
+The bot again reports “the release is not the newest of
+mateo-cogeanu/ProsperoCraft” and leaves the PR for a maintainer. Recreating the
+PR did not resolve the release-order issue. Current state is REVIEW_REQUIRED;
+darkxex and Marice are requested reviewers. Original packages/assets unchanged.

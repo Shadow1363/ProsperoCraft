@@ -40,11 +40,11 @@
   ],
   "upload_verification": "All five GitHub asset digests/sizes match local files. Published assets downloaded again and SHA256SUMS verified. App ZIP byte-identical to candidate082.",
   "downloaded_kit_relink": "Relocated downloaded kit reproduces exact packaged ELF d93c3507dcf1df1284631d09963fc5d9ed73c4638a241b550313d5a9a14011df",
-  "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/811",
+  "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/814",
   "catalog_record": "apps/PPSA99874.json",
   "catalog_local_check": "144valid records;0errors/warnings",
   "catalog_online_verify": "Release SHA256,source manifest contentVersion01.000.082 and pinned icon verified;0errors/warnings",
-  "catalog_status": "PR811OPEN; submission validation,release scan andoffline testsPASS. Bot deferred to maintainer; reviewers requested automatically. Store page still Coming soon,not yet propagated.",
+  "catalog_status": "ActivePR814OPEN;oldPR811CLOSED at user request. Fresh checks pass;release-order eligibility issue persists and maintainer review is required.",
   "console_validation": "Human ALL PASS for requested082fixes,quote and limits in client082-console-confirmation-2026-10-26.json",
   "runtime_publication": "Sync succeeded,Everything up-to-date; no runtime source changes",
   "preservation": "Exact082ZIP/symbols additionally retained locally in dist/published/ProsperoCraft-01.000.082; older accepted/frozen artifacts unchanged",
@@ -68,5 +68,17 @@
     }
   ],
   "console_snapshot_commit": "549c41f",
-  "original_assets_preserved": true
+  "original_assets_preserved": true,
+  "previous_catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/811",
+  "resubmission": {
+    "user_request": "Close previous PR and make a new one doing the same thing to retry the bot",
+    "old_pr_state": "CLOSED",
+    "new_pr_state": "OPEN",
+    "branch": "codex/prosperocraft-082-resubmit",
+    "head_commit": "2de20d3",
+    "base_commit": "8566a5f",
+    "record_sha256": "7bc5b75cceb948f929c2cd96825edc1fb79a71fde4d49dbaace666dae0c24ca7",
+    "verification": "Record byte-identical to closed PR811;only apps/PPSA99874.json differs from latest base;144valid records,0errors/warnings;release assets unchanged",
+    "ci_status": "PASS fresh submission validation,release scan and offline tests. Bot again deferred:the release is not the newest of mateo-cogeanu/ProsperoCraft. REVIEW_REQUIRED;darkxex andMarice requested."
+  }
 }
