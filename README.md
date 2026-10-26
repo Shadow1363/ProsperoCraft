@@ -70,7 +70,10 @@ will need validation for each supported game version.
 
 ### Later
 
-- [ ] **Custom music by CogiArt.**
+- [ ] **Custom menu music by CogiArt.**
+- [ ] **`.mrpack` imports.**
+- [ ] **USB keyboard and mouse controls.**
+- [ ] **Themes.**
 - [ ] **JVM 21** for broader Minecraft support.
 - [ ] **JVM 17** for even broader Minecraft support.
 

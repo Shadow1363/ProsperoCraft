@@ -6,6 +6,12 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ps5-minecraft-java/releases)
 
+## 2026-10-26 — Later roadmap updated
+
+Updated the README's Later list: custom **menu** music by CogiArt, `.mrpack`
+imports, USB keyboard and mouse controls, themes, JVM 21 and JVM 17. These remain
+planned work; the required store-release list is unchanged.
+
 ## 2026-10-26 — Client067 sound confirmed;068 freeze candidate
 
 The user confirms beautiful game audio on PS5 in exact067, then reports random
