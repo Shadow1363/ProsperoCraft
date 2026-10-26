@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.063",
+  "tested_source_commit": "be27d7a5eae9f9f5e343e9cc150686cf12161051",
+  "package_sha256": "a1c62a8a6ccc8554c77ea3166633545fd08da6ca2b8e1ebffaf0c843677545f0",
+  "run": "client-01.000.063-1793010969-702521342",
+  "human": "Controls work and menu lag is fine;performance still feels slow. Demo load reached around30percent by human view,then stopped with roughly5FPS animated background.",
+  "accepted_scope": "Temporary menu controls and improved menu behavior only,not formal full-client ALL PASS.",
+  "world_result": "Unsuccessful. Actual Worker-Main-1 Java heap OOM recorded during class/manifest loading in EntityType creation from mineshaft decoration/chunk generation. Render and integrated server remain active;worldload progress not complete.",
+  "observations": [
+    "Repeated server log spawn progress16percent after world-worker OOM;this is a different reported metric from the human visible30percent. Do not equate them.",
+    "Retained GC completes throughGC230/full175 at777608ms;late fullGC238-239MiB to224MiB of247MiB usable heap,old174784KiB full. Real heap pressure,not merely a guessed memory issue.",
+    "Last bounded observer at436137ms showsrenderGUI work,world workers parked,server ticking/waiting;no deadlock proof. Old observer stopped before later log retrieval.",
+    "No captured VM abort or fatal report;Realm/discovery/narrator/OSHI errors are separate and do not establish the world stall cause.",
+    "Runtime generic anonymous Java heap reservation path remains;special direct fallback applies to metadata only. Historical024512MiB reservation failed,so a larger heap on actualPS5 is still a console validation item."
+  ],
+  "reports": {
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "803f64da6ded3d721931f2f7e7bb53d5c72d381290f22be6470c449af524994d"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "0f8c3ddac30b2b5a100b050a64c231ffe00f2e5a245cbdcf2fe4036e99445465"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "696b833421e271b63bcdb9f821afdf9364bae604b3a180df46dd75fe56ab6812"
+    },
+    "startup.log": {
+      "bytes": 1404897,
+      "sha256": "8b32ce15c7e8dd96a82a95ae6e53374337365051ee4f15ce52d2d2b52c168fbb"
+    },
+    "native-stderr.log": {
+      "bytes": 37638,
+      "sha256": "81863743caba61668490e0afe4c050d99001e6512f0f0fea9108ae4ba671daef"
+    },
+    "vm-trace.log": {
+      "bytes": 3195794,
+      "sha256": "b315277ce95707503dd5dcf19782875a1c02dbdb67c0da03c69d4e54b7847286"
+    },
+    "process-usage.log": {
+      "bytes": 392012,
+      "sha256": "49b1a23ff44610fc2b8f0ef2047e4c33720ede13664ebeed319ab07afb963faa"
+    },
+    "exceptions.log": {
+      "bytes": 3644507,
+      "sha256": "a44d07aa8ba15c9c5ae077630da1576264f697e54ffd4895aa4266548473e083"
+    },
+    "exceptions-rotated.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "gc.log": {
+      "bytes": 88924,
+      "sha256": "b53edf15a2acdf33bc2dc94305427fb7baf723f7d92046c74376b89414662d11"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194337,
+      "sha256": "1f15915922a9720c4479de83c917dcdb00915f850bfcdb3a5fe74afd543b21e6"
+    },
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "8ec8ec96600fda552aaf97fff47e393d83368f77b786a19dfd90d8b273086155"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    }
+  },
+  "next_candidate": "064:384MiB Java heap instead of256MiB;SerialGC/interpreter/SDK/runtime unchanged;bounded observer390samples to cover later world loads. No game-JAR/world transformations,no saves deleted."
+}

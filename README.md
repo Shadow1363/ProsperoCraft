@@ -66,6 +66,21 @@ native Java25onPS5:responsive controls,smooth rendering,working audio,world game
 saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
 Those full-client features still require actual exact-build console validation.
 
+## Development064 — demo-world heap headroom
+
+The user confirms063controls work and the idle menu behavior improved. Demo-world
+loading then stalled. Current-run reports capture a **Java heap OOM in world
+chunk generation**, followed by repeated spawn-preparation progress. The animated
+loading screen does not establish continued world progress.
+
+Candidate064raises the Java heap from256to384MiB and extends the bounded observer
+for later world loading. Controls,game JARs/assets,interpreter,GC,runtime andSDK stay
+unchanged. Host occupancy controls pass; **PS5heap reservation and successful world
+loading are still pending**. The exact063package is preserved;062remains the public
+menu release. [Investigation and test guide](docs/client-world-064.md) ·
+[063console evidence](docs/validation/client063-world-failure-2026-10-26.json) ·
+[Current handoff](docs/handoff-prosperocraft-client064.md).
+
 ## Development063 — temporary controls and idle menu policy
 
 Candidate **01.000.063** adds temporary DualSense keyboard/mouse translation
@@ -78,8 +93,9 @@ The raw gamepad driver remains available for the user's preferred future
 The harness sets vanilla `inactivityFpsLimit:"minimized"`, backing up existing
 options and preserving other settings. This targets the AFK-related gradual idle
 slowdown; measured full-GC stutter remains separate. Heap, interpreter, game JARs
-and assets are unchanged. Host/native/package checks pass; **actual063controls
-and smoother idle behavior require PS5 validation**. The public release remains062.
+and assets are unchanged. Host/native/package checks pass. The user subsequently confirmed controls work
+and menu lag improved;demo-world loading failed separately with a recorded heapOOM.
+The public release remains062.
 [Controls and test guide](docs/client-controls-063.md) ·
 [Build record](docs/validation/client063-build-2026-10-26.json) ·
 [Current handoff](docs/handoff-prosperocraft-client063.md).

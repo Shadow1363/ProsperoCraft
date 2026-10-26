@@ -85,3 +85,12 @@ matching OpenAL source/relink kit INCLUDING current native inputs,complete pinne
 JAR+asset provisioning,reconstruction/corruption checks,notices/hashes and exact
 human acceptance. No Store/catalog work requested;preserve server fallbacks and
 all frozen validation snapshots. Product goal extends well beyond this menu.
+
+## Superseding063console result
+
+Human confirms controls work and menu behavior improved;demo-world loading stalled.
+Actual matching reports capture Java heap OOM during chunk generation. See
+docs/validation/client063-world-failure-2026-10-26.json and client-world-064.md.
+Exact063full ZIP/symbols/build/console records independently preserved in
+dist/accepted/Client_Controls-01.000.063. Current development continues064;no new
+formalALLPASS or release. Do not discard063because itsworld test failed.

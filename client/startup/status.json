@@ -1,23 +1,25 @@
 {
-  "stage": "ProsperoCraft client063 temporary controls and idle menu FPS policy",
+  "stage": "Client064 world heap headroom after confirmed063generation OOM",
   "date": "2026-10-26",
   "title_id": "PPSA99874",
-  "app_version": "01.000.063",
-  "console": "PENDING exact063PS5 menu controls,focus/release handling,idle smoothness and gameplay;062menu remains accepted and released.",
+  "app_version": "01.000.064",
+  "console": "PENDING064heap reservation/world loading/stability.063controls/menu improvement human-confirmed;world failed after actual Java heap OOM.",
   "previous_accepted": "Client_Menu-v01.000.062",
-  "native_changes": "SDL video pump opt-in DualSense -> normal SDL keyboard/mouse events;buffered taps,launch-held suppression,release on interception/disconnect/focus loss,menu repeats,capped captured look. Automatic handoff when gamepad subsystem initialized;explicit ps5.temporaryControls=0 opt-out. Shared pad_open is idempotent.",
+  "native_changes": "Same063temporary SDL adapter and062OpenAL repair;no new native port/runtime/SDK changes.",
   "menu_policy": "Supported inactivityFpsLimit JSON value minimized,original options backed up once as options.before-menu063.txt;all other option bytes retained. Removes AFK timer cap;not a general frame-rate/GC/JIT fix.",
   "runtime_implementation_modified": false,
   "game_jar_modified": false,
-  "java_heap_max_mib": 256,
+  "java_heap_max_mib": 384,
   "jit": "Existing -Xint unchanged",
   "pending": [
-    "PS5 controls and menu idle comparison",
-    "Remaining measured full-GC pauses",
-    "World creation/gameplay/save-reload/audio/stability"
+    "384MiB heap reservation and commit on actualPS5",
+    "World spawn completes past prior failed stage",
+    "Remaining interpreter/world-render/input/audio/save-reload/stability"
   ],
   "controlify_direction": "User prefers upstream Controlify later on compatible Fabric/NeoForge client;not installed or validated onPS5. Existing raw SDL gamepad driver retained;no double input when handing off.",
-  "package_sha256": "a1c62a8a6ccc8554c77ea3166633545fd08da6ca2b8e1ebffaf0c843677545f0",
-  "host_checks": "PASS actual temporary input adapter ASan/UBSan SDL/OS boundary fixtures;platform shared-init/read/release;actual options migration and original Minecraft enum codec;existing startup launch/observer/logging/Main-boundary tests",
-  "target_checks": "PASS target SDL compile,full native link/SELF/package CRC,all54 original JARs/5147assets/runtime and private dependency audits;accepted062checksum unchanged."
+  "package_sha256": "87b09e6d64b86f2f0741b12405abf10e165256e2551b34d19fe2ac8ffac3f4c9",
+  "host_checks": "PASS actual256/384MiB SerialGC retained224MiB occupancy control;existing launch/observer/logging/originalMain host-boundary checks",
+  "target_checks": "PASS nativecompile/link/SELF/fullpackage;all54originalJARs/5147assets/runtime/privateaudits;accepted062/063checksums;002convenienceZIPrestored",
+  "previous_console_evidence": "docs/validation/client063-world-failure-2026-10-26.json",
+  "observer_samples": 390
 }

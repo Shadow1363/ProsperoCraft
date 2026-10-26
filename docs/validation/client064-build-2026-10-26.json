@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.064",
+  "package_sha256": "87b09e6d64b86f2f0741b12405abf10e165256e2551b34d19fe2ac8ffac3f4c9",
+  "symbols_sha256": "ed3d7bd95981caf1dbaf1b965365981d7997c15d429141063853f5cf05e3b753",
+  "source_revision": "Consumer commit containing this build record,parentbe27d7a5eae9f9f5e343e9cc150686cf12161051",
+  "source_sha256": {
+    "client/startup/ClientStartup25.java": "2b53564ab6a85741f8d137a69959d5cc078bfe5b9e0320ab9e6049d8f89ca270",
+    "client/startup/bootstrap.cpp": "1fc4dea53dd5d1b066d2699b37dfdeb0378b43816c62df6ce1cb4fbac7b9d2ef",
+    "client/startup/param.json": "77bfd42cbd36fe08a3edf684fb6d3b4ffc6cef4a864d920491b0b48bc985ad3a",
+    "tools/package_client_vulkan.py": "266abd4412c31ef969aa0fc702af8393c76e722a08238241d1bad53c05b5eebb",
+    "tools/test_client_startup_host.py": "b96890b6a57ed5a3485a43c4ecffa935b1f591ea6b4068f9a546b9637c385165",
+    "tools/test_client_startup_package.py": "06becd5e839f833a9429b1a9df0ba631339a8c85089629a22f4f96cd78434d93",
+    "tools/test_client_world_heap.py": "a9ed40c3f57e8494473b755858ead708a43ea932086eee2362a01b8a3d8a8cfe"
+  },
+  "runtime_commit": "1e9fb4f23a2e84e26c50fe67cc4e746ff371dfa2",
+  "runtime_implementation_modified": false,
+  "game_jar_modified": false,
+  "java_heap_max_mib": 384,
+  "min_heap_mib": 16,
+  "collector": "SerialGC unchanged",
+  "mode": "Interpreter unchanged",
+  "observer": "390regular samples versus240;existing late5second cadence/500sample bounded language burst retained",
+  "console": "PENDING064heap reservation/world progress/performance;063temporarymenucontrols andmenuimprovement confirmed;world failed actualheapOOM.",
+  "evidence": "client063-world-failure-2026-10-26.json",
+  "checks": {
+    "client064-host.log": {
+      "sha256": "b5772090b849814504c82405c82d4d154c54d998f4ab91c846a3115484ac9478",
+      "bytes": 1131,
+      "result": "PASS"
+    },
+    "client064-heap-host.log": {
+      "sha256": "b95c77d34030b6089dff23de26e08ab18a16c6678345a685979e4608b88646c0",
+      "bytes": 268,
+      "result": "PASS"
+    },
+    "client064-package.log": {
+      "sha256": "db12df31b41ac599942748ce02a47415aa4b8f929db820c9a71e43814a398b26",
+      "bytes": 77225,
+      "result": "PASS"
+    },
+    "client064-package-check.log": {
+      "sha256": "d5374dc6922ead0554b21ac42f382bbaac349dab67b7aa46a2cdba0bce7339d2",
+      "bytes": 531,
+      "result": "PASS"
+    }
+  },
+  "accepted062_preserved": "26f31cc26bc960d3c7e35205c0280e8b83bc6e475a17b8383c778583cf952b88",
+  "accepted063_preserved": "a1c62a8a6ccc8554c77ea3166633545fd08da6ca2b8e1ebffaf0c843677545f0",
+  "release": "Development only;062public release/tag unchanged,noStoreaction",
+  "limitations": "Host retained224MiB model with512MiBtransient churn is not aMinecraft/PS5memorymap/performance/sufficiency test. Historical024512MiBreservationfailed;384consolevalidationrequired. No worldsdeleted/reset."
+}

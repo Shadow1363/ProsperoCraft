@@ -10,7 +10,7 @@ import org.lwjgl.system.MemoryUtil;
 public final class ClientStartup25 {
  public static native void checkpoint(String text);
  public static native void nativeSnapshot(long elapsedMillis,int phase);
- private static void stage(String text){checkpoint("MC Startup063: "+text);}
+ private static void stage(String text){checkpoint("MC Startup064: "+text);}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1280","--height","720"};
@@ -164,7 +164,7 @@ public final class ClientStartup25 {
    Class<?> main=Class.forName("net.minecraft.client.main.Main",false,ClassLoader.getSystemClassLoader());Method method=main.getMethod("main",String[].class);
    stage("ENTER original net.minecraft.client.main.Main.main;menu/world not yet validated");
    console.println("Original Minecraft26.3 Main entry;offline demo test. Native dependency coverage remains incomplete.");
-   try{observer=new StartupObserver(console,240,1000,5000);observer.start();}
+   try{observer=new StartupObserver(console,390,1000,5000);observer.start();}
    catch(Throwable unavailable){console.println("PS5 startup observer unavailable;continuing original Main: "+unavailable);observer=null;}
    try{method.invoke(null,(Object)launchArguments(work,assets));}
    catch(InvocationTargetException failure){throw failure.getCause();}
