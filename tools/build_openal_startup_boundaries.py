@@ -63,7 +63,33 @@ def build(host=False):
  # Pinned file has Windows and POSIX overloads;patch only the latter.
  assert text.count(before)==2
  position=text.rfind(before)
- helpers.write_text(text[:position]+after+text[position+len(before):]);compile_copy(base,HELPERS_MEMBER,helpers_original,helpers,helpers_obj)
+ text=text[:position]+after+text[position+len(before):]
+ before='''    if(auto localpath = al::getenv("ALSOFT_LOCAL_PATH"))
+        DirectorySearch(*localpath, ext, &results);'''
+ after='''    if(auto localpath = al::getenv("ALSOFT_LOCAL_PATH"))
+    {
+        TRACE("App-local data search explicit path selected");
+        DirectorySearch(*localpath, ext, &results);
+    }'''
+ assert text.count(before)==1;text=text.replace(before,after)
+ before='''        auto fpath = path.lexically_normal();
+        if(!fs::exists(fpath))
+            return;'''
+ after='''        TRACE("Data directory normalization begin");
+        auto fpath = path.lexically_normal();
+        TRACE("Data directory normalization end; existence begin");
+        const auto present = fs::exists(fpath);
+        TRACE("Data directory existence result {}", present);
+        if(!present)
+            return;'''
+ assert text.count(before)==1;text=text.replace(before,after)
+ before='''        for(auto&& dirent : fs::directory_iterator{fpath})'''
+ after='''        TRACE("Data directory iteration begin");
+        for(auto&& dirent : fs::directory_iterator{fpath})'''
+ assert text.count(before)==1;text=text.replace(before,after)
+ before='''    const auto newlist = std::span{*results}.subspan(base);'''
+ assert text.count(before)==1;text=text.replace(before,'    TRACE("Data directory iteration scope complete");\n'+before)
+ helpers.write_text(text);compile_copy(base,HELPERS_MEMBER,helpers_original,helpers,helpers_obj)
  audit={'pin':pin,'original_source_sha256':sha(original),'patched_source_sha256':sha(patched),'header_sha256':sha(header),'unit_object_sha256':sha(obj),'functions':[x[0]for x in ANCHORS],'scope':'At most128native API body scopes/256records,errno preserved;scope-exit includes exception unwinding,not success/return proof','game_jar_modified':False}
  audit['cwd_discovery_repair']={'original_source_sha256':sha(helpers_original),'patched_source_sha256':sha(helpers),'unit_object_sha256':sha(helpers_obj),'behavior':'Nonthrowing current_path(error_code);skip unavailable app-local search with warning,retain configured/local-valid/global/default HRTF discovery','console':'Host missing-cwd abort reproduced;PS5 cause/resolution unverified'}
  if host:

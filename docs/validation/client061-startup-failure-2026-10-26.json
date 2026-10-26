@@ -1,0 +1,237 @@
+{
+  "date": "2026-10-26",
+  "title_id": "PPSA99874",
+  "app_version": "01.000.061",
+  "run": "client-01.000.061-1793006813-300348241",
+  "tested_source_commit": "c43e0ec9edde15a4b880c1558f03ca6da108bb76",
+  "package_sha256": "d1a338b5e7c3d542bf5d4be974e3780c8ea3260ccd812939ea290dd755629429",
+  "human": "User explicitly reports crashed,reopened. Exact screen/error/timing not supplied.",
+  "reports": {
+    "abort.txt": {
+      "bytes": 133,
+      "sha256": "ccff0f69010384c84412831bd6486c26c074d11f5bc43a9f68ae9e7a3b16ea8d"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "0cd9cca85ebd43496958b837beef85dbb196a91c0ee93d41e3dc0155b926341e"
+    },
+    "exceptions.log": {
+      "bytes": 1047823,
+      "sha256": "0ffb3d2dd83a51a57f11131186f60c997816661ddcc152302774b5c054ff69fe"
+    },
+    "gc-rotated.log": {
+      "bytes": 4194467,
+      "sha256": "36c6946d8342bc4b16592124e146f7baff1fdbb590fc7c4abbbc839ca948a7e5"
+    },
+    "gc.log": {
+      "bytes": 3818181,
+      "sha256": "d9170ebf7427318f2fa9be43b145d422ca36bc4a323f9ba4dc489d5a39b85be2"
+    },
+    "hs-error.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    },
+    "native-stderr.log": {
+      "bytes": 4220,
+      "sha256": "d74287022a62dea0688e32acc4a4cb21614485cb51618ce8352b23fbf2629a6e"
+    },
+    "process-usage.log": {
+      "bytes": 207204,
+      "sha256": "07d2ba42ff73e0487e0a61577c24bb75157bc138c5c560fba72c31f6cf24753e"
+    },
+    "session.txt": {
+      "bytes": 144,
+      "sha256": "83fbfe7f152f213c9c7a1b7ef848f7f696a6b6acca0a18cbb60aaab70e686ee1"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "69e872c3cb275443b22f1e551051fd261b027fcda9475c4e8f3ddb9a2f7d88fa"
+    },
+    "startup.log": {
+      "bytes": 1378407,
+      "sha256": "b4753fcd0712f89527ce3a78191f44d9834ee82a85c344550ae84cc71b4b0176"
+    },
+    "vm-trace.log": {
+      "bytes": 1720888,
+      "sha256": "499942ef9dd094825747b35594ba6f38590113fd669c2fb334f9aad2ede44250"
+    }
+  },
+  "observed": {
+    "regular_snapshots": 127,
+    "burst_records": 17,
+    "boundary_records": 31,
+    "completed_scope_pairs": 15,
+    "last_boundary": {
+      "api": "alcGetIntegerv",
+      "param": "0x1994",
+      "size": 1,
+      "phases": [
+        "enter"
+      ]
+    },
+    "cwd_begin_recorded": true,
+    "cwd_result_recorded": false,
+    "cwd_failure_warning_recorded": false,
+    "native_sequence": "Null device created,IDs1..15bodypairs thenID16HRTFcount0x1994,size1. App-localcurrent_pathbegin,no result/scopeexit/contextentry.",
+    "retained_gc_starts": 18,
+    "retained_gc_ends": 18,
+    "gc_coverage": "Earlier records rotatedout;retained countsnot fullrun total.",
+    "fatal": "No captured fatal/VMabort/JavaOOM/driver error;hs-error unavailable. Last recordnot exact instruction/time.",
+    "clock_caveat": "Observerelapsed/JVMuptime differ;burst/stderr/class records not atomic."
+  },
+  "boundary_scope_summary": {
+    "1": {
+      "api": "alcGetIntegerv",
+      "param": "0x1000",
+      "size": 1,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "2": {
+      "api": "alcGetIntegerv",
+      "param": "0x1001",
+      "size": 1,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "3": {
+      "api": "alcGetString",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "4": {
+      "api": "alcGetString",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "5": {
+      "api": "alcGetString",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "6": {
+      "api": "alcGetString",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "7": {
+      "api": "alcGetString",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "8": {
+      "api": "alcGetString",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "9": {
+      "api": "alcGetString",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "10": {
+      "api": "alcGetError",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "11": {
+      "api": "alcGetString",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "12": {
+      "api": "alcGetIntegerv",
+      "param": "0x1000",
+      "size": 1,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "13": {
+      "api": "alcGetIntegerv",
+      "param": "0x1001",
+      "size": 1,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "14": {
+      "api": "alcGetString",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "15": {
+      "api": "alcGetError",
+      "param": "0x0",
+      "size": 0,
+      "phases": [
+        "enter",
+        "scope-exit"
+      ]
+    },
+    "16": {
+      "api": "alcGetIntegerv",
+      "param": "0x1994",
+      "size": 1,
+      "phases": [
+        "enter"
+      ]
+    }
+  },
+  "inspection": {
+    "native_path": "Exact scalarquery0x1994confirmed. Stops inside/afterentry to SDK std::filesystem.current_path before error-code handling returns. Hostmissingcwd exception repair remains valid butdoesnotexplainalltargetfailure.",
+    "sdk_link": "Read-only061current_path binarycontainsAVX and calls rawpathconf syscall191 beforegetcwd import;neither an ISA fault nor forbidden/missing syscall/import is proven bytrace. No SDK/ISAchange made.",
+    "integration": "Java/game workdirectory is explicit /download0/mc-client,created bystartupwrapper;nativeOpenAL still reliedonambientcwd for app-local HRTFsearch. Upstream supports ALSOFT_LOCAL_PATH toselect explicit localdirectory without current_path."
+  },
+  "cause": "Exact targetfailure mechanism unproven;nativeambientcwd operationis last observedboundary.",
+  "next": "Preserve061.062defaults startup-private OpenALALSOFT_LOCAL_PATH to same gameworkdir,honors explicitnonemptysetting,retains allotherdiscovery/backends;filesystem stage records distinguish nextnative boundary. Hostactualexplicitpath query with removedcwd and validfixture,shimcontrol,build/check/publish.",
+  "report_boundary": "Raw/fullstacks remainlocal;publichashes,measurements and interpretedfacts only.",
+  "goal": "Fullpolished nativeJava25PS5Minecraftclient;menu intermediate. Fullgameplay/audio/input/save-reload/stabilitypending.",
+  "limits": "No menu/newmilestone/clientrelease/Storedownload;server2Hdeferred."
+}

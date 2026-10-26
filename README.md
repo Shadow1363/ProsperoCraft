@@ -66,24 +66,24 @@ native Java25onPS5:responsive controls,smooth rendering,working audio,world game
 saving/reloading and stability. Reaching the menu is an intermediate checkpoint.
 Those full-client features still require actual exact-build console validation.
 
-## Development client061 — graceful unavailable-directory HRTF discovery
+## Development client062 — explicit native app-local data directory
 
-060native records have15paired ALCbody scopes,then alcGetIntegerv call16 enters
-without a recorded scope exit. Device creation succeeded;no context entry appears.
-Its query arguments were not recorded,so the precise query/PS5cause remains unknown.
-Exact060package/symbols/evidence preserved.
+061confirms HRTFcount query0x1994enters app-local current_path lookup without a
+recorded result. Its error-code repair cannot help before that SDKoperation returns.
+Hostmissing-cwd exception handling remains valid;PS5failure mechanism unproven.
+Exact061package/symbols/evidence preserved.
 
-A concrete OpenAL defect was reproduced on host:HRTF-count query with unavailable
-currentdirectory throws filesystem_error through a noexcept API and aborts.061uses
-an error-code directory lookup,logs/skips unavailable app-local discovery and retains
-other HRTFpaths. Patched host returns0/error0 and creates context;valid local filename
-enumeration remains1. Native query records now include param/size/output pointer.
-**PS5crash resolution and full playable-client validation remain pending.**
-Original54JARs/5147assets,runtimeimage,heap/backend/graphics remain. No client release/
-Storedownload;server endurance deferred.
-[061repair](docs/client-startup-061.md) ·
-[060evidence](docs/validation/client060-startup-failure-2026-10-26.json) ·
-[Current handoff](docs/handoff-prosperocraft-client061.md).
+062uses OpenAL's supportedALSOFT_LOCAL_PATH input:honor an existing nonempty value,
+otherwise use the same /download0/mc-client directory already created for the game.
+This removes default reliance on ambient nativecwd while preserving file discovery.
+Hostoriginal/private OpenAL enumerate1filename/error0 with explicitlocalpath even
+when currentdirectory is removed. Shimfallback/override/forwarding checks passed.
+Following filesystem stages are logged. **PS5crash resolution and full playable
+client validation remain pending.** No gameJAR/assets/runtime/heap/backend/graphics
+change,no clientrelease/Storedownload;serverendurance deferred.
+[062configuration](docs/client-startup-062.md) ·
+[061evidence](docs/validation/client061-startup-failure-2026-10-26.json) ·
+[Current handoff](docs/handoff-prosperocraft-client062.md).
 
 ## Client SPIRV-Cross — PS5 ALL5 PASS
 

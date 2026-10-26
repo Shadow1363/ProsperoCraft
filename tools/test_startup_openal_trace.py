@@ -13,6 +13,8 @@ assert subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], 
 subprocess.run(['git', '-C', str(source), 'diff', '--exit-code', 'HEAD'], check=True)
 library = ROOT/'build/openal-host/libopenal.dylib'
 assert library.is_file(), 'Prepare pinned host OpenAL via build_openal_native.py --host'
+assert 'Path work=Path.of("/download0/mc-client")'in (ROOT/'client/startup/ClientStartup25.java').read_text()
+assert '-Duser.dir=/download0/mc-client'in (ROOT/'client/startup/bootstrap.cpp').read_text()
 with tempfile.TemporaryDirectory(prefix='startup-openal-trace-') as temp:
     root = Path(temp)
     (root/'shim.c').write_text(r'''
@@ -25,6 +27,9 @@ int main(void){
  assert(setenv("ALSOFT_LOGLEVEL","0",1)==0);errno=EBUSY;
  assert(strcmp(client_startup_openal_getenv("ALSOFT_LOGLEVEL"),"3")==0&&errno==EBUSY);
  assert(strcmp(getenv("ALSOFT_LOGLEVEL"),"0")==0);
+ unsetenv("ALSOFT_LOCAL_PATH");assert(strcmp(client_startup_openal_getenv("ALSOFT_LOCAL_PATH"),"/download0/mc-client")==0);assert(!getenv("ALSOFT_LOCAL_PATH"));
+ assert(setenv("ALSOFT_LOCAL_PATH","",1)==0);assert(strcmp(client_startup_openal_getenv("ALSOFT_LOCAL_PATH"),"/download0/mc-client")==0);
+ assert(setenv("ALSOFT_LOCAL_PATH","/explicit/local-data",1)==0);assert(client_startup_openal_getenv("ALSOFT_LOCAL_PATH")==getenv("ALSOFT_LOCAL_PATH"));
  unsetenv("PS5_OPENAL_TRACE_TEST_OTHER");assert(!client_startup_openal_getenv("PS5_OPENAL_TRACE_TEST_OTHER"));
  assert(setenv("PS5_OPENAL_TRACE_TEST_OTHER","unchanged",1)==0);
  assert(strcmp(client_startup_openal_getenv("PS5_OPENAL_TRACE_TEST_OTHER"),"unchanged")==0);
@@ -60,4 +65,4 @@ int main(void){
             print(result.stdout.strip())
         else:
             assert 'Initializing library' not in result.stderr
-    print('PASS private OpenAL trace lookup:level3 only,other environment forwarded,process state unchanged,ASan/UBSan;real pinned host OpenAL trace/control and actual device/context calls. PS5 pending.')
+    print('PASS private OpenAL configuration:trace3,explicit local path honored,missing/empty local path defaults to game workdir,other lookups forwarded,process environment unchanged,ASan/UBSan;actual pinned host trace/device/context controls. PS5 pending.')

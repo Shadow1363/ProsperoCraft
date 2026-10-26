@@ -1,3 +1,5 @@
+> Continuation:061crashed;query0x1994confirmed,current_pathbegin/noresult.062uses explicit app-local game directory to avoid ambientlookup and logs laterfilesystem stages. Hostexceptionrepair remains valid,PS5mechanism unproven. See [061evidence](validation/client061-startup-failure-2026-10-26.json) and [062configuration](client-startup-062.md).
+
 # ProsperoCraft client061 — optional data discovery error handling
 
 Product goal remains a polished full Minecraft Java client on nativeJava25PS5:
