@@ -15,11 +15,19 @@
     "PASS full target build and package audits",
     "PASS original unmodified host Main reaches expected unprovided-native boundary; no host game pass"
   ],
-  "console_status": "PENDING exact084 signature provider/menu/full offline world create/save/reload/controls/audio/quit-relaunch",
+  "console_status": "Human-confirmed084 offline profile loading and offline gameplay; save/reload, exact lifecycle cycles, renewal/expiry and endurance remain unvalidated",
   "lease_days": 7,
   "token_exported": false,
   "private_key_published": false,
   "public_release": "083 unchanged; no084Store release",
   "preserved083_sha256": "8fcbdc8cb9cc8065aa0eaac26457a834fffb15098725e987df1d33257a76444e",
-  "deployment": "Not confirmed: shell FTP fails No route to host; Cyberduck upload selections did not yield a verifiable transfer. Candidate and personal record retained locally."
+  "deployment": "User installed084 and the personal profile; after closing/reopening the app the offline action appeared. Earlier automated FTP failure is historical, not the current console state.",
+  "human_confirmation": {
+    "date": "2026-10-27",
+    "reports": [
+      "just reopned the app and play offline is there",
+      "perfect it works really well!"
+    ],
+    "scope": "After reopening084, Play Offline appeared and the user confirms the offline launch/play experience works very well. No measured performance, formal ALL PASS, save/reload or endurance result inferred."
+  }
 }

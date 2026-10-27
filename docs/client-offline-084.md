@@ -54,6 +54,10 @@ invalid profiles, actual controller selection and offline launch arguments,
 no network/token use, cache verification, demo/world preservation and1080p.
 Exporter checks exercise entitlement denial, mismatched profiles, private file
 permissions, output secret exclusion and actual RSA verification. Target build,
-original-JAR host startup, native preview and package audits pass. Exact084PS5
-signature provider, menu visibility, full offline world creation/save/reload,
-audio/controls and Quit/library/relaunch remain pending. No ALL PASS is claimed.
+original-JAR host startup, native preview and package audits pass. On2026-10-27the user confirmed that Play Offline appeared after closing/reopening
+084, then reported "perfect it works really well!" after trying offline play.
+This confirms the scoped offline profile/menu and launch/play experience on PS5.
+Explicit save/reload, renewal/expiry, exact quit/relaunch cycles, separate audio/
+control regression checks and endurance remain pending. No formal ALL PASS or
+measured performance result is inferred. The exact084candidate package remains
+preserved; no new frozen milestone or public release is created.

@@ -785,3 +785,12 @@ RSA signing key ignored; only public key ships. No unverified profile/UUID overr
 borrowed appID, online bypass or game-JAR edits. Full offline actual084PS5/world/
 RSA/menu/controls/audio/lifecycle tests pending. Preserve published083and082,
 frozen milestones and existing worlds. No new Store release is authorized here.
+
+Human084feedback2026-10-27: "just reopned the app and play offline is there", then
+"perfect it works really well!" after offline-play instructions. Record a scoped
+PS5 offline profile/menu and launch/play success for exact candidate084, not formal
+ALL PASS, measuredFPS, explicit save/reload, renewal/expiry or endurance. Preserve
+a1e6774ba8bebe1faac0d9c36c4ff7cc17da1cf5622c2f9519bffc50eec57822 package and
+2063966a99e5930773727b6bfd4a19523eb7a48792ecf326e311c772d507badf symbols in
+local dist/candidates/ProsperoCraft-01.000.084. No new frozen milestone or public
+release requested by this feedback. AppID approval remains pending.
