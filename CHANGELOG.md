@@ -6,6 +6,15 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Client100 isolates remaining remark cleanup spikes
+
+099 reduces reported stutters, with typical captured pauses near4ms; remaining
+13–21ms spikes concentrate in G1 remark.100 retains099 collection batching and
+turns off class/code cleanup during concurrent remarks, keeping full-GC class
+unloading enabled. Unused class/code retention can increase memory pressure;
+this is an isolation candidate with console/long-session tests pending. No
+Store update or public release. [Guide](docs/client-remark-cleanup-100.md).
+
 ## 2026-10-27 — Client099 tests smaller G1 collection batches
 
 098logging reduction did not fix the reported stutters. Same-run steady-gameplay

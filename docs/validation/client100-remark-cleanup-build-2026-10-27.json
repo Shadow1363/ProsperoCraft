@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.100",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "package_sha256": "b905d80a3b21502c2c1c9672db7833cd38f3582c35835e13c087667a0a0e7f65",
+  "native_elf_sha256": "ca093fe5a1e042d85f6d8815259d3b7bad82415374c0a21dcb18529a38371899",
+  "trigger": "099humanreport:muchlessstutterbutstillpresent;same-runGCshowslargestremaining13\u201321msG1PauseRemark.",
+  "change": "Only-ClassUnloadingWithConcurrentMark andversionincrement;099batchpolicyretained. FullGCClassUnloading remains enabled.",
+  "unchanged": [
+    "1536MiBheap/128MiBinitial",
+    "4msgoal/1percentyoungminimum/16mixedGCtarget",
+    "GCworkers4/concurrent1,C1,reserve,quality,audio/input,resolution,120Hz",
+    "OriginalgameJARs,noJava-runtimepatches"
+  ],
+  "tests": {
+    "target_build": "PASS exit0",
+    "full_startup_package_audit": "PASS exit0",
+    "toolkit_package_retention_identity": "PASS exit0",
+    "real_host_G1_remark_and_full_collection_controls": "PASS normalremarkcleanup present in099control,absent in100concurrentcontrol;100explicitfullGCreclaims120fixtureclasses/loaders;ClassUnloadingtrue;livepayloadpreserved",
+    "candidate_manifest_and_footer": "PASS correct100version/highrefresh/storage/embeddedGCflags",
+    "099preserved": "PASS exacthash"
+  },
+  "host_controls": {
+    "099-concurrent": {
+      "contents": "PASS",
+      "unloaded_fixture_classes": 0,
+      "ClassUnloading": true,
+      "ClassUnloadingWithConcurrentMark": true,
+      "full_GC": false,
+      "remark": true
+    },
+    "100-concurrent": {
+      "contents": "PASS",
+      "unloaded_fixture_classes": 0,
+      "ClassUnloading": true,
+      "ClassUnloadingWithConcurrentMark": false,
+      "full_GC": false,
+      "remark": true
+    },
+    "100-full": {
+      "contents": "PASS",
+      "unloaded_fixture_classes": 120,
+      "ClassUnloading": true,
+      "ClassUnloadingWithConcurrentMark": false,
+      "full_GC": true,
+      "remark": true
+    },
+    "scope": "Real host G1 flag gating/classloader retention and full-GC reclamation;not PS5 latency/memory/lifecycle acceptance. Deferral retains unused classloaders/code longer and can increase pressure/fullGC risk."
+  },
+  "evidence": {
+    "client100-package.log": {
+      "bytes": 78238,
+      "sha256": "17e28b0a5e4b2faf954174d7ffbafd5f60ef7f2b1ae78e397b43faf792550a8b",
+      "result": "PASS"
+    },
+    "client100-startup-test.log": {
+      "bytes": 612,
+      "sha256": "cf196ebe4ca5f80f64c2b2972a02fc2d29c65699f212b14751e9b9515c5df195",
+      "result": "PASS"
+    },
+    "client100-toolkit-test.log": {
+      "bytes": 256,
+      "sha256": "467948033e28477c11f9789abd582fe2a3801d2f75a3d84d4fa3eedb9dfde32c",
+      "result": "PASS"
+    },
+    "client100-remark-test.log": {
+      "bytes": 382,
+      "sha256": "35db5b1b3738a51c82b07eb066f1432c4b5083cbe15c3c23e8d89cfe5808bdf5",
+      "result": "PASS"
+    }
+  },
+  "preserved099_package_sha256": "62ccf7728c83a5f3d39f5d07ba7e902634706c9e1f92b51a749b92f6ac46c659",
+  "console": {
+    "status": "PENDING",
+    "needed": [
+      "Compare remaininghitches/currentGCremark against099in same scene/settings",
+      "120Hz/framecadence,visible100version,input/audio",
+      "World/serverchanges,resourcereload,long-sessionmemory/codecachepressure",
+      "Save/reload,Quit/library/relaunch"
+    ],
+    "risk": "Deferral retains obsoleteclasses/code longer;may increase memory/metaspace/codecachepressure or laterfullGC. Not a final long-session fix;otherpausesremain.",
+    "no_ALL_PASS": true
+  },
+  "publication": "Developmentsourceonly;localtestapp. Keep098draftandnoStoreupdateuntilhumanconfirmsstutterfix."
+}

@@ -1098,3 +1098,17 @@ can worsen throughput;host results do not prove PS5improvement. Preserve098exact
 bytes/draft and097/096snapshots. Do not publish binaries or Storeupdate until
 human confirmsstutterfix.099is testcandidateonly;footer/GCcadence/gameplayand
 lifecycle remain consolepending. Public development source still must be pushed.
+
+
+## 099 partial improvement;100 remark isolation — 2026-10-27
+
+Human reports much less stutter on099but some remains. Safari099session/GC
+records agree:after60s median4.368ms,p957.522ms,max21.078ms;largesteventsG1PauseRemark.
+Earlier097phase reports show class/code cleanup consuming much of remark,not
+new099subphase proof.100adds only-ClassUnloadingWithConcurrentMark to099policy.
+ClassUnloading remains enabled for fullGC. This can retain obsolete classes/code
+and increase memory/code-cache pressure;not final long-session fix. Read
+ docs/client-remark-cleanup-100.md and matching099feedback/100validation.
+Preserve099exactpackage as partial-improvementfallback. No ALLPASS/newmilestone.
+Keep098draft andStoreunchanged until human confirmsstutterfix.100localtestonly;
+actualpause/improvement/memory/lifecycle requireconsolevalidation. Publishsource.

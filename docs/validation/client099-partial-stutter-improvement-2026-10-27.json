@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.099",
+  "package_sha256": "62ccf7728c83a5f3d39f5d07ba7e902634706c9e1f92b51a749b92f6ac46c659",
+  "human_feedback": "Much less stutter, but still present. Partial improvement only;no final fix,ALL PASS or frozen milestone.",
+  "run": "client-01.000.099-1793113748-238732459",
+  "retrieval": "Safari computer use;downloaded current session andGC. Native download stalled during UI changes and was canceled;do not claim native report retrieved.",
+  "files": {
+    "099-session.txt": {
+      "bytes": 133,
+      "sha256": "e864aca3bd1c0cfde8e5605b60859931c89ec32d6eb0dfb11f3a435515d39e6b"
+    },
+    "099-gc.log": {
+      "bytes": 347006,
+      "sha256": "7d889670566ff6eb501de99d53e3be23c260e9b3e1822110dc0fe8e8b8c480c1"
+    }
+  },
+  "after60s": {
+    "uptime_ms": [
+      60002,
+      168382
+    ],
+    "safepoints": 671,
+    "median_total_ms": 4.3677,
+    "p95_total_ms": 7.522194,
+    "max_total_ms": 21.078181,
+    "over8_34ms": 23,
+    "types": {
+      "G1CollectForAllocation": 656,
+      "G1TryInitiateConcMark": 1,
+      "G1PauseRemark": 7,
+      "G1PauseCleanup": 7
+    },
+    "worst": [
+      [
+        67961,
+        "G1PauseRemark",
+        21.078181,
+        0.011467,
+        21.052121
+      ],
+      [
+        122612,
+        "G1PauseRemark",
+        19.889673,
+        0.139522,
+        19.731307
+      ],
+      [
+        143886,
+        "G1PauseRemark",
+        18.954551,
+        0.130863,
+        18.809415
+      ],
+      [
+        99524,
+        "G1PauseRemark",
+        13.569698,
+        1.061334,
+        12.485913
+      ],
+      [
+        163273,
+        "G1PauseRemark",
+        13.416385,
+        0.130703,
+        13.270847
+      ],
+      [
+        133693,
+        "G1CollectForAllocation",
+        11.128854,
+        2.200128,
+        8.911968
+      ],
+      [
+        133797,
+        "G1CollectForAllocation",
+        10.796085,
+        1.024689,
+        9.753915
+      ],
+      [
+        133841,
+        "G1CollectForAllocation",
+        10.781331,
+        0.134792,
+        10.622564
+      ],
+      [
+        132814,
+        "G1PauseRemark",
+        10.739394,
+        0.135513,
+        10.585197
+      ],
+      [
+        100686,
+        "G1CollectForAllocation",
+        10.42226,
+        0.010103,
+        10.402856
+      ]
+    ]
+  },
+  "no_full_GC_in_capture": true,
+  "interpretation": "Largest remaining events areG1PauseRemark,13\u201321ms,while typical pauses are~4ms. No per-frame stutter timestamps;other causes remain possible.",
+  "historical_phase_evidence": [
+    {
+      "run": "097first capture",
+      "gc": 729,
+      "remark_ms": 10.225,
+      "class_cleanup_ms": 6.481
+    },
+    {
+      "run": "097second capture",
+      "gc": 155,
+      "remark_ms": 28.116,
+      "class_cleanup_ms": 17.603
+    },
+    {
+      "run": "097second capture",
+      "gc": 199,
+      "class_cleanup_ms": 17.283,
+      "G1CompleteCleaning_ms": 7.216,
+      "PurgeUnlinkedNMethods_ms": 6.731
+    }
+  ],
+  "historical_limit": "These detailed phase timings are from097,not a measured099subphase breakdown. They motivate a scoped class/code cleanup isolation candidate.",
+  "next": "100retains099GCbatchpolicy and disablesClassUnloadingWithConcurrentMark only. FullGC ClassUnloading stays enabled. May retain unused classloader/code longer and increase memory/code-cache pressure.",
+  "publication": "098staysdraft;noStoreorpublicbinaryreleaseuntilhumanconfirmsstutterfix."
+}

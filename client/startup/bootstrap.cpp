@@ -305,6 +305,8 @@ void run_test(int i) {
    {const_cast<char *>("-XX:+UnlockExperimentalVMOptions"),nullptr},
    {const_cast<char *>("-XX:G1NewSizePercent=1"),nullptr},
    {const_cast<char *>("-XX:G1MixedGCCountTarget=16"),nullptr},
+   //100: isolate class/code cleanup in remark; full-GC unloading remains enabled.
+   {const_cast<char *>("-XX:-ClassUnloadingWithConcurrentMark"),nullptr},
    {const_cast<char *>("-XX:ParallelGCThreads=4"),nullptr},
    {const_cast<char *>("-XX:ConcGCThreads=1"),nullptr},
    {const_cast<char *>("-XX:G1ReservePercent=20"),nullptr},
