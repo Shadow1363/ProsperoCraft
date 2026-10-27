@@ -14,6 +14,14 @@ def build(runtime,output,variant="native_bootstrap",version="01.000.026",tested_
  flags=[json.loads(line)for line in (work/'combined-link.rsp').read_text().splitlines()]
  # Reproduce the SDK driver's actual ld.lld arguments without a host-specific SDK wrapper.
  args=['-m','elf_x86_64','-pie','--eh-frame-hdr','-z','max-page-size=0x4000','-mllvm','-emulated-tls','-T',keep(work/'gpu-probe.ld'),'--eh-frame-hdr','--version-script',keep(native/'app-symbols.map'),'--version-script',keep(work/'gpu-abi-local.map'),'-e','_start','-o','{OUTPUT}']
+ # Toolkit objects precede the application objects in the actual startup link.
+ # Preserve the audited build order and reject stale/mismatched inputs.
+ toolkit_audit=work/'launcher-toolkit-audit.json'
+ if variant=='startup' and toolkit_audit.exists():
+  for name,digest in json.loads(toolkit_audit.read_text())['objects_sha256'].items():
+   obj=work/name
+   assert sha(obj)==digest,'Toolkit relink input mismatch: '+name
+   args.append(keep(obj))
  for name in ['main.o','renderer.o','crt.o','cpp_runtime.o']:args.append(keep(work/name))
  args+=[keep(ROOT/'build/client-graphics/libSceAgc.so'),keep(ROOT/'build/client-graphics/libSceAgcDriver.so')]
  for token in flags:args.append(token if token.startswith('-')else keep(token))

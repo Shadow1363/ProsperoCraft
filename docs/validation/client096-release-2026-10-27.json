@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.096",
+  "title_id": "PPSA99874",
+  "tested_source_commit": "de14221766a5f9ae496cafd6daeab385175cd965",
+  "merge_commit": "c16e52997fb978f4963685189cc82b1d5ee9a5a4",
+  "package_sha256": "7576aacd601ffbec16d956adaa3a03f9a8f2c0d9a1eadf76889776f246500067",
+  "symbols_sha256": "b666a845adf3fd1a75747e8dccd1f2904c9e29a7f469ad786e78d114b1a98537",
+  "channel": "temp_gametest",
+  "human_feedback": "User reports Minecraft running and login working, selects exact096 candidate and requests main merge/full GitHub release and Store update. Scoped human feedback only; no formal ALL PASS or new frozen milestone.",
+  "checks": "PASS exact original candidate checksum, ZIP CRC/identity/version/manifest mirror, pinned launcher dependencies, channel/auth/ownership/profile endpoint and no account secret checks, banner bytes/notices; matching normal and OpenAL replacement relinks reproduce exact096 native ELF with audited GUI toolkit objects. Existing096 target build validation retained separately.",
+  "console_pending": [
+    "LAN hosting deferred",
+    "Save/reload and endurance",
+    "Resolution/reconnect/lifecycle combinations",
+    "Exact banner framing and account expiry/recovery"
+  ],
+  "credits": {
+    "GUI": "https://github.com/mihawk-99/PS5_VKHomebrewUI",
+    "icons": [
+      "https://github.com/MultiMC/Launcher",
+      "https://github.com/PrismLauncher/PrismLauncher"
+    ]
+  },
+  "preservation": "Original096ZIP unchanged;082/083releases, Temp_gametest branch and frozen milestones retained."
+}
