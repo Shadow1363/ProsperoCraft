@@ -87,6 +87,14 @@ Delete Instance “Is a directory” failure. The preceding personal089login wor
 on the user's PS5;090full-game/download/Delete/Undo/lifecycle checks remain pending.
 Demo/main authentication and the existing Store083 release are unchanged.
 
+[Development094](docs/client-home-library-094.md) adds **Home** with persistent
+world/server favorites, an automatically selected **Instances** page with a final
+plus card, a single Settings focus target, permanent **No / Yes, Delete** removal,
+and six prelaunch control essentials with a five-page full guide. Vanilla world
+and saved-server discovery is read-only; Home PLAY uses original quick-play flags.
+Exact094 PS5 UI, discovery, quick-play and disposable-instance deletion checks are
+pending. Hosting is deferred at the user's request.
+
 [Development093](docs/client-keyboard-hosting-093.md) adds a visible in-game
 controller keyboard, sign-in actions, shoulder-button page selection, controller
 glyphs, a cleaner welcome/footer and a saved prelaunch controls tutorial. The user

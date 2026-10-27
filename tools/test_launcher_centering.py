@@ -8,7 +8,7 @@ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--toolk
 folder='launcher-toolkit-preview' if args.toolkit else 'launcher-preview'
 for name,page in [('home',0),('settings',2),('signin',3)]:
  with Image.open(ROOT/'build'/folder/(name+'.png')).convert('RGB') as picture:
-  for i,(x,w) in enumerate(zip((865,1245,1555),(350,280,280))):
+  for i,(x,w) in enumerate(zip((650,920,1210,1480),(250,270,250,355))):
    bg=(40,79,60) if page==i+1 else (23,46,36)
    points=[(xx,yy) for yy in range(62,110) for xx in range(x+10,x+w-10) if (min(picture.getpixel((xx,yy)))>140 if args.toolkit else picture.getpixel((xx,yy))!=bg)]
    assert points,(name,i,'no rendered label')
@@ -16,4 +16,4 @@ for name,page in [('home',0),('settings',2),('signin',3)]:
    # Pixel centers: inclusive ink bounds versus the button's inclusive bounds.
    assert abs((left+right)/2-(x+(w-1)/2))<=1.0,(name,i,'horizontal',left,right)
    assert abs((top+bottom)/2-(52+(68-1)/2))<=1.0,(name,i,'vertical',top,bottom)
-print('PASS actual native rendered pixels centered within1px in all3top buttons across home/settings/account states')
+print('PASS actual native rendered pixels centered within1px in all4top buttons across home/settings/account states')

@@ -964,3 +964,16 @@ prelaunch controls tutorial. Preserve092and prior candidates; no new milestone,
 Store or public binary release. Retest hosting and retrieve current-run trace;
 console keyboard/input/resolution/overlay/lifecycle checks remain pending. See
  docs/client-keyboard-hosting-093.md and its validation for exact candidate hashes.
+
+
+094work-order2026-10-27: user explicitly defers LAN hosting. Continue launcher UI:
+Home left of Instances, automatic tab content focus, final plus add cards, saved
+world/server favorites, permanent Yes/No deletion without Undo, essential PLAY
+guide and paginated full OPTIONS guide. New deletions purge instance worlds and
+pins; retain old Trash archives rather than silently deleting unrelated history.
+A private deletion journal supports precommit rollback/postcommit cleanup only,
+not user undo. Preserve093/older packages. Original NBT/game JARs remain unchanged;
+quick-play uses original Main arguments. See docs/client-home-library-094.md and
+matching validation. No ALL PASS, freeze, Store or public binary release inferred;
+exact094 console UI, permanent deletion, discovery, favorites/quick-play and
+lifecycle remain pending.
