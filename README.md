@@ -6,13 +6,14 @@
 
 Download Minecraft on your console, manage separate instances and play with DualSense controls, native graphics and game audio. Minecraft gameplay and account login have been tested on PS5. The high-refresh update reached 119 FPS in console testing; extended endurance remains under testing.
 
-**[Download 01.000.096](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.096)** · [Install and release notes](docs/releases/client-authenticated-096.md) · [Changelog](CHANGELOG.md)
+**[Download 01.000.100](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.100)** · [Install and release notes](docs/releases/client-smooth-high-refresh-100.md) · [Changelog](CHANGELOG.md)
 
 ## Downloads
 
 | Release | Includes |
 | :--- | :--- |
-| [**ProsperoCraft 01.000.096**](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.096) | Authenticated-play experiment, Vulkan launcher, instance downloads, saved sign-in, controller keyboard and refreshed presentation. |
+| [**ProsperoCraft 01.000.100**](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.100) | Smoother gameplay, up to 120 Hz output, 60 Hz fallback and the correct in-app version. |
+| [Previous authenticated launcher 01.000.096](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.096) | Authenticated-play experiment, Vulkan launcher, instance downloads, saved sign-in, controller keyboard and refreshed presentation. |
 | [Previous launcher 01.000.083](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.083) | Preserved Demo release and fixed 1080p baseline. |
 | [Fabric / Paper servers 01.000.108](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Fabric-Paper-v01.000.108) | Separate server builds with positive console playtests; extended lifecycle/endurance checks pending. |
 
@@ -24,12 +25,12 @@ The client and server share **PPSA99874**: installing one replaces the other. Ba
 
 - **26.3 is the playable native baseline.** Other 26.x versions and snapshots can be downloaded but are not claimed launchable.
 - **Login and gameplay are console-tested.** The existing experimental authentication flow remains in use; a valid Java Edition entitlement/profile is required.
-- **120 Hz development:** 119 FPS was reported during PS5 testing of build097. 099 reduced reported stutters; candidate100 isolates remaining remark cleanup spikes. Release and Store publication remain held pending confirmation of a fix.
+- **High-refresh gameplay:** up to 120 Hz output on compatible displays, with 119 FPS reported on build097. Release100 has accepted PS5 feedback for much smoother gameplay; sustained frame-time and long-session testing remain incomplete.
 - **Native GUI:** animated backgrounds, instance icons, account display, dropdown settings, navigation cues and optional vibration.
 - **Controls:** temporary DualSense keyboard/mouse mapping, in-game keyboard and PLAY/OPTIONS guides. Full Controlify support remains planned.
 - **Known limits:** LAN hosting is deferred; save/reload, resolution combinations, reconnect/lifecycle regressions and extended endurance still need broader testing. Earlier server joining was confirmed.
 
-Development continues on `main`, which contains the merged authenticated game-test work. The merged `Temp_gametest` and `codex/demo` branches have been retired. Candidate098 retains the existing `temp_gametest` package channel. The exact096 and097 packages remain preserved. Older Demo history, all frozen validation snapshots and public releases remain intact. Home/favorites are deferred; this release opens Instances, with Settings and Account beside it.
+Development continues on `main`, which contains the merged authenticated game-test work. The merged `Temp_gametest` and `codex/demo` branches have been retired. Release100 retains the existing `temp_gametest` package channel. The exact096 and097 packages remain preserved. Older Demo history, all frozen validation snapshots and public releases remain intact. Home/favorites are deferred; this release opens Instances, with Settings and Account beside it.
 
 ## Credits
 

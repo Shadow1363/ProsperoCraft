@@ -1125,3 +1125,18 @@ code, launcher work, JVM launch-policy configuration and game validation belong
 in ProsperoCraft. Publish the relevant changes to both repositories when a Java
 fix requires consumer integration. Preserve frozen passing snapshots and the
 existing release/Store hold until the user confirms the stutter fix.
+
+
+## Accepted100 release authorization — 2026-10-27
+
+Human is completely happy with100and reports it is much better,then explicitly
+requests Prospero release. This lifts the prior release/Store hold for exact100.
+Publish01.000.100asfullGitHubrelease and updateexistingProsperoStorelisting,
+with public-facing notes,matchingOpenALsource/relink materials and checksums.
+Use exact b905d80a3b21502c2c1c9672db7833cd38f3582c35835e13c087667a0a0e7f65
+package without rebuilding. Preserve098draft and099/097/096/frozenmilestones.
+Scope acceptance to subjective gameplay/stutter improvement,notformalALLPASS,
+newfrozenmilestone,constant120FPS,endurance,orcomplete lifecycle/memory testing.
+Disclose longerclass/code retention and pendinglong-session pressure checks.
+Java runtime source remains inJava repo;these GC launch policies are consumer
+configuration inProsperoCraft. Verifyreleaseuploads/relinks andStorePRstatus.

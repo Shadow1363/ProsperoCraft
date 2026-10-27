@@ -6,6 +6,15 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Accepted100 smooth high-refresh release
+
+PS5 feedback accepts100 as much better and requests public release. Preserve
+its exact tested package and publish01.000.100 with matching OpenAL source/relink
+materials, checksums and public notes. Update the existing ProsperoStore listing.
+Acceptance covers subjective smoothness; no formal ALL PASS, measured100FPS,
+long-session memory or complete lifecycle result is inferred. Earlier098draft
+and all historical packages remain intact. [Release notes](docs/releases/client-smooth-high-refresh-100.md).
+
 ## 2026-10-27 — Client100 isolates remaining remark cleanup spikes
 
 099 reduces reported stutters, with typical captured pauses near4ms; remaining

@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.100",
+  "title_id": "PPSA99874",
+  "package_sha256": "b905d80a3b21502c2c1c9672db7833cd38f3582c35835e13c087667a0a0e7f65",
+  "native_elf_sha256": "ca093fe5a1e042d85f6d8815259d3b7bad82415374c0a21dcb18529a38371899",
+  "tested_implementation_commit": "e058487058515040a6ad498647d521abcf84ed81",
+  "human_report": "I am completely happy with it, it is much better; requests Prospero release.",
+  "accepted_scope": "Subjective gameplay/stutter improvement of the exact100candidate provided in this chat. Explicit publication authorization supersedes the prior release/Store hold for100.",
+  "not_inferred": [
+    "No formalALLPASS or new frozenmilestone",
+    "No zero-stutter guarantee,measured current100FPS/frametimes or endurance duration",
+    "No complete memory/codecache/reload/save/lifecycle regression checklist"
+  ],
+  "preservation": "Exact100package/symbols retained without rebuilding.098draft/099/097/096and frozen snapshots preserved.",
+  "release_authorization": "Publish100fullGitHubrelease and updateexistingProsperoStorelisting with public-facing descriptions and matchingOpenALsource/relink/checksums."
+}
