@@ -228,6 +228,14 @@ if args.opengl_bootstrap or args.startup:
  shutil.copyfile(ROOT/'.tools/mesa-osmesa-24.3.4.tar.xz',licenses/'mesa-24.3.4-source.tar.xz')
  for patch in sorted((ROOT/'client/ports/opengl').glob('*.patch')):shutil.copyfile(patch,licenses/patch.name)
 
+if args.startup:
+ from build_content_images import build as build_icons
+ images=build_icons(runtime,args.java_home,bindings=gpu_audit['graphics_bindings'],offline=args.offline)
+ spec['resident_libraries'].append({'name':'ps5contentimages','objects':[str(images)]})
+ shutil.copy2(ROOT/'build/content-images-ps5/audit.json',java/'content-images-audit.json')
+ licenses=java/'content-images-licenses';licenses.mkdir()
+ for name in ['COPYING','PATENTS','AUTHORS']:shutil.copy2(ROOT/'.tools/libwebp-src'/name,licenses/name)
+ shutil.copy2(ROOT/'.tools/lwjgl-stb-src/stb_image.h',licenses/'stb_image.h')
 if args.stb_bootstrap or args.startup:
  from build_lwjgl_stb_native import build as build_stb
  stb=build_stb(runtime,args.java_home,offline=args.offline)

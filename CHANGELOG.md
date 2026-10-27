@@ -1,5 +1,12 @@
 # Changelog
 
+## Development 01.000.107
+
+- Add an Uninstall button beside each installed mod, shader or resource pack, with Cancel as the default confirmation action. Other files, worlds and settings are kept.
+- Show actual project artwork for WebP, indexed PNG, RGB/RGBA PNG and JPEG icons. Replace the Modrinth-logo fallback with a neutral placeholder when artwork is unavailable.
+- Preserve106's audio, physical input and Controlify candidates. PS5 validation remains pending.
+
+
 ## Development 01.000.106
 
 - Reserve the actual audio port before JVM/GPU allocation; add direct optional HID imports, early handles and captured diagnostics.

@@ -28,7 +28,16 @@ using prospero_ui::Canvas;
 using ps5::demo::Canvas;
 #endif
 constexpr std::uint32_t ink(std::uint32_t rgb){return 0xff000000u|((rgb&255)<<16)|(rgb&0xff00)|((rgb>>16)&255);}
-using Fields=std::array<std::array<char,2048>,104>;
+// Text stays small; only the seven thumbnail slots need larger buffers.
+// Inline aggregate storage preserves constructor-free startup and bounded stacks.
+struct Fields {
+ bool operator==(const Fields&)const noexcept=default;
+ std::array<std::array<char,512>,97> text{};
+ std::array<std::array<char,8192>,7> images{};
+ template<class Char>struct Slot {Char* p;size_t length;Char* data()const noexcept{return p;}size_t size()const noexcept{return length;}Char& operator[](size_t i)const noexcept{return p[i];}};
+ Slot<char> operator[](size_t i)noexcept {if(i>=96&&i<=102)return {images[i-96].data(),8192};return {text[i==103?96:i].data(),512};}
+ Slot<const char> operator[](size_t i)const noexcept {if(i>=96&&i<=102)return {images[i-96].data(),8192};return {text[i==103?96:i].data(),512};}
+};
 // Only the native UI thread draws/reads the controller. JNI stays on the JVM
 // startup thread. A bounded mailbox exchanges public UI text and button edges.
 inline Fields fields{},published{};
@@ -105,9 +114,9 @@ inline void block(Canvas& c,int x,int y,int size,int kind){
  for(int yy=0;yy<72;yy++)for(int xx=0;xx<72;xx++){auto color=prospero_icons::pixels[index][yy*72+xx];if(color>>24)c.rectangle(x+xx*size/72,y+yy*size/72,(size+71)/72,(size+71)/72,static_cast<ps5::demo::Color>(color));}
 }
 inline void content_icon(Canvas& c,int x,int y,int size,const char* pixels){
- if(std::strlen(pixels)!=1536){block(c,x,y,size,25);return;}
+ if(std::strlen(pixels)!=6144){c.rounded(x,y,size,size,8,ink(0x294038));c.rounded(x+size/5,y+size/5,size*3/5,size*3/5,5,ink(0x50675c));return;}
  auto hex=[](char a)->int{return a>='0'&&a<='9'?a-'0':a>='a'&&a<='f'?a-'a'+10:0;};
- for(int yy=0;yy<16;yy++)for(int xx=0;xx<16;xx++){const char* p=pixels+(yy*16+xx)*6;unsigned color=0;for(int n=0;n<6;n++)color=(color<<4)|hex(p[n]);c.rectangle(x+xx*size/16,y+yy*size/16,(size+15)/16,(size+15)/16,static_cast<ps5::demo::Color>(ink(color)));}
+ for(int yy=0;yy<32;yy++)for(int xx=0;xx<32;xx++){const char* p=pixels+(yy*32+xx)*6;unsigned color=0;for(int n=0;n<6;n++)color=(color<<4)|hex(p[n]);c.rectangle(x+xx*size/32,y+yy*size/32,(size+31)/32,(size+31)/32,static_cast<ps5::demo::Color>(ink(color)));}
 }
 struct Focus {float x=0,y=0,w=0,h=0;bool initialized=false;};
 inline Focus focus{};inline std::uint64_t transition_start=0,last_draw_time=0,component_motion_until=0;inline bool animating=false;
@@ -187,19 +196,29 @@ inline void compose(Canvas& c) noexcept {
   c.rounded(70,338+slide,620,548,28,ink(0x10221c));block(c,275,402+slide,204,page==1?number(24):number(18));title(c,105,690+slide,page==1?fields[22].data():fields[16].data(),42,540);label(c,108,761+slide,"JAVA EDITION / INSTANCE",24,0x8db69a);
   if(page==1){row_control(c,320+slide,"VERSION",fields[23].data(),row==0);row_control(c,430+slide,"LOADER",fields[82].data(),row==1,true);row_control(c,540+slide,"NAME",fields[22].data(),row==2);row_control(c,650+slide,"ICON","Choose instance icon",row==3);action(c,760,774+slide,1080,"CREATE & DOWNLOAD",row==4,true);wrap(c,790,884+slide,fields[70].data(),1000,1);}
   else{row_control(c,320+slide,"INSTANCE NAME",fields[16].data(),row==0);row_control(c,430+slide,"INSTANCE ICON","Choose instance icon",row==1);action(c,760,550+slide,520,"MODS",row==2);action(c,1320,550+slide,520,"SHADERS",row==3);action(c,760,655+slide,1080,"RESOURCE PACKS",row==4);action(c,760,765+slide,520,"DONE",row==5,true);action(c,1320,765+slide,520,"DELETE INSTANCE",row==6);}
+ }else if(page==14){
+  title(c,70,225,fields[82].data(),64,1750);content_icon(c,85,365,96,fields[96].data());title(c,220,385,fields[85].data(),36,1550);wrap(c,85,515,fields[70].data(),1640,3);
+  action(c,760,740,520,"CANCEL",row==0,true);action(c,1320,740,520,"UNINSTALL",row==1);
  }else if(page==13){
   title(c,70,185,fields[82].data(),64,1700);title(c,75,275,fields[70].data(),24,1750,0x91ad9b);int first=number(84);for(int n=0;n<7&&first+n<23;n++){int y=340+n*78;action(c,70,y,1770,fields[85+n].data(),row==first+n);}
  }else if(page==12){
   title(c,70,185,fields[82].data(),64,1500);title(c,75,270,fields[70].data(),24,1770,0x91ad9b);
   action(c,70,325,1010,fields[92].data(),row==0,true);char queue[80];std::snprintf(queue,sizeof(queue),"DOWNLOAD ALL (%s)",fields[91].data());action(c,1120,325,720,queue,row==1,true);
   action(c,70,435,330,"PREVIOUS",row==2);action(c,430,435,330,"NEXT",row==3);char count[100];std::snprintf(count,sizeof(count),"%d / %s results",number(84),fields[83].data());if(std::strcmp(fields[82].data(),"Shaders")==0)action(c,800,435,470,fields[95].data(),row==11);else label(c,800,461,count,24,0x91ad9b);action(c,1320,435,520,std::strcmp(fields[103].data(),"INSTALLED")==0?"BROWSE":"INSTALLED",row==10);
-  for(int i=0;i<number(93)&&i<6;i++){int y=540+i*61;if(row==i+4)selection(c,70,y,1770,57);c.rounded(70,y,1770,57,12,ink(row==i+4?0x1e3c30:0x10251d));bool installed=std::strncmp(fields[85+i].data(),"[I]",3)==0,checked=installed||std::strncmp(fields[85+i].data(),"[X]",3)==0;
+  for(int i=0;i<number(93)&&i<4;i++){int y=535+i*92;if(row==i+4)selection(c,70,y,1770,86);c.rounded(70,y,1770,86,12,ink(row==i+4?0x1e3c30:0x10251d));bool installed=std::strncmp(fields[85+i].data(),"[I]",3)==0,checked=installed||std::strncmp(fields[85+i].data(),"[X]",3)==0;
 #ifdef PROSPERO_TOOLKIT
-   c.toggle(4+i,82,y+8,checked,row==i+4,true);
+   c.toggle(4+i,82,y+23,checked,row==i+4,true);
 #else
-   c.rounded(82,y+8,40,40,8,ink(0x8fae9d));c.rounded(85,y+11,34,34,5,ink(0x142e23));if(checked){for(int n=0;n<9;n++)c.rectangle(90+n,y+27+n,5,5,static_cast<ps5::demo::Color>(ink(0xb6f2be)));for(int n=0;n<18;n++)c.rectangle(98+n,y+35-n,5,5,static_cast<ps5::demo::Color>(ink(0xb6f2be)));}
+   c.rounded(82,y+23,40,40,8,ink(0x8fae9d));c.rounded(85,y+26,34,34,5,ink(0x142e23));if(checked){for(int n=0;n<9;n++)c.rectangle(90+n,y+42+n,5,5,static_cast<ps5::demo::Color>(ink(0xb6f2be)));for(int n=0;n<18;n++)c.rectangle(98+n,y+50-n,5,5,static_cast<ps5::demo::Color>(ink(0xb6f2be)));}
 #endif
-   content_icon(c,139,y+7,44,fields[96+i].data());const char* text=fields[85+i].data();if(std::strlen(text)>=4)text+=4;title(c,202,y+16,text,24,installed?1350:1570);if(installed)label(c,1640,y+16,"INSTALLED",18,0xa9eab6);}
+   content_icon(c,139,y+7,72,fields[96+i].data());const char* text=fields[85+i].data();if(std::strlen(text)>=4)text+=4;bool local_view=std::strcmp(fields[103].data(),"INSTALLED")==0;title(c,235,y+31,text,24,local_view?1210:installed?1350:1570);
+   if(local_view){
+#ifdef PROSPERO_TOOLKIT
+    c.button(1500,y+18,320,51,"UNINSTALL",row==20+i,false);
+#else
+    if(row==20+i)selection(c,1500,y+18,320,51);c.rounded(1500,y+18,320,51,12,ink(0x284538));label(c,1570,y+31,"UNINSTALL",24);
+#endif
+   }else if(installed)label(c,1640,y+31,"INSTALLED",18,0xa9eab6);}
 
  }else if(page==2){
   label(c,70,185+slide,"Settle in.",64);label(c,75,270+slide,"A few thoughtful defaults. You're in control.",24,0x91ad9b);

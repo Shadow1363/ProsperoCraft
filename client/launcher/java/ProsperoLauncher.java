@@ -11,7 +11,7 @@ public final class ProsperoLauncher {
  private static ProsperoLauncher current;
  private final ProsperoAuth auth;private final ProsperoLibrary library;private final ProsperoInstall installer;
  private final ProsperoFabric fabric;private final ProsperoModrinth modrinth=new ProsperoModrinth();
- private int bindingIndex=8;private int shadowScale=100;private boolean contentInstalled;private String activeContentIcon="";private List<ProsperoModrinth.Local> localContent=List.of();private final Map<String,String> contentIcons=new HashMap<>();
+ private ProsperoModrinth.Local pendingUninstall;private int uninstallReturnRow;private int bindingIndex=8;private int shadowScale=100;private boolean contentInstalled;private String activeContentIcon="";private List<ProsperoModrinth.Local> localContent=List.of();private final Map<String,String> contentIcons=new HashMap<>();
  private int draftLoader=0,contentOffset=0,contentTotal=0;private String contentQuery="";private ProsperoModrinth.Kind contentKind=ProsperoModrinth.Kind.MOD;private List<ProsperoModrinth.Hit> contentHits=List.of();private List<ProsperoModrinth.Selection> contentQueue=List.of();
  private int dropdownKind,dropdownChoice,dropdownReturn,dropdownRow;
  private int selected=0,page=0,tab=0,row=0,generation=0,versionChoice=0,draftIcon=1,key=0,keyboardReturn=1;
@@ -112,29 +112,49 @@ public final class ProsperoLauncher {
    var locals=modrinth.local(library.game(instance),kind);var result=installedView?new ProsperoModrinth.Results(List.of(),locals.size()):modrinth.search(kind,instance.version,instance.loader,query,offset,()->cancelled(attempt));
    synchronized(this){if(cancelled(attempt)||detail!=instance)return;localContent=locals;contentHits=result.hits();contentTotal=result.total();message=installedView?(locals.isEmpty()?"Nothing installed in this category.":"Installed in this instance. Files are kept when you close the game."):contentHits.isEmpty()?"No compatible results. Try another search.":"Most downloaded for "+instance.version;cached=null;}
    var icons=new HashMap<String,String>();
-   if(installedView){for(var local:locals.subList(Math.min(offset,locals.size()),Math.min(offset+6,locals.size())))icons.put(local.project(),modrinth.icon(library.game(instance),local.project(),"",()->cancelled(attempt)));}
+   if(installedView){for(var local:locals.subList(Math.min(offset,locals.size()),Math.min(offset+4,locals.size())))icons.put(local.project(),modrinth.icon(library.game(instance),local.project(),"",()->cancelled(attempt)));}
    else for(var hit:result.hits())icons.put(hit.id(),modrinth.icon(library.game(instance),hit.id(),hit.icon(),()->cancelled(attempt)));
    synchronized(this){if(!cancelled(attempt)&&detail==instance){contentIcons.putAll(icons);cached=null;}}
   });
  }
- private int contentRows(){return contentInstalled?Math.min(6,Math.max(0,localContent.size()-contentOffset)):contentHits.size();}
+ private int contentRows(){return contentInstalled?Math.min(4,Math.max(0,localContent.size()-contentOffset)):contentHits.size();}
  private void contentInput(int buttons)throws Exception {
   if((buttons&0x2000)!=0){if(busy){cancel();message="Cancelled. Verified downloads are kept.";}else{page=5;row=2+contentKind.ordinal();}return;}
-  if((buttons&0x80)!=0&&(row<4||row==10||row==11))row=row<2?0:row==10?(contentKind==ProsperoModrinth.Kind.SHADER?11:3):row==11?3:2;
-  if((buttons&0x20)!=0&&(row<4||row==11))row=row<2?1:row==2?3:row==11?10:contentKind==ProsperoModrinth.Kind.SHADER?11:10;
-  if((buttons&0x10)!=0)row=row<2?row:row==10||row==11?1:row<4?row-2:row==4?2:row-1;
-  if((buttons&0x40)!=0)row=row<2?row+2:row<4||row==10||row==11?(contentRows()==0?row:4):Math.min(3+contentRows(),row+1);
+  if(contentInstalled&&row>=20&&row<26){
+   if((buttons&0x80)!=0)row-=16;
+   if((buttons&0x10)!=0)row=row==20?10:row-1;
+   if((buttons&0x40)!=0)row=Math.min(19+contentRows(),row+1);
+  }else if(contentInstalled&&row>=4&&row<10){
+   if((buttons&0x20)!=0)row+=16;
+   if((buttons&0x10)!=0)row=row==4?2:row-1;
+   if((buttons&0x40)!=0)row=Math.min(3+contentRows(),row+1);
+  }else{
+   if((buttons&0x80)!=0&&(row<4||row==10||row==11))row=row<2?0:row==10?(contentKind==ProsperoModrinth.Kind.SHADER?11:3):row==11?3:2;
+   if((buttons&0x20)!=0&&(row<4||row==11))row=row<2?1:row==2?3:row==11?10:contentKind==ProsperoModrinth.Kind.SHADER?11:10;
+   if((buttons&0x10)!=0)row=row<2?row:row==10||row==11?1:row<4?row-2:row==4?2:row-1;
+   if((buttons&0x40)!=0)row=row<2?row+2:row<4||row==10||row==11?(contentRows()==0?row:4):Math.min(3+contentRows(),row+1);
+  }
   if((buttons&0x4000)==0||busy)return;
   if(row==11&&contentKind==ProsperoModrinth.Kind.SHADER){shadowScale=ProsperoShaderSettings.toggle(library.game(detail));message="Shadow map scale "+shadowScale+"% next launch. "+(shadowScale==50?"Lower shadow detail, one quarter of the shadow pixels.":"Full shadow resolution.");return;}
   if(row==10){contentInstalled=!contentInstalled;contentOffset=0;row=10;browse();return;}
   if(row==0){contentInstalled=false;beginName(12);return;}
   if(row==1){var instance=detail;message="Preparing download queue";completed=0;total=1;runTask("CONTENT",attempt->{modrinth.downloadAll(library.game(instance),instance.version,instance.loader,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;completed=done;total=size;cached=null;}}},()->cancelled(attempt),file->{String icon=modrinth.icon(library.game(instance),file.project(),"",()->cancelled(attempt));synchronized(this){if(!cancelled(attempt)){activeContentIcon=icon;cached=null;}}});synchronized(this){if(!cancelled(attempt)){contentQueue=modrinth.queue(library.game(instance));localContent=modrinth.local(library.game(instance),contentKind);activeContentIcon="";message="Downloads complete. Open Installed to see your files.";feedback("success");cached=null;}}});return;}
-  if(row==2||row==3){int next=row==2?Math.max(0,contentOffset-6):contentOffset+6;if(next!=contentOffset&&next<contentTotal){contentOffset=next;contentHits=List.of();browse();}return;}
-  if(contentInstalled){message="Installed files are preserved. Browse to add more content.";return;}
+  if(row==2||row==3){int next=row==2?Math.max(0,contentOffset-4):contentOffset+4;if(next!=contentOffset&&next<contentTotal){contentOffset=next;contentHits=List.of();browse();}return;}
+  if(contentInstalled){if(row>=20&&row-20<contentRows()){pendingUninstall=localContent.get(contentOffset+row-20);uninstallReturnRow=row;page=14;row=0;}else message="Press RIGHT to select Uninstall.";return;}
+  if(row<4||row-4>=contentHits.size())return;
   var hit=contentHits.get(row-4);if(localContent.stream().anyMatch(i->i.project().equals(hit.id()))){message="Already installed. Open Installed to see the file.";return;}modrinth.toggle(library.game(detail),new ProsperoModrinth.Selection(hit.id(),hit.title(),contentKind));contentQueue=modrinth.queue(library.game(detail));
  }
  private String[] tickModel(int buttons){
   try{
+   if(page==14){
+    if(busy)return state();
+    if((buttons&0x2000)!=0){page=12;row=uninstallReturnRow;pendingUninstall=null;}
+    else{if((buttons&0x90)!=0)row=0;if((buttons&0x60)!=0)row=1;
+     if((buttons&0x4000)!=0){if(row==0){page=12;row=uninstallReturnRow;pendingUninstall=null;}
+      else{var instance=detail;var item=pendingUninstall;message="Uninstalling "+item.filename();runTask("UNINSTALL",attempt->{boolean cleaned=modrinth.uninstall(library.game(instance),item);var locals=modrinth.local(library.game(instance),contentKind);synchronized(this){if(!cancelled(attempt)){localContent=locals;contentTotal=locals.size();contentOffset=Math.min(contentOffset,Math.max(0,(locals.size()-1)/4*4));page=12;row=locals.isEmpty()?10:4;pendingUninstall=null;message="Uninstalled "+item.filename()+(cleaned?".":". Storage cleanup pending.");feedback("success");cached=null;}}});}
+     }
+    }if(buttons!=0)cached=null;return state();
+   }
    if(page==13){
     if((buttons&0x2000)!=0){page=2;row=5;}else{if((buttons&0x10)!=0)row=Math.max(0,row-1);if((buttons&0x40)!=0)row=Math.min(22,row+1);if((buttons&0x80)!=0)row=Math.max(0,row-7);if((buttons&0x20)!=0)row=Math.min(22,row+7);if((buttons&0x4000)!=0){if(row==0){library.settings().controllerKeys=ProsperoInput.DEFAULT.clone();library.save();message="Default controller bindings restored.";}else{bindingIndex=row+7;int choice=ProsperoInput.CODES.indexOf(library.settings().controllerKeys[bindingIndex]);dropdown(7,Math.max(0,choice));}}}if(buttons!=0)cached=null;return state();
    }
@@ -195,6 +215,7 @@ public final class ProsperoLauncher {
   var all=library.instances();int start=selected/8*8;
   f[13]=""+(all.size()+1);for(int i=0;i<8&&start+i<=all.size();i++){int at=32+i*4;if(start+i==all.size()){f[at]="";f[at+2]="-1";f[at+3]="ADD";}else{var instance=all.get(start+i);f[at]=instance.name;f[at+1]=instance.version+("fabric".equals(instance.loader)?" / Fabric":"");f[at+2]=""+instance.icon;f[at+3]=!supported(instance.version)?"COMING SOON":instance.ready?"READY":"DOWNLOAD";}}
   if(page==10){List<String> options=choices();int first=row/8*8;f[82]=switch(dropdownKind){case 0->"Choose version";case 1,2->"Choose instance icon";case 3->"Game resolution";case 4->"Parallel downloads";case 6->"Choose loader";case 7->"Choose key or mouse button";default->"Animated background";};f[83]=""+options.size();f[84]=""+first;for(int i=0;i<8&&first+i<options.size();i++)f[85+i]=options.get(first+i);f[93]=""+dropdownKind;}
+  if(page==14&&pendingUninstall!=null){f[82]="Uninstall this file?";f[85]=pendingUninstall.filename();f[96]=contentIcons.getOrDefault(pendingUninstall.project(),"");f[70]="Only this file is removed. Worlds and settings are kept. Mods that depend on it may stop working.";}
   if(page==13){f[82]="Controller keybinds";int first=row/7*7;f[83]="23";f[84]=""+first;for(int n=0;n<7&&first+n<23;n++){int index=first+n;f[85+n]=index==0?"Restore default controller bindings":ProsperoInput.ACTIONS[index+7]+"  :  "+ProsperoInput.label(library.settings().controllerKeys[index+7]);}f[70]="USB keyboard/mouse use Minecraft Controls. Controller menu controls stay available.";}
   if(page==1)f[82]=draftLoader==1?"Fabric":"Vanilla";
   if(page==12){f[82]=contentKind.title;f[83]=""+contentTotal;f[84]=""+contentOffset;f[91]=""+contentQueue.size();f[92]=contentQuery.isEmpty()?"Search Modrinth...":contentQuery;f[93]=""+contentRows();f[103]=contentInstalled?"INSTALLED":"BROWSE";f[102]=activeContentIcon;for(int n=0;n<contentRows();n++){
@@ -207,7 +228,7 @@ public final class ProsperoLauncher {
   f[75]=""+library.settings().background;f[76]=BACKGROUNDS[library.settings().background-1];
   f[73]=ProsperoChannel.label();f[74]=page==8?""+guideSection:"";
   f[71]=ProsperoChannel.offline()&&offlineAccount!=null&&offlineAccount.valid(System.currentTimeMillis())?"OFFLINE":"";f[72]=offlineAccount==null?"":offlineAccount.name;
-  f[69]=detail!=null&&supported(detail.version)?"SUPPORTED":"PENDING";if(page!=12&&page!=13)f[70]=versions.isEmpty()?"":supported(versions.get(versionChoice).id())?(ProsperoChannel.tempGameTest()?"26.3 full game requires Microsoft sign-in.":"26.3 demo can launch on this build."):"Download available. Play support coming soon.";f[68]=library.settings().showIntro?"ON":"OFF";f[67]="Data and downloads: "+library.root;f[66]=lowercase?"LOWER":"UPPER";f[64]=busy?"BUSY":"IDLE";f[65]=detail!=null&&!supported(detail.version)?"Download available. Play support coming soon.":(ProsperoChannel.tempGameTest()?"26.3 full game / native SDL gameplay":"26.3 demo / native SDL gameplay");return cached=f;
+  f[69]=detail!=null&&supported(detail.version)?"SUPPORTED":"PENDING";if(page!=12&&page!=13&&page!=14)f[70]=versions.isEmpty()?"":supported(versions.get(versionChoice).id())?(ProsperoChannel.tempGameTest()?"26.3 full game requires Microsoft sign-in.":"26.3 demo can launch on this build."):"Download available. Play support coming soon.";f[68]=library.settings().showIntro?"ON":"OFF";f[67]="Data and downloads: "+library.root;f[66]=lowercase?"LOWER":"UPPER";f[64]=busy?"BUSY":"IDLE";f[65]=detail!=null&&!supported(detail.version)?"Download available. Play support coming soon.":(ProsperoChannel.tempGameTest()?"26.3 full game / native SDL gameplay":"26.3 demo / native SDL gameplay");return cached=f;
  }
  synchronized String[] arguments(Path ignoredWork,Path ignoredAssets)throws Exception {
   if(!launch||detail==null||receipt==null)throw new IllegalStateException("No installed instance selected");

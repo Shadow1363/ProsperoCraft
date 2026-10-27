@@ -1246,3 +1246,16 @@ fallbackhandoff. FFM/controllercompatibility is pending. Shaderspage offers
 optional50/100percent shadowmapscale via supportedVitrailpacksettings withbackup,
 otherqualitypreserved;noFPSclaim. See docs/client-input-audio-installed-106.md.
 Keep101Store/release/frozenpasses;publishdevelopmentbothrepos,notpublicbinaries.
+
+
+##107 content management — 2026-10-27
+
+Human requests Uninstall in Installed and actual mod/shader/resource-pack icons,
+notModrinthbranding.107adds selected-file uninstall confirmation/defaultCancel,
+receiptcommit/rollback and noautomatic dependency cascade;worlds/settings/other
+files preserved. RealModrinthicons includeWebP and4bitindexedPNGunsupportedby106.
+Consumer-owned bounded thumbnailJNI uses pinnedscalarlibwebp1.6.0/STB withthe
+existingemulatedTLS/providerbindings;notanImageIOdesktop/JPEGportorJavafix.
+NoModrinthlogo fallback. Hostrealiconpixels/UI/uninstalltests do not establish
+PS5pass. See docs/client-content-uninstall-icons-107.md. Preserve106exactcandidate,
+101release/Store andfrozenpasses. Publishsourcehere;noStore/publicrelease requested.

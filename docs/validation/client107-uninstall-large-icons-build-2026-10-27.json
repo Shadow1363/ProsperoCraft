@@ -1,0 +1,156 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.107",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "package_sha256": "2d046a985b2cabc4e79af3599dc100038130600d1cb20a91644e2c26c6c44086",
+  "native_elf_sha256": "6dfe8ebff5cc591d63fde2fc988cfddf00036c94ca800fcb7db1e1214df91546",
+  "changes": [
+    "Uninstall buttons beside Installed mods/shaders/resource packs with exact-file confirmation and Cancel default",
+    "Selected file removal/receipt publication/rollback on metadata failure;no dependency cascade,world or settings deletion",
+    "Actual project thumbnails through bounded scalar pinnedWebP/STB PNG/JPEG codecs;noModrinthlogo fallback",
+    "72pixel artwork/32x32RGB thumbnail data/four spacious rows per page",
+    "Dedicated large native image slots;ordinary text stays small,constructor-free bounded UI mailbox",
+    "Retain106audio/HID/Controlify and reversible supportedVitrailshadowcontrol"
+  ],
+  "tests": {
+    "package107-test.log": {
+      "result": "PASS",
+      "local_log_sha256": "e2d95276ffab96039252a8adc38f183a03812d9bdc0eaa2946821a4011dc1d7b"
+    },
+    "toolkit107-test.log": {
+      "result": "PASS",
+      "local_log_sha256": "61f8dc1a0f02f3e1324ee02f05d255192fc9047da7f19e7dc677ca931d305a08"
+    },
+    "content107-test.log": {
+      "result": "PASS",
+      "local_log_sha256": "0f57b98013cf98d1fa1602ef55e35e0dd1fab2f2fd0e9aaa83bb3e9471481c56"
+    },
+    "icons107-native-test.log": {
+      "result": "PASS",
+      "local_log_sha256": "d0a010a4f9324a395778490496f3c4c57951ee92b9f6da6a2b08ebf69dce6c59"
+    },
+    "icons107-cache-test.log": {
+      "result": "PASS",
+      "local_log_sha256": "816e91dc0d4089f4de9f25d7ca258e9fed4b9859b689f684285f0ebed65e7782"
+    },
+    "preview107-native.log": {
+      "result": "PASS",
+      "local_log_sha256": "46e7834e9777babc326c6fe7bd9134151ea1e99fafbec25bdb38dd2f2b2c0c2d"
+    },
+    "preview107-toolkit.log": {
+      "result": "PASS",
+      "local_log_sha256": "ce2cf575b67f1bbd3a130480aa3e0c59af20f6e1b6881a60fde9f0b8afd5a8c5"
+    },
+    "startup107-host.log": {
+      "result": "PASS",
+      "local_log_sha256": "2a5c7f4bb1ebb70f799abfcfbfe2c459e8062eac7eb836e5a3d9ab6b7903c79f"
+    },
+    "input107-regression.log": {
+      "result": "PASS",
+      "local_log_sha256": "7b3d6e7245744138036038d704b952113583490c523ff8a608ec146ec73b2916"
+    }
+  },
+  "icon_fixtures": {
+    "alpha.image": {
+      "sha256": "db1aeabf8b15891876c63d5705d73de269a6221494fd897ece19a173d694e1fd",
+      "format": "PNG",
+      "size": [
+        40,
+        24
+      ]
+    },
+    "fabric.image": {
+      "sha256": "e169d7c5d5fdb71b8f3c5ae7f8ab8909e548d192ef62b08a6f942f348483362c",
+      "format": "PNG",
+      "size": [
+        500,
+        500
+      ]
+    },
+    "jpeg.image": {
+      "sha256": "6bf5570a011f74e3ba4c0f05fa10c8662e0edb55546c9b2638f31c6546a33926",
+      "format": "JPEG",
+      "size": [
+        32,
+        48
+      ]
+    },
+    "modmenu.image": {
+      "sha256": "f88dbf74eb798ddcc8b5b88aeae7a951e1f5ba234b4fc8c5198ea69420a6ca90",
+      "format": "PNG",
+      "size": [
+        512,
+        512
+      ]
+    },
+    "sodium.image": {
+      "sha256": "6577355a9d1f994edea64342f01f2b2f4f37f2dcd068f2aa35dc5b42cd241adf",
+      "format": "WEBP",
+      "size": [
+        96,
+        96
+      ]
+    },
+    "vitrail.image": {
+      "sha256": "8deac6c4807ef262a374f6c274d68332557986edf3a08a383ae2dc37ec22c21e",
+      "format": "WEBP",
+      "size": [
+        96,
+        96
+      ]
+    }
+  },
+  "native_image_audit": {
+    "sources": {
+      "webp": {
+        "repository": "https://github.com/webmproject/libwebp",
+        "tag": "v1.6.0",
+        "commit": "4fa21912338357f89e4fd51cf2368325b59e9bd9"
+      },
+      "stb": "Existing client/ports/stb/native-sources.json pinned stb_image.h",
+      "scope": "Bounded Modrinth PNG/JPEG/WebP thumbnails only; scalar decoder, no encode/animation/browser or game initialization"
+    },
+    "source_sha256": "b0de094dab0d4f289c531b21078d006d10f4abcb017c5cde236e0414b47f455e",
+    "object_sha256": "1fd9e7514ab8bfd108ef68e0c94ab2ca108964a1c007a1e398f75cf616faf92e",
+    "scope": "Bounded Modrinth PNG/JPEG/WebP thumbnails only; scalar decoder, no encode/animation/browser or game initialization",
+    "console": "pending"
+  },
+  "source_sha256": {
+    "AGENTS.md": "c8f2157d58c5972fd822b59eceef5d314d2cf00d699831e905203ebd6819e82c",
+    "CHANGELOG.md": "58bbc4c3662b33434412cdbc5b8478541d7071db1cb44c50ac127ed79db3943d",
+    "README.md": "10e62285922b3f1204159d108a59e4855d7552ec18157fee76ab1aaca1a40c58",
+    "client/launcher/java/ProsperoAvatar.java": "0637916edeea5b330412e6b79d429fcb8def99b3e846acadfc9f9a05ee3a54a1",
+    "client/launcher/java/ProsperoContentImages.java": "bf17754a828d313f724dcf271a096072396d2e73224d15e2074a411d4cdfdb13",
+    "client/launcher/java/ProsperoLauncher.java": "62b526c9ae35c3437fe19e4fd5342e988e671fb9aaee745f8ea9aaf534a83308",
+    "client/launcher/java/ProsperoModrinth.java": "65aefb7aa2e79ba7fca8b58696f77dd343e96443216dc438f8645fde331cf718",
+    "client/launcher/native_menu.hpp": "91fdbf74871905b099f2b33224e648c4cede21a66d08eee96920c1d28d3b9168",
+    "client/ports/content_images/decode.c": "b0de094dab0d4f289c531b21078d006d10f4abcb017c5cde236e0414b47f455e",
+    "client/ports/content_images/sources.json": "d3f15351a6bbfa2de9bc1a40e8c6d826e7a1838525ac744f7e22e9e13725098e",
+    "client/startup/param.json": "f6f68ce9d1f9fa20357493e031cebcec1e90f10492da75318e55e87133f39d76",
+    "docs/client-content-uninstall-icons-107.md": "21ad115667179f8d5d6d25e41ecbe526743c9fd5918042e3c63710f5c39c4773",
+    "tools/build_content_images.py": "c8b867fcc7fbb895cc269cc37040a473a91d9f28a41fd51f97c805071a207631",
+    "tools/package_client_vulkan.py": "52d3096290517cba3fb6b7f129654c6b796945b96b6b9a7854295dc5cf566dcf",
+    "tools/preview_launcher.py": "b2003166ca438e92cdea760235285048b0459642877d8d5750e747b30b9b0bb8",
+    "tools/test_client_startup_package.py": "329747b61e94a794264a51459ac2dae4f5be52aac00541426f61dc435d8c2e87",
+    "tools/test_content_icons.py": "6e1d7231012f712f771541cd30c06ed3163b51d279bee871afc4ad3d0a80ec26",
+    "tools/test_content_images_native.py": "9b72cad22f1c8d192d5014b84277fa224dc915aca9492d41135b6923dbec8a45",
+    "tools/test_launcher_content.py": "973ffbf420759c4447070f01b274a9d12c181e0bdddfa50f0d42132adb8f3561",
+    "tools/test_launcher_toolkit_packages.py": "710bfee7e0a55db455aa1b2dcf564425be776020981d8ac1d96c763f1c5b4e74"
+  },
+  "runtime": {
+    "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+    "commit": "42fe3a5709beb65b5f54470aabb169a376ccbdc3",
+    "new_runtime_changes": false,
+    "consumer_integration": "14resident groups;scopedthumbnailJNI/scalarcodecsexistingallocator/emulatedTLS;existingSDL3aliasretained;officialgame/modJARs unchanged"
+  },
+  "console": "PENDING exact107:project icons/large rows/download thumbnails,uninstallCancel/confirm/restart/preservation;106audio/physicalHID/Controlify/shaderquality comparisons still unconfirmed",
+  "limits": [
+    "Unknown/unavailable artwork uses neutral placeholder;manual files without known project lack remote art",
+    "Uninstall does not remove dependencies or configs;dependent mods may need repair",
+    "Cleanup failure can leave uninstalled bytes in private staging;no Undo/crash-recovery guarantee",
+    "Thumbnail codec is not a JavaImageIOJPEG/desktop API",
+    "103EMFILE/save-reload and extended endurance still pending"
+  ],
+  "publication": "Development source only.101Store/public release and all frozen snapshots preserved;no107public binary release or console pass inferred"
+}

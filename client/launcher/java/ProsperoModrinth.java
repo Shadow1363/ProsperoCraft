@@ -23,9 +23,9 @@ final class ProsperoModrinth {
   if(kind==Kind.MOD&&!loader.equals("fabric"))return new Results(List.of(),0);
   var facets=new ArrayList<List<String>>();facets.add(List.of("project_type:"+kind.type));facets.add(List.of("versions:"+game));
   if(kind==Kind.MOD){facets.add(List.of("categories:fabric"));facets.add(List.of("client_side:required","client_side:optional"));}
-  String url=API+"search?index=downloads&limit=6&offset="+offset+"&query="+ProsperoDownloads.encode(query)+"&facets="+ProsperoDownloads.encode(new Gson().toJson(facets));
+  String url=API+"search?index=downloads&limit=4&offset="+offset+"&query="+ProsperoDownloads.encode(query)+"&facets="+ProsperoDownloads.encode(new Gson().toJson(facets));
   var data=download.json(url,cancel).getAsJsonObject();ArrayList<Hit> hits=new ArrayList<>();
-  for(var item:data.getAsJsonArray("hits")){var row=item.getAsJsonObject();String project=row.get("project_id").getAsString();id(project);hits.add(new Hit(project,row.get("title").getAsString(),ProsperoDownloads.text(row,"description"),row.get("downloads").getAsLong(),ProsperoDownloads.text(row,"icon_url")));if(hits.size()==6)break;}
+  for(var item:data.getAsJsonArray("hits")){var row=item.getAsJsonObject();String project=row.get("project_id").getAsString();id(project);hits.add(new Hit(project,row.get("title").getAsString(),ProsperoDownloads.text(row,"description"),row.get("downloads").getAsLong(),ProsperoDownloads.text(row,"icon_url")));if(hits.size()==4)break;}
   return new Results(List.copyOf(hits),data.get("total_hits").getAsInt());
  }
  // Installed lists use the actual instance folders, including manually added files.
@@ -40,13 +40,27 @@ final class ProsperoModrinth {
    found.add(new Local(name,name,known.isPresent()?known.get().project:"",kind));
   }}found.sort(Comparator.comparing(Local::title,String.CASE_INSENSITIVE_ORDER));return List.copyOf(found);
  }
+ // Move out of the game's folders first, commit the receipt, then reclaim bytes.
+ // If metadata cannot commit, put the exact original file back.
+ synchronized boolean uninstall(Path game,Local item)throws Exception {
+  if(item==null||item.kind==null||item.filename==null||item.filename.isEmpty()||item.filename.contains("/")||item.filename.contains("\\")||item.filename.equals(".")||item.filename.equals("..")||!item.filename.endsWith(item.kind==Kind.MOD?".jar":".zip"))throw new IOException("Invalid installed file");
+  Path target=game.resolve(item.kind.folder).resolve(item.filename);ProsperoDownloads.noLinks(target);
+  if(!Files.isRegularFile(target,LinkOption.NOFOLLOW_LINKS))throw new IOException("Installed file is no longer available");
+  Installed receipt=installed(game);for(File f:receipt.files)if(f==null||f.kind==null||f.filename==null)throw new IOException("Invalid content receipt");
+  receipt.files.removeIf(f->f.kind==item.kind&&f.filename.equals(item.filename));
+  Path removed=state(game,"content-uninstall").resolve(UUID.randomUUID().toString());ProsperoDownloads.noLinks(removed);Files.createDirectories(removed);
+  Path staged=removed.resolve("removed-file");Files.move(target,staged);
+  try{ProsperoInstall.save(state(game,"content-installed.json"),new Gson().toJson(receipt));}
+  catch(Exception failure){try{Files.move(staged,target);Files.deleteIfExists(removed);}catch(Exception rollback){failure.addSuppressed(rollback);}throw failure;}
+  try{Files.delete(staged);Files.delete(removed);return true;}catch(IOException cleanup){return false;}
+ }
  String icon(Path game,String project,String url,BooleanSupplier cancel){
   if(project.isEmpty())return "";
-  try{id(project);Path path=state(game,"content-icons").resolve(project+".txt");ProsperoDownloads.noLinks(path);
-   if(Files.isRegularFile(path)&&Files.size(path)==1536){String saved=Files.readString(path);if(saved.matches("[a-f0-9]{1536}"))return saved;}
+  try{id(project);Path path=state(game,"content-icons32").resolve(project+".txt");ProsperoDownloads.noLinks(path);
+   if(Files.isRegularFile(path)&&Files.size(path)==6144){String saved=Files.readString(path);if(saved.matches("[a-f0-9]{6144}"))return saved;}
    if(url.isEmpty())url=ProsperoDownloads.text(download.json(API+"project/"+project,cancel).getAsJsonObject(),"icon_url");
    if(url.isEmpty())return "";ProsperoDownloads.safe(url);if(!java.net.URI.create(url).getHost().equals("cdn.modrinth.com"))return "";
-   String pixels=ProsperoAvatar.icon(download.bytes(url,1024*1024,cancel));ProsperoInstall.save(path,pixels);return pixels;
+   String pixels=ProsperoContentImages.decode(download.bytes(url,1024*1024,cancel));ProsperoInstall.save(path,pixels);return pixels;
   }catch(Exception unavailable){return "";}
  }
  static Path state(Path game,String file)throws IOException {Path p=game.getParent().resolve(file);ProsperoDownloads.noLinks(p);return p;}

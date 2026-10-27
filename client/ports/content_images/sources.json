@@ -1,0 +1,5 @@
+{
+  "webp": {"repository":"https://github.com/webmproject/libwebp","tag":"v1.6.0","commit":"4fa21912338357f89e4fd51cf2368325b59e9bd9"},
+  "stb":"Existing client/ports/stb/native-sources.json pinned stb_image.h",
+  "scope":"Bounded Modrinth PNG/JPEG/WebP thumbnails only; scalar decoder, no encode/animation/browser or game initialization"
+}
