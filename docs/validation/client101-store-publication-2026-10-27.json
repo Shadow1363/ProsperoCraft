@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.101",
+  "release_url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.101",
+  "release_tag_commit": "b5cb04910b4a69a8d8336af8846dfe38e8a12a12",
+  "tested_implementation_commit": "943bc4e7a8a6cbf59932f3f74574e4b363217d1c",
+  "package_sha256": "c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131",
+  "native_elf_sha256": "7cc235181f325f595518adf95e8a22f2a9d39f7fdf827a3ba97cf829ba25e02d",
+  "release_status": "Publicfullrelease,notdraft/notprerelease;latestrequested",
+  "assets": [
+    {
+      "name": "client101-build-validation.json",
+      "bytes": 5910,
+      "digest": "sha256:80873b5e4c29ea7ece2f9cb8d5a0f1316f5a900453e6db45afde13c7ab37fada",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.101/client101-build-validation.json"
+    },
+    {
+      "name": "client101-console-validation.json",
+      "bytes": 1166,
+      "digest": "sha256:c1be8a914f18de014169a7e9295528bb76b358375a0ac735638c7d93fbdddf33",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.101/client101-console-validation.json"
+    },
+    {
+      "name": "client101-openal-source-relink.zip",
+      "bytes": 88642813,
+      "digest": "sha256:95286d2d8a48539d2c0476da3bc006617fc03038e5c9f91cb6e9836c68c3aa9a",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.101/client101-openal-source-relink.zip"
+    },
+    {
+      "name": "PPSA99874.zip",
+      "bytes": 121189757,
+      "digest": "sha256:c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.101/PPSA99874.zip"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 379,
+      "digest": "sha256:49c269f578ac992ec826632bd78493a2039b52a26e5711f1850476cdaf194972",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.101/SHA256SUMS"
+    }
+  ],
+  "verification": "All5uploadedassets matchlocalhashes/sizes. All5downloadedandcompared;SHA256SUMS/appandkitCRC/everyinputhashpass. Downloadedkitreproduces exact101ELF;normal/replacementOpenAL relinks also reproduceit.",
+  "human_acceptance": "All requested101functionality accepted andStore release requested;broaderendurance/memory/lifecyclecoverage notinferred.",
+  "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/865",
+  "catalog_head": "259f8e824395040a99dbd9ae7affd138ec2ec3c4",
+  "catalog_status": "OPEN atinitialcheck;validation/offlinetestspass,releasescan/eligibilitypending. No liveStore101claimyet.",
+  "local_catalog_checks": "147records formatvalid;230tests pass,2skipped;onlineartifactdigest/version/iconchecks0errors/warnings.",
+  "public_descriptions": "Player-facingrelease andStoredescription,GUIcreditmihawk-99/PS5_VKHomebrewUIandMultiMC/Prismiconcreditsretained.",
+  "java_repository": "Runtime0124fixpublishedc7d6601;human101integrationacceptancepublished7886291 inps5-java25-homebrew. Consumerintegration/releaseshere.",
+  "preservation": "Exact101candidateunchanged;100/olderpublishedassets and098draft/frozensnapshotsremainintact.",
+  "remaining_tests": "Broaderaccountrecovery,save/reload,repeatedworld/serverchanges,reconnect,long-sessionheap/metaspace/codecachepressureandendurance."
+}

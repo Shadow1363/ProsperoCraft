@@ -194,3 +194,19 @@ DeploymentCI40530933028completedSUCCESS. Canonical liveProsperoStoreAPI and a
 fresh-query request both nowreturn version/content_version01.000.100,release100
 andSHA256b905d80a3b21502c2c1c9672db7833cd38f3582c35835e13c087667a0a0e7f65.
 The Store update is live;this is independent verification aftermerge/deployment.
+
+
+## Accepted101 functional release — 2026-10-27
+
+The tester confirms all requested101account,launcher,input andskin fixes work
+and requests Store release. Full GitHub01.000.101preserves the exactacceptedZIP.
+All5uploaded/downloaded assets match;downloadedOpenALkit reproducesacceptedELF.
+Java0124source/acceptance are published inJava repo;consumerrelease remainshere.
+
+Release: https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.101
+Existinglistingupdate: https://github.com/darkxex/ps5-homebrew-catalog/pull/865
+
+147records and230offline tests(2skipped)pass;onlineartifactdigest/contentVersion/
+iconchecks pass. PR865initialstateOPEN,submission/offlinePASS,releasescanstill
+running. LiveStore availability requiresmerge/deployment. Currentevidence:
+validation/client101-store-publication-2026-10-27.json.100andolderassetsunchanged.
