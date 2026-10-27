@@ -2,7 +2,9 @@
  * SPDX-License-Identifier: MIT
  * Included after SDL keyboard/mouse internals. No game hooks or replacements. */
 #include "platform.h"
+#include "../mesa/keyboard_layout.h"
 extern int client_wsi_cursor(bool show,float x,float y,int character);
+extern int client_wsi_keyboard(bool show,int selected,int lower,int symbols,const char*preview);
 static struct {
     SDL_KeyboardID keyboard;
     SDL_MouseID mouse;
@@ -10,7 +12,7 @@ static struct {
     Uint8 buttons;
     Uint64 repeat_at[28], last_pump;
     Uint32 held;float cursor_x,cursor_y;bool cursor_ready,typing,lower,mode_known,captured;int character;
-    bool primed, devices;
+    bool primed, devices,symbols;Uint32 keyboard_direction;Uint64 keyboard_repeat;char preview[129];unsigned preview_length;
 } ps5_temp;
 static const SDL_Scancode ps5_temp_keys[] = {
     SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT,
@@ -39,6 +41,7 @@ static void PS5_TempRelease(SDL_Window *window, Uint64 now)
 {
     PS5_TempKeys(now,0,0,window);
     ps5_temp.primed=false;ps5_temp.last_pump=0;ps5_temp.held=0;ps5_temp.cursor_ready=false;ps5_temp.typing=false;
+    (void)client_wsi_keyboard(false,0,0,0,"");
     (void)client_wsi_cursor(false,0,0,0);
 }
 static void PS5_PumpTemporaryInput(SDL_Window *window)
@@ -75,7 +78,10 @@ static void PS5_PumpTemporaryInput(SDL_Window *window)
         /* Release launch-held buttons/triggers before they can activate items. */
         ps5_temp.blocked&=held;held&=~ps5_temp.blocked;
         Uint32 edge=held&~ps5_temp.held;ps5_temp.held=held;
-        if((held&PAD_TOUCH_PAD)&&(edge&PAD_R3)&&!captured)ps5_temp.typing=!ps5_temp.typing;
+        if(!captured&&(((held&PAD_TOUCH_PAD)&&(edge&PAD_R3))||(edge&PAD_L3))){
+            ps5_temp.typing=!ps5_temp.typing;ps5_temp.keyboard_direction=0;ps5_temp.keyboard_repeat=0;
+            if(ps5_temp.typing){ps5_temp.character=10;ps5_temp.lower=true;ps5_temp.preview_length=0;ps5_temp.preview[0]=0;}
+        }
         Uint32 keys=0;bool layer=(held&PAD_TOUCH_PAD)!=0;
         if(held&PAD_OPTIONS)keys|=1u<<5;
         if(captured) {
@@ -122,29 +128,35 @@ static void PS5_PumpTemporaryInput(SDL_Window *window)
         }
         if(layer&&captured&&(held&PAD_R3))buttons=4;
         if(ps5_temp.typing&&captured)ps5_temp.typing=false;
+        bool was_typing=ps5_temp.typing;
         if(ps5_temp.typing&&!captured){
-            const char *letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ._-/:!?@()+=";
-            int length=(int)SDL_strlen(letters),delta=0;
-            if(edge&(PAD_LEFT|PAD_L1))delta=-1;if(edge&(PAD_RIGHT|PAD_R1))delta=1;
-            if(edge&PAD_UP)delta=-8;if(edge&PAD_DOWN)delta=8;
-            ps5_temp.character=(ps5_temp.character+delta+length)%length;
+            Uint32 direction=held&(PAD_LEFT|PAD_RIGHT|PAD_UP|PAD_DOWN);
+            if(p->left_x<80)direction|=PAD_LEFT;if(p->left_x>176)direction|=PAD_RIGHT;if(p->left_y<80)direction|=PAD_UP;if(p->left_y>176)direction|=PAD_DOWN;
+            bool move=direction&&(direction!=ps5_temp.keyboard_direction||now>=ps5_temp.keyboard_repeat);
+            if(move){int delta=(direction&PAD_LEFT)?-1:(direction&PAD_RIGHT)?1:(direction&PAD_UP)?-10:10;ps5_temp.character=prospero_keyboard_move(ps5_temp.character,delta);ps5_temp.keyboard_repeat=now+(direction==ps5_temp.keyboard_direction?80000000ull:300000000ull);}
+            ps5_temp.keyboard_direction=direction;
             if(edge&0x20000000u)ps5_temp.lower=!ps5_temp.lower;
-            char ch=letters[ps5_temp.character];if(ps5_temp.lower&&ch>='A'&&ch<='Z')ch+=32;
-            keys=0;buttons=0;
-            if(edge&PAD_CROSS){char text[2]={ch,0};SDL_SendKeyboardText(text);}
-            if(edge&PAD_SQUARE)SDL_SendKeyboardText(" ");
-            if(held&PAD_TRIANGLE)keys|=1u<<7;
+            if(edge&0x10000000u)ps5_temp.symbols=!ps5_temp.symbols;
+            keys=0;buttons=0;char text[2]={0,0};bool back=(held&(PAD_TRIANGLE|PAD_L1))!=0;
+            if(edge&(PAD_SQUARE|PAD_R1))text[0]=' ';
+            if(edge&PAD_CROSS){int choice=ps5_temp.character;if(choice<50)text[0]=prospero_keyboard_character(choice,ps5_temp.lower,ps5_temp.symbols);else if(choice==50)back=true;else if(choice==51)text[0]=' ';else if(choice==52)ps5_temp.lower=!ps5_temp.lower;else if(choice==53)ps5_temp.symbols=!ps5_temp.symbols;else if(choice==54){keys|=1u<<4;ps5_temp.typing=false;ps5_temp.blocked|=PAD_CROSS;}else if(choice==55)ps5_temp.typing=false;}
+            if(text[0]){SDL_SendKeyboardText(text);if(ps5_temp.preview_length<128){ps5_temp.preview[ps5_temp.preview_length++]=text[0];ps5_temp.preview[ps5_temp.preview_length]=0;}}
+            if(back){keys|=1u<<7;if(!(ps5_temp.keys&(1u<<7))&&ps5_temp.preview_length)ps5_temp.preview[--ps5_temp.preview_length]=0;}
             if(held&PAD_OPTIONS){keys|=1u<<4;ps5_temp.typing=false;ps5_temp.blocked|=PAD_OPTIONS;}
             if(edge&PAD_CIRCLE)ps5_temp.typing=false;
+
         }
-        if(!ps5_temp.typing&&!layer&&(edge&(PAD_L1|PAD_R1)))
+        if(was_typing&&!ps5_temp.typing)ps5_temp.blocked|=held;
+        if(!was_typing&&!ps5_temp.typing&&!layer&&(edge&(PAD_L1|PAD_R1)))
             SDL_SendMouseWheel(now,window,ps5_temp.mouse,0,(edge&PAD_L1)?1.0f:-1.0f,SDL_MOUSEWHEEL_NORMAL);
         PS5_TempKeys(now,keys,buttons,window);last=p;
     }
+    (void)client_wsi_keyboard(ps5_temp.typing&&!captured,ps5_temp.character,ps5_temp.lower,ps5_temp.symbols,ps5_temp.preview);
     if(!(pad_players()&1u)) {PS5_TempRelease(window,now);return;}
     /* Repeats for navigation/editing; never repeated activation or idle input. */
     for(int i=0;i<8;++i)if(i!=4 && i!=5 && (ps5_temp.keys&(1u<<i)) && now>=ps5_temp.repeat_at[i]) {
         SDL_SendKeyboardKey(now,ps5_temp.keyboard,0,ps5_temp_keys[i],true);
+        if(i==7&&ps5_temp.typing&&ps5_temp.preview_length)ps5_temp.preview[--ps5_temp.preview_length]=0;
         ps5_temp.repeat_at[i]=now+100000000ull;
     }
     if(last && ps5_temp.last_pump) {
@@ -161,13 +173,10 @@ static void PS5_PumpTemporaryInput(SDL_Window *window)
             if(w>0&&h>0){
                 bool initial=!ps5_temp.cursor_ready;
                 if(initial){ps5_temp.cursor_x=w*0.5f;ps5_temp.cursor_y=h*0.5f;ps5_temp.cursor_ready=true;}
-                ps5_temp.cursor_x=SDL_clamp(ps5_temp.cursor_x+x*900.0f*dt,0.0f,(float)(w-1));
-                ps5_temp.cursor_y=SDL_clamp(ps5_temp.cursor_y+y*900.0f*dt,0.0f,(float)(h-1));
+                ps5_temp.cursor_x=SDL_clamp(ps5_temp.cursor_x+x*(float)w*0.47f*dt,0.0f,(float)(w-1));
+                ps5_temp.cursor_y=SDL_clamp(ps5_temp.cursor_y+y*(float)h*0.83f*dt,0.0f,(float)(h-1));
                 if(initial||x||y)SDL_SendMouseMotion(now,window,ps5_temp.mouse,false,ps5_temp.cursor_x,ps5_temp.cursor_y);
-                const char *letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ._-/:!?@()+=";
-                int ch=ps5_temp.typing?letters[ps5_temp.character]:0;
-                if(ps5_temp.lower&&ch>='A'&&ch<='Z')ch+=32;
-                (void)client_wsi_cursor(true,ps5_temp.cursor_x/(w-1),ps5_temp.cursor_y/(h-1),ch);
+                (void)client_wsi_cursor(!ps5_temp.typing,ps5_temp.cursor_x/(w-1),ps5_temp.cursor_y/(h-1),0);
             }
         }
     }

@@ -212,12 +212,15 @@ public final class ClientStartup25 {
    String[] selectedArguments=ProsperoLauncher.run(ClientStartup25::launcherMenu);
    stage("Launcher display closed; handing off to original Minecraft Main");
    if(!gamePreflight())throw new IllegalStateException("Original artifact preflight failed; inspect startup logs");
+   stage("PS5_LAUNCH phase=PREPARE_INSTANCE");
    Path work=ProsperoLauncher.selectedWork();prepareWork(work);prepareAudio(work);
+   stage("PS5_LAUNCH phase=INSTANCE_READY");
    console.println(configurationSummary(work));
    System.setProperty("user.dir",work.toString());System.setProperty("user.home",work.toString());System.setProperty("java.io.tmpdir",work.resolve("native-cache").toString());
    for(String key:new String[]{"jna.tmpdir","io.netty.native.workdir"})System.setProperty(key,work.resolve("native-cache").toString());
    System.setProperty("jna.nosys","true");
-   prepareCpuInformation();
+   prepareCpuInformation();ProsperoNetwork.check();
+   stage("PS5_LAUNCH phase=CONFIGURE_BINDINGS");
    Configuration.OPENGL_CONTEXT_API.set("OSMesa");Configuration.OPENGL_OSMESA_LIBRARY_NAME.set(System.mapLibraryName("ps5clientgl"));
    Configuration.SPVC_LIBRARY_NAME.set(System.mapLibraryName("ps5spvc"));
    Configuration.MEMORY_ALLOCATOR.set("system");Configuration.OPENAL_LIBRARY_NAME.set(System.mapLibraryName("ps5openal"));Configuration.SDL_LIBRARY_NAME.set(System.mapLibraryName("ps5sdl"));Configuration.VULKAN_LIBRARY_NAME.set(System.mapLibraryName("ps5clientgpu"));Configuration.SHADERC_LIBRARY_NAME.set(System.mapLibraryName("ps5shaderc"));Configuration.SHARED_LIBRARY_EXTRACT_PATH.set(work.resolve("native-cache").toString());

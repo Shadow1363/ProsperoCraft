@@ -15,3 +15,17 @@ static int PS5_SelectDisplayMode(const VkDisplayModePropertiesKHR *modes,uint32_
     }
     return selected;
 }
+
+/* Match a logical request without discarding the established <=60Hz ranking. */
+static int PS5_SelectRequestedMode(const VkDisplayModePropertiesKHR *modes,uint32_t count,uint32_t width,uint32_t height)
+{
+    if(!modes||count==0||count>32||!width||!height)return -1;
+    int selected=-1,best=-1;
+    for(uint32_t i=0;i<count;i++){
+        VkDisplayModeParametersKHR p=modes[i].parameters;
+        if(p.visibleRegion.width!=width||p.visibleRegion.height!=height||p.refreshRate==0)continue;
+        int score=(p.refreshRate<=60000?1:0);
+        if(score>best||(score==best&&p.refreshRate>modes[selected].parameters.refreshRate)){selected=(int)i;best=score;}
+    }
+    return selected;
+}

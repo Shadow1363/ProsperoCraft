@@ -905,3 +905,112 @@ and access token without --demo; do not log arguments/tokens. Downloads remain
 original publisher files with hashes. No bundled game payload or transformations.
 Runtime patch0122 owns the directory move fix; keep Trash/Undo/recovery semantics.
 090 includes the same089toolkit/haptics; actual console validation remains pending.
+
+
+## Account/UI/network work — 2026-10-27
+
+User requests Prism/MultiMC instance artwork with own transparent logo, link/QR,
+persistent login, player heads/account-name button, all26.x/snapshot downloads,
+dropdowns, adjustable resolution/alignment and multiplayer/LAN repair.
+Continue Temp_gametest only; no Store/release publication. Read
+ docs/client-account-ui-091.md and matching validation. Preserve090/089and older
+candidates/frozen milestones.091uses96public mailbox fields. Refresh credentials
+are app-local AES-GCM with adjacent local key and best-effort permissions;
+access tokens remain memory-only. Do not claim hardware-backed storage or publish
+account/key/session files. Refresh repeats ownership/profile validation. Sign out
+erases saved credentials. Icons retain pinned original SVG/licenses/attribution;
+Prism logo is replaced by user art. No game JAR/assets redistributed or transformed.
+Snapshots default on for new libraries; all publisher26.xdownloadable; only26.3
+launchable. Other versions explicitly warn. Resolution separates logical input
+from actual framebuffer; physical modes depend on enumeration, not arbitrary
+requested values. PS5alignment still pending. User clarifies Open to LAN fails;
+server joining untested because text input is difficult. FTP2121/log service
+unreachable with No route to host; current-run LAN exception unavailable. IPv4/
+NIO and socket diagnostics are a candidate repair, never a confirmed PS5fix.
+Host original-pinger/Netty success does not establish console hosting/discovery.
+
+
+## PLAY launch follow-up and Waves — 2026-10-27
+
+User reports091PLAY FULL GAME crash and requests PLAY, Coming soon wording and
+Wavesdefault.092Temp_gametestimplements labels,mode5fallback and one-time persisted
+background-default revision migration; later choices stay saved. Read
+ docs/client-launch-followup-092.md and matching validation. User explicitly
+requests Cyberduck computer use to retrieve logs; use it when directFTP has no
+route. Browser refresh was necessary:initial mount listing was stale. Partial
+retrieval succeeded despite550onotherfiles. Preserve first-retrieval local logs.
+Actual091evidence passes auth/ownership/profile,UIhandoff,socketpreflight and Main
+entry,then stops around Vulkan initialization; no faultPC was obtained. Do not
+blame caught OSHImetricwarnings or the completed socketprobe.092repairs first-match
+requested-mode selection that discarded<=60Hzranking and adds explicit legacy
+refresh scope for the observed invalid_scope restoration response. Both actual
+console crash recovery and refresh still require092validation; do not claim fixed.
+Retain091packages/symbols and all older snapshots. No gameJARchanges or Store/release.
+
+
+092startup feedback2026-10-27: user reports “MC starts now!” after receiving the
+092candidate SHA256f9c1cd0a67c1229fdd08b29295acddaf2f0b79e3d0162dc199a1f8ef55e64610.
+Record scoped PS5startup confirmation. Do not infer gameplay/lifecycle/refresh/
+LAN/resolution tests, exact native fault cause, ALL PASS or a new frozen milestone.
+
+
+093follow-up2026-10-27: user confirms092can join servers but cannot host.
+Cyberduck current/previous Java reports corroborate saved refresh through profile;
+raw logs stay local. Original26.3publishServer swallows IOException without logging.
+Runtime0123 bounded socket diagnostics are opt-in and not a hosting repair.093
+adds tiled in-game keyboard after successful presentation fence, sign-in actions,
+shoulder page navigation, controller glyphs, clean welcome/footer and persistent
+prelaunch controls tutorial. Preserve092and prior candidates; no new milestone,
+Store or public binary release. Retest hosting and retrieve current-run trace;
+console keyboard/input/resolution/overlay/lifecycle checks remain pending. See
+ docs/client-keyboard-hosting-093.md and its validation for exact candidate hashes.
+
+
+094work-order2026-10-27: user explicitly defers LAN hosting. Continue launcher UI:
+Home left of Instances, automatic tab content focus, final plus add cards, saved
+world/server favorites, permanent Yes/No deletion without Undo, essential PLAY
+guide and paginated full OPTIONS guide. New deletions purge instance worlds and
+pins; retain old Trash archives rather than silently deleting unrelated history.
+A private deletion journal supports precommit rollback/postcommit cleanup only,
+not user undo. Preserve093/older packages. Original NBT/game JARs remain unchanged;
+quick-play uses original Main arguments. See docs/client-home-library-094.md and
+matching validation. No ALL PASS, freeze, Store or public binary release inferred;
+exact094 console UI, permanent deletion, discovery, favorites/quick-play and
+lifecycle remain pending.
+
+
+095steering2026-10-27 overrides Home inclusion for the current build: the user asks
+not to have the Home menu for this build.095 opens Instances and exposes only
+Instances/Settings/Account; preserve094source10906c5and exact package as deferred
+Home work. Keep final plus card, single focus, permanent Yes/No delete and clearer
+guides. No Home/favorite browsing or quick-play arguments in095. Keep existing
+metadata/worlds/cache; no network/runtime changes and hosting stays deferred.
+See docs/client-instances-only-095.md and matching validation. No new console pass,
+freeze, Store or release publication; test095 navigation, guides, disposable-instance
+deletion and lifecycle on PS5.
+
+
+096steering2026-10-27: user requests normal-sized empty plus card and supplied
+PS5 banner/title artwork before a later merge. User explicitly chooses banner
+alone with system-rendered ProsperoCraft title. Preserve original banner bytes,
+convert to pinned4KBC7DDS and package pic0/pic1; do not composite or package the
+title PNG. No AI redraw. Home and hosting stay deferred. Preserve095/older exact
+candidates. Source remains Temp_gametest; no main merge, Store/release upload or
+console ALL PASS inferred. See docs/client-presentation-096.md and matching
+validation. Actual PS5 selected/launch artwork and ordinary lifecycle pending;
+shell presentation cache may need loader refresh, not catalog database edits.
+
+## Authenticated096 release and merge — 2026-10-27
+
+The user explicitly requests merging Temp_gametest into main and publishing its
+exact dist/candidates/ProsperoCraft-Temp_gametest-01.000.096 package as a full GitHub
+release and ProsperoStore update. This supersedes earlier branch-only/no-release
+and Demo-default restrictions for this publication. Preserve Temp_gametest and
+older Demo/server/frozen artifacts; main now carries the authenticated temp_gametest
+channel honestly, without silently relabeling or rebuilding accepted bytes.
+The user reports Minecraft running and login working, but no formal ALL PASS,
+exact lifecycle counts, save/reload, hosting or endurance pass is inferred.
+Credit mihawk-99/PS5_VKHomebrewUI for GUI and MultiMC/Prism contributors for icons
+in the release description, retaining all underlying notices. Publish matching
+OpenAL source/relink materials, checksums and scoped validation. No official game
+JARs/assets or personal account/session/key files belong in public artifacts.

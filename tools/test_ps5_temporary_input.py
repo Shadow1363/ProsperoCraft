@@ -13,7 +13,7 @@ source=r'''
 #include <math.h>
 #include "platform.h"
 static SDL_Window *window=(SDL_Window*)(uintptr_t)1,*focus;
-static bool enabled,captured,mod;
+static bool enabled,captured,mod,keyboard_visible;static int keyboard_selected;
 static Uint64 tick=1;
 static int opens,events,downs,ups,motions;
 static bool keys[SDL_SCANCODE_COUNT],mouse[4];
@@ -33,6 +33,7 @@ void SDL_SendMouseMotion(Uint64 time,SDL_Window*w,SDL_MouseID id,bool relative,f
 size_t SDL_strlen(const char*s){return strlen(s);}
 bool SDL_GetWindowSize(SDL_Window*w,int*x,int*y){*x=1920;*y=1080;return true;}
 int client_wsi_cursor(bool show,float x,float y,int ch){if(show){assert(x>=0&&x<=1&&y>=0&&y<=1);cursor_calls++;character=ch;}return 0;}
+int client_wsi_keyboard(bool show,int selected,int lower,int symbols,const char*preview){keyboard_visible=show;keyboard_selected=selected;return 0;}
 void SDL_SendMouseWheel(Uint64 t,SDL_Window*w,SDL_MouseID m,float x,float y,SDL_MouseWheelDirection d){assert(y==1||y==-1);wheels++;}
 void SDL_SendKeyboardText(const char*t){texts++;typed=t[0];}
 bool pad_open(void){opens++;return true;}
@@ -59,7 +60,8 @@ int main(void){
  sample(PAD_CROSS);pump();assert(!keys[SDL_SCANCODE_SPACE]);sample(0);pump();sample(PAD_CROSS);pump();assert(keys[SDL_SCANCODE_SPACE]);
  players=0;count=0;pump();assert(!keys[SDL_SCANCODE_SPACE]);players=1;
  sample(0);captured=false;pump();sample(PAD_CIRCLE);pump();assert(keys[SDL_SCANCODE_ESCAPE]);
- sample(0);pump();assert(cursor_calls);sample(PAD_TOUCH_PAD|PAD_R3);pump();assert(character=='A');sample(0);pump();sample(PAD_CROSS);pump();assert(texts==1&&typed=='A'&&!mouse[SDL_BUTTON_LEFT]);sample(0);pump();sample(PAD_RIGHT);pump();assert(character=='B');sample(0);pump();sample(PAD_CROSS);pump();assert(typed=='B');sample(0);pump();sample(PAD_CIRCLE);pump();
+ sample(0);pump();assert(cursor_calls);sample(PAD_TOUCH_PAD|PAD_R3);pump();assert(keyboard_visible&&keyboard_selected==10);sample(0);pump();sample(PAD_CROSS);pump();assert(texts==1&&typed=='q'&&!mouse[SDL_BUTTON_LEFT]);sample(0);pump();sample(PAD_RIGHT);pump();assert(keyboard_selected==11);sample(0);pump();sample(PAD_CROSS);pump();assert(typed=='w');sample(0);pump();sample(PAD_CIRCLE);pump();assert(!keyboard_visible&&!keys[SDL_SCANCODE_ESCAPE]);
+ sample(0);pump();sample(PAD_L3);pump();assert(keyboard_visible);sample(0);pump();sample(PAD_L1);pump();assert(keys[SDL_SCANCODE_BACKSPACE]);sample(0);pump();assert(!keys[SDL_SCANCODE_BACKSPACE]);sample(PAD_OPTIONS);pump();assert(!keyboard_visible&&keys[SDL_SCANCODE_RETURN]);sample(0);pump();assert(!keys[SDL_SCANCODE_RETURN]);
  mod=true;pump();assert(!keys[SDL_SCANCODE_ESCAPE]);prior=events;pump();assert(events==prior);mod=false;
  sample(0);pump();sample(PAD_UP);pump();assert(keys[SDL_SCANCODE_UP]);focus=NULL;pump();assert(!keys[SDL_SCANCODE_UP]);focus=window;
  enabled=false;prior=events;pump();assert(events==prior);

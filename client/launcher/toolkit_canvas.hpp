@@ -4,6 +4,7 @@
 #pragma once
 #include "toolkit_surface.hpp"
 #include "branding_logo.hpp"
+#include "instance_icons.hpp"
 #include "toolkit_effects.hpp"
 #include <array>
 #include <atomic>
@@ -17,6 +18,7 @@ inline bool motion=false,reduced=false;
 inline float dt=1.0f/60;
 inline std::array<hui::ui::PushButton,16>* buttons=nullptr;
 inline unsigned button_index=0;
+inline std::array<std::uint32_t,prospero_icons::count> icon_textures{};
 inline hui::gfx::Color color(std::uint32_t c){return {float(c&255)/255,float((c>>8)&255)/255,float((c>>16)&255)/255,float((c>>24)&255)/255};}
 inline hui::ui::Theme theme(){auto t=hui::ui::default_theme();t.style=hui::ui::SurfaceStyle::glass;t.page=hui::gfx::Color::rgb(0x081a13);t.surface=hui::gfx::Color::rgb(0x08251d,0.78f);t.primary=hui::gfx::Color::rgb(0xb6f2be);t.on_primary=hui::gfx::Color::rgb(0x102c1b);t.secondary=hui::gfx::Color::rgb(0x244438);t.on_secondary=t.text=hui::gfx::Color::rgb(0xeaf0e8);t.focus=hui::gfx::Color::rgb(0xa9eab6);t.accent=hui::gfx::Color::rgb(0x81e6af);t.radius=20;t.radius_card=28;t.shadow_blur=30;t.focus_width=2;t.omega=18;t.damping=0.86f;t.outline=hui::gfx::Color::rgb(0xb3efd4,0.2f);return t;}
 struct Canvas {
@@ -31,7 +33,7 @@ struct Canvas {
   auto accent=icon_color(icon);using hui::gfx::Color;auto green=Color::rgb(0x2dbe89);
   Color targets[]={Color::rgb(0x031512),Color::rgb(0x0b382f),hui::gfx::mix(Color::rgb(0x146850),accent,0.25f),hui::gfx::mix(green,accent,0.45f)};
   for(int i=0;i<4;i++){if(!e.ready||reduced)e.palette[i].snap(targets[i]);else e.palette[i].target(targets[i]);e.palette[i].update(dt,3.8f);surface->backdrop.colors[i]=e.palette[i].value();}
-  int mode=num(75);if(mode<1||mode>10)mode=2;if(mode!=e.backdrop){surface->previous_backdrop=surface->backdrop;e.backdrop=mode;e.mode_age=0;}e.mode_age+=dt;surface->background_mix=reduced?1:hui::tween::smoothstep(e.mode_age/0.55f);surface->previous_backdrop.time=reduced?0:e.clock*0.32f;surface->backdrop.mode=static_cast<hui::gfx::BackdropMode>(mode);surface->backdrop.params[0]=0.35f;surface->backdrop.params[1]=0.5f;surface->backdrop.params[2]=0.35f;surface->backdrop.time=reduced?0:e.clock*0.32f;surface->glass=true;e.ready=true;
+  int mode=num(75);if(mode<1||mode>10)mode=5;if(mode!=e.backdrop){surface->previous_backdrop=surface->backdrop;e.backdrop=mode;e.mode_age=0;}e.mode_age+=dt;surface->background_mix=reduced?1:hui::tween::smoothstep(e.mode_age/0.55f);surface->previous_backdrop.time=reduced?0:e.clock*0.32f;surface->backdrop.mode=static_cast<hui::gfx::BackdropMode>(mode);surface->backdrop.params[0]=0.35f;surface->backdrop.params[1]=0.5f;surface->backdrop.params[2]=0.35f;surface->backdrop.time=reduced?0:e.clock*0.32f;surface->glass=true;e.ready=true;
   e.selection=selected;e.model_row=num(15);
  }
 
@@ -65,22 +67,23 @@ struct Canvas {
   int count=std::min(8,std::max(0,num(13)-num(14)));std::string key=fields[14].data();
   for(int i=0;i<count*4;i++)key+=std::string("|")+fields[32+i].data();
   auto t=theme();grid.style.theme=t;grid.style.reduced_motion=reduced;grid.style.columns=4;grid.style.cell_width=420;grid.style.cell_height=242;grid.style.gap_x=30;grid.style.gap_y=30;grid.style.padding=0;grid.style.scroll_thumb=false;grid.style.card.art_aspect=0;grid.style.card.text=hui::ui::CardText::over;grid.style.card.title_size=30;grid.style.card.subtitle_size=24;grid.style.card.text_inset=24;grid.style.card.badge_corner=hui::ui::CardCorner::top_right;grid.style.card.glow=true;grid.style.card.focus_scale=reduced?1:1.025f;grid.style.card.lift=reduced?0:7;grid.style.card.press_scale=reduced?0:0.025f;grid.style.entrance_step=reduced?0:0.05f;
-  if(key!=e.items_key){std::vector<hui::ui::CardItem> items;for(int i=0;i<count;i++){int at=32+i*4;hui::ui::CardItem item;item.title=fields[at].data();item.subtitle=fields[at+1].data();item.badge=fields[at+3].data();item.tag=num(at+2);item.accent=icon_color(item.tag);items.push_back(item);}grid.set_items(std::move(items));e.items_key=key;grid.enter();}
+  if(key!=e.items_key){std::vector<hui::ui::CardItem> items;for(int i=0;i<count;i++){int at=32+i*4;hui::ui::CardItem item;item.title=fields[at].data();item.subtitle=fields[at+1].data();item.badge=std::strcmp(fields[at+3].data(),"ADD")==0?"":fields[at+3].data();item.tag=num(at+2);item.accent=icon_color(item.tag);items.push_back(item);}grid.set_items(std::move(items));e.items_key=key;grid.enter();}
   if(grid.bounds().y!=342+slide||grid.bounds().w!=1770)grid.set_bounds({70,float(342+slide),1770,514});
   grid.art=[](hui::ui::Canvas& canvas,const hui::gfx::Rect& art,float radius,const hui::ui::CardItem& item,float focus){
-   using hui::gfx::Color;auto tint=icon_color(item.tag);canvas.list.gradient_rect(art,radius,hui::gfx::mix(Color::rgb(0x133e32),tint,0.22f),Color::rgb(0x071e19));
+   using hui::gfx::Color;if(item.tag<0){float x=art.x+art.w/2,y=art.y+art.h/2;canvas.list.rounded_rect({x-26,y-3,52,6},3,Color::rgb(0xb6f2be));canvas.list.rounded_rect({x-3,y-26,6,52},3,Color::rgb(0xb6f2be));return;}auto tint=icon_color(item.tag);canvas.list.gradient_rect(art,radius,hui::gfx::mix(Color::rgb(0x133e32),tint,0.22f),Color::rgb(0x071e19));
    canvas.list.glow({art.x+art.w-150,art.y+20,100,80},45,75,tint.with_alpha(0.12f+focus*0.12f));
    float x=art.x+26,y=art.y+22-(reduced?0:4*focus),size=98;
-   if(item.tag==0){canvas.list.image(surface->logo,{x,y,size,size},{0,0,1,1},Color::rgb(0xffffff),0);}
+   if(item.tag>=0&&unsigned(item.tag)<icon_textures.size()){canvas.list.image(icon_textures[item.tag],{x,y,size,size},{0,0,1,1},Color::rgb(0xffffff),0);}
    else{canvas.list.shadow({x,y+9,size,size},20,18,Color::rgb(0,0.4f));canvas.list.gradient_rect({x,y,size,size},20,tint,hui::gfx::mix(tint,Color::rgb(0x193f2c),0.45f));
     for(int row=0;row<3;row++)for(int col=0;col<4;col++)canvas.list.rounded_rect({x+9+col*21,y+38+row*17,12,12},2,Color::rgb((row+col)%3==0?0xcaf4c1:0x183a2c,0.65f));}
   };
   int focus=std::clamp(num(9)-num(14),0,std::max(0,count-1));if(grid.focus()!=focus||e.page_changed)grid.set_focus(focus,reduced||e.page_changed);grid.set_active(std::strcmp(fields[28].data(),"TOP")!=0);grid.update(reduced?1:dt);hui::ui::Canvas c{surface->list,surface->fonts,surface->renderer.glass_texture(),e.clock};grid.draw(c);
  }
  void confirm(const char* name,int row){auto& e=*effects;auto& dialog=e.dialog;dialog.style.theme=theme();dialog.style.reduced_motion=reduced;dialog.style.width=1450;dialog.style.title_size=48;dialog.style.body_size=28;dialog.style.padding=60;dialog.style.centered=false;dialog.style.enter_scale=0.94f;dialog.style.enter_rise=34;dialog.style.frost=0.72f;dialog.style.button_height=76;
-  if(e.page_changed||!dialog.is_open()){hui::ui::DialogContent content;content.title="Delete "+std::string(name)+"?";content.body="Move this instance, its worlds and options to recoverable Trash. Shared downloads stay. Triangle on the instance grid restores the last deletion, including after restart.";content.buttons={{"CANCEL",hui::ui::ButtonKind::primary,false},{"DELETE INSTANCE",hui::ui::ButtonKind::primary,true}};content.default_button=0;dialog.open(std::move(content),e.feedback);}
+  if(e.page_changed||!dialog.is_open()){hui::ui::DialogContent content;content.title="Delete "+std::string(name)+"?";content.body="Permanently delete this instance, all of its worlds and its settings? This cannot be undone. Shared downloads are kept.";content.buttons={{"NO",hui::ui::ButtonKind::primary,false},{"YES, DELETE",hui::ui::ButtonKind::primary,true}};content.default_button=0;dialog.open(std::move(content),e.feedback);}
   dialog.set_focus(row);dialog.update(reduced?1:dt);hui::ui::Canvas c{surface->list,surface->fonts,surface->renderer.glass_texture(),e.clock};dialog.draw(c);
  }
+ void instance_icon(int x,int y,int size,int kind){unsigned index=kind>=0&&unsigned(kind)<icon_textures.size()?unsigned(kind):0;surface->list.image(icon_textures[index],{float(x),float(y),float(size),float(size)},{0,0,1,1},hui::gfx::Color::rgb(0xffffff),0);}
  void logo(int x,int y,int size){surface->list.image(surface->logo,{float(x),float(y),float(size),float(size)},{0,0,1,1},hui::gfx::Color::rgb(0xffffff),0);}
  void button(int x,int y,int w,int h,const char* text,bool active,bool primary,bool press=false){
   if(button_index>=buttons->size())return;auto& b=(*buttons)[button_index++];b.style.theme=theme();b.style.height=float(h);b.style.text_size=30;b.style.reduced_motion=reduced;b.style.press_scale=reduced?0:0.018f;b.style.role=primary?(std::string_view(text)=="DELETE INSTANCE"?hui::ui::ButtonRole::danger:hui::ui::ButtonRole::primary):hui::ui::ButtonRole::secondary;b.label=text;b.set_bounds({float(x),float(y),float(w),float(h)});b.set_active(active);if(active&&press&&!reduced)b.press();b.update(reduced?1.0f:dt);hui::ui::Canvas c{surface->list,surface->fonts,surface->renderer.glass_texture(),effects->clock};b.draw(c);
@@ -90,6 +93,7 @@ inline bool open(const char* fonts){
  if(surface)return healthy;
  surface=new Surface;effects=new Effects;buttons=new std::array<hui::ui::PushButton,16>;healthy=surface->init(fonts);
  if(healthy){std::array<std::uint32_t,72*72> pixels{};for(unsigned i=0;i<pixels.size();i++)pixels[i]=prospero_menu::logo_pixels[i];surface->logo=surface->renderer.create_texture(72,72,reinterpret_cast<const std::uint8_t*>(pixels.data()));healthy=surface->logo!=0;}
+ if(healthy)for(unsigned i=0;i<icon_textures.size();i++){icon_textures[i]=surface->renderer.create_texture(72,72,reinterpret_cast<const std::uint8_t*>(prospero_icons::pixels[i]));if(!icon_textures[i]){healthy=false;break;}}
  std::fprintf(stderr,"PS5_UI Vulkan init=%s stage=%s result=%d\n",healthy?"READY":"FAIL",surface->stage,int(surface->error));
  return healthy;
 }

@@ -57,6 +57,7 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
   from build_launcher_toolkit import build as build_toolkit,package_sources
   objects.extend(build_toolkit(work,runtime,gpu_audit['graphics_bindings']))
   package_sources(java)
+  shutil.copytree(ROOT/'assets/launcher-icons',java/'launcher-icons',dirs_exist_ok=True)
   shutil.copyfile(work/'launcher-toolkit-audit.json',java/'launcher-toolkit-audit.json')
 
  # Compile application/UI against the original runtime SDK. Only the isolated

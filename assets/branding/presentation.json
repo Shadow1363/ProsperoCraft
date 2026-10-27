@@ -1,0 +1,25 @@
+{
+  "source": "prosperocraft-banner-source.png",
+  "source_sha256": "28b0605b415fd8b95ce49c960e46451935e2a6367b4f18f88c6838fe894fee91",
+  "source_size": [
+    1672,
+    941
+  ],
+  "provenance": "User-supplied Minecraft-themed banner; underlying artwork retains its original rights. No AI redraw.",
+  "processing": "RGB Lanczos center-fit to3840x2160, then BC7_UNORM DX10 DDS; one2Dsurface, no mip chain",
+  "encoder": {
+    "project": "https://github.com/richgel999/bc7enc_rdo",
+    "revision": "b9438627eef73a1157e84201b6fa6eb2ffd6d9f0",
+    "mode": "portable C++ BC7, non-RDO default quality; -q -g",
+    "binary_sha256": "58fb08f341afb5cb7198b9383dbacbc267b946f70ae4f595268f3eaedc8dd50a"
+  },
+  "background": "prosperocraft-banner.dds",
+  "background_sha256": "7d1bb568b66ea9a87cbac3cf7b4a3a7a3f542b04f1d1d5c2ef9ccfdb96d3d629",
+  "files": {
+    "pic0.dds": "prosperocraft-banner.dds",
+    "pic1.dds": "prosperocraft-banner.dds"
+  },
+  "title": "System-rendered ProsperoCraft text; title PNG not packaged, per user choice",
+  "preview_sha256": "bff8e828880499b1c3a09726eef065db30283ced9c5b0aa4564b4cfdb9581708",
+  "console": "Pending actual selected-title and launch display; shell may cache old presentation assets"
+}

@@ -1,0 +1,35 @@
+--- a/wsi_common_videoout.c
++++ b/wsi_common_videoout.c
+@@ -593,6 +593,8 @@
+    return (int64_t)status[PS5_VIDEO_OUT_FLIP_STATUS_SHOWN_ARGUMENT];
+ }
+ 
++#include "keyboard_overlay.h"
++
+ /* The flip thread: each present's flip once its frame is done, in order. */
+ static unsigned videoout_flip_probe_count;
+ static unsigned videoout_present_probe_count;
+@@ -616,6 +618,9 @@
+          videoout_probe("WSI flip%u fence result%d buffer%u",probe,wait_result,present.buffer);
+ 
+       mtx_lock(&out->lock);
++      if(wait_result==VK_SUCCESS&&present.buffer>=chain->first&&present.buffer-chain->first<VIDEOOUT_BUFFERS)
++         prospero_keyboard_draw(chain->set->buffers+(present.buffer-chain->first)*chain->set->size->buffer_bytes,
++                                chain->set->size->extent.width,chain->set->size->extent.height);
+       const int64_t argument = out->flip_argument + 1;
+       const int result = sceVideoOutSubmitFlip(out->handle, (int32_t)present.buffer, PS5_VIDEO_OUT_FLIP_VSYNC,
+                                                argument);
+@@ -1433,3 +1438,13 @@
+    return -1;
+ #endif
+ }
++
++PUBLIC int client_wsi_keyboard(bool show,int selected,int lower,int symbols,const char*preview);
++PUBLIC int client_wsi_keyboard(bool show,int selected,int lower,int symbols,const char*preview)
++{
++ call_once(&videoout_once,videoout_output_init_once);mtx_lock(&videoout_output.lock);
++ prospero_keyboard_state.visible=show;prospero_keyboard_state.selected=selected;
++ prospero_keyboard_state.lower=lower;prospero_keyboard_state.symbols=symbols;
++ snprintf(prospero_keyboard_state.preview,sizeof(prospero_keyboard_state.preview),"%.128s",preview?preview:"");
++ mtx_unlock(&videoout_output.lock);return 0;
++}

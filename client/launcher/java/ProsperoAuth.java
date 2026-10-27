@@ -8,10 +8,10 @@ import java.util.function.BooleanSupplier;
 
 /** Device-code public client. Secrets never appear in diagnostics or toString. */
 public final class ProsperoAuth {
- public static final String CLIENT_ID="f0c7635e-8d50-4d7e-afa3-d15db4a0a3d3";
+ public static final String CLIENT_ID="00000000402b5328";
  public enum Endpoint {
-  DEVICE("https://login.microsoftonline.com/consumers/oauth2/v2.0/devicecode"),
-  TOKEN("https://login.microsoftonline.com/consumers/oauth2/v2.0/token"),
+  DEVICE("https://login.live.com/oauth20_connect.srf"),
+  TOKEN("https://login.live.com/oauth20_token.srf"),
   XBOX("https://user.auth.xboxlive.com/user/authenticate"),
   XSTS("https://xsts.auth.xboxlive.com/xsts/authorize"),
   MINECRAFT("https://api.minecraftservices.com/authentication/login_with_xbox"),
@@ -45,7 +45,7 @@ public final class ProsperoAuth {
  interface Clock {long millis();void sleep(long millis)throws InterruptedException;}
  public interface View {void stage(String message);void code(String code,String uri);}
  public static final class Session {
-  public final String name,id;private final String token;private final long expiresAt;
+  public final String name,id;private final String token;private final long expiresAt;private String refresh="",skin="";
   Session(String name,String id,String token,long expiresAt){this.name=name;this.id=id;this.token=token;this.expiresAt=expiresAt;}
   boolean valid(long now){return now+60_000<expiresAt;}
   String accessToken(){return token;}
@@ -136,26 +136,37 @@ public final class ProsperoAuth {
  public Session signIn(View view,BooleanSupplier cancelled)throws Failure {
   try{
    active(cancelled);view.stage("Connecting to Microsoft");
-   Reply device=request(Endpoint.DEVICE,"POST",form("client_id",CLIENT_ID,"scope","XboxLive.SignIn XboxLive.offline_access"),null);success(device,"REGISTRATION");
+   Reply device=request(Endpoint.DEVICE,"POST",form("client_id",CLIENT_ID,"scope","service::user.auth.xboxlive.com::MBI_SSL","response_type","device_code"),null);success(device,"REGISTRATION");
    String secret=str(device.json,"device_code"),code=str(device.json,"user_code"),uri=str(device.json,"verification_uri");
    URI verification=URI.create(uri);String host=verification.getHost();
    if(!"https".equals(verification.getScheme())||verification.getUserInfo()!=null||verification.getPort()!=-1||!("microsoft.com".equals(host)||"www.microsoft.com".equals(host)||"login.microsoftonline.com".equals(host)))throw new Failure("RESPONSE");
    if(!code.matches("[A-Za-z0-9 -]{4,24}"))throw new Failure("RESPONSE");
    long lifetime=number(device.json,"expires_in",1,1800)*1000,deadline=clock.millis()+lifetime;
    long interval=device.json.has("interval")?number(device.json,"interval",1,60)*1000:5000;
-   view.code(code,uri);view.stage("Approve sign-in on your phone or computer");String msa;
+   view.code(code,uri);view.stage("Approve sign-in on your phone or computer");String msa,refresh="";
    while(true){
     active(cancelled);if(clock.millis()+interval>=deadline)throw new Failure("EXPIRED");clock.sleep(interval);active(cancelled);
     Reply token=request(Endpoint.TOKEN,"POST",form("grant_type","urn:ietf:params:oauth:grant-type:device_code","client_id",CLIENT_ID,"device_code",secret),null);
-    if(token.status>=200&&token.status<300){msa=str(token.json,"access_token");break;}
+    if(token.status>=200&&token.status<300){msa=str(token.json,"access_token");refresh=optional(token.json,"refresh_token","");break;}
     if(!token.json.has("error"))throw new Failure(token.status==401||token.status==403?"REGISTRATION":"RESPONSE",Endpoint.TOKEN,token.status);
     String error=str(token.json,"error");
     if(error.equals("authorization_pending"))continue;
     if(error.equals("slow_down")){interval=Math.min(60_000,interval+5000);continue;}
     throw new Failure(switch(error){case "expired_token"->"EXPIRED";case "authorization_declined","access_denied"->"DECLINED";case "invalid_client","unauthorized_client","invalid_scope"->"REGISTRATION";default->"RESPONSE";},Endpoint.TOKEN,token.status);
    }
+   return complete(msa,refresh,view,cancelled);
+  }catch(Failure failure){throw failure;}catch(InterruptedException stopped){Thread.currentThread().interrupt();throw new Failure("CANCELLED");}catch(Exception ignored){throw new Failure("NETWORK");}
+ }
+ public Session resume(String refresh,View view,BooleanSupplier cancelled)throws Failure {
+  try{active(cancelled);Reply reply=request(Endpoint.TOKEN,"POST",form("grant_type","refresh_token","client_id",CLIENT_ID,"refresh_token",refresh,"scope","service::user.auth.xboxlive.com::MBI_SSL"),null);success(reply,"DECLINED");return complete(str(reply.json,"access_token"),optional(reply.json,"refresh_token",refresh),view,cancelled);}
+  catch(Failure failure){throw failure;}catch(InterruptedException stopped){Thread.currentThread().interrupt();throw new Failure("CANCELLED");}catch(Exception ignored){throw new Failure("NETWORK");}
+ }
+ static String optional(JsonObject o,String key,String fallback){try{return str(o,key);}catch(Failure absent){return fallback;}}
+ String refreshCredential(Session session){return session.refresh;}
+ String skin(Session session){return session.skin;}
+ private Session complete(String msa,String refresh,View view,BooleanSupplier cancelled)throws Exception {
    active(cancelled);view.stage("Connecting your Xbox profile");
-   JsonObject body=new JsonObject(),props=new JsonObject();props.addProperty("AuthMethod","RPS");props.addProperty("SiteName","user.auth.xboxlive.com");props.addProperty("RpsTicket","d="+msa);body.add("Properties",props);body.addProperty("RelyingParty","http://auth.xboxlive.com");body.addProperty("TokenType","JWT");
+   JsonObject body=new JsonObject(),props=new JsonObject();props.addProperty("AuthMethod","RPS");props.addProperty("SiteName","user.auth.xboxlive.com");props.addProperty("RpsTicket",msa);body.add("Properties",props);body.addProperty("RelyingParty","http://auth.xboxlive.com");body.addProperty("TokenType","JWT");
    Reply xbox=request(Endpoint.XBOX,"POST",body.toString(),null);success(xbox,"XBOX");String xboxToken=str(xbox.json,"Token"),uhs=hash(xbox.json);
    active(cancelled);body=new JsonObject();props=new JsonObject();props.addProperty("SandboxId","RETAIL");JsonArray tokens=new JsonArray();tokens.add(xboxToken);props.add("UserTokens",tokens);body.add("Properties",props);body.addProperty("RelyingParty","rp://api.minecraftservices.com/");body.addProperty("TokenType","JWT");
    Reply xsts=request(Endpoint.XSTS,"POST",body.toString(),null);success(xsts,"XBOX");if(!uhs.equals(hash(xsts.json)))throw new Failure("RESPONSE");
@@ -166,7 +177,8 @@ public final class ProsperoAuth {
    if(!owns)throw new Failure("OWNERSHIP");
    active(cancelled);Reply profile=request(Endpoint.PROFILE,"GET",null,access);success(profile,"PROFILE");String name=str(profile.json,"name"),id=str(profile.json,"id");
    if(!name.matches("[A-Za-z0-9_]{1,16}")||!id.matches("[a-fA-F0-9]{32}"))throw new Failure("PROFILE");active(cancelled);
-   return new Session(name,id,access,expires);
-  }catch(Failure failure){throw failure;}catch(InterruptedException stopped){Thread.currentThread().interrupt();throw new Failure("CANCELLED");}catch(Exception ignored){throw new Failure("NETWORK");}
+   Session session=new Session(name,id,access,expires);session.refresh=refresh;
+   try{JsonArray skins=profile.json.getAsJsonArray("skins");if(skins!=null&&!skins.isEmpty())session.skin=str(skins.get(0).getAsJsonObject(),"url");}catch(Exception absent){}
+   return session;
  }
 }

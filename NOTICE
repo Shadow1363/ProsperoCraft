@@ -63,3 +63,11 @@ Both retain GPL-3.0-or-later. Baked Inter fonts retain their SIL OFL1.1 notices.
 The vendored dependency's LICENSE, THIRD_PARTY_NOTICES.md, source hashes and
 reproduction materials ship under assets/java25/launcher-toolkit. No toolkit
 audio backend or sample application is linked or started.
+
+Instance icon artwork: Prism Launcher and MultiMC contributors, pinned to Prism
+390a240abaefe389d1ab8510cc0ba5c2692a65be. Original SVG metadata and upstream
+COPYING/LICENSE retained in assets/launcher-icons and packaged launcher-icons.
+SVG metadata credits AutiOne, Boba, ely, Fulmine, gon sawa, Pankakes, tobimori,
+Zeke; artwork CC BY-SA4.0 (https://creativecommons.org/licenses/by-sa/4.0/).
+Rasterization to72x72RGBA is the only change. Prism launcher logo is replaced by
+the user's own ProsperoCraft transparent artwork. No Prism/MultiMC affiliation.

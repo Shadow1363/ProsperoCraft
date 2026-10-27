@@ -2,3 +2,7 @@
 client/ports/oshi/*.patch whitespace=-blank-at-eol
 # Preserve the pinned upstream bytes, including original font-license spacing.
 client/launcher/toolkit/** -whitespace
+
+# Preserve original upstream icon SVG bytes.
+assets/launcher-icons/*.svg -whitespace
+assets/launcher-icons/UPSTREAM-COPYING.md -whitespace

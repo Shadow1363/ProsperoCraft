@@ -1,0 +1,53 @@
+{
+  "version": "01.000.094",
+  "title_id": "PPSA99874",
+  "branch": "Temp_gametest",
+  "package_sha256": "4847dc4eaa43987c9473362076ef27aedf579854924d6de7d72c107f9567587b",
+  "symbols_sha256": "1290c498e7de381c662174b5154506b0273ef3f3bddf2051606226143ffe1076",
+  "changes": [
+    "Home/Instances/Settings/Account tabs with automatic content selection and single active focus",
+    "Always-final plus card; empty Home/Instances large plus-only card",
+    "Read-only vanilla world/server inventory and persisted per-instance Home favorites",
+    "Original authenticated quick-play singleplayer/multiplayer arguments",
+    "Permanent No / Yes Delete with no Undo; precommit recovery and postcommit purge journal",
+    "Six PLAY essentials; five readable full-guide pages; OPTIONS from tutorial retains OK gate"
+  ],
+  "runtime": "0123 unchanged",
+  "hosting": "Deferred at explicit user request; no hosting repair claimed",
+  "tests": {
+    "target_build": "PASS",
+    "package_audit": "PASS: CRC/signatures, runtime/native/code/source hash audits and frozen package preservation",
+    "toolkit_channel_package_audit": "PASS",
+    "temp_game_module_and_preserved093_audit": "PASS",
+    "vanilla_gzip_plain_NBT_and_read_only_discovery": "PASS",
+    "home_favorites_persistence_and_terminal_plus_pagination": "PASS",
+    "tab_navigation_and_single_focus_state": "PASS",
+    "permanent_delete_confirmation_and_purge_recovery": "PASS",
+    "actual_original_quick_play_arguments_and_full_session_guards": "PASS",
+    "download_repair_snapshot_guard_and_instance_persistence": "PASS",
+    "account_UI_avatar_encryption": "PASS",
+    "backgrounds_and_haptics": "PASS",
+    "auth_pipeline": "PASS",
+    "original_Main_host_bootstrap_and_JAR_integrity": "PASS",
+    "native_UI_JNI_VideoOut_fixture": "PASS",
+    "actual_Vulkan_preview_and4tab_pixel_centering": "PASS"
+  },
+  "original_game_JARs": "Unmodified; no new game class transformations or replacements; not bundled",
+  "original_world_server_NBT": "Read only; fixtures check bytes unchanged",
+  "new_deletion": "Permanent after confirmation; shared cache/account/other instances kept. Old archived Trash not automatically purged. Final cleanup may retry at startup.",
+  "console094": {
+    "status": "pending",
+    "needed": [
+      "Home/Instances plus cards and shoulder navigation",
+      "Settings focus stability with physical controller",
+      "World/server discovery and pins retained after relaunch",
+      "Home favorite world/server quick-play; normal account checks",
+      "Permanent deletion using a disposable instance; no shared-data loss",
+      "Essential/full guide readability and tutorial/OPTIONS return",
+      "Gameplay/quit/relaunch and existing keyboard regression"
+    ]
+  },
+  "preserved093_package_sha256": "ed433c1c3e2567987e876357ae0cc2982e259655e92afc55d9f4a1640c1f1ee8",
+  "publication": "Source branch only; no Store/release assets",
+  "milestone": "No console ALL PASS or freeze inferred"
+}

@@ -1,0 +1,66 @@
+{
+  "version": "01.000.096",
+  "title_id": "PPSA99874",
+  "branch": "Temp_gametest",
+  "package_sha256": "7576aacd601ffbec16d956adaa3a03f9a8f2c0d9a1eadf76889776f246500067",
+  "symbols_sha256": "b666a845adf3fd1a75747e8dccd1f2904c9e29a7f469ad786e78d114b1a98537",
+  "changes": [
+    "Empty Instances uses normal420x242grid add card instead of giant empty panel",
+    "User banner packaged as pic0.dds and pic1.dds",
+    "System-rendered ProsperoCraft title; supplied title PNG not packaged per user choice"
+  ],
+  "presentation": {
+    "source": "prosperocraft-banner-source.png",
+    "source_sha256": "28b0605b415fd8b95ce49c960e46451935e2a6367b4f18f88c6838fe894fee91",
+    "source_size": [
+      1672,
+      941
+    ],
+    "provenance": "User-supplied Minecraft-themed banner; underlying artwork retains its original rights. No AI redraw.",
+    "processing": "RGB Lanczos center-fit to3840x2160, then BC7_UNORM DX10 DDS; one2Dsurface, no mip chain",
+    "encoder": {
+      "project": "https://github.com/richgel999/bc7enc_rdo",
+      "revision": "b9438627eef73a1157e84201b6fa6eb2ffd6d9f0",
+      "mode": "portable C++ BC7, non-RDO default quality; -q -g",
+      "binary_sha256": "58fb08f341afb5cb7198b9383dbacbc267b946f70ae4f595268f3eaedc8dd50a"
+    },
+    "background": "prosperocraft-banner.dds",
+    "background_sha256": "7d1bb568b66ea9a87cbac3cf7b4a3a7a3f542b04f1d1d5c2ef9ccfdb96d3d629",
+    "files": {
+      "pic0.dds": "prosperocraft-banner.dds",
+      "pic1.dds": "prosperocraft-banner.dds"
+    },
+    "title": "System-rendered ProsperoCraft text; title PNG not packaged, per user choice",
+    "preview_sha256": "bff8e828880499b1c3a09726eef065db30283ced9c5b0aa4564b4cfdb9581708",
+    "console": "Pending actual selected-title and launch display; shell may cache old presentation assets"
+  },
+  "tests": {
+    "target_build": "PASS",
+    "full_package_crc_signatures_runtime_native_source_class_audit": "PASS",
+    "both_embedded_DDS_exact_source_and_header_checks": "PASS",
+    "toolkit_channel_and_asset_license_audit": "PASS",
+    "preserved093_094_095_hashes": "PASS",
+    "real_BC7_decode_and_image_quality": "PASS48.83dBPSNR at3840x2160",
+    "app_and_ZIP_branding_insertion_replacement_idempotence": "PASS",
+    "plain_title_existing_icon_and_unrelated_bytes": "PASS",
+    "native_UI_JNI_and_actual_Vulkan_preview": "PASS; normal empty plus card visually inspected",
+    "three_tab_pixel_centering": "PASS",
+    "original_Main_host_bootstrap_and_game_JAR_integrity": "PASS"
+  },
+  "runtime": "0123 unchanged; no runtime/network changes",
+  "home_and_hosting": "Remain deferred",
+  "original_game_JARs": "Unmodified; not bundled",
+  "console096": {
+    "status": "pending",
+    "needed": [
+      "Selected-app banner and system-rendered title on PS5",
+      "Launch-transition banner and framing",
+      "Normal empty plus card and instance creation",
+      "Usual game startup/quit/relaunch regression"
+    ],
+    "possible_cache": "Shell/loader may retain old presentation assets; no catalog database edits made"
+  },
+  "preserved095_package_sha256": "d2890fff36cd54ace413453cffae52ad1c35285609705810b033ee9161479d70",
+  "publication": "Source on Temp_gametest only; no main merge, Store or release assets",
+  "milestone": "No console ALL PASS or freeze inferred"
+}

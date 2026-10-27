@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Audit both complete channel artifacts, matching toolkit sources and isolation."""
+"""Audit temporary game-test artifact and preserved channel artifacts, matching toolkit sources and isolation."""
 import hashlib, io, json, subprocess, zipfile
 from pathlib import Path
 from build_launcher_toolkit import ROOT,LLVM,KIT
 
 sha=lambda b:hashlib.sha256(b).hexdigest()
 classes={};binaries={}
-for channel in ('demo','offline'):
+for channel in ('temp_gametest',):
     folder=ROOT/('dist/client-startup-'+channel)
     package=folder/'PPSA99874.zip'
     with zipfile.ZipFile(package) as z:
         assert z.testzip() is None
         prefix='PPSA99874/';java=prefix+'assets/java25/'
         param=json.loads(z.read(prefix+'sce_sys/param.json'))
-        assert param['contentVersion']=='01.000.089' and param['titleId']=='PPSA99874' and param['downloadDataSize']==4096
+        assert param['contentVersion']=='01.000.096' and param['titleId']=='PPSA99874' and param['downloadDataSize']==4096
         with zipfile.ZipFile(io.BytesIO(z.read(java+'client-probe.jar'))) as jar:
             assert jar.read('prosperocraft-channel.txt').decode().strip()==channel
             assert ('offline-import-public-key.der' in jar.namelist())==(channel=='offline')
@@ -39,9 +39,7 @@ for channel in ('demo','offline'):
     assert table['__init_array_start']==table['__init_array_end']
     assert table['__client_ui_init_end']-table['__client_ui_init_start']==8
     for marker in ('VkRenderer','PushButton','GridView','Dialog','blit_rgba'):assert marker in symbols
-assert classes['demo']==classes['offline']
-assert binaries['demo']==binaries['offline']
-for version in ('085','086','087','088'):
+for version in ('085','086','087','088','089'):
     record_path=next((ROOT/'docs/validation').glob('client'+version+'-*-2026-10-27.json'))
     record=json.loads(record_path.read_text())
     for channel,row in record['channels'].items():
@@ -55,4 +53,4 @@ for name,digest in audit['objects_sha256'].items():
     obj=work/name;assert sha(obj.read_bytes())==digest
     refs=subprocess.check_output([str(LLVM/'llvm-nm'),'--undefined-only',str(obj)],text=True)
     assert not {l.split()[-1] for l in refs.splitlines() if l.split()}.intersection({'malloc','calloc','realloc','free','posix_memalign'})
-print('PASS both089 channel packages/CRC/identity/key exclusion and retention,identical Java classes/native executable,toolkit pin/source/font/license hashes,real linked renderer/components/blit,explicit glyph constructor and no automatic constructors,paired C++ allocation,OSHI retained;console pending')
+print('PASS Temp_gametest096 package/CRC/identity/key exclusion and retention,toolkit pin/source/font/license hashes,real linked renderer/components/blit,explicit glyph constructor and no automatic constructors,paired C++ allocation,OSHI retained;console pending')
