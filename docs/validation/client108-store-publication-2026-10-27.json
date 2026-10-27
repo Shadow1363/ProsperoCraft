@@ -42,7 +42,7 @@
   "authorization": "User explicitly requestsreleasewithNativeJava25Runtime/nativePS5Minecraftmain description,retainedGUI/iconcredits andnewfeaturechangelog. No formal108ALLPASS inferred.",
   "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/872",
   "catalog_head": "a1275fc",
-  "catalog_status": "MERGED at2026-10-27T20:08:33Z;deploymentCI40575375141inprogress;liveAPIstill101whiledeploymentpending",
+  "catalog_status": "MERGED;deploymentCI40575375141completedSUCCESS;liveProsperoStoreAPIverified108",
   "local_catalog_checks": "148validrecords;231testspass/2skipped;onlinepublicrelease/digest/contentVersion108/iconverification0errors/0warnings",
   "description": "Minecraft Java runs natively on PS5 with a Native Java 25 Runtime. Java ownership required. GUI: mihawk-99/PS5_VKHomebrewUI; icons: MultiMC/Prism.",
   "remaining_console_validation": "Dependency108repair/startup,mouse,Controlify,audio/lifecycle,save/reload/endurance;humankeyboardpositive107feedbackrecorded.",
@@ -51,5 +51,13 @@
   "catalog_merge_commit": "6e8ad85ea7454c05a120e33920584b0fbcda065b",
   "catalog_deployment_run": 40575375141,
   "catalog_required_checks": "PASSsubmissionvalidation/offlinetests/release-scan/developer-bumpeligibility/automaticmerge",
-  "release_scan": "PASS0errors/3warnings/2notices:classfilesmisidentifiedasmacOSdueCAFEBABE;loaderconnectionconstants9021/127.0.0.1flaggedinlibjvm/eboot;noverifiedbuildattestation. These scan flags are not proof of sandbox escape."
+  "release_scan": "PASS0errors/3warnings/2notices:classfilesmisidentifiedasmacOSdueCAFEBABE;loaderconnectionconstants9021/127.0.0.1flaggedinlibjvm/eboot;noverifiedbuildattestation. These scan flags are not proof of sandbox escape.",
+  "deployment_checks": "PASSofflinetests/scans/changedrecordverification/websitebuild/signing/GitHubPagesdeployment",
+  "live_store_verification": {
+    "api": "https://prosperostore.net/api/v1/apps/PPSA99874.json",
+    "version": "01.000.108",
+    "content_version": "01.000.108",
+    "sha256": "545678bd4801cbf9e00b7209c25a89a9dfb0b3be7b645e3cd98f75633e455560",
+    "description": "Minecraft Java runs natively on PS5 with a Native Java 25 Runtime. Java ownership required. GUI: mihawk-99/PS5_VKHomebrewUI; icons: MultiMC/Prism."
+  }
 }

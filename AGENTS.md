@@ -1286,3 +1286,12 @@ notrebuiltbytes. This lifts prior108releasehold,notformalALLPASSor108dependency
 acceptance. Recordkeyboardpositive107feedback andremainingconsolechecks honestly.
 Preserve101/olderreleases/frozenpasses/098draft. IncludeexactOpenALsource/relinks,
 checksums andvalidation;verifyuploads/catalogPR/deployment/liveStore. Javaunchanged.
+
+
+108publicationcomplete:fullGitHubreleaseusesexact108candidate;all5assetsuploaded/
+downloadedandhashverified;normal/replacementOpenALrelinksexact. StorePR872merged,
+deployment40575375141SUCCESS,liveAPI108/contentVersion108/digest545678bd...and
+NativeJava25Runtime/nativePS5descriptionwithGUI/iconcreditsverified. See
+ docs/validation/client108-store-publication-2026-10-27.json. NoformalALLPASS/new
+frozenmilestone;remainingconsoledependency/mouse/Controlify/audio/lifecycle/
+save/endurancechecks stayexplicit. Preserveolderpackagesand098draft.
