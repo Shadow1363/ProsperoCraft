@@ -43,10 +43,22 @@
   "human_acceptance": "All requested101functionality accepted andStore release requested;broaderendurance/memory/lifecyclecoverage notinferred.",
   "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/865",
   "catalog_head": "259f8e824395040a99dbd9ae7affd138ec2ec3c4",
-  "catalog_status": "OPEN atinitialcheck;validation/offlinetestspass,releasescan/eligibilitypending. No liveStore101claimyet.",
+  "catalog_status": "MERGED at2026-10-27T16:20:17Z;deploymentCI40539919062completedSUCCESS;liveProsperoStoreAPIverified101.",
   "local_catalog_checks": "147records formatvalid;230tests pass,2skipped;onlineartifactdigest/version/iconchecks0errors/warnings.",
   "public_descriptions": "Player-facingrelease andStoredescription,GUIcreditmihawk-99/PS5_VKHomebrewUIandMultiMC/Prismiconcreditsretained.",
   "java_repository": "Runtime0124fixpublishedc7d6601;human101integrationacceptancepublished7886291 inps5-java25-homebrew. Consumerintegration/releaseshere.",
   "preservation": "Exact101candidateunchanged;100/olderpublishedassets and098draft/frozensnapshotsremainintact.",
-  "remaining_tests": "Broaderaccountrecovery,save/reload,repeatedworld/serverchanges,reconnect,long-sessionheap/metaspace/codecachepressureandendurance."
+  "remaining_tests": "Broaderaccountrecovery,save/reload,repeatedworld/serverchanges,reconnect,long-sessionheap/metaspace/codecachepressureandendurance.",
+  "catalog_merge_commit": "0fef2c99b789b04b83769742370635ddc0270268",
+  "catalog_deployment_run": 40539919062,
+  "catalog_required_checks": "PASS submissionvalidation,offline/release-scan/developer-bumpeligibilityandautomaticmerge.",
+  "deployment_checks": "PASS offline/tests,scans,changed-recordverification,websitebuild/signingandPagesdeployment.",
+  "live_store_verification": {
+    "api": "https://prosperostore.net/api/v1/apps/PPSA99874.json",
+    "version": "01.000.101",
+    "content_version": "01.000.101",
+    "sha256": "c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131",
+    "release_url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.101"
+  },
+  "additional_human_feedback": "All accepted,nice;reinforces acceptance ofrequested101functionality,notnewendurance/memory/lifecyclemeasurements."
 }

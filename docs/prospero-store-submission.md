@@ -210,3 +210,16 @@ Existinglistingupdate: https://github.com/darkxex/ps5-homebrew-catalog/pull/865
 iconchecks pass. PR865initialstateOPEN,submission/offlinePASS,releasescanstill
 running. LiveStore availability requiresmerge/deployment. Currentevidence:
 validation/client101-store-publication-2026-10-27.json.100andolderassetsunchanged.
+
+
+PR865merged2026-10-27at16:20:17UTC as0fef2c99b789b04b83769742370635ddc0270268.
+Allrequiredsubmission/release-scan/offline/developer-bump/mergechecksPASS.
+DeploymentCI40539919062running;liveAPIstill100atlastcheck. Awaitactualdeployment
+beforeclaiminglive101availability.
+
+
+DeploymentCI40539919062completedSUCCESS. The liveProsperoStoreAPI nowreturns
+version/content_version01.000.101and exacttestedpackageSHA256
+c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131.
+101is live,independentlyverifiedaftermergeanddeployment. Humanreaffirms all
+requestedfunctionsaccepted;broaderendurance/memory/lifecycletests remain scoped.
