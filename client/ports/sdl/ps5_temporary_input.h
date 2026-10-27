@@ -161,8 +161,8 @@ static void PS5_PumpTemporaryInput(SDL_Window *window)
             if(w>0&&h>0){
                 bool initial=!ps5_temp.cursor_ready;
                 if(initial){ps5_temp.cursor_x=w*0.5f;ps5_temp.cursor_y=h*0.5f;ps5_temp.cursor_ready=true;}
-                ps5_temp.cursor_x=SDL_clamp(ps5_temp.cursor_x+x*900.0f*dt,0.0f,(float)(w-1));
-                ps5_temp.cursor_y=SDL_clamp(ps5_temp.cursor_y+y*900.0f*dt,0.0f,(float)(h-1));
+                ps5_temp.cursor_x=SDL_clamp(ps5_temp.cursor_x+x*(float)w*0.47f*dt,0.0f,(float)(w-1));
+                ps5_temp.cursor_y=SDL_clamp(ps5_temp.cursor_y+y*(float)h*0.83f*dt,0.0f,(float)(h-1));
                 if(initial||x||y)SDL_SendMouseMotion(now,window,ps5_temp.mouse,false,ps5_temp.cursor_x,ps5_temp.cursor_y);
                 const char *letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ._-/:!?@()+=";
                 int ch=ps5_temp.typing?letters[ps5_temp.character]:0;

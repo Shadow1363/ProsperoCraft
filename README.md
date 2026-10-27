@@ -87,6 +87,14 @@ Delete Instance “Is a directory” failure. The preceding personal089login wor
 on the user's PS5;090full-game/download/Delete/Undo/lifecycle checks remain pending.
 Demo/main authentication and the existing Store083 release are unchanged.
 
+[Development091](docs/client-account-ui-091.md) adds Prism/MultiMC instance artwork
+with the ProsperoCraft icon, Microsoft-link QR, saved account refresh and player
+heads, dropdown selectors, snapshots by default in new libraries, and selectable
+logical resolutions with independent framebuffer coordinates. It includes an
+IPv4/NIO LAN-host candidate repair; actual PS5 hosting remains unverified because
+current logs could not be reached. Exact091account/download/input/network/graphics
+and lifecycle tests are pending. Demo/main and Store083 remain unchanged.
+
 [Development085](docs/client-channels-delete-085.md) adds a visible branch label
 and **Instance Settings → Delete Instance** to both builds. Deletion moves the
 instance and its worlds to Trash; **Triangle** on the grid undoes it, even after

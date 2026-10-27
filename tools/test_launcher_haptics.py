@@ -47,7 +47,7 @@ public class HapticsCheck {
   Path file=root.resolve("library.json");Files.writeString(file,Files.readString(file).replace("\"vibration\": true,",""));if(!new ProsperoLibrary(root).settings().vibration)throw new AssertionError("legacy default");
   Path rejected=root.resolve("rejected");var blocked=new ProsperoLibrary(rejected);blocked.settings().showIntro=false;blocked.add("Unsupported","26.2",1);blocked.save();var guard=new ProsperoLauncher(new ProsperoAuth(),rejected,null);guard.tick(0x4000);if(!guard.tick(0x4000)[78].equals("error"))throw new AssertionError("unsupported launch error cue");
   Path launching=root.resolve("launching");var ready=new ProsperoLibrary(launching);ready.settings().showIntro=false;var playable=ready.add("Ready","26.3",1);ready.ready(playable,true);ready.save();var click=new ProsperoLauncher(new ProsperoAuth(),launching,null);click.tick(0x4000);if(!click.tick(0x4000)[78].equals("confirm"))throw new AssertionError("Play task-start confirmation");
-  System.out.println("PASS actual Java haptic mailbox:focus/confirm/back cues,stable idle sequence,Settings Triangle persistent off/on,older library default;80field contract retained");
+  System.out.println("PASS actual Java haptic mailbox:focus/confirm/back cues,stable idle sequence,Settings Triangle persistent off/on,older library default;96field contract retained");
  }
 }'''
 with tempfile.TemporaryDirectory() as d:

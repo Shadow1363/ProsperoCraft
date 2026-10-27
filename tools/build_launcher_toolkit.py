@@ -52,13 +52,13 @@ def build(work,runtime=None,bindings=None):
            'display':'Existing native VideoOut via completed offscreen RGBA8 readback',
            'objects_sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in objects},
            'graphics_bindings':bindings or {},'automatic_constructors':False if runtime else 'host platform initialization',
-           'audio_backend_linked':False,'sample_application_linked':False,'console':'PENDING exact089'}
+           'audio_backend_linked':False,'sample_application_linked':False,'console':'PENDING exact091'}
     (work/'launcher-toolkit-audit.json').write_text(json.dumps(audit,indent=2)+'\n')
     return objects
 
 def package_sources(java):
     dest=java/'launcher-toolkit';shutil.copytree(KIT,dest,dirs_exist_ok=True)
-    for name in ['toolkit_surface.hpp','toolkit_canvas.hpp','toolkit_effects.hpp','native_menu.hpp','navigation.hpp','haptics.hpp','branding_logo.hpp']:
+    for name in ['toolkit_surface.hpp','toolkit_canvas.hpp','toolkit_effects.hpp','native_menu.hpp','navigation.hpp','haptics.hpp','branding_logo.hpp','instance_icons.hpp','login_qr.hpp']:
         shutil.copyfile(ROOT/'client/launcher'/name,dest/name)
     for name in ['build_launcher_toolkit.py','prepare_launcher_toolkit.py']:
         shutil.copyfile(ROOT/'tools'/name,dest/name)

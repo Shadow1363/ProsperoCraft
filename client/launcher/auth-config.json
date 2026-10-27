@@ -5,7 +5,8 @@
   "scopes": [
     "service::user.auth.xboxlive.com::MBI_SSL"
   ],
-  "storage": "memory_only",
+  "storage": "app_local_encrypted_refresh_credential",
   "client_secret": "not_used",
-  "purpose": "Temporary personal game test; no Store or release publication"
+  "purpose": "Temporary personal game test; no Store or release publication",
+  "access_token_storage": "memory_only"
 }

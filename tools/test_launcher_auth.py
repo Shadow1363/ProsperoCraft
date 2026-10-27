@@ -13,7 +13,7 @@ public class AuthCheck {
  static class Script implements ProsperoAuth.Transport {
   ArrayDeque<ProsperoAuth.Reply> q=new ArrayDeque<>();List<ProsperoAuth.Endpoint> endpoints=new ArrayList<>();
   public ProsperoAuth.Reply send(ProsperoAuth.Endpoint e,String method,String type,String body,String bearer){
-   endpoints.add(e);if(e==ProsperoAuth.Endpoint.TOKEN&&!body.contains(DEVICE))throw new AssertionError("wrong device code");
+   endpoints.add(e);if(e==ProsperoAuth.Endpoint.TOKEN&&!body.contains("refresh_token")&&!body.contains(DEVICE))throw new AssertionError("wrong device code");
    if(e==ProsperoAuth.Endpoint.DEVICE&&(!body.contains(ProsperoAuth.CLIENT_ID)||!body.contains("service%3A%3Auser.auth.xboxlive.com%3A%3AMBI_SSL")||!body.contains("response_type=device_code")))throw new AssertionError("scope/client");
    if(e==ProsperoAuth.Endpoint.XBOX&&!body.contains("\"RpsTicket\":\""+MSA+"\""))throw new AssertionError("RPS ticket");
    if(e==ProsperoAuth.Endpoint.XSTS&&!body.contains(XBL))throw new AssertionError("Xbox token");
@@ -38,6 +38,8 @@ public class AuthCheck {
   s=standard();list=new ArrayList<>(s.q);list.set(6,reply(200,"{\"id\":\"invalid\",\"name\":\"PlayerOne\"}"));s.q=new ArrayDeque<>(list);expect(s,new Clock(),"PROFILE");
   s=standard();list=new ArrayList<>(s.q);list.set(0,reply(200,list.get(0).json.toString().replace("https://www.microsoft.com/link","https://evil.example/link")));s.q=new ArrayDeque<>(list);expect(s,new Clock(),"RESPONSE");
   s=standard();AtomicBoolean cancelled=new AtomicBoolean();c=new Clock();c.after=()->cancelled.set(true);try{new ProsperoAuth(s,c).signIn(new View(),cancelled::get);throw new AssertionError();}catch(ProsperoAuth.Failure f){if(!f.code.equals("CANCELLED")||s.endpoints.size()!=1)throw new AssertionError("cancel poll");}
+  s=standard();s.q.removeFirst();ProsperoAuth.Session resumed=new ProsperoAuth(s,new Clock()).resume("SECRET_REFRESH",new View(),()->false);if(!resumed.name.equals("PlayerOne")||!new ProsperoAuth().refreshCredential(resumed).equals("SECRET_REFRESH"))throw new AssertionError("resume/profile/refresh retention");
+  s=standard();s.q.removeFirst();s.q.removeFirst();s.q.addFirst(reply(400,"{\"error\":\"invalid_grant\"}"));try{new ProsperoAuth(s,new Clock()).resume("SECRET_REFRESH",new View(),()->false);throw new AssertionError("revoked refresh accepted");}catch(ProsperoAuth.Failure f){if(!f.code.equals("DECLINED"))throw new AssertionError(f.code);}
   System.out.println("PASS actual auth pipeline/poll pending/slowdown/decline/expiry/clientfailure/ownership/hash/profile/URI/cancel/redaction; no live account used");
  }
 }

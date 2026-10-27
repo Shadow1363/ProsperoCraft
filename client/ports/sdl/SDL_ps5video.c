@@ -48,9 +48,10 @@ static char const *const *PS5_Vulkan_GetInstanceExtensions(SDL_VideoDevice *_thi
     static const char *const extensions[]={VK_KHR_SURFACE_EXTENSION_NAME,VK_KHR_DISPLAY_EXTENSION_NAME};
     *count=SDL_arraysize(extensions);return extensions;
 }
+static int ps5_surface_width=1920,ps5_surface_height=1080;
 static bool PS5_Vulkan_CreateSurface(SDL_VideoDevice *_this,SDL_Window *window,VkInstance instance,const VkAllocationCallbacks *allocator,VkSurfaceKHR *surface)
 {
-    (void)_this;(void)window;*surface=VK_NULL_HANDLE;
+    (void)_this;*surface=VK_NULL_HANDLE;
 #define LOAD(name) PFN_vk##name name=(PFN_vk##name)vkGetInstanceProcAddr(instance,"vk"#name)
     LOAD(EnumeratePhysicalDevices);LOAD(GetPhysicalDeviceDisplayPropertiesKHR);LOAD(GetDisplayModePropertiesKHR);
     LOAD(GetPhysicalDeviceDisplayPlanePropertiesKHR);LOAD(GetDisplayPlaneSupportedDisplaysKHR);LOAD(GetDisplayPlaneCapabilitiesKHR);LOAD(CreateDisplayPlaneSurfaceKHR);LOAD(GetPhysicalDeviceSurfaceCapabilitiesKHR);
@@ -64,6 +65,9 @@ static bool PS5_Vulkan_CreateSurface(SDL_VideoDevice *_this,SDL_Window *window,V
     if(GetDisplayModePropertiesKHR(devices[0],displays[0].display,&count,modes)!=VK_SUCCESS||!count||count>32)return SDL_SetError("PS5 Vulkan mode inventory failed");
     int selected=PS5_SelectDisplayMode(modes,count,displays[0].physicalResolution);
     if(selected<0)return SDL_SetError("PS5 Vulkan no usable enumerated mode");
+    /* Prefer the requested real display mode when the driver enumerates it.
+     * Retain a usable physical mode otherwise; logical size remains independent. */
+    for(uint32_t i=0;i<count;i++)if(modes[i].parameters.visibleRegion.width==(uint32_t)window->w&&modes[i].parameters.visibleRegion.height==(uint32_t)window->h&&modes[i].parameters.refreshRate){selected=(int)i;break;}
     VkDisplayPlanePropertiesKHR planes[32];uint32_t plane_count=32;
     if(GetPhysicalDeviceDisplayPlanePropertiesKHR(devices[0],&plane_count,planes)!=VK_SUCCESS||!plane_count||plane_count>32)return SDL_SetError("PS5 Vulkan plane inventory failed");
     for(uint32_t plane=0;plane<plane_count;plane++){
@@ -77,6 +81,7 @@ static bool PS5_Vulkan_CreateSurface(SDL_VideoDevice *_this,SDL_Window *window,V
         if(extent.width<caps.minSrcExtent.width||extent.width>caps.maxSrcExtent.width||extent.height<caps.minSrcExtent.height||extent.height>caps.maxSrcExtent.height||extent.width<caps.minDstExtent.width||extent.width>caps.maxDstExtent.width||extent.height<caps.minDstExtent.height||extent.height>caps.maxDstExtent.height)continue;
         VkDisplaySurfaceCreateInfoKHR ci={.sType=VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR,.displayMode=modes[selected].displayMode,.planeIndex=plane,.planeStackIndex=planes[plane].currentStackIndex,.transform=VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR,.globalAlpha=1.0f,.alphaMode=VK_DISPLAY_PLANE_ALPHA_OPAQUE_BIT_KHR,.imageExtent=extent};
         VkResult result=CreateDisplayPlaneSurfaceKHR(instance,&ci,allocator,surface);
+        if(result==VK_SUCCESS){ps5_surface_width=(int)extent.width;ps5_surface_height=(int)extent.height;SDL_SendWindowEvent(window,SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED,ps5_surface_width,ps5_surface_height);}
         SDL_Log("PS5 Vulkan surface: %ux%u %.3fHz plane%u result%d",extent.width,extent.height,modes[selected].parameters.refreshRate/1000.0,plane,result);
         if(result!=VK_SUCCESS)return SDL_SetError("PS5 Vulkan display surface failed:%d",result);
         if(GetPhysicalDeviceSurfaceCapabilitiesKHR){VkSurfaceCapabilitiesKHR actual;result=GetPhysicalDeviceSurfaceCapabilitiesKHR(devices[0],*surface,&actual);if(result==VK_SUCCESS)SDL_Log("PS5 Vulkan surface caps: extent%ux%u images%u-%u usage0x%x",actual.currentExtent.width,actual.currentExtent.height,actual.minImageCount,actual.maxImageCount,actual.supportedUsageFlags);}
@@ -146,10 +151,9 @@ static void PS5_PumpEvents(SDL_VideoDevice *_this)
 
 static bool PS5_CreateWindow(SDL_VideoDevice *_this, SDL_Window *window, SDL_PropertiesID props)
 {
-    /* SDL logical size must match the fixed physical surface/cursor extent.
-     * Otherwise Java scales mouse coordinates against a different framebuffer. */
-    window->min_w=window->max_w=1920;window->min_h=window->max_h=1080;
-    SDL_SendWindowEvent(window,SDL_EVENT_WINDOW_RESIZED,1920,1080);
+    /* Logical input/window coordinates are independent of the real scanout.
+     * GetWindowSizeInPixels reports the actual Vulkan surface extent below. */
+    window->min_w=320;window->min_h=240;window->max_w=7680;window->max_h=4320;
     /* The window is the screen, and always has the pad's focus */
     SDL_SetKeyboardFocus(window);
     return true;
@@ -162,8 +166,12 @@ static bool PS5_SetWindowPosition(SDL_VideoDevice *_this, SDL_Window *window)
 
 static void PS5_SetWindowSize(SDL_VideoDevice *_this, SDL_Window *window)
 {
-    /* Reject logical-size drift even if the game restores an older size. */
-    SDL_SendWindowEvent(window,SDL_EVENT_WINDOW_RESIZED,1920,1080);
+    SDL_SendWindowEvent(window,SDL_EVENT_WINDOW_RESIZED,window->pending.w,window->pending.h);
+}
+
+static void PS5_GetWindowSizeInPixels(SDL_VideoDevice *_this,SDL_Window *window,int *w,int *h)
+{
+    (void)_this;(void)window;*w=ps5_surface_width;*h=ps5_surface_height;
 }
 
 static SDL_FullscreenResult PS5_SetWindowFullscreen(SDL_VideoDevice *_this, SDL_Window *window, SDL_VideoDisplay *display, SDL_FullscreenOp fullscreen)
@@ -194,6 +202,7 @@ static SDL_VideoDevice *PS5_CreateDevice(void)
     device->CreateSDLWindow = PS5_CreateWindow;
     device->SetWindowPosition = PS5_SetWindowPosition;
     device->SetWindowSize = PS5_SetWindowSize;
+    device->GetWindowSizeInPixels=PS5_GetWindowSizeInPixels;
     device->SetWindowFullscreen = PS5_SetWindowFullscreen;
     device->free = PS5_DeleteDevice;
     device->device_caps = VIDEO_DEVICE_CAPS_FULLSCREEN_ONLY;

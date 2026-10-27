@@ -1,0 +1,88 @@
+{
+  "version": "01.000.091",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "branch": "Temp_gametest",
+  "package_sha256": "4782ea2a78fb8e631c09078bc389718affd61eb725504d07f6d4d5b9c5b632fa",
+  "symbols_sha256": "836cd9cb6780e8f1535259f22a4408e63135e2cd1ab174dd5d984f98ae541868",
+  "package_path": "dist/candidates/ProsperoCraft-Temp_gametest-01.000.091/PPSA99874.zip",
+  "icons": {
+    "choices": 32,
+    "upstream": "PrismLauncher/PrismLauncher",
+    "revision": "390a240abaefe389d1ab8510cc0ba5c2692a65be",
+    "attribution": "assets/launcher-icons/attribution.json",
+    "prism_logo_replaced_by": "User supplied ProsperoCraftTransparent.png"
+  },
+  "account": {
+    "saved": "AES-GCM refresh credential plus adjacent app-local key; no hardware-keychain claim",
+    "access_token": "memory only",
+    "restoration": "refresh plus entitlement/profile validation",
+    "sign_out": "removes local credential/key and active session/head",
+    "skin": "HTTPS trusted texture host, bounded PNG decode, default from original downloaded game JAR"
+  },
+  "mailbox_fields": 96,
+  "snapshot_policy": "default on for new libraries; existing explicit preferences retained",
+  "download_policy": "all publisher26.x releases/snapshots with checksums, future Java requirement recorded",
+  "launch_policy": "only26.3SDL; all others warn and remain blocked",
+  "resolutions": [
+    [
+      1280,
+      720
+    ],
+    [
+      1600,
+      900
+    ],
+    [
+      1920,
+      1080
+    ],
+    [
+      2560,
+      1440
+    ],
+    [
+      3840,
+      2160
+    ]
+  ],
+  "resolution_limit": "logical requests; actual framebuffer/mode separately reported, physical modes depend on enumeration",
+  "network_candidate": "IPv4 stack, Netty noNative/NIO, short-lived all-interface ephemeral TCP/UDP preflight",
+  "network_evidence": {
+    "human": "Open to LAN fails to host; joining servers untested due text entry",
+    "current_run_logs": "Unavailable: supplied FTP2121and log service return No route to host",
+    "root_cause": "unconfirmed; candidate transport repair only"
+  },
+  "tests": {
+    "auth_refresh": "PASS",
+    "account_store_skin_dropdown": "PASS",
+    "publisher_instances_snapshot_download": "PASS",
+    "background_selector": "PASS",
+    "delete_undo": "PASS",
+    "SDL_coordinates": "PASS",
+    "SDL_resize_framebuffer": "PASS tools/test_sdl_fixed_resolution.py; ASan/UBSan actual callbacks",
+    "haptics": "PASS",
+    "startup_host": "PASS",
+    "full_package_audit": "PASS",
+    "toolkit_package": "PASS",
+    "channel_module_artwork_audit": "PASS",
+    "original_pinger_Netty_network": "PASS",
+    "native_UI_JNI": "PASS",
+    "actual_Vulkan_preview": "PASS",
+    "rendered_QR_decode": "PASS"
+  },
+  "preserved090_package_sha256": "f97c03991b8b70e7ccb01098f64f2df6272272e83ed92cacb6161ee57da1c49c",
+  "runtime_patch_level": "0122, unchanged from090",
+  "original_game_jars": "unmodified and not bundled",
+  "console": {
+    "saved_login_refresh": "pending",
+    "skin_and_QR": "pending",
+    "dropdowns_and_icons": "pending",
+    "snapshots_download": "pending",
+    "selected_resolution_pointer": "pending",
+    "LAN_host_discovery_external_join": "pending",
+    "online_server_join_and_account_policy": "pending",
+    "graphics_audio_haptics_lifecycle": "pending"
+  },
+  "release_store": "none; source development branch only"
+}

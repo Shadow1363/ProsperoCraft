@@ -16,7 +16,7 @@ public final class ProsperoInstall {
  interface Progress {void update(String text,long completed,long total);}
  record Version(String id,String type,String url,String sha1){}
  record FilePin(String path,String url,String sha1,long size){}
- static final class Receipt {String version,assetIndex,window;ArrayList<FilePin> files=new ArrayList<>();ArrayList<String> classpath=new ArrayList<>();}
+ static final class Receipt {String version,assetIndex,window;int javaMajor;ArrayList<FilePin> files=new ArrayList<>();ArrayList<String> classpath=new ArrayList<>();}
  private final Path root;private final Source source;
  ProsperoInstall(Path root){this(root,ProsperoInstall::network);}
  ProsperoInstall(Path root,Source source){this.root=root;this.source=source;}
@@ -68,9 +68,10 @@ public final class ProsperoInstall {
  Receipt install(Version version,int workers,Progress progress,BooleanSupplier cancelled)throws Exception {
   if(!version.id.matches("26\\.[0-9][A-Za-z0-9._-]{0,70}"))throw new IOException("Only26.x instances are supported");
   byte[] metadata=json(version.url,cancelled);if(!HexFormat.of().formatHex(MessageDigest.getInstance("SHA-1").digest(metadata)).equals(version.sha1))throw new IOException("Version metadata checksum mismatch");
-  JsonObject meta=object(metadata);if(!version.id.equals(meta.get("id").getAsString())||meta.getAsJsonObject("javaVersion").get("majorVersion").getAsInt()!=25)throw new IOException("This version needs a different Java runtime");
+  JsonObject meta=object(metadata);if(!version.id.equals(meta.get("id").getAsString()))throw new IOException("Version metadata identity mismatch");
+  int javaMajor=meta.getAsJsonObject("javaVersion").get("majorVersion").getAsInt();if(javaMajor<8||javaMajor>100)throw new IOException("Invalid publisher Java requirement");
   if(!"net.minecraft.client.main.Main".equals(meta.get("mainClass").getAsString()))throw new IOException("Unsupported client entry point");
-  Receipt receipt=new Receipt();receipt.version=version.id;receipt.assetIndex=meta.getAsJsonObject("assetIndex").get("id").getAsString();receipt.window="GLFW";
+  Receipt receipt=new Receipt();receipt.javaMajor=javaMajor;receipt.version=version.id;receipt.assetIndex=meta.getAsJsonObject("assetIndex").get("id").getAsString();receipt.window="GLFW";
   String client="versions/"+version.id+"/client.jar";receipt.files.add(pin(client,meta.getAsJsonObject("downloads").getAsJsonObject("client")));receipt.classpath.add(client);
   for(var item:meta.getAsJsonArray("libraries")){JsonObject lib=item.getAsJsonObject();String name=lib.get("name").getAsString();if(name.contains(":natives-")||(name.startsWith("io.netty:netty-transport-native-")&&name.split(":").length>3)||!allowed(lib))continue;
    if(name.startsWith("org.lwjgl:lwjgl-sdl:"))receipt.window="SDL";

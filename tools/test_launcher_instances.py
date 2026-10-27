@@ -21,18 +21,18 @@ public class InstanceCheck {
  interface Action{void run()throws Exception;}static void denied(Action action)throws Exception{try{action.run();throw new AssertionError("accepted invalid input");}catch(IOException|IllegalArgumentException expected){}}
  static void waitFor(ProsperoLauncher model)throws Exception{long end=System.nanoTime()+5_000_000_000L;while(model.tick(0)[64].equals("BUSY")&&System.nanoTime()<end)Thread.sleep(5);if(model.tick(0)[64].equals("BUSY"))throw new AssertionError("worker stuck");}
  public static void main(String[]args)throws Exception{
-  Path root=Path.of(args[0]);fixture();var store=new ProsperoLibrary(root.resolve("store"));if(!store.instances().isEmpty())throw new AssertionError("preset instance");
+  Path root=Path.of(args[0]);fixture();
+  byte[] originalManifest=files.get(ProsperoInstall.MANIFEST);String snapUrl=META.replace("26.2","26.4-snapshot-5");byte[] snapMeta=bytes(new String(files.get(META),java.nio.charset.StandardCharsets.UTF_8).replace("26.2","26.4-snapshot-5").replace("\"majorVersion\":25","\"majorVersion\":26"));files.put(snapUrl,snapMeta);
+  String snapRow="{\"id\":\"26.4-snapshot-5\",\"type\":\"snapshot\",\"url\":\""+snapUrl+"\",\"sha1\":\""+hash(snapMeta)+"\"}";
+  String releases=new String(originalManifest,java.nio.charset.StandardCharsets.UTF_8);files.put(ProsperoInstall.MANIFEST,bytes(releases.replace("[","["+snapRow+",")));
+  var snapshotInstaller=new ProsperoInstall(root.resolve("snapshot-cache"),InstanceCheck::open);if(snapshotInstaller.catalog(false,()->false).size()!=1||snapshotInstaller.catalog(true,()->false).size()!=2)throw new AssertionError("snapshot/release filter");
+  var snapshotReceipt=snapshotInstaller.install(snapshotInstaller.catalog(true,()->false).get(0),1,(text,done,total)->{},()->false);if(snapshotReceipt.javaMajor!=26||ProsperoLauncher.supported(snapshotReceipt.version))throw new AssertionError("future runtime download/launch guard");files.put(ProsperoInstall.MANIFEST,originalManifest);
+var store=new ProsperoLibrary(root.resolve("store"));if(!store.instances().isEmpty())throw new AssertionError("preset instance");
   var first=store.add("Vanilla26.2","26.2",1);var second=store.add("Other world","26.2",2);if(store.game(first).equals(store.game(second)))throw new AssertionError("shared saves");Files.writeString(store.game(first).resolve("keep-world.txt"),"world");store.rename(first,"My world");store.icon(first,5);
   var reopened=new ProsperoLibrary(root.resolve("store"));if(!reopened.instances().get(0).name.equals("My world")||reopened.instances().get(0).icon!=5||!Files.readString(store.game(first).resolve("keep-world.txt")).equals("world"))throw new AssertionError("persistence/world");
   denied(()->store.add("../bad","26.2",1));denied(()->store.add("bad","../../escape",1));denied(()->ProsperoInstall.relative(root,"../escape"));denied(()->ProsperoInstall.safeUrl("https://evil.example/file"));denied(()->ProsperoInstall.safeUrl("http://piston-meta.mojang.com/file"));
   Path oldLibrary=root.resolve("store/library.json");var oldJson=JsonParser.parseString(Files.readString(oldLibrary)).getAsJsonObject();oldJson.getAsJsonObject("settings").remove("showIntro");Files.writeString(oldLibrary,oldJson.toString());if(!new ProsperoLibrary(root.resolve("store")).settings().showIntro)throw new AssertionError("old library notice default");
-  for(int legacy=0;legacy<3;legacy++){
-   var saved=JsonParser.parseString(Files.readString(oldLibrary)).getAsJsonObject();saved.getAsJsonObject("settings").addProperty("resolution",legacy);Files.writeString(oldLibrary,saved.toString());
-   String beforeMigration=Files.readString(oldLibrary);var migrated=new ProsperoLibrary(root.resolve("store"));
-   if(migrated.settings().resolution!=2||migrated.instances().size()!=2||!Files.readString(store.game(first).resolve("keep-world.txt")).equals("world"))throw new AssertionError("1080p migration lost data");
-   if(JsonParser.parseString(Files.readString(oldLibrary)).getAsJsonObject().getAsJsonObject("settings").get("resolution").getAsInt()!=2)throw new AssertionError("migration not saved");
-   if(legacy!=2&&!Files.readString(root.resolve("store/library.json.backup")).equals(beforeMigration))throw new AssertionError("migration backup lost original");
-  }
+  for(int resolution=0;resolution<ProsperoLibrary.RESOLUTIONS.length;resolution++){reopened.settings().resolution=resolution;reopened.save();if(new ProsperoLibrary(root.resolve("store")).settings().resolution!=resolution)throw new AssertionError("resolution not retained");}
   var install=new ProsperoInstall(root.resolve("cache"),InstanceCheck::open);var versions=install.catalog(false,()->false);if(versions.size()!=1)throw new AssertionError();var receipt=install.install(versions.get(0),3,(s,d,t)->{},()->false);install.verify(receipt);
   if(!receipt.version.equals("26.2")||!receipt.assetIndex.equals("32")||receipt.classpath.size()!=2||receipt.files.size()!=4||!Files.readString(root.resolve("cache/versions/26.2/client.jar")).equals("original client bytes"))throw new AssertionError("wrong version/classifier/asset dedup");
   int before=reads;install.install(versions.get(0),3,(s,d,t)->{},()->false);if(reads!=before+1)throw new AssertionError("verified cache downloaded again");
@@ -51,7 +51,7 @@ public class InstanceCheck {
   notice.tick(0x800);notice.tick(0x4000);for(int i=0;i<4;i++)notice.tick(0x40);notice.tick(0x4000);
   if(!new ProsperoLauncher(new ProsperoAuth(),root.resolve("model"),InstanceCheck::open).tick(0)[11].equals("7"))throw new AssertionError("Settings restore notice");
   notice.tick(0x4000); // restore disabled preference for the remaining flow
-  model.tick(0x800);if(!model.tick(0)[12].equals("1")||!model.tick(0)[28].equals("TOP"))throw new AssertionError("R1 topbar");model.tick(0x4000);model.tick(0x20);if(!model.tick(0)[25].equals("1920 x 1080 (locked)"))throw new AssertionError("resolution lock");model.tick(0x80);model.tick(0x4000);if(!model.tick(0)[25].equals("1920 x 1080 (locked)"))throw new AssertionError("resolution changed by controls");model.tick(0x2000);
+  model.tick(0x800);if(!model.tick(0)[12].equals("1")||!model.tick(0)[28].equals("TOP"))throw new AssertionError("R1 topbar");model.tick(0x4000);model.tick(0x4000);if(!model.tick(0)[11].equals("10"))throw new AssertionError("resolution dropdown");model.tick(0x2000);model.tick(0x2000);
   model.tick(0x400);model.tick(0x4000);waitFor(model);if(!model.tick(0)[23].equals("26.2"))throw new AssertionError("catalog");model.tick(0x40);model.tick(0x4000);if(!model.tick(0)[11].equals("6"))throw new AssertionError("name keyboard");model.tick(0x4000);model.tick(0x8000);
   model.tick(0x40);model.tick(0x20);model.tick(0x40);model.tick(0x4000);waitFor(model);if(!model.tick(0)[13].equals("1")||!model.tick(0)[19].equals("READY"))throw new AssertionError("instance install "+model.tick(0)[2]);
   model.tick(0x4000);waitFor(model);if(!model.tick(0)[10].equals("WAIT")||!model.tick(0)[6].contains("NOT AVAILABLE YET"))throw new AssertionError("unsupported version launched");

@@ -13,7 +13,7 @@ public class BackgroundCheck {
   var model=new ProsperoLauncher(new ProsperoAuth(),root,null);model.tick(0x800);model.tick(0x4000);
   if(!model.tick(0)[11].equals("2")||!model.tick(0)[75].equals("2"))throw new AssertionError("Settings/default Aurora");
   for(int i=0;i<10;i++){
-   int expected=(2+i)%10+1;var fields=model.tick(0x8000);
+   int expected=(2+i)%10+1;model.tick(0x8000);int current=Integer.parseInt(model.tick(0)[15]);for(int k=0;k<10;k++){if(current==expected-1)break;model.tick(0x40);current=Integer.parseInt(model.tick(0)[15]);if(current==9&&current!=expected-1){for(int n=0;n<9;n++)model.tick(0x10);current=0;}}var fields=model.tick(0x4000);
    if(!fields[75].equals(""+expected)||!fields[76].equals(ProsperoLauncher.BACKGROUNDS[expected-1]))throw new AssertionError("mode mapping");
    if(new ProsperoLibrary(root).settings().background!=expected)throw new AssertionError("not persistent");
   }
@@ -21,7 +21,7 @@ public class BackgroundCheck {
   Path file=root.resolve("library.json");String data=Files.readString(file);Files.writeString(file,data.replace("\"background\": 2","\"background\": 999"));
   if(new ProsperoLibrary(root).settings().background!=2)throw new AssertionError("invalid mode fallback");
   Files.writeString(file,data.replace("\"background\": 2,",""));if(new ProsperoLibrary(root).settings().background!=2)throw new AssertionError("older library default");
-  System.out.println("PASS actual Settings Square cycles all10toolkit backgrounds,persists after reopen,defaults old/invalid preferences to Aurora,retains instance/world bytes");
+  System.out.println("PASS actual Settings Square dropdown selects all10toolkit backgrounds,persists after reopen,defaults old/invalid preferences to Aurora,retains instance/world bytes");
  }
 }'''
 with tempfile.TemporaryDirectory() as d:

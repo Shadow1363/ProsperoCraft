@@ -905,3 +905,26 @@ and access token without --demo; do not log arguments/tokens. Downloads remain
 original publisher files with hashes. No bundled game payload or transformations.
 Runtime patch0122 owns the directory move fix; keep Trash/Undo/recovery semantics.
 090 includes the same089toolkit/haptics; actual console validation remains pending.
+
+
+## Account/UI/network work — 2026-10-27
+
+User requests Prism/MultiMC instance artwork with own transparent logo, link/QR,
+persistent login, player heads/account-name button, all26.x/snapshot downloads,
+dropdowns, adjustable resolution/alignment and multiplayer/LAN repair.
+Continue Temp_gametest only; no Store/release publication. Read
+ docs/client-account-ui-091.md and matching validation. Preserve090/089and older
+candidates/frozen milestones.091uses96public mailbox fields. Refresh credentials
+are app-local AES-GCM with adjacent local key and best-effort permissions;
+access tokens remain memory-only. Do not claim hardware-backed storage or publish
+account/key/session files. Refresh repeats ownership/profile validation. Sign out
+erases saved credentials. Icons retain pinned original SVG/licenses/attribution;
+Prism logo is replaced by user art. No game JAR/assets redistributed or transformed.
+Snapshots default on for new libraries; all publisher26.xdownloadable; only26.3
+launchable. Other versions explicitly warn. Resolution separates logical input
+from actual framebuffer; physical modes depend on enumeration, not arbitrary
+requested values. PS5alignment still pending. User clarifies Open to LAN fails;
+server joining untested because text input is difficult. FTP2121/log service
+unreachable with No route to host; current-run LAN exception unavailable. IPv4/
+NIO and socket diagnostics are a candidate repair, never a confirmed PS5fix.
+Host original-pinger/Netty success does not establish console hosting/discovery.

@@ -12,5 +12,5 @@
   "source_sha256": "e338990ab81f0ef0fa219947c448e1bfb3ea6a2a92a0a6a644055a64eaee20b1",
   "launcher_source": "ProsperoCraftTransparent.png",
   "launcher_source_sha256": "f759c4b8e6835c4e98112e4fd394c976c804e44bef7e45eac86fc2f7efc0302c",
-  "launcher_processing": "72x72RGBA Lanczos; alpha composited onto native sidebar color, transparent pixels skipped"
+  "launcher_processing": "72x72RGBA Lanczos; original alpha retained for toolkit texture"
 }

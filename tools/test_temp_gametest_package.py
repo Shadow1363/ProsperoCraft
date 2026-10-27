@@ -21,7 +21,19 @@ with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
   assert b'microsoftonline.com'not in endpoint
   assert b'TEMP GAMETEST'in jar.read('ProsperoChannel.class')
   assert b'PLAY FULL GAME'in jar.read('ProsperoLauncher.class')
+  assert b'AES/GCM/NoPadding'in jar.read('ProsperoAccountStore.class')
+  assert b'refresh_token'in jar.read('ProsperoAuth.class')
+  assert b'textures.minecraft.net'in jar.read('ProsperoAvatar.class')
+  assert b'PS5_NETWORK'in jar.read('ProsperoNetwork.class')
   assert not any(b'SECRET_TEST_TOKEN'in jar.read(n)for n in jar.namelist())
+ assert b'-Djava.net.preferIPv4Stack=true'in new.read('PPSA99874/eboot.bin')
+ assert b'-Dio.netty.transport.noNative=true'in new.read('PPSA99874/eboot.bin')
+ for name in ('instance_icons.hpp','login_qr.hpp'):
+  assert new.read(prefix+'launcher-toolkit/'+name)==(ROOT/'client/launcher'/name).read_bytes()
+ pin=json.loads((ROOT/'assets/launcher-icons/attribution.json').read_text())
+ for name,digest in pin['sha256'].items():assert sha(new.read(prefix+'launcher-icons/'+name))==digest
+ assert 'prismlauncher'in new.read(prefix+'launcher-icons/UPSTREAM-COPYING.md').decode().lower().replace('prism launcher','prismlauncher')
+ assert not any('/account/session' in n or '/account/key' in n for n in new.namelist())
  with tempfile.TemporaryDirectory(prefix='prospero-modules-delta-')as folder:
   w=Path(folder)
   for name,z in [('old',old),('new',new)]:
@@ -35,4 +47,4 @@ with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
   assert set(changed)-bookkeeping=={'java.base/sun/nio/fs/UnixFileSystem.class'},changed
   changed=['java.base/sun/nio/fs/UnixFileSystem.class']
   assert b'sun.nio.fs.ps5Sandbox'in(w/'new'/changed[0]).read_bytes()
-print('PASS Temp_gametest090 auth/channel/ownership/profile endpoints, no Offline key or fixture token; module bytecode delta is UnixFileSystem only (generated javac bookkeeping excluded); Offline089 package unchanged')
+print('PASS Temp_gametest091 auth/channel/ownership/profile endpoints, no Offline key or fixture token; module bytecode delta is UnixFileSystem only (generated javac bookkeeping excluded); Offline089 package unchanged')
