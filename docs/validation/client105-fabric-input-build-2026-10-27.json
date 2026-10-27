@@ -1,0 +1,198 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.105",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "package_sha256": "a4c51f25a4925f69acb2c8c0974c89a5c856c5a418f1e60645a76f3531409a75",
+  "native_elf_sha256": "ac49d6c2f8b38d6587f4e190960b315592f7c2b7f35ced1057a065053b050ccd",
+  "changes": [
+    "Restore standard global cached JAR resource reads before Fabric;104uncached policy is startup regression candidate",
+    "Persistent launcher controller mapping screen/dropdowns/reset/default migration;normal SDL key/mouse state with overlap-safe releases",
+    "Optional system keyboard/mouse backend with known module IDs,dynamic export lookup,signed-in user and four device indexes",
+    "SDL physical keyboard US ASCII/modifiers/scancodes/text repeats and physical mouse relative/menu motion/buttons/wheel",
+    "Input device focus/interception/disconnect/error releases and held-input rearm;close handles/remove devices at video shutdown",
+    "Retain Java422e9a4image natives and104GC/code-cache policy;original game/mod bytes untouched"
+  ],
+  "tests": {
+    "native_system_API": "PASS actual native implementation module lookup,size variants,init/open/read/close/idempotence/missing mouse and bad index handling underASan+UBSan OS fixtures",
+    "USB_SDL_adapter": "PASS actual adapter,96/40-byte packet ABI,discovery,modifiers/US text/caps,buffered taps,relative and menu motion,buttons/wheel,focus/held rearm/interception/read error/close underASan+UBSan",
+    "controller_adapter": "PASS all prior controls plus duplicate mapped key release,mouse remap and strict30-field profile parsing",
+    "Java_remapping": "PASS actual UI route/dropdown/save/reopen/reset,30-slot hint,legacy settings migration,essential menu protection",
+    "Fabric": "PASS actual upstream26.3Knot/Mixin/fixture preLaunch/shared parentLWJGL;cached-resource configuration checked",
+    "regressions": "PASS original vanilla Main bootstrap,instance/world persistence/full-session flags,content queues/dependencies,account/dropdowns/redaction/delete,spatial/QWERTY historical controls",
+    "previews": "PASS native andactualVulkan toolkit;input settings screen visually inspected",
+    "target_package": "PASS compile/link/signature/CRC/version105,physicalHIDfunctions and actual native image audits,current fixture equality,frozen core/dependency identities",
+    "toolkit_package": "PASS source pins/channel/privacy/constructor ownership"
+  },
+  "runtime": {
+    "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+    "commit": "422e9a455671cd2d192beb10d270fe1d84d63221",
+    "new_runtime_changes": false
+  },
+  "source_sha256": {
+    "client/launcher/java/ProsperoInput.java": "877db0072596d902a7ac988a39fdf2210f219ef9ac62f738a054c84cc332e9f7",
+    "client/launcher/java/ProsperoFabric.java": "c0ea8b11190ef190ac071bc5cdde4895dffb089948129d289003cb5f72ff0004",
+    "client/launcher/java/ProsperoLibrary.java": "f17e96e1fa8cf0e61258f6dc4053ba26baeaacf9dde02feba9efe90cb2024a25",
+    "client/launcher/java/ProsperoLauncher.java": "daf6e6cdc785b0a7f1393a41e70e4affcf3c273537f17464d522324b2fbe82d9",
+    "client/ports/sdl/ps5_bindings.h": "0c9ab147ea9599d2b5fa5d55eb592dd8e4e3285ee0193eba240d04ffd6cc9a7a",
+    "client/ports/sdl/ps5_hid.h": "e45706985b7784880f8b8491d407f1a02c3ec90c9bb4f16f52181405e1e7a166",
+    "client/ports/sdl/ps5_hid_native.c": "fd8797d1834e215ae4a9524d6f7cd46fda4e63c631f9c0e53f093939c5a6b2a7",
+    "client/ports/sdl/ps5_usb_input.h": "3ef33407494d8795a4cfa55b701cc81a2aa16f0acef26b4adc2ba5d5abda2095",
+    "client/ports/sdl/ps5_temporary_input.h": "cf49d6b624fc96d7e918d17d85a52b7b1509cd3fa3aa96b1c51e373cc664d09b"
+  },
+  "SDL_target": {
+    "sdl": {
+      "repository": "https://github.com/libsdl-org/SDL",
+      "tag": "release-3.4.2",
+      "commit": "683181b47cfabd293e3ea409f838915b8297a4fd"
+    },
+    "reference": {
+      "repository": "https://github.com/griches/PS5_Dusklight",
+      "commit": "72d6885cc8b4ff4c5f6be23682ab11578ec926c4",
+      "scope": "Only ps5/sdl video/joystick, platform.h and input-only extraction of ps5/src/platform.c; no game/artwork/Dawn/audio code",
+      "files_sha256": {
+        "ps5/sdl/SDL_ps5video.c": "74dfa37af36944402f5edf9d93369da088ad91613a424ecec39af62af8afa818",
+        "ps5/sdl/SDL_ps5joystick.c": "27fdfb224db6def91c6daf12538da2528287987ad2cef247d22ffe4706cdd199",
+        "ps5/src/platform.h": "618acb99691f2739d0978af9ad1fae07d9d6fe6196064fcda0b0d39b67364b0b",
+        "ps5/src/platform.c": "515591123435389426d798204150c11df6a136e7141a00c3bd082605df26a992"
+      }
+    },
+    "profile": "Static SDL3, dynapi disabled, PS5 video/joystick/events, real VK_KHR_display hooks; audio/renderers/GPU/haptic/camera/HIDAPI/desktop windows disabled",
+    "port_sha256": {
+      "0001-register-ps5.patch": "c1041c2768b1d7c37d5c5078d0d1f82a6d411a25a2328fc8653759b788065461",
+      "MIT.txt": "d8db1712b2a1383b27cebeab2ddb8840a6e31ea820b0d56552a0f1c65f920983",
+      "README.md": "1eab5d39a8f72d1a61efb5f7f92d923d451467afe6dfedbcdd375edb50dead59",
+      "SDL_ps5joystick.c": "ed622122f7bb1535c0d8b32aa23c6f91af4e2e0c90f52e5815f8c86cdfc2cb89",
+      "SDL_ps5video.c": "028abb66075c839f66d47749e51f3dfb4a0ec70fbe0a87da49379d2a48d09809",
+      "Zlib.txt": "bd9162684043a9d1d7fd18ea992233a24d82d97b7f70471b6ed25e85848dd677",
+      "host-loader-source.json": "872b442bc1c3f698f1c495836e3ef15ef22ea6f1d920d9eeeeab3ef1c9f4e991",
+      "platform-input.c": "1b9d06557a91c24aa014519f9cb121d8942dbcd9bdb4f742968bbb2b1327a0ef",
+      "platform.h": "618acb99691f2739d0978af9ad1fae07d9d6fe6196064fcda0b0d39b67364b0b",
+      "ps5_bindings.h": "0c9ab147ea9599d2b5fa5d55eb592dd8e4e3285ee0193eba240d04ffd6cc9a7a",
+      "ps5_display_mode.h": "93be74741068785b8a91de8bd854660b3b712c2b60492848bf74b177b6eddfe4",
+      "ps5_hid.h": "e45706985b7784880f8b8491d407f1a02c3ec90c9bb4f16f52181405e1e7a166",
+      "ps5_hid_native.c": "fd8797d1834e215ae4a9524d6f7cd46fda4e63c631f9c0e53f093939c5a6b2a7",
+      "ps5_relative_mouse.h": "f668854c09e4b1bac98a33b4e636338e32b4e63d1406887ffd3fb9f40ceea3b3",
+      "ps5_temporary_input.h": "cf49d6b624fc96d7e918d17d85a52b7b1509cd3fa3aa96b1c51e373cc664d09b",
+      "ps5_usb_input.h": "3ef33407494d8795a4cfa55b701cc81a2aa16f0acef26b4adc2ba5d5abda2095",
+      "sources.json": "2eaa4cdd5a936bd22ecd0959f5078f59f29f1e3f1d0f38e1aeae045a5dff5bda"
+    },
+    "object_sha256": "ac8412ed946b8bedd7593d6f9654aca542305ee405524ce55d193c06576bf01f",
+    "scope": "Actual SDL3 core/events/PS5 video/Vulkan/joystick driver; audio/rumble/LED/process spawn not supported in this profile; no game modifications",
+    "console": "pending"
+  },
+  "ABI_reference": {
+    "repository": "https://github.com/ZiZc3/Ruffle-Flash-PS5",
+    "commit": "1265f473e7479d6c0fcfb78cc160a0eea446bb08",
+    "path": "src/hid.rs and ps5/scripts/ps5_early.c",
+    "scope": "Public device-tested packet layouts/system-module notes;local implementation,not ProsperoCraft console evidence"
+  },
+  "preserved_packages": {
+    "101": "c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131",
+    "103": "a2416025dc8d37b6e6de678ba5e3816d2f0279339fb332921ee03bb725b6f47a",
+    "104": "3cfffdbdc17c8858f17dc060c53fcfd5048cb2335e08ae653a0fa19781e9aadc"
+  },
+  "console": {
+    "status": "PENDING exact105PS5",
+    "checks": [
+      "Same Fabric instance/mods launches;compare time",
+      "Vanilla regression and save/reload",
+      "Controller map persistence/key/mouse targets/reset and overlap releases",
+      "Physical keyboard/mouse module discovery/connect/hotplug/text/movement/look/clicks/wheel",
+      "System-menu interception/focus loss/held-input rearm",
+      "Vitrail shader decode/rendering/stutters/audio/quit-relaunch"
+    ],
+    "limits": [
+      "Fabric recovery and exact104root cause unproven",
+      "103EMFILEworld-save failure remains unresolved;cached resource tradeoff restored",
+      "Physical input gameplay only;native launcher controller-driven",
+      "US ASCII text only;international layouts/IME unsupported",
+      "Bluetooth not separately validated;no Controlify compatibility claim",
+      "Shoulder wheel/right-stick look/essential menus/typing overlay remain fixed"
+    ],
+    "release": "No Store/public binary release or milestone/ALLPASS inferred"
+  },
+  "communication": "Issue3/issue1 replies drafted in this chat only;no GitHub comments posted",
+  "evidence": {
+    "input105-package.log": {
+      "sha256": "9938f6032a517ff3b909748c68c1b697f8aa04a84a50fa9455295e41bf29e4c6",
+      "bytes": 117636,
+      "result": "PASS"
+    },
+    "input105-package-test.log": {
+      "sha256": "4a9756cbca00e9188b4715f01c3ef1d371e75bae52c0734ef26046f2860cd06f",
+      "bytes": 630,
+      "result": "PASS"
+    },
+    "input105-toolkit-package.log": {
+      "sha256": "f29000da2c46ee7bab07a21feb6e6e624da549c9d82ad7c7cdfef4ceed6e5109",
+      "bytes": 256,
+      "result": "PASS"
+    },
+    "input105-startup-host.log": {
+      "sha256": "2a5c7f4bb1ebb70f799abfcfbfe2c459e8062eac7eb836e5a3d9ab6b7903c79f",
+      "bytes": 1432,
+      "result": "PASS"
+    },
+    "input105-fabric.log": {
+      "sha256": "263e58ad15635276f63a0a7505d64270f1dc86711b79b6fc2b138ee152554d22",
+      "bytes": 906,
+      "result": "PASS"
+    },
+    "input105-model.log": {
+      "sha256": "7b3d6e7245744138036038d704b952113583490c523ff8a608ec146ec73b2916",
+      "bytes": 152,
+      "result": "PASS"
+    },
+    "input105-controller.log": {
+      "sha256": "e996ac8aed63566363862225da847f69cdbfa8a6864b6b17044b80a5f7b9d4e9",
+      "bytes": 308,
+      "result": "PASS"
+    },
+    "input105-usb-test.log": {
+      "sha256": "8f0ada51e0b18a6c2031324779d4736345a29f9a096f4f41f10a70a4f0bc4222",
+      "bytes": 226,
+      "result": "PASS"
+    },
+    "input105-native-api.log": {
+      "sha256": "02aca4db890cac084d7abb9a0894f22fd0159c92bc067f2932ac35323172163e",
+      "bytes": 537,
+      "result": "PASS"
+    },
+    "input105-instances.log": {
+      "sha256": "d71042a6c675dbd70f12ce42fbeb39259d87fb350d708cec0f2d906971a2e999",
+      "bytes": 592,
+      "result": "PASS"
+    },
+    "input105-content.log": {
+      "sha256": "0f57b98013cf98d1fa1602ef55e35e0dd1fab2f2fd0e9aaa83bb3e9471481c56",
+      "bytes": 309,
+      "result": "PASS"
+    },
+    "input105-controls-regression.log": {
+      "sha256": "39c3b02e2047641937f12534177409d4ead37377669d95a61d60545243eefaae",
+      "bytes": 278,
+      "result": "PASS"
+    },
+    "input105-account-ui.log": {
+      "sha256": "c55816732406afd81d3b9918270b09339495d5f211ab6b0309758f9f3b101b8b",
+      "bytes": 203,
+      "result": "PASS"
+    },
+    "input105-delete.log": {
+      "sha256": "870d22372a4bad117e344ab3f2810cfb97cc41c3df06d6e7dcb146677c20605e",
+      "bytes": 138,
+      "result": "PASS"
+    },
+    "input105-preview-native.log": {
+      "sha256": "46e7834e9777babc326c6fe7bd9134151ea1e99fafbec25bdb38dd2f2b2c0c2d",
+      "bytes": 683,
+      "result": "PASS"
+    },
+    "input105-preview-toolkit.log": {
+      "sha256": "ce2cf575b67f1bbd3a130480aa3e0c59af20f6e1b6881a60fde9f0b8afd5a8c5",
+      "bytes": 783,
+      "result": "PASS"
+    }
+  }
+}

@@ -11,7 +11,7 @@ public final class ProsperoLibrary {
  static String resolutionLabel(int i){return RESOLUTIONS[i][0]+" x "+RESOLUTIONS[i][1];}
  static final class Instance {String id=UUID.randomUUID().toString(),name,version,loader="vanilla";int icon;boolean ready;Instance(String n,String v,int i){name=clean(n);version=v;icon=i;}}
  static final class Favorite {String instance,kind,target,name;Favorite(String i,ProsperoDestinations.Entry e){instance=i;kind=e.kind();target=e.target();name=e.name();}}
- static final class Settings {int resolution=LOCKED_RESOLUTION,workers=4,background=5,backgroundDefaultsRevision=0;boolean vibration=true,reducedMotion=false,snapshots=false,showIntro=true,showControls=true;}
+ static final class Settings {int[] controllerKeys=ProsperoInput.DEFAULT.clone();int resolution=LOCKED_RESOLUTION,workers=4,background=5,backgroundDefaultsRevision=0;boolean vibration=true,reducedMotion=false,snapshots=false,showIntro=true,showControls=true;}
  static final class State {int schema=1;ArrayList<Instance> instances=new ArrayList<>();Settings settings=new Settings();ArrayList<Favorite> favorites=new ArrayList<>();}
  final Path root;private State state;
  ProsperoLibrary(Path root)throws Exception {
@@ -31,6 +31,7 @@ public final class ProsperoLibrary {
   for(var f:state.favorites)if(f==null||f.instance==null||!f.instance.matches("[a-f0-9-]{36}")||!ProsperoDestinations.valid(f.kind==null?"":f.kind,f.target)||f.name==null||f.name.length()>80)throw new IOException();
   Set<String> ids=new HashSet<>();
   for(var i:state.instances){if(i==null||!i.id.matches("[a-f0-9-]{36}")||!ids.add(i.id)||!i.version.matches("26\\.[0-9][A-Za-z0-9._-]{0,70}")||i.icon<0||i.icon>=ICONS.length)throw new IOException();clean(i.name);if(i.loader==null)i.loader="vanilla";if(!Set.of("vanilla","fabric").contains(i.loader))throw new IOException();}
+  if(state.settings.controllerKeys==null)state.settings.controllerKeys=ProsperoInput.DEFAULT.clone();ProsperoInput.validate(state.settings.controllerKeys);
   if(state.settings.background<1||state.settings.background>10)state.settings.background=5;
   if(state.settings.resolution<0||state.settings.resolution>=RESOLUTIONS.length||state.settings.workers<1||state.settings.workers>6)throw new IOException();
  }

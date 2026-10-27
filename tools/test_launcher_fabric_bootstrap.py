@@ -15,7 +15,7 @@ import java.nio.file.*;import java.net.*;import java.util.*;import java.lang.ref
 public class KnotCheck {
  public static void main(String[]a)throws Exception {
   Path cache=Path.of(a[0]);var fabric=new ProsperoFabric(cache);var receipt=fabric.read("26.3");var urls=new ArrayList<URL>();for(int n=2;n<a.length;n++)urls.add(Path.of(a[n]).toUri().toURL());
-  var vanilla=new URLClassLoader(urls.toArray(URL[]::new),KnotCheck.class.getClassLoader());var loader=fabric.loader(receipt,vanilla);Thread.currentThread().setContextClassLoader(loader);ProsperoFabric.configure(loader,Path.of(a[2]),"26.3");if(java.net.URLConnection.getDefaultUseCaches("jar"))throw new AssertionError("jar streams retain duplicate global cache handles");
+  var vanilla=new URLClassLoader(urls.toArray(URL[]::new),KnotCheck.class.getClassLoader());var loader=fabric.loader(receipt,vanilla);Thread.currentThread().setContextClassLoader(loader);ProsperoFabric.configure(loader,Path.of(a[2]),"26.3");if(!java.net.URLConnection.getDefaultUseCaches("jar"))throw new AssertionError("Fabric cached resource policy regressed");
   Class<?> env=loader.loadClass("net.fabricmc.api.EnvType"),knot=loader.loadClass("net.fabricmc.loader.impl.launch.knot.Knot");Object client=env.getField("CLIENT").get(null);Object launcher=knot.getConstructor(env).newInstance(client);
   try{knot.getMethod("init",String[].class).invoke(launcher,(Object)new String[]{"--gameDir",a[1],"--version","26.3","--username","HostProbe","--accessToken","0"});throw new AssertionError("preLaunch did not stop game");}
   catch(InvocationTargetException expected){if(!"ENTERED".equals(System.getProperty("ps5.test.fabric.preLaunch")))throw new AssertionError("Failed before preLaunch",expected.getCause());}

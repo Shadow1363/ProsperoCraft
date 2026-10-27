@@ -62,7 +62,7 @@ Development continues on `main`, which contains the merged authenticated game-te
 - [ ] Performance sufficient for shaders.
 - [ ] Custom menu music by CogiArt.
 - [ ] `.mrpack` imports.
-- [ ] USB keyboard and mouse controls.
+- [ ] Keyboard/mouse gameplay and controller remapping — development105; PS5 device validation pending.
 - [ ] JVM 21 for broader Minecraft support.
 - [ ] JVM 17 for even broader Minecraft support.
 - [ ] Custom AMD Ryzen Zen 2 8C/16T CPU identification.

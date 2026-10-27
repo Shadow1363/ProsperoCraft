@@ -226,6 +226,7 @@ public final class ClientStartup25 {
    Configuration.MEMORY_ALLOCATOR.set("system");Configuration.OPENAL_LIBRARY_NAME.set(System.mapLibraryName("ps5openal"));Configuration.SDL_LIBRARY_NAME.set(System.mapLibraryName("ps5sdl"));Configuration.VULKAN_LIBRARY_NAME.set(System.mapLibraryName("ps5clientgpu"));Configuration.SHADERC_LIBRARY_NAME.set(System.mapLibraryName("ps5shaderc"));Configuration.SHARED_LIBRARY_EXTRACT_PATH.set(work.resolve("native-cache").toString());
    stage("configure validated036 SPIRV-Cross,035 VMA,033 FreeType,031 STB and029 real OSMesa/OpenGL plus026 libffi/OpenAL and resident SDL/Vulkan/shaderc;other native bindings remain incomplete");
    System.loadLibrary("ps5clientgpu");System.loadLibrary("ps5clientgl");System.loadLibrary("ps5shaderc");System.loadLibrary("ps5sdl");System.loadLibrary("ps5openal");
+   org.lwjgl.sdl.SDLHints.SDL_SetHint("PS5_CONTROLLER_BINDINGS",ProsperoLauncher.controllerBindings());
    boolean controls=org.lwjgl.sdl.SDLHints.SDL_SetHint("PS5_TEMPORARY_CONTROLS",System.getProperty("ps5.temporaryControls","1"));
    stage("Temporary SDL controls hint="+org.lwjgl.sdl.SDLHints.SDL_GetHint("PS5_TEMPORARY_CONTROLS")+" accepted="+controls+";D-pad/left stick=menu arrows,X=select,Circle=back,Triangle=Tab,Square=Backspace;gamepad subsystem hands off to future mods");
    stage("Menu inactivity FPS policy=minimized;other options retained,original backed up when migrated");

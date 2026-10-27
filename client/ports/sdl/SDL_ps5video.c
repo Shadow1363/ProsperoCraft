@@ -20,6 +20,7 @@
 #include "events/SDL_keyboard_c.h"
 #include "events/SDL_mouse_c.h"
 #include "ps5_temporary_input.h"
+#include "ps5_usb_input.h"
 #include "ps5_relative_mouse.h"
 
 /* Use the same public resident loader as LWJGL. Minecraft checks pointer identity.
@@ -143,11 +144,13 @@ static bool PS5_VideoInit(SDL_VideoDevice *_this)
 static void PS5_VideoQuit(SDL_VideoDevice *_this)
 {
     PS5_TempRelease(SDL_GetKeyboardFocus(),SDL_GetTicksNS());
+    PS5_USBClose(SDL_GetKeyboardFocus());
 }
 
 static void PS5_PumpEvents(SDL_VideoDevice *_this)
 {
     PS5_PumpTemporaryInput(SDL_GetKeyboardFocus());
+    PS5_PumpUSBInput(SDL_GetKeyboardFocus());
 }
 
 static bool PS5_CreateWindow(SDL_VideoDevice *_this, SDL_Window *window, SDL_PropertiesID props)

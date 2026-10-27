@@ -1216,3 +1216,18 @@ and launcher-only QWERTY. In-game keyboard unchanged. See
 Do not infer PS5 shader rendering/stutter/save repair from host tests. Keep exact
 101/103 andfrozen passes; no Store/public release requested. Java source stays
 in Java repo; consumer integration/policy/UI/diagnostics stay here. Raw logs local.
+
+
+##105 Fabric recovery and issue3 input — 2026-10-27
+
+User reports104Fabric fails to launch and asks mappable controls plus physical
+keyboard/mouse.105 restores normal JAR URL caching after104uncached-resource
+regression candidate;heavy allocation trace/no final exception do not prove root
+cause or recovery.103EMFILE/world-save failures remain unresolved. Adds saved
+controller-key remaps via Settings/Input and optional physical SDL HID backend
+using known SceKeyboard/SceMouse system modules. US ASCII text only;native
+launcher physical input and Controlify are not claimed. No105PS5hardware pass.
+See docs/client-fabric-input-105.md and matching observation/build validation.
+Preserve101/103/104,Java422e9a4integration and frozen milestones. NoStore/public
+binary release. User wants issue3 and issue1 reply drafts in chat only,no posting;
+issue1 draft states they do not ownPSVR2. Avoid em dashes in those replies.

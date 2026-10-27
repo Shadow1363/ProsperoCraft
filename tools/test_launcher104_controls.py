@@ -21,7 +21,7 @@ public class Controls104 {
   var bean=(com.sun.management.UnixOperatingSystemMXBean)java.lang.management.ManagementFactory.getOperatingSystemMXBean();
   Path jars=root.resolve("jars");Files.createDirectories(jars);for(int n=0;n<80;n++)try(var out=new JarOutputStream(Files.newOutputStream(jars.resolve(n+".jar")))){out.putNextEntry(new JarEntry("payload"));out.write(n);out.closeEntry();}
   URLConnection.setDefaultUseCaches("jar",true);long before=bean.getOpenFileDescriptorCount();for(int n=0;n<40;n++)try(var in=URI.create("jar:"+jars.resolve(n+".jar").toUri()+"!/payload").toURL().openStream()){check(in.read()==n,"resource bytes");}long retained=bean.getOpenFileDescriptorCount()-before;check(retained>=35,"control did not retain JAR descriptors");
-  try(var loader=new URLClassLoader(new URL[0])){ProsperoFabric.configure(loader,jars.resolve("0.jar"),"26.3");}
+  URLConnection.setDefaultUseCaches("jar",false); // Historical104 mechanism test only;105 restores cached Fabric reads.
   before=bean.getOpenFileDescriptorCount();for(int n=40;n<80;n++)try(var in=URI.create("jar:"+jars.resolve(n+".jar").toUri()+"!/payload").toURL().openStream()){check(in.read()==n,"scoped resource bytes");}long delta=bean.getOpenFileDescriptorCount()-before;check(delta<=2,"scoped JAR handles retained: "+delta);
   System.out.println("PASS real model spatial settings/browser navigation and QWERTY case/numbers/backspace;40 real JAR streams retained "+retained+" extra descriptors with cache vs "+delta+" scoped;PS5 pressure repair still pending");
  }

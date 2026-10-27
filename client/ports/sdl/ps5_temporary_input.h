@@ -2,6 +2,7 @@
  * SPDX-License-Identifier: MIT
  * Included after SDL keyboard/mouse internals. No game hooks or replacements. */
 #include "platform.h"
+#include "ps5_bindings.h"
 #include "../mesa/keyboard_layout.h"
 extern int client_wsi_cursor(bool show,float x,float y,int character);
 extern int client_wsi_keyboard(bool show,int selected,int lower,int symbols,const char*preview);
@@ -10,31 +11,25 @@ static struct {
     SDL_MouseID mouse;
     Uint32 keys, blocked;
     Uint8 buttons;
-    Uint64 repeat_at[28], last_pump;
+    Uint64 repeat_at[30], last_pump;
     Uint32 held;float cursor_x,cursor_y;bool cursor_ready,typing,lower,mode_known,captured;int character;
     bool primed, devices,symbols;Uint32 keyboard_direction;Uint64 keyboard_repeat;char preview[129];unsigned preview_length;
 } ps5_temp;
-static const SDL_Scancode ps5_temp_keys[] = {
-    SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT,
-    SDL_SCANCODE_RETURN, SDL_SCANCODE_ESCAPE, SDL_SCANCODE_TAB, SDL_SCANCODE_BACKSPACE,
-    SDL_SCANCODE_W, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_D,
-    SDL_SCANCODE_SPACE, SDL_SCANCODE_E,
-    SDL_SCANCODE_LSHIFT, SDL_SCANCODE_LCTRL, SDL_SCANCODE_F, SDL_SCANCODE_Q,
-    SDL_SCANCODE_F5, SDL_SCANCODE_F1, SDL_SCANCODE_F2, SDL_SCANCODE_F3,
-    SDL_SCANCODE_T, SDL_SCANCODE_SLASH, SDL_SCANCODE_L, SDL_SCANCODE_F11,
-    SDL_SCANCODE_1, SDL_SCANCODE_9
-};
+static unsigned short ps5_temp_keys[30];
+static bool ps5_temp_bindings_ready;
+static bool PS5_MappedDown(Uint32 keys,unsigned code){for(int n=0;n<30;n++)if(ps5_temp_keys[n]==code&&(keys&(1u<<n)))return true;return false;}
+static Uint8 PS5_MappedMouse(Uint32 keys,Uint8 buttons){for(int n=0;n<30;n++)if((keys&(1u<<n))&&ps5_temp_keys[n]>=513)buttons|=(Uint8)(1u<<(ps5_temp_keys[n]-513));return buttons;}
 static void PS5_TempKeys(Uint64 now, Uint32 keys, Uint8 buttons, SDL_Window *window)
 {
-    for(int i=0;i<(int)(sizeof(ps5_temp_keys)/sizeof(ps5_temp_keys[0]));++i) {
-        Uint32 bit=1u<<i;
-        if((keys ^ ps5_temp.keys)&bit) {
-            SDL_SendKeyboardKey(now,ps5_temp.keyboard,0,ps5_temp_keys[i],(keys&bit)!=0);
-            ps5_temp.repeat_at[i]=now+350000000ull;
-        }
+    Uint8 mapped=PS5_MappedMouse(keys,buttons),old_mouse=PS5_MappedMouse(ps5_temp.keys,ps5_temp.buttons);
+    for(int n=0;n<30;n++) {
+        unsigned code=ps5_temp_keys[n];if(!code||code>=512)continue;
+        bool seen=false;for(int j=0;j<n;j++)if(ps5_temp_keys[j]==code)seen=true;if(seen)continue;
+        bool before=PS5_MappedDown(ps5_temp.keys,code),after=PS5_MappedDown(keys,code);
+        if(before!=after)SDL_SendKeyboardKey(now,ps5_temp.keyboard,0,(SDL_Scancode)code,after);
     }
-    for(int i=0;i<3;++i)if((buttons ^ ps5_temp.buttons)&(1u<<i))
-        SDL_SendMouseButton(now,window,ps5_temp.mouse,(Uint8)(i==2?SDL_BUTTON_MIDDLE:i?SDL_BUTTON_RIGHT:SDL_BUTTON_LEFT),(buttons&(1u<<i))!=0);
+    for(int n=0;n<8;n++)if((keys^ps5_temp.keys)&(1u<<n))ps5_temp.repeat_at[n]=now+350000000ull;
+    for(int i=0;i<3;i++)if((mapped^old_mouse)&(1u<<i))SDL_SendMouseButton(now,window,ps5_temp.mouse,(Uint8)(i==2?SDL_BUTTON_MIDDLE:i?SDL_BUTTON_RIGHT:SDL_BUTTON_LEFT),(mapped&(1u<<i))!=0);
     ps5_temp.keys=keys;ps5_temp.buttons=buttons;
 }
 static void PS5_TempRelease(SDL_Window *window, Uint64 now)
@@ -47,6 +42,7 @@ static void PS5_TempRelease(SDL_Window *window, Uint64 now)
 static void PS5_PumpTemporaryInput(SDL_Window *window)
 {
     Uint64 now=SDL_GetTicksNS();
+    if(!ps5_temp_bindings_ready){for(int n=0;n<30;n++)ps5_temp_keys[n]=ps5_default_bindings[n];(void)ps5_parse_bindings(SDL_GetHint("PS5_CONTROLLER_BINDINGS"),ps5_temp_keys);ps5_temp_bindings_ready=true;}
     /* Explicit opt-in, with automatic handoff when a mod initializes gamepads.
      * Future Controlify integration must also turn this hint off explicitly. */
     if(!window || SDL_GetKeyboardFocus()!=window ||
@@ -120,7 +116,8 @@ static void PS5_PumpTemporaryInput(SDL_Window *window)
                 if(p->left_x>176)keys|=1u<<11;
             }
         }
-        Uint8 buttons=layer?0:((held&0x20000000u)?1:0)|((held&0x10000000u)?2:0);
+        Uint8 buttons=0;
+        if(!layer){if(captured){if(held&0x20000000u)keys|=1u<<28;if(held&0x10000000u)keys|=1u<<29;}else buttons=((held&0x20000000u)?1:0)|((held&0x10000000u)?2:0);}
         if(!captured&&!layer) {
             if(held&PAD_CROSS)buttons|=1;
             if(held&PAD_R3)buttons|=4;

@@ -21,6 +21,7 @@ static float motion_x;static int wheels,cursor_calls,character,texts;static char
 static struct pad_reading samples[64];static int count=1;static uint32_t players=1;
 Uint64 SDL_GetTicksNS(void){return tick;}
 SDL_Window *SDL_GetKeyboardFocus(void){return focus;}
+const char* SDL_GetHint(const char*name){assert(!strcmp(name,"PS5_CONTROLLER_BINDINGS"));return NULL;}
 bool SDL_GetHintBoolean(const char *name,bool fallback){assert(!strcmp(name,"PS5_TEMPORARY_CONTROLS")&&!fallback);return enabled;}
 SDL_InitFlags SDL_WasInit(SDL_InitFlags flags){assert(flags==SDL_INIT_GAMEPAD);return mod?SDL_INIT_GAMEPAD:0;}
 bool SDL_GetWindowRelativeMouseMode(SDL_Window*w){assert(w==window);return captured;}
@@ -66,6 +67,13 @@ int main(void){
  sample(0);pump();sample(PAD_UP);pump();assert(!keys[SDL_SCANCODE_UP]);focus=NULL;pump();assert(!keys[SDL_SCANCODE_UP]);focus=window;
  enabled=false;prior=events;pump();assert(events==prior);
  enabled=true;sample(0);pump();sample(PAD_CROSS);pump();assert(mouse[SDL_BUTTON_LEFT]);captured=true;pump();assert(!mouse[SDL_BUTTON_LEFT]&&!keys[SDL_SCANCODE_SPACE]);sample(0);pump();sample(PAD_CROSS);pump();assert(keys[SDL_SCANCODE_SPACE]);captured=false;pump();assert(!keys[SDL_SCANCODE_SPACE]&&!mouse[SDL_BUTTON_LEFT]);
+ /* Custom keys share correct release state even if two controls map to one key. */
+ sample(0);captured=true;pump();sample(0);pump();ps5_temp_keys[12]=SDL_SCANCODE_I;ps5_temp_keys[13]=SDL_SCANCODE_I;
+ sample(PAD_CROSS|PAD_TRIANGLE);pump();assert(keys[SDL_SCANCODE_I]);sample(PAD_TRIANGLE);pump();assert(keys[SDL_SCANCODE_I]);sample(0);pump();assert(!keys[SDL_SCANCODE_I]);
+ ps5_temp_keys[12]=513;sample(PAD_CROSS);pump();assert(mouse[SDL_BUTTON_LEFT]);sample(0);pump();assert(!mouse[SDL_BUTTON_LEFT]);
+ unsigned short parsed[30];memcpy(parsed,ps5_default_bindings,sizeof(parsed));assert(!ps5_parse_bindings("4,0",parsed));assert(parsed[0]==82);
+ char profile[256]={0};int offset=0;for(int n=0;n<30;n++)offset+=snprintf(profile+offset,sizeof(profile)-(size_t)offset,"%s%u",n?",":"",ps5_default_bindings[n]);assert(ps5_parse_bindings(profile,parsed));for(int n=0;n<30;n++)assert(parsed[n]==ps5_default_bindings[n]);
+ assert(!ps5_parse_bindings("82,81,80,79,40,41,43,42,26,22,4,7,44,8,225,224,9,20,62,58,59,60,23,56,15,68,30,38,513,516",parsed));
  puts("PASS actual PS5 temporary SDL adapter under ASan/UBSan:opt-in,launch-held suppression,buffered tap,cursor-only menus/no directional focus,mode mapping,trigger releases,capped look,interception/disconnect/focus release,gamepad-mod handoff,no idle keepalive;SDL/OS boundaries are host fixtures,console pending");
 }
 '''

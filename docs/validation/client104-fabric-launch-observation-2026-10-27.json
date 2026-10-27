@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-27",
+  "retrieval": "Safari computer-use download links",
+  "open_build": "01.000.104",
+  "native_run": "client-01.000.104-1793124119-372044561",
+  "human": "Fabric104 not launching",
+  "observed": [
+    "Native launcher closes and original selected Fabric Knot is entered",
+    "Java report reaches Fabric/Sodium/Mixin setup then graphics-card discovery",
+    "Native allocation trace about36MiB with repeated slab reports",
+    "JIT report continues compiling near340s",
+    "No captured fatal/Java exception establishes startup crash cause"
+  ],
+  "correlation_limits": [
+    "Downloaded session.txt still says103 and is stale;current native header used for104 identity",
+    "gc.log download was not refreshed and is not treated as104GC evidence",
+    "No captured104stack dump or frame timing proves hang/root cause"
+  ],
+  "repair_candidate": "Restore standard JAR URL cache after104 disabled it;uncached archive churn plausible,not proven.103EMFILE/save failure remains unresolved.",
+  "raw_evidence": {
+    "session.txt": {
+      "sha256": "297433f3f2f578ccbbfc202063e1336a069b242237fcc04d5966ffea434a6915",
+      "bytes": 133
+    },
+    "exceptions.log": {
+      "sha256": "fd9fdaf34961bfc7c8a8d4ba50a018bd430a8a0361640278d17f4419be2b0b99",
+      "bytes": 4267
+    },
+    "process-usage.log": {
+      "sha256": "4565e46af758f7e5ff2c3a95a97dd4ba609147b407804f7e0caad878ead488b8",
+      "bytes": 164
+    },
+    "jit.log": {
+      "sha256": "bf8fd132238f9c87fb372ed8fab7302e86ca8cdabbf90a29dad45c0e3a67e6b5",
+      "bytes": 473597
+    },
+    "previous-exceptions.log": {
+      "sha256": "0516056fed76c0829875c86159f9f6f4e8d709923cd7cb54a93d1cbdaf340137",
+      "bytes": 624
+    },
+    "build.txt": {
+      "sha256": "5720f63c36450fc6fbb0bfd88fd144d2f24eb4b6aaa6331709a313f3ec534a7b",
+      "bytes": 57
+    },
+    "native-stderr.log": {
+      "sha256": "8cba5f73ef64ddcffde6e0c23398beb6773af1ac7e22622b54c63a9b18dd6dea",
+      "bytes": 1580
+    },
+    "previous-hs-error.log": {
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1",
+      "bytes": 31
+    },
+    "gc.log": {
+      "sha256": "06610a600adc7cc23d81251c741b1560b64b885a364101500789f2ac02d0cec4",
+      "bytes": 5133
+    },
+    "startup-tail.log": {
+      "sha256": "e2caa5e231e64872bd0b3c924136a74e9b469df8768c6a2767b4e6625db3a37d",
+      "bytes": 524288
+    },
+    "vm-trace.log": {
+      "sha256": "78f969facfad4988485a0ea55d2d6188cbde85d68d307ce2a678231dcc0a0b4f",
+      "bytes": 36055469
+    },
+    "previous-native-stderr.log": {
+      "sha256": "895d3dc25672fca9aca3940ffa1ecb773efd068ff5a9545d223178d5e68285e2",
+      "bytes": 13930
+    },
+    "hs-error.log": {
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1",
+      "bytes": 31
+    }
+  },
+  "console": "PENDING105same-instance launch and save validation"
+}

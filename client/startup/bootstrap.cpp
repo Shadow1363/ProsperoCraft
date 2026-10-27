@@ -1,3 +1,4 @@
+extern "C" void prospero_hid_preload(void);
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #include "demo_renderer.hpp"
 #include "log_share.hpp"
@@ -469,6 +470,7 @@ int main(int argc,char** argv) {
  (void)sceSystemServiceHideSplashScreen();
  // Native UI owns VideoOut/controller on its thread before creating Java.
  // Core constructors and early AudioOut init stay on the original startup thread.
+ prospero_hid_preload();
  run_test(0);
  if(resume_library)log_stage("PS5_SESSION RESUME_LIBRARY fresh process; saved notice preference retained");
  if(status[0]!=1){notify("Client083 runtime initialization failed; inspect logs.");for(;;)(void)sceKernelUsleep(1000000);}

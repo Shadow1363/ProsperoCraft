@@ -24,7 +24,8 @@ def build(runtime):
     args += ['-DHAVE_WCSNLEN=OFF','-DHAVE_WCSLCPY=OFF','-DHAVE_WCSLCAT=OFF','-DHAVE_NL_LANGINFO=OFF']
     subprocess.run(args,check=True);subprocess.run(['cmake','--build',str(out),'-j','6'],check=True)
     platform=out/'platform-input.o';subprocess.run([str(LLVM/'clang'),'-target','x86_64-sie-ps5','-O2','-fPIC','-fno-stack-protector','-fvisibility-nodllstorageclass=default','-isysroot',str(sdk),'-isystem',str(sdk/'target/include'),'-I'+str(port),'-c',str(port/'platform-input.c'),'-o',str(platform)],check=True)
-    obj=out/'resident-sdl.o';subprocess.run(['/opt/homebrew/opt/lld/bin/ld.lld','-r','--whole-archive',str(out/'libSDL3.a'),'--no-whole-archive',str(platform),'-o',str(obj)],check=True)
+    hid=out/'physical-hid.o';subprocess.run([str(LLVM/'clang'),'-target','x86_64-sie-ps5','-O2','-fPIC','-fno-stack-protector','-fvisibility-nodllstorageclass=default','-isysroot',str(sdk),'-isystem',str(sdk/'target/include'),'-I'+str(port),'-c',str(port/'ps5_hid_native.c'),'-o',str(hid)],check=True)
+    obj=out/'resident-sdl.o';subprocess.run(['/opt/homebrew/opt/lld/bin/ld.lld','-r','--whole-archive',str(out/'libSDL3.a'),'--no-whole-archive',str(platform),str(hid),'-o',str(obj)],check=True)
     sections=subprocess.check_output([str(LLVM/'llvm-readelf'),'-SW',str(obj)],text=True);assert '.init_array'not in sections and '.ctors'not in sections,'Unexpected automatic SDL constructors'
     audit={'sdl':lock['sdl'],'reference':lock['reference'],'profile':lock['profile'],'port_sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in sorted(port.iterdir())if p.is_file()},'object_sha256':hashlib.sha256(obj.read_bytes()).hexdigest(),'scope':'Actual SDL3 core/events/PS5 video/Vulkan/joystick driver; audio/rumble/LED/process spawn not supported in this profile; no game modifications','console':'pending'}
     (out/'audit.json').write_text(json.dumps(audit,indent=2)+'\n');return obj

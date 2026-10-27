@@ -6,6 +6,16 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Fabric recovery and input105
+
+Restore standard cached Fabric resource reads after104startup regression reports.
+Add persistent controller-key remapping and optional physical keyboard/mouse
+input through normal SDL events,with safe releases and missing-device fallback.
+US ASCII text;gameplay input only,native launcher remains controller-driven.
+Host/sanitizer/target checks pass;PS5Fabric recovery,hardware input and save/load
+remain pending.103descriptor/save errors remain unresolved. NoStore/public release.
+[Guide and limits](docs/client-fabric-input-105.md).
+
 ## 2026-10-27 — Shader image runtime, modded pauses and launcher104
 
 Captured103 shader failure is missing Java AWT/Disposer in Vitrail noise decoding.
