@@ -75,11 +75,15 @@ var store=new ProsperoLibrary(root.resolve("store"));if(!store.instances().isEmp
   // Temporary channel requires an unexpired, entitlement-checked Session.
   Path channel=Path.of(args[1]).resolve("prosperocraft-channel.txt");Files.writeString(channel,"temp_gametest");
   supportedLibrary.settings().showIntro=false;supportedLibrary.save();
-  var fullModel=new ProsperoLauncher(new ProsperoAuth(),supportedRoot,InstanceCheck::open);fullModel.tick(0x4000);fullModel.tick(0x4000);waitFor(fullModel);
-  if(!fullModel.tick(0)[10].equals("WAIT")||!fullModel.tick(0)[2].contains("Sign in"))throw new AssertionError("unsigned full game accepted");
+  var authRequests=new java.util.concurrent.atomic.AtomicInteger();var testAuth=new ProsperoAuth((e,m,t,b,a)->{authRequests.incrementAndGet();throw new ProsperoAuth.Failure("NETWORK");},new ProsperoAuth.Clock(){public long millis(){return System.currentTimeMillis();}public void sleep(long n){}});
+  var fullModel=new ProsperoLauncher(testAuth,supportedRoot,InstanceCheck::open);fullModel.tick(0x4000);if(!fullModel.tick(0)[6].equals("PLAY - Sign in"))throw new AssertionError("sign-in play wording");fullModel.tick(0x4000);waitFor(fullModel);
+  if(!fullModel.tick(0)[10].equals("WAIT")||!fullModel.tick(0)[11].equals("3")||authRequests.get()!=1)throw new AssertionError("unsigned full game accepted");
   var sessionField=ProsperoLauncher.class.getDeclaredField("session");sessionField.setAccessible(true);
   sessionField.set(fullModel,new ProsperoAuth.Session("OwnedPlayer","0123456789abcdef0123456789abcdef","SECRET_TEST_TOKEN",System.currentTimeMillis()+3600000));
-  fullModel.tick(0x4000);waitFor(fullModel);if(!fullModel.tick(0)[6].equals("PLAY"))throw new AssertionError("ready action wording");List<String> fullArgs=List.of(fullModel.arguments(null,null));
+  fullModel.tick(0x2000);fullModel.tick(0x4000);fullModel.tick(0x4000);waitFor(fullModel);
+  if(!fullModel.tick(0)[11].equals("11")||!fullModel.tick(0)[10].equals("WAIT")||!fullModel.tick(0)[95].equals("READY"))throw new AssertionError("tutorial launch gate");
+  fullModel.tick(0x20);fullModel.tick(0x4000);if(!fullModel.tick(0)[94].equals("OFF")||new ProsperoLibrary(supportedRoot).settings().showControls)throw new AssertionError("tutorial preference persistence");fullModel.tick(0x80);fullModel.tick(0x4000);
+  if(!fullModel.tick(0)[10].equals("LAUNCH"))throw new AssertionError("tutorial OK");if(!fullModel.tick(0)[6].equals("PLAY"))throw new AssertionError("ready action wording");List<String> fullArgs=List.of(fullModel.arguments(null,null));
   if(fullArgs.contains("--demo")||fullArgs.contains("--disableMultiplayer")||fullArgs.contains("--disableChat")||!fullArgs.get(fullArgs.indexOf("--accessToken")+1).equals("SECRET_TEST_TOKEN")||!fullArgs.get(fullArgs.indexOf("--username")+1).equals("OwnedPlayer")||!fullArgs.get(fullArgs.indexOf("--uuid")+1).equals("0123456789abcdef0123456789abcdef"))throw new AssertionError("full session handoff");
   if(Arrays.toString(fullModel.tick(0)).contains("SECRET_TEST_TOKEN")||fullModel.toString().contains("SECRET_TEST_TOKEN"))throw new AssertionError("UI leaked session token");
   sessionField.set(fullModel,new ProsperoAuth.Session("OwnedPlayer","0123456789abcdef0123456789abcdef","SECRET_EXPIRED",System.currentTimeMillis()-1));denied(()->fullModel.arguments(null,null));

@@ -28,6 +28,7 @@ with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
   assert not any(b'SECRET_TEST_TOKEN'in jar.read(n)for n in jar.namelist())
  assert b'-Djava.net.preferIPv4Stack=true'in new.read('PPSA99874/eboot.bin')
  assert b'-Dio.netty.transport.noNative=true'in new.read('PPSA99874/eboot.bin')
+ assert b'-Dps5.net.traceBindFailures=true'in new.read('PPSA99874/eboot.bin')
  for name in ('instance_icons.hpp','login_qr.hpp'):
   assert new.read(prefix+'launcher-toolkit/'+name)==(ROOT/'client/launcher'/name).read_bytes()
  pin=json.loads((ROOT/'assets/launcher-icons/attribution.json').read_text())
@@ -44,7 +45,8 @@ with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
   assert set(inventories[0])==set(inventories[1])
   changed=[n for n,d in inventories[0].items()if inventories[1][n]!=d]
   bookkeeping={'java.base/_the.java.base_batch.modfiles','java.base/_the.java.base_batch.modfiles.fixed'}
-  assert set(changed)-bookkeeping=={'java.base/sun/nio/fs/UnixFileSystem.class'},changed
+  assert set(changed)-bookkeeping=={'java.base/sun/nio/fs/UnixFileSystem.class','java.base/java/io/IOException.class'},changed
+  assert b'PS5_HOST_IO'in(w/'new/java.base/java/io/IOException.class').read_bytes()
   changed=['java.base/sun/nio/fs/UnixFileSystem.class']
   assert b'sun.nio.fs.ps5Sandbox'in(w/'new'/changed[0]).read_bytes()
-print('PASS Temp_gametest092 auth/channel/ownership/profile endpoints, no Offline key or fixture token; module bytecode delta is UnixFileSystem only (generated javac bookkeeping excluded); Offline089 package unchanged')
+print('PASS Temp_gametest093 auth/channel/ownership/profile endpoints, no Offline key or fixture token; module bytecode delta is UnixFileSystem plus bounded IOException socket diagnosis (generated javac bookkeeping excluded); Offline089 package unchanged')

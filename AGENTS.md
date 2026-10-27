@@ -952,3 +952,15 @@ Retain091packages/symbols and all older snapshots. No gameJARchanges or Store/re
 092candidate SHA256f9c1cd0a67c1229fdd08b29295acddaf2f0b79e3d0162dc199a1f8ef55e64610.
 Record scoped PS5startup confirmation. Do not infer gameplay/lifecycle/refresh/
 LAN/resolution tests, exact native fault cause, ALL PASS or a new frozen milestone.
+
+
+093follow-up2026-10-27: user confirms092can join servers but cannot host.
+Cyberduck current/previous Java reports corroborate saved refresh through profile;
+raw logs stay local. Original26.3publishServer swallows IOException without logging.
+Runtime0123 bounded socket diagnostics are opt-in and not a hosting repair.093
+adds tiled in-game keyboard after successful presentation fence, sign-in actions,
+shoulder page navigation, controller glyphs, clean welcome/footer and persistent
+prelaunch controls tutorial. Preserve092and prior candidates; no new milestone,
+Store or public binary release. Retest hosting and retrieve current-run trace;
+console keyboard/input/resolution/overlay/lifecycle checks remain pending. See
+ docs/client-keyboard-hosting-093.md and its validation for exact candidate hashes.

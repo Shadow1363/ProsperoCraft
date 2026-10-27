@@ -88,7 +88,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.092";
+constexpr const char* build_version="01.000.093";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -319,6 +319,7 @@ void run_test(int i) {
    {const_cast<char *>("-Dsun.nio.fs.ps5Sandbox=true"),nullptr},
    {const_cast<char *>("-Djava.net.preferIPv4Stack=true"),nullptr},
    {const_cast<char *>("-Dio.netty.transport.noNative=true"),nullptr},
+   {const_cast<char *>("-Dps5.net.traceBindFailures=true"),nullptr},
    {const_cast<char *>("-Dps5.probe.dependencyTrace=true"),nullptr},
    {const_cast<char *>("-Duser.timezone=UTC"),nullptr},
    {const_cast<char *>("vfprintf"),reinterpret_cast<void *>(&vm_print)},
@@ -447,7 +448,7 @@ static void notify(const char* text) {
 }
 int main(int argc,char** argv) {
  for(int i=0;i<argc;++i)if(argv[i]&&std::strcmp(argv[i],"--prospero-library")==0)resume_library=true;
- ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.092 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.093 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;

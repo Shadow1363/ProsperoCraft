@@ -10,7 +10,7 @@ public final class ProsperoLibrary {
  static final int[][] RESOLUTIONS={{1280,720},{1600,900},{1920,1080},{2560,1440},{3840,2160}};
  static String resolutionLabel(int i){return RESOLUTIONS[i][0]+" x "+RESOLUTIONS[i][1];}
  static final class Instance {String id=UUID.randomUUID().toString(),name,version;int icon;boolean ready;Instance(String n,String v,int i){name=clean(n);version=v;icon=i;}}
- static final class Settings {int resolution=LOCKED_RESOLUTION,workers=4,background=5,backgroundDefaultsRevision=0;boolean vibration=true,reducedMotion=false,snapshots=true,showIntro=true;}
+ static final class Settings {int resolution=LOCKED_RESOLUTION,workers=4,background=5,backgroundDefaultsRevision=0;boolean vibration=true,reducedMotion=false,snapshots=true,showIntro=true,showControls=true;}
  static final class State {int schema=1;ArrayList<Instance> instances=new ArrayList<>();Settings settings=new Settings();}
  final Path root;private State state;
  ProsperoLibrary(Path root)throws Exception {

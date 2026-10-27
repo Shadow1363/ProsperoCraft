@@ -1,0 +1,56 @@
+{
+  "version": "01.000.093",
+  "title_id": "PPSA99874",
+  "branch": "Temp_gametest",
+  "package_sha256": "ed433c1c3e2567987e876357ae0cc2982e259655e92afc55d9f4a1640c1f1ee8",
+  "symbols_sha256": "645ad89aacefe3190e653a0462762f171df9bbfa385e1395fc20374c6d9f5090",
+  "changes": [
+    "Visible in-game controller keyboard:50characters,6actions,normal/symbol/case modes,normal SDL text events",
+    "Sign in tab and PLAY - Sign in device-flow routing",
+    "L1/R1 selects Settings/Account content; Add requires X from library",
+    "Font-independent button glyphs, no instance count/page or TEMP GAMETEST footer",
+    "Ordinary welcome copy; saved controls tutorial during preparation with OK and Dont show again",
+    "Opt-in bounded runtime0123 socket-failure diagnosis; no hosting fix claimed"
+  ],
+  "console092_evidence": {
+    "user_report": "Minecraft starts; joining servers works; hosting still fails",
+    "retrieval": "User-authorized Cyberduck download; current/previous Java exception logs retained locally",
+    "saved_refresh": "TOKEN, Xbox, XSTS, Minecraft login, entitlement and profile complete",
+    "network_preflight": "TCP_LISTEN and UDP_BIND pass",
+    "hosting": "Original publishServer catches IOException without logging; no cause obtained"
+  },
+  "runtime_patch_level": "0123",
+  "runtime_source_commit": "89ded132a631e6111b0c35a689047a9f164fa9a1",
+  "original_game_JARs": "unmodified; no game bytecode hooks or replacement classes added",
+  "console093": {
+    "status": "pending",
+    "needed": [
+      "Launcher sign-in/shoulder navigation/glyphs/welcome and tutorial persistence",
+      "Keyboard in server-address/chat fields:focus,type/delete/symbol/case/close/Enter",
+      "Overlay display and frame cost at selected resolutions; pointer alignment",
+      "Reproduce hosting failure and retrieve PS5_HOST_IO events",
+      "Joining regression, gameplay/quit/relaunch/account restoration"
+    ]
+  },
+  "hosting_root_cause": "unknown; diagnostics only",
+  "tutorial_timing": "During download verification and launch preparation, before original Main and display handoff",
+  "keyboard_preview": "Only current keyboard-session input; does not mirror existing Minecraft field text",
+  "tests": {
+    "instance_download_policy_signin_tutorial_persistence": "PASS",
+    "account_UI_navigation": "PASS",
+    "actual_SDL_input_adapter_ASan_UBSan": "PASS",
+    "actual_tiled_keyboard8sizes_ASan_UBSan": "PASS",
+    "native_JNI_frontend_and_renderer_fixture": "PASS",
+    "actual_Vulkan_launcher_preview": "PASS",
+    "real_Netty_NIO_and_original_LAN_pinger_host": "PASS",
+    "actual_SDL_mode_and_coordinate_host_fixtures": "PASS",
+    "original_Main_host_bootstrap": "PASS",
+    "runtime_socket_collision_gate_cap_redaction": "PASS",
+    "runtime_java_base_target": "PASS",
+    "target_package_build": "PASS",
+    "package_audits": "PASS: signatures, module image, native symbols, keyboard source hashes, actual class bytecode, toolkit channel/source/license hashes and preserved candidate checksums"
+  },
+  "preserved092_package_sha256": "f9c1cd0a67c1229fdd08b29295acddaf2f0b79e3d0162dc199a1f8ef55e64610",
+  "publication": "Source on Temp_gametest only; runtime separately published; no Store/release assets",
+  "milestone": "No ALL PASS or freeze inferred"
+}

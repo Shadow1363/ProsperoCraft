@@ -87,13 +87,20 @@ Delete Instance “Is a directory” failure. The preceding personal089login wor
 on the user's PS5;090full-game/download/Delete/Undo/lifecycle checks remain pending.
 Demo/main authentication and the existing Store083 release are unchanged.
 
+[Development093](docs/client-keyboard-hosting-093.md) adds a visible in-game
+controller keyboard, sign-in actions, shoulder-button page selection, controller
+glyphs, a cleaner welcome/footer and a saved prelaunch controls tutorial. The user
+confirms server joining on092; retrieved logs confirm successful saved refresh.
+LAN hosting still fails without a logged cause.093 includes bounded runtime socket
+diagnostics for the next console attempt; hosting is **not fixed or validated**.
+Exact093 console UI/keyboard/hosting checks remain pending.
+
 [Development092](docs/client-launch-followup-092.md) renames the ready action to
 **PLAY**, labels pending versions **Coming soon**, and applies **Waves** as the
 one-time default for existing/new libraries. Retrieved091logs locate the reported
 launch failure in graphics startup and show saved-refresh invalid_scope.092adds
 explicit legacy refresh scope and repairs a requested-mode override that could
-select119.88Hz instead of59.94Hz. The user reports “MC starts now!” on092. Gameplay, quit/relaunch, saved-login
-restoration and LAN remain pending; no ALL PASS milestone is inferred.
+select119.88Hz instead of59.94Hz. The user reports “MC starts now!” on092. Gameplay lifecycle/quit/relaunch and LAN hosting remain pending; later093 follow-up records joining and saved-refresh evidence; no ALL PASS milestone is inferred.
 
 [Development091](docs/client-account-ui-091.md) adds Prism/MultiMC instance artwork
 with the ProsperoCraft icon, Microsoft-link QR, saved account refresh and player
