@@ -1,0 +1,52 @@
+{
+  "version": "01.000.090",
+  "title_id": "PPSA99874",
+  "branch": "Temp_gametest",
+  "replaces_branch": "codex/offline",
+  "prior_offline_commit": "2691bed1cd3b43762d4882213124134a45850e1d",
+  "package": "dist/candidates/ProsperoCraft-Temp_gametest-01.000.090/PPSA99874.zip",
+  "package_sha256": "f97c03991b8b70e7ccb01098f64f2df6272272e83ed92cacb6161ee57da1c49c",
+  "symbols_sha256": "0368fb367d3db9ea9850ffd9f09cb5e992024d2b32e80b98d0b178f3578a4953",
+  "runtime_revision": "b30c2063929378fbda570585ad3c89fcb7c6c9de",
+  "runtime_patch": "0122-ps5-directory-move-permissions.patch",
+  "runtime_module_code_delta_from_offline089": [
+    "java.base/sun/nio/fs/UnixFileSystem.class"
+  ],
+  "generated_module_bookkeeping_changes": [
+    "_the.java.base_batch.modfiles",
+    "_the.java.base_batch.modfiles.fixed"
+  ],
+  "game_jar_transformation": "none",
+  "bundled_game_jars_assets": false,
+  "offline_verification_key_packaged": false,
+  "authentication": "Legacy Live device code with Mojang client ID; entitlement/profile checks; memory-only token",
+  "full_launch": "Session username/UUID/token; no demo flag; session validity checked at selection and handoff",
+  "host_checks": {
+    "test_launcher_auth.py": "PASS",
+    "test_launcher_instances.py": "PASS including Temp session/expiration/redaction/Demo isolation",
+    "test_launcher_delete.py": "PASS including Temp controller flow and restart Undo",
+    "test_java25_directory_move.py": "PASS actual UnixFileSystem class with injected EISDIR preflight",
+    "target_java_base": "PASS",
+    "target_app": "PASS",
+    "test_client_startup_host.py": "PASS policies and expected native bootstrap boundary; not gameplay",
+    "test_client_startup_package.py": "PASS",
+    "test_launcher_toolkit_packages.py": "PASS including preserved084\u2013089 candidates",
+    "test_temp_gametest_package.py": "PASS including runtime module code delta and preserved089"
+  },
+  "human_report": {
+    "package": "Personal Auth Test089",
+    "package_sha256": "ccf692aac72ed4eeb3d91d67bce7c2fad33e0de0ae0a634ff976d08c0c91949c",
+    "date": "2026-10-27",
+    "report": "LOG in works!!",
+    "scope": "Sign-in only; not a090 pass"
+  },
+  "console090": {
+    "sign_in": "pending",
+    "game_download": "pending",
+    "full_game": "pending",
+    "delete_undo_restart": "pending",
+    "multiplayer_chat": "pending",
+    "ui_haptics_audio_graphics_handoff_lifecycle": "pending"
+  },
+  "release_store_publication": "none; source branch only"
+}

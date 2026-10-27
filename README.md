@@ -73,12 +73,19 @@ Release082 retains that implementation; the074playtest does not establish an082r
 For individual fixes, console evidence and earlier milestones, read the detailed
 **[CHANGELOG.md](CHANGELOG.md)**.
 
-## Demo and Offline branches
+## Demo and temporary game-test branches
 
-The **Demo branch** is the public ProsperoStore line while appID approval is
-pending. The **Offline branch** is the owner's verified single-player line for
-future mod tests and extra features. Shared fixes reach both. The branches are
-`codex/demo` and `codex/offline`; `main` contains shared code with a Demo default.
+The **Demo branch** (`codex/demo`) remains the public ProsperoStore line while
+ProsperoCraft appID approval is pending; `main` retains the Demo default.
+The personal **[`Temp_gametest`](https://github.com/mateo-cogeanu/ProsperoCraft/tree/Temp_gametest)**
+branch replaces `codex/offline` and carries the temporary Mojang-ID login experiment.
+It is not a Store/release build. Earlier Offline commits and candidates are preserved.
+
+[Development090](docs/client-temp-gametest-090.md) adds verified-account full-game
+launch using the complete publisher downloads and runtime patch0122for the
+Delete Instance “Is a directory” failure. The preceding personal089login worked
+on the user's PS5;090full-game/download/Delete/Undo/lifecycle checks remain pending.
+Demo/main authentication and the existing Store083 release are unchanged.
 
 [Development085](docs/client-channels-delete-085.md) adds a visible branch label
 and **Instance Settings → Delete Instance** to both builds. Deletion moves the
