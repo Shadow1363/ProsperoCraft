@@ -61,6 +61,10 @@ The user confirms all082fixes work on PS5, including quit → launcher → relau
 [Scoped console confirmation and frozen snapshot](Client_Launcher_Lifecycle/README.md).
 26.3is the gameplay baseline;26.1/26.2need a separate GLFW native path.
 Microsoft account access remains blocked at Minecraft Services403pending app review.
+[Development084](docs/client-offline-084.md) adds a separate offline single-player
+test using a locally verified ownership/profile record; no login tokens are
+transferred. Exact084PS5validation remains pending. This is not app approval or
+a public account-import service.
 
 Development074 now has positive PS5 sound and smoothness feedback, with no active quality caps.
 See the [freeze investigation and candidate guide](docs/client-audio-pacing-074.md).

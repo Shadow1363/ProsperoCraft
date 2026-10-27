@@ -19,7 +19,7 @@ parser.add_argument('--render', action='store_true', help='Build client010 graph
 parser.add_argument('--present', action='store_true', help='Build client011 standalone direct presentation candidate')
 parser.add_argument('--sdl', action='store_true', help='Build client014 SDL window/input candidate')
 parser.add_argument('--runtime-shader', action='store_true', help='Build client023 runtime GLSL compiler candidate')
-parser.add_argument('--startup',action='store_true',help='Build083 original Minecraft Main startup with all accepted native components')
+parser.add_argument('--startup',action='store_true',help='Build084 original Minecraft Main startup with all accepted native components')
 parser.add_argument('--native-bootstrap',action='store_true',help='Build026 genuine libffi/OpenAL native acceptance')
 parser.add_argument('--opengl-bootstrap',action='store_true',help='Build029 genuine Mesa/OpenGL acceptance')
 parser.add_argument('--spvc-bootstrap',action='store_true',help='Build036 genuine SPIRV-Cross translation/reflection acceptance')
@@ -32,7 +32,7 @@ if args.startup or args.opengl_bootstrap or args.stb_bootstrap or args.freetype_
 if args.startup or args.native_bootstrap:args.runtime_shader=True
 runtime = args.runtime_workspace.resolve()
 variant="spvc_bootstrap" if args.spvc_bootstrap else "vma_bootstrap" if args.vma_bootstrap else "freetype_bootstrap" if args.freetype_bootstrap else "stb_bootstrap" if args.stb_bootstrap else "opengl_bootstrap" if args.opengl_bootstrap else "startup" if args.startup else "native_bootstrap" if args.native_bootstrap else "runtime_shader" if args.runtime_shader else "sdl" if args.sdl else "present" if args.present else "render" if args.render else "shader" if args.shader else "vulkan"
-version="01.000.036" if args.spvc_bootstrap else "01.000.035" if args.vma_bootstrap else "01.000.033" if args.freetype_bootstrap else "01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.083" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
+version="01.000.036" if args.spvc_bootstrap else "01.000.035" if args.vma_bootstrap else "01.000.033" if args.freetype_bootstrap else "01.000.031" if args.stb_bootstrap else "01.000.029" if args.opengl_bootstrap else "01.000.084" if args.startup else "01.000.026" if args.native_bootstrap else "01.000.023" if args.runtime_shader else "01.000.014" if args.sdl else "01.000.011" if args.present else "01.000.010" if args.render else "01.000.009" if args.shader else "01.000.008"
 # Regenerate reusable runtime embedding inputs with the preserved002 build path.
 subprocess.run(['python3',str(ROOT/'tools/package_client_probe.py'),'--runtime-workspace',str(runtime),'--java-home',str(args.java_home),*(['--offline']if args.offline else [])],check=True)
 
@@ -121,6 +121,7 @@ subprocess.run([str(args.java_home/'bin/javac'),'--release','25','-cp',cp,'-d',s
 with zipfile.ZipFile(java/'client-probe.jar','w',zipfile.ZIP_DEFLATED)as output:
  for path in sorted(classes.rglob('*.class')):
   info=zipfile.ZipInfo(str(path.relative_to(classes)));info.compress_type=zipfile.ZIP_DEFLATED;output.writestr(info,path.read_bytes())
+ if args.startup:output.writestr('offline-import-public-key.der',(ROOT/'client/launcher/offline-import-public-key.der').read_bytes())
 modules=json.loads((ROOT/'server/26.3.lock.json').read_text())['modules']
 spec={'menu_audio':False,'source':str(ROOT/'client'/variant/'bootstrap.cpp'),'param':str(ROOT/'client'/variant/'param.json'),'asset_dir':str(assets),'java_sources':[str(p)for p in sources],'modules':modules,'java_compile_classpath':[str(port),*[str(ROOT/'.tools/client'/row['file'])for row in lock['artifacts']if not row['id'].startswith('org.lwjgl:lwjgl:')]],'include_dirs':[str(work),str(ROOT/'client/native'),str(runtime/'java25/probe')]}
 # A genuine named JNI library is built into the resident registry. Its native

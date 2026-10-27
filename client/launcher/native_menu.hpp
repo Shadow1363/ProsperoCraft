@@ -116,7 +116,10 @@ inline void draw(Canvas& c) noexcept {
  }else if(page==4){
   label(c,70,185+slide,std::strcmp(fields[69].data(),"PENDING")==0?"Launch support coming.":"Ready when you are.",64);c.rounded(70,330+slide,620,560,28,ink(0x10221c));block(c,245,385+slide,270,number(18));title(c,109,721+slide,fields[16].data(),42,540);label(c,112,794+slide,fields[17].data(),24,0x97bea3);
   title(c,762,352+slide,fields[16].data(),64,1060);label(c,768,441+slide,"JAVA EDITION    /    DEMO INSTANCE",24,0x94b69f);
-  action(c,760,505+slide,1080,fields[6].data(),row==0,std::strcmp(fields[69].data(),"PENDING")!=0);action(c,760,621+slide,1080,"INSTANCE SETTINGS",row==1);action(c,760,737+slide,1080,"REPAIR DOWNLOAD",row==2);wrap(c,790,857+slide,fields[65].data(),1000,1);
+  bool offline=std::strcmp(fields[71].data(),"OFFLINE")==0;
+  int first=offline?480:505,spacing=offline?100:116;
+  action(c,760,first+slide,1080,fields[6].data(),row==0,std::strcmp(fields[69].data(),"PENDING")!=0);action(c,760,first+spacing+slide,1080,"INSTANCE SETTINGS",row==1);action(c,760,first+2*spacing+slide,1080,"REPAIR DOWNLOAD",row==2);
+  if(offline){action(c,760,first+3*spacing+slide,1080,"PLAY OFFLINE",row==3,std::strcmp(fields[69].data(),"PENDING")!=0);label(c,790,910+slide,fields[72].data(),24,0x94b69f);}else wrap(c,790,857+slide,fields[65].data(),1000,1);
  }else if(page==8){
   label(c,70,190,"Controller guide",64);
   label(c,78,290,"IN THE WORLD",30,0xa9eab6);label(c,1000,290,"MENUS AND INVENTORY",30,0xa9eab6);
@@ -150,7 +153,7 @@ inline void draw(Canvas& c) noexcept {
  if(std::strcmp(fields[64].data(),"BUSY")==0){
   if(page!=3)title(c,78,942,fields[2].data(),24,1300,0xaac8b2);label(c,1450,942,fields[21].data(),24,0xaac8b2);c.rounded(72,982,1770,5,2,ink(0x233c2c));if(number(20)>0)c.rounded(72,982,unsigned(1770*number(20)/1000),5,2,ink(0xa9eab6));
  }else if(page!=3)title(c,78,949,fields[2].data(),24,1760,0x83a58d);
- label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1650,1020,"01.000.083",24,0x7d9f89);
+ label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1650,1020,"01.000.084",24,0x7d9f89);
 }
 inline bool update() noexcept {
  // The second update follows the initial submit/WaitVblank in run_ui_until.

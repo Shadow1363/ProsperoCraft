@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.084",
+  "title_id": "PPSA99874",
+  "package_sha256": "a1e6774ba8bebe1faac0d9c36c4ff7cc17da1cf5622c2f9519bffc50eec57822",
+  "native_elf_sha256": "2063966a99e5930773727b6bfd4a19523eb7a48792ecf326e311c772d507badf",
+  "scope": "User-authorized offline single-player from locally verified owned Java account; no tokens transferred",
+  "issuer_public_key_sha256": "c3e1f00491aac0ad1cdde9962bc5855628c456762af250b6046f518f68d4422a",
+  "local_live_check": "Minecraft entitlement and matching profile HTTP200; no account identifiers or secrets recorded here",
+  "checks": [
+    "PASS signed proof and actual controller/arguments/offline cache verification",
+    "PASS export entitlement denial/profile mismatch/secret exclusion/RSA signature",
+    "PASS existing instance/auth/lifecycle/storage/navigation fixtures",
+    "PASS native draw/JNI preview",
+    "PASS full target build and package audits",
+    "PASS original unmodified host Main reaches expected unprovided-native boundary; no host game pass"
+  ],
+  "console_status": "PENDING exact084 signature provider/menu/full offline world create/save/reload/controls/audio/quit-relaunch",
+  "lease_days": 7,
+  "token_exported": false,
+  "private_key_published": false,
+  "public_release": "083 unchanged; no084Store release",
+  "preserved083_sha256": "8fcbdc8cb9cc8065aa0eaac26457a834fffb15098725e987df1d33257a76444e",
+  "deployment": "Not confirmed: shell FTP fails No route to host; Cyberduck upload selections did not yield a verifiable transfer. Candidate and personal record retained locally."
+}

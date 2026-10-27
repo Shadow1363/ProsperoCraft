@@ -771,3 +771,17 @@ ZIPwithmatchingOpenALsource/relinkandverifieddownloads. ActiveStoreupdatePR819
 https://github.com/darkxex/ps5-homebrew-catalog/pull/819 . 814remainsmerged082
 history. Track819for083deployment;physical083clicks/demo-world/lifecycle/audio
 stillpending. DonotclaimStoreavailableuntilmerge/deployconfirmed.
+
+## Verified personal offline account test — 2026-10-27
+
+User explicitly requests using their locally owned account for offline launch
+("lets use it!"). This overrides earlier demo-only scope for the verified offline
+path. Candidate084 adds a separate Play Offline action; original demo and pending
+appID/device-code flow remain. Read docs/client-offline-084.md. Export helper
+checks current Minecraft token + Java entitlement + matching profile directly
+with Minecraft Services, then signs a seven-day name/UUID/timestamp-only record.
+No login tokens or private signing key go to PS5/GitHub/packages. Keep the local
+RSA signing key ignored; only public key ships. No unverified profile/UUID override,
+borrowed appID, online bypass or game-JAR edits. Full offline actual084PS5/world/
+RSA/menu/controls/audio/lifecycle tests pending. Preserve published083and082,
+frozen milestones and existing worlds. No new Store release is authorized here.
