@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.098",
+  "public_name": "ProsperoCraft0.98",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "package_sha256": "5f2b9825c2692a7bc59a06517625727db16dc9fa0149e3c72093ec7fd24afeab",
+  "native_elf_sha256": "0d2e44735f19a9483f4460da5466be72c980ba07f16c72b82f5ede22bed51a7f",
+  "implementation_commit": "454651c",
+  "console_evidence": {
+    "high_refresh": "Human reports119FPS on exact097 package d78ab9456b0fd036686989b86f41acef7aa3f013db884f8e8b6756604317d4fd;see matching console record.",
+    "exact098": "PENDING:visible version,quieter log profile,gameplay/audio/input/quit-relaunch regression. No formalALLPASS,frozenmilestone or endurance inferred.",
+    "stutters": "Actual097GC/safepoint reports show pauses exceeding120FPSbudget in two separate runs.098removes verbose diagnostic logging;pause improvement not console verified."
+  },
+  "changes": [
+    "120Hz output declaration and actual enumerated refresh selection up to120Hz;verified60Hz fallback retained",
+    "Footer/startup logs use native packager version derived from manifest",
+    "GC/safepoint info summaries retain bounded rollover;remove verboseGC/class-loading logging"
+  ],
+  "tests": {
+    "target_build": "PASS exit0",
+    "gc_and_safepoint_logging_actual_embedded_host_JVM": "PASS console/dedicatedFILE separation,pause summaries,no class/debugtrace and rollover",
+    "mode_inventory_and_real_WSI_admission": "PASS ASan/UBSan OS fixtures;notPS5GPUevidence",
+    "full_package_audit": "PASS",
+    "toolkit_package_identity_and_pins": "PASS",
+    "auth_channel_entitlement_and_original_JAR_integrity": "PASS",
+    "exact_OpenAL_native_relink_and_replacement": "PASS",
+    "098footer_binary": "PASS098present,096/097absent;correctmanifest andsummarylogging embedded",
+    "public_release_asset_audit": "PASS exact098ZIP/CRC/manifest/banner/dependencies/channel/privacy/licenses and exact normal/replacementOpenALrelinks"
+  },
+  "evidence": {
+    "client098-package-after-log-review.log": {
+      "sha256": "f19f5a0438083b3ca67399ea372dce6c07c0916638442de15da0160bea2d8788",
+      "bytes": 78238
+    },
+    "client098-summary-logging-test.log": {
+      "sha256": "e36eed0a5f4f9e1e3aa55a00db1f97f0c27bbaf5730626ea81e5b181de82cc20",
+      "bytes": 189
+    },
+    "client098-startup-after-log-review-test.log": {
+      "sha256": "ae92829536f52fcfc0dc93a0e7a603c8e8168e305102bd60e8bb27cac0220d09",
+      "bytes": 612
+    },
+    "client098-toolkit-after-log-review-test.log": {
+      "sha256": "8d39a6d356a70b9f5c1bc439d6f090fad8ea94a51467970e24e7afea1ecb06f4",
+      "bytes": 256
+    },
+    "client098-auth-after-log-review-test.log": {
+      "sha256": "a376ca88024d95798cc8e67992c38c68dc769d147f84051ed30bbcbfb9fb859d",
+      "bytes": 248
+    },
+    "client098-release-relink.log": {
+      "sha256": "e1b0950a8e2fd2f83bd3027a22834aa1e7b624d4c1dee20bcba15f048326bce3",
+      "bytes": 121
+    },
+    "client098-release-replacement.log": {
+      "sha256": "8ab936990719f67bbba0e34435d29ab03be876a100cd922e7dd2134db6bb3811",
+      "bytes": 148
+    },
+    "client098-release-audit.log": {
+      "sha256": "cca9160b1f2a182c339b2568a8b8e0c3d4219b7ff6af83955cdb077ad5d6dca9",
+      "bytes": 153
+    }
+  },
+  "preservation": {
+    "096": "7576aacd601ffbec16d956adaa3a03f9a8f2c0d9a1eadf76889776f246500067",
+    "097": "d78ab9456b0fd036686989b86f41acef7aa3f013db884f8e8b6756604317d4fd",
+    "pre_review098": "b38bd8361117009825bc7ffde2e477adba4f886fc51ae9784c1aa0746d92b362"
+  },
+  "public_contents": "Launcher and dependency ports only;no official Minecraft JARs/assets,account/session/key files or raw console logs. Matching OpenAL corresponding source and exact relink objects accompany release.",
+  "runtime_source_changes": false,
+  "limitations": [
+    "FIFO-only presentation;no true uncapped VSync-off implementation",
+    "OccasionalGC hitches remain under investigation;not stutter-free guarantee",
+    "26.3playablebaseline;otherdownloads not launchable claim",
+    "LANhosting deferred;endurance/lifecycle/save-reload andauthentication recovery coverage incomplete"
+  ]
+}
