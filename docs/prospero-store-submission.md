@@ -152,3 +152,5 @@ released;096requires this update's approval/deployment. Local format and online
 digest/contentVersion/icon checks pass. See the096publication record for asset
 digests, package preservation, human feedback and pending console tests. GUI and
 icon credits are included in both descriptions.
+
+PR859merged on2026-10-27 at13:55:45UTC. Upstream deployment is queued; the live API still returned083when checked afterward. Do not equate the merged record with a completed Store deployment.

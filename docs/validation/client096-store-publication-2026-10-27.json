@@ -41,10 +41,11 @@
   ],
   "verification": "All five uploaded GitHub digests/sizes match local files; all five assets downloaded and SHA256SUMS checked. Downloaded relink kit reproduces exact096ELF; normal and OpenAL replacement relinks reproduce it locally. Auth/channel/ownership/package fixture passes.",
   "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/859",
-  "catalog_status": "OPEN; automated checks queued when recorded, maintainer approval/deployment pending.",
+  "catalog_status": "MERGED at2026-10-27T13:55:45Z; merge715ab35d82ec755d7da157d211aec24024159572. Upstream main deployment queued; live prosperostore.net API still083 at last check.",
   "catalog_local_checks": "147 records valid; online artifact digest/contentVersion/icon verified,0errors/warnings.",
   "credits": "Release and catalog descriptions credit mihawk-99/PS5_VKHomebrewUI GUI and MultiMC/Prism icons; packaged notices retained.",
   "console": "User reports MC running/login working and selected096package; no formalALLPASS/freeze/endurance. Hosting deferred; broader save/reload/account expiry/resolution/lifecycle checks pending.",
   "runtime_publication": "Sync succeeded; Everything up-to-date, runtime unchanged.",
-  "preservation": "Previous082/083 releases/tags/assets and frozen snapshots unchanged; Temp_gametest remains de14221."
+  "preservation": "Previous082/083 releases/tags/assets and frozen snapshots unchanged; Temp_gametest remains de14221.",
+  "catalog_checks": "Submission validation/third-party/release-bump eligibility pass. Scan/offline/merge-job status still pending when checked; PR is independently confirmed merged. Main deployment run40516417947/40516418083queued."
 }
