@@ -1140,3 +1140,12 @@ newfrozenmilestone,constant120FPS,endurance,orcomplete lifecycle/memory testing.
 Disclose longerclass/code retention and pendinglong-session pressure checks.
 Java runtime source remains inJava repo;these GC launch policies are consumer
 configuration inProsperoCraft. Verifyreleaseuploads/relinks andStorePRstatus.
+
+
+100publicationcomplete:fullGitHub01.000.100releasepreservesexactacceptedpackage;
+all5uploads/downloads andOpenALrelinks verified. ProsperoStorePR861merged,
+deployment40530933028SUCCESS,andliveAPIversion/content_version100withmatching
+b905d80a3b21502c2c1c9672db7833cd38f3582c35835e13c087667a0a0e7f65verified.
+098staysdraft,historicalsnapshotsintact. NoformalALLPASS/newfrozenmilestone,
+constantFPS/endurance orcomplete memory/lifecycleacceptance inferred. See
+ docs/validation/client100-store-publication-2026-10-27.json for evidence.

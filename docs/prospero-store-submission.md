@@ -182,3 +182,15 @@ checks pass. PR861wasOPENwithremotechecks pending atinitialinspection;Store
 availability requiresmergeanddeployment. PublicnotesretainGUI/iconcredits and
 state long-sessionmemory/lifecyclelimitations.098draftandolderreleasesunchanged.
 See validation/client100-store-publication-2026-10-27.json for currentstatus.
+
+
+PR861 merged2026-10-27at15:26:03UTC as68b9b53d0ed2521d9166eabd7445864decf0b8c3.
+Submissionvalidation,release-scan,offlinechecks,developer-bumpeligibility andmerge
+allPASS. CatalogdeploymentCI40530933028isrunning;liveAPIstill096atthelastcheck.
+Merge alone is not confirmation of liveStoreavailability.
+
+
+DeploymentCI40530933028completedSUCCESS. Canonical liveProsperoStoreAPI and a
+fresh-query request both nowreturn version/content_version01.000.100,release100
+andSHA256b905d80a3b21502c2c1c9672db7833cd38f3582c35835e13c087667a0a0e7f65.
+The Store update is live;this is independent verification aftermerge/deployment.
