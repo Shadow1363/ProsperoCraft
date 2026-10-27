@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.108",
+  "release_url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.108",
+  "release_tag_commit": "4c3e2f193a5d8b19c46d98b162c70d6e50e15b57",
+  "tested_implementation_commit": "40dc9fa6dc1b0bafc9894147d60c9d864bd17eb4",
+  "package_sha256": "545678bd4801cbf9e00b7209c25a89a9dfb0b3be7b645e3cd98f75633e455560",
+  "release_status": "Public full release;notdraft/notprerelease;latest",
+  "assets": [
+    {
+      "name": "client108-build-validation.json",
+      "bytes": 6916,
+      "digest": "sha256:9f9bd9a368db879b986e6028a672816196835855f58bcc70584e5aedb813a66b",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.108/client108-build-validation.json"
+    },
+    {
+      "name": "client108-console-validation.json",
+      "bytes": 713,
+      "digest": "sha256:22b44734f45a2959707052bd3ace30f10f5d06555beb74fe40a3802a52983cae",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.108/client108-console-validation.json"
+    },
+    {
+      "name": "client108-openal-source-relink.zip",
+      "bytes": 169009348,
+      "digest": "sha256:a4d9439da6bc4a923c65c26ddf865adf3ae4c6ccf4e64d1fe5757c9722c0c172",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.108/client108-openal-source-relink.zip"
+    },
+    {
+      "name": "PPSA99874.zip",
+      "bytes": 121870340,
+      "digest": "sha256:545678bd4801cbf9e00b7209c25a89a9dfb0b3be7b645e3cd98f75633e455560",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.108/PPSA99874.zip"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 379,
+      "digest": "sha256:079fb5cedad04bad60948f73090720be71829bca84fc7afb3ab5993bfa15ee92",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.108/SHA256SUMS"
+    }
+  ],
+  "verification": "All5publicuploads/downloads exactlocalhashes/sizes;appandkitCRC/everyretainedinputhashPASS;normal/replacementOpenAL relinks reproduce exact108ELF.",
+  "authorization": "User explicitly requestsreleasewithNativeJava25Runtime/nativePS5Minecraftmain description,retainedGUI/iconcredits andnewfeaturechangelog. No formal108ALLPASS inferred.",
+  "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/872",
+  "catalog_head": "a1275fc",
+  "catalog_status": "OPEN;submissionvalidation/release scan/offlineCIinprogress",
+  "local_catalog_checks": "148validrecords;231testspass/2skipped;onlinepublicrelease/digest/contentVersion108/iconverification0errors/0warnings",
+  "description": "Minecraft Java runs natively on PS5 with a Native Java 25 Runtime. Java ownership required. GUI: mihawk-99/PS5_VKHomebrewUI; icons: MultiMC/Prism.",
+  "remaining_console_validation": "Dependency108repair/startup,mouse,Controlify,audio/lifecycle,save/reload/endurance;humankeyboardpositive107feedbackrecorded.",
+  "preservation": "Exact108candidate/101olderreleases/frozenmilestones/098draftpreserved;nonewfreeze",
+  "runtime": "No newJavafix;42fe3a5existingruntimeintegrationunchanged."
+}
