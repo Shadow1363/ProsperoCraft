@@ -39,14 +39,35 @@ The client and server share **PPSA99874**: installing one replaces the other. Ba
 
 ## Roadmap
 
-- [x] Native launcher with instances and working authenticated-play experiment.
-- [ ] Broader validation of account refresh, save/reload and lifecycle behavior.
-- [ ] More Minecraft 26.x releases and snapshots playable on PS5.
-- [ ] Fabric, Forge and NeoForge **client** instances; server milestones remain separate.
-- [ ] SDL3/Controlify integration, keyboard/mouse and controller polish.
-- [ ] Shaders and measured performance validation.
-- [ ] Custom menu music by CogiArt, `.mrpack` imports and themes.
-- [ ] JVM21 and JVM17 for older game versions.
+### Done
+
+- [x] Screen resolution changing.
+- [x] Launcher menu with instances, settings and instance management.
+- [x] Microsoft login for official Minecraft downloads.
+- [x] Delete instance.
+- [x] Centered top-bar button text.
+
+### Coming next
+
+- [ ] Controller vibration.
+- [ ] Higher-resolution crafting-table icon.
+- [ ] All Minecraft 26.x releases, including snapshots.
+- [ ] Fabric, Forge and NeoForge instance support within current 26.x releases.
+- [ ] SDL3 integration for Controlify.
+- [ ] Performance sufficient for shaders.
+- [ ] Custom menu music by CogiArt.
+- [ ] `.mrpack` imports.
+- [ ] USB keyboard and mouse controls.
+- [ ] JVM 21 for broader Minecraft support.
+- [ ] JVM 17 for even broader Minecraft support.
+- [ ] Custom AMD Ryzen Zen 2 8C/16T CPU identification.
+- [ ] Unlock the 60 FPS cap that remains with VSync disabled.
+- [ ] Home menu.
+- [ ] Themes.
+
+Broader account-refresh, save/reload and lifecycle validation continues alongside
+these features. Client mod-loader support is separate from the existing server
+milestones; each game/loader version needs its own validation.
 
 ## License
 
