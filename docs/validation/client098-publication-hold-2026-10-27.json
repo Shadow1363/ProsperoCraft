@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.098",
+  "status": "DRAFT; Store publication held pending human confirmation of stutter fix",
+  "release_id": 425592092,
+  "release_url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/untagged-3e4caa12d7ca29c08197",
+  "release_draft_verified": true,
+  "assets": [
+    {
+      "name": "client097-stutter-observations.json",
+      "bytes": 4578,
+      "digest": "sha256:b0a171cc6a0d1011bbf59466b034879d092f3ca035c7e4263fba2126dd112ef1"
+    },
+    {
+      "name": "client098-openal-source-relink.zip",
+      "bytes": 88642722,
+      "digest": "sha256:abc2b804d34bf154fe046f6b56a2218ff488ab9223238dbeedd79b0bf03c8b97"
+    },
+    {
+      "name": "client098-validation.json",
+      "bytes": 4102,
+      "digest": "sha256:cfd507a918722db79b4a1c0f59a6d6525c425625898d67f09079fadbfbbb0057"
+    },
+    {
+      "name": "PPSA99874.zip",
+      "bytes": 121189297,
+      "digest": "sha256:5f2b9825c2692a7bc59a06517625727db16dc9fa0149e3c72093ec7fd24afeab"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 375,
+      "digest": "sha256:c31ba7a335257605ba260e2f58204ce44ff43d23d18651e26de9049afcb22031"
+    }
+  ],
+  "asset_verification": "All five uploaded GitHub digests/sizes match local098files. Full download verification not yet performed; draft held.",
+  "sequence": "GitHub upload completed concurrently with latest hold instruction; immediately returned to draft. No catalogPRcreated,pushed or submitted.",
+  "user_gate": "Keep098draft and Store unchanged until the human confirms the stutter fix. Quieterlogging is not a confirmed fix.",
+  "candidate": "dist/candidates/ProsperoCraft-01.000.098/PPSA99874.zip",
+  "package_sha256": "5f2b9825c2692a7bc59a06517625727db16dc9fa0149e3c72093ec7fd24afeab",
+  "pending": "Exact098pause/frame-time comparison,visibleversion,input/audio,quit/relaunch. G1pause reduction may need further repairs.",
+  "store": "No openProsperoCraftcatalogPRatcheck;096still published."
+}

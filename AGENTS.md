@@ -1071,3 +1071,16 @@ summaries;no GC/heap/quality tuning. Preserve pre-review098local artifact under
 before-log-review;it was never released/console accepted. Do not claim hitches
 fixed. Safari connection lost before additional reports;raw logs remain local.
 Release notes must disclose outstanding GC-related hitches and exact098tests.
+
+
+## Explicit release/Store hold — 2026-10-27
+
+User explicitly says do not do the Store update until they confirm the stutters
+are fixed. This supersedes earlier098publication authorization. No098catalogPR
+was created,pushed or submitted. GitHubuploadcompletedconcurrentlywiththehold;
+098wasimmediatelyreturnedtodraftandverifieddraft. Keep098draftandStoreunchanged
+until human confirms the stutter fix. Continue necessary diagnosis/repairs and
+publish development source under normal ownership rules. Current098quieterlogging
+is not a confirmed GC/stutterfix. Candidate hash5f2b9825c2692a7bc59a06517625727db16dc9fa0149e3c72093ec7fd24afeab.
+ActualPS5comparison may require furthercandidatechanges;preserve098bytes and
+097/096before newversions. See client098-publication-hold validation record.

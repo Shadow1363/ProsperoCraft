@@ -154,3 +154,13 @@ digests, package preservation, human feedback and pending console tests. GUI and
 icon credits are included in both descriptions.
 
 PR859merged on2026-10-27 at13:55:45UTC. Upstream deployment is queued; the live API still returned083when checked afterward. Do not equate the merged record with a completed Store deployment.
+
+
+## 098 held for stutter validation — 2026-10-27
+
+No098catalogPRwascreated,pushedorsubmitted. User requires confirmation that
+stutters are fixed before Store publication. GitHub098uploadcompletedwhilethe
+holdarrived;098immediatelyreturnedtoDRAFTandverifiedasdraft. Uploaded asset
+hashes match; no new publicStoreavailability is claimed.096remains the published
+release. See validation/client098-publication-hold-2026-10-27.json and
+client-stutters-098.md. Quieterlogging alone is not a confirmedGCfix.
