@@ -6,6 +6,14 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Correct visible version for the next build
+
+097still displayed096in the launcher footer because that label was hardcoded.
+The packager now injects the selected version into the native footer and startup
+logs, reading startup version from its manifest. Host previews default to
+Development. Existing097/096packages remain unchanged; this correction ships in
+the next candidate and still needs PS5 visual confirmation.
+
 ## 2026-10-27 — Client097 requests supported120Hz output
 
 The user reports60/61FPS with VSync disabled and a120FPS target. Enable the

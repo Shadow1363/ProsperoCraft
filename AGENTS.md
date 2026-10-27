@@ -1037,3 +1037,14 @@ and its validation. Preserve exact096release/candidate and frozen milestones;
 continue main/temp_gametest channel. No new public release/Store update requested.
 Console output/F3FPS,controls/audio/quit-relaunch and60Hz fallback need validation.
 Home, hosting and endurance remain deferred. Original game JARs are unchanged.
+
+
+## Visible build identity — 2026-10-27
+
+User reports097launcher footer still shows096and requests correcting this in the
+next build. The native packager now passes PROSPERO_APP_VERSION from its selected
+version; startup version comes from client/startup/param.json. Footer,session
+identity and build note use that injected value. Host previews without the flag
+say Development. Preserve exact097/096packages; this source correction awaits
+the next candidate build and PS5 visible-version confirmation. Never change only
+the folder name or rebuild existing accepted/published bytes under the same ID.

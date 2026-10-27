@@ -1,5 +1,8 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #pragma once
+#ifndef PROSPERO_APP_VERSION
+#define PROSPERO_APP_VERSION "Development"
+#endif
 #include "demo_renderer.hpp"
 #include "branding_logo.hpp"
 #include "instance_icons.hpp"
@@ -267,7 +270,7 @@ inline void compose(Canvas& c) noexcept {
   c.rounded(72,982,1770,5,2,ink(0x233c2c));if(number(20)>0)c.rounded(72,982,unsigned(1770*number(20)/1000),5,2,ink(0xa9eab6));
 #endif
  }else if(page!=3)title(c,78,949,fields[2].data(),24,1760,0x83a58d);
- control_label(c,76,1020,fields[7].data(),20,0x7d9f89);label(c,1650,1020,"01.000.096",24,0x7d9f89);
+ control_label(c,76,1020,fields[7].data(),20,0x7d9f89);label(c,1650,1020,PROSPERO_APP_VERSION,24,0x7d9f89);
 }
 #ifdef PROSPERO_TOOLKIT
 inline std::uint64_t toolkit_frame_time=0;
