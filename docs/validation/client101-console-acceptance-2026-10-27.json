@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.101",
+  "title_id": "PPSA99874",
+  "package_sha256": "c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131",
+  "native_elf_sha256": "7cc235181f325f595518adf95e8a22f2a9d39f7fdf827a3ba97cf829ba25e02d",
+  "tested_implementation_commit": "943bc4e7a8a6cbf59932f3f74574e4b363217d1c",
+  "human_report": "All functional;requestsProsperoStore release.",
+  "accepted_scope": [
+    "Sign-in/restoration routes to Instances and correctSignIn/SignOut action",
+    "New-library snapshot defaultOFF,cleareractive tabs,dropdown-onlyresolution",
+    "Cursor-onlygame menus withtext-keyboardcontrolsretained",
+    "Owned-player skinrepair integratedfromJava0124"
+  ],
+  "limits": [
+    "Humanacceptanceofrequested101functionality,notnewindependentcurrent-runlogcorroboration",
+    "No measured101FPS/frametimes,endurance or exhaustivememory/lifecyclecoverage",
+    "No newJava/runtimeprobeALLPASS or blanketcompatibilitymilestone inferred"
+  ],
+  "publication_authorization": "Publish exact101fullGitHubreleaseandProsperoStoreupdate;public-facingnotes,matchingOpenALsource/relink/checksums. Preserve100andfrozenartifacts."
+}

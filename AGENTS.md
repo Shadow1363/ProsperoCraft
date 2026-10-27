@@ -1163,3 +1163,16 @@ Net.available;runtime0124inJava repo fixes deniedTCPavailabilityestimate. Consum
  docs/client-launcher-controls-skins-101.md andmatchingvalidation.100releaseand
 Store remainexact/unchanged;101notreleased/frozen. All101PS5UI,input,skin,reload/
 lifecyclechecks pending. Publishruntimefix throughruntime sync;consumerhere.
+
+
+## Accepted101 publication — 2026-10-27
+
+Human reports all requested101functions work and explicitly requests a
+ProsperoStore release. Publish exact01.000.101package
+c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131,
+without rebuilding,asfullGitHubreleaseandupdateexistingStorelisting. Retain
+public-facingnotes,GUI/iconcredits,OpenALsource/relinkkitandchecksums. Acceptance
+coversrequestedlauncher/account/input/skinfeatures,notmeasuredFPS/endurance or
+exhaustivememory/lifecyclecoverage. Preserve100/older/frozensnapshots;098draft
+unchanged. RecordJava0124skin-integrationacceptanceinJava repo andconsumerhere.
+Verifyuploads/downloads,StorePRchecks/merge/deploymentandliveAPI honestly.

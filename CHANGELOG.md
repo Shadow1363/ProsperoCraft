@@ -6,6 +6,15 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Accepted101 functional release
+
+All requested101launcher,account,input andskin changes receive functional PS5
+acceptance and explicit Store release authorization. Publish the exact tested
+package as01.000.101 with matching OpenAL source/relink materials,checksums and
+public notes. Preserve100and older releases;no rebuild. Java0124acceptance is
+recorded separately in the Java repository. Broader endurance/memory/lifecycle
+tests remain incomplete. [Release notes](docs/releases/client-launcher-skins-101.md).
+
 ## 2026-10-27 — Client101 account, controls and skin-stream candidate
 
 Sign-in/restoration returns to Instances; account action follows signed state.
