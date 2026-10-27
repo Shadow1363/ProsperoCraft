@@ -22,7 +22,7 @@ Install the release's **PPSA99874.zip** using your normal homebrew workflow. The
 
 The client and server share **PPSA99874**: installing one replaces the other. Back up your worlds and preserve `/download0/ProsperoCraft` when updating. Storage remains 4 GiB; existing instances and cache are retained. Instance deletion is permanent after confirmation, including that instance's worlds—there is no Undo for new deletions.
 
-Development108 adds required-mod dependency checks and automatic Fabric API module repair before launch. It retains107's Uninstall buttons and larger project icons. Keyboard input is confirmed on PS5; mouse, Controlify, audio/lifecycle and dependency108 testing remain pending. See [development notes](docs/client-auto-dependencies-108.md).
+Development108 adds required-mod dependency checks and automatic Fabric API module repair before launch. It retains107's Uninstall buttons and larger project icons. Keyboard/mouse gameplay support is marked complete at the user’s request; Controlify, audio/lifecycle and dependency108 testing remain pending. See [development notes](docs/client-auto-dependencies-108.md).
 
 ## Current status
 
@@ -64,7 +64,8 @@ Development continues on `main`, which contains the merged authenticated game-te
 - [ ] Performance sufficient for shaders.
 - [ ] Custom menu music by CogiArt.
 - [ ] `.mrpack` imports.
-- [ ] Keyboard/mouse gameplay and controller remapping — development105; PS5 device validation pending.
+- [x] Keyboard/mouse gameplay support.
+- [ ] Controller remapping — implemented in development; broader PS5 validation pending.
 - [ ] JVM 21 for broader Minecraft support.
 - [ ] JVM 17 for even broader Minecraft support.
 - [ ] Custom AMD Ryzen Zen 2 8C/16T CPU identification.
