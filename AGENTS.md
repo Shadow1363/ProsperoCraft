@@ -853,3 +853,19 @@ Readback/tiled upload cost and pre-JVM graphics compatibility require actual
 startup/performance/handoff/gameplay/audio/lifecycle/Delete/Undo success. Preserve
 083/082public artifacts,084/085/086candidates and frozen milestones. Shared087
 source reaches main,codex/demo,codex/offline; no Store/release asset replacement.
+
+## Toolkit visual polish — 2026-10-27
+
+User explicitly wants the existing layout with Aurora Shelf-style visual polish,
+not a shelf-layout replacement.088 uses real animated toolkit backgrounds/glass,
+GridView/Card entrances/focus/lift/glow, Dialog open/close, Painter switches and
+ProgressBar motion. Read docs/client-motion-088.md. Settings Square cycles all10
+pinned backdrop modes; additive settings.background persists and defaults to2
+(Aurora). Previously unused mailbox75/76 carry validated mode/name; total80fields
+and JNI thread ownership stay unchanged. Reduced Motion freezes/snap effects.
+Keep shared Demo/Offline policy, original game/OSHI, data paths and LoadExec gate.
+No toolkit audio backend. Continuous30Hz redraw request plus blur/readback needs
+actual088PS5performance/startup/handoff/gameplay/lifecycle/Delete/Undo validation;
+host motion clips are fixed-clock Vulkan readbacks, not consoleFPS evidence.
+Preserve087and earlier candidates, public083/082and frozen milestones. Publish
+sharedsource to main,codex/demo,codex/offline; no automatic Store/release update.

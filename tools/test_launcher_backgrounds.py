@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+"""Exercise real persisted backdrop choices through the existing Settings model."""
+from pathlib import Path
+import subprocess,tempfile
+ROOT=Path(__file__).resolve().parents[1]
+JDK=Path('/Library/Java/JavaVirtualMachines/openjdk-25.jdk/Contents/Home')
+source=r'''
+import java.nio.file.*;
+public class BackgroundCheck {
+ public static void main(String[] args)throws Exception {
+  Path root=Path.of(args[0]);var library=new ProsperoLibrary(root);library.settings().showIntro=false;
+  var instance=library.add("Keep my world","26.3",1);Path world=library.game(instance).resolve("saves/Keep/level.dat");Files.createDirectories(world.getParent());Files.writeString(world,"unchanged");library.save();
+  var model=new ProsperoLauncher(new ProsperoAuth(),root,null);model.tick(0x800);model.tick(0x4000);
+  if(!model.tick(0)[11].equals("2")||!model.tick(0)[75].equals("2"))throw new AssertionError("Settings/default Aurora");
+  for(int i=0;i<10;i++){
+   int expected=(2+i)%10+1;var fields=model.tick(0x8000);
+   if(!fields[75].equals(""+expected)||!fields[76].equals(ProsperoLauncher.BACKGROUNDS[expected-1]))throw new AssertionError("mode mapping");
+   if(new ProsperoLibrary(root).settings().background!=expected)throw new AssertionError("not persistent");
+  }
+  if(!Files.readString(world).equals("unchanged")||new ProsperoLibrary(root).instances().size()!=1)throw new AssertionError("world changed");
+  Path file=root.resolve("library.json");String data=Files.readString(file);Files.writeString(file,data.replace("\"background\": 2","\"background\": 999"));
+  if(new ProsperoLibrary(root).settings().background!=2)throw new AssertionError("invalid mode fallback");
+  Files.writeString(file,data.replace("\"background\": 2,",""));if(new ProsperoLibrary(root).settings().background!=2)throw new AssertionError("older library default");
+  System.out.println("PASS actual Settings Square cycles all10toolkit backgrounds,persists after reopen,defaults old/invalid preferences to Aurora,retains instance/world bytes");
+ }
+}'''
+with tempfile.TemporaryDirectory() as d:
+ work=Path(d);(work/'BackgroundCheck.java').write_text(source);cp=str(ROOT/'.tools/client/gson-2.14.0.jar')
+ subprocess.run([str(JDK/'bin/javac'),'--release','25','-cp',cp,'-d',str(work),*[str(p) for p in (ROOT/'client/launcher/java').glob('*.java')],str(work/'BackgroundCheck.java')],check=True)
+ subprocess.run([str(JDK/'bin/java'),'-cp',str(work)+':'+cp,'BackgroundCheck',str(work/'data')],check=True)

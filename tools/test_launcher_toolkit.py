@@ -13,6 +13,7 @@ int main(int argc,char** argv){
  assert(argc==2);
  for(int cycle=0;cycle<3;cycle++){
   prospero_ui::Surface s;assert(s.init(argv[1]));
+  s.glass=cycle>0;s.backdrop.mode=hui::gfx::BackdropMode::aurora;
   for(unsigned frame=0;frame<12;frame++){
    s.list.clear();s.list.rounded_rect({0,0,1920,1080},0,hui::gfx::Color::rgb(frame%2?0x123456:0xabcdef));
    assert(s.render());auto* pixels=static_cast<const unsigned char*>(s.pixels);

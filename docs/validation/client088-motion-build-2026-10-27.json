@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.088",
+  "title_id": "PPSA99874",
+  "base_main_commit": "adddb377ff3714409f7c250e7b3892c0757a8cc3",
+  "toolkit_revision": "2188642afbcc8d84d36149124f3d9e39dc1b1a05",
+  "upstream_patches": [],
+  "channels": {
+    "demo": {
+      "branch": "codex/demo",
+      "package_sha256": "f3a2536f8273f85042a80785675d3b1e0eba5e95c0b014ecb64a0a24f049cfe3",
+      "native_elf_sha256": "b072b210ab77d1037c90d2dc109f38c8023d7894bf5a589fc9fc3bd7514a9dac",
+      "offline_public_key_included": false,
+      "console_status": "PENDING exact088"
+    },
+    "offline": {
+      "branch": "codex/offline",
+      "package_sha256": "e0fd45ecd7a12203174cdbb8e3d78f672877d4ba0c8b2363721258df18cb23f5",
+      "native_elf_sha256": "b072b210ab77d1037c90d2dc109f38c8023d7894bf5a589fc9fc3bd7514a9dac",
+      "offline_public_key_included": true,
+      "console_status": "PENDING exact088"
+    }
+  },
+  "scope": "Keep existing layout; adopt real toolkit backdrops,glass,GridView/Card motion,Dialog open/close,animated switches/progress and display typography",
+  "source_sha256": {
+    "client/launcher/native_menu.hpp": "ba9b3769b3f81fb47648c26a27f7dab10318f0922755b45866dfb22b98a2a02a",
+    "client/launcher/toolkit_canvas.hpp": "c9b3aa24d9992700f36af58b317b43cc0f3e0db740e6cc9a4a0ae88b711cbf21",
+    "client/launcher/toolkit_surface.hpp": "81a1b2a4d5bbdb02fb013c0007b5dde0481aeea194da79dbfaa6030bed79ce53",
+    "client/launcher/toolkit_effects.hpp": "862ca00ba0d59d98a89ff24e52dfa81d4852f44ef60fdf5528abaa53db73933b",
+    "client/launcher/java/ProsperoLauncher.java": "07df831a7f77e03fa73b1fdb6e31b0aa9b956f2155fc5459d700553cb8f24b79",
+    "client/launcher/java/ProsperoLibrary.java": "a29c6b2ab6446f9a85c96a38977940878532a24bb055da1f1e1562bb63a372eb",
+    "client/startup/bootstrap.cpp": "b1b33fac047eaaf77735afcff5d824412fe4dfc112aa5e56757d3b0f806d66ff",
+    "tools/build_launcher_toolkit.py": "f35bf716e3d647174e1025fccff0b8a349e25f606fd681feedbd5df7ae5441b8",
+    "tools/preview_launcher_toolkit.py": "5d938fe5d6a7ad6cb88276868b494d21d0d8e146e515b8927b295c8b53129a2d",
+    "tools/test_launcher_backgrounds.py": "4488246783217e3f3c4fda4274cfa433ca79a23ef056ae3074401778481a7dc7"
+  },
+  "background_preference": {
+    "control": "Settings Square",
+    "modes": [
+      "Gradient",
+      "Aurora",
+      "Grid",
+      "Stars",
+      "Waves",
+      "Bokeh",
+      "Phosphor",
+      "Paper",
+      "Dots",
+      "Vista"
+    ],
+    "default": 2,
+    "mailbox_fields": [
+      75,
+      76
+    ],
+    "mailbox_total": 80
+  },
+  "host_checks": [
+    "PASS real Settings cycling/persistence/older and invalid default migration/world-byte retention",
+    "PASS all10backdrop modes with actual Vulkan glass composition",
+    "PASS180frame native Vulkan motion tour,visually inspected and encoded into fixed24Hz WebP;not PS5FPS",
+    "PASS pixel-identical repeated rendered Reduced Motion frames",
+    "PASS17native page states inspected;top-bar ink centering within1px",
+    "PASS actual controller/JNI/native-first frontend and display close/unmap/release/join fixtures with toolkit rendering",
+    "PASS repeated single-slot Vulkan submissions/readback/glass resource banks,partial-init failure and timeout retention",
+    "PASS existing instances/rename/icon/keyboard/settings/download/cancel/repair and selected-version guard regressions",
+    "PASS Delete/Cancel/busy/Trash/restart Undo/world preservation regressions",
+    "PASS Demo/Offline ownership/key/expiry/signature separation and auth regressions",
+    "PASS original Main host native boundary,CPU handoff,normal-quit gate and process-replacement fixtures",
+    "PASS both target builds/signatures/packageCRC/source/license/dependency/allocator/staged-constructor audits",
+    "PASS identical shared Java classes/native executable in both variants,correct channel resources and Demo key omission",
+    "PASS preserved084/085/086/087and frozen/published packages",
+    "PASS7pinned Vulkan1.0 SPIR-V modules and exact locally recompiled binary words",
+    "PASS Python syntax and git whitespace checks"
+  ],
+  "console_checks_pending": [
+    "Both channels cold native startup and responsive busy account/download work",
+    "All backgrounds/persistence/readability and live animation smoothness/memory headroom",
+    "Reduced Motion,card focus/page/dialog/toggle/keyboard/input behavior",
+    "Download cancellation/retry/repair and unsupported-version guard",
+    "Demo/Offline auth separation,Delete/Cancel/busy/restart Undo with same saved world/options",
+    "Game handoff,1080p clicks,controls/audio/CPU debug/gameplay/save-reload",
+    "At least3Quit/library/relaunch cycles"
+  ],
+  "limitations": [
+    "Continuous motion requests about30Hz but actual console performance is unmeasured",
+    "One synchronous GPU readback/tiled upload remains;glass adds GPU work",
+    "Host preview uses lavapipe direct ICD without Khronos validation layers",
+    "Shader literal check differs only compiler version comments;binary words unchanged"
+  ],
+  "game_jar_modified": false,
+  "world_data_migration": false,
+  "auth_policy_changed": false,
+  "display_ownership_changed": false,
+  "audio_backend_added": false,
+  "runtime_source_changes": false,
+  "new_frozen_milestone": false,
+  "store_release_changed": false
+}

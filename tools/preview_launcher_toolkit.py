@@ -11,6 +11,7 @@ from build_launcher_toolkit import ROOT, KIT, LLVM, build
 
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--runtime-workspace',required=True,type=Path)
+p.add_argument('--motion',action='store_true')
 a=p.parse_args()
 work=ROOT/'build/launcher-toolkit-preview';work.mkdir(parents=True,exist_ok=True)
 objects=build(work)
@@ -26,8 +27,45 @@ source=(ROOT/'build/launcher-preview/preview.cpp').read_text()
 source=source.replace(str(runtime/'native/renderer/demo_renderer.cpp'),str(work/'videoout_host.cpp'))
 source=source.replace('#include "'+str(ROOT/'client/launcher/native_menu.hpp')+'"', '#define PROSPERO_TOOLKIT 1\n#define PROSPERO_TOOLKIT_FONT_DIR "'+str(KIT/'assets/fonts')+'"\n#include "'+str(ROOT/'client/launcher/native_menu.hpp')+'"\nnamespace prospero_menu {void initialize_toolkit_graphics(){}}')
 source=source.replace('output=std::string(argv[1])+"/"+scene+".ppm";prospero_menu::focus={};', 'output=std::string(argv[1])+"/"+scene+".ppm";prospero_menu::focus={};for(int settle=0;settle<60;settle++){prospero_ui::surface->list.clear();prospero_ui::Canvas canvas;prospero_menu::compose(canvas);}')
+source=source.replace('snprintf(prospero_menu::fields[at+3].data(),512,"READY");', 'snprintf(prospero_menu::fields[at+3].data(),512,"%s",i==4?"NOT YET":"READY");')
 source=source.replace('snprintf(prospero_menu::fields[13].data(),512,"6");', 'snprintf(prospero_menu::fields[13].data(),512,"6");snprintf(prospero_menu::fields[30].data(),512,"OFF");snprintf(prospero_menu::fields[73].data(),512,"DEMO BRANCH");')
+source=source.replace('int main', 'static void settle_preview(){for(int i=0;i<90;i++){prospero_ui::dt=1.0f/30;prospero_ui::surface->list.clear();prospero_ui::Canvas c;prospero_menu::compose(c);}}\nint main',1)
+source=source.replace('prospero_menu::focus={};assert(ps5::demo::run_ui_until', 'prospero_menu::focus={};settle_preview();assert(ps5::demo::run_ui_until')
 source=source.replace('int main(int argc,char**argv){assert(argc==2);','int main(int argc,char**argv){assert(argc==2);assert(prospero_ui::open(PROSPERO_TOOLKIT_FONT_DIR));')
+if a.motion:
+    motion=r'''
+  auto set_field=[](int at,const char* value){snprintf(prospero_menu::fields[at].data(),512,"%s",value);};
+  set_field(16,"Vanilla 26.3");set_field(17,"26.3");set_field(65,"26.3 native SDL gameplay");set_field(7,"L1 / R1  Top bar     D-PAD  Navigate     X  Select     CIRCLE  Library");
+  set_field(13,"6");set_field(14,"0");set_field(69,"SUPPORTED");set_field(6,"PLAY DEMO");set_field(30,"OFF");set_field(73,"DEMO BRANCH");set_field(28,"CONTENT");set_field(15,"0");
+  // Force a real entrance, then replay native focus/page/background changes.
+  prospero_ui::effects->page=-1;
+  for(int frame=0;frame<180;frame++){
+   set_field(11,frame<60?"0":frame<100?"4":frame<140?"2":frame<160?"9":"0");
+   set_field(75,frame<100?"2":frame<120?"5":"6");set_field(76,frame<100?"Aurora":frame<120?"Waves":"Bokeh");
+   char index[8];snprintf(index,sizeof(index),"%d",frame<60?frame/20:0);set_field(9,index);
+   set_field(64,frame>=60&&frame<100?"BUSY":"IDLE");char progress[16];snprintf(progress,sizeof(progress),"%d",std::clamp((frame-60)*25,0,1000));set_field(20,progress);set_field(2,frame>=60&&frame<100?"Downloading verified publisher files...":"");
+   prospero_ui::dt=1.0f/24;prospero_ui::surface->list.clear();prospero_ui::Canvas canvas;prospero_menu::compose(canvas);assert(prospero_ui::surface->render());
+   auto* px=static_cast<const unsigned char*>(prospero_ui::surface->pixels);char name[64];snprintf(name,sizeof(name),"/motion-%03d.ppm",frame);
+   std::ofstream f(std::string(argv[1])+name,std::ios::binary);f<<"P6\n1920 1080\n255\n";
+   for(int pixel=0;pixel<1920*1080;pixel++)f.write(reinterpret_cast<const char*>(px+pixel*4),3);
+  }
+  set_field(11,"0");set_field(9,"0");set_field(30,"ON");set_field(75,"2");settle_preview();
+  assert(prospero_ui::surface->render());std::vector<unsigned char> frozen(1920*1080*4);memcpy(frozen.data(),prospero_ui::surface->pixels,frozen.size());
+  for(int frame=0;frame<4;frame++){prospero_ui::surface->list.clear();prospero_ui::Canvas canvas;prospero_menu::compose(canvas);assert(prospero_ui::surface->render());assert(memcmp(frozen.data(),prospero_ui::surface->pixels,frozen.size())==0);}
+  puts("PASS actual rendered Reduced Motion frames remain pixel-identical; native180frame motion tour captured through Vulkan");
+  set_field(30,"OFF");
+  const char* backgrounds[]={"Gradient","Aurora","Grid","Stars","Waves","Bokeh","Phosphor","Paper","Dots","Vista"};
+  for(int mode=1;mode<=10;mode++){
+   char value[8];snprintf(value,sizeof(value),"%d",mode);set_field(75,value);set_field(76,backgrounds[mode-1]);settle_preview();
+   assert(int(prospero_ui::surface->backdrop.mode)==mode);assert(prospero_ui::surface->render());
+   auto* px=static_cast<const unsigned char*>(prospero_ui::surface->pixels);std::ofstream f(std::string(argv[1])+"/background-"+backgrounds[mode-1]+".ppm",std::ios::binary);f<<"P6\n1920 1080\n255\n";
+   for(int pixel=0;pixel<1920*1080;pixel++)f.write(reinterpret_cast<const char*>(px+pixel*4),3);
+  }
+  puts("PASS all10actual toolkit backdrop modes rendered with glass on the real single-slot Vulkan surface");
+
+  set_field(30,"OFF");
+'''
+    source=source.replace(' for(failure=1;failure<=3;failure++)',motion+'\n for(failure=1;failure<=3;failure++)')
 source=source.replace('static void animation_check(ps5::demo::Canvas& c) noexcept {','static void animation_check(ps5::demo::Canvas&) noexcept {prospero_ui::Canvas c;')
 # The legacy discrete interpolation assertion has its own fixture. Here dt
 # and the toolkit spring are exercised by the rendered controller transitions.
@@ -39,5 +77,13 @@ subprocess.run([str(LLVM/'clang++'),'-std=c++20','-O1','-Wno-unused-function','-
 subprocess.run([str(work/'preview'),str(work)],check=True,timeout=180)
 from PIL import Image
 for path in work.glob('*.ppm'):
+    if path.name.startswith('motion-'):continue
     with Image.open(path) as picture: picture.save(path.with_suffix('.png'))
 print(work/'home.png')
+
+if a.motion:
+    frames=[]
+    for path in sorted(work.glob('motion-*.ppm')):
+        with Image.open(path) as picture:frames.append(picture.resize((960,540)).copy())
+    frames[0].save(work/'motion.webp',save_all=True,append_images=frames[1:],duration=42,loop=0,quality=78,method=4)
+    print(work/'motion.webp')
