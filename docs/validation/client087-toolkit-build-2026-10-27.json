@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.087",
+  "title_id": "PPSA99874",
+  "base_main_commit": "c7cd8a613d916b2426e8bd24a751f4135d53b66d",
+  "toolkit": {
+    "repository": "https://github.com/mihawk-99/PS5_VKHomebrewUI",
+    "revision": "2188642afbcc8d84d36149124f3d9e39dc1b1a05",
+    "patches": [],
+    "backend": "hui::gfx::VkRenderer",
+    "rendering": "Private offscreen RADV Vulkan1.0 device,1frame slot,completed readback through existing native VideoOut",
+    "upstream_code_credit": "BlackBearReloaded",
+    "vulkan_credit": "Mihawk / mihawk-99"
+  },
+  "runtime_dependency": {
+    "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+    "commit": "d05f68d",
+    "change": "Checked Canvas::blit_rgba;published via tools/sync_github.py and push verified"
+  },
+  "channels": {
+    "demo": {
+      "branch": "codex/demo",
+      "package": "dist/candidates/ProsperoCraft-Demo-01.000.087/PPSA99874.zip",
+      "package_sha256": "713220cd141db537ba322824bdab7d05b4b08ced6d43feb72da3608c69ca88e1",
+      "native_elf_sha256": "16408ab21c7ba40de815386eb197246f8e4e119ca188232ed3c1dfa374f25cd9",
+      "native_executable_sha256": "68f378b82e294ba4a90dc7035ffce4deb7db062d8f4efdfa7c46b11e0ce2da97",
+      "packaged_channel": "demo",
+      "offline_public_key_included": false,
+      "console_status": "PENDING exact087;no new console pass"
+    },
+    "offline": {
+      "branch": "codex/offline",
+      "package": "dist/candidates/ProsperoCraft-Offline-01.000.087/PPSA99874.zip",
+      "package_sha256": "af7048434eb987ab84b62f787bb8486e77b66257674e94a04af8fe210f74463e",
+      "native_elf_sha256": "16408ab21c7ba40de815386eb197246f8e4e119ca188232ed3c1dfa374f25cd9",
+      "native_executable_sha256": "68f378b82e294ba4a90dc7035ffce4deb7db062d8f4efdfa7c46b11e0ce2da97",
+      "packaged_channel": "offline",
+      "offline_public_key_included": true,
+      "console_status": "PENDING exact087;no new console pass"
+    }
+  },
+  "source_sha256": {
+    "client/launcher/native_menu.hpp": "b1d6afa5ed51be40869a6050639c16aa8dcdfa2b1ca4da2939a968e62bb6e3fe",
+    "client/launcher/navigation.hpp": "6e10ed0ad272eb787c0d24fb6eeac37e0f2c04099159578d2eaedd97ceb6d2f2",
+    "client/launcher/toolkit_canvas.hpp": "c93edfe201058dae59009674f7c90609cb728c0837b17675c4109b0ecdcfb8f1",
+    "client/launcher/toolkit_surface.hpp": "165d9ba5ef162f116aa3cea333585174d25ccde05821b5255b0e4751c45a90bd",
+    "client/launcher/toolkit/upstream.json": "2a7fbd3caf97f9611db59d2da385e618f8a5aee932d0d02766ff44b8f53c3690",
+    "client/startup/bootstrap.cpp": "541c1ce78cf95ee2771b512c39a1a7c37046ca2e185fb6b198948be5984712f0",
+    "client/startup/ClientStartup25.java": "2108e2d7257a77147ffbaccd31c1bfbb9070f13c084dcb3f2420e7d19bc8550f",
+    "client/startup/session_restart.hpp": "cc0b0740d3565661c1dd2172976a643b8e9f2504c183d430e8bc8b8301a3524b",
+    "client/gpu/bridge.c": "e5a1da3807e2535c17c68b8b777c0c93ab09ddc193551de3fce517176811b8a5",
+    "tools/build_launcher_toolkit.py": "5ee35b8449ad14ab3493e3d3e937d2b21c6d548a4ccb7113e5f6e5991329c90c",
+    "tools/package_client_gpu_link.py": "ed4ec9c08d8b5acaf361bfc20e70e2c753c617563ac67852c3098b72042524cb",
+    "tools/package_client_vulkan.py": "491de780716a8ab0e37ba651a6f49e2df476e2883a139ec7b791f066f1693391",
+    "client/launcher/java/ProsperoAuth.java": "3286d4e87360d4a523524d88cf31eb8442dfae79dbe343c23dbb153f70190a91",
+    "client/launcher/java/ProsperoChannel.java": "55b2bb7abdb5300ee5abbd1ed2afbdff9e8f0d29b5056d94a805c1ddf934f722",
+    "client/launcher/java/ProsperoInstall.java": "4f5c660d61840ec992661b4e1afce8170cb9d8070d212e3b29c0a4eb2f517a66",
+    "client/launcher/java/ProsperoLauncher.java": "7c4438d5b912eff8a5e8d01c36a94a91b301399735218507e76961b127689326",
+    "client/launcher/java/ProsperoLibrary.java": "7427360d065c6985fbd6948fb96a2f0417bb8fe9a474c5de5fbb7e884a16274a",
+    "client/launcher/java/ProsperoOfflineAccount.java": "11e80494bcbd013acc399c0d8003f1c2535228e63ffc7560f62890721bfb4e77",
+    "client/launcher/java/ProsperoSession.java": "664f6926d2e049d5b9acd2ded7c4778afb0ecdab810cd926ef0425ba71af7364",
+    "client/launcher/java/ProsperoStorage.java": "011fd981f75e4915c749d41585259941d8f80a4d9f92db72a0c2a561169939f5"
+  },
+  "host_checks": [
+    "PASS native navigation under ASan/UBSan",
+    "PASS instance/model/keyboard/rename/icon/settings/install/cancellation/repair and unsupported-version guard",
+    "PASS Delete/Cancel/busy/Trash/restart Undo and world/options/cache/account preservation",
+    "PASS Demo/Offline proof isolation,signature/key/expiry/ownership checks",
+    "PASS auth polling/errors/cancellation/redaction fixtures;no live credentials used",
+    "PASS54original publisherJARs and5147asset objects through verified installer;official gameJAR unchanged",
+    "PASS clean original-Main return gate and3host exec replacement cycles",
+    "PASS original CPU debug method through retained OSHI overlay;SDL1080p/input fixtures",
+    "PASS actual Vulkan previews for17states,visually inspected;9topbar label contexts within1px",
+    "PASS native frontend before JVM,ordered controller mailbox,JNI calls on attached owner thread,close/unmap/release/join fixtures with actual Vulkan drawing",
+    "PASS3Vulkan device/resource cycles and36ordered frame/readbacks,partial-font-init cleanup and simulated timeout retention",
+    "PASS7pinned Vulkan1.0 SPIR-V modules via spirv-val;all binary words equal local compiler output",
+    "PASS runtime complete1080p tiled blit,padded rows,rejected short/invalid input under ASan/UBSan",
+    "PASS both full target builds/link/signature/CRC/source/font/license/package audits;no automatic constructors;explicit1toolkit+359JVM+4GPU+5shaderc+15OpenAL+1GL constructors",
+    "PASS identical shared Java classes and native executable in both channel packages;Demo offline key omitted",
+    "PASS no raw allocator references in toolkit units;paired C++ new/delete bridge retained",
+    "PASS preserved084/085/086 and frozen/published packages unchanged"
+  ],
+  "limitations": [
+    "No exact087PS5startup/responsiveness/performance/gameplay/audio/handoff/lifecycle/Delete/Undo validation",
+    "One synchronous GPU readback and tiled upload per changed launcher frame;console cost unmeasured",
+    "Host direct-ICD lavapipe previews have no Khronos validation layers;no validation-layer-clean claim",
+    "Upstream literal shader--check differs only glslang16.4/16.6version comments;SPIR-V words and pinned files unchanged",
+    "Standard Vulkan initialization/upload/idle calls can block;five-second frame fence timeout retains uncertain GPU resources and blocks handoff"
+  ],
+  "console_checks_pending": [
+    "Cold native startup before Java and responsive account/download work in both channels",
+    "TV typography,transitions,focus/stick/keyboard/dialogs,reduced motion and persistent preferences",
+    "Download/cancel/retry/repair and selected unsupported-version guard",
+    "Demo rejects Offline proofs;Offline signed unexpired proof required",
+    "Cancel-first deletion,busy protection,restart Triangle Undo and same-world/options reload",
+    "Game handoff,1080p clicks,controls/audio,CPU/GPU debug text,gameplay/save/reload",
+    "Quit/library/relaunch at least3cycles;no stuck display,cursor,audio or replaced-process regression"
+  ],
+  "java_model_changed": false,
+  "game_jar_modified": false,
+  "oshi_overlay_sha256": "ab6632676b96d5fd82e4d90c6f5b6848e743c99e8988d69e345a7320edd99b31",
+  "data_migration": false,
+  "new_frozen_milestone": false,
+  "store_release_changed": false
+}

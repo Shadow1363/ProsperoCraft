@@ -4,6 +4,9 @@
 #include "branding_logo.hpp"
 #include "navigation.hpp"
 #include "fonts.hpp"
+#ifdef PROSPERO_TOOLKIT
+#include "toolkit_canvas.hpp"
+#endif
 #include <array>
 #include <cstdio>
 #include <cstdlib>
@@ -13,7 +16,11 @@
 extern "C" int sceKernelUsleep(std::uint32_t);
 extern "C" std::uint64_t sceKernelGetProcessTime();
 namespace prospero_menu {
+#ifdef PROSPERO_TOOLKIT
+using prospero_ui::Canvas;
+#else
 using ps5::demo::Canvas;
+#endif
 constexpr std::uint32_t ink(std::uint32_t rgb){return 0xff000000u|((rgb&255)<<16)|(rgb&0xff00)|((rgb>>16)&255);}
 using Fields=std::array<std::array<char,512>,80>;
 // Only the native UI thread draws/reads the controller. JNI stays on the JVM
@@ -53,12 +60,23 @@ inline void title(Canvas& c,int x,int y,const char* text,unsigned size=30,unsign
 }
 struct TextOrigin {int x,y;};
 inline TextOrigin centered_text(int x,int y,int width,int height,std::string_view text,unsigned size){
+#ifdef PROSPERO_TOOLKIT
+ const auto& font=*(size>=30?prospero_ui::surface->fonts.semibold.font:prospero_ui::surface->fonts.regular.font);
+ std::vector<hui::gfx::GlyphQuad> glyphs; font.layout(text,0,0,float(size),hui::gfx::Align::left,glyphs);
+ float left=0,right=0,top=0,bottom=0;bool first=true;
+ for(const auto& g:glyphs){if(first){left=g.x0;right=g.x1;top=g.y0;bottom=g.y1;first=false;}else{left=std::min(left,g.x0);right=std::max(right,g.x1);top=std::min(top,g.y0);bottom=std::max(bottom,g.y1);}}
+ return {int(std::lround(x+(width-(right-left))/2-left)),int(std::lround(y+(height-(bottom-top))/2-top-font.ascent(float(size))))};
+#else
  const auto& font=ui_font::get(size);int pen=0,left=0,right=0,top=0,bottom=0;bool inked=false;
  for(unsigned char ch:text){const auto& glyph=font.glyphs[(ch>=32&&ch<=126?ch:'?')-32];if(glyph.w>0&&glyph.h>0){int l=pen+glyph.x,r=l+glyph.w,t=glyph.y,b=t+glyph.h;if(!inked){left=l;right=r;top=t;bottom=b;inked=true;}else{if(l<left)left=l;if(r>right)right=r;if(t<top)top=t;if(b>bottom)bottom=b;}}pen+=glyph.advance;}
  return {x+(width-(right-left))/2-left,y+(height-(bottom-top))/2-top};
+#endif
 }
 inline int number(int index){return std::atoi(fields[index].data());}
 inline void block(Canvas& c,int x,int y,int size,int kind){
+#ifdef PROSPERO_TOOLKIT
+ if(kind==0){c.logo(x,y,size);return;}
+#endif
  if(kind==0){for(int yy=0;yy<72;++yy)for(int xx=0;xx<72;++xx){auto color=logo_pixels[yy*72+xx];if(color)c.rectangle(x+xx*size/72,y+yy*size/72,(size+71)/72,(size+71)/72,static_cast<ps5::demo::Color>(color));}return;}
  const std::uint32_t top[]={0,0x91b979,0xb7a0e4,0x79c5d8,0xe58b81,0x6ea78b,0xead27c,0xc8dfe2};
  const std::uint32_t body[]={0,0x87785a,0x6b5c91,0x355f7f,0x8a4b4f,0x3f6952,0x9f824e,0x839fa7};
@@ -66,12 +84,18 @@ inline void block(Canvas& c,int x,int y,int size,int kind){
  for(int row=0;row<4;row++)for(int col=0;col<4;col++){unsigned tile=static_cast<unsigned>(size/7);auto color=(row+col)%3==0?top[kind]:body[kind];c.rectangle(x+size/10+col*size/5,y+size/3+row*size/7,tile,tile,static_cast<ps5::demo::Color>(ink(color)));}
 }
 struct Focus {float x=0,y=0,w=0,h=0;bool initialized=false;};
-inline Focus focus{};inline std::uint64_t transition_start=0,last_draw_time=0;inline bool animating=false;
+inline Focus focus{};inline std::uint64_t transition_start=0,last_draw_time=0,component_motion_until=0;inline bool animating=false;
 inline std::uint64_t now_ms(){return sceKernelGetProcessTime()/1000;}
 inline void selection(Canvas& c,int x,int y,int w,int h){
  const bool reduced=std::strcmp(fields[30].data(),"ON")==0;
  if(!focus.initialized||reduced){focus={float(x),float(y),float(w),float(h),true};}
+ #ifdef PROSPERO_TOOLKIT
+ static hui::tween::Spring springs[4];float targets[]={float(x),float(y),float(w),float(h)};
+ float* values[]={&focus.x,&focus.y,&focus.w,&focus.h};
+ for(int i=0;i<4;i++){if(reduced||*values[i]==targets[i])springs[i].snap(targets[i]);springs[i].target=targets[i];springs[i].update(prospero_ui::dt,22);*values[i]=springs[i].value;}
+#else
  const float rate=reduced?1.0f:0.34f;focus.x+=(x-focus.x)*rate;focus.y+=(y-focus.y)*rate;focus.w+=(w-focus.w)*rate;focus.h+=(h-focus.h)*rate;
+#endif
  auto distance=[](float a,float b){return a>b?a-b:b-a;};if(distance(focus.x,float(x))+distance(focus.y,float(y))+distance(focus.w,float(w))+distance(focus.h,float(h))>1.0f)animating=true;
  else focus={float(x),float(y),float(w),float(h),true};
  const bool press=!reduced&&pressed_at&&now_ms()-pressed_at<110;
@@ -80,12 +104,19 @@ inline void selection(Canvas& c,int x,int y,int w,int h){
  c.rounded(int(focus.x)-4+inset,int(focus.y)-4+inset,unsigned(focus.w)+8-inset*2,unsigned(focus.h)+8-inset*2,22,ink(press?0xe0ffe4:0xa9eab6));
 }
 inline void action(Canvas& c,int x,int y,int w,const char* text,bool active,bool primary=false){
+#ifdef PROSPERO_TOOLKIT
+ const bool press=active&&pressed_at&&now_ms()-pressed_at<110;
+ c.button(x,y,w,76,text,active,primary,press);if(press)animating=true;
+ // Continue refreshing while the component's own focus and press springs settle.
+ if(now_ms()<component_motion_until)animating=true;
+ return;
+#endif
  if(active)selection(c,x,y,w,76);c.rounded(x,y,w,76,18,ink(primary?0xb6f2be:0x244438));label(c,x+28,y+22,text,30,primary?0x102c1b:0xeaf0e8);
 }
 inline void row_control(Canvas& c,int y,const char* name,const char* value,bool active,bool editable=true){
  if(active)selection(c,760,y,1080,96);c.rounded(760,y,1080,96,20,ink(active?0x1e3c30:0x142b24));label(c,792,y+16,name,24,0x8fae9d);title(c,792,y+47,value,30,960);if(editable)label(c,1779,y+43,">",30,0xa9eab6);
 }
-inline void draw(Canvas& c) noexcept {
+inline void compose(Canvas& c) noexcept {
  animating=false;last_draw_time=now_ms();
  c.gradient(ink(0x0b1815),ink(0x08120f));c.disc(1760,850,380,ink(0x0c211a));
  const int page=number(11),row=number(15),selected=number(9),tab=number(12);const bool top=std::strcmp(fields[28].data(),"TOP")==0;
@@ -165,8 +196,27 @@ inline void draw(Canvas& c) noexcept {
  if(std::strcmp(fields[64].data(),"BUSY")==0){
   if(page!=3)title(c,78,942,fields[2].data(),24,1300,0xaac8b2);label(c,1450,942,fields[21].data(),24,0xaac8b2);c.rounded(72,982,1770,5,2,ink(0x233c2c));if(number(20)>0)c.rounded(72,982,unsigned(1770*number(20)/1000),5,2,ink(0xa9eab6));
  }else if(page!=3)title(c,78,949,fields[2].data(),24,1760,0x83a58d);
- label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1370,1020,fields[73].data(),18,0x7d9f89);label(c,1650,1020,"01.000.086",24,0x7d9f89);
+ label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1370,1020,fields[73].data(),18,0x7d9f89);label(c,1650,1020,"01.000.087",24,0x7d9f89);
 }
+#ifdef PROSPERO_TOOLKIT
+inline std::uint64_t toolkit_frame_time=0;
+inline void draw(ps5::demo::Canvas& output) noexcept {
+ if(prospero_ui::healthy){
+  auto time=now_ms();prospero_ui::dt=toolkit_frame_time?std::clamp(float(time-toolkit_frame_time)/1000.0f,0.001f,0.05f):1.0f/60;toolkit_frame_time=time;
+  prospero_ui::reduced=std::strcmp(fields[30].data(),"ON")==0;
+  prospero_ui::surface->list.clear();Canvas canvas;compose(canvas);
+  prospero_ui::healthy=prospero_ui::surface->render();
+  if(prospero_ui::healthy){auto* pixels=static_cast<const std::uint32_t*>(prospero_ui::surface->pixels);
+   prospero_ui::healthy=output.blit_rgba({pixels,1920*1080});
+   return;
+  }
+ }
+ output.clear(ps5::demo::Color::background);output.label(100,350,"Vulkan launcher unavailable. Game launch is blocked.",36,ink(0xeaf0e8));
+ output.label(100,430,"Keep open for logs, then close and reinstall the preserved086 candidate.",24,ink(0xa9eab6));
+}
+#else
+inline void draw(ps5::demo::Canvas& output) noexcept {compose(output);}
+#endif
 inline bool update() noexcept {
  // The second update follows the initial submit/WaitVblank in run_ui_until.
  if(++updates>=2)visible.store(true,std::memory_order_release);
@@ -189,15 +239,28 @@ inline bool update() noexcept {
   if(changed){if(std::strcmp(fields[11].data(),published[11].data())!=0){transition_start=now_ms();focus.initialized=false;}fields=published;}
   pthread_mutex_unlock(&mailbox);
  }
- if(changed||(pressed&0x4000))return true;
+ if(changed||(pressed&0x4000)){component_motion_until=now_ms()+700;return true;}
  return animating&&now_ms()-last_draw_time>=16;
 
 }
 inline bool stop() noexcept{return exit_requested.load(std::memory_order_acquire);}
 inline void* ui_main(void*) noexcept {
+#ifdef PROSPERO_TOOLKIT
+ extern void initialize_toolkit_graphics();initialize_toolkit_graphics();
+ #ifndef PROSPERO_TOOLKIT_FONT_DIR
+#define PROSPERO_TOOLKIT_FONT_DIR "/app0/assets/java25/launcher-toolkit/assets/fonts"
+#endif
+ prospero_ui::open(PROSPERO_TOOLKIT_FONT_DIR);
+#endif
  const bool closed=ps5::demo::run_ui_until(draw,update,stop,"");
+#ifdef PROSPERO_TOOLKIT
+ const bool gpu_closed=prospero_ui::close();
+#else
+ const bool gpu_closed=true;
+#endif
  scePadClose(controller);controller=-1;
- display_ok.store(closed,std::memory_order_release);display_done.store(true,std::memory_order_release);return nullptr;
+ std::fprintf(stderr,"PS5_UI handoff display_closed=%d gpu_closed=%d\n",int(closed),int(gpu_closed));
+ display_ok.store(closed&&gpu_closed,std::memory_order_release);display_done.store(true,std::memory_order_release);return nullptr;
 }
 inline bool start_frontend() noexcept {
  visible=false;online=false;exit_requested=false;display_done=false;display_ok=false;
@@ -205,9 +268,18 @@ inline bool start_frontend() noexcept {
  const char* boot[]={"Instances","","Opening your library...","","","Not signed in","PLAY DEMO","L1 / R1  Top bar     X  Select","PREPARING","0","WAIT","0"};
  for(int i=0;i<12;++i)std::snprintf(fields[i].data(),512,"%s",boot[i]);
  std::int32_t user=-1;if(sceUserServiceGetInitialUser(&user)<0)return false;controller=scePadOpen(user,0,0,nullptr);if(controller<0)return false;
- if(pthread_create(&ui_thread,nullptr,ui_main,nullptr)!=0){scePadClose(controller);controller=-1;return false;}
+ pthread_attr_t attrs;
+ if(pthread_attr_init(&attrs)!=0){scePadClose(controller);controller=-1;return false;}
+ int created=pthread_attr_setstacksize(&attrs,2*1024*1024);
+ if(created==0)created=pthread_create(&ui_thread,&attrs,ui_main,nullptr);
+ pthread_attr_destroy(&attrs);
+ if(created!=0){scePadClose(controller);controller=-1;return false;}
  while(!visible.load(std::memory_order_acquire)&&!display_done.load(std::memory_order_acquire))(void)sceKernelUsleep(1000);
- return visible.load(std::memory_order_acquire)&&!display_done.load(std::memory_order_acquire);
+ return visible.load(std::memory_order_acquire)&&!display_done.load(std::memory_order_acquire)
+#ifdef PROSPERO_TOOLKIT
+ &&prospero_ui::healthy
+#endif
+ ;
 }
 inline void show_failure() noexcept {
  Fields text{};

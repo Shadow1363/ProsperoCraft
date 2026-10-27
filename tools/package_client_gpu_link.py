@@ -42,6 +42,9 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
         PROVIDE_HIDDEN(__client_shaderc_init_start = .);
         KEEP(*(SORT(.data.rel.ro.clientshaderc.init_array.*)))
         PROVIDE_HIDDEN(__client_shaderc_init_end = .);
+        PROVIDE_HIDDEN(__client_ui_init_start = .);
+        KEEP(*(SORT(.data.rel.ro.clientui.init_array.*)))
+        PROVIDE_HIDDEN(__client_ui_init_end = .);
         PROVIDE_HIDDEN(__client_gpu_init_start = .);
         KEEP(*(SORT(.data.rel.ro.clientgpu.init_array.*)))
         KEEP(*(.data.rel.ro.clientgpu.init_array*))
@@ -50,11 +53,17 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  aliasmap=work/'gpu-abi-local.map';aliasmap.write_text('{ local: __cxa_thread_atexit_impl; };\n')
  response=work/'combined-link.rsp';response.write_text('\n'.join(json.dumps(p)for p in inputs)+'\n')
  objects=[]
+ if variant=='startup':
+  from build_launcher_toolkit import build as build_toolkit,package_sources
+  objects.extend(build_toolkit(work,runtime,gpu_audit['graphics_bindings']))
+  package_sources(java)
+  shutil.copyfile(work/'launcher-toolkit-audit.json',java/'launcher-toolkit-audit.json')
+
  # Compile application/UI against the original runtime SDK. Only the isolated
  # graphics dependency/bridge uses the fork headers. Both use the same SDK ABI.
  for name,source in [('main',consumer/'bootstrap.cpp'),('renderer',runtime/'native/renderer/demo_renderer.cpp'),('crt',native/'app_crt.cpp'),('cpp_runtime',native/'app_cpp_runtime.cpp')]:
   obj=work/(name+'.o')
-  run(LLVM/'clang++','-target','x86_64-sie-ps5','-fvisibility-nodllstorageclass=default','-isysroot',sdk,'-isystem',sdk/'target/include/c++/v1','-isystem',sdk/'target/include','-I'+str(runtime/'native/renderer'),'-I'+str(runtime/'build/native'),'-I'+str(runtime/'src'),'-I'+str(runtime/'native'),'-I'+str(work),'-I'+str(ROOT/'client/native'),'-I'+str(runtime/'java25/probe'),'-std=c++20','-O2','-Wall','-Wextra','-Werror','-fno-stack-protector','-fno-plt','-femulated-tls','-fno-exceptions','-fno-rtti','-ffunction-sections','-fdata-sections','-c',source,'-o',obj);objects.append(obj)
+  run(LLVM/'clang++','-target','x86_64-sie-ps5','-fvisibility-nodllstorageclass=default','-isysroot',sdk,'-isystem',sdk/'target/include/c++/v1','-isystem',sdk/'target/include','-I'+str(runtime/'native/renderer'),'-I'+str(runtime/'build/native'),'-I'+str(runtime/'src'),'-I'+str(runtime/'native'),'-I'+str(work),'-I'+str(ROOT/'client/native'),'-I'+str(ROOT/'client/launcher/toolkit/src'),'-I'+str(ROOT/'.tools/PS5_Mesa/include'),'-I'+str(runtime/'java25/probe'),'-std=c++20','-O2','-Wall','-Wextra','-Werror','-fno-stack-protector','-fno-plt','-femulated-tls','-fno-exceptions','-fno-rtti','-ffunction-sections','-fdata-sections','-c',source,'-o',obj);objects.append(obj)
  if variant in {'runtime_shader','startup','native_bootstrap','opengl_bootstrap','stb_bootstrap','freetype_bootstrap','vma_bootstrap','spvc_bootstrap'}:
   # Only this consumer title's C++ allocation operators need the existing
   # graphics heap. Pair new/delete (including aligned/nothrow/sized variants)
