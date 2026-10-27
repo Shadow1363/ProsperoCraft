@@ -1,0 +1,13 @@
+{
+  "version": "6.9.0",
+  "source": {
+    "url": "https://repo.maven.apache.org/maven2/com/github/oshi/oshi-core/6.9.0/oshi-core-6.9.0-sources.jar",
+    "size": 618439,
+    "sha256": "8c18534d5fed8ffb2a584762f8a606e68f67c511ddf71910f37001ca8ce73b1f"
+  },
+  "license": {
+    "url": "https://raw.githubusercontent.com/oshi/oshi/oshi-parent-6.9.0/LICENSE",
+    "sha256": "e5936ec705d2fb0515b0d3e9a76acb52c1eef3e8ff88c7b9f80269b7909c959c"
+  },
+  "scope": "Dependency-only OSHI SystemInfo PS5 CPU provider; no game-class changes; unsupported telemetry throws rather than fabricated measurements"
+}

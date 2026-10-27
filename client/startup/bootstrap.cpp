@@ -20,6 +20,8 @@
 #include "observer_native.hpp"
 #include "../launcher/native_menu.hpp"
 #include "session_restart.hpp"
+#include "../ports/oshi/native_cpu.hpp"
+#include <sys/sysctl.h>
 static void notify(const char* text);
 extern "C" int sceAudioOutInit();
 extern "C" {int client_ps5_audio_early_init_result=INT32_MIN;}
@@ -74,7 +76,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.085";
+constexpr const char* build_version="01.000.086";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -110,6 +112,16 @@ void native_snapshot(JNIEnv *env,jclass,jlong elapsed,jint phase) {
   jclass error=env->FindClass("java/io/IOException");
   if(error)env->ThrowNew(error,"Native observer report append failed");
  }
+}
+jobjectArray cpu_information(JNIEnv *env,jclass) {
+ int logical=0;size_t size=sizeof(logical);if(sysctlbyname("hw.ncpu",&logical,&size,nullptr,0)!=0||size!=sizeof(logical))logical=0;
+ auto info=prospero_cpu::read(prospero_cpu::cpuid,logical);
+ if(!info.valid)return nullptr;
+ jclass strings=env->FindClass("java/lang/String");if(!strings)return nullptr;
+ jobjectArray result=env->NewObjectArray(8,strings,nullptr);env->DeleteLocalRef(strings);if(!result)return nullptr;
+ char family[16],model[16],stepping[16],count[16];std::snprintf(family,sizeof(family),"%u",info.family);std::snprintf(model,sizeof(model),"%u",info.model);std::snprintf(stepping,sizeof(stepping),"%u",info.stepping);std::snprintf(count,sizeof(count),"%d",info.logical);
+ const char* values[]={info.brand,info.vendor,info.signature,family,model,stepping,count,info.kernel_count?"kernel.hw.ncpu":"CPUID"};
+ for(int n=0;n<8;n++){jstring value=env->NewStringUTF(values[n]);if(!value||env->ExceptionCheck())return nullptr;env->SetObjectArrayElement(result,n,value);env->DeleteLocalRef(value);if(env->ExceptionCheck())return nullptr;}return result;
 }
 int vm_print(FILE *requested,const char *format,va_list arguments) {
  // HotSpot also invokes this hook for dedicated unified log FILEs. Preserve
@@ -368,8 +380,9 @@ void run_test(int i) {
   if(!klass||java_env->ExceptionCheck()) {java_failure(i,-1304,"DefineClass Client fixture");return;}
   JNINativeMethod callbacks[]={{const_cast<char *>("checkpoint"),const_cast<char *>("(Ljava/lang/String;)V"),reinterpret_cast<void *>(&network_checkpoint)},
    {const_cast<char *>("nativeSnapshot"),const_cast<char *>("(JI)V"),reinterpret_cast<void *>(&native_snapshot)},
-   {const_cast<char *>("launcherMenu"),const_cast<char *>("()Z"),reinterpret_cast<void *>(&prospero_menu::menu)}};
-  if(java_env->RegisterNatives(klass,callbacks,i==3?3:1)!=JNI_OK || java_env->ExceptionCheck()) {
+   {const_cast<char *>("launcherMenu"),const_cast<char *>("()Z"),reinterpret_cast<void *>(&prospero_menu::menu)},
+   {const_cast<char *>("cpuInformation"),const_cast<char *>("()[Ljava/lang/String;"),reinterpret_cast<void *>(&cpu_information)}};
+  if(java_env->RegisterNatives(klass,callbacks,i==3?4:1)!=JNI_OK || java_env->ExceptionCheck()) {
    java_failure(i,-1317,"network trace binding");java_env->DeleteLocalRef(klass);return;
   }
   jmethodID method=java_env->GetStaticMethodID(klass,"main","([Ljava/lang/String;)V");
@@ -421,7 +434,7 @@ static void notify(const char* text) {
 }
 int main(int argc,char** argv) {
  for(int i=0;i<argc;++i)if(argv[i]&&std::strcmp(argv[i],"--prospero-library")==0)resume_library=true;
- ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.085 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.086 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;

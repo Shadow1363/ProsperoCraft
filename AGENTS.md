@@ -820,3 +820,18 @@ host checks alone; current request adds the feature to both development channels
 Store status checked2026-10-27:catalogPR819 merged2026-10-26T20:34:21Z for083.
 085channel/delete candidates do not change that existing listing/release. Actual
 Store refresh/deployment timing is external; no085Store publication is claimed.
+
+## Shared top-bar / debug CPU fixes — 2026-10-27
+
+User requests centered top-bar labels and CPU identity instead of unknown in F3.
+086shared in main and both channel branches. Read docs/client-shared-fixes-086.md.
+Consumer native UI centers actual glyph ink bounds in existing boxes. CPU uses a
+pinned OSHI6.9.0dependency source overlay plus startup JNI CPUID/kernel hw.ncpu
+snapshot. No game class/JAR edits or reflection writes; original debug entry calls
+normal OSHI API. Unsupported metrics stay unsupported, no fake clock/load/model.
+Counts do not change JVM ActiveProcessorCount4. Non-PS5 OSHI factories retained.
+Package full OSHI port and MIT/source notices; original cached OSHI/game JARs intact.
+Keep085/084candidates and published083/082/frozen milestones. Both086physicalPS5
+centering/CPUname/GPU/regression/delete/undo/lifecycle tests pending. Publish shared
+source to main,codex/demo,codex/offline; retain separate labeled candidate ZIPs.
+Do not update ProsperoStore/release automatically from host tests.

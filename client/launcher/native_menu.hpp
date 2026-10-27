@@ -3,6 +3,7 @@
 #include "demo_renderer.hpp"
 #include "branding_logo.hpp"
 #include "navigation.hpp"
+#include "fonts.hpp"
 #include <array>
 #include <cstdio>
 #include <cstdlib>
@@ -50,6 +51,12 @@ inline void card(Canvas& c,int x,int y,unsigned w,unsigned h,bool focus=false){c
 inline void title(Canvas& c,int x,int y,const char* text,unsigned size=30,unsigned width=1000,std::uint32_t color=0xeaf0e8){
  std::string_view value(text);if(Canvas::text_width(value,size)>width){while(!value.empty()&&Canvas::text_width(value,size)+Canvas::text_width("...",size)>width)value.remove_suffix(1);c.label(x,y,value,size,ink(color));c.label(x+Canvas::text_width(value,size),y,"...",size,ink(color));}else label(c,x,y,text,size,color);
 }
+struct TextOrigin {int x,y;};
+inline TextOrigin centered_text(int x,int y,int width,int height,std::string_view text,unsigned size){
+ const auto& font=ui_font::get(size);int pen=0,left=0,right=0,top=0,bottom=0;bool inked=false;
+ for(unsigned char ch:text){const auto& glyph=font.glyphs[(ch>=32&&ch<=126?ch:'?')-32];if(glyph.w>0&&glyph.h>0){int l=pen+glyph.x,r=l+glyph.w,t=glyph.y,b=t+glyph.h;if(!inked){left=l;right=r;top=t;bottom=b;inked=true;}else{if(l<left)left=l;if(r>right)right=r;if(t<top)top=t;if(b>bottom)bottom=b;}}pen+=glyph.advance;}
+ return {x+(width-(right-left))/2-left,y+(height-(bottom-top))/2-top};
+}
 inline int number(int index){return std::atoi(fields[index].data());}
 inline void block(Canvas& c,int x,int y,int size,int kind){
  if(kind==0){for(int yy=0;yy<72;++yy)for(int xx=0;xx<72;++xx){auto color=logo_pixels[yy*72+xx];if(color)c.rectangle(x+xx*size/72,y+yy*size/72,(size+71)/72,(size+71)/72,static_cast<ps5::demo::Color>(color));}return;}
@@ -86,7 +93,7 @@ inline void draw(Canvas& c) noexcept {
  const int slide=std::strcmp(fields[30].data(),"ON")==0?0:int(16*(1-elapsed)*(1-elapsed));if(slide>0)animating=true;
  c.rounded(40,32,1840,108,24,ink(0x10221c));block(c,66,53,64,0);label(c,149,66,"ProsperoCraft",30);label(c,405,72,"NATIVE JAVA 25",24,0x718d7b);
  const char* tabs[]={"+  Add instance","Settings","Account"};const int tx[]={865,1245,1555},tw[]={350,280,280};
- for(int i=0;i<3;i++){bool current=(top&&tab==i)||(page>0&&page<=3&&page==i+1);if(current&&top)selection(c,tx[i],52,tw[i],68);c.rounded(tx[i],52,tw[i],68,18,ink(current?0x284f3c:0x172e24));label(c,tx[i]+24,72,tabs[i],30,current?0xc7f4cf:0xb0c4b5);}
+ for(int i=0;i<3;i++){bool current=(top&&tab==i)||(page>0&&page<=3&&page==i+1);if(current&&top)selection(c,tx[i],52,tw[i],68);c.rounded(tx[i],52,tw[i],68,18,ink(current?0x284f3c:0x172e24));auto text=centered_text(tx[i],52,tw[i],68,tabs[i],30);label(c,text.x,text.y,tabs[i],30,current?0xc7f4cf:0xb0c4b5);}
  if(page==0){
   label(c,70,192+slide,"Instances",64);
   const int count=number(13),start=number(14);
@@ -158,7 +165,7 @@ inline void draw(Canvas& c) noexcept {
  if(std::strcmp(fields[64].data(),"BUSY")==0){
   if(page!=3)title(c,78,942,fields[2].data(),24,1300,0xaac8b2);label(c,1450,942,fields[21].data(),24,0xaac8b2);c.rounded(72,982,1770,5,2,ink(0x233c2c));if(number(20)>0)c.rounded(72,982,unsigned(1770*number(20)/1000),5,2,ink(0xa9eab6));
  }else if(page!=3)title(c,78,949,fields[2].data(),24,1760,0x83a58d);
- label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1370,1020,fields[73].data(),18,0x7d9f89);label(c,1650,1020,"01.000.085",24,0x7d9f89);
+ label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1370,1020,fields[73].data(),18,0x7d9f89);label(c,1650,1020,"01.000.086",24,0x7d9f89);
 }
 inline bool update() noexcept {
  // The second update follows the initial submit/WaitVblank in run_ui_until.

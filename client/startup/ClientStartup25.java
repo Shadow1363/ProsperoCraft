@@ -11,11 +11,20 @@ public final class ClientStartup25 {
  public static native void checkpoint(String text);
  public static native void nativeSnapshot(long elapsedMillis,int phase);
  public static native boolean launcherMenu();
+ public static native String[] cpuInformation();
  private static boolean normalQuit=false;
  public static boolean normalQuit(){return normalQuit;}
  public static boolean gamePreflight()throws Exception{return ProsperoLauncher.verifySelected();}
  public static String[] launcherTick(int buttons){return ProsperoLauncher.nativeTick(buttons);}
  private static void stage(String text){checkpoint("MC Startup083: "+text);}
+ static boolean installCpuInformation(String[] values){
+  if(values==null||values.length!=8||values[0]==null||values[0].isBlank()||values[0].length()>95||!values[0].chars().allMatch(c->c>=32&&c<=126)||values[1]==null||!values[1].matches("[A-Za-z0-9 ]{1,12}")||values[2]==null||!values[2].matches("[A-Fa-f0-9]{8}"))return false;
+  if(values[7]==null||!(values[7].equals("CPUID")||values[7].equals("kernel.hw.ncpu")))return false;
+  try{int count=Integer.parseInt(values[6]);if(count<1||count>4096)return false;for(int n=3;n<=5;n++)if(values[n]==null||!values[n].matches("[0-9]{1,4}"))return false;
+   String[] keys={"brand","vendor","signature","family","model","stepping","logical","source"};for(int n=0;n<8;n++)System.setProperty("ps5.cpu."+keys[n],values[n]);System.setProperty("oshi.ps5","true");return true;
+  }catch(RuntimeException invalid){return false;}
+ }
+ static void prepareCpuInformation(){try{if(installCpuInformation(cpuInformation()))System.err.println("PS5_CPU identity=READY logical="+System.getProperty("ps5.cpu.logical")+" source="+System.getProperty("ps5.cpu.source"));else System.err.println("PS5_CPU identity=UNAVAILABLE");}catch(Throwable unavailable){System.err.println("PS5_CPU identity=UNAVAILABLE reason="+unavailable.getClass().getSimpleName());}}
  public static String[] launchArguments(Path work,Path assets){
   String name="PS5Probe",uuid=UUID.nameUUIDFromBytes(("OfflinePlayer:"+name).getBytes(StandardCharsets.UTF_8)).toString();
   return new String[]{"--demo","--disableMultiplayer","--disableChat","--username",name,"--uuid",uuid,"--accessToken","0","--version","26.3","--versionType","release","--gameDir",work.toString(),"--assetsDir",assets.toString(),"--assetIndex","34","--graphicsBackend","vulkan","--width","1920","--height","1080"};
@@ -208,6 +217,7 @@ public final class ClientStartup25 {
    System.setProperty("user.dir",work.toString());System.setProperty("user.home",work.toString());System.setProperty("java.io.tmpdir",work.resolve("native-cache").toString());
    for(String key:new String[]{"jna.tmpdir","io.netty.native.workdir"})System.setProperty(key,work.resolve("native-cache").toString());
    System.setProperty("jna.nosys","true");
+   prepareCpuInformation();
    Configuration.OPENGL_CONTEXT_API.set("OSMesa");Configuration.OPENGL_OSMESA_LIBRARY_NAME.set(System.mapLibraryName("ps5clientgl"));
    Configuration.SPVC_LIBRARY_NAME.set(System.mapLibraryName("ps5spvc"));
    Configuration.MEMORY_ALLOCATOR.set("system");Configuration.OPENAL_LIBRARY_NAME.set(System.mapLibraryName("ps5openal"));Configuration.SDL_LIBRARY_NAME.set(System.mapLibraryName("ps5sdl"));Configuration.VULKAN_LIBRARY_NAME.set(System.mapLibraryName("ps5clientgpu"));Configuration.SHADERC_LIBRARY_NAME.set(System.mapLibraryName("ps5shaderc"));Configuration.SHARED_LIBRARY_EXTRACT_PATH.set(work.resolve("native-cache").toString());
