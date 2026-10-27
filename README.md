@@ -102,6 +102,11 @@ selection (**Settings → Square**). [Motion preview](docs/launcher/088/motion.w
 Both development channels are built and host-checked; PS5 smoothness and lifecycle
 validation remain pending. Store083 is unchanged.
 
+[Development089](docs/client-vibration-089.md) adds subtle controller vibration
+for launcher navigation/actions and task results. **Settings → Triangle** toggles
+it persistently. Both channels retain the088 visuals; physical PS5 feel and
+handoff checks remain pending. Store083 is unchanged.
+
 ## Roadmap
 
 ### Full account release goals

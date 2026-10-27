@@ -869,3 +869,18 @@ actual088PS5performance/startup/handoff/gameplay/lifecycle/Delete/Undo validatio
 host motion clips are fixed-clock Vulkan readbacks, not consoleFPS evidence.
 Preserve087and earlier candidates, public083/082and frozen milestones. Publish
 sharedsource to main,codex/demo,codex/offline; no automatic Store/release update.
+
+## Launcher vibration — 2026-10-27
+
+User requests controller vibration inside the launcher.089 adds bounded semantic
+focus/confirm/back/error/completion cues and a saved Settings Triangle vibration
+preference (defaultON). Read docs/client-vibration-089.md. Mailbox77/78/79 carry
+sequence/cue/preference within the existing80fields; no JNI on the motor worker.
+A dedicated native worker owns motor writes and deadlines on the UI controller
+handle; stop/join/zero attempt precedes PadClose and game handoff. Disconnect,
+interception, generation change, stale input and opt-out cancel output; no stale
+replay or idle/progress buzz. Keep API failure nonfatal and gameplay audio/input/
+profile/world/lifecycle policy unchanged. Actual089PS5feel/strength/reconnect/
+residual-rumble plus088performance/regression checks remain pending. Preserve
+088and earlier packages/symbols/frozen milestones. Sharedsource goes to main,
+codex/demo,codex/offline; no automatic release or ProsperoStore update.

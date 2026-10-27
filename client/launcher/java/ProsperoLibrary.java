@@ -8,7 +8,7 @@ public final class ProsperoLibrary {
  static final String[] ICONS={"Crafting table","Grass","Amethyst","Ocean","Redstone","Forest","Gold","Snow"};
  static final int GAME_WIDTH=1920,GAME_HEIGHT=1080,LOCKED_RESOLUTION=2;
  static final class Instance {String id=UUID.randomUUID().toString(),name,version;int icon;boolean ready;Instance(String n,String v,int i){name=clean(n);version=v;icon=i;}}
- static final class Settings {int resolution=LOCKED_RESOLUTION,workers=4,background=2;boolean reducedMotion=false,snapshots=false,showIntro=true;}
+ static final class Settings {int resolution=LOCKED_RESOLUTION,workers=4,background=2;boolean vibration=true,reducedMotion=false,snapshots=false,showIntro=true;}
  static final class State {int schema=1;ArrayList<Instance> instances=new ArrayList<>();Settings settings=new Settings();}
  final Path root;private State state;
  ProsperoLibrary(Path root)throws Exception {
