@@ -86,6 +86,10 @@ instance and its worlds to Trash; **Triangle** on the grid undoes it, even after
 restart. Both085variants need exact PS5validation. The published Store release
 remains083; Offline084has the scoped positive gameplay feedback above.
 
+[Development086](docs/client-shared-fixes-086.md) centers the native top-bar labels
+and adds a CPU identity provider for the original debug screen through an OSHI
+dependency port. Both channels receive the fixes; actual086PS5checks are pending.
+
 ## Roadmap
 
 ### Full account release goals

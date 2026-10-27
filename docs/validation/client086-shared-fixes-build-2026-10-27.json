@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.086",
+  "title_id": "PPSA99874",
+  "channels": {
+    "demo": {
+      "branch": "codex/demo",
+      "package_sha256": "fa9694d273b6f48af53796aa683185be3f991d04f82f73e0e58d00d84920b27b",
+      "native_elf_sha256": "22a5f2dceccf99f2b63e52b37b00b8683d3172903a5da54b534e71e594928eed",
+      "console_status": "PENDING exact086"
+    },
+    "offline": {
+      "branch": "codex/offline",
+      "package_sha256": "c9646da07432a2c5f92433aa89310120f001182675f9e6a30058408fc2ba2d44",
+      "native_elf_sha256": "22a5f2dceccf99f2b63e52b37b00b8683d3172903a5da54b534e71e594928eed",
+      "console_status": "PENDING exact086"
+    }
+  },
+  "scope": "Shared centered native top-bar labels and actual CPU identity through a dependency-only OSHI platform port",
+  "oshi_overlay_sha256": "ab6632676b96d5fd82e4d90c6f5b6848e743c99e8988d69e345a7320edd99b31",
+  "upstream_oshi_source": {
+    "url": "https://repo.maven.apache.org/maven2/com/github/oshi/oshi-core/6.9.0/oshi-core-6.9.0-sources.jar",
+    "size": 618439,
+    "sha256": "8c18534d5fed8ffb2a584762f8a606e68f67c511ddf71910f37001ca8ce73b1f"
+  },
+  "source_sha256": {
+    "client/launcher/native_menu.hpp": "8bc73d8fd102c4ba8641fe90e6a8432963fe4dd781a2341c1b6537adbe21ff67",
+    "client/launcher/java/ProsperoInstall.java": "4f5c660d61840ec992661b4e1afce8170cb9d8070d212e3b29c0a4eb2f517a66",
+    "client/startup/ClientStartup25.java": "2108e2d7257a77147ffbaccd31c1bfbb9070f13c084dcb3f2420e7d19bc8550f",
+    "client/startup/bootstrap.cpp": "146cf12a46c9103ee41fc7f6a32eb1a45322d9691ef3a9a836ecce6c53948b2e",
+    "tools/package_client_vulkan.py": "4acdb0027689e548aa4d28e5f5656b8fa947c65b9e663337a4c6b8c80a6e00ee",
+    "client/ports/oshi/0001-ps5-cpu-provider.patch": "38c641897931be85081305e5189d7d82877cf40499b4e7a6172d583c9e57ac07",
+    "client/ports/oshi/LICENSE": "e5936ec705d2fb0515b0d3e9a76acb52c1eef3e8ff88c7b9f80269b7909c959c",
+    "client/ports/oshi/README.md": "573e785b870ee3be18903a99e200ce68f9e404f962f433bf03307e2c7ffc370a",
+    "client/ports/oshi/java/oshi/ps5/Ps5Hardware.java": "1b919d41b2f31c11f88f201df6822a4c09a2ae05fab9407d6deade4ce8d20541",
+    "client/ports/oshi/native_cpu.hpp": "be95b14d4d496066c8477f54d1bec63cd17b9a6ab8764dad8da1f0d161464b63",
+    "client/ports/oshi/sources.json": "0e7b87c43fc10dfd16d28f9adc9d32544cfa8f8ede01149e32d1d3397bb34078"
+  },
+  "host_checks": [
+    "PASS all3top-bar rendered glyph bounds centered within1px over9normal/selected contexts",
+    "PASS CPUID field/brand decode, kernel-count preference, CPUID fallback and missing/invalid input under ASan/UBSan",
+    "PASS original unchanged DebugEntrySystemSpecs.getCpuInfo formats supplied identity via OSHI port",
+    "PASS missing native snapshot stays unknown; no fabricated hardware",
+    "PASS working PS5 provider does not initialize desktop JNA native dispatch",
+    "PASS unported telemetry remains explicitly unsupported; original desktop factory selection retained",
+    "PASS actual startup snapshot validation/property handoff and absent-JNI fallback",
+    "PASS existing instance/delete/undo/channel/ownership fixtures",
+    "PASS both full target builds and complete package audits",
+    "PASS original Main host native-boundary check and immutable game JAR",
+    "PASS shared launcher classes identical in Demo/Offline artifacts",
+    "PASS packages exclude personal profiles/tokens/private keys; Demo offline key omitted",
+    "PASS preserved085candidates unchanged",
+    "PASS native preview and git diff check"
+  ],
+  "console_checks_pending": [
+    "Both086channels top-bar label centering in normal/focused states",
+    "Actual PS5 CPU brand/count shown in debug specs with unchanged GPU line",
+    "No OSHI/JNA startup regression and readable PS5_CPU diagnostic",
+    "World/audio/controller/1080p/delete/undo/quit-relaunch regression checks"
+  ],
+  "game_jar_modified": false,
+  "runtime_source_changes": false,
+  "active_processor_count_policy_changed": false,
+  "store_release_changed": false,
+  "new_frozen_milestone": false
+}
