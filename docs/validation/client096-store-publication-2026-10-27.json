@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.096",
+  "release_url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.096",
+  "release_tag_commit": "c42b1a0e7d1340ef14299c2bcfbdad843f370c4e",
+  "implementation_commit": "de14221766a5f9ae496cafd6daeab385175cd965",
+  "merge_commit": "c16e529",
+  "channel": "temp_gametest",
+  "package_sha256": "7576aacd601ffbec16d956adaa3a03f9a8f2c0d9a1eadf76889776f246500067",
+  "assets": [
+    {
+      "name": "client096-build-validation.json",
+      "bytes": 3278,
+      "digest": "sha256:0f509202fbe620e6bfc409ba4695dd12e1f0e844bdf83f99fb7483a315ad03f0",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.096/client096-build-validation.json"
+    },
+    {
+      "name": "client096-openal-source-relink.zip",
+      "bytes": 168884094,
+      "digest": "sha256:a3f57ff5ac2d7f068a217a63fa49d716803c8c5d4eaf9af3bd6f744eaa279e61",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.096/client096-openal-source-relink.zip"
+    },
+    {
+      "name": "client096-validation.json",
+      "bytes": 1552,
+      "digest": "sha256:13896c3892667912cf2dbe30a07060835347de8b311f9f2ef96d9a2abf777952",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.096/client096-validation.json"
+    },
+    {
+      "name": "PPSA99874.zip",
+      "bytes": 121190160,
+      "digest": "sha256:7576aacd601ffbec16d956adaa3a03f9a8f2c0d9a1eadf76889776f246500067",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.096/PPSA99874.zip"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 371,
+      "digest": "sha256:5f5fc2ac89b4031a312c8e784d41d64d61235333b86250e7b6a35fa0c09fa90d",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.096/SHA256SUMS"
+    }
+  ],
+  "verification": "All five uploaded GitHub digests/sizes match local files; all five assets downloaded and SHA256SUMS checked. Downloaded relink kit reproduces exact096ELF; normal and OpenAL replacement relinks reproduce it locally. Auth/channel/ownership/package fixture passes.",
+  "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/859",
+  "catalog_status": "OPEN; automated checks queued when recorded, maintainer approval/deployment pending.",
+  "catalog_local_checks": "147 records valid; online artifact digest/contentVersion/icon verified,0errors/warnings.",
+  "credits": "Release and catalog descriptions credit mihawk-99/PS5_VKHomebrewUI GUI and MultiMC/Prism icons; packaged notices retained.",
+  "console": "User reports MC running/login working and selected096package; no formalALLPASS/freeze/endurance. Hosting deferred; broader save/reload/account expiry/resolution/lifecycle checks pending.",
+  "runtime_publication": "Sync succeeded; Everything up-to-date, runtime unchanged.",
+  "preservation": "Previous082/083 releases/tags/assets and frozen snapshots unchanged; Temp_gametest remains de14221."
+}

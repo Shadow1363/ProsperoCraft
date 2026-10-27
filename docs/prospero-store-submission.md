@@ -140,3 +140,15 @@ PR819remote follow-up: submission validation, release scan and offline tests all
 PASS. The bot left it for a maintainer under its release/newest-release eligibility
 notice. Current state OPEN/REVIEW_REQUIRED;darkxex and Marice requested.083is
 public onGitHub;Storeavailability is not claimed before merge/deployment.
+
+## Authenticated096 update — 2026-10-27
+
+The user requested exact096publication after merging Temp_gametest into main.
+Release: https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.096
+Existing-listing update: https://github.com/darkxex/ps5-homebrew-catalog/pull/859
+
+This supersedes the historical coming-soon submission. The083listing is already
+released;096requires this update's approval/deployment. Local format and online
+digest/contentVersion/icon checks pass. See the096publication record for asset
+digests, package preservation, human feedback and pending console tests. GUI and
+icon credits are included in both descriptions.
