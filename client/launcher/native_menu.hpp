@@ -168,17 +168,12 @@ inline void compose(Canvas& c) noexcept {
 #endif
  if(page==0){
   label(c,70,192+slide,"Instances",64);
-  const int count=number(13);[[maybe_unused]] const int start=number(14);
-  if(count<=1&&std::strcmp(fields[35].data(),"ADD")==0){
-   if(!top)selection(c,70,330+slide,1770,550);c.rounded(70,330+slide,1770,550,28,ink(0x10251d));
-   c.rounded(930,578+slide,60,6,3,ink(0xb6f2be));c.rounded(957,551+slide,6,60,3,ink(0xb6f2be));
-  }else{
+  [[maybe_unused]] const int count=number(13),start=number(14);
 #ifdef PROSPERO_TOOLKIT
    c.library(fields,slide);
 #else
    for(int i=0;i<8&&start+i<count;i++){int x=70+(i%4)*450,y=342+(i/4)*272+slide,at=32+i*4;bool active=!top&&selected==start+i;if(active)selection(c,x,y,420,242);c.rounded(x,y,420,242,22,ink(active?0x1f3a2b:0x13291f));if(std::strcmp(fields[at+3].data(),"ADD")==0){c.rounded(x+184,y+118,52,6,3,ink(0xb6f2be));c.rounded(x+207,y+95,6,52,3,ink(0xb6f2be));}else{block(c,x+27,y+26,88,number(at+2));title(c,x+26,y+137,fields[at].data(),30,365);label(c,x+27,y+187,fields[at+1].data(),24,0x92b6a0);label(c,x+235,y+187,fields[at+3].data(),24,0xa7d4ae);}}
 #endif
-  }
  }else if(page==1||page==5){
   label(c,70,185+slide,page==1?"A world of your own.":"Make it yours.",64);label(c,75,269+slide,page==1?"One instance. Its own settings, worlds and memories.":"Your worlds stay right where they are.",24,0x91ad9b);
   c.rounded(70,338+slide,620,548,28,ink(0x10221c));block(c,275,402+slide,204,page==1?number(24):number(18));title(c,105,690+slide,page==1?fields[22].data():fields[16].data(),42,540);label(c,108,761+slide,"JAVA EDITION / INSTANCE",24,0x8db69a);
@@ -272,7 +267,7 @@ inline void compose(Canvas& c) noexcept {
   c.rounded(72,982,1770,5,2,ink(0x233c2c));if(number(20)>0)c.rounded(72,982,unsigned(1770*number(20)/1000),5,2,ink(0xa9eab6));
 #endif
  }else if(page!=3)title(c,78,949,fields[2].data(),24,1760,0x83a58d);
- control_label(c,76,1020,fields[7].data(),20,0x7d9f89);label(c,1650,1020,"01.000.095",24,0x7d9f89);
+ control_label(c,76,1020,fields[7].data(),20,0x7d9f89);label(c,1650,1020,"01.000.096",24,0x7d9f89);
 }
 #ifdef PROSPERO_TOOLKIT
 inline std::uint64_t toolkit_frame_time=0;

@@ -988,3 +988,14 @@ metadata/worlds/cache; no network/runtime changes and hosting stays deferred.
 See docs/client-instances-only-095.md and matching validation. No new console pass,
 freeze, Store or release publication; test095 navigation, guides, disposable-instance
 deletion and lifecycle on PS5.
+
+
+096steering2026-10-27: user requests normal-sized empty plus card and supplied
+PS5 banner/title artwork before a later merge. User explicitly chooses banner
+alone with system-rendered ProsperoCraft title. Preserve original banner bytes,
+convert to pinned4KBC7DDS and package pic0/pic1; do not composite or package the
+title PNG. No AI redraw. Home and hosting stay deferred. Preserve095/older exact
+candidates. Source remains Temp_gametest; no main merge, Store/release upload or
+console ALL PASS inferred. See docs/client-presentation-096.md and matching
+validation. Actual PS5 selected/launch artwork and ordinary lifecycle pending;
+shell presentation cache may need loader refresh, not catalog database edits.

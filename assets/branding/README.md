@@ -39,3 +39,33 @@ now derives from ProsperoCraft-icon-v3-source.png as512x512RGBA with Lanczos
 resampling for packaging. The high-resolution master and earlier source versions
 are preserved. Both client and server packaging already use branding.json via
 tools/apply_branding.py. No existing040/frozen/release package was rebuilt.
+
+## Selected-app and launch banner —096
+
+The user supplied prosperocraft-banner.png and chose the banner alone with the
+system-rendered ProsperoCraft title. prosperocraft-banner-source.png preserves
+those exact PNG bytes. The separately supplied title PNG remains in Documents;
+it is not copied into the package or composited. Existing icon0.png is unchanged.
+
+presentation.json pins the source, output and host encoder. The image is center-fit
+with Lanczos to3840x2160RGB, then encoded as one BC7_UNORM DX10 DDS surface without
+mipmaps. apply_branding.py installs the same DDS as sce_sys/pic0.dds(selection) and
+pic1.dds(launch), including when branding an existing ZIP. A PNG renamed to DDS is
+not used. The user's Minecraft-themed artwork retains its original rights; the
+project's GPL grant does not relicense Minecraft artwork or trademarks.
+
+Reproduction uses Python/Pillow11.3.0 and the portable C++ encoder from
+https://github.com/richgel999/bc7enc_rdo at
+b9438627eef73a1157e84201b6fa6eb2ffd6d9f0 (MIT/Unlicense options; upstream
+LICENSE and LodePNG notices apply to the converter). The encoder is a host tool,
+not linked into the app. Clone/check out that exact revision under an ignored
+dependency directory. Build with clang++ -std=c++11 -O2 -fno-strict-aliasing using
+bc7enc.cpp,bc7decomp.cpp,bc7decomp_ref.cpp,lodepng.cpp,test.cpp,rgbcx.cpp,utils.cpp,
+ert.cpp,rdo_bc_encoder.cpp. Run tools/prepare_presentation_assets.py with --banner,
+--bc7enc and --encoder-source paths. The committed DDS means ordinary app packaging
+does not need to build or run the converter. Changes to either source or encoder
+must update the asset pins and decoded-image/packaging checks.
+
+PS5 display remains pending. The shell/loader can retain older presentation files
+after an app update; verify the selected-title background on the actual console.
+Do not modify shell catalog databases to imitate retail title-logo metadata.

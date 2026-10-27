@@ -87,6 +87,13 @@ Delete Instance “Is a directory” failure. The preceding personal089login wor
 on the user's PS5;090full-game/download/Delete/Undo/lifecycle checks remain pending.
 Demo/main authentication and the existing Store083 release are unchanged.
 
+[Development096](docs/client-presentation-096.md) makes the empty-library add card
+the normal card size and packages the user's banner for PS5 selection and launch.
+The title remains system-rendered **ProsperoCraft**, as requested. Native/Vulkan
+previews and BC7 decode/branding checks pass; actual PS5 banner display and normal
+lifecycle remain pending. This source update precedes the requested later merge;
+main and public releases are not changed by this candidate.
+
 [Development095](docs/client-instances-only-095.md) follows the user's request to
 leave **Home out of this build**. It opens on Instances with a final plus add card,
 followed by Settings and Account. Permanent Yes/No deletion and the clearer PLAY /

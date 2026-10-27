@@ -8,7 +8,7 @@ sha=lambda b:hashlib.sha256(b).hexdigest()
 base=ROOT/'dist/candidates/ProsperoCraft-Offline-01.000.089/PPSA99874.zip'
 package=ROOT/'dist/client-startup-temp_gametest/PPSA99874.zip'
 assert sha(base.read_bytes())=='59aa7b29d228a4485ea8ccf21f9c066fd509e1072c186806e92cc34df159d623'
-for version,digest in {'093':'ed433c1c3e2567987e876357ae0cc2982e259655e92afc55d9f4a1640c1f1ee8','094':'4847dc4eaa43987c9473362076ef27aedf579854924d6de7d72c107f9567587b'}.items():assert sha((ROOT/('dist/candidates/ProsperoCraft-Temp_gametest-01.000.'+version+'/PPSA99874.zip')).read_bytes())==digest
+for version,digest in {'093':'ed433c1c3e2567987e876357ae0cc2982e259655e92afc55d9f4a1640c1f1ee8','094':'4847dc4eaa43987c9473362076ef27aedf579854924d6de7d72c107f9567587b','095':'d2890fff36cd54ace413453cffae52ad1c35285609705810b033ee9161479d70'}.items():assert sha((ROOT/('dist/candidates/ProsperoCraft-Temp_gametest-01.000.'+version+'/PPSA99874.zip')).read_bytes())==digest
 with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
  assert new.testzip()is None
  prefix='PPSA99874/assets/java25/'
@@ -55,4 +55,4 @@ with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
   assert b'PS5_HOST_IO'in(w/'new/java.base/java/io/IOException.class').read_bytes()
   changed=['java.base/sun/nio/fs/UnixFileSystem.class']
   assert b'sun.nio.fs.ps5Sandbox'in(w/'new'/changed[0]).read_bytes()
-print('PASS Temp_gametest095 auth/channel/ownership/profile endpoints, no Offline key or fixture token; module bytecode delta is UnixFileSystem plus bounded IOException socket diagnosis (generated javac bookkeeping excluded); Offline089 package unchanged')
+print('PASS Temp_gametest096 auth/channel/ownership/profile endpoints, no Offline key or fixture token; module bytecode delta is UnixFileSystem plus bounded IOException socket diagnosis (generated javac bookkeeping excluded); Offline089 package unchanged')
