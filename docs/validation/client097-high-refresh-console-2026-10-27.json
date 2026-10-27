@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.097",
+  "title_id": "PPSA99874",
+  "package_sha256": "d78ab9456b0fd036686989b86f41acef7aa3f013db884f8e8b6756604317d4fd",
+  "evidence": "Human console report: it worked; reached119FPS with VSync disabled and120FPS target.",
+  "accepted_scope": "High-refresh Minecraft gameplay reached119FPS on the actual PS5.",
+  "limits": [
+    "No independent current-run logs,frame-time trace,exact display configuration or sustained duration supplied.",
+    "No formal ALL PASS or new frozen milestone.",
+    "The097launcher footer incorrectly reads096;098fixes displayed build identity.",
+    "Exact098console regression remains pending."
+  ],
+  "publication_authorization": "User requests full098GitHub/ProsperoStore release with public-facing descriptions."
+}

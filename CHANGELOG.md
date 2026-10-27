@@ -6,6 +6,15 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — ProsperoCraft0.98 high-refresh release
+
+Build097reached119FPS on PS5 with VSync disabled and a120FPS target, reported by
+the tester. Release01.000.098 retains that high-refresh path and fixes displayed
+build identity. Public notes describe supported120Hz output,60Hz fallback and
+remaining FIFO pacing. Exact098console regression,frame-time measurements and
+endurance remain pending; no formal ALL PASS or frozen milestone is inferred.
+Full GitHub release and ProsperoStore update requested. [Release notes](docs/releases/client-high-refresh-098.md).
+
 ## 2026-10-27 — Correct visible version for the next build
 
 097still displayed096in the launcher footer because that label was hardcoded.

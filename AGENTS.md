@@ -1048,3 +1048,16 @@ identity and build note use that injected value. Host previews without the flag
 say Development. Preserve exact097/096packages; this source correction awaits
 the next candidate build and PS5 visible-version confirmation. Never change only
 the folder name or rebuild existing accepted/published bytes under the same ID.
+
+
+## 0.98 release authorization and119FPS report — 2026-10-27
+
+User confirms097worked and reached119FPS, then explicitly requests public098
+release on ProsperoStore and public-facing descriptions. Publish01.000.098with
+the existing high-refresh path and automatic visible-version fix, matching
+OpenAL source/relink/checksums,source and scoped validation. Preserve exact097/
+096and frozen snapshots. The human119FPS report applies to exact097,not a formal
+ALL PASS,endurance or independently logged frame-time result. Exact098console
+regression remains pending. Mark supported120Hz ceiling removal complete while
+keeping true uncapped VSync-off unimplemented/FIFO explicit. Public descriptions
+must address players rather than narrating requests or private candidate history.

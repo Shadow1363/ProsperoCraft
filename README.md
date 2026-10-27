@@ -4,15 +4,16 @@
 
 **Minecraft Java Edition on native PlayStation 5 hardware — powered by our PS5 OpenJDK 25 port.**
 
-Download Minecraft on your console, manage separate instances and play with DualSense controls, native graphics and game audio. The user reports Minecraft and account login working on PS5. Performance feedback is positive; measured FPS and extended endurance are not established.
+Download Minecraft on your console, manage separate instances and play with DualSense controls, native graphics and game audio. Minecraft gameplay and account login have been tested on PS5. The high-refresh update reached 119 FPS in console testing; extended endurance remains under testing.
 
-**[Download 01.000.096](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.096)** · [Install and release notes](docs/releases/client-authenticated-096.md) · [Changelog](CHANGELOG.md)
+**[Download 0.98](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.098)** · [Install and release notes](docs/releases/client-high-refresh-098.md) · [Changelog](CHANGELOG.md)
 
 ## Downloads
 
 | Release | Includes |
 | :--- | :--- |
-| [**ProsperoCraft 01.000.096**](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.096) | Authenticated-play experiment, Vulkan launcher, instance downloads, saved sign-in, controller keyboard and refreshed presentation. |
+| [**ProsperoCraft 0.98**](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.098) | Up to 120 Hz output on compatible displays, 60 Hz fallback and the correct in-app version. |
+| [Previous authenticated launcher 01.000.096](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.096) | Authenticated-play experiment, Vulkan launcher, instance downloads, saved sign-in, controller keyboard and refreshed presentation. |
 | [Previous launcher 01.000.083](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.083) | Preserved Demo release and fixed 1080p baseline. |
 | [Fabric / Paper servers 01.000.108](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/Fabric-Paper-v01.000.108) | Separate server builds with positive console playtests; extended lifecycle/endurance checks pending. |
 
@@ -23,12 +24,13 @@ The client and server share **PPSA99874**: installing one replaces the other. Ba
 ## Current status
 
 - **26.3 is the playable native baseline.** Other 26.x versions and snapshots can be downloaded but are not claimed launchable.
-- **Login and gameplay work in the user's PS5 tests.** Version096 retains the `temp_gametest` channel and legacy authentication experiment; this is not approval of a new Microsoft application registration.
+- **Login and gameplay are console-tested.** The existing experimental authentication flow remains in use; a valid Java Edition entitlement/profile is required.
+- **Up to 120 Hz output:** 119 FPS was reported during PS5 testing of build097. Release098 adds the visible-version correction; exact098 console regression and sustained frame-time measurements remain pending.
 - **Native GUI:** animated backgrounds, instance icons, account display, dropdown settings, navigation cues and optional vibration.
 - **Controls:** temporary DualSense keyboard/mouse mapping, in-game keyboard and PLAY/OPTIONS guides. Full Controlify support remains planned.
 - **Known limits:** LAN hosting is deferred; save/reload, resolution combinations, reconnect/lifecycle regressions and extended endurance still need broader testing. Earlier server joining was confirmed.
 
-Development continues on `main`, which contains the merged authenticated game-test work. The merged `Temp_gametest` and `codex/demo` branches have been retired. The exact096 compiled package is preserved without rebuilding or changing its channel label. Older Demo history, all frozen validation snapshots and public releases remain intact. Home/favorites are deferred; this release opens Instances, with Settings and Account beside it.
+Development continues on `main`, which contains the merged authenticated game-test work. The merged `Temp_gametest` and `codex/demo` branches have been retired. Release098 retains the existing `temp_gametest` package channel. The exact096 and097 packages remain preserved. Older Demo history, all frozen validation snapshots and public releases remain intact. Home/favorites are deferred; this release opens Instances, with Settings and Account beside it.
 
 ## Credits
 
@@ -47,6 +49,7 @@ Development continues on `main`, which contains the merged authenticated game-te
 - [x] Delete instance.
 - [x] Centered top-bar button text.
 - [x] Controller vibration.
+- [x] Lift the 60 FPS presentation ceiling on supported 120 Hz displays; 119 FPS reported in PS5 testing. Fully uncapped presentation remains future work.
 
 ### Coming next
 
@@ -61,7 +64,6 @@ Development continues on `main`, which contains the merged authenticated game-te
 - [ ] JVM 21 for broader Minecraft support.
 - [ ] JVM 17 for even broader Minecraft support.
 - [ ] Custom AMD Ryzen Zen 2 8C/16T CPU identification.
-- [ ] Unlock the 60 FPS cap that remains with VSync disabled. [097 candidate](docs/client-high-refresh-097.md) enables supported 120 Hz output; PS5 validation pending.
 - [ ] Home menu.
 - [ ] Themes.
 
