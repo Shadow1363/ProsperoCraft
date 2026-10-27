@@ -1,8 +1,11 @@
 {
-  "client_id": "f0c7635e-8d50-4d7e-afa3-d15db4a0a3d3",
-  "authority": "https://login.microsoftonline.com/consumers",
+  "client_id": "00000000402b5328",
+  "authority": "https://login.live.com",
   "flow": "device_code",
-  "scopes": ["XboxLive.SignIn", "XboxLive.offline_access"],
+  "scopes": [
+    "service::user.auth.xboxlive.com::MBI_SSL"
+  ],
   "storage": "memory_only",
-  "client_secret": "not_used"
+  "client_secret": "not_used",
+  "purpose": "Temporary personal game test; no Store or release publication"
 }

@@ -172,11 +172,11 @@ inline void compose(Canvas& c) noexcept {
   label(c,70,185+slide,"Your account. Your adventure.",64);label(c,75,270+slide,"Sign in on your phone. Your password stays with Microsoft.",24,0x91ad9b);
   c.rounded(70,340+slide,1000,548,28,ink(0x10221c));label(c,116,391+slide,"MICROSOFT ACCOUNT",24,0x8fbb9b);title(c,116,447+slide,fields[5].data(),42,900);
   if(fields[3][0]){label(c,116,539+slide,"ENTER THIS CODE",24,0x8eaf9a);label(c,115,584+slide,fields[3].data(),64,0xc9f5cd);wrap(c,117,699+slide,fields[4].data(),880,2);}
-  else wrap(c,117,547+slide,"Demo instances work while application review is pending. Full account access completes only when all sign-in and ownership checks succeed.",850,5);
+  else wrap(c,117,547+slide,std::strcmp(fields[73].data(),"TEMP GAMETEST")==0?"Temporary personal game test. Sign in with an account that owns Minecraft Java to play the full game.":"Demo instances work while application review is pending. Full account access completes only when all sign-in and ownership checks succeed.",850,5);
   action(c,1140,366+slide,700,"SIGN IN WITH MICROSOFT",row==0,true);action(c,1140,481+slide,700,"SIGN OUT",row==1);wrap(c,1167,634+slide,fields[2].data(),620,6);
  }else if(page==4){
   label(c,70,185+slide,std::strcmp(fields[69].data(),"PENDING")==0?"Launch support coming.":"Ready when you are.",64);c.rounded(70,330+slide,620,560,28,ink(0x10221c));block(c,245,385+slide,270,number(18));title(c,109,721+slide,fields[16].data(),42,540);label(c,112,794+slide,fields[17].data(),24,0x97bea3);
-  title(c,762,352+slide,fields[16].data(),64,1060);label(c,768,441+slide,std::strcmp(fields[73].data(),"OFFLINE BRANCH")==0?"JAVA EDITION    /    OFFLINE BRANCH":"JAVA EDITION    /    DEMO BRANCH",24,0x94b69f);
+  title(c,762,352+slide,fields[16].data(),64,1060);label(c,768,441+slide,std::strcmp(fields[73].data(),"TEMP GAMETEST")==0?"JAVA EDITION    /    TEMP GAMETEST":std::strcmp(fields[73].data(),"OFFLINE BRANCH")==0?"JAVA EDITION    /    OFFLINE BRANCH":"JAVA EDITION    /    DEMO BRANCH",24,0x94b69f);
   bool offline=std::strcmp(fields[71].data(),"OFFLINE")==0;
   int first=offline?480:505,spacing=offline?100:116;
   action(c,760,first+slide,1080,fields[6].data(),row==0,std::strcmp(fields[69].data(),"PENDING")!=0);action(c,760,first+spacing+slide,1080,"INSTANCE SETTINGS",row==1);action(c,760,first+2*spacing+slide,1080,"REPAIR DOWNLOAD",row==2);
@@ -199,8 +199,8 @@ inline void compose(Canvas& c) noexcept {
  }else if(page==7){
   c.rounded(170,190,1580,745,32,ink(0x142e23));
   label(c,235,240,"Welcome to ProsperoCraft",64);
-  wrap(c,240,347,"Microsoft is reviewing our application ID. Please wait for approval before full account play becomes available.",1390,3);
-  wrap(c,240,468,"For now, you can download instances and play the 26.3 demo. Other versions cannot launch yet; native compatibility is in progress.",1390,3);
+  wrap(c,240,347,std::strcmp(fields[73].data(),"TEMP GAMETEST")==0?"Temporary personal game test. This branch uses the working legacy sign-in while ProsperoCraft application review remains pending.":"Microsoft is reviewing our application ID. Please wait for approval before full account play becomes available.",1390,3);
+  wrap(c,240,468,std::strcmp(fields[73].data(),"TEMP GAMETEST")==0?"Sign in with your owning Microsoft account, download or verify 26.3, then choose PLAY FULL GAME. Existing worlds and verified downloads are kept.":"For now, you can download instances and play the 26.3 demo. Other versions cannot launch yet; native compatibility is in progress.",1390,3);
   wrap(c,240,570,"Roadmap: full play after approval and ownership checks; full settings; all 26.x releases and snapshots; Fabric, Forge, NeoForge; SDL3 / Controlify; shader performance. Later: CogiArt menu music, mrpack imports, USB keyboard / mouse, themes, JVM21 and JVM17 for older versions.",1390,5);
   action(c,240,773,330,"OK",row==1,true);
   if(row==0)selection(c,680,773,430,76);

@@ -884,3 +884,24 @@ profile/world/lifecycle policy unchanged. Actual089PS5feel/strength/reconnect/
 residual-rumble plus088performance/regression checks remain pending. Preserve
 088and earlier packages/symbols/frozen milestones. Sharedsource goes to main,
 codex/demo,codex/offline; no automatic release or ProsperoStore update.
+
+
+## Temporary authenticated game branch — 2026-10-27
+
+User explicitly requests a Git branch named Temp_gametest replacing codex/offline,
+carrying the Mojang-ID login experiment, fixing instance deletion and enabling
+full-game downloads/play. This supersedes the Offline branch-name/default rule
+for this personal test line only. Publish this requested source branch; no new
+ProsperoStore/GitHub release is authorized. Keep main/codex/demo on their own ID
+and Demo policy. Preserve old Offline history/packages and frozen milestones.
+Read docs/client-temp-gametest-090.md and the matching validation record.
+User reports login works on private089 SHA256
+ccf692aac72ed4eeb3d91d67bce7c2fad33e0de0ae0a634ff976d08c0c91949c;
+no090 full-game/download/deletion/Undo console result is inferred. Temp builds
+require --launcher-channel temp_gametest and cannot be mislabeled Demo/Offline.
+Legacy Microsoft Live flow retains ownership/profile checks and memory-only tokens.
+Full launch requires a valid Session and original Main receives the real profile
+and access token without --demo; do not log arguments/tokens. Downloads remain
+original publisher files with hashes. No bundled game payload or transformations.
+Runtime patch0122 owns the directory move fix; keep Trash/Undo/recovery semantics.
+090 includes the same089toolkit/haptics; actual console validation remains pending.

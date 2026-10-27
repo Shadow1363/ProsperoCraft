@@ -28,16 +28,16 @@ public class DeleteCheck {
   // A symlinked instance must never relocate unrelated data.
   var safe=new ProsperoLibrary(base.resolve("symlink"));var link=safe.add("Link","26.3",1);Path folder=safe.game(link).getParent();Files.delete(safe.game(link));Files.delete(folder);Path outside=base.resolve("outside");Files.createDirectories(outside);Files.writeString(outside.resolve("keep"),"keep");Files.createSymbolicLink(folder,outside);reject(()->safe.delete(link));check(Files.readString(outside.resolve("keep")).equals("keep"),"followed symlink");
   // Actual controller flow in each build flavor: cancel default, confirm delete, undo.
-  for(String channel:List.of("demo","offline")){
+  for(String channel:List.of("demo","offline","temp_gametest")){
    Files.writeString(Path.of(args[1]).resolve("prosperocraft-channel.txt"),channel);Path root=base.resolve(channel);var store=new ProsperoLibrary(root);store.settings().showIntro=false;var entry=store.add("Delete me","26.3",1);Files.writeString(store.game(entry).resolve("keep-world"),"keep");
    var model=new ProsperoLauncher(new ProsperoAuth(),root,url->{throw new AssertionError("unexpected network");});model.tick(0x4000);model.tick(0x40);model.tick(0x4000);for(int n=0;n<3;n++)model.tick(0x40);
    set(model,"busy",true);model.tick(0x4000);check(model.tick(0)[11].equals("5"),"busy delete allowed");set(model,"busy",false);
    model.tick(0x4000);check(model.tick(0)[11].equals("9")&&model.tick(0)[15].equals("0"),"confirmation did not default cancel");model.tick(0x4000);check(model.tick(0)[11].equals("5")&&new ProsperoLibrary(root).instances().size()==1,"default X deleted instance");
    model.tick(0x4000);model.tick(0x2000);check(model.tick(0)[11].equals("5"),"Circle did not cancel");model.tick(0x4000);model.tick(0x20);model.tick(0x4000);check(model.tick(0)[11].equals("0")&&model.tick(0)[13].equals("0")&&model.tick(0)[74].equals("UNDO"),"last instance delete failed");
    var restart=new ProsperoLauncher(new ProsperoAuth(),root,url->{throw new AssertionError("network");});check(restart.tick(0)[74].equals("UNDO"),"restart lost undo");restart.tick(0x1000);check(restart.tick(0)[13].equals("1")&&Files.readString(store.game(entry).resolve("keep-world")).equals("keep"),"controller undo lost world");
-   check(restart.tick(0)[73].equals(channel.equals("demo")?"DEMO BRANCH":"OFFLINE BRANCH"),"wrong channel label");
+   check(restart.tick(0)[73].equals(channel.equals("temp_gametest")?"TEMP GAMETEST":channel.equals("demo")?"DEMO BRANCH":"OFFLINE BRANCH"),"wrong channel label");
   }
-  System.out.println("PASS delete/undo/metadata/world/options/cache/account preservation; save failure rollback; interrupted delete/restore recovery; symlink rejection; Demo+Offline controller confirmation/cancel/busy/last instance/restart undo");
+  System.out.println("PASS delete/undo/metadata/world/options/cache/account preservation; save failure rollback; interrupted delete/restore recovery; symlink rejection; Demo+Offline+Temp_gametest controller confirmation/cancel/busy/last instance/restart undo");
  }
 }'''
 with tempfile.TemporaryDirectory(prefix='prospero-delete-') as folder:

@@ -39,7 +39,7 @@ def without_build_id(blob):
    result[start+16:start+32]=bytes(16);found+=1
  assert found==1
  return bytes(result)
-elf=work/'bootstrap-01.000.089-symbols.elf';text=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(elf)],text=True);symbols={l.split()[-1]:int(l.split()[0],16)for l in text.splitlines()if len(l.split())==3}
+elf=work/'bootstrap-01.000.090-symbols.elf';text=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(elf)],text=True);symbols={l.split()[-1]:int(l.split()[0],16)for l in text.splitlines()if len(l.split())==3}
 assert symbols.get('client_ps5_audio_early_init_result')
 imports=subprocess.check_output([str(LLVM/'llvm-nm'),'--undefined-only',str(elf)],text=True)
 for api in ['scePadSetVibration','scePadSetVibrationMode']:assert api in imports
@@ -60,11 +60,11 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  for name in ['toolkit_surface.hpp','toolkit_canvas.hpp','toolkit_effects.hpp','native_menu.hpp','navigation.hpp','haptics.hpp']:
   assert z.read('PPSA99874/assets/java25/launcher-toolkit/'+name)==(ROOT/'client/launcher'/name).read_bytes()
  assert not any('/assets/audio/' in n for n in z.namelist())
- assert z.testzip()is None;prefix='PPSA99874/';param=json.loads(z.read(prefix+'sce_sys/param.json'));old=json.loads(baseline.read(prefix+'sce_sys/param.json'));assert param['contentVersion']=='01.000.089';assert param['downloadDataSize']==4096
+ assert z.testzip()is None;prefix='PPSA99874/';param=json.loads(z.read(prefix+'sce_sys/param.json'));old=json.loads(baseline.read(prefix+'sce_sys/param.json'));assert param['contentVersion']=='01.000.090';assert param['downloadDataSize']==4096
  assert param['localizedParameters']['en-US']['titleName']=='ProsperoCraft'
  assert z.read(prefix+'sce_sys/icon0.png')==(ROOT/'assets/branding/icon0.png').read_bytes()
  for k in ['titleId','contentId','conceptId']:assert param[k]==old[k]
- assert b'-Xmx1536m'in z.read(prefix+'eboot.bin') and b'Minecraft Original Client Startup 01.000.089'in z.read(prefix+'eboot.bin')
+ assert b'-Xmx1536m'in z.read(prefix+'eboot.bin') and b'Minecraft Original Client Startup 01.000.090'in z.read(prefix+'eboot.bin')
  for flag in [b'-Xmixed',b'-XX:TieredStopAtLevel=1',b'-XX:CICompilerCount=1',b'-XX:CompileThresholdScaling=4.0',b'-XX:CompileCommand=MemLimit,*.*,2M',b'-XX:ReservedCodeCacheSize=32m',b'java25-jit.log']:
   assert flag in z.read(prefix+'eboot.bin'),flag
  assert b'-XX:+UseG1GC' in z.read(prefix+'eboot.bin') and b'-XX:NewRatio=' not in z.read(prefix+'eboot.bin')
@@ -77,19 +77,21 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  observer=z.read(prefix+'assets/java25/classes/ClientStartup25$StartupObserver.class')
  assert b'PS5 STARTUP SNAPSHOT' in observer and b'getAllStackTraces' in observer and b'heapUsed=' in observer
  assert all(marker in observer for marker in (b'PS5 MAIN TRANSITION',b'getStackTrace',b'isLanguageApply',b'unchangedFromTransition='))
- assert observer==(ROOT/'build/startup-host-089/ClientStartup25$StartupObserver.class').read_bytes()
+ assert observer==(ROOT/'build/startup-host-090/ClientStartup25$StartupObserver.class').read_bytes()
  assert b'PS5 startup observer unavailable;continuing original Main' in fixture
  with zipfile.ZipFile(io.BytesIO(z.read(prefix+'assets/java25/client-probe.jar'))) as launch_jar:
   assert launch_jar.read('ClientStartup25.class')==fixture
   for entry in ['ProsperoAuth.class','ProsperoAuth$Net.class','ProsperoLauncher.class']:
    assert launch_jar.read(entry)==z.read(prefix+'assets/java25/classes/'+entry)
-   assert launch_jar.read(entry)==(ROOT/'build/startup-host-089'/entry).read_bytes()
-  assert b'f0c7635e-8d50-4d7e-afa3-d15db4a0a3d3' in launch_jar.read('ProsperoAuth.class')
+   assert launch_jar.read(entry)==(ROOT/'build/startup-host-090'/entry).read_bytes()
+  assert b'00000000402b5328' in launch_jar.read('ProsperoAuth.class')
+  assert b'login.live.com/oauth20_connect.srf' in launch_jar.read('ProsperoAuth$Endpoint.class')
+  assert b'PLAY FULL GAME' in launch_jar.read('ProsperoLauncher.class')
   assert b'launcherMenu' in fixture and b'ProsperoLauncher' in fixture
   assert b'ProsperoCraft native launcher visible before Java and Minecraft graphics' not in z.read(prefix+'eboot.bin')
   assert b'ProsperoCraft: preparing your launcher.' not in z.read(prefix+'eboot.bin')
   assert b'LAUNCH NOT AVAILABLE YET' in launch_jar.read('ProsperoLauncher.class')
-  channel=launch_jar.read('prosperocraft-channel.txt').decode().strip();assert channel in ('demo','offline')
+  channel=launch_jar.read('prosperocraft-channel.txt').decode().strip();assert channel=='temp_gametest'
   if channel=='offline':assert launch_jar.read('offline-import-public-key.der')==(ROOT/'client/launcher/offline-import-public-key.der').read_bytes()
   else:assert 'offline-import-public-key.der' not in launch_jar.namelist()
   assert b'DELETE INSTANCE' in z.read(prefix+'eboot.bin')
@@ -122,7 +124,7 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  assert b'normalQuit' in fixture
  assert b'ProsperoSession' in fixture
  for entry in ['ProsperoSession.class','ProsperoSession$Evidence.class']:
-  assert z.read(prefix+'assets/java25/classes/'+entry)==(ROOT/'build/startup-host-089'/entry).read_bytes()
+  assert z.read(prefix+'assets/java25/classes/'+entry)==(ROOT/'build/startup-host-090'/entry).read_bytes()
  assert b'--prospero-library' in z.read(prefix+'eboot.bin')
  assert b'Original game main returned;inspect exceptions.log' not in fixture
  bootstrap=(ROOT/'client/startup/bootstrap.cpp').read_text();assert bootstrap.index('client_ps5_audio_early_init_result=sceAudioOutInit()')<bootstrap.index('JNI_CreateJavaVM(&');assert 'test_count=4'in bootstrap and 'for(int i:{1,3})'in bootstrap and 'ClientContinuousSDL25'not in bootstrap
@@ -135,12 +137,12 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  assert 'PPSA99874/assets/java25/client/client-inventory.properties' not in z.namelist()
  for row in lock['artifacts']:
   if row not in dependencies:assert prefix+'assets/java25/client/jars/'+row['file'] not in z.namelist()
- for entry in (ROOT/'build/startup-host-089').glob('Prospero*.class'):
+ for entry in (ROOT/'build/startup-host-090').glob('Prospero*.class'):
   assert z.read(prefix+'assets/java25/classes/'+entry.name)==entry.read_bytes(),entry.name
  for name in [b'ProsperoInstall',b'ProsperoLibrary',b'selectedWork',b'gameLoader']:assert name in fixture or name in z.read(prefix+'assets/java25/classes/ProsperoLauncher.class')
 
  for name in baseline.namelist():
-  if name.endswith('/lib/modules'):assert z.read(name)==baseline.read(name),name
+  if name.endswith('/lib/modules'):assert z.read(name)==(runtime/'build/java25/boot-image/lib/modules').read_bytes(),name
   elif name.endswith('.so') and not name.endswith('/server/libjvm.so'):assert without_build_id(z.read(name))==without_build_id(baseline.read(name)),name
  assert z.read(prefix+'assets/java25/lib/server/libjvm.so')==(runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_libs/java.base/server/libjvm.so').read_bytes()
  assert b'-XX:-UseCompressedOops' in z.read(prefix+'eboot.bin')
@@ -236,7 +238,7 @@ with zipfile.ZipFile(package)as z:
  assert json.loads(z.read('PPSA99874/assets/java25/opengl-provider-audit.json'))['objects_sha256']==validation['opengl_provider_audit']['objects_sha256']
  assert json.loads(z.read('PPSA99874/assets/java25/opengl-jni-audit.json'))['object_sha256']==validation['opengl_jni_audit']['object_sha256']
  assert sha(z.read('PPSA99874/assets/java25/ports/lwjgl-3.4.3-ps5-modules.jar'))==validation['module_platform_audit']['output_sha256']
- assert (work/'classes/ClientStartup25.class').read_bytes()==(ROOT/'build/startup-host-089/ClientStartup25.class').read_bytes()
+ assert (work/'classes/ClientStartup25.class').read_bytes()==(ROOT/'build/startup-host-090/ClientStartup25.class').read_bytes()
  assert b'OSMesa'in z.read('PPSA99874/assets/java25/classes/ClientStartup25.class')
  assert b'ps5clientgl'in z.read('PPSA99874/assets/java25/classes/ClientStartup25.class')
  assert sha((ROOT/'dist/milestones/Client_OpenGL_Provider-01.000.029/PPSA99874-full-local.zip').read_bytes())=='ed0cc6f49528b44b6d131c800e3c6359d01e009ae52524b7e96262a71491b685'
@@ -332,7 +334,7 @@ with (ROOT/'dist/accepted/Client_Auth_Errors-01.000.078/PPSA99874-full-local.zip
 
 with (ROOT/'dist/accepted/Client_Instances-01.000.079/PPSA99874-full-local.zip').open('rb')as stream:assert hashlib.file_digest(stream,'sha256').hexdigest()=='ee4238389de4c454d7b19173fa2613a4515d9c6e685ee083e3e70772b3deb6bf'
 
-print('PASS089 actual package/CRC/signatures,launcher-only dependencies/zero bundled game JARs or asset objects,unchanged023coreimage/otherlibrarybytes except verifiedGNUbuildIDs plus exact0121HotSpot,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. Menu confirmation recorded separately;gameplay/stability validation pending. SHA256',sha(package.read_bytes()))
+print('PASS090 actual package/CRC/signatures,launcher-only dependencies/zero bundled game JARs or asset objects,exact0122coreimage/unchanged023otherlibrarybytes except verifiedGNUbuildIDs plus exact0121HotSpot,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. Menu confirmation recorded separately;gameplay/stability validation pending. SHA256',sha(package.read_bytes()))
 
 with (ROOT/'dist/published/ProsperoCraft-01.000.082/PPSA99874.zip').open('rb') as frozen082:
  assert hashlib.file_digest(frozen082,'sha256').hexdigest()=='ab49cad8977736be2be72230743232a270dba9bd17fa70a66b64a93c48230820'

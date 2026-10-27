@@ -14,8 +14,8 @@ public class AuthCheck {
   ArrayDeque<ProsperoAuth.Reply> q=new ArrayDeque<>();List<ProsperoAuth.Endpoint> endpoints=new ArrayList<>();
   public ProsperoAuth.Reply send(ProsperoAuth.Endpoint e,String method,String type,String body,String bearer){
    endpoints.add(e);if(e==ProsperoAuth.Endpoint.TOKEN&&!body.contains(DEVICE))throw new AssertionError("wrong device code");
-   if(e==ProsperoAuth.Endpoint.DEVICE&&(!body.contains(ProsperoAuth.CLIENT_ID)||!body.contains("XboxLive.SignIn")))throw new AssertionError("scope/client");
-   if(e==ProsperoAuth.Endpoint.XBOX&&!body.contains("d="+MSA))throw new AssertionError("RPS ticket");
+   if(e==ProsperoAuth.Endpoint.DEVICE&&(!body.contains(ProsperoAuth.CLIENT_ID)||!body.contains("service%3A%3Auser.auth.xboxlive.com%3A%3AMBI_SSL")||!body.contains("response_type=device_code")))throw new AssertionError("scope/client");
+   if(e==ProsperoAuth.Endpoint.XBOX&&!body.contains("\"RpsTicket\":\""+MSA+"\""))throw new AssertionError("RPS ticket");
    if(e==ProsperoAuth.Endpoint.XSTS&&!body.contains(XBL))throw new AssertionError("Xbox token");
    if(e==ProsperoAuth.Endpoint.MINECRAFT&&!body.contains("XBL3.0 x=hash;"+XSTS))throw new AssertionError("identity");
    if(e==ProsperoAuth.Endpoint.LICENSE||e==ProsperoAuth.Endpoint.PROFILE){if(!MC.equals(bearer))throw new AssertionError("bearer missing");}

@@ -72,6 +72,21 @@ public class InstanceCheck {
    next.tick(0x4000);next.tick(0x4000);waitFor(next);if(!next.tick(0)[10].equals("LAUNCH"))throw new AssertionError("repeat selection/launch");
    if(!Files.readString(supportedLibrary.game(supportedInstance).resolve("keep-world.txt")).equals("world"))throw new AssertionError("cycle lost world");
   }System.clearProperty("ps5.launcher.resume");
+  // Temporary channel requires an unexpired, entitlement-checked Session.
+  Path channel=Path.of(args[1]).resolve("prosperocraft-channel.txt");Files.writeString(channel,"temp_gametest");
+  supportedLibrary.settings().showIntro=false;supportedLibrary.save();
+  var fullModel=new ProsperoLauncher(new ProsperoAuth(),supportedRoot,InstanceCheck::open);fullModel.tick(0x4000);fullModel.tick(0x4000);waitFor(fullModel);
+  if(!fullModel.tick(0)[10].equals("WAIT")||!fullModel.tick(0)[2].contains("Sign in"))throw new AssertionError("unsigned full game accepted");
+  var sessionField=ProsperoLauncher.class.getDeclaredField("session");sessionField.setAccessible(true);
+  sessionField.set(fullModel,new ProsperoAuth.Session("OwnedPlayer","0123456789abcdef0123456789abcdef","SECRET_TEST_TOKEN",System.currentTimeMillis()+3600000));
+  fullModel.tick(0x4000);waitFor(fullModel);List<String> fullArgs=List.of(fullModel.arguments(null,null));
+  if(fullArgs.contains("--demo")||fullArgs.contains("--disableMultiplayer")||fullArgs.contains("--disableChat")||!fullArgs.get(fullArgs.indexOf("--accessToken")+1).equals("SECRET_TEST_TOKEN")||!fullArgs.get(fullArgs.indexOf("--username")+1).equals("OwnedPlayer")||!fullArgs.get(fullArgs.indexOf("--uuid")+1).equals("0123456789abcdef0123456789abcdef"))throw new AssertionError("full session handoff");
+  if(Arrays.toString(fullModel.tick(0)).contains("SECRET_TEST_TOKEN")||fullModel.toString().contains("SECRET_TEST_TOKEN"))throw new AssertionError("UI leaked session token");
+  sessionField.set(fullModel,new ProsperoAuth.Session("OwnedPlayer","0123456789abcdef0123456789abcdef","SECRET_EXPIRED",System.currentTimeMillis()-1));denied(()->fullModel.arguments(null,null));
+  sessionField.set(fullModel,null);denied(()->fullModel.arguments(null,null));
+  Files.writeString(channel,"demo");if(!List.of(supportedModel.arguments(null,null)).contains("--demo"))throw new AssertionError("Demo mode changed");Files.delete(channel);
+  if(!Files.readString(supportedLibrary.game(supportedInstance).resolve("keep-world.txt")).equals("world"))throw new AssertionError("full launch lost world");
+  System.out.println("PASS Temp_gametest verified session arguments, unsigned/expired/signed-out rejection, full-game flags, UI redaction, Demo isolation and existing world/cache reuse");
   var persisted=new ProsperoLibrary(root.resolve("model"));if(persisted.instances().size()!=1||persisted.instances().get(0).icon!=2||!persisted.instances().get(0).name.endsWith("A"))throw new AssertionError("controller persistence");
   System.out.println("PASS empty/persistent instances, isolated worlds, rename/icons/settings, L1/R1/keyboard/install/play controller flow, unsupported26.2 launch guard and startup-notice persistence, original bytes, pin verification/cache/repair/cancel/failure/traversal/HTTPS/native-classifier rejection");
  }
@@ -80,4 +95,4 @@ public class InstanceCheck {
 with tempfile.TemporaryDirectory(prefix='prospero-instances-')as folder:
  w=Path(folder);(w/'InstanceCheck.java').write_text(source)
  subprocess.run([str(jdk/'bin/javac'),'--release','25','-cp',cp,'-d',str(w),*[str(p)for p in (ROOT/'client/launcher/java').glob('*.java')],str(w/'InstanceCheck.java')],check=True)
- subprocess.run([str(jdk/'bin/java'),'-cp',str(w)+':'+cp,'InstanceCheck',str(w/'data')],check=True,timeout=40)
+ subprocess.run([str(jdk/'bin/java'),'-cp',str(w)+':'+cp,'InstanceCheck',str(w/'data'),str(w)],check=True,timeout=40)
