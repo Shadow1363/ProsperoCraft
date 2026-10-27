@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.089",
+  "title_id": "PPSA99874",
+  "base_main_commit": "83857d8f36ecb6c61a7d51dbabc1aced13e303d3",
+  "scope": "Launcher-only controller vibration and saved Settings Triangle opt-out",
+  "channels": {
+    "demo": {
+      "branch": "codex/demo",
+      "package_sha256": "a078233a12c2be8b369eeceabca663f9386ee61117c59277e69487a3be9efee3",
+      "native_elf_sha256": "07cd923647a81e23b730b86eb4e9ef5f5429aa995535b93a9ae97972597848f7",
+      "offline_public_key_included": false,
+      "console_status": "PENDING exact089"
+    },
+    "offline": {
+      "branch": "codex/offline",
+      "package_sha256": "59aa7b29d228a4485ea8ccf21f9c066fd509e1072c186806e92cc34df159d623",
+      "native_elf_sha256": "07cd923647a81e23b730b86eb4e9ef5f5429aa995535b93a9ae97972597848f7",
+      "offline_public_key_included": true,
+      "console_status": "PENDING exact089"
+    }
+  },
+  "source_sha256": {
+    "client/launcher/haptics.hpp": "a14fd7597afc7d811667646e11ac47cea974484c82f2e082925414234478fdea",
+    "client/launcher/native_menu.hpp": "b0f91acafda632520e725174d229bc1f5f169faaaed9786537a17f27a54bf0ca",
+    "client/launcher/java/ProsperoLauncher.java": "41f5300f53856c579d686b93203f5ee11f96b7a2d565ff641e75cb1a066565e0",
+    "client/launcher/java/ProsperoLibrary.java": "d64acc427ee340d0a357059c1790024c9a4157a7887a4615284a7d2a8fc20027",
+    "client/startup/bootstrap.cpp": "71fdf5bf89e8c5bdf4f991f788113a07a96fe943befcfc402b02e4d24448f019",
+    "tools/build_launcher_toolkit.py": "4f22f4812e3288d62bc889d8218d05584e2faaeb8e8565cb6eabe2d679510ec5",
+    "tools/test_launcher_haptics.py": "18d02b1a47fed125d510e102d78732653279ce3fbc28ffec199619c6b473d89b",
+    "tools/preview_launcher.py": "87c4a1cef889620758bc09a0b5f9e42cfc1ab1bd5736c0a7edd56b8ae84e42c9"
+  },
+  "mailbox": {
+    "total": 80,
+    "sequence": 77,
+    "cue": 78,
+    "preference": 79
+  },
+  "native_worker": {
+    "stack_request_bytes": 131072,
+    "poll_us": 5000,
+    "mode": 2,
+    "motor_abi_bytes": 2,
+    "cue_durations_ms": {
+      "move": 18,
+      "confirm": 45,
+      "back": 28,
+      "error": 70,
+      "success": 85
+    },
+    "rate_limit_ms": 70,
+    "stale_ui_ms": 250,
+    "JNI_calls": false,
+    "join_before_pad_close": true
+  },
+  "host_checks": [
+    "PASS actual motor-worker deadline during stalled UI,duplicate suppression,opt-out/disconnect cancellation,no stale replay,zero/join,nonfatal unsupported mode under ASan/UBSan",
+    "PASS actual Java focus/confirm/back/error/Play-task cues,stable idle sequence,persistent Triangle off/on and older-library default",
+    "PASS actual native/Vulkan frontend/controller/JNI fixtures;zero motors required before controller close",
+    "PASS existing instance/world/options/rename/icon/settings/background/download/repair/cancellation and unsupported-version guards",
+    "PASS Delete/Cancel/busy/restart Undo and signed Demo/Offline/auth separation",
+    "PASS original Main host native-boundary/CPU-setup and process replacement lifecycle regressions",
+    "PASS both target builds/relinks and complete package/signature/CRC/source/license/constructor/allocator audits;actual vibration imports linked",
+    "PASS paired Java classes/native executable across channels;Demo key omitted,Offline key retained",
+    "PASS preserved084through088and frozen/published packages",
+    "PASS Python syntax and git whitespace checks"
+  ],
+  "console_checks_pending": [
+    "Actual pulse feel/strength and timing on DualSense",
+    "Rapid navigation,no idle/download-progress buzz and error/completion cues",
+    "Settings Triangle opt-out persistence,disconnect/reconnect/interception",
+    "No residual vibration after game handoff or quit/library/relaunch",
+    "Existing088graphics/performance/world/audio/control/1080p/Delete-Undo/lifecycle checks"
+  ],
+  "limitations": [
+    "Motor timing and feel require physical PS5 validation;host API fixtures do not establish hardware success",
+    "Optional mode/API failure leaves launcher/gameplay available and disables output until re-enabled",
+    "Pulses are rate limited and coalesced rather than queued for later replay"
+  ],
+  "game_jar_modified": false,
+  "world_migration": false,
+  "auth_policy_changed": false,
+  "gameplay_input_audio_policy_changed": false,
+  "runtime_source_changes": false,
+  "new_frozen_milestone": false,
+  "store_release_changed": false
+}

@@ -3,6 +3,7 @@
 #include "demo_renderer.hpp"
 #include "branding_logo.hpp"
 #include "navigation.hpp"
+#include "haptics.hpp"
 #include "fonts.hpp"
 #ifdef PROSPERO_TOOLKIT
 #include "toolkit_canvas.hpp"
@@ -30,7 +31,7 @@ inline pthread_mutex_t mailbox=PTHREAD_MUTEX_INITIALIZER;
 inline pthread_t ui_thread{};
 inline unsigned events[64]{},event_read=0,event_write=0;
 inline std::atomic<bool> visible{false},online{false},exit_requested{false},display_done{false},display_ok{false};
-inline int controller=-1;
+inline int controller=-1;inline Haptics haptics;inline bool pad_connected=false;inline unsigned pad_generation=0;
 inline unsigned updates=0;
 inline Navigation navigation{};inline std::uint64_t pressed_at=0;
 inline void publish(const Fields& values) noexcept {
@@ -165,7 +166,7 @@ inline void compose(Canvas& c) noexcept {
   else{row_control(c,340+slide,"INSTANCE NAME",fields[16].data(),row==0);const char* icons[]={"Crafting table","Grass","Amethyst","Ocean","Redstone","Forest","Gold","Snow"};int icon=number(18);row_control(c,458+slide,"INSTANCE ICON",icons[icon>=0&&icon<8?icon:0],row==1);action(c,760,610+slide,1080,"DONE",row==2,true);action(c,760,726+slide,1080,"DELETE INSTANCE",row==3,std::strcmp(fields[64].data(),"BUSY")!=0);wrap(c,791,850+slide,"Deleted instances go to Trash. Shared game downloads are kept.",1000,2);}
  }else if(page==2){
   label(c,70,185+slide,"Settle in.",64);label(c,75,270+slide,"A few thoughtful defaults. You're in control.",24,0x91ad9b);
-  c.rounded(70,340+slide,620,548,28,ink(0x10221c));label(c,112,391+slide,"YOUR SETUP",24,0x8fbb9b);label(c,112,459+slide,"Native Java 25",42);wrap(c,114,545+slide,"Game resolution is fixed at1920 x1080 so the menu pointer and clicks stay aligned. Other video and audio options stay with each instance.",520,5);label(c,114,714+slide,"SQUARE  Change background",24,0xa9eab6);title(c,114,753+slide,fields[76][0]?fields[76].data():"Aurora",30,510);wrap(c,114,814+slide,fields[67].data(),510,2);
+  c.rounded(70,340+slide,620,548,28,ink(0x10221c));label(c,112,391+slide,"YOUR SETUP",24,0x8fbb9b);label(c,112,459+slide,"Native Java 25",42);wrap(c,114,545+slide,"Game resolution is fixed at1920 x1080 so the menu pointer and clicks stay aligned. Other video and audio options stay with each instance.",520,5);label(c,114,714+slide,"SQUARE  Change background",24,0xa9eab6);title(c,114,753+slide,fields[76][0]?fields[76].data():"Aurora",30,510);label(c,114,804+slide,std::strcmp(fields[79].data(),"OFF")==0?"TRIANGLE  Vibration: OFF":"TRIANGLE  Vibration: ON",24,0xa9eab6);title(c,114,851+slide,fields[67].data(),18,510,0x83a58d);
   row_control(c,340+slide,"GAME RESOLUTION",fields[25].data(),row==0,false);row_control(c,465+slide,"PARALLEL DOWNLOADS",fields[26].data(),row==1);row_control(c,590+slide,"REDUCED MOTION",fields[30].data(),row==2);row_control(c,715+slide,"SHOW SNAPSHOTS",fields[27].data(),row==3);row_control(c,840+slide,"STARTUP NOTICE",fields[68].data(),row==4);
  }else if(page==3){
   label(c,70,185+slide,"Your account. Your adventure.",64);label(c,75,270+slide,"Sign in on your phone. Your password stays with Microsoft.",24,0x91ad9b);
@@ -233,7 +234,7 @@ inline void compose(Canvas& c) noexcept {
   c.rounded(72,982,1770,5,2,ink(0x233c2c));if(number(20)>0)c.rounded(72,982,unsigned(1770*number(20)/1000),5,2,ink(0xa9eab6));
 #endif
  }else if(page!=3)title(c,78,949,fields[2].data(),24,1760,0x83a58d);
- label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1370,1020,fields[73].data(),18,0x7d9f89);label(c,1650,1020,"01.000.088",24,0x7d9f89);
+ label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1370,1020,fields[73].data(),18,0x7d9f89);label(c,1650,1020,"01.000.089",24,0x7d9f89);
 }
 #ifdef PROSPERO_TOOLKIT
 inline std::uint64_t toolkit_frame_time=0;
@@ -258,10 +259,12 @@ inline bool update() noexcept {
  // The second update follows the initial submit/WaitVblank in run_ui_until.
  if(++updates>=2)visible.store(true,std::memory_order_release);
  unsigned pressed=0;PadSample batch[64]{};const int count=scePadRead(controller,batch,64);
- const auto current_time=now_ms();
- if(count<0||count>64){navigation.clear();discard_input();}
+ const auto current_time=now_ms();bool connection_changed=false;
+ if(count<0||count>64){pad_connected=false;navigation.clear();discard_input();}
  else for(int i=0;i<count;++i){
-  if(!batch[i].connected||(batch[i].buttons&0x80000000u)){pressed=0;discard_input();}
+  pad_connected=batch[i].connected&&!(batch[i].buttons&0x80000000u);
+  if(pad_generation!=batch[i].connection_generation){connection_changed=true;haptics.control(false,current_time);pad_generation=batch[i].connection_generation;}
+  if(!pad_connected){pressed=0;discard_input();}
   pressed|=navigation.sample(batch[i].buttons,batch[i].lx,batch[i].ly,batch[i].connected,current_time);
  }
  pressed|=navigation.repeat(current_time);
@@ -276,6 +279,8 @@ inline bool update() noexcept {
   if(changed){if(std::strcmp(fields[11].data(),published[11].data())!=0){transition_start=now_ms();focus.initialized=false;}fields=published;}
   pthread_mutex_unlock(&mailbox);
  }
+ bool vibration=online.load(std::memory_order_acquire)&&pad_connected&&!connection_changed&&current_time-navigation.last_sample<=250&&std::strcmp(fields[79].data(),"ON")==0&&!exit_requested.load();
+ haptics.control(vibration,current_time);haptics.observe(unsigned(number(77)),fields[78].data(),vibration,current_time);
  if(changed||(pressed&0x4000)){component_motion_until=now_ms()+700;return true;}
 #ifdef PROSPERO_TOOLKIT
  if(!prospero_ui::reduced&&prospero_ui::healthy)return now_ms()-last_draw_time>=33;
@@ -283,8 +288,9 @@ inline bool update() noexcept {
  return animating&&now_ms()-last_draw_time>=16;
 
 }
-inline bool stop() noexcept{return exit_requested.load(std::memory_order_acquire);}
+inline bool stop() noexcept{bool value=exit_requested.load(std::memory_order_acquire);if(value)haptics.control(false,now_ms());return value;}
 inline void* ui_main(void*) noexcept {
+ pad_connected=false;pad_generation=0;(void)haptics.start(controller);
 #ifdef PROSPERO_TOOLKIT
  extern void initialize_toolkit_graphics();initialize_toolkit_graphics();
  #ifndef PROSPERO_TOOLKIT_FONT_DIR
@@ -298,7 +304,7 @@ inline void* ui_main(void*) noexcept {
 #else
  const bool gpu_closed=true;
 #endif
- scePadClose(controller);controller=-1;
+ haptics.close();scePadClose(controller);controller=-1;
  std::fprintf(stderr,"PS5_UI handoff display_closed=%d gpu_closed=%d\n",int(closed),int(gpu_closed));
  display_ok.store(closed&&gpu_closed,std::memory_order_release);display_done.store(true,std::memory_order_release);return nullptr;
 }

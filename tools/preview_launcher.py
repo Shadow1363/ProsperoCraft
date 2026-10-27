@@ -7,7 +7,7 @@ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--runtime-workspa
 w=ROOT/'build/launcher-preview';w.mkdir(parents=True,exist_ok=True)
 source='''#include <cstdlib>\n#include <cassert>\n#include <vector>\n#include <string>\n#include <fstream>\n#include <thread>\n#include <chrono>\n#include "jni.h"\n#include "pad.h"\n#include "'''+str(runtime/'native/renderer/demo_renderer.cpp')+'''"\n#include "'''+str(ROOT/'client/launcher/native_menu.hpp')+'''"\n'''
 source+=r'''
-static std::atomic<unsigned> fake_buttons{0},pad_reads{0},flips{0};
+static std::atomic<unsigned> fake_buttons{0},pad_reads{0},flips{0},motor_large{0},motor_small{0};
 static void* storage=nullptr;static std::vector<std::string> operations;static int notifications=0,failure=0;static std::string output;
 extern "C" {
 bool ps5ObserveOwnedAllocation(const void* p) noexcept{return p!=nullptr;}
@@ -21,7 +21,9 @@ uint64_t sceKernelGetProcessTime(){return std::chrono::duration_cast<std::chrono
 int sceKernelUsleep(uint32_t us){std::this_thread::sleep_for(std::chrono::microseconds(us));return 0;}
 int sceUserServiceGetInitialUser(int32_t* user){*user=1;return 0;}
 int scePadOpen(int32_t,int,int,const void*){return 42;}
-int scePadClose(int){return 0;}
+int scePadClose(int){assert(motor_large.load()==0&&motor_small.load()==0);return 0;}
+int scePadSetVibrationMode(int,int mode){assert(mode==2);return 0;}
+int scePadSetVibration(int,const prospero_menu::LauncherMotors* motors){motor_large=motors->large_motor;motor_small=motors->small_motor;return 0;}
 int scePadRead(int,PadSample* samples,int){samples[0]={};samples[0].connected=1;samples[0].lx=samples[0].ly=128;samples[0].buttons=fake_buttons.load();pad_reads.fetch_add(1);return 1;}
 int sceSystemServiceHideSplashScreen(){return 0;}
 int sceVideoOutOpen(int32_t,int32_t,int32_t,const void*){return 17;}
