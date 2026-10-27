@@ -49,7 +49,7 @@ Development continues on `main`, which contains the merged authenticated game-te
 - [x] Delete instance.
 - [x] Centered top-bar button text.
 - [x] Controller vibration.
-- [x] Lift the 60 FPS presentation ceiling on supported 120 Hz displays; 119 FPS reported in PS5 testing. Fully uncapped presentation remains future work.
+- [x] Unlock the 60 FPS cap on compatible 120 Hz displays — 119 FPS reported in PS5 testing. Fully uncapped presentation remains future work.
 
 ### Coming next
 
