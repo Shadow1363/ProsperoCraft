@@ -42,10 +42,14 @@
   "authorization": "User explicitly requestsreleasewithNativeJava25Runtime/nativePS5Minecraftmain description,retainedGUI/iconcredits andnewfeaturechangelog. No formal108ALLPASS inferred.",
   "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/872",
   "catalog_head": "a1275fc",
-  "catalog_status": "OPEN;submissionvalidation/release scan/offlineCIinprogress",
+  "catalog_status": "MERGED at2026-10-27T20:08:33Z;deploymentCI40575375141inprogress;liveAPIstill101whiledeploymentpending",
   "local_catalog_checks": "148validrecords;231testspass/2skipped;onlinepublicrelease/digest/contentVersion108/iconverification0errors/0warnings",
   "description": "Minecraft Java runs natively on PS5 with a Native Java 25 Runtime. Java ownership required. GUI: mihawk-99/PS5_VKHomebrewUI; icons: MultiMC/Prism.",
   "remaining_console_validation": "Dependency108repair/startup,mouse,Controlify,audio/lifecycle,save/reload/endurance;humankeyboardpositive107feedbackrecorded.",
   "preservation": "Exact108candidate/101olderreleases/frozenmilestones/098draftpreserved;nonewfreeze",
-  "runtime": "No newJavafix;42fe3a5existingruntimeintegrationunchanged."
+  "runtime": "No newJavafix;42fe3a5existingruntimeintegrationunchanged.",
+  "catalog_merge_commit": "6e8ad85ea7454c05a120e33920584b0fbcda065b",
+  "catalog_deployment_run": 40575375141,
+  "catalog_required_checks": "PASSsubmissionvalidation/offlinetests/release-scan/developer-bumpeligibility/automaticmerge",
+  "release_scan": "PASS0errors/3warnings/2notices:classfilesmisidentifiedasmacOSdueCAFEBABE;loaderconnectionconstants9021/127.0.0.1flaggedinlibjvm/eboot;noverifiedbuildattestation. These scan flags are not proof of sandbox escape."
 }
