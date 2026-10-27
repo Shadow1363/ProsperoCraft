@@ -63,16 +63,20 @@ static void destroy_context(void){
 #ifdef PS5_GPU_EARLY_VIDEOOUT
 extern int client_wsi_videoout_prepare(void);
 #endif
+#ifndef PS5_GPU_HOST
+static pthread_once_t graphics_once=PTHREAD_ONCE_INIT;
+static void initialize_graphics(void){
+  clientgpu_ps5_fp_ieee();
+  stage("Running explicit GPU constructors once before first graphics use",INT32_MIN);
+  for(Initializer *p=__client_gpu_init_start;p!=__client_gpu_init_end;p++)if(*p)(*p)();
+  stage("GPU constructors complete",0);
+}
+void prospero_graphics_init(void){pthread_once(&graphics_once,initialize_graphics);}
+#endif
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm,void *reserved){
  (void)vm;(void)reserved;
 #ifndef PS5_GPU_HOST
- static int initialized;
- if(!initialized){
-  clientgpu_ps5_fp_ieee();
-  stage("Running explicit GPU constructors after VM creation",INT32_MIN);
-  for(Initializer *p=__client_gpu_init_start;p!=__client_gpu_init_end;p++)if(*p)(*p)();
-  initialized=1;stage("GPU constructors complete",0);
- }
+ prospero_graphics_init();
 #endif
 #ifdef PS5_GPU_EARLY_VIDEOOUT
  stage("Initialize same WSI output before original Main allocations",INT32_MIN);

@@ -90,6 +90,12 @@ remains083; Offline084has the scoped positive gameplay feedback above.
 and adds a CPU identity provider for the original debug screen through an OSHI
 dependency port. Both channels receive the fixes; actual086PS5checks are pending.
 
+[Development087](docs/client-toolkit-087.md) migrates launcher drawing to the
+pinned PS5_VKHomebrewUI Vulkan backend, SDF typography and themed components.
+The Java model and existing library data remain. Demo/Offline candidates are
+experimental and require PS5 startup, performance and game-handoff checks.
+The public Store release remains083.
+
 ## Roadmap
 
 ### Full account release goals

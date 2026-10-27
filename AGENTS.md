@@ -835,3 +835,21 @@ Keep085/084candidates and published083/082/frozen milestones. Both086physicalPS5
 centering/CPUname/GPU/regression/delete/undo/lifecycle tests pending. Publish shared
 source to main,codex/demo,codex/offline; retain separate labeled candidate ZIPs.
 Do not update ProsperoStore/release automatically from host tests.
+
+## Vulkan toolkit launcher migration — 2026-10-27
+
+Client087 adopts the actual PS5_VKHomebrewUI Vulkan backend at pinned revision
+2188642afbcc8d84d36149124f3d9e39dc1b1a05. Read docs/client-toolkit-087.md and its
+validation record. Consumer adapter/sources remain here; reusable checked
+Canvas::blit_rgba lives in the runtime repository. Keep the Java model, signed
+Offline policy, original game JARs, OSHI provider, data paths and title identity.
+Launcher owns a private offscreen RADV device and the existing single native
+VideoOut presenter; no launcher SDL/WSI/audio backend. Complete frame fences,
+GPU/display cleanup and UI join gate game launch. Graphics constructors run
+once before first use; toolkit glyph constructor is explicitly staged. Keep
+clean original-Main return plus LoadExec; never re-enter the old process.
+Readback/tiled upload cost and pre-JVM graphics compatibility require actual
+087PS5validation. Host Vulkan fixtures and packages do not establish console
+startup/performance/handoff/gameplay/audio/lifecycle/Delete/Undo success. Preserve
+083/082public artifacts,084/085/086candidates and frozen milestones. Shared087
+source reaches main,codex/demo,codex/offline; no Store/release asset replacement.

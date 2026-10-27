@@ -52,3 +52,14 @@ original game files separately. This grant applies to material for which the
 ProsperoCraft copyright holder can grant permission, including that holder's
 original contributions in the published 01.000.082 source; frozen snapshots
 and already published binaries are not rewritten by this notice.
+
+The launcher uses PS5_VKHomebrewUI at revision
+2188642afbcc8d84d36149124f3d9e39dc1b1a05:
+https://github.com/mihawk-99/PS5_VKHomebrewUI
+The original ps5-homebrew-ui toolkit is Copyright (C) 2026 BlackBearReloaded:
+https://github.com/blackbearreloaded/ps5-homebrew-ui
+Vulkan backend contributions are Copyright (C) 2026 Mihawk (mihawk-99).
+Both retain GPL-3.0-or-later. Baked Inter fonts retain their SIL OFL1.1 notices.
+The vendored dependency's LICENSE, THIRD_PARTY_NOTICES.md, source hashes and
+reproduction materials ship under assets/java25/launcher-toolkit. No toolkit
+audio backend or sample application is linked or started.

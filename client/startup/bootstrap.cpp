@@ -18,7 +18,19 @@
 #include "native_trace.hpp"
 #include "native_stderr.hpp"
 #include "observer_native.hpp"
+#define PROSPERO_TOOLKIT 1
 #include "../launcher/native_menu.hpp"
+extern "C" void prospero_graphics_init(void);
+namespace prospero_menu {
+using ToolkitInitializer=void(*)();
+extern "C" ToolkitInitializer __client_ui_init_start[],__client_ui_init_end[];
+static pthread_once_t toolkit_once=PTHREAD_ONCE_INIT;
+static void initialize_toolkit_once(){
+ prospero_graphics_init();
+ for(auto* p=__client_ui_init_start;p!=__client_ui_init_end;++p)if(*p)(*p)();
+}
+void initialize_toolkit_graphics(){pthread_once(&toolkit_once,initialize_toolkit_once);}
+}
 #include "session_restart.hpp"
 #include "../ports/oshi/native_cpu.hpp"
 #include <sys/sysctl.h>
@@ -76,7 +88,7 @@ bool initialized=false;
 JavaVM *java_vm=nullptr;
 JNIEnv *java_env=nullptr;
 FILE *startup_log=nullptr;
-constexpr const char* build_version="01.000.086";
+constexpr const char* build_version="01.000.087";
 char run_id[96]="No client run initialized";
 void session_status(const char* state) {
  char note[512];std::snprintf(note,sizeof(note),"Title: PPSA99874\nBuild: %s\nRun: %s\nState: %s\n",build_version,run_id,state);
@@ -434,7 +446,7 @@ static void notify(const char* text) {
 }
 int main(int argc,char** argv) {
  for(int i=0;i<argc;++i)if(argv[i]&&std::strcmp(argv[i],"--prospero-library")==0)resume_library=true;
- ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.086 / PPSA99874\n");
+ ps5::log_share::write_note("/download0/probe-build.txt","Minecraft Original Client Startup 01.000.087 / PPSA99874\n");
  ps5::log_share::start();
  read_previous_log();
  sceUserServiceInitialize(nullptr);std::int32_t user=-1;
