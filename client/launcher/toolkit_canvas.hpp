@@ -33,7 +33,7 @@ struct Canvas {
   auto accent=icon_color(icon);using hui::gfx::Color;auto green=Color::rgb(0x2dbe89);
   Color targets[]={Color::rgb(0x031512),Color::rgb(0x0b382f),hui::gfx::mix(Color::rgb(0x146850),accent,0.25f),hui::gfx::mix(green,accent,0.45f)};
   for(int i=0;i<4;i++){if(!e.ready||reduced)e.palette[i].snap(targets[i]);else e.palette[i].target(targets[i]);e.palette[i].update(dt,3.8f);surface->backdrop.colors[i]=e.palette[i].value();}
-  int mode=num(75);if(mode<1||mode>10)mode=2;if(mode!=e.backdrop){surface->previous_backdrop=surface->backdrop;e.backdrop=mode;e.mode_age=0;}e.mode_age+=dt;surface->background_mix=reduced?1:hui::tween::smoothstep(e.mode_age/0.55f);surface->previous_backdrop.time=reduced?0:e.clock*0.32f;surface->backdrop.mode=static_cast<hui::gfx::BackdropMode>(mode);surface->backdrop.params[0]=0.35f;surface->backdrop.params[1]=0.5f;surface->backdrop.params[2]=0.35f;surface->backdrop.time=reduced?0:e.clock*0.32f;surface->glass=true;e.ready=true;
+  int mode=num(75);if(mode<1||mode>10)mode=5;if(mode!=e.backdrop){surface->previous_backdrop=surface->backdrop;e.backdrop=mode;e.mode_age=0;}e.mode_age+=dt;surface->background_mix=reduced?1:hui::tween::smoothstep(e.mode_age/0.55f);surface->previous_backdrop.time=reduced?0:e.clock*0.32f;surface->backdrop.mode=static_cast<hui::gfx::BackdropMode>(mode);surface->backdrop.params[0]=0.35f;surface->backdrop.params[1]=0.5f;surface->backdrop.params[2]=0.35f;surface->backdrop.time=reduced?0:e.clock*0.32f;surface->glass=true;e.ready=true;
   e.selection=selected;e.model_row=num(15);
  }
 

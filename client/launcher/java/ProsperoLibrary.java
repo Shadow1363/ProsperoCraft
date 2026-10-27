@@ -10,7 +10,7 @@ public final class ProsperoLibrary {
  static final int[][] RESOLUTIONS={{1280,720},{1600,900},{1920,1080},{2560,1440},{3840,2160}};
  static String resolutionLabel(int i){return RESOLUTIONS[i][0]+" x "+RESOLUTIONS[i][1];}
  static final class Instance {String id=UUID.randomUUID().toString(),name,version;int icon;boolean ready;Instance(String n,String v,int i){name=clean(n);version=v;icon=i;}}
- static final class Settings {int resolution=LOCKED_RESOLUTION,workers=4,background=2;boolean vibration=true,reducedMotion=false,snapshots=true,showIntro=true;}
+ static final class Settings {int resolution=LOCKED_RESOLUTION,workers=4,background=5,backgroundDefaultsRevision=0;boolean vibration=true,reducedMotion=false,snapshots=true,showIntro=true;}
  static final class State {int schema=1;ArrayList<Instance> instances=new ArrayList<>();Settings settings=new Settings();}
  final Path root;private State state;
  ProsperoLibrary(Path root)throws Exception {
@@ -20,13 +20,15 @@ public final class ProsperoLibrary {
    catch(Exception bad){throw new IOException("Library data could not be read. Your instance folders are preserved.");}
   }else state=new State();
   recoverInterruptedMoves();
+  // Apply the requested Waves default once, including existing libraries.
+  if(state.settings.backgroundDefaultsRevision<1){state.settings.background=5;state.settings.backgroundDefaultsRevision=1;save();}
 
  }
  static String clean(String name){String value=name==null?"":name.strip();if(value.isEmpty()||value.length()>40||!value.matches("[A-Za-z0-9 ._()!+-]+"))throw new IllegalArgumentException("Use1-40 letters, numbers, spaces or ._()!+-");return value;}
  private void validate()throws Exception {
   if(state==null||state.schema!=1||state.instances==null||state.settings==null||state.instances.size()>256)throw new IOException();Set<String> ids=new HashSet<>();
   for(var i:state.instances){if(i==null||!i.id.matches("[a-f0-9-]{36}")||!ids.add(i.id)||!i.version.matches("26\\.[0-9][A-Za-z0-9._-]{0,70}")||i.icon<0||i.icon>=ICONS.length)throw new IOException();clean(i.name);}
-  if(state.settings.background<1||state.settings.background>10)state.settings.background=2;
+  if(state.settings.background<1||state.settings.background>10)state.settings.background=5;
   if(state.settings.resolution<0||state.settings.resolution>=RESOLUTIONS.length||state.settings.workers<1||state.settings.workers>6)throw new IOException();
  }
  synchronized List<Instance> instances(){return List.copyOf(state.instances);}

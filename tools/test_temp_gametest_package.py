@@ -20,7 +20,7 @@ with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
   for u in (b'https://login.live.com/oauth20_connect.srf',b'https://login.live.com/oauth20_token.srf',b'https://api.minecraftservices.com/entitlements/license',b'https://api.minecraftservices.com/minecraft/profile'):assert u in endpoint
   assert b'microsoftonline.com'not in endpoint
   assert b'TEMP GAMETEST'in jar.read('ProsperoChannel.class')
-  assert b'PLAY FULL GAME'in jar.read('ProsperoLauncher.class')
+  assert b'PLAY'in jar.read('ProsperoLauncher.class')
   assert b'AES/GCM/NoPadding'in jar.read('ProsperoAccountStore.class')
   assert b'refresh_token'in jar.read('ProsperoAuth.class')
   assert b'textures.minecraft.net'in jar.read('ProsperoAvatar.class')
@@ -47,4 +47,4 @@ with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
   assert set(changed)-bookkeeping=={'java.base/sun/nio/fs/UnixFileSystem.class'},changed
   changed=['java.base/sun/nio/fs/UnixFileSystem.class']
   assert b'sun.nio.fs.ps5Sandbox'in(w/'new'/changed[0]).read_bytes()
-print('PASS Temp_gametest091 auth/channel/ownership/profile endpoints, no Offline key or fixture token; module bytecode delta is UnixFileSystem only (generated javac bookkeeping excluded); Offline089 package unchanged')
+print('PASS Temp_gametest092 auth/channel/ownership/profile endpoints, no Offline key or fixture token; module bytecode delta is UnixFileSystem only (generated javac bookkeeping excluded); Offline089 package unchanged')

@@ -928,3 +928,21 @@ server joining untested because text input is difficult. FTP2121/log service
 unreachable with No route to host; current-run LAN exception unavailable. IPv4/
 NIO and socket diagnostics are a candidate repair, never a confirmed PS5fix.
 Host original-pinger/Netty success does not establish console hosting/discovery.
+
+
+## PLAY launch follow-up and Waves — 2026-10-27
+
+User reports091PLAY FULL GAME crash and requests PLAY, Coming soon wording and
+Wavesdefault.092Temp_gametestimplements labels,mode5fallback and one-time persisted
+background-default revision migration; later choices stay saved. Read
+ docs/client-launch-followup-092.md and matching validation. User explicitly
+requests Cyberduck computer use to retrieve logs; use it when directFTP has no
+route. Browser refresh was necessary:initial mount listing was stale. Partial
+retrieval succeeded despite550onotherfiles. Preserve first-retrieval local logs.
+Actual091evidence passes auth/ownership/profile,UIhandoff,socketpreflight and Main
+entry,then stops around Vulkan initialization; no faultPC was obtained. Do not
+blame caught OSHImetricwarnings or the completed socketprobe.092repairs first-match
+requested-mode selection that discarded<=60Hzranking and adds explicit legacy
+refresh scope for the observed invalid_scope restoration response. Both actual
+console crash recovery and refresh still require092validation; do not claim fixed.
+Retain091packages/symbols and all older snapshots. No gameJARchanges or Store/release.

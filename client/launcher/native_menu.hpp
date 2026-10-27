@@ -171,7 +171,7 @@ inline void compose(Canvas& c) noexcept {
   else{row_control(c,340+slide,"INSTANCE NAME",fields[16].data(),row==0);row_control(c,458+slide,"INSTANCE ICON","Choose from Prism / MultiMC icons",row==1);action(c,760,610+slide,1080,"DONE",row==2,true);action(c,760,726+slide,1080,"DELETE INSTANCE",row==3,std::strcmp(fields[64].data(),"BUSY")!=0);wrap(c,791,850+slide,"Deleted instances go to Trash. Shared game downloads are kept.",1000,2);}
  }else if(page==2){
   label(c,70,185+slide,"Settle in.",64);label(c,75,270+slide,"A few thoughtful defaults. You're in control.",24,0x91ad9b);
-  c.rounded(70,340+slide,620,548,28,ink(0x10221c));label(c,112,391+slide,"YOUR SETUP",24,0x8fbb9b);label(c,112,459+slide,"Native Java 25",42);wrap(c,114,545+slide,"Choose your game window size. The pointer uses logical coordinates; the native display reports its actual framebuffer size. Video and audio options stay with each instance.",520,5);label(c,114,714+slide,"SQUARE  Change background",24,0xa9eab6);title(c,114,753+slide,fields[76][0]?fields[76].data():"Aurora",30,510);label(c,114,804+slide,std::strcmp(fields[79].data(),"OFF")==0?"TRIANGLE  Vibration: OFF":"TRIANGLE  Vibration: ON",24,0xa9eab6);title(c,114,851+slide,fields[67].data(),18,510,0x83a58d);
+  c.rounded(70,340+slide,620,548,28,ink(0x10221c));label(c,112,391+slide,"YOUR SETUP",24,0x8fbb9b);label(c,112,459+slide,"Native Java 25",42);wrap(c,114,545+slide,"Choose your game window size. The pointer uses logical coordinates; the native display reports its actual framebuffer size. Video and audio options stay with each instance.",520,5);label(c,114,714+slide,"SQUARE  Change background",24,0xa9eab6);title(c,114,753+slide,fields[76][0]?fields[76].data():"Waves",30,510);label(c,114,804+slide,std::strcmp(fields[79].data(),"OFF")==0?"TRIANGLE  Vibration: OFF":"TRIANGLE  Vibration: ON",24,0xa9eab6);title(c,114,851+slide,fields[67].data(),18,510,0x83a58d);
   row_control(c,340+slide,"GAME RESOLUTION",fields[25].data(),row==0,true);row_control(c,465+slide,"PARALLEL DOWNLOADS",fields[26].data(),row==1);row_control(c,590+slide,"REDUCED MOTION",fields[30].data(),row==2);row_control(c,715+slide,"SHOW SNAPSHOTS",fields[27].data(),row==3);row_control(c,840+slide,"STARTUP NOTICE",fields[68].data(),row==4);
  }else if(page==3){
   label(c,70,185+slide,"Your account. Your adventure.",64);label(c,75,270+slide,"Sign in on your phone. Your password stays with Microsoft.",24,0x91ad9b);
@@ -180,7 +180,7 @@ inline void compose(Canvas& c) noexcept {
   else wrap(c,117,547+slide,std::strcmp(fields[73].data(),"TEMP GAMETEST")==0?"Temporary personal game test. Sign in with an account that owns Minecraft Java to play the full game.":"Demo instances work while application review is pending. Full account access completes only when all sign-in and ownership checks succeed.",850,5);
   action(c,1140,366+slide,700,"SIGN IN WITH MICROSOFT",row==0,true);action(c,1140,481+slide,700,"SIGN OUT",row==1);wrap(c,1167,634+slide,fields[2].data(),620,6);
  }else if(page==4){
-  label(c,70,185+slide,std::strcmp(fields[69].data(),"PENDING")==0?"Launch support coming.":"Ready when you are.",64);c.rounded(70,330+slide,620,560,28,ink(0x10221c));block(c,245,385+slide,270,number(18));title(c,109,721+slide,fields[16].data(),42,540);label(c,112,794+slide,fields[17].data(),24,0x97bea3);
+  label(c,70,185+slide,std::strcmp(fields[69].data(),"PENDING")==0?"Coming soon.":"Ready when you are.",64);c.rounded(70,330+slide,620,560,28,ink(0x10221c));block(c,245,385+slide,270,number(18));title(c,109,721+slide,fields[16].data(),42,540);label(c,112,794+slide,fields[17].data(),24,0x97bea3);
   title(c,762,352+slide,fields[16].data(),64,1060);label(c,768,441+slide,std::strcmp(fields[73].data(),"TEMP GAMETEST")==0?"JAVA EDITION    /    TEMP GAMETEST":std::strcmp(fields[73].data(),"OFFLINE BRANCH")==0?"JAVA EDITION    /    OFFLINE BRANCH":"JAVA EDITION    /    DEMO BRANCH",24,0x94b69f);
   bool offline=std::strcmp(fields[71].data(),"OFFLINE")==0;
   int first=offline?480:505,spacing=offline?100:116;
@@ -207,7 +207,7 @@ inline void compose(Canvas& c) noexcept {
   c.rounded(170,190,1580,745,32,ink(0x142e23));
   label(c,235,240,"Welcome to ProsperoCraft",64);
   wrap(c,240,347,std::strcmp(fields[73].data(),"TEMP GAMETEST")==0?"Temporary personal game test. This branch uses the working legacy sign-in while ProsperoCraft application review remains pending.":"Microsoft is reviewing our application ID. Please wait for approval before full account play becomes available.",1390,3);
-  wrap(c,240,468,std::strcmp(fields[73].data(),"TEMP GAMETEST")==0?"Sign in with your owning Microsoft account, download or verify 26.3, then choose PLAY FULL GAME. Existing worlds and verified downloads are kept.":"For now, you can download instances and play the 26.3 demo. Other versions cannot launch yet; native compatibility is in progress.",1390,3);
+  wrap(c,240,468,std::strcmp(fields[73].data(),"TEMP GAMETEST")==0?"Sign in with your owning Microsoft account, download or verify 26.3, then choose PLAY. Existing worlds and verified downloads are kept.":"For now, you can download instances and play the 26.3 demo. Other versions cannot launch yet; native compatibility is in progress.",1390,3);
   wrap(c,240,570,"Roadmap: full play after approval and ownership checks; full settings; all 26.x releases and snapshots; Fabric, Forge, NeoForge; SDL3 / Controlify; shader performance. Later: CogiArt menu music, mrpack imports, USB keyboard / mouse, themes, JVM21 and JVM17 for older versions.",1390,5);
   action(c,240,773,330,"OK",row==1,true);
   if(row==0)selection(c,680,773,430,76);
@@ -241,7 +241,7 @@ inline void compose(Canvas& c) noexcept {
   c.rounded(72,982,1770,5,2,ink(0x233c2c));if(number(20)>0)c.rounded(72,982,unsigned(1770*number(20)/1000),5,2,ink(0xa9eab6));
 #endif
  }else if(page!=3)title(c,78,949,fields[2].data(),24,1760,0x83a58d);
- label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1370,1020,fields[73].data(),18,0x7d9f89);label(c,1650,1020,"01.000.091",24,0x7d9f89);
+ label(c,76,1020,fields[7].data(),24,0x7d9f89);label(c,1370,1020,fields[73].data(),18,0x7d9f89);label(c,1650,1020,"01.000.092",24,0x7d9f89);
 }
 #ifdef PROSPERO_TOOLKIT
 inline std::uint64_t toolkit_frame_time=0;

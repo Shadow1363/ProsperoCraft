@@ -1,0 +1,55 @@
+{
+  "version": "01.000.092",
+  "title_id": "PPSA99874",
+  "branch": "Temp_gametest",
+  "package_sha256": "f9c1cd0a67c1229fdd08b29295acddaf2f0b79e3d0162dc199a1f8ef55e64610",
+  "symbols_sha256": "b85470ebeee611f1c7c06398a7355b51b16406f7b34f71ef7968be3ef930f1f1",
+  "changes": [
+    "Coming soon for pending versions, launch guard retained",
+    "Authenticated ready action PLAY",
+    "Wavesmode5default and one-time existing-library migration; later choices persist",
+    "Explicit Xbox MBI_SSLscope on legacy refresh",
+    "Rank requested display modes with established normal-refresh preference",
+    "Credential-free launch stage and selected-mode logs"
+  ],
+  "console091_evidence": {
+    "source": "Cyberduck user-authorized UI download; direct FTP/HTTP tools had No route to host",
+    "partial_retrieval": true,
+    "retrieval_failures": "Some files returned FTP550Permission denied; no current native fault PC/backtrace obtained",
+    "authentication": "Device, token, Xbox,XSTS,Minecraft,entitlement,profile completed on previous run",
+    "handoff": "Native log reports display_closed=1 gpu_closed=1",
+    "network_preflight": "TCP_LISTEN and UDP_BIND passed; not the observed crash cause",
+    "last_game_stage": "Original Main reached SDL display inventory and forced Vulkan backend; exceptions log stops there",
+    "saved_account": "Reopened run TOKEN HTTP400invalid_scope"
+  },
+  "source_regression": "091first width/height match could replace59.94Hz selection with119.88Hz;092ranked selector verified in actual SDLsurface hook",
+  "crash_root_cause": "Unconfirmed; display-mode regression is a concrete candidate repair without fault-address proof",
+  "legacy_refresh_console_result092": "pending; dummy invalid-refresh probes returned invalid_grant both with/without scope, not proof of successful restoration",
+  "tests": {
+    "auth_refresh_scope": "PASS",
+    "background_default_migration_and_retained_choices": "PASS",
+    "instance_install_snapshot_guard_and_PLAY": "PASS",
+    "account_UI": "PASS",
+    "delete_undo": "PASS",
+    "real_SDL_surface_mode_ranking": "PASS",
+    "SDL_resolution_coordinates": "PASS",
+    "startup_host": "PASS",
+    "package": "PASS",
+    "toolkit_package": "PASS",
+    "temp_channel_module_asset_audit": "PASS",
+    "native_UI_JNI": "PASS",
+    "Vulkan_preview": "PASS"
+  },
+  "runtime_patch_level": "0122unchanged",
+  "original_game_JARs": "unmodified; not bundled",
+  "preserved091_package_sha256": "4782ea2a78fb8e631c09078bc389718affd61eb725504d07f6d4d5b9c5b632fa",
+  "console092": {
+    "PLAY_crash_recovery": "pending",
+    "menu_world_quit_relaunch": "pending",
+    "saved_login_refresh": "pending",
+    "Waves_and_labels": "pending",
+    "resolution_pointer": "pending",
+    "multiplayer_LAN": "pending"
+  },
+  "publication": "source branch only; no Store/release assets"
+}

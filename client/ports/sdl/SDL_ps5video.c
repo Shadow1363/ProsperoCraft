@@ -67,7 +67,8 @@ static bool PS5_Vulkan_CreateSurface(SDL_VideoDevice *_this,SDL_Window *window,V
     if(selected<0)return SDL_SetError("PS5 Vulkan no usable enumerated mode");
     /* Prefer the requested real display mode when the driver enumerates it.
      * Retain a usable physical mode otherwise; logical size remains independent. */
-    for(uint32_t i=0;i<count;i++)if(modes[i].parameters.visibleRegion.width==(uint32_t)window->w&&modes[i].parameters.visibleRegion.height==(uint32_t)window->h&&modes[i].parameters.refreshRate){selected=(int)i;break;}
+    if(window){int requested=PS5_SelectRequestedMode(modes,count,(uint32_t)window->w,(uint32_t)window->h);if(requested>=0)selected=requested;}
+    SDL_Log("PS5 Vulkan surface creation: requested %dx%d selected %ux%u %.3fHz",window?window->w:0,window?window->h:0,modes[selected].parameters.visibleRegion.width,modes[selected].parameters.visibleRegion.height,modes[selected].parameters.refreshRate/1000.0);
     VkDisplayPlanePropertiesKHR planes[32];uint32_t plane_count=32;
     if(GetPhysicalDeviceDisplayPlanePropertiesKHR(devices[0],&plane_count,planes)!=VK_SUCCESS||!plane_count||plane_count>32)return SDL_SetError("PS5 Vulkan plane inventory failed");
     for(uint32_t plane=0;plane<plane_count;plane++){
@@ -81,7 +82,7 @@ static bool PS5_Vulkan_CreateSurface(SDL_VideoDevice *_this,SDL_Window *window,V
         if(extent.width<caps.minSrcExtent.width||extent.width>caps.maxSrcExtent.width||extent.height<caps.minSrcExtent.height||extent.height>caps.maxSrcExtent.height||extent.width<caps.minDstExtent.width||extent.width>caps.maxDstExtent.width||extent.height<caps.minDstExtent.height||extent.height>caps.maxDstExtent.height)continue;
         VkDisplaySurfaceCreateInfoKHR ci={.sType=VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR,.displayMode=modes[selected].displayMode,.planeIndex=plane,.planeStackIndex=planes[plane].currentStackIndex,.transform=VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR,.globalAlpha=1.0f,.alphaMode=VK_DISPLAY_PLANE_ALPHA_OPAQUE_BIT_KHR,.imageExtent=extent};
         VkResult result=CreateDisplayPlaneSurfaceKHR(instance,&ci,allocator,surface);
-        if(result==VK_SUCCESS){ps5_surface_width=(int)extent.width;ps5_surface_height=(int)extent.height;SDL_SendWindowEvent(window,SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED,ps5_surface_width,ps5_surface_height);}
+        if(result==VK_SUCCESS){ps5_surface_width=(int)extent.width;ps5_surface_height=(int)extent.height;if(window)SDL_SendWindowEvent(window,SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED,ps5_surface_width,ps5_surface_height);}
         SDL_Log("PS5 Vulkan surface: %ux%u %.3fHz plane%u result%d",extent.width,extent.height,modes[selected].parameters.refreshRate/1000.0,plane,result);
         if(result!=VK_SUCCESS)return SDL_SetError("PS5 Vulkan display surface failed:%d",result);
         if(GetPhysicalDeviceSurfaceCapabilitiesKHR){VkSurfaceCapabilitiesKHR actual;result=GetPhysicalDeviceSurfaceCapabilitiesKHR(devices[0],*surface,&actual);if(result==VK_SUCCESS)SDL_Log("PS5 Vulkan surface caps: extent%ux%u images%u-%u usage0x%x",actual.currentExtent.width,actual.currentExtent.height,actual.minImageCount,actual.maxImageCount,actual.supportedUsageFlags);}

@@ -52,7 +52,7 @@ def build(work,runtime=None,bindings=None):
            'display':'Existing native VideoOut via completed offscreen RGBA8 readback',
            'objects_sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in objects},
            'graphics_bindings':bindings or {},'automatic_constructors':False if runtime else 'host platform initialization',
-           'audio_backend_linked':False,'sample_application_linked':False,'console':'PENDING exact091'}
+           'audio_backend_linked':False,'sample_application_linked':False,'console':'PENDING exact092'}
     (work/'launcher-toolkit-audit.json').write_text(json.dumps(audit,indent=2)+'\n')
     return objects
 

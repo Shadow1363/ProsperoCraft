@@ -54,7 +54,7 @@ var store=new ProsperoLibrary(root.resolve("store"));if(!store.instances().isEmp
   model.tick(0x800);if(!model.tick(0)[12].equals("1")||!model.tick(0)[28].equals("TOP"))throw new AssertionError("R1 topbar");model.tick(0x4000);model.tick(0x4000);if(!model.tick(0)[11].equals("10"))throw new AssertionError("resolution dropdown");model.tick(0x2000);model.tick(0x2000);
   model.tick(0x400);model.tick(0x4000);waitFor(model);if(!model.tick(0)[23].equals("26.2"))throw new AssertionError("catalog");model.tick(0x40);model.tick(0x4000);if(!model.tick(0)[11].equals("6"))throw new AssertionError("name keyboard");model.tick(0x4000);model.tick(0x8000);
   model.tick(0x40);model.tick(0x20);model.tick(0x40);model.tick(0x4000);waitFor(model);if(!model.tick(0)[13].equals("1")||!model.tick(0)[19].equals("READY"))throw new AssertionError("instance install "+model.tick(0)[2]);
-  model.tick(0x4000);waitFor(model);if(!model.tick(0)[10].equals("WAIT")||!model.tick(0)[6].contains("NOT AVAILABLE YET"))throw new AssertionError("unsupported version launched");
+  model.tick(0x4000);waitFor(model);if(!model.tick(0)[10].equals("WAIT")||!model.tick(0)[6].contains("COMING SOON"))throw new AssertionError("unsupported version launched");
   if(!ProsperoLauncher.supported("26.3")||ProsperoLauncher.supported("26.3-snapshot-1")||ProsperoLauncher.supported("26.2"))throw new AssertionError("compatibility allowlist");
   for(var entry:files.entrySet())if(entry.getKey().equals(META)||entry.getKey().equals(ProsperoInstall.MANIFEST))entry.setValue(bytes(new String(entry.getValue(),java.nio.charset.StandardCharsets.UTF_8).replace("26.2","26.3").replace("example:test:1","org.lwjgl:lwjgl-sdl:3.4.3")));
   // The metadata URL in the manifest also changes; provide the matching fixture.
@@ -79,7 +79,7 @@ var store=new ProsperoLibrary(root.resolve("store"));if(!store.instances().isEmp
   if(!fullModel.tick(0)[10].equals("WAIT")||!fullModel.tick(0)[2].contains("Sign in"))throw new AssertionError("unsigned full game accepted");
   var sessionField=ProsperoLauncher.class.getDeclaredField("session");sessionField.setAccessible(true);
   sessionField.set(fullModel,new ProsperoAuth.Session("OwnedPlayer","0123456789abcdef0123456789abcdef","SECRET_TEST_TOKEN",System.currentTimeMillis()+3600000));
-  fullModel.tick(0x4000);waitFor(fullModel);List<String> fullArgs=List.of(fullModel.arguments(null,null));
+  fullModel.tick(0x4000);waitFor(fullModel);if(!fullModel.tick(0)[6].equals("PLAY"))throw new AssertionError("ready action wording");List<String> fullArgs=List.of(fullModel.arguments(null,null));
   if(fullArgs.contains("--demo")||fullArgs.contains("--disableMultiplayer")||fullArgs.contains("--disableChat")||!fullArgs.get(fullArgs.indexOf("--accessToken")+1).equals("SECRET_TEST_TOKEN")||!fullArgs.get(fullArgs.indexOf("--username")+1).equals("OwnedPlayer")||!fullArgs.get(fullArgs.indexOf("--uuid")+1).equals("0123456789abcdef0123456789abcdef"))throw new AssertionError("full session handoff");
   if(Arrays.toString(fullModel.tick(0)).contains("SECRET_TEST_TOKEN")||fullModel.toString().contains("SECRET_TEST_TOKEN"))throw new AssertionError("UI leaked session token");
   sessionField.set(fullModel,new ProsperoAuth.Session("OwnedPlayer","0123456789abcdef0123456789abcdef","SECRET_EXPIRED",System.currentTimeMillis()-1));denied(()->fullModel.arguments(null,null));

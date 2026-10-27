@@ -18,7 +18,7 @@ struct Effects {
  hui::tween::Timer entrance;
  hui::ui::Pulse press;
  float clock=0,age=0,mode_age=1;
- int backdrop=2;
+ int backdrop=5;
  int page=-1,previous_page=-1,selection=-1,model_row=-1;
  bool page_changed=false,ready=false;
  std::string items_key;

@@ -158,7 +158,7 @@ public final class ProsperoAuth {
   }catch(Failure failure){throw failure;}catch(InterruptedException stopped){Thread.currentThread().interrupt();throw new Failure("CANCELLED");}catch(Exception ignored){throw new Failure("NETWORK");}
  }
  public Session resume(String refresh,View view,BooleanSupplier cancelled)throws Failure {
-  try{active(cancelled);Reply reply=request(Endpoint.TOKEN,"POST",form("grant_type","refresh_token","client_id",CLIENT_ID,"refresh_token",refresh),null);success(reply,"DECLINED");return complete(str(reply.json,"access_token"),optional(reply.json,"refresh_token",refresh),view,cancelled);}
+  try{active(cancelled);Reply reply=request(Endpoint.TOKEN,"POST",form("grant_type","refresh_token","client_id",CLIENT_ID,"refresh_token",refresh,"scope","service::user.auth.xboxlive.com::MBI_SSL"),null);success(reply,"DECLINED");return complete(str(reply.json,"access_token"),optional(reply.json,"refresh_token",refresh),view,cancelled);}
   catch(Failure failure){throw failure;}catch(InterruptedException stopped){Thread.currentThread().interrupt();throw new Failure("CANCELLED");}catch(Exception ignored){throw new Failure("NETWORK");}
  }
  static String optional(JsonObject o,String key,String fallback){try{return str(o,key);}catch(Failure absent){return fallback;}}

@@ -87,6 +87,14 @@ Delete Instance “Is a directory” failure. The preceding personal089login wor
 on the user's PS5;090full-game/download/Delete/Undo/lifecycle checks remain pending.
 Demo/main authentication and the existing Store083 release are unchanged.
 
+[Development092](docs/client-launch-followup-092.md) renames the ready action to
+**PLAY**, labels pending versions **Coming soon**, and applies **Waves** as the
+one-time default for existing/new libraries. Retrieved091logs locate the reported
+launch failure in graphics startup and show saved-refresh invalid_scope.092adds
+explicit legacy refresh scope and repairs a requested-mode override that could
+select119.88Hz instead of59.94Hz. Exact092crash recovery and account restoration
+remain pending PS5checks; no fixed-crash or ALL PASS claim is made.
+
 [Development091](docs/client-account-ui-091.md) adds Prism/MultiMC instance artwork
 with the ProsperoCraft icon, Microsoft-link QR, saved account refresh and player
 heads, dropdown selectors, snapshots by default in new libraries, and selectable
