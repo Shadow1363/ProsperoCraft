@@ -78,7 +78,7 @@ public final class ProsperoLauncher {
  }
  private void beginName(int back){keyboardReturn=back;page=6;keyboard=back==12?contentQuery:back==5?detail.name:draftName;originalText=keyboard;key=0;}
  private void keyboard(int buttons)throws Exception {
-  final String chars=lowercase?"abcdefghijklmnopqrstuvwxyz0123456789 ._-":"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ._-";
+  final String chars=lowercase?"1234567890qwertyuiopasdfghjkl_zxcvbnm .-":"1234567890QWERTYUIOPASDFGHJKL_ZXCVBNM .-";
   if((buttons&0x100)!=0)lowercase=!lowercase;
   if((buttons&0x200)!=0&&keyboard.length()<40)keyboard+=" ";
   if((buttons&0x8)!=0)keyboard="";
@@ -108,7 +108,10 @@ public final class ProsperoLauncher {
  private void browse(){if(busy)return;var instance=detail;var kind=contentKind;String query=contentQuery;int offset=contentOffset;message="Loading Modrinth";runTask("MODRINTH",attempt->{var result=modrinth.search(kind,instance.version,instance.loader,query,offset,()->cancelled(attempt));synchronized(this){if(!cancelled(attempt)&&detail==instance){contentHits=result.hits();contentTotal=result.total();message=contentHits.isEmpty()?"No compatible results. Try another search.":"Most downloaded for "+instance.version;cached=null;}}});}
  private void contentInput(int buttons)throws Exception {
   if((buttons&0x2000)!=0){if(busy){cancel();message="Cancelled. Verified downloads are kept.";}else{page=5;row=2+contentKind.ordinal();}return;}
-  if((buttons&0x10)!=0)row=Math.max(0,row-1);if((buttons&0x40)!=0)row=Math.min(3+contentHits.size(),row+1);
+  if((buttons&0x80)!=0&&row<4)row=row<2?0:2;
+  if((buttons&0x20)!=0&&row<4)row=row<2?1:3;
+  if((buttons&0x10)!=0)row=row<2?row:row<4?row-2:row==4?2:row-1;
+  if((buttons&0x40)!=0)row=row<2?row+2:row<4?(contentHits.isEmpty()?row:4):Math.min(3+contentHits.size(),row+1);
   if((buttons&0x4000)==0||busy)return;
   if(row==0){beginName(12);return;}
   if(row==1){var instance=detail;message="Preparing download queue";completed=0;total=1;runTask("CONTENT",attempt->{modrinth.downloadAll(library.game(instance),instance.version,instance.loader,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;completed=done;total=size;cached=null;}}},()->cancelled(attempt));synchronized(this){if(!cancelled(attempt)){contentQueue=modrinth.queue(library.game(instance));message="Downloads complete. Select mods and packs in-game.";feedback("success");cached=null;}}});return;}
@@ -144,8 +147,13 @@ public final class ProsperoLauncher {
     if((buttons&0x4000)!=0&&!top){if(selected==library.instances().size())createInstance();else{detail=library.instances().get(selected);page=4;row=0;}}
     if(buttons!=0)cached=null;return state();
    }
-   if((buttons&0x10)!=0){if(row==0)top=true;else row--;}
-   if((buttons&0x40)!=0)row=Math.min(page==1?4:page==2?4:page==3?0:page==4?(ProsperoChannel.offline()&&offlineAccount!=null?3:2):page==5?6:2,row+1);
+   if(page==5){
+    if((buttons&0x80)!=0){if(row==3)row=2;else if(row==6)row=5;}
+    if((buttons&0x20)!=0){if(row==2)row=3;else if(row==5)row=6;}
+    if((buttons&0x10)!=0){if(row==0)top=true;else row=switch(row){case 1->0;case 2,3->1;case 4->2;default->4;};}
+    if((buttons&0x40)!=0)row=switch(row){case 0->1;case 1->2;case 2,3->4;case 4->5;default->row;};
+   }else if((buttons&0x10)!=0){if(row==0)top=true;else row--;}
+   if(page!=5&&(buttons&0x40)!=0)row=Math.min(page==1?4:page==2?4:page==3?0:page==4?(ProsperoChannel.offline()&&offlineAccount!=null?3:2):page==5?6:2,row+1);
    int direction=(buttons&0x80)!=0?-1:(buttons&0x20)!=0?1:0;
    if(!top&&page==1&&direction!=0&&!busy){if(row==0&&!versions.isEmpty()){versionChoice=Math.floorMod(versionChoice+direction,versions.size());if(!customName)draftName=defaultName(versions.get(versionChoice).id());}if(row==3)draftIcon=Math.floorMod(draftIcon+direction,ProsperoLibrary.ICONS.length);}
    if(!top&&page==5&&row==1&&direction!=0)library.icon(detail,Math.floorMod(detail.icon+direction,ProsperoLibrary.ICONS.length));

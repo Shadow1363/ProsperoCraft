@@ -52,6 +52,9 @@ final class ProsperoFabric {
  static void configure(java.net.URLClassLoader loader,Path game,String version){
   // Knot discovers the game from java.class.path. Preserve PS5 dependency overlays
   // ahead of publisher libraries while its own standard Mixin loader owns the game.
+  // Keep resource streams scoped to their caller. JarURLConnection's global
+  // cache otherwise retains a second descriptor per mod JAR on a limited title.
+  URLConnection.setDefaultUseCaches("jar",false);
   String existing=System.getProperty("java.class.path","");var entries=new LinkedHashSet<String>(List.of(existing.split(java.io.File.pathSeparator)));
   var systemLibraries=new LinkedHashSet<String>(entries);
   for(URL url:loader.getURLs())try{Path path=Path.of(url.toURI());entries.add(path.toString());String file=path.getFileName().toString();if(file.startsWith("lwjgl-")||file.startsWith("oshi-"))systemLibraries.add(path.toString());}catch(Exception invalid){throw new IllegalArgumentException(invalid);}

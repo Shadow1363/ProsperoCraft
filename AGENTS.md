@@ -1200,3 +1200,19 @@ shader rendering, performance or lifecycle acceptance. Preserve exact101 release
 and frozen passes; no Store/public binary release is requested. Read
  docs/client-fabric-modrinth-103.md and matching103build validation. Continue in
 main development; the discarded PR2 CPU code/branch is not part of this change.
+
+
+##103 logs and104 repairs — 2026-10-27
+
+User confirms Fabric103 loads but reports large stutters and a shader crash.
+Safari retrieves current/previous reports. Vitrail BSL noise decode fails missing
+AWT/Disposer; JIT code cache32MiB approaches95percent and requests aggressive GC;
+GC includes long metadata/System.gc full pauses. World saves show EMFILE.
+104 integrates Java repo422e9a4's genuine optional ImageIO raster/Disposer/LCMS
+subset,96MiB code cache/128MiBmetadata threshold/concurrent explicit GC,scoped
+JAR resource streams,spatial launcher button navigation/secondary content buttons
+and launcher-only QWERTY. In-game keyboard unchanged. See
+ docs/client-stutters-shaders-controls-104.md and matching observation/build records.
+Do not infer PS5 shader rendering/stutter/save repair from host tests. Keep exact
+101/103 andfrozen passes; no Store/public release requested. Java source stays
+in Java repo; consumer integration/policy/UI/diagnostics stay here. Raw logs local.

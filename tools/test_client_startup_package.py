@@ -39,7 +39,7 @@ def without_build_id(blob):
    result[start+16:start+32]=bytes(16);found+=1
  assert found==1
  return bytes(result)
-elf=work/'bootstrap-01.000.103-symbols.elf';text=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(elf)],text=True);symbols={l.split()[-1]:int(l.split()[0],16)for l in text.splitlines()if len(l.split())==3}
+elf=work/'bootstrap-01.000.104-symbols.elf';text=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(elf)],text=True);symbols={l.split()[-1]:int(l.split()[0],16)for l in text.splitlines()if len(l.split())==3}
 assert symbols.get('client_ps5_audio_early_init_result')
 imports=subprocess.check_output([str(LLVM/'llvm-nm'),'--undefined-only',str(elf)],text=True)
 for api in ['scePadSetVibration','scePadSetVibrationMode']:assert api in imports
@@ -52,6 +52,7 @@ for marker in ['VkRenderer','PushButton','GridView','Dialog','prospero_ui']:
 assert symbols['__init_array_start']==symbols['__init_array_end'];assert (symbols['__client_openal_init_end']-symbols['__client_openal_init_start'])//8==15;assert (symbols['__jvm_init_array_end']-symbols['__jvm_init_array_start'])//8==359;assert (symbols['__client_gpu_init_end']-symbols['__client_gpu_init_start'])//8==4;assert (symbols['__client_shaderc_init_end']-symbols['__client_shaderc_init_start'])//8==5
 assert (symbols['__client_gl_init_end']-symbols['__client_gl_init_start'])//8==1
 for name in ['OSMesaGetProcAddress','OSMesaCreateContextAttribs','ps5_builtin_load_ps5clientgl','ps5_builtin_load_lwjgl_opengl','ffi_prep_closure_loc','ffi_call_plan_alloc','alcLoopbackOpenDeviceSOFT','alcRenderSamplesSOFT','ps5_builtin_load_ps5openal','JNI_CreateJavaVM','ps5_builtin_load_ps5sdl','ps5_builtin_load_ps5shaderc','ps5_builtin_load_ps5clientgpu','radv_CreateInstance','ps5_builtin_load_lwjgl_stb','Java_org_lwjgl_stb_LibSTB_setupMalloc','Java_org_lwjgl_stb_STBImage_nstbi_1load_1from_1memory__JIJJJI','clientstb_org_lwjgl_malloc','ps5_builtin_load_freetype','FT_Init_FreeType','FT_Load_Char','FT_Done_FreeType','ps5_builtin_load_lwjgl_vma','Java_org_lwjgl_util_vma_Vma_nvmaCreateAllocator','ps5_builtin_load_ps5spvc','spvc_context_create','spvc_compiler_compile']:assert symbols.get(name),name
+for name in ['ps5_builtin_load_awt','ps5_builtin_load_lcms','Java_sun_java2d_Disposer_initIDs','Java_java_awt_image_BufferedImage_initIDs','Java_java_awt_image_ColorModel_initIDs','Java_sun_java2d_cmm_lcms_LCMS_loadProfileNative','Java_sun_java2d_cmm_lcms_LCMS_colorConvert']:assert symbols.get(name),name
 with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_Continuous_Direct_Scene-01.000.023/PPSA99874-full-local.zip')as baseline:
  pin=json.loads(z.read('PPSA99874/assets/java25/launcher-toolkit/upstream.json'))
  assert pin['revision']=='2188642afbcc8d84d36149124f3d9e39dc1b1a05' and pin['patches']==[]
@@ -60,7 +61,12 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  for name in ['toolkit_surface.hpp','toolkit_canvas.hpp','toolkit_effects.hpp','native_menu.hpp','navigation.hpp','haptics.hpp']:
   assert z.read('PPSA99874/assets/java25/launcher-toolkit/'+name)==(ROOT/'client/launcher'/name).read_bytes()
  assert not any('/assets/audio/' in n for n in z.namelist())
- assert z.testzip()is None;prefix='PPSA99874/';param=json.loads(z.read(prefix+'sce_sys/param.json'));assert param['attribute3']&0x40;old=json.loads(baseline.read(prefix+'sce_sys/param.json'));assert param['contentVersion']=='01.000.103';assert param['downloadDataSize']==4096
+ imageio=json.loads(z.read('PPSA99874/assets/java25/imageio-native-audit.json'))
+ assert imageio['host'] is False and imageio['groups']['awt']['compile_units']==4 and imageio['groups']['lcms']['compile_units']>20
+ for name in ['awt','lcms']:
+  assert sha(z.read('PPSA99874/assets/java25/lib/lib'+name+'.so'))==sha((runtime/'build/java25/imageio-target'/('lib'+name+'.so')).read_bytes())
+  assert imageio['groups'][name]['output_sha256']==sha((runtime/'build/java25/imageio-target'/('lib'+name+'.o')).read_bytes())
+ assert z.testzip()is None;prefix='PPSA99874/';param=json.loads(z.read(prefix+'sce_sys/param.json'));assert param['attribute3']&0x40;old=json.loads(baseline.read(prefix+'sce_sys/param.json'));assert param['contentVersion']=='01.000.104';assert param['downloadDataSize']==4096
  assert param['localizedParameters']['en-US']['titleName']=='ProsperoCraft'
  assert z.read(prefix+'sce_sys/icon0.png')==(ROOT/'assets/branding/icon0.png').read_bytes()
  from apply_branding import presentation_assets,validate_background
@@ -68,8 +74,8 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
   assert z.read(prefix+'sce_sys/'+name)==pixels;validate_background(pixels)
  assert prefix+'sce_sys/prosperocraft_title.png'not in z.namelist()
  for k in ['titleId','contentId','conceptId']:assert param[k]==old[k]
- assert b'-Xmx1536m'in z.read(prefix+'eboot.bin') and b'Minecraft Original Client Startup 01.000.103'in z.read(prefix+'eboot.bin')
- for flag in [b'-Xmixed',b'-XX:TieredStopAtLevel=1',b'-XX:CICompilerCount=1',b'-XX:CompileThresholdScaling=4.0',b'-XX:CompileCommand=MemLimit,*.*,2M',b'-XX:ReservedCodeCacheSize=32m',b'java25-jit.log']:
+ assert b'-Xmx1536m'in z.read(prefix+'eboot.bin') and b'Minecraft Original Client Startup 01.000.104'in z.read(prefix+'eboot.bin')
+ for flag in [b'-Xmixed',b'-XX:TieredStopAtLevel=1',b'-XX:CICompilerCount=1',b'-XX:CompileThresholdScaling=4.0',b'-XX:CompileCommand=MemLimit,*.*,2M',b'-XX:ReservedCodeCacheSize=96m',b'-XX:MetaspaceSize=128m',b'-XX:+ExplicitGCInvokesConcurrent',b'-Djava.awt.headless=true',b'java25-jit.log']:
   assert flag in z.read(prefix+'eboot.bin'),flag
  assert b'-XX:+UseG1GC' in z.read(prefix+'eboot.bin') and b'-XX:NewRatio=' not in z.read(prefix+'eboot.bin')
  assert b'-XX:ParallelGCThreads=4' in z.read(prefix+'eboot.bin') and b'-XX:ConcGCThreads=1' in z.read(prefix+'eboot.bin')
@@ -152,6 +158,7 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  for name in baseline.namelist():
   if name.endswith('/lib/modules'):assert z.read(name)==(runtime/'build/java25/boot-image/lib/modules').read_bytes(),name
   elif name.endswith('/libnio.so'):assert z.read(name)==(runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_libs/java.base/libnio.so').read_bytes(),name
+  elif name in [prefix+'assets/java25/lib/libawt.so',prefix+'assets/java25/lib/liblcms.so']:assert z.read(name)==(runtime/'build/java25/imageio-target'/Path(name).name).read_bytes()
   elif name.endswith('.so') and not name.endswith('/server/libjvm.so'):assert without_build_id(z.read(name))==without_build_id(baseline.read(name)),name
  assert z.read(prefix+'assets/java25/lib/server/libjvm.so')==(runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_libs/java.base/server/libjvm.so').read_bytes()
  assert b'-XX:-UseCompressedOops' in z.read(prefix+'eboot.bin')
@@ -348,7 +355,7 @@ with (ROOT/'dist/accepted/Client_Auth_Errors-01.000.078/PPSA99874-full-local.zip
 
 with (ROOT/'dist/accepted/Client_Instances-01.000.079/PPSA99874-full-local.zip').open('rb')as stream:assert hashlib.file_digest(stream,'sha256').hexdigest()=='ee4238389de4c454d7b19173fa2613a4515d9c6e685ee083e3e70772b3deb6bf'
 
-print('PASS103 actual package/CRC/signatures,launcher-only dependencies/zero bundled game JARs or asset objects,exact0123coreimage/rebuilt0124libnio/unchanged023otherlibrarybytes except verifiedGNUbuildIDs plus exact0121HotSpot,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. Menu confirmation recorded separately;gameplay/stability validation pending. SHA256',sha(package.read_bytes()))
+print('PASS104 actual package/CRC/signatures,launcher-only dependencies/zero bundled game JARs or asset objects,exact0123coreimage/rebuilt0124libnio/unchanged023otherlibrarybytes except verifiedGNUbuildIDs plus exact0121HotSpot,359+4+5+15+1staged constructors/13real resident groups/actual036 SPIRV-Cross+035 VMA+033 FreeType+031 STB+029 OSMesa/OpenGL+026 libffi+OpenAL+module overlay/paired C++ allocator/actual Main invocation bytecode/workdir/log config and preserved022/023 packages. Menu confirmation recorded separately;gameplay/stability validation pending. SHA256',sha(package.read_bytes()))
 
 with (ROOT/'dist/published/ProsperoCraft-01.000.082/PPSA99874.zip').open('rb') as frozen082:
  assert hashlib.file_digest(frozen082,'sha256').hexdigest()=='ab49cad8977736be2be72230743232a270dba9bd17fa70a66b64a93c48230820'

@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+"""Exercise actual104 JVM flags and contrast explicit-GC pauses against103 policy."""
+from pathlib import Path
+import subprocess,re,json
+ROOT=Path(__file__).resolve().parents[1];JDK=Path('/Library/Java/JavaVirtualMachines/openjdk-25.jdk/Contents/Home');w=ROOT/'build/client104-policy';w.mkdir(exist_ok=True)
+s=(ROOT/'client/startup/bootstrap.cpp').read_text();flags=[v for v in re.findall(r'const_cast<char \*>\("([^\"]+)"\)',s) if (v not in ('-XX:UseAVX=0','-XX:UseSSE=2') and v.startswith(('-XX:','-Xms','-Xmx','-Xmixed','-Xshare','-Djava.awt.headless=')) and not v.startswith('-XX:ErrorFile='))]
+(w/'GCPolicy.java').write_text('''import java.lang.management.*;import com.sun.management.*;public class GCPolicy{static byte[][] keep=new byte[8][];public static void main(String[]a)throws Exception{var bean=ManagementFactory.getPlatformMXBean(HotSpotDiagnosticMXBean.class);if(!bean.getVMOption("ExplicitGCInvokesConcurrent").getValue().equals(a[0]))throw new AssertionError("explicit GC policy");long cache=ManagementFactory.getMemoryPoolMXBeans().stream().filter(p->p.getName().contains("Code")).mapToLong(p->p.getUsage().getMax()).sum();if(cache!=96L*1024*1024)throw new AssertionError("code cache capacity"+cache);if(!bean.getVMOption("MetaspaceSize").getValue().equals("134217728"))throw new AssertionError("metadata threshold");for(int c=0;c<3;c++){for(int n=0;n<keep.length;n++){keep[n]=new byte[2*1024*1024];keep[n][100]=(byte)n;}System.gc();Thread.sleep(300);for(int n=0;n<keep.length;n++)if(keep[n][100]!=(byte)n)throw new AssertionError("heap data");}System.out.println("PASS live JVM settings and retained contents,concurrent="+a[0]);}}''')
+subprocess.run([str(JDK/'bin/javac'),'-d',str(w),str(w/'GCPolicy.java')],check=True)
+results={}
+for label,extra,expected in [('old-explicit-full',['-XX:-ExplicitGCInvokesConcurrent'],'false'),('104-concurrent',[],'true')]:
+ log=w/(label+'.log');r=subprocess.run([str(JDK/'bin/java'),*flags,*extra,'-Xlog:gc=info:file='+str(log)+':uptime,level,tags:filecount=0','-cp',str(w),'GCPolicy',expected],text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=30);print(r.stdout);r.check_returncode();text=log.read_text();full='Pause Full (System.gc())'in text;assert full==(expected=='false');assert 'System.gc()'in text
+ results[label]={'System_gc_full_pause':full,'GC_log':log.name,'live_flags_and_heap_data':'PASS'}
+(w/'results.json').write_text(json.dumps(results,indent=2)+'\n');print('PASS explicit System.gc requests honored via concurrent cycles without full-GC pauses in104;control has full pauses. Host behavior,not PS5 stutter acceptance.')

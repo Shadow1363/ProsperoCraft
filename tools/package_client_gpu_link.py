@@ -17,8 +17,12 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
   else:shutil.copyfile(path,dest)
  shutil.copytree(work/'classes',java/'classes',dirs_exist_ok=True)
  manifest=work/'resident-libraries.json';manifest.write_text(json.dumps(spec['resident_libraries'],indent=2)+'\n')
- run('python3',runtime/'tools/java25_builtin_runtime.py','--management','--external-libraries',manifest)
+ run('python3',runtime/'tools/java25_builtin_runtime.py','--management',*(['--imageio'] if variant=='startup' else []),'--external-libraries',manifest)
  shutil.copyfile(build/'builtin-resident-audit.json',java/'resident-libraries-audit.json')
+ if variant=='startup':
+  for name in ['awt','lcms']:shutil.copy2(build/'imageio-target'/('lib'+name+'.so'),java/'lib'/('lib'+name+'.so'))
+  shutil.copy2(build/'imageio-target/audit.json',java/'imageio-native-audit.json')
+  shutil.copytree(runtime/'.tools/java25/openjdk/src/java.desktop/share/legal',java/'legal/java.desktop',dirs_exist_ok=True)
  shutil.copyfile(ROOT/'build/client-ports/lwjgl-native/ps5/audit.json',java/'lwjgl-native-audit.json')
  (java/'gpu-integration-audit.json').write_text(json.dumps(gpu_audit,indent=2)+'\n')
  # Reuse only generated actual objects and wrap flags from runtime embedding.

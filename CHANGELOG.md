@@ -6,6 +6,17 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Shader image runtime, modded pauses and launcher104
+
+Captured103 shader failure is missing Java AWT/Disposer in Vitrail noise decoding.
+Integrate the Java port's genuine ImageIO raster/LCMS subset; expand the pressured
+code cache and use concurrent explicit GC. Scope JAR resource streams to reduce
+FD pressure after captured world-save errors. Fix spatial launcher navigation,
+secondary content-button styling and launcher QWERTY; in-game keyboard unchanged.
+Host/target checks pass; PS5 shader rendering, stutters and save/reload remain
+pending. Preserve101/103; no Store/public release.
+[Evidence and test guide](docs/client-stutters-shaders-controls-104.md).
+
 ## 2026-10-27 — Fabric and Modrinth development candidate103
 
 Create Vanilla/Fabric instances with a loader dropdown beneath Version; NeoForge

@@ -92,7 +92,7 @@ var store=new ProsperoLibrary(root.resolve("store"));if(!store.instances().isEmp
   Files.writeString(channel,"demo");if(!List.of(supportedModel.arguments(null,null)).contains("--demo"))throw new AssertionError("Demo mode changed");Files.delete(channel);
   if(!Files.readString(supportedLibrary.game(supportedInstance).resolve("keep-world.txt")).equals("world"))throw new AssertionError("full launch lost world");
   System.out.println("PASS Temp_gametest verified session arguments, unsigned/expired/signed-out rejection, full-game flags, UI redaction, Demo isolation and existing world/cache reuse");
-  var persisted=new ProsperoLibrary(root.resolve("model"));if(persisted.instances().size()!=1||persisted.instances().get(0).icon!=2||!persisted.instances().get(0).name.endsWith("A"))throw new AssertionError("controller persistence");
+  var persisted=new ProsperoLibrary(root.resolve("model"));if(persisted.instances().size()!=1||persisted.instances().get(0).icon!=2||!persisted.instances().get(0).name.endsWith("1"))throw new AssertionError("controller persistence");
   System.out.println("PASS empty/persistent instances, isolated worlds, rename/icons/settings, L1/R1/keyboard/install/play controller flow, unsupported26.2 launch guard and startup-notice persistence, original bytes, pin verification/cache/repair/cancel/failure/traversal/HTTPS/native-classifier rejection");
  }
 }

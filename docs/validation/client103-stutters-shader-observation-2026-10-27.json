@@ -1,0 +1,175 @@
+{
+  "date": "2026-10-27",
+  "build": "01.000.103",
+  "retrieval": "Safari computer use, download-link actions; raw files local only",
+  "open_run": "client-01.000.103-1793122360-573968131",
+  "previous_native_run": "client-01.000.103-1793122052-873759368",
+  "correlation_limit": "Previous Java/GC reports have no own run header; previous-run rotation collected alongside native header. No per-frame timing correlation.",
+  "human": "Fabric instance loads; severe stutters;shader selection crashes",
+  "crash": {
+    "path": "Vitrail NoiseTexture.decode -> MemoryCacheImageInputStream -> sun.java2d.Disposer",
+    "cause": "UnsatisfiedLinkError: no awt in system library path",
+    "secondary": "NoClassDefFoundError after failed Disposer initializer",
+    "pack": "BSL_v10.1.8",
+    "native_fatal_report": "No captured native fatal cause"
+  },
+  "stutter_evidence": {
+    "code_cache_reserved_MiB": 32,
+    "aggressive_code_cache_GC_events": 27,
+    "gc_windows": [
+      {
+        "elapsed_s": [
+          0,
+          60
+        ],
+        "phase": "not independently frame-correlated",
+        "count": 17,
+        "median_ms": 1.286,
+        "p95_ms": 2.388,
+        "max_ms": 2.808,
+        "over120Hz_budget_count": 0,
+        "full_collections": []
+      },
+      {
+        "elapsed_s": [
+          60,
+          180
+        ],
+        "phase": "not independently frame-correlated",
+        "count": 75,
+        "median_ms": 3.67,
+        "p95_ms": 6.257,
+        "max_ms": 14.247,
+        "over120Hz_budget_count": 2,
+        "full_collections": [
+          {
+            "elapsed_ms": 174048,
+            "cause": "Metadata GC Threshold",
+            "pause_ms": 14.247
+          }
+        ]
+      },
+      {
+        "elapsed_s": [
+          180,
+          290
+        ],
+        "phase": "not independently frame-correlated",
+        "count": 701,
+        "median_ms": 3.943,
+        "p95_ms": 6.263,
+        "max_ms": 104.703,
+        "over120Hz_budget_count": 3,
+        "full_collections": [
+          {
+            "elapsed_ms": 180226,
+            "cause": "Metadata GC Threshold",
+            "pause_ms": 92.397
+          },
+          {
+            "elapsed_ms": 186033,
+            "cause": "Metadata GC Threshold",
+            "pause_ms": 104.703
+          }
+        ]
+      },
+      {
+        "elapsed_s": [
+          290,
+          301
+        ],
+        "phase": "not independently frame-correlated",
+        "count": 114,
+        "median_ms": 4.0215,
+        "p95_ms": 9.224,
+        "max_ms": 363.63,
+        "over120Hz_budget_count": 7,
+        "full_collections": [
+          {
+            "elapsed_ms": 298621,
+            "cause": "System.gc(",
+            "pause_ms": 363.63
+          },
+          {
+            "elapsed_ms": 298828,
+            "cause": "System.gc(",
+            "pause_ms": 203.948
+          },
+          {
+            "elapsed_ms": 299037,
+            "cause": "System.gc(",
+            "pause_ms": 207.966
+          },
+          {
+            "elapsed_ms": 300661,
+            "cause": "System.gc(",
+            "pause_ms": 177.277
+          }
+        ]
+      }
+    ]
+  },
+  "save_failure": {
+    "error": "Too many open files",
+    "operations": [
+      "level metadata temporary-file creation",
+      "saved-data directory resolution"
+    ],
+    "fd_limit": "not measured",
+    "repair_hypothesis": "JAR resource URL global cache duplicates descriptors; scoped-resource-stream policy reduces retention in host test; PS5 confirmation required"
+  },
+  "raw_evidence": {
+    "session.txt": {
+      "sha256": "297433f3f2f578ccbbfc202063e1336a069b242237fcc04d5966ffea434a6915",
+      "bytes": 133
+    },
+    "exceptions.log": {
+      "sha256": "0516056fed76c0829875c86159f9f6f4e8d709923cd7cb54a93d1cbdaf340137",
+      "bytes": 624
+    },
+    "previous-gc.log": {
+      "sha256": "cecea4fcd8ef8f86a79804d5dc8b89addc1f4e909a697aa59c36bfe8d145e0d9",
+      "bytes": 310574
+    },
+    "process-usage.log": {
+      "sha256": "93152d60c4efb035bd13e586481cae75cdee457ed2b596eb32df9544a9320b1c",
+      "bytes": 164
+    },
+    "previous-exceptions.log": {
+      "sha256": "93c662033b74c5cb1da2b2f42360ae338a663c4e16202c717b284adabb1001fa",
+      "bytes": 115278
+    },
+    "native-stderr.log": {
+      "sha256": "a10ee51250575878ae4c5dab1d1494b29e267af33378773b11297e10015420e9",
+      "bytes": 2416
+    },
+    "previous-hs-error.log": {
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1",
+      "bytes": 31
+    },
+    "gc.log": {
+      "sha256": "06610a600adc7cc23d81251c741b1560b64b885a364101500789f2ac02d0cec4",
+      "bytes": 5133
+    },
+    "startup-tail.log": {
+      "sha256": "280a93f81cee54a8211295119213db7f6f597a0d7029fa7362d5eae8219e09f0",
+      "bytes": 524288
+    },
+    "vm-trace.log": {
+      "sha256": "69e5115a4051eb27c33a4e7ebd6bf4f39c6e3e438e718e28f265e1f10ffff936",
+      "bytes": 1171307
+    },
+    "previous-native-stderr.log": {
+      "sha256": "c2a7d58970a04161bf83c5fe9eb379e55b35592d2fffc363326a4abc821e1e77",
+      "bytes": 34774
+    },
+    "hs-error.log": {
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1",
+      "bytes": 31
+    },
+    "previous-jit.log": {
+      "sha256": "2e8eb1a4e3885d2cf79e8d79f2bf3e77a85647d9a4a69b1803b5108e9e2091de",
+      "bytes": 3398949
+    }
+  }
+}

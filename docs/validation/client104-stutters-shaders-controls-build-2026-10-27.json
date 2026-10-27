@@ -1,0 +1,184 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.104",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "package_sha256": "3cfffdbdc17c8858f17dc060c53fcfd5048cb2335e08ae653a0fa19781e9aadc",
+  "native_elf_sha256": "eccf482d653165a625707d5e76bdc628129517ce200d43de81d24bdc8bfde174",
+  "changes": [
+    "Spatial navigation between side-by-side launcher controls",
+    "Content buttons use normal secondary style",
+    "Launcher QWERTY with number row;in-game keyboard unchanged",
+    "Code cache32->96MiB,metadata initial GC threshold128MiB,explicit GC concurrent;existing heap/G1/C1 policy retained",
+    "Standard jar resource URL useCaches=false before Fabric to reduce duplicate retained descriptors",
+    "Genuine Java-port raster/Disposer/Unix IDs/Trace + LCMS resident natives;original game/mod JARs unchanged"
+  ],
+  "runtime": {
+    "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+    "commit": "422e9a455671cd2d192beb10d270fe1d84d63221",
+    "component": "tools/java25_imageio.py; java25_builtin_runtime.py --imageio",
+    "audit": {
+      "scope": "Genuine upstream image raster IDs/Disposer and bundled LCMS only;no display/toolkit/fonts/printing/JPEG",
+      "upstream": {
+        "project": "native PS5 OpenJDK 25 runtime port",
+        "repository": "https://github.com/freebsd/openjdk.git",
+        "tag": "jdk-25.0.4+7-freebsd-1",
+        "commit": "b219cdec88ca2e165711f63b8158ab78303facc8",
+        "cache": ".tools/java25/openjdk",
+        "target": "x86_64-sie-ps5",
+        "bootstrap_vm_candidate": "HotSpot server; first console startup with -Xint pending native loader adaptation",
+        "build_status": "HotSpot and java.base classes/native libraries build successfully; console JVM startup not tested",
+        "production_vm_goal": "HotSpot server with JIT, JNI and java.base",
+        "license": "GPL-2.0 with Classpath Exception where specified upstream"
+      },
+      "host": false,
+      "groups": {
+        "awt": {
+          "sources_sha256": {
+            "src/java.desktop/share/native/libawt/java2d/Disposer.c": "4bbb14373065ab1734b18e0ece8817e02357858d4532dd39a0e94b3ab36b2571",
+            "src/java.desktop/share/native/libawt/java2d/Trace.c": "169cd4a0ae236b9f02b0e8c8407a1bb29eff4927442c3991ec3210259a3df02d",
+            "src/java.desktop/share/native/libawt/awt/image/imageInitIDs.c": "69c49ed9cd71488931fcadcbc365100c90a7ede37207c0bc2d065bd9d4075a7d",
+            "src/java.desktop/unix/native/libawt/awt/initIDs.c": "6c3c8384b05fd89c75414dd1f4e26141db3bdbe7b735846f7c59ce5711a71938"
+          },
+          "output_sha256": "960423859d785ed2174a386cecc7e047fcbc75648a742d7b5076a48ba52fce7d",
+          "compile_units": 4
+        },
+        "lcms": {
+          "sources_sha256": {
+            "src/java.desktop/share/native/liblcms/LCMS.c": "0f200b323b6fd431793528a7b5f95d890338a8dcea7963a9c15256d091d64214",
+            "src/java.desktop/share/native/liblcms/cmsalpha.c": "b653493f5c2281a8cf452a4af1fa45bd41bcf16a4222a2fa887514c3dbf7da0d",
+            "src/java.desktop/share/native/liblcms/cmscam02.c": "4b2beb48ba6e1882cb2b3ce37fb661ec85a94c77428caf28bfe5f1fac913afe8",
+            "src/java.desktop/share/native/liblcms/cmscgats.c": "4fb0b59845d836258c1409c983ddf35f277518beb0ba93db88f5955c43f7c287",
+            "src/java.desktop/share/native/liblcms/cmscnvrt.c": "95496df81b78915498dd001a786df95a0a1bac3d7ea2270144123960de6a3f3e",
+            "src/java.desktop/share/native/liblcms/cmserr.c": "7df7ba5c7bfb43ee51205ac033311c7fa34a6724a4a5043edc27b72fe579b996",
+            "src/java.desktop/share/native/liblcms/cmsgamma.c": "0f5a93054e06e5862441f7f1ca455371933c5d25dc42bf22173ec304015717fd",
+            "src/java.desktop/share/native/liblcms/cmsgmt.c": "ecf3263166b1f0cd1b5570f5ce4c17c1326747fd0ef3231b36feed55a73775c2",
+            "src/java.desktop/share/native/liblcms/cmshalf.c": "9a57f96a521fa3381d48ed69db3f422583ae638ae173956e79ad070829859859",
+            "src/java.desktop/share/native/liblcms/cmsintrp.c": "e684e57aec3e0033a7d23f940c19499e66a807b8adacf41d065da976dfdf77c9",
+            "src/java.desktop/share/native/liblcms/cmsio0.c": "1314741dfd9718456211891c25d847d5ddab26b51be1a7e2f502e5a3c3049872",
+            "src/java.desktop/share/native/liblcms/cmsio1.c": "d9b34eb9d182ebdd4f64b802ed1d7c103b6811319dde2d29035771daa4756b17",
+            "src/java.desktop/share/native/liblcms/cmslut.c": "a54cadeab925a7f13292cb492e97730bd5ceba9b9d3b9f720c7693fb68fba953",
+            "src/java.desktop/share/native/liblcms/cmsmd5.c": "3cf78535201338f74dbb5e91183c142bc8b44cde374c732b0ce11b076992beaa",
+            "src/java.desktop/share/native/liblcms/cmsmtrx.c": "b93190359300d9839480453e2aed2ac0a5acc53e07bc4e434d98c7d2284af3ff",
+            "src/java.desktop/share/native/liblcms/cmsnamed.c": "83d95c246090ebf0483357deb7ae2bc8c19239880d7a9a2b9e60f0e7e2cfe4c1",
+            "src/java.desktop/share/native/liblcms/cmsopt.c": "43b304a61f0ab8bf16774eb1a2bb9520dace0a573d799900e1df899ffc110908",
+            "src/java.desktop/share/native/liblcms/cmspack.c": "06bd0b714089fb4f7a80ae8df2f8891b78700ab3e386949269fae5fe6a9b3fa8",
+            "src/java.desktop/share/native/liblcms/cmspcs.c": "103ae4c4e5dd96f919c67834c099d3e118e144c34b261f9776ba1508c438ca92",
+            "src/java.desktop/share/native/liblcms/cmsplugin.c": "0aeb2f67812c472c2aba98ed301d89d79d0536caec615cb31bf57df803a3d10a",
+            "src/java.desktop/share/native/liblcms/cmsps2.c": "47579aa4d670656a04f98b0c842128d9b0a2b0779a4cd2d3898b34bdf7ff8f99",
+            "src/java.desktop/share/native/liblcms/cmssamp.c": "88286ca8acd1bf47aa699c5b42a1d116605376a4511c794eb502d3a72177c042",
+            "src/java.desktop/share/native/liblcms/cmssm.c": "7802f05cf6c0a8e8e90411a134012c850ff4378c0b6822f373d090d594c57661",
+            "src/java.desktop/share/native/liblcms/cmstypes.c": "bdd2a6ca4ed9ea05e3ba6a3606ef3ce3936e74411cf9c2be0e6dc6ce501e1542",
+            "src/java.desktop/share/native/liblcms/cmsvirt.c": "fa9b8f8a4ca51f1da6414f302dbca9bb84882fd7731f9f9d1364b0358e0ca8e8",
+            "src/java.desktop/share/native/liblcms/cmswtpnt.c": "104092f8caff09f9e3f90cee9ff9acd7d94d921ee58f9bffd13db8d4258bb774",
+            "src/java.desktop/share/native/liblcms/cmsxform.c": "72a342312a2bd977bc557616fc2e6a443c8104e4bea811a554203d0c34b6902b"
+          },
+          "output_sha256": "31c6927bed0acbc83176d214fae52e8816a9083be7ba8150d1bc7dd420833fbd",
+          "compile_units": 27
+        }
+      }
+    },
+    "host_validation": "PASS forced own native AWT/LCMS, no stock fallback;all PNG pixels equal stock JDK;ICC/color conversion/invalid data",
+    "limits": "Image-data subset only;no GUI/fonts/printing/JPEG claim;PS5 component remains pending"
+  },
+  "tests": {
+    "controls": "PASS actual launcher model: horizontal/vertical geometry,case/number/QWERTY/backspace; native layout agrees",
+    "JAR_resource_handles": "PASS40 actual cached resource streams retain40 descriptors;scoped streams retain0;not proof of prior PS5 limit/leak cause",
+    "JVM_policy": "PASS live96MiBcode cache/128MiBmetadata threshold and retained heap data;System.gc full-pause control vs concurrent104. ARM host omits x86 UseAVX/UseSSE flags;actual target retains them",
+    "Fabric": "PASS actual upstream game discovery/Mixin/preLaunch/shared LWJGL + jar cache policy",
+    "launcher_regressions": "PASS vanilla/owning-session flags/redaction/instance persistence/world bytes/delete/content queue/dependencies",
+    "native_and_actual_Vulkan_previews": "PASS actual draw and JNI/mailbox/VideoOut fixtures; secondary styling and QWERTY visually inspected",
+    "package": "PASS signatures/CRC/version104/current source fixture bytes/resident methods/real native images/audits/frozen core and dependency bytes",
+    "toolkit_package": "PASS version/channel/source pin/privacy/constructors",
+    "known_build_followup": "Final native link exposed missing upstream Trace implementation;added unchanged Trace.c and linked successfully. Host test paths explicitly isolate subset; no native fallbacks or weakened frozen dependency checks."
+  },
+  "source_sha256": {
+    "client/launcher/java/ProsperoLauncher.java": "64a65ecdd733f26b4e2961d7c1824df6b7dc7acf97c2ad70ece2b41b8b29cb01",
+    "client/launcher/java/ProsperoFabric.java": "ee008ed9893848c7368c96859011c0e99a1b999bc7b10e51e04c3bec55b4d01b",
+    "client/launcher/native_menu.hpp": "e812b3020b3e2218d4725739f6ef58f3c90945882cc8117e6f30b00b2e06419d",
+    "client/startup/bootstrap.cpp": "41e49353a0a393d177a2c26949a86ef93c63759ed3e8e3a2ee8b4fe7ac87a53d"
+  },
+  "preserved_packages": {
+    "101": "c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131",
+    "103": "a2416025dc8d37b6e6de678ba5e3816d2f0279339fb332921ee03bb725b6f47a"
+  },
+  "console": {
+    "status": "PENDING human exact104 PS5 tests",
+    "checks": [
+      "Visible104/QWERTY/case/backspace and spatial menu navigation/style",
+      "Vanilla+Fabric startup/regression",
+      "Same-scene stutter comparison/code-cache and GC logs",
+      "Vitrail BSL noise decode/shader rendering/GPU features",
+      "World save/reload after103 EMFILE failures",
+      "Audio/input/quit-relaunch/longer modded session memory pressure"
+    ],
+    "limits": [
+      "No proven removal of every stutter or shader GPU compatibility",
+      "No measured PS5 FD limit;resource-stream policy is a supported repair candidate",
+      "Code cache reserves64MiBmore;longer class/code retention remains"
+    ],
+    "release": "No Store/public release,new milestone or ALLPASS;101/103 retained"
+  },
+  "evidence": {
+    "client104-relink.log": {
+      "sha256": "38e902395c7e34a141da9e0f713ca92cca8455b835073c7299b5a87aaa79774c",
+      "bytes": 39292,
+      "result": "PASS"
+    },
+    "client104-package-test.log": {
+      "sha256": "f471000d061000938dc07201bbe1b94bac189349658f0715cb4d8e3967142f41",
+      "bytes": 630,
+      "result": "PASS"
+    },
+    "client104-toolkit-package.log": {
+      "sha256": "d066b1ab9edd1944e1f6beeaba3004d705fbc6abcecca2d28aa4f9c5bf79e6cd",
+      "bytes": 256,
+      "result": "PASS"
+    },
+    "client104-startup-host.log": {
+      "sha256": "2a5c7f4bb1ebb70f799abfcfbfe2c459e8062eac7eb836e5a3d9ab6b7903c79f",
+      "bytes": 1432,
+      "result": "PASS"
+    },
+    "client104-controls.log": {
+      "sha256": "39c3b02e2047641937f12534177409d4ead37377669d95a61d60545243eefaae",
+      "bytes": 278,
+      "result": "PASS"
+    },
+    "client104-policy.log": {
+      "sha256": "82dfe9d7fb426ef7f948471951a5361af3e79451df7383dfb27d8a3eb209c857",
+      "bytes": 390,
+      "result": "PASS"
+    },
+    "client104-fabric-bootstrap.log": {
+      "sha256": "a8cc47531ed4ff606349c4cd9d5fbf59b330cc2e58b286fad42d1d5f5c0ebbe5",
+      "bytes": 906,
+      "result": "PASS"
+    },
+    "client104-content.log": {
+      "sha256": "0f57b98013cf98d1fa1602ef55e35e0dd1fab2f2fd0e9aaa83bb3e9471481c56",
+      "bytes": 309,
+      "result": "PASS"
+    },
+    "client104-instances.log": {
+      "sha256": "d71042a6c675dbd70f12ce42fbeb39259d87fb350d708cec0f2d906971a2e999",
+      "bytes": 592,
+      "result": "PASS"
+    },
+    "client104-delete.log": {
+      "sha256": "870d22372a4bad117e344ab3f2810cfb97cc41c3df06d6e7dcb146677c20605e",
+      "bytes": 138,
+      "result": "PASS"
+    },
+    "client104-preview-native.log": {
+      "sha256": "46e7834e9777babc326c6fe7bd9134151ea1e99fafbec25bdb38dd2f2b2c0c2d",
+      "bytes": 683,
+      "result": "PASS"
+    },
+    "client104-preview-toolkit.log": {
+      "sha256": "ce2cf575b67f1bbd3a130480aa3e0c59af20f6e1b6881a60fde9f0b8afd5a8c5",
+      "bytes": 783,
+      "result": "PASS"
+    }
+  }
+}

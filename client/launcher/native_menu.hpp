@@ -181,7 +181,7 @@ inline void compose(Canvas& c) noexcept {
   label(c,70,185+slide,page==1?"A world of your own.":"Make it yours.",64);label(c,75,269+slide,page==1?"One instance. Its own settings, worlds and memories.":"Your worlds stay right where they are.",24,0x91ad9b);
   c.rounded(70,338+slide,620,548,28,ink(0x10221c));block(c,275,402+slide,204,page==1?number(24):number(18));title(c,105,690+slide,page==1?fields[22].data():fields[16].data(),42,540);label(c,108,761+slide,"JAVA EDITION / INSTANCE",24,0x8db69a);
   if(page==1){row_control(c,320+slide,"VERSION",fields[23].data(),row==0);row_control(c,430+slide,"LOADER",fields[82].data(),row==1,true);row_control(c,540+slide,"NAME",fields[22].data(),row==2);row_control(c,650+slide,"ICON","Choose instance icon",row==3);action(c,760,774+slide,1080,"CREATE & DOWNLOAD",row==4,true);wrap(c,790,884+slide,fields[70].data(),1000,1);}
-  else{row_control(c,320+slide,"INSTANCE NAME",fields[16].data(),row==0);row_control(c,430+slide,"INSTANCE ICON","Choose instance icon",row==1);action(c,760,550+slide,520,"MODS",row==2,true);action(c,1320,550+slide,520,"SHADERS",row==3,true);action(c,760,655+slide,1080,"RESOURCE PACKS",row==4,true);action(c,760,765+slide,520,"DONE",row==5,true);action(c,1320,765+slide,520,"DELETE INSTANCE",row==6,std::strcmp(fields[64].data(),"BUSY")!=0);}
+  else{row_control(c,320+slide,"INSTANCE NAME",fields[16].data(),row==0);row_control(c,430+slide,"INSTANCE ICON","Choose instance icon",row==1);action(c,760,550+slide,520,"MODS",row==2);action(c,1320,550+slide,520,"SHADERS",row==3);action(c,760,655+slide,1080,"RESOURCE PACKS",row==4);action(c,760,765+slide,520,"DONE",row==5,true);action(c,1320,765+slide,520,"DELETE INSTANCE",row==6);}
  }else if(page==12){
   title(c,70,185,fields[82].data(),64,1500);title(c,75,270,fields[70].data(),24,1770,0x91ad9b);
   action(c,70,325,1010,fields[92].data(),row==0,true);char queue[80];std::snprintf(queue,sizeof(queue),"DOWNLOAD ALL (%s)",fields[91].data());action(c,1120,325,720,queue,row==1,true);
@@ -261,7 +261,7 @@ inline void compose(Canvas& c) noexcept {
   label(c,766,795,"Show next time",30);
  }else if(page==6){
   label(c,70,185,"Enter text.",64);c.rounded(70,300,1770,116,22,ink(0x183c2a));title(c,103,330,fields[29].data(),42,1650);
-  const char* chars=std::strcmp(fields[66].data(),"LOWER")==0?"abcdefghijklmnopqrstuvwxyz0123456789 ._-":"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ._-";int chosen=number(31);
+  const char* chars=std::strcmp(fields[66].data(),"LOWER")==0?"1234567890qwertyuiopasdfghjkl_zxcvbnm .-":"1234567890QWERTYUIOPASDFGHJKL_ZXCVBNM .-";int chosen=number(31);
   for(int i=0;i<40;i++){int x=80+(i%10)*176,y=465+(i/10)*91;if(i==chosen)selection(c,x,y,152,73);c.rounded(x,y,152,73,16,ink(i==chosen?0x356647:0x172e24));char letter[2]={chars[i],0};label(c,x+61,y+21,letter,30);}
   label(c,100,873,"X  Add     TRIANGLE  Backspace     L2  Case     R2  Space     OPTIONS  Clear     SQUARE  Done",24,0x8daf99);
  }
