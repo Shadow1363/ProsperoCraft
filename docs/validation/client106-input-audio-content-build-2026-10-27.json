@@ -89,7 +89,7 @@
     "client/ports/sdl/ps5_usb_input.h": "b4153bf704cefda407b1207a73a46061f90ad0e391d91590de01d43aa759bf3a",
     "client/startup/bootstrap.cpp": "595f2a52660d282d88b0aeddfc4282196048f605ba87219ac125494227acd20c",
     "client/startup/param.json": "c66bb9902da247d5f449ddde3c9dff0e0ac6bc145b9c863a8a23147836693c7e",
-    "docs/client-input-audio-installed-106.md": "fe452e3a44636aacd1dff5db48aa0ad3c36b2db5ffa100704bf281138881bd25",
+    "docs/client-input-audio-installed-106.md": "436901a3c8da97c64fadb79e89086bec887847d2a2f2ab740787ac228097aa98",
     "docs/validation/client105-input-audio-observation-2026-10-27.json": "6bac159d73cb2569fe0df1ac840acfa69c9e6aa2ce242cec18c72d28bc1b85df",
     "tools/package_client_gpu_link.py": "4e68ebb54a350df9a78f90f039f3ba279615117886035418df9ae14f49c27ca3",
     "tools/preview_launcher.py": "901a399381b19299d236f1e65028ac1ed3ac57398139ec5bddd078b173432dfc",
