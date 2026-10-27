@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.085",
+  "title_id": "PPSA99874",
+  "shared_implementation_commit": "a2ecd30",
+  "offline_default_pin_commit": "1c95bda",
+  "channels": {
+    "demo": {
+      "git_branch": "codex/demo",
+      "package_sha256": "f5a1a923e6835e5d941391358a0a78f3f3d8fdf66b1a0557280f207cca3e54da",
+      "native_elf_sha256": "19ca28d9df4e9260592d2cc22efd61741ba97109dada261a3f797167d495ae5b",
+      "console_status": "PENDING exact085",
+      "packaged_channel": "demo",
+      "offline_public_key_included": false
+    },
+    "offline": {
+      "git_branch": "codex/offline",
+      "package_sha256": "9b289c894fde7b41c31bb283cd730136a5b7b52187673643a8de9cebd2c74f4e",
+      "native_elf_sha256": "19ca28d9df4e9260592d2cc22efd61741ba97109dada261a3f797167d495ae5b",
+      "console_status": "PENDING exact085",
+      "packaged_channel": "offline",
+      "offline_public_key_included": true
+    }
+  },
+  "source_sha256": {
+    "client/launcher/java/ProsperoAuth.java": "3286d4e87360d4a523524d88cf31eb8442dfae79dbe343c23dbb153f70190a91",
+    "client/launcher/java/ProsperoChannel.java": "55b2bb7abdb5300ee5abbd1ed2afbdff9e8f0d29b5056d94a805c1ddf934f722",
+    "client/launcher/java/ProsperoInstall.java": "4d80302f8c3076a275387e57e673544292f198e5fb084c48640dca5da40f29b4",
+    "client/launcher/java/ProsperoLauncher.java": "7c4438d5b912eff8a5e8d01c36a94a91b301399735218507e76961b127689326",
+    "client/launcher/java/ProsperoLibrary.java": "7427360d065c6985fbd6948fb96a2f0417bb8fe9a474c5de5fbb7e884a16274a",
+    "client/launcher/java/ProsperoOfflineAccount.java": "11e80494bcbd013acc399c0d8003f1c2535228e63ffc7560f62890721bfb4e77",
+    "client/launcher/java/ProsperoSession.java": "664f6926d2e049d5b9acd2ded7c4778afb0ecdab810cd926ef0425ba71af7364",
+    "client/launcher/java/ProsperoStorage.java": "011fd981f75e4915c749d41585259941d8f80a4d9f92db72a0c2a561169939f5"
+  },
+  "host_checks": [
+    "PASS Demo and Offline full target builds and complete package audits",
+    "PASS byte-identical shared launcher classes across both packages",
+    "PASS Demo public-key exclusion and rejection of signed personal profile/forced offline launch",
+    "PASS Offline signed-profile verification/expiry/no-network arguments and original Demo option",
+    "PASS delete/undo metadata, worlds, options, shared cache and account preservation",
+    "PASS confirmation cancel default, Circle, busy block, last-instance selection and restart undo in both channels",
+    "PASS library-save failures and simulated interrupted delete/restore move recovery",
+    "PASS symlink/path/overwrite safeguards",
+    "PASS existing instance/storage/navigation/session lifecycle fixtures",
+    "PASS actual native edit/delete/confirmation previews and JNI/display cleanup fixtures",
+    "PASS original unmodified host Main reaches expected missing-native boundary; not a gameplay pass",
+    "PASS packages contain no personal account record/tokens/private key or bundled game artifacts",
+    "PASS preserved084and published083packages unchanged",
+    "PASS git diff check"
+  ],
+  "console_checks_pending": [
+    "Both085channels show the correct footer identity",
+    "Delete/cancel and undo including app restart on physical controller",
+    "Retained world loads with matching player/options after undo",
+    "Offline085signed profile/play and Demo rejection of offline profile",
+    "1080pinput/audio/quit-relaunch regressions"
+  ],
+  "store_status": "083catalogPR819merged; no085release/listing changes",
+  "deployment": "Local candidates provided; direct FTP unreachable Errno65; no console deployment claimed",
+  "warnings": [
+    "Existing unchanged OpenAL signedness warning during target compilation"
+  ],
+  "personal_data_published": false
+}
