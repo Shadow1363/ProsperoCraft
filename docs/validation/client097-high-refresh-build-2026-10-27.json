@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.097",
+  "title_id": "PPSA99874",
+  "branch": "main",
+  "channel": "temp_gametest",
+  "package_sha256": "d78ab9456b0fd036686989b86f41acef7aa3f013db884f8e8b6756604317d4fd",
+  "symbols_sha256": "c61bb4364939ec5228a49feb5d86af41c960c7b403e93ca18c5a3ee8231faa30",
+  "reported_issue": "User reports60/61FPS with VSync off and120FPS target; no current-run output logs collected in this turn.",
+  "changes": [
+    "Startup manifest attribute3 bit0x40 enables existing high-frame-rate request",
+    "SDL picks highest actual enumerated refresh<=120Hz for requested resolution; default1080p and60Hz fallback retained"
+  ],
+  "tests": {
+    "sdl_display_surface_policy_ubsan": "PASS119.88Hz/60Hz fallback/120Hz ceiling/order/invalid and surface capability controls",
+    "actual_wsi_high_refresh_path_asan_ubsan": "PASS real parser/open/vblank helper with controlled OS responses:success/retained handle/unsupported/error/configure refusal/60Hz measurement/wait failure/old manifest",
+    "sdl_logical_framebuffer_input_asan_ubsan": "PASS six logical sizes,resize and normalized pointer scaling",
+    "target_build": "PASS exit0",
+    "full_startup_package_audit": "PASS exit0; signatures,exact runtime/native/image dependencies,original Main bytecode,preserved historical packages,no bundled official game files",
+    "toolkit_channel_package_audit": "PASS exit0",
+    "published096_release_preservation_and_relink_audit": "PASS exit0",
+    "candidate_extracted_folder": "PASS every file hash matches exact097ZIP"
+  },
+  "evidence": {
+    "client097-package.log": {
+      "sha256": "73646bdb2bc2a741069159ed79bea20a16d3fa019b6caa16c532fb56850f6ec8",
+      "bytes": 78238,
+      "result": "PASS"
+    },
+    "client097-startup-test.log": {
+      "sha256": "3f23fbeac9dac502b148d174a85bfd786b665f0eeb034ebc766235c0100e4b69",
+      "bytes": 612,
+      "result": "PASS"
+    },
+    "client097-toolkit-test.log": {
+      "sha256": "8472b995a9baa15e6625a54221bc1cc0ed8506ba3fbabc7705f34da7492b3107",
+      "bytes": 256,
+      "result": "PASS"
+    },
+    "client097-preserved096-test.log": {
+      "sha256": "387aa84dc78856d2f2a78597a575f5727474f1e91b6b68ce5122d7eea485fa0e",
+      "bytes": 153,
+      "result": "PASS"
+    }
+  },
+  "preserved096_package_sha256": "7576aacd601ffbec16d956adaa3a03f9a8f2c0d9a1eadf76889776f246500067",
+  "runtime_source_changes": false,
+  "game_JAR_changes": false,
+  "presentation": "Pinned backend remains FIFO-only. No immediate/mailbox support added; true VSync-off uncapped rendering is not implemented.119.88Hz is offered only after existing OS configuration and measured vblank admission.",
+  "console": {
+    "status": "PENDING",
+    "required": [
+      "120Hz-capable output with installed097manifest:refresh readout/SDL selected mode andF3FPS with maxFPS>=120 and VSync off",
+      "Same-scene performance comparison to096",
+      "Controls,cursor alignment,audio,Quit to launcher and relaunch",
+      "60Hz-only output fallback"
+    ]
+  },
+  "publication": "Development source on main only; no binary release/Store update or frozen milestone."
+}

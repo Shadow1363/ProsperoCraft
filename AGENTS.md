@@ -1024,3 +1024,16 @@ do not recreate those branches unless requested. Preserve historical commits,
 frozen snapshots, release tags/packages and the exact096temp_gametest package label.
 The user also marks controller vibration complete in the README roadmap. This
 feedback does not establish unrelated console lifecycle/endurance acceptance.
+
+
+## High-refresh candidate097 — 2026-10-27
+
+User reports60/61FPS despite VSync off with120FPS target.097 enables startup
+attribute3 bit0x40 and SDL fastest actual enumerated mode<=120Hz with60Hz fallback.
+Pinned WSI already requires OS support/configure plus measured vblank before
+advertising119.88Hz. FIFO-only presentation remains; do not claim true uncapped
+VSync-off or console120FPS from host tests. Read docs/client-high-refresh-097.md
+and its validation. Preserve exact096release/candidate and frozen milestones;
+continue main/temp_gametest channel. No new public release/Store update requested.
+Console output/F3FPS,controls/audio/quit-relaunch and60Hz fallback need validation.
+Home, hosting and endurance remain deferred. Original game JARs are unchanged.

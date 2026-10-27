@@ -61,7 +61,7 @@ Development continues on `main`, which contains the merged authenticated game-te
 - [ ] JVM 21 for broader Minecraft support.
 - [ ] JVM 17 for even broader Minecraft support.
 - [ ] Custom AMD Ryzen Zen 2 8C/16T CPU identification.
-- [ ] Unlock the 60 FPS cap that remains with VSync disabled.
+- [ ] Unlock the 60 FPS cap that remains with VSync disabled. [097 candidate](docs/client-high-refresh-097.md) enables supported 120 Hz output; PS5 validation pending.
 - [ ] Home menu.
 - [ ] Themes.
 

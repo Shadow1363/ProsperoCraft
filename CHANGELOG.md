@@ -6,6 +6,17 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Client097 requests supported120Hz output
+
+The user reports60/61FPS with VSync disabled and a120FPS target. Enable the
+existing VideoOut high-frame-rate manifest declaration and replace SDL's60Hz
+preference with the fastest enumerated mode up to120Hz, retaining59.94Hz fallback.
+The pinned backend verifies actual output/vblank before offering119.88Hz.
+FIFO presentation remains; this does not implement uncapped VSync-off behavior
+or guarantee120FPS. Host policy/fallback/input checks pass; target/package checks
+are recorded separately and console FPS/output/lifecycle tests remain pending.
+Preserve exact096release and all older milestones. [Guide](docs/client-high-refresh-097.md).
+
 ## 2026-10-26 — Client083 locks logical/display resolution to1080p
 
 Store-installed082has a reported game-menu hit-test/pointer misalignment with
