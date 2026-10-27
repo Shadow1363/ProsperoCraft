@@ -164,3 +164,21 @@ holdarrived;098immediatelyreturnedtoDRAFTandverifiedasdraft. Uploaded asset
 hashes match; no new publicStoreavailability is claimed.096remains the published
 release. See validation/client098-publication-hold-2026-10-27.json and
 client-stutters-098.md. Quieterlogging alone is not a confirmedGCfix.
+
+
+## Accepted100 release and Store update — 2026-10-27
+
+Build100received explicit acceptance for improved gameplay smoothness and a
+request to release. This supersedes the prior hold for exact100. Full GitHub
+release01.000.100preserves the tested package bytes and includes matchingOpenAL
+source/relink materials,validation and checksums. All5uploads and downloaded
+assets match;downloadedkit reproduces the exactacceptednativeELF.
+
+Existing-listing update: https://github.com/darkxex/ps5-homebrew-catalog/pull/861
+Release: https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.100
+
+147recordformatchecks,227offline tests(2skipped),onlineartifactdigest/version/icon
+checks pass. PR861wasOPENwithremotechecks pending atinitialinspection;Store
+availability requiresmergeanddeployment. PublicnotesretainGUI/iconcredits and
+state long-sessionmemory/lifecyclelimitations.098draftandolderreleasesunchanged.
+See validation/client100-store-publication-2026-10-27.json for currentstatus.

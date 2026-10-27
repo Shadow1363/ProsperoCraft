@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.100",
+  "release_url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.100",
+  "release_tag_commit": "2638ce9",
+  "tested_implementation_commit": "e058487058515040a6ad498647d521abcf84ed81",
+  "package_sha256": "b905d80a3b21502c2c1c9672db7833cd38f3582c35835e13c087667a0a0e7f65",
+  "release_status": "Published full release,notdraft/notprerelease;latest flag requested and successful.",
+  "assets": [
+    {
+      "name": "client100-build-validation.json",
+      "bytes": 4858,
+      "digest": "sha256:d2f97af23ea326cb609eafd6647ffcee37cc0e07de6efc38c025c620fb1dd1f0",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.100/client100-build-validation.json"
+    },
+    {
+      "name": "client100-console-validation.json",
+      "bytes": 1166,
+      "digest": "sha256:c9ae6fea3cdb7150b987ea19570431b4695832f9db5d41b1b61a6019aaa2d2b1",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.100/client100-console-validation.json"
+    },
+    {
+      "name": "client100-openal-source-relink.zip",
+      "bytes": 88642785,
+      "digest": "sha256:66361f86ac93bfa2199c12a5b2755d6f9b3a9098c4ca72b0d259a9db81b4c8be",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.100/client100-openal-source-relink.zip"
+    },
+    {
+      "name": "PPSA99874.zip",
+      "bytes": 121189588,
+      "digest": "sha256:b905d80a3b21502c2c1c9672db7833cd38f3582c35835e13c087667a0a0e7f65",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.100/PPSA99874.zip"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 379,
+      "digest": "sha256:00460c3ec0c2ed279af0482685c443240fecc999d69200dcadc1585a8e5b32f7",
+      "url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/download/01.000.100/SHA256SUMS"
+    }
+  ],
+  "verification": "All5uploaded digests/sizes matchlocal. All5assets downloaded and comparedbyte-for-byte bySHA256;SHA256SUMS andapp/kitCRC pass;everykitinputhashchecked. Downloadedkitreproduces exactaccepted100nativeELF. Local normal/replacementOpenAL relinks also reproduce exactELF.",
+  "native_elf_sha256": "ca093fe5a1e042d85f6d8815259d3b7bad82415374c0a21dcb18529a38371899",
+  "human_acceptance": "Completelyhappy,muchbetter;subjective100gameplay/stutterimprovement accepted andpublicationrequested. NoformalALLPASS,constantFPS,endurance orcomplete lifecycle/memory result inferred.",
+  "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/861",
+  "catalog_head": "000763654699e0dc7f414dbf9c238a5a235f7d0d",
+  "catalog_status": "OPEN;submission/offline/release-scan checks pending atinitialinspection. Storeavailability notyetclaimed.",
+  "catalog_checks": "147records valid;227offline tests pass,2skipped;online artifact/contentVersion/iconverification passed with0errors/warnings.",
+  "connector_fallback": "GitHubconnectorPRcreate returned403ResourceNotAccessibleByIntegration;authenticatedCLIcreatedPR861successfully.",
+  "description": "Public-facingplayernotesandStoredescription,retainingmihawk-99/PS5_VKHomebrewUIandMultiMC/Prismcredits.",
+  "pending_console": "Long-sessionheap/metaspace/codecachepressure,reloads,repeatedworld/serverchanges,save/reload,reconnect andbroaderlifecyclecoverage.",
+  "preservation": "100candidatebytesunchanged;098draftand099/097/096/frozenartifactsretained.",
+  "runtime_repository": "NoJavaruntimecodechanges;GCflags areconsumerlaunchconfiguration inProsperoCraft,perownershiprules."
+}
