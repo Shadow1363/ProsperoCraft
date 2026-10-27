@@ -22,7 +22,7 @@ Install the release's **PPSA99874.zip** using your normal homebrew workflow. The
 
 The client and server share **PPSA99874**: installing one replaces the other. Back up your worlds and preserve `/download0/ProsperoCraft` when updating. Storage remains 4 GiB; existing instances and cache are retained. Instance deletion is permanent after confirmation, including that instance's worlds—there is no Undo for new deletions.
 
-Development107 adds per-file Uninstall actions in Installed and larger project artwork, including WebP and indexed PNG icons, in roomier four-row pages. Audio/HID recovery, Controlify integration and the optional Vitrail shadow-scale control from106 remain awaiting PS5 tests. See [development notes](docs/client-content-uninstall-icons-107.md).
+Development108 adds required-mod dependency checks and automatic Fabric API module repair before launch. It retains107's Uninstall buttons and larger project icons. Keyboard input is confirmed on PS5; mouse, Controlify, audio/lifecycle and dependency108 testing remain pending. See [development notes](docs/client-auto-dependencies-108.md).
 
 ## Current status
 

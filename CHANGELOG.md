@@ -1,5 +1,12 @@
 # Changelog
 
+## Development 01.000.108
+
+- Check Fabric manifests and bundled modules alongside recursive Modrinth required dependencies; automatically add Fabric API when a required module is missing.
+- Repair existing instances before launch. Healthy instances need no dependency network requests; version conflicts and unmapped missing dependencies stop in the launcher.
+- Record positive PS5 keyboard feedback on107. Dependency108 console testing remains pending; Store stays unchanged until accepted.
+
+
 ## Development 01.000.107
 
 - Add an Uninstall button beside each installed mod, shader or resource pack, with Cancel as the default confirmation action. Other files, worlds and settings are kept.

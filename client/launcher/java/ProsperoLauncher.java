@@ -59,24 +59,30 @@ public final class ProsperoLauncher {
   if(version==null)version=installer.catalog(true,()->cancelled(attempt)).stream().filter(v->v.id().equals(instance.version)).findFirst().orElseThrow(()->new java.io.IOException("This version is not in the publisher catalog"));
   var installed=installer.install(version,library.settings().workers,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){completed=done;total=size;long now=System.currentTimeMillis();if(now-lastProgress>100||done==size){message=text;lastProgress=now;cached=null;}}}},()->cancelled(attempt));
   if("fabric".equals(instance.loader))fabric.install(instance.version,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;cached=null;}}},()->cancelled(attempt));
+  if(play)repairDependencies(instance,attempt,false);
   synchronized(this){if(!cancelled(attempt)){library.ready(instance,true);if(session!=null&&avatar.isEmpty()&&auth.skin(session).isEmpty())try{avatar=ProsperoAvatar.defaultFace(library.root,session.id);}catch(Exception ignored){}message="Download complete. Ready for your next world.";feedback("success");if(play)prepareLaunch(instance,installed);cached=null;}}
  });}
+ private void repairDependencies(ProsperoLibrary.Instance instance,int attempt,boolean offline)throws Exception {
+  if(!"fabric".equals(instance.loader))return;
+  try(var checker=fabric.dependencies(instance.version)){modrinth.repair(library.game(instance),instance.version,instance.loader,checker,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;completed=done;total=size;cached=null;}}},()->cancelled(attempt),offline);}
+ }
  private void prepareLaunch(ProsperoLibrary.Instance instance,ProsperoInstall.Receipt installed)throws Exception {prepareLaunch(instance,installed,false);}
  private void prepareLaunch(ProsperoLibrary.Instance instance,ProsperoInstall.Receipt installed,boolean offline)throws Exception {
   if(offline&&(!ProsperoChannel.offline()||offlineAccount==null||!offlineAccount.valid(System.currentTimeMillis())))throw new java.io.IOException("Offline profile expired. Verify your account again on your computer.");
   if(ProsperoChannel.tempGameTest()&&!offline&&(session==null||!session.valid(System.currentTimeMillis())))throw new java.io.IOException("Sign in with an owning Microsoft account before playing the full game.");
   if(!supported(instance.version)||!"SDL".equals(installed.window)){message="Coming soon for this version. Downloads are kept.";return;}
+
   installer.verify(installed);receipt=installed;loader=installer.loader(installed);if("fabric".equals(instance.loader)){var f=fabric.read(instance.version);loader=fabric.loader(f,loader);}detail=instance;offlineLaunch=offline;launchPrepared=true;launch=!awaitingTutorial;message="Starting "+instance.name;
  }
  static boolean supported(String version){return version.equals("26.3");}
- private void play(){if(detail==null||busy)return;if(!supported(detail.version)){message="Coming soon. Only26.3 can launch on this build.";feedback("error");return;}if(ProsperoChannel.tempGameTest()&&(session==null||!session.valid(System.currentTimeMillis()))){page=3;tab=2;top=false;row=0;signIn();return;}awaitingTutorial=ProsperoChannel.tempGameTest()&&library.settings().showControls;if(awaitingTutorial){page=11;row=1;top=false;launchPrepared=false;}if(!detail.ready){install(true);return;}var instance=detail;runTask("VERIFY",attempt->{var installed=installer.receipt(instance.version);installer.verify(installed);synchronized(this){if(!cancelled(attempt))prepareLaunch(instance,installed);}});}
+ private void play(){if(detail==null||busy)return;if(!supported(detail.version)){message="Coming soon. Only26.3 can launch on this build.";feedback("error");return;}if(ProsperoChannel.tempGameTest()&&(session==null||!session.valid(System.currentTimeMillis()))){page=3;tab=2;top=false;row=0;signIn();return;}awaitingTutorial=ProsperoChannel.tempGameTest()&&library.settings().showControls;if(awaitingTutorial){page=11;row=1;top=false;launchPrepared=false;}if(!detail.ready){install(true);return;}var instance=detail;runTask("VERIFY",attempt->{var installed=installer.receipt(instance.version);installer.verify(installed);repairDependencies(instance,attempt,false);synchronized(this){if(!cancelled(attempt))prepareLaunch(instance,installed);}});}
  private void playOffline(){
   if(detail==null||busy)return;
   if(!ProsperoChannel.offline()){message="This is the Demo branch.";return;}
   offlineAccount=ProsperoOfflineAccount.load(library.root,System.currentTimeMillis());
   if(offlineAccount==null){message="A verified offline profile is required. Export it from your computer.";return;}
   if(!supported(detail.version)||!detail.ready){message="Download the supported26.3 instance before playing offline.";return;}
-  var instance=detail;runTask("VERIFY",attempt->{var installed=installer.receipt(instance.version);synchronized(this){if(!cancelled(attempt))prepareLaunch(instance,installed,true);}});
+  var instance=detail;runTask("VERIFY",attempt->{var installed=installer.receipt(instance.version);repairDependencies(instance,attempt,true);synchronized(this){if(!cancelled(attempt))prepareLaunch(instance,installed,true);}});
  }
  private void beginName(int back){keyboardReturn=back;page=6;keyboard=back==12?contentQuery:back==5?detail.name:draftName;originalText=keyboard;key=0;}
  private void keyboard(int buttons)throws Exception {
@@ -138,7 +144,13 @@ public final class ProsperoLauncher {
   if(row==11&&contentKind==ProsperoModrinth.Kind.SHADER){shadowScale=ProsperoShaderSettings.toggle(library.game(detail));message="Shadow map scale "+shadowScale+"% next launch. "+(shadowScale==50?"Lower shadow detail, one quarter of the shadow pixels.":"Full shadow resolution.");return;}
   if(row==10){contentInstalled=!contentInstalled;contentOffset=0;row=10;browse();return;}
   if(row==0){contentInstalled=false;beginName(12);return;}
-  if(row==1){var instance=detail;message="Preparing download queue";completed=0;total=1;runTask("CONTENT",attempt->{modrinth.downloadAll(library.game(instance),instance.version,instance.loader,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;completed=done;total=size;cached=null;}}},()->cancelled(attempt),file->{String icon=modrinth.icon(library.game(instance),file.project(),"",()->cancelled(attempt));synchronized(this){if(!cancelled(attempt)){activeContentIcon=icon;cached=null;}}});synchronized(this){if(!cancelled(attempt)){contentQueue=modrinth.queue(library.game(instance));localContent=modrinth.local(library.game(instance),contentKind);activeContentIcon="";message="Downloads complete. Open Installed to see your files.";feedback("success");cached=null;}}});return;}
+  if(row==1){var instance=detail;message="Preparing download queue";completed=0;total=1;runTask("CONTENT",attempt->{
+   try(var checker="fabric".equals(instance.loader)?fabric.dependencies(instance.version):null){
+    modrinth.downloadAll(library.game(instance),instance.version,instance.loader,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;completed=done;total=size;cached=null;}}},()->cancelled(attempt),file->{String icon=modrinth.icon(library.game(instance),file.project(),"",()->cancelled(attempt));synchronized(this){if(!cancelled(attempt)){activeContentIcon=icon;cached=null;}}},checker);
+   }
+   synchronized(this){if(!cancelled(attempt)){contentQueue=modrinth.queue(library.game(instance));localContent=modrinth.local(library.game(instance),contentKind);activeContentIcon="";message="Downloads and required dependencies complete.";feedback("success");cached=null;}}
+  });return;}
+
   if(row==2||row==3){int next=row==2?Math.max(0,contentOffset-4):contentOffset+4;if(next!=contentOffset&&next<contentTotal){contentOffset=next;contentHits=List.of();browse();}return;}
   if(contentInstalled){if(row>=20&&row-20<contentRows()){pendingUninstall=localContent.get(contentOffset+row-20);uninstallReturnRow=row;page=14;row=0;}else message="Press RIGHT to select Uninstall.";return;}
   if(row<4||row-4>=contentHits.size())return;

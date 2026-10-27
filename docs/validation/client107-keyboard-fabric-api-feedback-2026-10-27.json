@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-27",
+  "open_build": "01.000.107",
+  "current_run": "client-01.000.107-1793129940-944961850",
+  "human_feedback": "Keyboard works. Previous crash was traced by user to missing Fabric API. Requests automatic dependencies and test before ProsperoStore release.",
+  "observed": [
+    "Current native log has real keyboard/mouse API binding and successful handle opens;human keyboard feedback establishes keyboard functionality only",
+    "Current native log adopts pre-JVM audio port and submits PCM;audible speaker acceptance not inferred",
+    "Retained previous Fabric exception: Vitrail0.13.0-beta hard-requires fabric-key-mapping-api-v1 any version;no candidate",
+    "Current run includes FabricAPI0.165.0+26.3 after manual installation;previous log has no build identity and is not falsely relabeled as current-run failure"
+  ],
+  "limits": [
+    "Mouse/Controlify behavior and audible audio/full lifecycle remain console-pending",
+    "No keyboard milestone freeze or ALLPASS is inferred",
+    "Store hold remains until user tests dependency candidate and confirms"
+  ],
+  "files": {
+    "exceptions.log": {
+      "bytes": 30893,
+      "sha256": "13566e06e786b5847815f33b0da2e453da62401252a953c8bea9fabb4b7a2bc3"
+    },
+    "previous-exceptions.log": {
+      "bytes": 2704,
+      "sha256": "4133faa16cb33ac567384fc483458c097fe198f6908b7413ecec7d3ec19b61a1"
+    },
+    "native-stderr.log": {
+      "bytes": 33413,
+      "sha256": "1cbecd81136d219235eb3d69102402a6498e29db5f7fc2354ccaeb3bcdc6e7a0"
+    }
+  }
+}

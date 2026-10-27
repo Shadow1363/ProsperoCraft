@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.108",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "package_sha256": "545678bd4801cbf9e00b7209c25a89a9dfb0b3be7b645e3cd98f75633e455560",
+  "native_elf_sha256": "f569e9653c2913bb4d90cd300bd4ac0bd59adc8221a11bf1c58514f623efdb0d",
+  "changes": [
+    "Retain recursive hash-pinned Modrinth required dependencies and inspect originalFabricmanifests/nestedmodules for additional hard requirements",
+    "Use original upstreamFabricversionpredicates and bounded nested-provider selection;compatible duplicated bundled API versions handled",
+    "Automatically add game-filteredFabricAPI only when a requiredAPI module is missing,verifyprovidedmodules/versions before publication",
+    "Repair existinginstances beforePlay on worker;healthy instances use no dependency network;offline failures and incompatible/unmapped requirements stop in launcher",
+    "Respect exact retained dependency receipt version pins,including manually missing dependency files;no forced updates/mod deletion/game-JAR rewrites",
+    "Retain107largeprojecticons/uninstall and106audio/HID/Controlifycandidate behavior"
+  ],
+  "tests": {
+    "dependencies108-test.log": {
+      "result": "PASS",
+      "local_log_sha256": "0384b9bc24f1f3c5db4db1765650c5288f80f33576d48141d6bc8dda06f304e7"
+    },
+    "dependencies108-live.log": {
+      "result": "PASS",
+      "local_log_sha256": "76114ffdc632dde80c8a03bb2f3a2f315ca8960b0666fb932f155becba792463"
+    },
+    "dependencies108-regression.log": {
+      "result": "PASS",
+      "local_log_sha256": "0f57b98013cf98d1fa1602ef55e35e0dd1fab2f2fd0e9aaa83bb3e9471481c56"
+    },
+    "fabric108-regression.log": {
+      "result": "PASS",
+      "local_log_sha256": "5f3f3e299ae761b510ddbd0bd1b540cb3b6cb6e2e900c6b95663830424b26f93"
+    },
+    "startup108-host.log": {
+      "result": "PASS",
+      "local_log_sha256": "2a5c7f4bb1ebb70f799abfcfbfe2c459e8062eac7eb836e5a3d9ab6b7903c79f"
+    },
+    "package108-test.log": {
+      "result": "PASS",
+      "local_log_sha256": "9bb475de16958d098f08d37b14fc03d0a3a962af7c10bf90e441902a69a7fcb8"
+    },
+    "toolkit108-test.log": {
+      "result": "PASS",
+      "local_log_sha256": "a649a65cd321fa02fc719ef9f25b50431dd0fe0ee41687aa1c9faac478fcc4db"
+    },
+    "input108-regression.log": {
+      "result": "PASS",
+      "local_log_sha256": "7b3d6e7245744138036038d704b952113583490c523ff8a608ec146ec73b2916"
+    }
+  },
+  "tested_original_modrinth_artifact_pins": [
+    {
+      "project": "AANobbMI",
+      "version": "g6ju16VJ",
+      "kind": "MOD",
+      "filename": "sodium-fabric-0.9.3-beta.1+mc26.3.jar",
+      "pin": {
+        "url": "https://cdn.modrinth.com/data/AANobbMI/versions/g6ju16VJ/sodium-fabric-0.9.3-beta.1%2Bmc26.3.jar",
+        "algorithm": "SHA-512",
+        "hash": "884a1ef0ce0e69d565d41a1359070a8d4f8589a086b565540defdb4741985053077dfd0f2a56898ce60510720a9f95dd8ba220a9a6340b6e0cf5cb12352e2419",
+        "size": 1912496
+      }
+    },
+    {
+      "project": "oSIKhgz3",
+      "version": "Q3nKuPKJ",
+      "kind": "MOD",
+      "filename": "vitrail-0.13.0-beta+mc26.3.jar",
+      "pin": {
+        "url": "https://cdn.modrinth.com/data/oSIKhgz3/versions/Q3nKuPKJ/vitrail-0.13.0-beta%2Bmc26.3.jar",
+        "algorithm": "SHA-512",
+        "hash": "b4915c8251614a3457c7c226f62b7c39c44219a7e5cc6e9a099f55f7a5d171b58e8df7ca9367d72dfc307732a771e3af3c7672879536edacbe1a595105018298",
+        "size": 1878930
+      }
+    },
+    {
+      "project": "P7dR8mSH",
+      "version": "EQKgpeKu",
+      "kind": "MOD",
+      "filename": "fabric-api-0.165.0+26.3.jar",
+      "pin": {
+        "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/EQKgpeKu/fabric-api-0.165.0%2B26.3.jar",
+        "algorithm": "SHA-512",
+        "hash": "0a4b8a14e847b71567b557b43d906c2167fa263eeeef37454a821ba286996e3da1616dc2d9647736d28a250d5ecf400541cae808359b29a62324a8a6f2ad5e30",
+        "size": 1778588
+      }
+    }
+  ],
+  "source_sha256": {
+    "AGENTS.md": "2091a2b06271ce91e895047db6e60a34fb97004f94215292b3a10b3cc062e1de",
+    "CHANGELOG.md": "07d9ac748b8ee5b7e8f1a11ba75a7c7c721effbbbaac2c644fb9b23e61909037",
+    "README.md": "7e19145a93b8926f2473a41b705f9fcc930794bcd729c50ffe594b8290811da7",
+    "client/launcher/java/ProsperoDependencies.java": "27efe1e8d2ea3584bb67fb984a39f5b8b68883d98ebdc430ba8ec6f248851796",
+    "client/launcher/java/ProsperoFabric.java": "c301d35d7662b31406d9eab3b8e5b4b793a783434be6c09cb05d347dcacf428a",
+    "client/launcher/java/ProsperoLauncher.java": "d64bd4ea0b10f62552ae12055bfed8622712416eb872b27b2a29d15423a00e06",
+    "client/launcher/java/ProsperoModrinth.java": "86a0e51b6cd601705635c14dfc1762c7f7281ada59b5e14876babae0b7106f3f",
+    "client/startup/param.json": "70633dded85f0da14eb89648706ec19d8bd622ac8faf3b8bc19d1cfa9701fc48",
+    "docs/client-auto-dependencies-108.md": "fee7113525ad80386f5de96c5e4731e0966832a213df03e629fa3452d179f82d",
+    "docs/validation/client107-keyboard-fabric-api-feedback-2026-10-27.json": "f15f126c0bc2012a6677b5bb7d68b58179dd9e508f6f6028798f519cb3641ffa",
+    "tools/test_client_startup_package.py": "e3edf123c8ce8bb6ec6dec40480e2310d5a9c96c008f4c23ba7a790b04d52c29",
+    "tools/test_fabric_dependencies.py": "52112383375d9d2b8a42d2fa502da20f73b4fb3041be65c46fa3aae10bc3fb8d",
+    "tools/test_fabric_dependencies_live.py": "8051794d0d33e03262a4a1c02b9e81f5cca9b7906086577810745f8f654afcc9",
+    "tools/test_launcher_content.py": "4cdf7979aee8c19b5a727062d13dcffdc22e3d9499365ec72da315b17a7ff531",
+    "tools/test_launcher_fabric_bootstrap.py": "17a4235466e3b97db00c29049f74b40e2cca8b402528af503d5cdeb7de3cfa67",
+    "tools/test_launcher_toolkit_packages.py": "4de0d63a2f052c4af6ef2c3ab6262b081f44509831b51c0feeb59e207e0872a4"
+  },
+  "keyboard_feedback": "Human keyboard-working confirmation;Safariopen107/currentnativebindingscorroborate. No mouse/Controlify/audibleaudio/lifecycleALLPASS inferred.",
+  "runtime": {
+    "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+    "commit": "42fe3a5709beb65b5f54470aabb169a376ccbdc3",
+    "new_runtime_changes": false,
+    "runtime_sync_check": "SUCCESS Everything up-to-date"
+  },
+  "console": "PENDING exact108 auto-dependency download/old-instance repair,game startup/world persistence and continued keyboard behavior. Human tests before Store release.",
+  "limits": [
+    "Unknown required IDs without usableModrinthmapping can require manual installation and are reported before launch",
+    "Incompatible already-installed mods are preserved and require user resolution;checks supplement rather than replace full upstreamFabricresolver",
+    "Pack dependencies remain outside mod-only repair;optional mods are not all installed",
+    "103EMFILE/save-reload and extended endurance remain pending"
+  ],
+  "publication": "Consumer development source only.101Store/public release and107/106/frozen snapshots preserved. No108public binary/Store release or milestone freeze."
+}

@@ -1259,3 +1259,19 @@ existingemulatedTLS/providerbindings;notanImageIOdesktop/JPEGportorJavafix.
 NoModrinthlogo fallback. Hostrealiconpixels/UI/uninstalltests do not establish
 PS5pass. See docs/client-content-uninstall-icons-107.md. Preserve106exactcandidate,
 101release/Store andfrozenpasses. Publishsourcehere;noStore/publicrelease requested.
+
+
+##108 dependency candidate and keyboard feedback — 2026-10-27
+
+User confirms keyboard works;currentSafari107native matches directkeyboardAPI
+binding/handles. Do not infer mouse/Controlify/audibleaudio/lifecycleALLPASS.
+RetainedpreviousFabricerror namesVitrail harddependency fabric-key-mapping-api-v1;
+ModrinthoptionalAPI metadata missed thatrequirement.108reads originalFabric
+manifests/nestedmodules,retainsrecursiveModrinthrequired downloads,adds verified
+compatibleFabricAPIcandidate for missingAPImodules and repairsinstalledinstances
+beforePlay. UpstreamFabricversionpredicates;boundednestedproviderselection;
+conflicts/unmappedmissingdepsstopinlauncher,notgamebytecode. Neverrewritegame/mod
+JARs,forceupgradeorremoveconflictingmods. Healthy/offlinecompleteinstancesneed
+nodependencynetwork. See docs/client-auto-dependencies-108.md. Keep107/106 and
+101release/frozenpasses;userwilltest108thenconfirmStorepublication. NoStore/public
+binaryreleaseyet;publishconsumersourcehere,Javaunchanged42fe3a5.

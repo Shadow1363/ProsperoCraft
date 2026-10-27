@@ -15,7 +15,8 @@ public class ContentCheck {
  interface Job{void run()throws Exception;}static void denied(Job job)throws Exception{try{job.run();throw new AssertionError("unexpected success");}catch(IOException|IllegalArgumentException expected){}}
  static void set(Object o,String field,Object v)throws Exception{var f=o.getClass().getDeclaredField(field);f.setAccessible(true);f.set(o,v);var c=o.getClass().getDeclaredField("cached");c.setAccessible(true);c.set(o,null);}
  static String version(String id,String project,String loader,String filename,String dep)throws Exception{
-  byte[] b=bytes("original download "+project);String url="https://cdn.modrinth.com/data/"+project+"/"+filename;bodies.put(url,b);
+  byte[] b;
+  if(filename.endsWith(".jar")){var out=new ByteArrayOutputStream();try(var jar=new java.util.zip.ZipOutputStream(out)){jar.putNextEntry(new java.util.zip.ZipEntry("fabric.mod.json"));jar.write(bytes("{\"schemaVersion\":1,\"id\":\""+project+"\",\"version\":\"1.0.0\"}"));jar.closeEntry();}b=out.toByteArray();}else b=bytes("original download "+project);String url="https://cdn.modrinth.com/data/"+project+"/"+filename;bodies.put(url,b);
   return "{\"id\":\""+id+"\",\"project_id\":\""+project+"\",\"game_versions\":[\"26.3\"],\"loaders\":[\""+loader+"\"],\"files\":[{\"primary\":true,\"filename\":\""+filename+"\",\"url\":\""+url+"\",\"size\":"+b.length+",\"hashes\":{\"sha512\":\""+hash(b)+"\"}}],\"dependencies\":["+dep+"]}";
  }
  static String required(String id){return "{\"dependency_type\":\"required\",\"project_id\":\""+id+"\",\"version_id\":null}";}
