@@ -17,7 +17,7 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
   else:shutil.copyfile(path,dest)
  shutil.copytree(work/'classes',java/'classes',dirs_exist_ok=True)
  manifest=work/'resident-libraries.json';manifest.write_text(json.dumps(spec['resident_libraries'],indent=2)+'\n')
- run('python3',runtime/'tools/java25_builtin_runtime.py','--management',*(['--imageio'] if variant=='startup' else []),'--external-libraries',manifest)
+ run('python3',runtime/'tools/java25_builtin_runtime.py','--management',*(['--imageio','--library-alias','SDL3=ps5sdl'] if variant=='startup' else []),'--external-libraries',manifest)
  shutil.copyfile(build/'builtin-resident-audit.json',java/'resident-libraries-audit.json')
  if variant=='startup':
   for name in ['awt','lcms']:shutil.copy2(build/'imageio-target'/('lib'+name+'.so'),java/'lib'/('lib'+name+'.so'))
@@ -86,6 +86,15 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  for name in ['libSceAgc','libSceAgcDriver']:
   # Real native003 import declaration files, never executable implementations.
   stubs.append(ROOT/'build/client-graphics'/(name+'.so'))
+ if variant=='startup':
+  # System-library import declarations, never executable fallback drivers.
+  mouse=work/'libSceMouse.so'
+  run(LLVM/'clang','-target','x86_64-sie-ps5','-fvisibility-nodllstorageclass=default','-fPIC','-fno-stack-protector','-c',ROOT/'client/ports/sdl/ps5_mouse_imports.c','-o',work/'mouse-imports.o')
+  run('/opt/homebrew/opt/lld/bin/ld.lld','-shared','-soname','libSceMouse.sprx',work/'mouse-imports.o','-o',mouse)
+  stubs.append(mouse)
+  # Keep after real objects: --as-needed must see their undefined imports.
+  inputs += [str(sdk/'target/lib/libSceKeyboard.so'),str(mouse)]
+  response.write_text('\n'.join(json.dumps(p)for p in inputs)+'\n')
  pie=work/('bootstrap-'+version+'-symbols.elf')
  run('bash',sdk/'bin/prospero-lld','-T',layout,'--eh-frame-hdr','--version-script',native/'app-symbols.map','--version-script',aliasmap,'-e','_start','-o',pie,*objects,*stubs,'@'+str(response),'--as-needed',*sorted((sdk/'target/lib').glob('*.so')))
  symbols=subprocess.check_output([str(LLVM/'llvm-nm'),'--defined-only',str(pie)],text=True);table={line.split()[-1]:int(line.split()[0],16)for line in symbols.splitlines()if len(line.split())==3}

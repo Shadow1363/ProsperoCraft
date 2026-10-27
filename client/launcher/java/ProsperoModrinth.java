@@ -8,7 +8,7 @@ import java.util.function.BooleanSupplier;
 final class ProsperoModrinth {
  static final String API="https://api.modrinth.com/v2/";
  enum Kind {MOD("mod","mods","Mods"),SHADER("shader","shaderpacks","Shaders"),RESOURCE("resourcepack","resourcepacks","Resource packs");final String type,folder,title;Kind(String t,String f,String n){type=t;folder=f;title=n;}}
- record Hit(String id,String title,String description,long downloads){}
+ record Hit(String id,String title,String description,long downloads,String icon){Hit(String id,String t,String d,long n){this(id,t,d,n,"");}}
  record Results(List<Hit> hits,int total){}
  record Selection(String project,String title,Kind kind){}
  record File(String project,String version,Kind kind,String filename,ProsperoDownloads.Pin pin){}
@@ -25,8 +25,29 @@ final class ProsperoModrinth {
   if(kind==Kind.MOD){facets.add(List.of("categories:fabric"));facets.add(List.of("client_side:required","client_side:optional"));}
   String url=API+"search?index=downloads&limit=6&offset="+offset+"&query="+ProsperoDownloads.encode(query)+"&facets="+ProsperoDownloads.encode(new Gson().toJson(facets));
   var data=download.json(url,cancel).getAsJsonObject();ArrayList<Hit> hits=new ArrayList<>();
-  for(var item:data.getAsJsonArray("hits")){var row=item.getAsJsonObject();String project=row.get("project_id").getAsString();id(project);hits.add(new Hit(project,row.get("title").getAsString(),ProsperoDownloads.text(row,"description"),row.get("downloads").getAsLong()));if(hits.size()==6)break;}
+  for(var item:data.getAsJsonArray("hits")){var row=item.getAsJsonObject();String project=row.get("project_id").getAsString();id(project);hits.add(new Hit(project,row.get("title").getAsString(),ProsperoDownloads.text(row,"description"),row.get("downloads").getAsLong(),ProsperoDownloads.text(row,"icon_url")));if(hits.size()==6)break;}
   return new Results(List.copyOf(hits),data.get("total_hits").getAsInt());
+ }
+ // Installed lists use the actual instance folders, including manually added files.
+ record Local(String title,String filename,String project,Kind kind){}
+ List<Local> local(Path game,Kind kind)throws Exception {
+  var receipt=installed(game);Path folder=game.resolve(kind.folder);ProsperoDownloads.noLinks(folder);
+  if(!Files.isDirectory(folder))return List.of();var found=new ArrayList<Local>();
+  try(var files=Files.list(folder)){for(Path p:files.limit(1025).toList()){
+   if(found.size()>=1024)throw new IOException("Too many installed files");String name=p.getFileName().toString();
+   if(!Files.isRegularFile(p,LinkOption.NOFOLLOW_LINKS)||!name.endsWith(kind==Kind.MOD?".jar":".zip"))continue;
+   var known=receipt.files.stream().filter(f->f.kind==kind&&f.filename.equals(name)).findFirst();
+   found.add(new Local(name,name,known.isPresent()?known.get().project:"",kind));
+  }}found.sort(Comparator.comparing(Local::title,String.CASE_INSENSITIVE_ORDER));return List.copyOf(found);
+ }
+ String icon(Path game,String project,String url,BooleanSupplier cancel){
+  if(project.isEmpty())return "";
+  try{id(project);Path path=state(game,"content-icons").resolve(project+".txt");ProsperoDownloads.noLinks(path);
+   if(Files.isRegularFile(path)&&Files.size(path)==1536){String saved=Files.readString(path);if(saved.matches("[a-f0-9]{1536}"))return saved;}
+   if(url.isEmpty())url=ProsperoDownloads.text(download.json(API+"project/"+project,cancel).getAsJsonObject(),"icon_url");
+   if(url.isEmpty())return "";ProsperoDownloads.safe(url);if(!java.net.URI.create(url).getHost().equals("cdn.modrinth.com"))return "";
+   String pixels=ProsperoAvatar.icon(download.bytes(url,1024*1024,cancel));ProsperoInstall.save(path,pixels);return pixels;
+  }catch(Exception unavailable){return "";}
  }
  static Path state(Path game,String file)throws IOException {Path p=game.getParent().resolve(file);ProsperoDownloads.noLinks(p);return p;}
  List<Selection> queue(Path game)throws Exception {
@@ -79,7 +100,8 @@ final class ProsperoModrinth {
   Path path=state(game,"content-installed.json");if(!Files.exists(path))return new Installed();if(Files.size(path)>1024*1024)throw new IOException("Content receipt too large");
   Installed r=new Gson().fromJson(Files.readString(path),Installed.class);if(r==null||r.files==null||r.files.size()>1024)throw new IOException("Invalid content receipt");return r;
  }
- void downloadAll(Path game,String gameVersion,String loader,ProsperoInstall.Progress progress,BooleanSupplier cancel)throws Exception {
+ void downloadAll(Path game,String gameVersion,String loader,ProsperoInstall.Progress progress,BooleanSupplier cancel)throws Exception {downloadAll(game,gameVersion,loader,progress,cancel,f->{});}
+ void downloadAll(Path game,String gameVersion,String loader,ProsperoInstall.Progress progress,BooleanSupplier cancel,java.util.function.Consumer<File> current)throws Exception {
   var selected=queue(game);if(selected.isEmpty())throw new IOException("Select something for the queue first");
   if(!loader.equals("fabric")&&selected.stream().anyMatch(s->s.kind==Kind.MOD))throw new IOException("Mods require a Fabric instance");
   LinkedHashMap<String,File> plan=new LinkedHashMap<>();ArrayList<JsonObject> versions=new ArrayList<>();
@@ -97,7 +119,7 @@ final class ProsperoModrinth {
   }
   // Resolve and verify every body before publishing any newly downloaded file.
   Path stage=game.getParent().resolve("content-downloads");long total=plan.values().stream().mapToLong(f->f.pin.size()).sum(),done=0;
-  for(File f:plan.values()){ProsperoInstall.active(cancel);download.obtain(f.pin,stage.resolve(f.pin.hash()+".bin"),cancel);done+=f.pin.size();progress.update("Downloading "+f.filename,done,total);}
+  for(File f:plan.values()){ProsperoInstall.active(cancel);current.accept(f);progress.update("Downloading "+f.filename,done,total);download.obtain(f.pin,stage.resolve(f.pin.hash()+".bin"),cancel);done+=f.pin.size();progress.update("Downloading "+f.filename,done,total);}
   for(File f:plan.values()){
    ProsperoInstall.active(cancel);Path target=game.resolve(f.kind.folder).resolve(f.filename);ProsperoDownloads.noLinks(target);Files.createDirectories(target.getParent());
    if(!Files.exists(target)){Path part=target.resolveSibling(f.filename+".part");ProsperoDownloads.noLinks(part);try{Files.copy(stage.resolve(f.pin.hash()+".bin"),part,StandardCopyOption.REPLACE_EXISTING);ProsperoInstall.active(cancel);Files.move(part,target);}finally{Files.deleteIfExists(part);}}

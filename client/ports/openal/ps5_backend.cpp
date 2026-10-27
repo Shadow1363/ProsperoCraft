@@ -21,6 +21,7 @@ int sceAudioOutOutput(int,const void*);
 int sceAudioOutClose(int);
 int sceKernelUsleep(unsigned);
 extern int client_ps5_audio_early_init_result;
+extern int client_ps5_audio_early_port;
 }
 namespace {
 constexpr auto DeviceName="PS5 Speakers";
@@ -65,6 +66,10 @@ struct Ps5Backend final : BackendBase {
     void open(std::string_view name) override {
         if(!name.empty() && name!=DeviceName)
             throw al::backend_exception{al::backend_error::NoDevice,"Unknown PS5 audio device {}",name};
+        {auto& state=audioState();const auto lock=std::lock_guard{state.mutex};
+         if(client_ps5_audio_early_port>=0){port=client_ps5_audio_early_port;client_ps5_audio_early_port=-1;state.ready=true;report("adopt pre-JVM port",port);}
+        }
+        if(port>=0){mDeviceName=DeviceName;return;}
         // A busy init is not success. Probe the real port: it must actually open.
         // Retry only explicit busy/not-initialized recovery, at most450ms total.
         for(unsigned attempt=0;attempt<10;++attempt) {

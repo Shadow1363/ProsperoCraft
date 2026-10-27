@@ -33,7 +33,7 @@ public class ContentCheck {
   denied(()->api.downloadAll(game,"26.3","vanilla",(s,d,t)->{},()->false));
   byte[] good=bodies.get("https://cdn.modrinth.com/data/depB/dep-b.jar");bodies.put("https://cdn.modrinth.com/data/depB/dep-b.jar",bytes("tamper"));denied(()->api.downloadAll(game,"26.3","fabric",(s,d,t)->{},()->false));check(!Files.exists(game.resolve("mods/mod-a.jar"))&&api.queue(game).size()==3,"partial failure published/cleared queue");bodies.put("https://cdn.modrinth.com/data/depB/dep-b.jar",good);
   denied(()->api.downloadAll(game,"26.3","fabric",(s,d,t)->{},()->true));check(api.queue(game).size()==3,"cancel cleared queue");
-  api.downloadAll(game,"26.3","fabric",(s,d,t)->{},()->false);check(api.queue(game).isEmpty()&&api.installed(game).files.size()==4,"dependencies/queue receipt");for(String path:List.of("mods/mod-a.jar","mods/dep-b.jar","shaderpacks/pack.zip","resourcepacks/resources.zip"))check(Files.isRegularFile(game.resolve(path)),"wrong content path "+path);
+  Set<ProsperoModrinth.Kind> currentKinds=new HashSet<>();api.downloadAll(game,"26.3","fabric",(s,d,t)->{},()->false,f->currentKinds.add(f.kind()));check(currentKinds.size()==3,"current-download observer category coverage");check(api.queue(game).isEmpty()&&api.installed(game).files.size()==4,"dependencies/queue receipt");for(String path:List.of("mods/mod-a.jar","mods/dep-b.jar","shaderpacks/pack.zip","resourcepacks/resources.zip"))check(Files.isRegularFile(game.resolve(path)),"wrong content path "+path);
   check(Files.readString(game.resolve("world-preserved")).equals("KEEP"),"world changed");
   api.toggle(game,new ProsperoModrinth.Selection("modA","A",ProsperoModrinth.Kind.MOD));api.downloadAll(game,"26.3","fabric",(s,d,t)->{},()->false);check(api.installed(game).files.size()==4,"duplicate install");
   var bad=JsonParser.parseString(new String(bodies.get("version:modA"))).getAsJsonObject();bad.add("game_versions",JsonParser.parseString("[\"26.2\"]"));bodies.put("version:modA",bytes(bad.toString()));denied(()->api.version("modA","",ProsperoModrinth.Kind.MOD,"26.3",()->false));
@@ -47,6 +47,20 @@ public class ContentCheck {
   long end=System.nanoTime()+5_000_000_000L;while(model.tick(0)[64].equals("BUSY")&&System.nanoTime()<end)Thread.sleep(5);
   check(model.tick(0)[11].equals("12")&&model.tick(0)[93].equals("1"),"Mods browser route");set(model,"row",4);model.tick(0x4000);check(model.tick(0)[85].startsWith("[X]")&&model.tick(0)[91].equals("1"),"checkbox queue state");check(api.queue(lib.game(fabric)).size()==1&&api.queue(lib.game(vanilla)).isEmpty(),"instance queue leaked");
   set(model,"row",0);model.tick(0x4000);check(model.tick(0)[11].equals("6"),"search keyboard route");set(model,"keyboard","Vitrail");model.tick(0x8000);end=System.nanoTime()+5_000_000_000L;while(model.tick(0)[64].equals("BUSY")&&System.nanoTime()<end)Thread.sleep(5);check(model.tick(0)[11].equals("12")&&model.tick(0)[92].equals("Vitrail"),"search confirm");model.tick(0x2000);check(model.tick(0)[11].equals("5")&&model.tick(0)[15].equals("2"),"browser back route");
+  check(new ProsperoModrinth(api.download).local(game,ProsperoModrinth.Kind.MOD).size()==2,"installed list after reopen");
+  check(api.local(game,ProsperoModrinth.Kind.SHADER).size()==1&&api.local(game,ProsperoModrinth.Kind.RESOURCE).size()==1,"pack inventory");
+  Files.writeString(game.resolve("mods/manual.jar"),"manual");Files.createSymbolicLink(game.resolve("mods/linked.jar"),root.resolve("outside.jar"));
+  check(api.local(game,ProsperoModrinth.Kind.MOD).size()==3,"manual file missing or symlink listed");
+  Path pack=game.resolve("vitrail/pack.txt");Files.createDirectories(pack.getParent());String settings="pack=BSL.zip\nenabled=true\nshadowdistance=128\nrenderscale=100\nshadowmapscale=100\ncustom=keep\n";Files.writeString(pack,settings);
+  check(ProsperoShaderSettings.toggle(game)==50&&ProsperoShaderSettings.scale(game)==50,"half shadows");
+  check(Files.readString(pack).equals(settings.replace("shadowmapscale=100","shadowmapscale=50")),"other settings changed");
+  check(Files.readString(pack.resolveSibling("pack.before-prospero106.txt")).equals(settings),"shadow backup");check(ProsperoShaderSettings.toggle(game)==100&&Files.readString(pack).equals(settings),"full shadows restore");
+  Files.createDirectories(lib.game(fabric).resolve("mods"));Files.writeString(lib.game(fabric).resolve("mods/manual.jar"),"original");
+  set(model,"page",12);set(model,"row",3);model.tick(0x20);check(model.tick(0)[15].equals("10"),"Installed horizontal navigation");model.tick(0x4000);
+  end=System.nanoTime()+5_000_000_000L;while(model.tick(0)[64].equals("BUSY")&&System.nanoTime()<end)Thread.sleep(5);
+  check(model.tick(0)[103].equals("INSTALLED")&&model.tick(0)[93].equals("1")&&model.tick(0)[85].contains("manual.jar"),"Installed UI actual folder");
+  model.tick(0x4000);end=System.nanoTime()+5_000_000_000L;while(model.tick(0)[64].equals("BUSY")&&System.nanoTime()<end)Thread.sleep(5);check(model.tick(0)[103].equals("BROWSE"),"return Browse");
+  set(model,"contentKind",ProsperoModrinth.Kind.SHADER);set(model,"row",3);model.tick(0x20);check(model.tick(0)[15].equals("11"),"shadow horizontal navigation");model.tick(0x4000);check(model.tick(0)[95].equals("SHADOWS: 50%")&&ProsperoShaderSettings.scale(lib.game(fabric))==50,"shadow UI persist");model.tick(0x20);check(model.tick(0)[15].equals("10"),"shadow to Installed");
   System.out.println("PASS real content pipeline: exact filters/sort/paging; persistent multi-category queue; recursive required dependencies; all hashes before publication; failure/cancel retention; instance folders; duplicate guard; wrong-version/path/host/link rejection; vanilla migration and loader dropdown/disabled NeoForge");
  }
 }

@@ -9,7 +9,7 @@
 namespace prospero_ui {
 struct Effects {
  hui::ui::Feedback feedback;
- hui::tween::Spring switches[4];
+ hui::tween::Spring switches[10];
  hui::ui::GridView grid;
  hui::ui::Dialog dialog;
  hui::ui::ProgressBar progress;

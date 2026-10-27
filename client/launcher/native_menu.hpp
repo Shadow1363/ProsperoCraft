@@ -28,7 +28,7 @@ using prospero_ui::Canvas;
 using ps5::demo::Canvas;
 #endif
 constexpr std::uint32_t ink(std::uint32_t rgb){return 0xff000000u|((rgb&255)<<16)|(rgb&0xff00)|((rgb>>16)&255);}
-using Fields=std::array<std::array<char,512>,96>;
+using Fields=std::array<std::array<char,2048>,104>;
 // Only the native UI thread draws/reads the controller. JNI stays on the JVM
 // startup thread. A bounded mailbox exchanges public UI text and button edges.
 inline Fields fields{},published{};
@@ -103,6 +103,11 @@ inline void block(Canvas& c,int x,int y,int size,int kind){
 #endif
  unsigned index=kind>=0&&unsigned(kind)<prospero_icons::count?unsigned(kind):0;
  for(int yy=0;yy<72;yy++)for(int xx=0;xx<72;xx++){auto color=prospero_icons::pixels[index][yy*72+xx];if(color>>24)c.rectangle(x+xx*size/72,y+yy*size/72,(size+71)/72,(size+71)/72,static_cast<ps5::demo::Color>(color));}
+}
+inline void content_icon(Canvas& c,int x,int y,int size,const char* pixels){
+ if(std::strlen(pixels)!=1536){block(c,x,y,size,25);return;}
+ auto hex=[](char a)->int{return a>='0'&&a<='9'?a-'0':a>='a'&&a<='f'?a-'a'+10:0;};
+ for(int yy=0;yy<16;yy++)for(int xx=0;xx<16;xx++){const char* p=pixels+(yy*16+xx)*6;unsigned color=0;for(int n=0;n<6;n++)color=(color<<4)|hex(p[n]);c.rectangle(x+xx*size/16,y+yy*size/16,(size+15)/16,(size+15)/16,static_cast<ps5::demo::Color>(ink(color)));}
 }
 struct Focus {float x=0,y=0,w=0,h=0;bool initialized=false;};
 inline Focus focus{};inline std::uint64_t transition_start=0,last_draw_time=0,component_motion_until=0;inline bool animating=false;
@@ -187,8 +192,14 @@ inline void compose(Canvas& c) noexcept {
  }else if(page==12){
   title(c,70,185,fields[82].data(),64,1500);title(c,75,270,fields[70].data(),24,1770,0x91ad9b);
   action(c,70,325,1010,fields[92].data(),row==0,true);char queue[80];std::snprintf(queue,sizeof(queue),"DOWNLOAD ALL (%s)",fields[91].data());action(c,1120,325,720,queue,row==1,true);
-  action(c,70,435,330,"PREVIOUS",row==2);action(c,430,435,330,"NEXT",row==3);char count[100];std::snprintf(count,sizeof(count),"%d / %s results",number(84),fields[83].data());label(c,820,461,count,24,0x91ad9b);
-  for(int i=0;i<number(93)&&i<6;i++){int y=540+i*61;if(row==i+4)selection(c,70,y,1770,57);c.rounded(70,y,1770,57,12,ink(row==i+4?0x1e3c30:0x10251d));title(c,92,y+16,fields[85+i].data(),24,1710);}
+  action(c,70,435,330,"PREVIOUS",row==2);action(c,430,435,330,"NEXT",row==3);char count[100];std::snprintf(count,sizeof(count),"%d / %s results",number(84),fields[83].data());if(std::strcmp(fields[82].data(),"Shaders")==0)action(c,800,435,470,fields[95].data(),row==11);else label(c,800,461,count,24,0x91ad9b);action(c,1320,435,520,std::strcmp(fields[103].data(),"INSTALLED")==0?"BROWSE":"INSTALLED",row==10);
+  for(int i=0;i<number(93)&&i<6;i++){int y=540+i*61;if(row==i+4)selection(c,70,y,1770,57);c.rounded(70,y,1770,57,12,ink(row==i+4?0x1e3c30:0x10251d));bool installed=std::strncmp(fields[85+i].data(),"[I]",3)==0,checked=installed||std::strncmp(fields[85+i].data(),"[X]",3)==0;
+#ifdef PROSPERO_TOOLKIT
+   c.toggle(4+i,82,y+8,checked,row==i+4,true);
+#else
+   c.rounded(82,y+8,40,40,8,ink(0x8fae9d));c.rounded(85,y+11,34,34,5,ink(0x142e23));if(checked){for(int n=0;n<9;n++)c.rectangle(90+n,y+27+n,5,5,static_cast<ps5::demo::Color>(ink(0xb6f2be)));for(int n=0;n<18;n++)c.rectangle(98+n,y+35-n,5,5,static_cast<ps5::demo::Color>(ink(0xb6f2be)));}
+#endif
+   content_icon(c,139,y+7,44,fields[96+i].data());const char* text=fields[85+i].data();if(std::strlen(text)>=4)text+=4;title(c,202,y+16,text,24,installed?1350:1570);if(installed)label(c,1640,y+16,"INSTALLED",18,0xa9eab6);}
 
  }else if(page==2){
   label(c,70,185+slide,"Settle in.",64);label(c,75,270+slide,"A few thoughtful defaults. You're in control.",24,0x91ad9b);
@@ -271,7 +282,7 @@ inline void compose(Canvas& c) noexcept {
  c.end_content();
 #endif
  if(std::strcmp(fields[64].data(),"BUSY")==0){
-  if(page!=3)title(c,78,942,fields[2].data(),24,1300,0xaac8b2);label(c,1450,942,fields[21].data(),24,0xaac8b2);
+  if(page==12&&fields[102][0])content_icon(c,78,924,46,fields[102].data());if(page!=3)title(c,page==12&&fields[102][0]?144:78,942,fields[2].data(),24,1230,0xaac8b2);label(c,1450,942,fields[21].data(),24,0xaac8b2);
 #ifdef PROSPERO_TOOLKIT
   c.progress(number(20));
 #else
@@ -384,8 +395,8 @@ inline jboolean menu(JNIEnv* env,jclass owner){
   auto array=static_cast<jobjectArray>(env->CallStaticObjectMethod(owner,tick,static_cast<jint>(take_input())));
   if(env->ExceptionCheck()||!array){failed=true;break;}
   Fields next{};
-  if(env->GetArrayLength(array)!=96){env->DeleteLocalRef(array);failed=true;break;}
-  for(int i=0;i<96;++i){auto value=static_cast<jstring>(env->GetObjectArrayElement(array,i));if(!value){failed=true;break;}const char* bytes=env->GetStringUTFChars(value,nullptr);if(!bytes){env->DeleteLocalRef(value);failed=true;break;}std::snprintf(next[i].data(),512,"%s",bytes);env->ReleaseStringUTFChars(value,bytes);env->DeleteLocalRef(value);}
+  if(env->GetArrayLength(array)!=104){env->DeleteLocalRef(array);failed=true;break;}
+  for(int i=0;i<104;++i){auto value=static_cast<jstring>(env->GetObjectArrayElement(array,i));if(!value){failed=true;break;}const char* bytes=env->GetStringUTFChars(value,nullptr);if(!bytes){env->DeleteLocalRef(value);failed=true;break;}std::snprintf(next[i].data(),next[i].size(),"%s",bytes);env->ReleaseStringUTFChars(value,bytes);env->DeleteLocalRef(value);}
   env->DeleteLocalRef(array);if(failed)break;
   publish(next);online.store(true,std::memory_order_release);
   launch=std::strcmp(next[10].data(),"LAUNCH")==0;

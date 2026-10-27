@@ -39,14 +39,21 @@ static void PS5_TempRelease(SDL_Window *window, Uint64 now)
     (void)client_wsi_keyboard(false,0,0,0,"");
     (void)client_wsi_cursor(false,0,0,0);
 }
+static bool PS5_GamepadOwned(void){
+ if(!SDL_WasInit(SDL_INIT_GAMEPAD))return false;
+ /* A subsystem init is not a working controller manager. Only surrender the
+  * fallback once a consumer actually opens one of this port's four IDs. */
+ for(int id=1;id<=4;id++)if(SDL_GetGamepadFromID((SDL_JoystickID)id))return true;
+ return false;
+}
 static void PS5_PumpTemporaryInput(SDL_Window *window)
 {
     Uint64 now=SDL_GetTicksNS();
     if(!ps5_temp_bindings_ready){for(int n=0;n<30;n++)ps5_temp_keys[n]=ps5_default_bindings[n];(void)ps5_parse_bindings(SDL_GetHint("PS5_CONTROLLER_BINDINGS"),ps5_temp_keys);ps5_temp_bindings_ready=true;}
-    /* Explicit opt-in, with automatic handoff when a mod initializes gamepads.
+    /* Explicit opt-in, with automatic handoff when a mod opens a gamepad.
      * Future Controlify integration must also turn this hint off explicitly. */
     if(!window || SDL_GetKeyboardFocus()!=window ||
-       !SDL_GetHintBoolean("PS5_TEMPORARY_CONTROLS",false) || SDL_WasInit(SDL_INIT_GAMEPAD)) {
+       !SDL_GetHintBoolean("PS5_TEMPORARY_CONTROLS",false) || PS5_GamepadOwned()) {
         PS5_TempRelease(window,now);return;
     }
     if(!ps5_temp.devices) {

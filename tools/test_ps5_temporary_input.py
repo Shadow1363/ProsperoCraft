@@ -13,7 +13,7 @@ source=r'''
 #include <math.h>
 #include "platform.h"
 static SDL_Window *window=(SDL_Window*)(uintptr_t)1,*focus;
-static bool enabled,captured,mod,keyboard_visible;static int keyboard_selected;
+static bool opened;static bool enabled,captured,mod,keyboard_visible;static int keyboard_selected;
 static Uint64 tick=1;
 static int opens,events,downs,ups,motions;
 static bool keys[SDL_SCANCODE_COUNT],mouse[4];
@@ -24,6 +24,7 @@ SDL_Window *SDL_GetKeyboardFocus(void){return focus;}
 const char* SDL_GetHint(const char*name){assert(!strcmp(name,"PS5_CONTROLLER_BINDINGS"));return NULL;}
 bool SDL_GetHintBoolean(const char *name,bool fallback){assert(!strcmp(name,"PS5_TEMPORARY_CONTROLS")&&!fallback);return enabled;}
 SDL_InitFlags SDL_WasInit(SDL_InitFlags flags){assert(flags==SDL_INIT_GAMEPAD);return mod?SDL_INIT_GAMEPAD:0;}
+SDL_Gamepad* SDL_GetGamepadFromID(SDL_JoystickID id){return mod&&opened&&id==1?(SDL_Gamepad*)(uintptr_t)2:NULL;}
 bool SDL_GetWindowRelativeMouseMode(SDL_Window*w){assert(w==window);return captured;}
 Uint32 SDL_GetNextObjectID(void){static Uint32 id;return ++id;}
 void SDL_AddKeyboard(SDL_KeyboardID id,const char*name){assert(id&&name);}
@@ -63,7 +64,7 @@ int main(void){
  sample(0);captured=false;pump();sample(PAD_CIRCLE);pump();assert(keys[SDL_SCANCODE_ESCAPE]);
  sample(0);pump();assert(cursor_calls);sample(PAD_TOUCH_PAD|PAD_R3);pump();assert(keyboard_visible&&keyboard_selected==10);sample(0);pump();sample(PAD_CROSS);pump();assert(texts==1&&typed=='q'&&!mouse[SDL_BUTTON_LEFT]);sample(0);pump();sample(PAD_RIGHT);pump();assert(keyboard_selected==11);sample(0);pump();sample(PAD_CROSS);pump();assert(typed=='w');sample(0);pump();sample(PAD_CIRCLE);pump();assert(!keyboard_visible&&!keys[SDL_SCANCODE_ESCAPE]);
  sample(0);pump();sample(PAD_L3);pump();assert(keyboard_visible);sample(0);pump();sample(PAD_L1);pump();assert(keys[SDL_SCANCODE_BACKSPACE]);sample(0);pump();assert(!keys[SDL_SCANCODE_BACKSPACE]);sample(PAD_OPTIONS);pump();assert(!keyboard_visible&&keys[SDL_SCANCODE_RETURN]);sample(0);pump();assert(!keys[SDL_SCANCODE_RETURN]);
- mod=true;pump();assert(!keys[SDL_SCANCODE_ESCAPE]);prior=events;pump();assert(events==prior);mod=false;
+ mod=true;opened=false;sample(PAD_CIRCLE);pump();assert(keys[SDL_SCANCODE_ESCAPE]);opened=true;pump();assert(!keys[SDL_SCANCODE_ESCAPE]);prior=events;pump();assert(events==prior);mod=false;
  sample(0);pump();sample(PAD_UP);pump();assert(!keys[SDL_SCANCODE_UP]);focus=NULL;pump();assert(!keys[SDL_SCANCODE_UP]);focus=window;
  enabled=false;prior=events;pump();assert(events==prior);
  enabled=true;sample(0);pump();sample(PAD_CROSS);pump();assert(mouse[SDL_BUTTON_LEFT]);captured=true;pump();assert(!mouse[SDL_BUTTON_LEFT]&&!keys[SDL_SCANCODE_SPACE]);sample(0);pump();sample(PAD_CROSS);pump();assert(keys[SDL_SCANCODE_SPACE]);captured=false;pump();assert(!keys[SDL_SCANCODE_SPACE]&&!mouse[SDL_BUTTON_LEFT]);

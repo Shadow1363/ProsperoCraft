@@ -1,5 +1,13 @@
 # Changelog
 
+## Development 01.000.106
+
+- Reserve the actual audio port before JVM/GPU allocation; add direct optional HID imports, early handles and captured diagnostics.
+- Share resident SDL as SDL3 for Controlify; retain temporary controls until a mod opens a controller. Console validation pending.
+- Add actual Installed inventories for mods, shaders and resource packs, notice-style checkboxes and cached project/download thumbnails.
+- Add an optional reversible Vitrail shadow-map scale control, preserving other settings. Shader FPS improvements are not yet measured.
+
+
 Detailed development history for **ProsperoCraft**, including client and server
 builds, console results, fixes, known failures and frozen milestones.
 

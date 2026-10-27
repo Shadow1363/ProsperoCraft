@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.106",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "package_sha256": "4c99efb9ebce399a1f262577bc77a17aa95f57d43bfe55fb31497b57a9703a60",
+  "native_elf_sha256": "78f14c5b17e385e02d50298536cbdf4bb01dd332a9f25b5a866804daa8f5306d",
+  "runtime": {
+    "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+    "commit": "42fe3a5709beb65b5f54470aabb169a376ccbdc3",
+    "integration": "Opt-in --library-alias SDL3=ps5sdl;same existing SDL symbols/initializer/lifetime;104ImageIO and0124Net remain"
+  },
+  "changes": [
+    "Reserve real AudioOut port before JVM/GPU allocation and single-owner OpenAL adoption",
+    "Console keyboard/mouse import declarations, early handles and captured diagnostics",
+    "Resident SDL3 alias for Controlify missing library; only yield temporary controls for an opened gamepad",
+    "Read-only actual Installed inventory for all content categories; preserve files",
+    "Notice-style checkbox components plus bounded persistent project/download PNG thumbnails",
+    "Optional supported Vitrail shadow scale50/100 with first-edit backup and preserved other settings"
+  ],
+  "host_tests": {
+    "package106-final-test.log": {
+      "result": "PASS",
+      "log_sha256": "0197f293f5a24eefca945ab2370131e591a24c835321e1e552c82aee02263a34"
+    },
+    "toolkit106-final-test.log": {
+      "result": "PASS",
+      "log_sha256": "3b1585f1ae06e0b4330c7e39fbf245757c583864d2acfddc3130c931a29adb2c"
+    },
+    "content106-final-test.log": {
+      "result": "PASS",
+      "log_sha256": "0f57b98013cf98d1fa1602ef55e35e0dd1fab2f2fd0e9aaa83bb3e9471481c56"
+    },
+    "icons106-final-test.log": {
+      "result": "PASS",
+      "log_sha256": "816e91dc0d4089f4de9f25d7ca258e9fed4b9859b689f684285f0ebed65e7782"
+    },
+    "startup106-final-test.log": {
+      "result": "PASS",
+      "log_sha256": "2a5c7f4bb1ebb70f799abfcfbfe2c459e8062eac7eb836e5a3d9ab6b7903c79f"
+    },
+    "input106-native-test.log": {
+      "result": "PASS",
+      "log_sha256": "ab67023661beb1a3bf22b3d7638078d1945a006d2d612537969f0ef731fc7cc5"
+    },
+    "input106-usb-test.log": {
+      "result": "PASS",
+      "log_sha256": "725c96cf390460e093212e2469331d8aae594a4722de64be0e2097f45b45e4f2"
+    },
+    "input106-controller-test.log": {
+      "result": "PASS",
+      "log_sha256": "e996ac8aed63566363862225da847f69cdbfa8a6864b6b17044b80a5f7b9d4e9"
+    },
+    "input106-model-test.log": {
+      "result": "PASS",
+      "log_sha256": "7b3d6e7245744138036038d704b952113583490c523ff8a608ec146ec73b2916"
+    },
+    "audio106-host.log": {
+      "result": "PASS",
+      "log_sha256": "f15b1b83ee3ec3ab79b1f3c5c95d644a7ade2bf4ff9ed20fe2b9b8d211c1ef54"
+    },
+    "audio106-policy.log": {
+      "result": "PASS",
+      "log_sha256": "cc122066c8e6f1d612c9cb232fcd0ecde4c0295fee3ef782bb3323ecb5c34da2"
+    },
+    "preview106-native.log": {
+      "result": "PASS",
+      "log_sha256": "46e7834e9777babc326c6fe7bd9134151ea1e99fafbec25bdb38dd2f2b2c0c2d"
+    },
+    "preview106-toolkit.log": {
+      "result": "PASS",
+      "log_sha256": "ce2cf575b67f1bbd3a130480aa3e0c59af20f6e1b6881a60fde9f0b8afd5a8c5"
+    }
+  },
+  "source_sha256": {
+    "AGENTS.md": "4ce4dd809f75bfe43b1e8c766a8d01c9f58a724af1a56906e67e609cc87b1172",
+    "CHANGELOG.md": "8ff5c149f8bdcc96220be1376cdc7df1fe1e330b75692cfab440255761121b12",
+    "README.md": "6fc9d3ed2df5cb329aa48921be8becedddffd51a8ce66c16e757b12c17e08551",
+    "client/launcher/java/ProsperoAvatar.java": "22f4a971e39df5a14b44028002d1beded529256f7db4b9872e495dc653c2d891",
+    "client/launcher/java/ProsperoLauncher.java": "e7c2be0ce73db6487da2547825f17d7c4da59aee0123b381a1e3d2021ffdc44f",
+    "client/launcher/java/ProsperoModrinth.java": "60fcd8def8949295efa0f458532fac03b266dbe58cdacf028eb86792bac7365e",
+    "client/launcher/java/ProsperoShaderSettings.java": "13b3d2e938978102726b372dd54f3d1e4b2705f3660a60048808b178f9b83963",
+    "client/launcher/native_menu.hpp": "cf8a94c2311bc6dd3d3eb823eb545aa337d2f4be68eac8018c7bf1fc54fad079",
+    "client/launcher/toolkit_effects.hpp": "b6a96e8524704dc3c5c30519dfb9c997d10de35715df5b165346c93433f6c85c",
+    "client/ports/openal/ps5_backend.cpp": "eed60c937d2f69882d79b5f54c7ea8e455e9efd9b44117a17afebe8901afdfc6",
+    "client/ports/sdl/ps5_hid_native.c": "b442351e336c66909412e9a27ce3bc50f4810061b39c5289fba76db7139f0f61",
+    "client/ports/sdl/ps5_mouse_imports.c": "a6c5be2db892ab4e65c5e0c07d38fc3b06ac94ccedd23da042d329a99383464f",
+    "client/ports/sdl/ps5_temporary_input.h": "3ddd563a4225d3207f94830de2b05d38a531161b5719dc0c8560a355b43628dc",
+    "client/ports/sdl/ps5_usb_input.h": "b4153bf704cefda407b1207a73a46061f90ad0e391d91590de01d43aa759bf3a",
+    "client/startup/bootstrap.cpp": "595f2a52660d282d88b0aeddfc4282196048f605ba87219ac125494227acd20c",
+    "client/startup/param.json": "c66bb9902da247d5f449ddde3c9dff0e0ac6bc145b9c863a8a23147836693c7e",
+    "docs/client-input-audio-installed-106.md": "fe452e3a44636aacd1dff5db48aa0ad3c36b2db5ffa100704bf281138881bd25",
+    "docs/validation/client105-input-audio-observation-2026-10-27.json": "6bac159d73cb2569fe0df1ac840acfa69c9e6aa2ce242cec18c72d28bc1b85df",
+    "tools/package_client_gpu_link.py": "4e68ebb54a350df9a78f90f039f3ba279615117886035418df9ae14f49c27ca3",
+    "tools/preview_launcher.py": "901a399381b19299d236f1e65028ac1ed3ac57398139ec5bddd078b173432dfc",
+    "tools/test_client_startup_package.py": "c7dccabec6912954cc4eb7eaad98977d98c17790ce480717aaa1c3b51f183e85",
+    "tools/test_content_icons.py": "55e75a63aa10eadd5a762b8e3b0fb95cdea4d6bf3e45c02880ff5539d7fa0b1a",
+    "tools/test_launcher_content.py": "718dfe6e9e215ea0da9da62f5b4de3c66971af8130f27809a22504885faf3f09",
+    "tools/test_launcher_toolkit_packages.py": "33825f1b6cc6ba4acd1344d671ae24c400f356a58c4d5f9f8d6890f2e2a10a25",
+    "tools/test_openal_ps5_audio.py": "d5839be26d70511e5a88c27287194ec2dcf7fa74822c168e41d0ce629df9888c",
+    "tools/test_ps5_hid_native.py": "7b4ba2e55d17b2e855effb3ce03bd0172c74e771873c0467d813c0715772d1ce",
+    "tools/test_ps5_temporary_input.py": "cf805bff832af9af5e3dabe9533e475675d22a3589cf826edd24722a96538559"
+  },
+  "console": "PENDING exact106:audio startup/reload/lifecycle,physical devices,FFM/Controlify/controller mapping,installed/icons and shader50percent comparison;host tests are not a PS5 pass",
+  "known_limits": [
+    "105 intermittent audio shortage cause unmeasured;later opens can still fail",
+    "Physical input/native loader/FFM/Controlify not validated on console",
+    "PNG icons only;unsupported metadata/images fall back;native launcher still controller-only",
+    "Installed inventory is read-only;no mod disable/remove/update UI",
+    "Shader performance control reduces shadow detail,not a measured GPU fix or120FPS promise",
+    "User retracted missing-content report;no data-loss repair claimed",
+    "103EMFILE/save-reload and extended endurance still pending"
+  ],
+  "publication": "Development source only;101Store/public release unchanged;no milestone freeze",
+  "upstream_research": {
+    "HID_ABI": "ZiZc3/Ruffle-Flash-PS5 commit1265f473e7479d6c0fcfb78cc160a0eea446bb08",
+    "Vitrail_settings": "avpbynf/Vitrail-Shaders commit7a3cdcbe1dfd7e04fb2b3021ee8352d341e7647e; supportedpack.txt shadowmapscale;no mod source/JAR changes"
+  }
+}

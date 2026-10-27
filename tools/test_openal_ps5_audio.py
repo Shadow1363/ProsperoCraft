@@ -11,10 +11,10 @@ w=ROOT/'build/openal-ps5-audio-host-test';w.mkdir(exist_ok=True)
 #include <cstdint>
 #include <cmath>
 #include <unistd.h>
-extern "C" {int client_ps5_audio_early_init_result=(-2147483647-1);}
+extern "C" {int client_ps5_audio_early_init_result=(-2147483647-1);int client_ps5_audio_early_port=-1;}
 static std::atomic<int> mode{0},opens{0},closes{0},blocks{0},nonzero{0},init{0},open_attempts{0},waits{0};
 static std::atomic<long long> left{0},right{0};
-extern "C" void test_audio_mode(int n){mode=n;client_ps5_audio_early_init_result=(n==10||n==14)?0:n==11?static_cast<int>(0x8026000eu):n==12?static_cast<int>(0x80260002u):n==13?-41:(-2147483647-1);}
+extern "C" void test_audio_mode(int n){mode=n;if(n==15){client_ps5_audio_early_port=17;opens=1;}client_ps5_audio_early_init_result=(n==10||n==14)?0:n==11?static_cast<int>(0x8026000eu):n==12?static_cast<int>(0x80260002u):n==13?-41:(-2147483647-1);}
 extern "C" int test_audio_blocks(){return blocks;}
 extern "C" int test_audio_nonzero(){return nonzero;}
 extern "C" int test_audio_opens(){return opens;}
@@ -25,7 +25,7 @@ extern "C" int test_audio_attempts(){return open_attempts;}
 extern "C" int sceKernelUsleep(unsigned usec){assert(usec==50000);++waits;return mode==9?-44:0;}
 extern "C" double test_audio_balance(){return double(left.load())/double(right.load());}
 extern "C" int sceAudioOutInit(){int n=++init;if(mode==1)return -41;if((mode==4&&n<=2)||mode==5||mode==6||mode==8||mode==9)return static_cast<int>(0x80260002u);if(mode==7)return static_cast<int>(0x8026000eu);return 0;}
-extern "C" int sceAudioOutOpen(int user,int type,int index,unsigned frames,unsigned rate,unsigned format){assert(user==0xff&&type==0&&index==0&&frames==256&&rate==48000&&format==1);++open_attempts;if(mode==2||mode==8||mode==14)return -42;if((mode==4&&init<=2)||mode==5||mode==9)return static_cast<int>(0x8026000fu);++opens;return 17;}
+extern "C" int sceAudioOutOpen(int user,int type,int index,unsigned frames,unsigned rate,unsigned format){assert(user==0xff&&type==0&&index==0&&frames==256&&rate==48000&&format==1);++open_attempts;if(mode==2||mode==8||mode==14)return -42;if(mode==15&&open_attempts==1)return static_cast<int>(0x8026000du);if((mode==4&&init<=2)||mode==5||mode==9)return static_cast<int>(0x8026000fu);++opens;return 17;}
 extern "C" int sceAudioOutOutput(int port,const void* data){assert(port==17);if(!data)return 0;auto pcm=(const int16_t*)data;assert((uintptr_t)data%64==0);int n=++blocks;
  if(mode==3 && n>8)return -43;
  for(int i=0;i<256;++i){left+=std::abs(int(pcm[i*2]));right+=std::abs(int(pcm[i*2+1]));if(pcm[i*2]||pcm[i*2+1])++nonzero;}
@@ -49,7 +49,7 @@ subprocess.run(['install_name_tool','-id',str(library),str(library)],check=True)
 #include <unistd.h>
 extern "C" {void test_audio_mode(int);int test_audio_blocks();int test_audio_nonzero();int test_audio_opens();int test_audio_closes();int test_audio_inits();int test_audio_waits();int test_audio_attempts();double test_audio_balance();}
 int main(int argc,char**argv){int mode=argc>1?atoi(argv[1]):0;test_audio_mode(mode);
- for(int cycle=0;cycle<(mode==3?1:3);++cycle){
+ for(int cycle=0;cycle<((mode==3||mode==15)?1:3);++cycle){
   ALCdevice*d=alcOpenDevice("PS5 Speakers");
   if(mode==1||mode==2||mode==5||mode==8||mode==9||mode==14){assert(!d);assert(test_audio_opens()==0&&test_audio_closes()==0);
    if(mode==5)assert(test_audio_inits()==10&&test_audio_attempts()==10&&test_audio_waits()==9);
@@ -72,13 +72,13 @@ int main(int argc,char**argv){int mode=argc>1?atoi(argv[1]):0;test_audio_mode(mo
   alcMakeContextCurrent(nullptr);alcDestroyContext(c);assert(alcCloseDevice(d));
   assert(test_audio_opens()==cycle+1&&test_audio_closes()==cycle+1);
  }
- assert(test_audio_inits()==(mode==10||mode==11?0:mode==4?3:1));assert(test_audio_waits()==(mode==4?2:0));assert(test_audio_balance()>0.8&&test_audio_balance()<1.2);
+ assert(test_audio_inits()==(mode==10||mode==11||mode==15?0:mode==4?3:1));assert(test_audio_waits()==(mode==4?2:0));if(mode==15){assert(test_audio_attempts()==0);assert(!alcOpenDevice("PS5 Speakers"));assert(test_audio_opens()==1&&test_audio_closes()==1);}assert(test_audio_balance()>0.8&&test_audio_balance()<1.2);
  printf("PASS real OpenAL PS5 backend:3cycles or error-disconnect,pause/resume,44100Hz mono440Hz -> actual48000Hz stereoS16 PCM,portformat/alignment,join/close/init lifetime,nonzero=%d;host AudioOut fixture,not audible PS5 acceptance\n",test_audio_nonzero());
 }
 ''')
 source=ROOT/'.tools/openal-soft-src'
 subprocess.run(['clang++','-std=c++17','-fsanitize=address,undefined','-I'+str(source/'include'),str(w/'driver.cpp'),str(library),'-Wl,-rpath,'+str(library.parent),'-o',str(w/'check')],check=True)
-for mode in [1,2,0,3,4,5,6,7,8,9,10,11,12,13,14]:
+for mode in [1,2,0,3,4,5,6,7,8,9,10,11,12,13,14,15]:
  result=subprocess.run([str(w/'check'),str(mode)],env=dict(os.environ,ALSOFT_DRIVERS='ps5',ALSOFT_LOGLEVEL='2',ALSOFT_LOCAL_PATH=str(w)),capture_output=True,text=True,timeout=30)
  (w/('mode'+str(mode)+'.log')).write_text(result.stdout+result.stderr)
  if result.returncode:print(result.stdout+result.stderr)

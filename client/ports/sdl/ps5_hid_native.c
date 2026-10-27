@@ -9,7 +9,26 @@ int sceKernelDlsym(int handle,const char *name,void **address);
 int sceUserServiceGetInitialUser(int32_t *user);
 struct hid_api {const char *module;const char *symbols[4];int ready;int(*init)(void);int(*open)(int,int,int,const void*);int(*read)(int,void*,int);int(*close)(int);};
 static struct hid_api devices[2]={{"libSceKeyboard",{"sceKeyboardInit","sceKeyboardOpen","sceKeyboardRead","sceKeyboardClose"}},{"libSceMouse",{"sceMouseInit","sceMouseOpen","sceMouseRead","sceMouseClose"}}};
+/* Import declarations are resolved by the console loader; absent optional APIs
+ * are never called. Module enumeration alone is not reliable in every title. */
+#define HID_IMPORT(kind) \
+ int sce##kind##Init(void); \
+ int sce##kind##Open(int,int,int,const void*); \
+ int sce##kind##Read(int,void*,int); \
+ int sce##kind##Close(int);
+HID_IMPORT(Keyboard)
+HID_IMPORT(Mouse)
 static int initialized;
+static int early_handles[2][4]={{-1,-1,-1,-1},{-1,-1,-1,-1}};
+static void direct_imports(int mouse,void **symbols){
+#ifndef PROSPERO_HID_LOOKUP_ONLY
+ void *volatile keys[4]={(void*)sceKeyboardInit,(void*)sceKeyboardOpen,(void*)sceKeyboardRead,(void*)sceKeyboardClose};
+ void *volatile mice[4]={(void*)sceMouseInit,(void*)sceMouseOpen,(void*)sceMouseRead,(void*)sceMouseClose};
+ for(int j=0;j<4;j++)symbols[j]=mouse?mice[j]:keys[j];
+#else
+ (void)mouse;(void)symbols;
+#endif
+}
 static int find_module(const char *name){
  int handles[512];size_t count=0;if(sceKernelGetModuleList(handles,512,&count)!=0||count>512)return -1;
  const uint64_t sizes[]={0x160,0x1a8,0x1b0,0x158,0x200};
@@ -21,16 +40,24 @@ static int find_module(const char *name){
 void prospero_hid_preload(void){
  if(initialized)return;initialized=1;
  for(int n=0;n<2;n++){
-  struct hid_api *api=&devices[n];int rc=sceSysmoduleLoadModule((uint16_t)(n?0x00a9:0x0106));int handle=find_module(api->module);void *symbols[4]={0};
-  if(handle>=0)for(int j=0;j<4;j++)if(sceKernelDlsym(handle,api->symbols[j],&symbols[j])!=0)symbols[j]=0;
+  struct hid_api *api=&devices[n];int rc=sceSysmoduleLoadModule((uint16_t)(n?0x00a9:0x0106));int handle=find_module(api->module);void *symbols[4]={0};direct_imports(n,symbols);
+  if(handle>=0)for(int j=0;j<4;j++)if(!symbols[j]){void *symbol=0;if(sceKernelDlsym(handle,api->symbols[j],&symbol)==0)symbols[j]=symbol;}
   api->init=(int(*)(void))symbols[0];api->open=(int(*)(int,int,int,const void*))symbols[1];api->read=(int(*)(int,void*,int))symbols[2];api->close=(int(*)(int))symbols[3];
   api->ready=api->init&&api->open&&api->read&&api->close;
   int init=api->ready?api->init():-1;fprintf(stderr,"PS5_INPUT %s moduleRc=0x%x handle=%d api=%d init=0x%x\n",n?"mouse":"keyboard",(unsigned)rc,handle,api->ready,(unsigned)init);
+  int32_t user=-1;uint64_t param=0;
+  if(api->ready&&sceUserServiceGetInitialUser(&user)>=0&&user>=0)for(int index=0;index<4;index++){
+   early_handles[n][index]=api->open(user,0,index,&param);
+   fprintf(stderr,"PS5_INPUT %s early-open user=%d index=%d result=0x%x\n",n?"mouse":"keyboard",user,index,(unsigned)early_handles[n][index]);
+  }
+  fflush(stderr);
  }
 }
 int prospero_hid_open(int mouse,int index){
  if(mouse<0||mouse>1||index<0||index>=4)return -1;prospero_hid_preload();struct hid_api *api=&devices[mouse];int32_t user=-1;uint64_t param=0;
- if(!api->ready||sceUserServiceGetInitialUser(&user)<0||user<0)return -1;return api->open(user,0,index,&param);
+ if(!api->ready||sceUserServiceGetInitialUser(&user)<0||user<0)return -1;
+ if(early_handles[mouse][index]>=0){int handle=early_handles[mouse][index];early_handles[mouse][index]=-1;return handle;}
+ return api->open(user,0,index,&param);
 }
 int prospero_hid_read(int mouse,int handle,void *packets,int count){if(mouse<0||mouse>1||handle<0||count<=0||count>64||!devices[mouse].ready)return -1;return devices[mouse].read(handle,packets,count);}
 void prospero_hid_close(int mouse,int handle){if(mouse>=0&&mouse<=1&&handle>=0&&devices[mouse].ready)(void)devices[mouse].close(handle);}

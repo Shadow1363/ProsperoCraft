@@ -22,6 +22,8 @@ Install the release's **PPSA99874.zip** using your normal homebrew workflow. The
 
 The client and server share **PPSA99874**: installing one replaces the other. Back up your worlds and preserve `/download0/ProsperoCraft` when updating. Storage remains 4 GiB; existing instances and cache are retained. Instance deletion is permanent after confirmation, including that instance's worlds—there is no Undo for new deletions.
 
+Development106 adds an Installed content view, project icons, notice-style selection boxes and an optional Vitrail shadow-scale control. Audio/HID recovery and Controlify integration are candidates awaiting PS5 tests. See [development notes](docs/client-input-audio-installed-106.md).
+
 ## Current status
 
 - **26.3 is the playable native baseline.** Other 26.x versions and snapshots can be downloaded but are not claimed launchable.

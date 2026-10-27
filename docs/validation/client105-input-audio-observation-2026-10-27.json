@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.105",
+  "runs": [
+    "client-01.000.105-1793126219-767910279",
+    "client-01.000.105-1793126878-934623787"
+  ],
+  "collection": "Safari read-only LAN downloads; raw reports remain local",
+  "findings": [
+    "First run: AudioOut init succeeds but opening named/default playback ports fails -2144993267 (0x8026000d); Minecraft disables sounds",
+    "Second run: user reports audio returns after installing Controlify; real PCM submissions in native log. Timing association does not establish causation",
+    "Controlify3.5.3+mc26.3 initialization fails: UnsatisfiedLinkError no SDL3 in java.library.path, before controller manager readiness",
+    "105 keyboard/mouse do not work per human; initial HID module diagnostics were emitted before stderr capture and cannot establish successful loading",
+    "Vitrail0.13.0-beta+mc26.3 renders BSL_v10.1.8 with3072x3072 shadow map each frame; repeated pack loads build hundreds of shader modules. No measured steady GPU timing or established cache-write failure",
+    "Human reports roughly60FPS moving/80still with shaders after compilation; shaders-off recovery not yet answered",
+    "Human retracts missing mods/shaders/resource-packs report after finding installed files; do not claim a data-loss repair"
+  ],
+  "local_reports": {
+    "exceptions.log": {
+      "bytes": 314785,
+      "sha256": "432edd18bee5a20fdaa38cb19a66c7a878fa5ac37f6060795003971e9c812cb2"
+    },
+    "native-stderr-controlify.log": {
+      "bytes": 36628,
+      "sha256": "a0b21723ec2fd69b61e7d5ecfda748b08e16cf977c517cddbab3fe4eb3b56d01"
+    },
+    "build.txt": {
+      "bytes": 57,
+      "sha256": "bd68c5b7d8dad7562974bc33c3c204b575b821739a59055803d38b96b45ce075"
+    },
+    "native-stderr.log": {
+      "bytes": 29127,
+      "sha256": "7e1966a6dbc603fa7bc50259e9cf502ac84feba52242a264bf4c48a5f177008e"
+    },
+    "exceptions-controlify.log": {
+      "bytes": 160232,
+      "sha256": "1ae7daea334c810a20740ea5cb8981c2c0ef51bede72894895613b40c9fcd399"
+    },
+    "startup-tail.log": {
+      "bytes": 524288,
+      "sha256": "cba9d48dfc400693e5f86bea45cd41485245bbbc46d853a40d23f4bbf35c36b5"
+    }
+  }
+}

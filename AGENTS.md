@@ -1231,3 +1231,18 @@ See docs/client-fabric-input-105.md and matching observation/build validation.
 Preserve101/103/104,Java422e9a4integration and frozen milestones. NoStore/public
 binary release. User wants issue3 and issue1 reply drafts in chat only,no posting;
 issue1 draft states they do not ownPSVR2. Avoid em dashes in those replies.
+
+
+##106 input/audio/content direction — 2026-10-27
+
+Human retracts missing-content report;files were found.106adds read-only actual
+Installed inventories,notice-style checkboxes and cached project/download PNG
+icons. Preserve all existing content;do not claim a data-loss fix.105AudioOutopen
+0x8026000d is intermittent;later105withControlify submits PCM,butmodcausality is
+unproven.106reserves real port early,OpenALadopts once;directoptionalHIDimports/
+earlyhandles/capturedlogs needPS5tests. Controlifyfails missingSDL3;consumeruses
+Java explicitresidentalias SDL3=ps5sdl and waits for actuallyopenedgamepad before
+fallbackhandoff. FFM/controllercompatibility is pending. Shaderspage offers
+optional50/100percent shadowmapscale via supportedVitrailpacksettings withbackup,
+otherqualitypreserved;noFPSclaim. See docs/client-input-audio-installed-106.md.
+Keep101Store/release/frozenpasses;publishdevelopmentbothrepos,notpublicbinaries.

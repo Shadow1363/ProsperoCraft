@@ -1,4 +1,5 @@
 extern "C" void prospero_hid_preload(void);
+extern "C" int sceAudioOutOpen(int,int,int,unsigned,unsigned,unsigned);
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #include "demo_renderer.hpp"
 #include "log_share.hpp"
@@ -37,7 +38,7 @@ void initialize_toolkit_graphics(){pthread_once(&toolkit_once,initialize_toolkit
 #include <sys/sysctl.h>
 static void notify(const char* text);
 extern "C" int sceAudioOutInit();
-extern "C" {int client_ps5_audio_early_init_result=INT32_MIN;}
+extern "C" {int client_ps5_audio_early_init_result=INT32_MIN;int client_ps5_audio_early_port=-1;}
 using Initializer=void (*)();
 extern "C" Initializer __jvm_init_array_start[],__jvm_init_array_end[];
 #include <sys/mman.h>
@@ -234,6 +235,7 @@ void run_test(int i) {
   char capture_status[160];std::snprintf(capture_status,sizeof(capture_status),"Native stderr FILE capture status%d;raw descriptor2 unchanged;diagnostic failure is nonfatal",native_stderr_error);log_stage(capture_status);
   log_stage("Prior startup/VM diagnostic tails retained: max512KiB each before new run");
   log_stage("Storage /download0: title-local reservation requested4096MiB; actual capacity is unavailable, not zero");
+  prospero_hid_preload();
   log_stage("Begin embedded core constructors");
   size_t count=0;
   for(auto *fn=__jvm_init_array_start;fn!=__jvm_init_array_end;++fn) {if(*fn) {(*fn)();++count;}}
@@ -242,6 +244,11 @@ void run_test(int i) {
   client_ps5_audio_early_init_result=sceAudioOutInit();
   char audio_stage[160];std::snprintf(audio_stage,sizeof(audio_stage),"AudioOut pre-JVM init result=%d (0x%08X);failure is nonfatal",client_ps5_audio_early_init_result,static_cast<unsigned>(client_ps5_audio_early_init_result));log_stage(audio_stage);
   std::fprintf(stderr,"PS5 OpenAL AudioOut pre-JVM init result=%d\n",client_ps5_audio_early_init_result);std::fflush(stderr);
+  // Reserve the real output port before JVM heaps and Vulkan allocations.
+  // OpenAL takes ownership once; its normal drain/close path remains responsible.
+  if(client_ps5_audio_early_init_result>=0||static_cast<unsigned>(client_ps5_audio_early_init_result)==0x8026000eu)
+   client_ps5_audio_early_port=sceAudioOutOpen(0xff,0,0,256,48000,1);
+  std::fprintf(stderr,"PS5 OpenAL AudioOut pre-JVM port result=%d (0x%08X)\n",client_ps5_audio_early_port,static_cast<unsigned>(client_ps5_audio_early_port));std::fflush(stderr);
   long page_size=sysconf(_SC_PAGESIZE);
   if(startup_log) {std::fprintf(startup_log,"Runtime constructors: %zu; page size: %ld bytes\n",count,page_size);std::fflush(startup_log);}
   char text[80]{};std::snprintf(text,sizeof(text),"%zu constructors; OS page size: %ld bytes",count,page_size);
@@ -470,7 +477,6 @@ int main(int argc,char** argv) {
  (void)sceSystemServiceHideSplashScreen();
  // Native UI owns VideoOut/controller on its thread before creating Java.
  // Core constructors and early AudioOut init stay on the original startup thread.
- prospero_hid_preload();
  run_test(0);
  if(resume_library)log_stage("PS5_SESSION RESUME_LIBRARY fresh process; saved notice preference retained");
  if(status[0]!=1){notify("Client083 runtime initialization failed; inspect logs.");for(;;)(void)sceKernelUsleep(1000000);}

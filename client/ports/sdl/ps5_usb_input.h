@@ -42,8 +42,8 @@ static void PS5_PumpUSBInput(SDL_Window *window){
  if(now>=ps5_usb.retry){
   ps5_usb.retry=now+2000000000ull;
   for(int n=0;n<4;n++){
-   if(ps5_usb.keys[n].handle<0){ps5_usb.keys[n].handle=prospero_hid_open(0,n);if(ps5_usb.keys[n].handle>=0){SDL_Log("PS5_INPUT keyboard index%d handle%d",n,ps5_usb.keys[n].handle);}}
-   if(ps5_usb.mice[n].handle<0){ps5_usb.mice[n].handle=prospero_hid_open(1,n);if(ps5_usb.mice[n].handle>=0){SDL_Log("PS5_INPUT mouse index%d handle%d",n,ps5_usb.mice[n].handle);}}
+   if(ps5_usb.keys[n].handle<0){ps5_usb.keys[n].handle=prospero_hid_open(0,n);if(ps5_usb.keys[n].handle>=0){fprintf(stderr,"PS5_INPUT keyboard index%d handle%d\n",n,ps5_usb.keys[n].handle);}}
+   if(ps5_usb.mice[n].handle<0){ps5_usb.mice[n].handle=prospero_hid_open(1,n);if(ps5_usb.mice[n].handle>=0){fprintf(stderr,"PS5_INPUT mouse index%d handle%d\n",n,ps5_usb.mice[n].handle);}}
   }
  }
  for(int n=0;n<4;n++){
