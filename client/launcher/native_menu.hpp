@@ -180,8 +180,14 @@ inline void compose(Canvas& c) noexcept {
  }else if(page==1||page==5){
   label(c,70,185+slide,page==1?"A world of your own.":"Make it yours.",64);label(c,75,269+slide,page==1?"One instance. Its own settings, worlds and memories.":"Your worlds stay right where they are.",24,0x91ad9b);
   c.rounded(70,338+slide,620,548,28,ink(0x10221c));block(c,275,402+slide,204,page==1?number(24):number(18));title(c,105,690+slide,page==1?fields[22].data():fields[16].data(),42,540);label(c,108,761+slide,"JAVA EDITION / INSTANCE",24,0x8db69a);
-  if(page==1){row_control(c,340+slide,"VERSION",fields[23].data(),row==0);row_control(c,458+slide,"NAME",fields[22].data(),row==1);row_control(c,576+slide,"ICON","Choose from Prism / MultiMC icons",row==2);action(c,760,738+slide,1080,"CREATE & DOWNLOAD",row==3,true);wrap(c,790,861+slide,fields[70].data(),1000,1);}
-  else{row_control(c,340+slide,"INSTANCE NAME",fields[16].data(),row==0);row_control(c,458+slide,"INSTANCE ICON","Choose from Prism / MultiMC icons",row==1);action(c,760,610+slide,1080,"DONE",row==2,true);action(c,760,726+slide,1080,"DELETE INSTANCE",row==3,std::strcmp(fields[64].data(),"BUSY")!=0);wrap(c,791,850+slide,"Deletion permanently removes this instance and its worlds. Shared downloads are kept.",1000,2);}
+  if(page==1){row_control(c,320+slide,"VERSION",fields[23].data(),row==0);row_control(c,430+slide,"LOADER",fields[82].data(),row==1,true);row_control(c,540+slide,"NAME",fields[22].data(),row==2);row_control(c,650+slide,"ICON","Choose instance icon",row==3);action(c,760,774+slide,1080,"CREATE & DOWNLOAD",row==4,true);wrap(c,790,884+slide,fields[70].data(),1000,1);}
+  else{row_control(c,320+slide,"INSTANCE NAME",fields[16].data(),row==0);row_control(c,430+slide,"INSTANCE ICON","Choose instance icon",row==1);action(c,760,550+slide,520,"MODS",row==2,true);action(c,1320,550+slide,520,"SHADERS",row==3,true);action(c,760,655+slide,1080,"RESOURCE PACKS",row==4,true);action(c,760,765+slide,520,"DONE",row==5,true);action(c,1320,765+slide,520,"DELETE INSTANCE",row==6,std::strcmp(fields[64].data(),"BUSY")!=0);}
+ }else if(page==12){
+  title(c,70,185,fields[82].data(),64,1500);title(c,75,270,fields[70].data(),24,1770,0x91ad9b);
+  action(c,70,325,1010,fields[92].data(),row==0,true);char queue[80];std::snprintf(queue,sizeof(queue),"DOWNLOAD ALL (%s)",fields[91].data());action(c,1120,325,720,queue,row==1,true);
+  action(c,70,435,330,"PREVIOUS",row==2);action(c,430,435,330,"NEXT",row==3);char count[100];std::snprintf(count,sizeof(count),"%d / %s results",number(84),fields[83].data());label(c,820,461,count,24,0x91ad9b);
+  for(int i=0;i<number(93)&&i<6;i++){int y=540+i*61;if(row==i+4)selection(c,70,y,1770,57);c.rounded(70,y,1770,57,12,ink(row==i+4?0x1e3c30:0x10251d));title(c,92,y+16,fields[85+i].data(),24,1710);}
+
  }else if(page==2){
   label(c,70,185+slide,"Settle in.",64);label(c,75,270+slide,"A few thoughtful defaults. You're in control.",24,0x91ad9b);
   c.rounded(70,340+slide,620,548,28,ink(0x10221c));label(c,112,391+slide,"YOUR SETUP",24,0x8fbb9b);label(c,112,459+slide,"Native Java 25",42);wrap(c,114,545+slide,"Choose your game window size. The pointer uses logical coordinates; the native display reports its actual framebuffer size. Video and audio options stay with each instance.",520,5);label(c,114,714+slide,"SQUARE  Change background",24,0xa9eab6);title(c,114,753+slide,fields[76][0]?fields[76].data():"Waves",30,510);label(c,114,804+slide,std::strcmp(fields[79].data(),"OFF")==0?"TRIANGLE  Vibration: OFF":"TRIANGLE  Vibration: ON",24,0xa9eab6);title(c,114,851+slide,fields[67].data(),18,510,0x83a58d);
@@ -254,7 +260,7 @@ inline void compose(Canvas& c) noexcept {
 #endif
   label(c,766,795,"Show next time",30);
  }else if(page==6){
-  label(c,70,185,"Give it a name.",64);c.rounded(70,300,1770,116,22,ink(0x183c2a));title(c,103,330,fields[29].data(),42,1650);
+  label(c,70,185,"Enter text.",64);c.rounded(70,300,1770,116,22,ink(0x183c2a));title(c,103,330,fields[29].data(),42,1650);
   const char* chars=std::strcmp(fields[66].data(),"LOWER")==0?"abcdefghijklmnopqrstuvwxyz0123456789 ._-":"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ._-";int chosen=number(31);
   for(int i=0;i<40;i++){int x=80+(i%10)*176,y=465+(i/10)*91;if(i==chosen)selection(c,x,y,152,73);c.rounded(x,y,152,73,16,ink(i==chosen?0x356647:0x172e24));char letter[2]={chars[i],0};label(c,x+61,y+21,letter,30);}
   label(c,100,873,"X  Add     TRIANGLE  Backspace     L2  Case     R2  Space     OPTIONS  Clear     SQUARE  Done",24,0x8daf99);

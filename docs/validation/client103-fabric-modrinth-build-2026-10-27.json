@@ -1,0 +1,148 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.103",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "purpose": "Fabric client + Modrinth Mods/Shaders/Resource Packs candidate",
+  "package_sha256": "a2416025dc8d37b6e6de678ba5e3816d2f0279339fb332921ee03bb725b6f47a",
+  "native_elf_sha256": "9e689cfd8013bc162af63b71d7b31e5647b39262298d75a4b6c8f02a68a90802",
+  "retained101_package_sha256": "c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131",
+  "changes": [
+    "New-instance Version -> Loader(Vanilla/Fabric/NeoForge coming soon) -> Name -> Icon",
+    "Old instances default Vanilla, no world relocation",
+    "Instance-scoped Modrinth downloads-sorted searches/paging and persistent multi-category checked queue",
+    "Verified size/hash downloads + recursive required mod dependencies; preserve conflicting files and queues on failure",
+    "Official Fabric stable profile/Maven/Knot/Mixin, shared parent LWJGL and OSHI via supported systemLibraries",
+    "Actual Knot target used for clean return; owning-account/demo boundaries preserved",
+    "Roadmap removes Forge, keeps NeoForge later; no new checked PS5 milestone"
+  ],
+  "tests": {
+    "content_pipeline": "PASS actual resolver/download/storage/controller methods with fixtures: exact game/Fabric/client filtering, sort/paging, persistent queue and cross-instance isolation, required dependencies, hashes before publication, tamper/cancel/retry, unsafe URLs/paths/links, legacy library migration/NeoForge disabled, browse/search/checkbox/back routes",
+    "live_upstream": "PASS official Fabric0.20.1/seven libraries downloaded+verified, live Modrinth Vitrail+required Sodium downloaded+verified, shader/resource searches",
+    "actual_Knot_bootstrap": "PASS intact official Minecraft26.3 discovery, Mixin init, fixture mod preLaunch, target classloader handoff; parent LWJGL Configuration identity retained. Deliberate stop before graphics",
+    "original_vanilla_host": "PASS current Java source, real original Main reaches expected unprovided host-native boundary; no host menu pass",
+    "launcher_regressions": "PASS persistent instances/full owning-session flags/token redaction/account/dropdowns/snapshots/permanent deletion",
+    "native_and_Vulkan_toolkit_previews": "PASS actual draw/JNI/mailbox and host VideoOut fixtures; create/settings/browser rendered and visually inspected",
+    "target_package": "PASS compile/link/ZIP CRC/SELF signatures/current fixture equality/resident groups/runtime0124 integration/frozen dependency bytes and retained historical packages",
+    "toolkit_package": "PASS version/channel/identity/source pins/privacy/native constructors"
+  },
+  "upstream": {
+    "fabric_loader": "0.20.1",
+    "fabric_libraries": 7,
+    "mods": [
+      {
+        "project": "AANobbMI",
+        "version": "g6ju16VJ",
+        "kind": "MOD",
+        "filename": "sodium-fabric-0.9.3-beta.1+mc26.3.jar",
+        "pin": {
+          "url": "https://cdn.modrinth.com/data/AANobbMI/versions/g6ju16VJ/sodium-fabric-0.9.3-beta.1%2Bmc26.3.jar",
+          "algorithm": "SHA-512",
+          "hash": "884a1ef0ce0e69d565d41a1359070a8d4f8589a086b565540defdb4741985053077dfd0f2a56898ce60510720a9f95dd8ba220a9a6340b6e0cf5cb12352e2419",
+          "size": 1912496
+        }
+      },
+      {
+        "project": "oSIKhgz3",
+        "version": "Q3nKuPKJ",
+        "kind": "MOD",
+        "filename": "vitrail-0.13.0-beta+mc26.3.jar",
+        "pin": {
+          "url": "https://cdn.modrinth.com/data/oSIKhgz3/versions/Q3nKuPKJ/vitrail-0.13.0-beta%2Bmc26.3.jar",
+          "algorithm": "SHA-512",
+          "hash": "b4915c8251614a3457c7c226f62b7c39c44219a7e5cc6e9a099f55f7a5d171b58e8df7ca9367d72dfc307732a771e3af3c7672879536edacbe1a595105018298",
+          "size": 1878930
+        }
+      }
+    ],
+    "Shaders": 326,
+    "Resource packs": 6043
+  },
+  "source_sha256": {
+    "ProsperoDownloads.java": "70df48168f5d424d037fb3992925f244e04fe3335e37103c269fd748d248524e",
+    "ProsperoFabric.java": "233cb14e95e8b8e00f917c25a67d4c327691fbf2d3df9bf87fada65cf8fb04c6",
+    "ProsperoModrinth.java": "6530f916124081d0ecb963bfb04b038ccc7fe08d80f8eee61ee97d20eeeb351b"
+  },
+  "console": {
+    "status": "PENDING exact103PS5",
+    "required": [
+      "Visible103/vanilla regression",
+      "Fabric install/launch/mod loading",
+      "Modrinth three browsers/search/paging/queue persistence/cancel/retry",
+      "Vitrail with required Sodium then chosen shader-pack rendering/audio/controls/FPS",
+      "Resource-pack activation",
+      "World save/reload and quit/relaunch"
+    ],
+    "limits": [
+      "Host checks do not validate PS5 Fabric/JIT/native GPU features/mod compatibility/shader performance",
+      "Only26.3 currently launchable",
+      "Installed-content delete/update management not included; conflicting existing files are preserved",
+      "Required pack dependencies are reported as unsupported, not silently ignored",
+      "Shader packs are downloaded, not automatically enabled; Vitrail key binding may need controller remapping"
+    ],
+    "release": "No Store/public release or frozen milestone;101 preserved"
+  },
+  "audit_followup": "Updated direct-Main test contract to verify both Vanilla and Fabric entrypoints, and regenerated host classes after final Fabric configuration edit. Final byte-equality/package audit passes. No frozen dependency assertion weakened.",
+  "evidence": {
+    "content103-package.log": {
+      "sha256": "23ad99d03c3bc387af609dcfaae87d4aedbfec2fc3ef3f7223547b1df0129af7",
+      "bytes": 78238,
+      "result": "PASS"
+    },
+    "content103-package-test.log": {
+      "sha256": "c0a071a3828cd1d1433e5341f05e1153ecfa74f137f07f0f86b0c49706da39ca",
+      "bytes": 630,
+      "result": "PASS"
+    },
+    "content103-toolkit-package.log": {
+      "sha256": "90a2c3a294c5eb82f9d0e27a98b839f1fecccf142ba11ae80db7a72b5d146509",
+      "bytes": 256,
+      "result": "PASS"
+    },
+    "content103-startup-host.log": {
+      "sha256": "2a5c7f4bb1ebb70f799abfcfbfe2c459e8062eac7eb836e5a3d9ab6b7903c79f",
+      "bytes": 1432,
+      "result": "PASS"
+    },
+    "content103-test.log": {
+      "sha256": "0f57b98013cf98d1fa1602ef55e35e0dd1fab2f2fd0e9aaa83bb3e9471481c56",
+      "bytes": 309,
+      "result": "PASS"
+    },
+    "content103-live.log": {
+      "sha256": "11533b117812f500089ba0f9c9b5b5753ad27d3bbbec0a1fa1dd627ed54f95af",
+      "bytes": 340,
+      "result": "PASS"
+    },
+    "content103-knot.log": {
+      "sha256": "1b968af5ac931818ef4d8eee3e8e4e7c9a956b173aecec6b26fbd84d7b37b192",
+      "bytes": 906,
+      "result": "PASS"
+    },
+    "content103-account-ui.log": {
+      "sha256": "c55816732406afd81d3b9918270b09339495d5f211ab6b0309758f9f3b101b8b",
+      "bytes": 203,
+      "result": "PASS"
+    },
+    "content103-delete.log": {
+      "sha256": "870d22372a4bad117e344ab3f2810cfb97cc41c3df06d6e7dcb146677c20605e",
+      "bytes": 138,
+      "result": "PASS"
+    },
+    "content103-instances.log": {
+      "sha256": "d71042a6c675dbd70f12ce42fbeb39259d87fb350d708cec0f2d906971a2e999",
+      "bytes": 592,
+      "result": "PASS"
+    },
+    "content103-preview-native.log": {
+      "sha256": "46e7834e9777babc326c6fe7bd9134151ea1e99fafbec25bdb38dd2f2b2c0c2d",
+      "bytes": 683,
+      "result": "PASS"
+    },
+    "content103-preview-toolkit.log": {
+      "sha256": "ce2cf575b67f1bbd3a130480aa3e0c59af20f6e1b6881a60fde9f0b8afd5a8c5",
+      "bytes": 783,
+      "result": "PASS"
+    }
+  }
+}

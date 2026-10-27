@@ -6,6 +6,18 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Fabric and Modrinth development candidate103
+
+Create Vanilla/Fabric instances with a loader dropdown beneath Version; NeoForge
+is visible as coming soon and Forge is removed from the roadmap. Instance Settings
+adds searchable Modrinth Mods/Shaders/Resource Packs browsers ordered by downloads,
+persistent checked queues and Download All with verified bodies/required mod
+dependencies. Fabric uses official profiles/Knot/Mixin with shared PS5 native
+providers and intact Mojang JARs. Vitrail26.3 and its required Sodium dependency
+resolve/download/verify in a live host test; actual PS5 mod/shader compatibility
+and performance remain pending. Preserve accepted101; no Store/public release.
+[Guide and validation scope](docs/client-fabric-modrinth-103.md).
+
 ## 2026-10-27 — Accepted101 functional release
 
 All requested101launcher,account,input andskin changes receive functional PS5

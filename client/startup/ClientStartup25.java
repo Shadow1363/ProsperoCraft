@@ -235,8 +235,9 @@ public final class ClientStartup25 {
    stage(verifyNativeAllocation());
    Runtime heap=Runtime.getRuntime();stage("heap maxMiB="+(heap.maxMemory()/1048576)+" committedMiB="+(heap.totalMemory()/1048576)+" usedMiB="+((heap.totalMemory()-heap.freeMemory())/1048576));
    Thread.currentThread().setContextClassLoader(ProsperoLauncher.gameLoader());
-   Class<?> main=Class.forName("net.minecraft.client.main.Main",false,ProsperoLauncher.gameLoader());Method method=main.getMethod("main",String[].class);
-   stage("ENTER original net.minecraft.client.main.Main.main;menu/world not yet validated");
+   ProsperoLauncher.configureGameLaunch();
+   Class<?> main=Class.forName(ProsperoLauncher.gameMain(),false,ProsperoLauncher.gameLoader());Method method=main.getMethod("main",String[].class);
+   stage("ENTER "+ProsperoLauncher.gameMain()+"; selected loader, PS5 gameplay validation pending");
    console.println("Original selected Minecraft Main entry;launcher-selected mode. Credentials are not logged.");
    if(startupObserverEnabled()){
     try{observer=new StartupObserver(console,390,1000,5000);observer.start();}
@@ -246,7 +247,7 @@ public final class ClientStartup25 {
    try{method.invoke(null,(Object)selectedArguments);}
    catch(InvocationTargetException failure){throw failure.getCause();}
    stage("Original Main returned;this alone does not establish menu or gameplay success");
-   session.verifyCleanReturn(ProsperoLauncher.gameLoader());
+   session.verifyCleanReturn(ProsperoLauncher.runningGameLoader());
    normalQuit=true;
    stage("PS5_SESSION CLEAN_QUIT; original SDL/window/renderer/audio shutdown complete; replacing process before library/relaunch");
   }catch(Throwable failure){failure.printStackTrace(console);stage("Original startup stopped: "+failure);throw failure;}

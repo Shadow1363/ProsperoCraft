@@ -20,7 +20,7 @@ subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-cp',str(out)+':'
 subprocess.run([str(a.java_home/'bin/java'),'-cp',str(out)+':'+cp,'CpuSetupPolicy'],check=True)
 bytecode=subprocess.check_output([str(a.java_home/'bin/javap'),'-c','-p','-classpath',str(out),'ClientStartup25'],text=True)
 entry=bytecode[bytecode.index('public static void main(java.lang.String[])'):]
-positions=[entry.index(marker)for marker in ['ProsperoLauncher.run','gamePreflight:','org/lwjgl/system/Configuration.OPENGL_CONTEXT_API','java/lang/System.loadLibrary','ps5probe/JitWarmup25.check','net.minecraft.client.main.Main']]
+positions=[entry.index(marker)for marker in ['ProsperoLauncher.run','gamePreflight:','org/lwjgl/system/Configuration.OPENGL_CONTEXT_API','java/lang/System.loadLibrary','ps5probe/JitWarmup25.check','ProsperoLauncher.gameMain']]
 assert positions==sorted(positions),'Game initialization precedes launcher selection'
 bootstrap=(ROOT/'client/startup/bootstrap.cpp').read_text();native_main=bootstrap[bootstrap.index('int main(int argc,char** argv) {'):]
 assert native_main.index('prospero_menu::start_frontend()')<native_main.index('for(int i:{1,3})')

@@ -1185,3 +1185,18 @@ c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131verified.
 Humanreaffirmsallrequested101functionsaccepted. Java0124acceptancepublishedin
 Javarepo7886291. Preserve100/olderreleases/frozensnapshotsand098draft. No new
 endurance/memory/lifecyclemeasurements inferred from this acceptance.
+
+
+## Fabric/Modrinth client direction — 2026-10-27
+
+User requests Fabric now, NeoForge later; remove Forge from the current roadmap.
+New-instance loader choice sits beneath Version. Instance Settings exposes Mods,
+Shaders and Resource Packs, with popular downloads/search/check queues/Download
+All through Modrinth. User selects Vitrail Shaders as the shader-engine test.
+103 implements development integration and upstream Fabric/Knot/Mixin with intact
+Mojang JARs. Keep parent LWJGL/OSHI providers shared through Fabric's supported
+systemLibraries property. Host/live upstream results do not establish PS5 mod,
+shader rendering, performance or lifecycle acceptance. Preserve exact101 release
+and frozen passes; no Store/public binary release is requested. Read
+ docs/client-fabric-modrinth-103.md and matching103build validation. Continue in
+main development; the discarded PR2 CPU code/branch is not part of this change.

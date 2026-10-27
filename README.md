@@ -56,7 +56,8 @@ Development continues on `main`, which contains the merged authenticated game-te
 
 - [ ] Higher-resolution crafting-table icon.
 - [ ] All Minecraft 26.x releases, including snapshots.
-- [ ] Fabric, Forge and NeoForge instance support within current 26.x releases.
+- [ ] Fabric instances and Modrinth mods, shaders and resource packs — implemented in development; PS5 validation pending.
+- [ ] NeoForge instance support — coming soon.
 - [ ] SDL3 integration for Controlify.
 - [ ] Performance sufficient for shaders.
 - [ ] Custom menu music by CogiArt.

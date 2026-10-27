@@ -9,7 +9,7 @@ public final class ProsperoLibrary {
  static final int GAME_WIDTH=1920,GAME_HEIGHT=1080,LOCKED_RESOLUTION=2;
  static final int[][] RESOLUTIONS={{1280,720},{1600,900},{1920,1080},{2560,1440},{3840,2160}};
  static String resolutionLabel(int i){return RESOLUTIONS[i][0]+" x "+RESOLUTIONS[i][1];}
- static final class Instance {String id=UUID.randomUUID().toString(),name,version;int icon;boolean ready;Instance(String n,String v,int i){name=clean(n);version=v;icon=i;}}
+ static final class Instance {String id=UUID.randomUUID().toString(),name,version,loader="vanilla";int icon;boolean ready;Instance(String n,String v,int i){name=clean(n);version=v;icon=i;}}
  static final class Favorite {String instance,kind,target,name;Favorite(String i,ProsperoDestinations.Entry e){instance=i;kind=e.kind();target=e.target();name=e.name();}}
  static final class Settings {int resolution=LOCKED_RESOLUTION,workers=4,background=5,backgroundDefaultsRevision=0;boolean vibration=true,reducedMotion=false,snapshots=false,showIntro=true,showControls=true;}
  static final class State {int schema=1;ArrayList<Instance> instances=new ArrayList<>();Settings settings=new Settings();ArrayList<Favorite> favorites=new ArrayList<>();}
@@ -30,15 +30,17 @@ public final class ProsperoLibrary {
   if(state==null||state.schema!=1||state.instances==null||state.settings==null||state.instances.size()>256)throw new IOException();if(state.favorites==null)state.favorites=new ArrayList<>();if(state.favorites.size()>1024)throw new IOException();
   for(var f:state.favorites)if(f==null||f.instance==null||!f.instance.matches("[a-f0-9-]{36}")||!ProsperoDestinations.valid(f.kind==null?"":f.kind,f.target)||f.name==null||f.name.length()>80)throw new IOException();
   Set<String> ids=new HashSet<>();
-  for(var i:state.instances){if(i==null||!i.id.matches("[a-f0-9-]{36}")||!ids.add(i.id)||!i.version.matches("26\\.[0-9][A-Za-z0-9._-]{0,70}")||i.icon<0||i.icon>=ICONS.length)throw new IOException();clean(i.name);}
+  for(var i:state.instances){if(i==null||!i.id.matches("[a-f0-9-]{36}")||!ids.add(i.id)||!i.version.matches("26\\.[0-9][A-Za-z0-9._-]{0,70}")||i.icon<0||i.icon>=ICONS.length)throw new IOException();clean(i.name);if(i.loader==null)i.loader="vanilla";if(!Set.of("vanilla","fabric").contains(i.loader))throw new IOException();}
   if(state.settings.background<1||state.settings.background>10)state.settings.background=5;
   if(state.settings.resolution<0||state.settings.resolution>=RESOLUTIONS.length||state.settings.workers<1||state.settings.workers>6)throw new IOException();
  }
  synchronized List<Instance> instances(){return List.copyOf(state.instances);}
  synchronized Settings settings(){return state.settings;}
- synchronized Instance add(String name,String version,int icon)throws Exception {
+ synchronized Instance add(String name,String version,int icon)throws Exception {return add(name,version,icon,"vanilla");}
+ synchronized Instance add(String name,String version,int icon,String loader)throws Exception {
+  if(!Set.of("vanilla","fabric").contains(loader))throw new IOException("This loader is coming soon");
   if(state.instances.size()>=256)throw new IOException("This library is full");if(!version.matches("26\\.[0-9][A-Za-z0-9._-]{0,70}")||icon<0||icon>=ICONS.length)throw new IOException("Invalid instance choice");
-  Instance instance=new Instance(name,version,icon);Files.createDirectories(game(instance));state.instances.add(instance);try{save();}catch(Exception error){state.instances.remove(instance);throw error;}return instance;
+  Instance instance=new Instance(name,version,icon);instance.loader=loader;Files.createDirectories(game(instance));state.instances.add(instance);try{save();}catch(Exception error){state.instances.remove(instance);throw error;}return instance;
  }
  Path game(Instance i){return root.resolve("instances").resolve(i.id).resolve("game");}
  synchronized List<Favorite> favorites(){return state.favorites.stream().filter(f->state.instances.stream().anyMatch(i->i.id.equals(f.instance))).toList();}
