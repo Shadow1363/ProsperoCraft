@@ -816,3 +816,7 @@ and overwrite conflicts. Preserve084candidate/package/human offline feedback,
 published083/082and frozen milestones. Exact085PS5delete/undo/save/reload/input/
 audio/lifecycle remain pending. Do not publish a new Store release from these
 host checks alone; current request adds the feature to both development channels.
+
+Store status checked2026-10-27:catalogPR819 merged2026-10-26T20:34:21Z for083.
+085channel/delete candidates do not change that existing listing/release. Actual
+Store refresh/deployment timing is external; no085Store publication is claimed.

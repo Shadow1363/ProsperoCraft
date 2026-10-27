@@ -88,16 +88,16 @@ remains083; Offline084has the scoped positive gameplay feedback above.
 
 ## Roadmap
 
-### Required for store release
+### Full account release goals
 
-- [ ] **Microsoft login** for official downloads.
+- [ ] **Microsoft login** and verified online account access.
 - [ ] **Launcher menu with instances**, full settings and instance management.
 - [ ] **All Minecraft 26.x releases**, including snapshots.
 - [ ] **Fabric, Forge and NeoForge instances** within the current 26.x releases.
 - [ ] **SDL3 support for Controlify** integration.
 - [ ] **Performance good enough for shaders.**
 
-These are planned release requirements. Loader, mod and shader compatibility
+These are goals beyond the current public Demo release. Loader, mod and shader compatibility
 will need validation for each supported game version.
 
 ### Later
