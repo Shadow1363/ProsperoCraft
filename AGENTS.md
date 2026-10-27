@@ -1014,3 +1014,13 @@ Credit mihawk-99/PS5_VKHomebrewUI for GUI and MultiMC/Prism contributors for ico
 in the release description, retaining all underlying notices. Publish matching
 OpenAL source/relink materials, checksums and scoped validation. No official game
 JARs/assets or personal account/session/key files belong in public artifacts.
+
+## Merged branch retirement — 2026-10-27
+
+The user explicitly requests removing Temp_gametest and codex/demo after checking
+that their history is fully contained in main. Both local and remote branch tips
+passed ancestor checks against main before deletion. Continue development on main;
+do not recreate those branches unless requested. Preserve historical commits,
+frozen snapshots, release tags/packages and the exact096temp_gametest package label.
+The user also marks controller vibration complete in the README roadmap. This
+feedback does not establish unrelated console lifecycle/endurance acceptance.

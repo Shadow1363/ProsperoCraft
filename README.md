@@ -28,7 +28,7 @@ The client and server share **PPSA99874**: installing one replaces the other. Ba
 - **Controls:** temporary DualSense keyboard/mouse mapping, in-game keyboard and PLAY/OPTIONS guides. Full Controlify support remains planned.
 - **Known limits:** LAN hosting is deferred; save/reload, resolution combinations, reconnect/lifecycle regressions and extended endurance still need broader testing. Earlier server joining was confirmed.
 
-`Temp_gametest` has been merged into `main` for this release. The exact096 compiled package is preserved without rebuilding or changing its channel label. Older Demo history, all frozen validation snapshots and public releases remain intact. Home/favorites are deferred; this release opens Instances, with Settings and Account beside it.
+Development continues on `main`, which contains the merged authenticated game-test work. The merged `Temp_gametest` and `codex/demo` branches have been retired. The exact096 compiled package is preserved without rebuilding or changing its channel label. Older Demo history, all frozen validation snapshots and public releases remain intact. Home/favorites are deferred; this release opens Instances, with Settings and Account beside it.
 
 ## Credits
 
@@ -46,10 +46,10 @@ The client and server share **PPSA99874**: installing one replaces the other. Ba
 - [x] Microsoft login for official Minecraft downloads.
 - [x] Delete instance.
 - [x] Centered top-bar button text.
+- [x] Controller vibration.
 
 ### Coming next
 
-- [ ] Controller vibration.
 - [ ] Higher-resolution crafting-table icon.
 - [ ] All Minecraft 26.x releases, including snapshots.
 - [ ] Fabric, Forge and NeoForge instance support within current 26.x releases.
