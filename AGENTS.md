@@ -977,3 +977,14 @@ quick-play uses original Main arguments. See docs/client-home-library-094.md and
 matching validation. No ALL PASS, freeze, Store or public binary release inferred;
 exact094 console UI, permanent deletion, discovery, favorites/quick-play and
 lifecycle remain pending.
+
+
+095steering2026-10-27 overrides Home inclusion for the current build: the user asks
+not to have the Home menu for this build.095 opens Instances and exposes only
+Instances/Settings/Account; preserve094source10906c5and exact package as deferred
+Home work. Keep final plus card, single focus, permanent Yes/No delete and clearer
+guides. No Home/favorite browsing or quick-play arguments in095. Keep existing
+metadata/worlds/cache; no network/runtime changes and hosting stays deferred.
+See docs/client-instances-only-095.md and matching validation. No new console pass,
+freeze, Store or release publication; test095 navigation, guides, disposable-instance
+deletion and lifecycle on PS5.

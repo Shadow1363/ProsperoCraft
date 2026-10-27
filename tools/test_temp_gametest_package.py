@@ -8,7 +8,7 @@ sha=lambda b:hashlib.sha256(b).hexdigest()
 base=ROOT/'dist/candidates/ProsperoCraft-Offline-01.000.089/PPSA99874.zip'
 package=ROOT/'dist/client-startup-temp_gametest/PPSA99874.zip'
 assert sha(base.read_bytes())=='59aa7b29d228a4485ea8ccf21f9c066fd509e1072c186806e92cc34df159d623'
-assert sha((ROOT/'dist/candidates/ProsperoCraft-Temp_gametest-01.000.093/PPSA99874.zip').read_bytes())=='ed433c1c3e2567987e876357ae0cc2982e259655e92afc55d9f4a1640c1f1ee8'
+for version,digest in {'093':'ed433c1c3e2567987e876357ae0cc2982e259655e92afc55d9f4a1640c1f1ee8','094':'4847dc4eaa43987c9473362076ef27aedf579854924d6de7d72c107f9567587b'}.items():assert sha((ROOT/('dist/candidates/ProsperoCraft-Temp_gametest-01.000.'+version+'/PPSA99874.zip')).read_bytes())==digest
 with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
  assert new.testzip()is None
  prefix='PPSA99874/assets/java25/'
@@ -22,7 +22,8 @@ with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
   assert b'microsoftonline.com'not in endpoint
   assert b'TEMP GAMETEST'in jar.read('ProsperoChannel.class')
   assert b'PLAY'in jar.read('ProsperoLauncher.class')
-  assert b'--quickPlaySingleplayer'in jar.read('ProsperoLauncher.class') and b'--quickPlayMultiplayer'in jar.read('ProsperoLauncher.class')
+  assert b'--quickPlaySingleplayer'not in jar.read('ProsperoLauncher.class') and b'--quickPlayMultiplayer'not in jar.read('ProsperoLauncher.class')
+  assert b'Home'not in jar.read('ProsperoLauncher.class')
   assert b'servers.dat'in jar.read('ProsperoDestinations.class') and b'level.dat'in jar.read('ProsperoDestinations.class')
   assert b'pending-delete'in jar.read('ProsperoLibrary.class')
   assert b'restore'not in jar.read('ProsperoLibrary.class')
@@ -54,4 +55,4 @@ with zipfile.ZipFile(base)as old,zipfile.ZipFile(package)as new:
   assert b'PS5_HOST_IO'in(w/'new/java.base/java/io/IOException.class').read_bytes()
   changed=['java.base/sun/nio/fs/UnixFileSystem.class']
   assert b'sun.nio.fs.ps5Sandbox'in(w/'new'/changed[0]).read_bytes()
-print('PASS Temp_gametest094 auth/channel/ownership/profile endpoints, no Offline key or fixture token; module bytecode delta is UnixFileSystem plus bounded IOException socket diagnosis (generated javac bookkeeping excluded); Offline089 package unchanged')
+print('PASS Temp_gametest095 auth/channel/ownership/profile endpoints, no Offline key or fixture token; module bytecode delta is UnixFileSystem plus bounded IOException socket diagnosis (generated javac bookkeeping excluded); Offline089 package unchanged')

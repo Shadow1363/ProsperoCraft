@@ -87,6 +87,13 @@ Delete Instance “Is a directory” failure. The preceding personal089login wor
 on the user's PS5;090full-game/download/Delete/Undo/lifecycle checks remain pending.
 Demo/main authentication and the existing Store083 release are unchanged.
 
+[Development095](docs/client-instances-only-095.md) follows the user's request to
+leave **Home out of this build**. It opens on Instances with a final plus add card,
+followed by Settings and Account. Permanent Yes/No deletion and the clearer PLAY /
+OPTIONS guides remain.094 Home work and its exact package are preserved for later;
+095 exposes no Home/favorite entry points or quick-play arguments. Exact095 PS5
+navigation, deletion/purge, control-guide and lifecycle checks remain pending.
+
 [Development094](docs/client-home-library-094.md) adds **Home** with persistent
 world/server favorites, an automatically selected **Instances** page with a final
 plus card, a single Settings focus target, permanent **No / Yes, Delete** removal,

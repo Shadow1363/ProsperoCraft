@@ -10,7 +10,7 @@ public class BackgroundCheck {
  public static void main(String[] args)throws Exception {
   Path root=Path.of(args[0]);var library=new ProsperoLibrary(root);library.settings().showIntro=false;
   var instance=library.add("Keep my world","26.3",1);Path world=library.game(instance).resolve("saves/Keep/level.dat");Files.createDirectories(world.getParent());Files.writeString(world,"unchanged");library.save();
-  var model=new ProsperoLauncher(new ProsperoAuth(),root,null);model.tick(0x800);model.tick(0x800);
+  var model=new ProsperoLauncher(new ProsperoAuth(),root,null);model.tick(0x800);
   if(!model.tick(0)[11].equals("2")||!model.tick(0)[75].equals("5"))throw new AssertionError("Settings/default Waves");
   for(int i=0;i<10;i++){
    int expected=(5+i)%10+1;model.tick(0x8000);int current=Integer.parseInt(model.tick(0)[15]);for(int k=0;k<10;k++){if(current==expected-1)break;model.tick(0x40);current=Integer.parseInt(model.tick(0)[15]);if(current==9&&current!=expected-1){for(int n=0;n<9;n++)model.tick(0x10);current=0;}}var fields=model.tick(0x4000);

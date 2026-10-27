@@ -1,0 +1,55 @@
+{
+  "version": "01.000.095",
+  "title_id": "PPSA99874",
+  "branch": "Temp_gametest",
+  "package_sha256": "d2890fff36cd54ace413453cffae52ad1c35285609705810b033ee9161479d70",
+  "symbols_sha256": "02fcb577c321a037023712da150c054383e9a54ca1cf670543aa3e093d329b51",
+  "user_steering": "For this build, omit Home",
+  "visible_pages": [
+    "Instances",
+    "Settings",
+    "Sign in / player account"
+  ],
+  "default_page": "Instances",
+  "home": "No Home, favorite-browser/pin or quick-play entry points.094 source and exact candidate preserved; metadata retained.",
+  "retained_changes": [
+    "Always-final plus card and empty plus-only Instances card",
+    "Automatic shoulder selection and single active Settings focus",
+    "Permanent No / Yes Delete with no Undo",
+    "Six prelaunch essentials plus five full OPTIONS guide sections and saved checkbox/OK gate",
+    "Existing in-game keyboard, sign-in, downloads and accounts"
+  ],
+  "tests": {
+    "target_build": "PASS",
+    "package_runtime_native_source_class_signatures_audit": "PASS",
+    "toolkit_channel_asset_license_audit": "PASS",
+    "no_Home_or_quickplay_in_launcher_bytecode": "PASS",
+    "three_tab_initial_instances_and_plus_pagination": "PASS",
+    "single_focus_state_and_rendered_header_rectangle": "PASS",
+    "native_and_Vulkan_previews": "PASS",
+    "three_tab_pixel_centering": "PASS native and toolkit",
+    "permanent_delete_confirmation_recovery_and_shared_data": "PASS",
+    "instance_download_policy_and_full_session_args": "PASS",
+    "tutorial_gate_while_full_guide_open_during_preparation": "PASS",
+    "account_ui_auth_haptics_backgrounds": "PASS",
+    "original_Main_host_bootstrap_and_JAR_integrity": "PASS",
+    "preserved093_and094_hashes": "PASS"
+  },
+  "runtime": "0123 unchanged; no runtime/network changes in095",
+  "hosting": "Deferred at user request",
+  "original_game_JARs": "Unmodified; not bundled",
+  "console095": {
+    "status": "pending",
+    "needed": [
+      "Instances/Settings/Account navigation and single focus with physical controller",
+      "Plus creation across pages",
+      "Permanent delete/purge using a disposable instance; shared data preserved",
+      "Essential/full guide readability, paging, checkbox/OK gate",
+      "Keyboard/gameplay/quit/relaunch regression"
+    ]
+  },
+  "preserved094_package_sha256": "4847dc4eaa43987c9473362076ef27aedf579854924d6de7d72c107f9567587b",
+  "preserved093_package_sha256": "ed433c1c3e2567987e876357ae0cc2982e259655e92afc55d9f4a1640c1f1ee8",
+  "publication": "Source on Temp_gametest only; no Store/release assets",
+  "milestone": "No console ALL PASS or frozen milestone inferred"
+}
