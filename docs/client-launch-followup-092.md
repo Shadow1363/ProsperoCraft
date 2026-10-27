@@ -71,3 +71,13 @@ The [validation record](validation/client092-launch-followup-build-2026-10-27.js
 contains matching package/symbol checksums, host/target checks and the scoped
 console evidence. Install replaces the same PPSA99874title and preserves the
 /download0/ProsperoCraft library/cache/world paths and4GiBstorage request.
+
+## User startup confirmation — 2026-10-27
+
+After receiving the092candidate above, the user reports “MC starts now!”.
+Record this as scoped console startup confirmation for package SHA256
+f9c1cd0a67c1229fdd08b29295acddaf2f0b79e3d0162dc199a1f8ef55e64610.
+The prior immediate launch blocker is no longer observed in this report. It does
+not prove the precise native fault cause, gameplay stability, menu/world/quit
+lifecycle, saved-login restoration, resolution alignment or multiplayer/LAN.
+No ALL PASS, new frozen milestone or public release is inferred.

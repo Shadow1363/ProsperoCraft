@@ -44,12 +44,17 @@
   "original_game_JARs": "unmodified; not bundled",
   "preserved091_package_sha256": "4782ea2a78fb8e631c09078bc389718affd61eb725504d07f6d4d5b9c5b632fa",
   "console092": {
-    "PLAY_crash_recovery": "pending",
+    "PLAY_crash_recovery": "User reports Minecraft starts on092; prior immediate launch blocker no longer observed in this report",
     "menu_world_quit_relaunch": "pending",
     "saved_login_refresh": "pending",
     "Waves_and_labels": "pending",
     "resolution_pointer": "pending",
     "multiplayer_LAN": "pending"
   },
-  "publication": "source branch only; no Store/release assets"
+  "publication": "source branch only; no Store/release assets",
+  "human_report092": {
+    "date": "2026-10-27",
+    "report": "MC starts now!",
+    "scope": "Minecraft starts after the092candidate; no gameplay, lifecycle, refresh, LAN or ALL PASS inferred"
+  }
 }

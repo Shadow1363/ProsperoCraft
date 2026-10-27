@@ -92,8 +92,8 @@ Demo/main authentication and the existing Store083 release are unchanged.
 one-time default for existing/new libraries. Retrieved091logs locate the reported
 launch failure in graphics startup and show saved-refresh invalid_scope.092adds
 explicit legacy refresh scope and repairs a requested-mode override that could
-select119.88Hz instead of59.94Hz. Exact092crash recovery and account restoration
-remain pending PS5checks; no fixed-crash or ALL PASS claim is made.
+select119.88Hz instead of59.94Hz. The user reports “MC starts now!” on092. Gameplay, quit/relaunch, saved-login
+restoration and LAN remain pending; no ALL PASS milestone is inferred.
 
 [Development091](docs/client-account-ui-091.md) adds Prism/MultiMC instance artwork
 with the ProsperoCraft icon, Microsoft-link QR, saved account refresh and player

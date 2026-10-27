@@ -946,3 +946,9 @@ requested-mode selection that discarded<=60Hzranking and adds explicit legacy
 refresh scope for the observed invalid_scope restoration response. Both actual
 console crash recovery and refresh still require092validation; do not claim fixed.
 Retain091packages/symbols and all older snapshots. No gameJARchanges or Store/release.
+
+
+092startup feedback2026-10-27: user reports “MC starts now!” after receiving the
+092candidate SHA256f9c1cd0a67c1229fdd08b29295acddaf2f0b79e3d0162dc199a1f8ef55e64610.
+Record scoped PS5startup confirmation. Do not infer gameplay/lifecycle/refresh/
+LAN/resolution tests, exact native fault cause, ALL PASS or a new frozen milestone.
