@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.099",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "package_sha256": "62ccf7728c83a5f3d39f5d07ba7e902634706c9e1f92b51a749b92f6ac46c659",
+  "native_elf_sha256": "90ce741fec0b5f62633b52f12bc89526d291ca57446e7738b67e277607060524",
+  "trigger": "098humanfeedback:shortstuttersessentiallyunchanged;same-runSafariGCcapturesconfirmongoingsteady-gameplaypauses.",
+  "policy": {
+    "MaxGCPauseMillis": {
+      "098": 8,
+      "099": 4
+    },
+    "G1NewSizePercent": {
+      "098": 5,
+      "099": 1
+    },
+    "G1MixedGCCountTarget": {
+      "098": 8,
+      "099": 16
+    },
+    "UnlockExperimentalVMOptions": true
+  },
+  "unchanged": [
+    "1536MiBmaxheap/128MiBinitialheap",
+    "G1reserve20percent,parallelGCworkers4/concurrent1/ActiveProcessorCount4",
+    "C1,120Hz,audio,controls,resolution,quality",
+    "OriginalMinecraftJARs,no runtimepatches"
+  ],
+  "tests": {
+    "target_build": "PASS exit0",
+    "full_startup_package_audit": "PASS exit0;CRC/signatures/exactruntime/modules/nativegroups/stagedconstructors/preservedmilestones",
+    "toolkit_package_identity_and_retention": "PASS exit0",
+    "candidate_metadata_footer_and_effective_embedded_flags": "PASS099manifest/footer/highrefreshbit/allthreeGCpolicyflags",
+    "actual_host_G1_baseline_and_candidate_control": "PASS both effectivepolicies,checked500MiBretainedarrays/32MiBring/4GiBchurn,no fullGC",
+    "old098package_preserved": "PASS exacthash"
+  },
+  "host_policy_result": {
+    "098": {
+      "contents": "PASS",
+      "effective_flags": {
+        "MaxGCPauseMillis": "8",
+        "G1NewSizePercent": "5",
+        "G1MixedGCCountTarget": "8"
+      },
+      "pause_count": 60,
+      "median_ms": 4.5195,
+      "max_ms": 19.295,
+      "full_GC": false
+    },
+    "099": {
+      "contents": "PASS",
+      "effective_flags": {
+        "MaxGCPauseMillis": "4",
+        "G1NewSizePercent": "1",
+        "G1MixedGCCountTarget": "16"
+      },
+      "pause_count": 168,
+      "median_ms": 2.903,
+      "max_ms": 18.661,
+      "full_GC": false
+    },
+    "scope": "Host effective flags,allocation/content/collector integration only. Synthetic workloads and host pause timing do not establish PS5 frame times,stutter improvement,actual native headroom or game stability."
+  },
+  "evidence": {
+    "client099-package.log": {
+      "sha256": "298d6db110a9f519e5e71ad064f241e7fffde9589fee6287bc39f99d00a87858",
+      "bytes": 78238,
+      "result": "PASS"
+    },
+    "client099-startup-test.log": {
+      "sha256": "72ce9ac79d4c1718cdfa25072adf750b240382a900b12c1aaa96297193e8533e",
+      "bytes": 612,
+      "result": "PASS"
+    },
+    "client099-toolkit-test.log": {
+      "sha256": "ea1c0375884229a3f4bd950fededede4ab7f0bc483e7821fc50096087db8dc0a",
+      "bytes": 256,
+      "result": "PASS"
+    },
+    "client099-policy-test.log": {
+      "sha256": "80d77cc110137b262a02753b9a4d68e04732e8716a4516e9b689222af1774c4b",
+      "bytes": 467,
+      "result": "PASS"
+    }
+  },
+  "preserved098_sha256": "5f2b9825c2692a7bc59a06517625727db16dc9fa0149e3c72093ec7fd24afeab",
+  "console": {
+    "status": "PENDING",
+    "required": [
+      "Same-scene/settingsstuttercadenceandworsthitchesversus098",
+      "120Hz/FPS,visible099version,input/audio",
+      "Current-runGC/safepointcomparisonafterstartup",
+      "Quit/library/relaunchandsave-reload"
+    ],
+    "risk": "Shorterbutmorefrequentcollectionscanreduce throughput or worsen cadence;GCgoalsarenothardlimits. NoPS5stutterfixorALLPASSclaimed."
+  },
+  "publication": "Developmentsourceonly;local099testapp.NoGitHubbinaryreleaseorStoreupdate. Keep098draftuntilhumanconfirmsstutterfix."
+}

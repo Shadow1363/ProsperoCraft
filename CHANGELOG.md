@@ -6,6 +6,14 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Client099 tests smaller G1 collection batches
+
+098logging reduction did not fix the reported stutters. Same-run steady-gameplay
+logs show repeated pauses above the120Hzframe budget.099tests4mspausegoal,
+1percent minimum young generation and16mixedGCtarget,with heap/quality unchanged.
+Host controls show smaller median but more frequent pauses;PS5improvement is
+unverified. Keep098draft andStoreheld pending humanconfirmation. [Guide](docs/client-frame-pauses-099.md).
+
 ## 2026-10-27 — Review097stutters before098publication
 
 Safari-retrieved same-run GC reports show125safepoints over58.889seconds,

@@ -300,7 +300,11 @@ void run_test(int i) {
    {const_cast<char *>("-Xshare:off"),nullptr},
    {const_cast<char *>("-Xlog:gc=info,safepoint=info:file=/download0/java25-gc.log:uptimemillis,level,tags:filecount=1,filesize=4M"),nullptr},
    {const_cast<char *>("-XX:+UseG1GC"),nullptr},
-   {const_cast<char *>("-XX:MaxGCPauseMillis=8"),nullptr},
+   {const_cast<char *>("-XX:MaxGCPauseMillis=4"),nullptr},
+   //120Hz: allow a smaller young minimum and spread mandatory mixed-GC work.
+   {const_cast<char *>("-XX:+UnlockExperimentalVMOptions"),nullptr},
+   {const_cast<char *>("-XX:G1NewSizePercent=1"),nullptr},
+   {const_cast<char *>("-XX:G1MixedGCCountTarget=16"),nullptr},
    {const_cast<char *>("-XX:ParallelGCThreads=4"),nullptr},
    {const_cast<char *>("-XX:ConcGCThreads=1"),nullptr},
    {const_cast<char *>("-XX:G1ReservePercent=20"),nullptr},

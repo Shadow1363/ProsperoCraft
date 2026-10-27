@@ -24,7 +24,7 @@ The client and server share **PPSA99874**: installing one replaces the other. Ba
 
 - **26.3 is the playable native baseline.** Other 26.x versions and snapshots can be downloaded but are not claimed launchable.
 - **Login and gameplay are console-tested.** The existing experimental authentication flow remains in use; a valid Java Edition entitlement/profile is required.
-- **120 Hz development:** 119 FPS was reported during PS5 testing of build097. Candidate098 adds the visible-version correction and quieter diagnostics. Its release and Store update are held pending confirmation of a stutter fix; GC pauses remain under investigation.
+- **120 Hz development:** 119 FPS was reported during PS5 testing of build097. Candidate099 tests smaller G1 collection batches after098logging changes did not resolve the stutters. Release and Store publication remain held pending confirmation of a fix.
 - **Native GUI:** animated backgrounds, instance icons, account display, dropdown settings, navigation cues and optional vibration.
 - **Controls:** temporary DualSense keyboard/mouse mapping, in-game keyboard and PLAY/OPTIONS guides. Full Controlify support remains planned.
 - **Known limits:** LAN hosting is deferred; save/reload, resolution combinations, reconnect/lifecycle regressions and extended endurance still need broader testing. Earlier server joining was confirmed.

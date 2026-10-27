@@ -1084,3 +1084,17 @@ publish development source under normal ownership rules. Current098quieterloggin
 is not a confirmed GC/stutterfix. Candidate hash5f2b9825c2692a7bc59a06517625727db16dc9fa0149e3c72093ec7fd24afeab.
 ActualPS5comparison may require furthercandidatechanges;preserve098bytes and
 097/096before newversions. See client098-publication-hold validation record.
+
+
+## 098still stutters;099GCpolicy candidate — 2026-10-27
+
+Human reports098still has essentially same short stutters. Safari current-run
+098identitymatchesreports;steady120–213s301safepoints,8.257msmedian/25.769msmax,
+144over8.34ms,no fullGC. Logging reduction is not an acceptedfix.099tests smaller
+G1batches:4mspausegoal,G1NewSizePercent1(explicit experimental unlock),mixedGCtarget16.
+Read docs/client-frame-pauses-099.md and matching098feedback/099build records.
+Heap/quality/workers/C1/input/audio/120Hz/gameJARs unchanged. More frequent pauses
+can worsen throughput;host results do not prove PS5improvement. Preserve098exact
+bytes/draft and097/096snapshots. Do not publish binaries or Storeupdate until
+human confirmsstutterfix.099is testcandidateonly;footer/GCcadence/gameplayand
+lifecycle remain consolepending. Public development source still must be pushed.

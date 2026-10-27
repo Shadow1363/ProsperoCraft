@@ -23,7 +23,7 @@ with tempfile.TemporaryDirectory(prefix='client-g1-control-')as folder:
  w=Path(folder);(w/'G1WorldControl.java').write_text(source)
  subprocess.run([str(a.java_home/'bin/javac'),'--release','25','-d',str(w),str(w/'G1WorldControl.java')],check=True)
  log=ROOT/'build/client074-g1-workload-gc.log'
- flags=['-Xmixed','-XX:TieredStopAtLevel=1','-XX:CICompilerCount=1','-XX:CompileThresholdScaling=4.0','-XX:CompileCommand=MemLimit,*.*,2M','-XX:ReservedCodeCacheSize=32m','-XX:SweeperThreshold=50.0','-Xms128m','-Xmx1536m','-XX:-UseCompressedOops','-XX:+UseCompactObjectHeaders','-XX:+UseG1GC','-XX:MaxGCPauseMillis=8','-XX:ParallelGCThreads=4','-XX:ConcGCThreads=1','-XX:G1ReservePercent=20','-XX:ActiveProcessorCount=4']
+ flags=['-Xmixed','-XX:TieredStopAtLevel=1','-XX:CICompilerCount=1','-XX:CompileThresholdScaling=4.0','-XX:CompileCommand=MemLimit,*.*,2M','-XX:ReservedCodeCacheSize=32m','-XX:SweeperThreshold=50.0','-Xms128m','-Xmx1536m','-XX:-UseCompressedOops','-XX:+UseCompactObjectHeaders','-XX:+UseG1GC','-XX:MaxGCPauseMillis=4','-XX:+UnlockExperimentalVMOptions','-XX:G1NewSizePercent=1','-XX:G1MixedGCCountTarget=16','-XX:ParallelGCThreads=4','-XX:ConcGCThreads=1','-XX:G1ReservePercent=20','-XX:ActiveProcessorCount=4']
  for flag in flags:assert '"'+flag+'"' in (ROOT/'client/startup/bootstrap.cpp').read_text(),flag
  result=subprocess.run([str(a.java_home/'bin/java'),*flags,'-Xlog:gc*=debug:file='+str(log),'-cp',str(w),'G1WorldControl'],capture_output=True,text=True,timeout=120)
  assert result.returncode==0 and 'contents intact'in result.stdout,result.stdout+result.stderr

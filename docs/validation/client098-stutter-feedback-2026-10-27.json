@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.098",
+  "package_sha256": "5f2b9825c2692a7bc59a06517625727db16dc9fa0149e3c72093ec7fd24afeab",
+  "human_feedback": "Still many short stutters,basically unchanged. Logging reduction is not an accepted stutter fix.",
+  "run": "client-01.000.098-1793112991-20049337",
+  "identity": "Both downloaded098sessions and native stderr agree;native footer/version now derives from manifest.",
+  "retrieval": "Safari computer use;raw logs retained locally only.",
+  "files": {
+    "098-session.txt": {
+      "bytes": 132,
+      "sha256": "0a00d90f415df43dd2e02c0ed8acfa48cf13f20bfbbb02896e3ec387c2092f96"
+    },
+    "098-session-later.txt": {
+      "bytes": 132,
+      "sha256": "0a00d90f415df43dd2e02c0ed8acfa48cf13f20bfbbb02896e3ec387c2092f96"
+    },
+    "098-gc.log": {
+      "bytes": 94829,
+      "sha256": "0c693c50d075d32544b29e96e5780719c55903535f90302a0632a0c04d2ced1e"
+    },
+    "098-gc-later.log": {
+      "bytes": 203869,
+      "sha256": "58e6b292d5b5911a79910dbcad5a984be1ab5878d3778347874b713c20f80791"
+    },
+    "098-native.log": {
+      "bytes": 32409,
+      "sha256": "6d012faaa05aa91b62e3e462139bb5b24058096ca9d528d7667aa9bc43e7d7e2"
+    },
+    "098-exceptions.log": {
+      "bytes": 25037,
+      "sha256": "09a453f30583bada9330daf20b6a5e86c236b55dd4aa2af2a7a2292ea21aaf06"
+    }
+  },
+  "steady_window": {
+    "uptime_ms": [
+      120176,
+      213373
+    ],
+    "safepoints": 301,
+    "median_ms": 8.256532,
+    "p95_ms": 15.890585,
+    "max_ms": 25.768547,
+    "over8_34ms": 144,
+    "types": {
+      "G1CollectForAllocation": 240,
+      "G1TryInitiateConcMark": 21,
+      "G1PauseRemark": 20,
+      "G1PauseCleanup": 20
+    }
+  },
+  "full_GC_in_capture": false,
+  "interpretation": "Steady-play safepoints regularly exceed120Hz frame budget;strong GC contributor evidence,not per-frame correlation or exclusion of other causes.",
+  "next_candidate": "099changesG1pause goal8->4ms,young-generationminimum5->1percent,mixedGCcounttarget8->16. Heap1536MiB,workers,C1,quality,gameJARs,120Hzunchanged. Experimental flag explicitly unlocked. More frequent small pauses possible;console outcome pending.",
+  "publication": "Keep098draft and noStoreupdate until human confirms stutterfix;no new release or frozenmilestone."
+}
