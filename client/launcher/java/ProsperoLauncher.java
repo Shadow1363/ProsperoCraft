@@ -40,7 +40,7 @@ public final class ProsperoLauncher {
  private void catalog(){message="Getting available26.x versions";runTask("CATALOG",attempt->{var result=installer.catalog(library.settings().snapshots,()->cancelled(attempt));synchronized(this){if(!cancelled(attempt)){versions=result;versionChoice=0;if(draftName.isEmpty()&&!versions.isEmpty())draftName=defaultName(versions.get(0).id());message="Choose a version, name and icon.";cached=null;}}});}
  private ProsperoAuth.View accountView(int attempt){return new ProsperoAuth.View(){public void stage(String text){synchronized(ProsperoLauncher.this){if(!cancelled(attempt)){message=text;cached=null;}}}public void code(String value,String address){synchronized(ProsperoLauncher.this){if(!cancelled(attempt)){code=value;uri=address;cached=null;}}}};}
  private void acceptAccount(ProsperoAuth.Session result,int attempt)throws Exception {
-  synchronized(this){if(cancelled(attempt))return;session=result;avatar="";message="Connected. Owned Minecraft Java is ready to play.";feedback("success");cached=null;try{accounts.save(auth.refreshCredential(result));}catch(Exception storage){message="Connected. Account could not be saved on this console.";}}
+  synchronized(this){if(cancelled(attempt))return;session=result;avatar="";selectTab(0);code="";uri="";message="Connected. Owned Minecraft Java is ready to play.";feedback("success");cached=null;try{accounts.save(auth.refreshCredential(result));}catch(Exception storage){message="Connected. Account could not be saved on this console.";}}
   String face="";try{face=ProsperoAvatar.fetch(auth.skin(result));if(face.isEmpty()&&auth.skin(result).isEmpty())face=ProsperoAvatar.defaultFace(library.root,result.id);}catch(Exception unavailable){}
   synchronized(this){if(!cancelled(attempt)&&session==result){avatar=face;cached=null;}}
  }
@@ -127,17 +127,17 @@ public final class ProsperoLauncher {
     if(buttons!=0)cached=null;return state();
    }
    if((buttons&0x10)!=0){if(row==0)top=true;else row--;}
-   if((buttons&0x40)!=0)row=Math.min(page==1?3:page==2?4:page==3?1:page==4?(ProsperoChannel.offline()&&offlineAccount!=null?3:2):page==5?3:2,row+1);
+   if((buttons&0x40)!=0)row=Math.min(page==1?3:page==2?4:page==3?0:page==4?(ProsperoChannel.offline()&&offlineAccount!=null?3:2):page==5?3:2,row+1);
    int direction=(buttons&0x80)!=0?-1:(buttons&0x20)!=0?1:0;
    if(!top&&page==1&&direction!=0&&!busy){if(row==0&&!versions.isEmpty()){versionChoice=Math.floorMod(versionChoice+direction,versions.size());if(!customName)draftName=defaultName(versions.get(versionChoice).id());}if(row==2)draftIcon=Math.floorMod(draftIcon+direction,ProsperoLibrary.ICONS.length);}
    if(!top&&page==5&&row==1&&direction!=0)library.icon(detail,Math.floorMod(detail.icon+direction,ProsperoLibrary.ICONS.length));
-   if(!top&&page==2&&direction!=0){var settings=library.settings();if(row==0){settings.resolution=Math.floorMod(settings.resolution+direction,ProsperoLibrary.RESOLUTIONS.length);};if(row==1)settings.workers=Math.max(1,Math.min(6,settings.workers+direction));if(row==2)settings.reducedMotion=!settings.reducedMotion;if(row==3){settings.snapshots=!settings.snapshots;versions=List.of();}if(row==4)settings.showIntro=!settings.showIntro;library.save();}
+   if(!top&&page==2&&direction!=0){var settings=library.settings();if(row==1)settings.workers=Math.max(1,Math.min(6,settings.workers+direction));if(row==2)settings.reducedMotion=!settings.reducedMotion;if(row==3){settings.snapshots=!settings.snapshots;versions=List.of();}if(row==4)settings.showIntro=!settings.showIntro;library.save();}
    if(!top&&page==2&&(buttons&0x1000)!=0){library.settings().vibration=!library.settings().vibration;library.save();}
    if(!top&&page==2&&(buttons&0x8000)!=0){dropdown(5,library.settings().background-1);cached=null;return state();}
    if((buttons&0x4000)!=0){
     if(!top&&page==1&&!busy){if(row==0){if(versions.isEmpty())catalog();else{dropdown(0,versionChoice);cached=null;return state();}}if(row==1)beginName(1);if(row==2){dropdown(1,draftIcon);cached=null;return state();}if(row==3){if(versions.isEmpty())throw new java.io.IOException("Choose a version first");detail=library.add(draftName,versions.get(versionChoice).id(),draftIcon);selected=library.instances().size()-1;page=4;row=0;install(false);customName=false;draftName=defaultName(versions.get(versionChoice).id());}}
     else if(page==2){var settings=library.settings();if(row==0){dropdown(3,settings.resolution);cached=null;return state();}if(row==1){dropdown(4,settings.workers-1);cached=null;return state();}if(row==2)settings.reducedMotion=!settings.reducedMotion;if(row==3){settings.snapshots=!settings.snapshots;versions=List.of();}if(row==4)settings.showIntro=!settings.showIntro;library.save();}
-    else if(page==3){if(row==0)signIn();else{cancel();session=null;avatar="";accounts.clear();message="Signed out. Saved account removed from this console.";}}
+    else if(page==3&&row==0){if(session==null)signIn();else{cancel();session=null;avatar="";accounts.clear();message="Signed out. Saved account removed from this console.";}}
     else if(!top&&page==4){if(row==0){play();cached=null;return state();}else if(row==1){page=5;row=0;}else if(row==2)install(false);else if(row==3)playOffline();}
     else if(page==5){if(row==0)beginName(5);if(row==1){dropdown(2,detail.icon);cached=null;return state();}if(row==2){page=4;row=0;}if(row==3){if(busy){message="Wait for the current task before deleting an instance.";feedback("error");}else{page=9;row=0;}}}
    }

@@ -96,10 +96,7 @@ static void PS5_PumpTemporaryInput(SDL_Window *window)
             if(held&PAD_LEFT)keys|=1u<<26;
             if(held&PAD_RIGHT)keys|=1u<<27;
         } else {
-            if(held&PAD_UP)keys|=1u<<0;
-            if(held&PAD_DOWN)keys|=1u<<1;
-            if(held&PAD_LEFT)keys|=1u<<2;
-            if(held&PAD_RIGHT)keys|=1u<<3;
+            /* Game menus use the pointer; no synthetic directional focus keys. */
             if(held&PAD_CIRCLE)keys|=1u<<5;
             if(held&PAD_TRIANGLE)keys|=1u<<13;
             if(held&PAD_SQUARE)keys|=1u<<14; /* inventory quick move */
@@ -116,10 +113,12 @@ static void PS5_PumpTemporaryInput(SDL_Window *window)
             if(held&PAD_CIRCLE)keys|=1u<<7; /* backspace */
             if(held&PAD_OPTIONS)keys|=1u<<25; /* fullscreen */
         } else {
-            if(p->left_y<80)keys|=1u<<(captured?8:0);
-            if(p->left_y>176)keys|=1u<<(captured?9:1);
-            if(p->left_x<80)keys|=1u<<(captured?10:2);
-            if(p->left_x>176)keys|=1u<<(captured?11:3);
+            if(captured){
+                if(p->left_y<80)keys|=1u<<8;
+                if(p->left_y>176)keys|=1u<<9;
+                if(p->left_x<80)keys|=1u<<10;
+                if(p->left_x>176)keys|=1u<<11;
+            }
         }
         Uint8 buttons=layer?0:((held&0x20000000u)?1:0)|((held&0x10000000u)?2:0);
         if(!captured&&!layer) {

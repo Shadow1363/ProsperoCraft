@@ -1149,3 +1149,17 @@ b905d80a3b21502c2c1c9672db7833cd38f3582c35835e13c087667a0a0e7f65verified.
 098staysdraft,historicalsnapshotsintact. NoformalALLPASS/newfrozenmilestone,
 constantFPS/endurance orcomplete memory/lifecycleacceptance inferred. See
  docs/validation/client100-store-publication-2026-10-27.json for evidence.
+
+
+## Launcher/control/skin101 candidate — 2026-10-27
+
+User requests Instances immediately after sign-in, snapshots off by default,
+correctSignIn/SignOut visibility, cleareractive tabs,resolution dropdownonly,
+cursor-onlygame menus andownedplayer skins.101 implements consumerUI/controls;
+newlibrarysnapshotdefaultoff,savedprefs retained. D-pad/leftstick no longeremit
+menuarrowkeys;keyboardoverlay/gameplay retained. Savedskin stackshowsEPERMfrom
+Net.available;runtime0124inJava repo fixes deniedTCPavailabilityestimate. Consumer
+101integrates rebuiltNet.o/libnio,officialgameJARunchanged. Read
+ docs/client-launcher-controls-skins-101.md andmatchingvalidation.100releaseand
+Store remainexact/unchanged;101notreleased/frozen. All101PS5UI,input,skin,reload/
+lifecyclechecks pending. Publishruntimefix throughruntime sync;consumerhere.

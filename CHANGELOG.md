@@ -6,6 +6,16 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Client101 account, controls and skin-stream candidate
+
+Sign-in/restoration returns to Instances; account action follows signed state.
+New libraries hide snapshots by default. Active tabs gain a persistent highlight;
+resolution changes only through the dropdown. Game menus use cursor selection
+without synthetic D-pad/stick arrow navigation, retaining text-keyboard controls.
+Java runtime0124 addresses the captured skin-download availability-query denial;
+no game JAR edits. Host/target checks pass, console behavior remains pending.
+Published100 andStore assets stay unchanged. [Guide](docs/client-launcher-controls-skins-101.md).
+
 ## 2026-10-27 — Accepted100 smooth high-refresh release
 
 PS5 feedback accepts100 as much better and requests public release. Preserve

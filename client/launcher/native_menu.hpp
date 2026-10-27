@@ -165,7 +165,7 @@ inline void compose(Canvas& c) noexcept {
  c.rounded(40,32,1840,108,24,ink(0x10221c));block(c,66,53,64,0);label(c,149,66,"ProsperoCraft",30);label(c,405,72,"NATIVE JAVA 25",24,0x718d7b);
  const bool signed_in=fields[81][0]&&std::strcmp(fields[5].data(),"Not signed in")!=0;
  const char* tabs[]={"Instances","Settings",signed_in?fields[81].data():"Sign in"};const int tx[]={865,1245,1555},tw[]={350,280,280};
- for(int i=0;i<3;i++){bool current=tab==i;if(current&&top)selection(c,tx[i],52,tw[i],68);c.rounded(tx[i],52,tw[i],68,18,ink(current?0x284f3c:0x172e24));auto text=centered_text(tx[i],52,tw[i]-(i==2&&signed_in?55:0),68,tabs[i],i==2?24:30);title(c,text.x,text.y,tabs[i],i==2?24:30,tw[i]-45,current?0xc7f4cf:0xb0c4b5);if(i==2&&signed_in)player_head(c,tx[i]+tw[i]-51,66,40);}
+ for(int i=0;i<3;i++){bool current=tab==i;if(current&&top)selection(c,tx[i],52,tw[i],68);c.rounded(tx[i],52,tw[i],68,18,ink(current?0x53885c:0x14251e));auto text=centered_text(tx[i],52,tw[i]-(i==2&&signed_in?55:0),68,tabs[i],i==2?24:30);title(c,text.x,text.y,tabs[i],i==2?24:30,tw[i]-45,current?0xc7f4cf:0xb0c4b5);if(current){c.rounded(tx[i]+24,124,tw[i]-48,6,3,ink(0xd0ff9a));}if(i==2&&signed_in)player_head(c,tx[i]+tw[i]-51,66,40);}
 #ifdef PROSPERO_TOOLKIT
  c.begin_content();
 #endif
@@ -191,7 +191,7 @@ inline void compose(Canvas& c) noexcept {
   c.rounded(70,340+slide,1000,548,28,ink(0x10221c));label(c,116,391+slide,"MICROSOFT ACCOUNT",24,0x8fbb9b);title(c,116,447+slide,fields[5].data(),42,750);if(signed_in)player_head(c,929,389+slide,96);
   if(fields[3][0]){login_qr(c,747,514+slide,7);label(c,116,539+slide,"ENTER THIS CODE",24,0x8eaf9a);label(c,115,584+slide,fields[3].data(),64,0xc9f5cd);wrap(c,117,699+slide,"https://www.microsoft.com/link",600,2);}
   else wrap(c,117,547+slide,"Sign in with your Microsoft account to play Minecraft Java. Your saved account reconnects on future launches. You can sign out on this console at any time.",850,5);
-  action(c,1140,366+slide,700,"SIGN IN WITH MICROSOFT",row==0,true);action(c,1140,481+slide,700,"SIGN OUT",row==1);wrap(c,1167,634+slide,fields[2].data(),620,6);
+  action(c,1140,366+slide,700,signed_in?"SIGN OUT":"SIGN IN WITH MICROSOFT",row==0,true);wrap(c,1167,634+slide,fields[2].data(),620,6);
  }else if(page==4){
   label(c,70,185+slide,std::strcmp(fields[69].data(),"PENDING")==0?"Coming soon.":"Ready when you are.",64);c.rounded(70,330+slide,620,560,28,ink(0x10221c));block(c,245,385+slide,270,number(18));title(c,109,721+slide,fields[16].data(),42,540);label(c,112,794+slide,fields[17].data(),24,0x97bea3);
   title(c,762,352+slide,fields[16].data(),64,1060);label(c,768,441+slide,"JAVA EDITION",24,0x94b69f);
@@ -215,7 +215,7 @@ inline void compose(Canvas& c) noexcept {
   label(c,78,291,essentials?"THE ESSENTIALS":sections[std::clamp(section,0,4)],30,0xa9eab6);
   const char* basic[]={"Left stick   Move", "Right stick   Look", "X   Jump", "R2   Mine / attack", "L2   Use / place", "OPTIONS   Pause"};
   const char* world[]={"Left stick   Move / L3   Sprint", "Right stick   Look / OPTIONS   Pause", "X   Jump / CIRCLE   Sneak", "R2   Mine or attack / L2   Use or place", "L1 / R1   Change hotbar slot", "TRIANGLE   Inventory"};
-  const char* menus[]={"Right stick   Move pointer", "X / R2   Left click / L2   Right click", "R3   Middle click", "SQUARE + click   Quick move", "L1 / R1   Scroll / CIRCLE   Back", "D-PAD / left stick   Navigate / L3   Text keyboard"};
+  const char* menus[]={"Right stick   Move pointer", "X / R2   Left click / L2   Right click", "R3   Middle click", "SQUARE + click   Quick move", "L1 / R1   Scroll / CIRCLE   Back", "Cursor only   Select / L3   Text keyboard"};
   const char* typing[]={"D-PAD / left stick   Choose a key", "X   Type / R1   Space", "L1 / TRIANGLE   Delete", "R2   Change case / L2   Symbols", "OPTIONS   Enter and close", "CIRCLE / L3   Close / touchpad + R3   Toggle"};
   const char* shortcuts[]={"SQUARE   Swap hands", "D-PAD DOWN   Drop item", "D-PAD UP   Player list", "D-PAD LEFT / RIGHT   Hotbar slot 1 / 9", "R3   Change camera", "Hold touchpad + R3   Pick block"};
   const char* touchpad[]={"Hold touchpad + TRIANGLE   Chat", "Hold touchpad + SQUARE   Command", "Hold touchpad + X   Enter / CIRCLE   Backspace", "Hold touchpad + LEFT   HUD / RIGHT   Screenshot", "Hold touchpad + UP   Debug / DOWN   Advancements", "Hold touchpad + OPTIONS   Fullscreen"};

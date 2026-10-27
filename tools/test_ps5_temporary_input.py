@@ -50,8 +50,8 @@ int main(void){
  tick+=500000000;pump();assert(events==prior); /* no repeated confirmation */
  sample(0);pump();assert(!mouse[SDL_BUTTON_LEFT]);
  sample(PAD_CROSS);samples[1]=samples[0];samples[1].buttons=0;count=2;prior=events;pump();assert(events==prior+2&&!mouse[SDL_BUTTON_LEFT]);
- sample(PAD_DOWN);pump();assert(keys[SDL_SCANCODE_DOWN]);prior=downs;tick+=400000000;pump();assert(downs==prior+1);sample(0);pump();assert(!keys[SDL_SCANCODE_DOWN]);
- sample(0);samples[0].left_x=255;pump();assert(keys[SDL_SCANCODE_RIGHT]);
+ sample(PAD_DOWN|PAD_UP|PAD_LEFT|PAD_RIGHT);pump();assert(!keys[SDL_SCANCODE_DOWN]&&!keys[SDL_SCANCODE_UP]&&!keys[SDL_SCANCODE_LEFT]&&!keys[SDL_SCANCODE_RIGHT]);prior=downs;tick+=400000000;pump();assert(downs==prior);sample(0);pump();
+ sample(0);samples[0].left_x=255;pump();assert(!keys[SDL_SCANCODE_RIGHT]);
  captured=true;sample(0);pump();sample(PAD_CROSS|PAD_TRIANGLE);samples[0].left_x=255;samples[0].right_x=255;samples[0].r2=255;pump();
  assert(!keys[SDL_SCANCODE_RIGHT]&&keys[SDL_SCANCODE_D]&&keys[SDL_SCANCODE_SPACE]&&keys[SDL_SCANCODE_E]&&mouse[SDL_BUTTON_LEFT]);
  tick+=2000000000;pump();assert(motions&&motion_x<=32.51f); /* bounded after stall */
@@ -63,10 +63,10 @@ int main(void){
  sample(0);pump();assert(cursor_calls);sample(PAD_TOUCH_PAD|PAD_R3);pump();assert(keyboard_visible&&keyboard_selected==10);sample(0);pump();sample(PAD_CROSS);pump();assert(texts==1&&typed=='q'&&!mouse[SDL_BUTTON_LEFT]);sample(0);pump();sample(PAD_RIGHT);pump();assert(keyboard_selected==11);sample(0);pump();sample(PAD_CROSS);pump();assert(typed=='w');sample(0);pump();sample(PAD_CIRCLE);pump();assert(!keyboard_visible&&!keys[SDL_SCANCODE_ESCAPE]);
  sample(0);pump();sample(PAD_L3);pump();assert(keyboard_visible);sample(0);pump();sample(PAD_L1);pump();assert(keys[SDL_SCANCODE_BACKSPACE]);sample(0);pump();assert(!keys[SDL_SCANCODE_BACKSPACE]);sample(PAD_OPTIONS);pump();assert(!keyboard_visible&&keys[SDL_SCANCODE_RETURN]);sample(0);pump();assert(!keys[SDL_SCANCODE_RETURN]);
  mod=true;pump();assert(!keys[SDL_SCANCODE_ESCAPE]);prior=events;pump();assert(events==prior);mod=false;
- sample(0);pump();sample(PAD_UP);pump();assert(keys[SDL_SCANCODE_UP]);focus=NULL;pump();assert(!keys[SDL_SCANCODE_UP]);focus=window;
+ sample(0);pump();sample(PAD_UP);pump();assert(!keys[SDL_SCANCODE_UP]);focus=NULL;pump();assert(!keys[SDL_SCANCODE_UP]);focus=window;
  enabled=false;prior=events;pump();assert(events==prior);
  enabled=true;sample(0);pump();sample(PAD_CROSS);pump();assert(mouse[SDL_BUTTON_LEFT]);captured=true;pump();assert(!mouse[SDL_BUTTON_LEFT]&&!keys[SDL_SCANCODE_SPACE]);sample(0);pump();sample(PAD_CROSS);pump();assert(keys[SDL_SCANCODE_SPACE]);captured=false;pump();assert(!keys[SDL_SCANCODE_SPACE]&&!mouse[SDL_BUTTON_LEFT]);
- puts("PASS actual PS5 temporary SDL adapter under ASan/UBSan:opt-in,launch-held suppression,buffered tap,menu navigation/repeat,mode mapping,trigger releases,capped look,interception/disconnect/focus release,gamepad-mod handoff,no idle keepalive;SDL/OS boundaries are host fixtures,console pending");
+ puts("PASS actual PS5 temporary SDL adapter under ASan/UBSan:opt-in,launch-held suppression,buffered tap,cursor-only menus/no directional focus,mode mapping,trigger releases,capped look,interception/disconnect/focus release,gamepad-mod handoff,no idle keepalive;SDL/OS boundaries are host fixtures,console pending");
 }
 '''
 with tempfile.TemporaryDirectory(prefix='ps5-temporary-input-')as folder:

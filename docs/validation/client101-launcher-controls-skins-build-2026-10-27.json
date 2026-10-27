@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.101",
+  "title_id": "PPSA99874",
+  "channel": "temp_gametest",
+  "package_sha256": "c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131",
+  "native_elf_sha256": "7cc235181f325f595518adf95e8a22f2a9d39f7fdf827a3ba97cf829ba25e02d",
+  "changes": [
+    "Sign-in and saved-account restoration select Instances and clear device code/link before avatar work",
+    "Single state-appropriate account action with matching row bound",
+    "Snapshots defaultOFF for newlibraries;savedpreferences preserved",
+    "Brighter active-tab fill/persistent underline,focus ring retained",
+    "Resolution changes only via dropdown confirm/cancel",
+    "Game menu D-pad/left-stick no synthetic arrows;cursor clicks,text-keyboard/gameplay retained",
+    "Java0124 fixes captured deniedTCPavailableestimate in originalskin downloader"
+  ],
+  "tests": {
+    "account_UI_and_models": "PASS sign-in->Instances/code clearing/sign-out,row bound,newdefault/saved snapshotopt-in,resolutiondropdown/nohorizontalchanges,tokenredaction",
+    "auth_pipeline": "PASS fixture sign-in/restore/ownership/profile/cancel/failure controls",
+    "SDL_input_ASan_UBSan": "PASS cursor-onlymenu and keyboard/gameplay/release/handoff controls",
+    "native_and_actualVulkan_previews": "PASS rendered/JNI/frontendownershipfixtures;account/action/active-tab visuallyinspected",
+    "top_bar_centering": "PASS nativeandVulkan pixelboundswithin1px",
+    "unchanged_Main_host_bootstrap": "PASS reachesexpectedunprovidedhostnativefailure;originalJARhashunchanged",
+    "target_package": "PASS build/signature/CRC/currentruntime/nativegroups/fixturebytes/retainedmilestones",
+    "toolkit_package": "PASS sourcepins/channel/privacy/notices/constructors",
+    "auth_package_original_JAR_controls": "PASS",
+    "runtimeJNI_TCP_HTTP": "PASS exactJNIrealJVM/fragmented131071byteHTTP/TCP/errno/type/desktopcontrols"
+  },
+  "runtime": {
+    "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+    "commit": "c7d6601f5b13a99b59731cf8b4ddc9236eaad0e5",
+    "patch": "0124-ps5-stream-available-estimate.patch",
+    "patch_sha256": "9a661bd9ab6099c3e8bc70c9fa78f0448b016527d461a876b68dabb34cacf0e1",
+    "Net_object_sha256": "fdb3d51756301a6f33a0b1c65e36029d92cf7a6fdd0dfa0d0acfa321e7cafe4c",
+    "libnio_sha256": "799042a59212c0d4ad98c8c2d24efee69b8504dd63ef90dd1fe923461c1f32f2",
+    "resident_nio_sha256": "009b5ff1d8373f80cd6b01a3deb9beb13a6895dcf8813bbe3fae03b7c2ba16e2",
+    "Net_object_in_resident_inputs": true,
+    "target_build": "PASS cachedincrementaljava.base-java/libs;wrapperfullpatchreplayhaspre-existing0009conflict,documentedruntime-side",
+    "console": "PENDINGskin/HTTP/TCPonPS5"
+  },
+  "evidence": {
+    "client101-package.log": {
+      "sha256": "f54201fadddf9edfa84db5da4cb64a38d9656355b80108c1265649bc356c83b9",
+      "bytes": 78238,
+      "result": "PASS"
+    },
+    "client101-startup-test.log": {
+      "sha256": "cf4af1718fda8e2561879879a004ea32a925d18c112411e8f03bae45c39612e9",
+      "bytes": 630,
+      "result": "PASS"
+    },
+    "client101-toolkit-test.log": {
+      "sha256": "c4af0784e9bdbd0c09162d6e8ea7dd8de506f969545a709827e4a7983a9cf1c4",
+      "bytes": 256,
+      "result": "PASS"
+    },
+    "client101-auth-package-test.log": {
+      "sha256": "a376ca88024d95798cc8e67992c38c68dc769d147f84051ed30bbcbfb9fb859d",
+      "bytes": 248,
+      "result": "PASS"
+    },
+    "client101-startup-host-test.log": {
+      "sha256": "2a5c7f4bb1ebb70f799abfcfbfe2c459e8062eac7eb836e5a3d9ab6b7903c79f",
+      "bytes": 1432,
+      "result": "PASS"
+    },
+    "client101-native-preview.log": {
+      "sha256": "46e7834e9777babc326c6fe7bd9134151ea1e99fafbec25bdb38dd2f2b2c0c2d",
+      "bytes": 683,
+      "result": "PASS"
+    },
+    "client101-toolkit-preview.log": {
+      "sha256": "ce2cf575b67f1bbd3a130480aa3e0c59af20f6e1b6881a60fde9f0b8afd5a8c5",
+      "bytes": 783,
+      "result": "PASS"
+    }
+  },
+  "preserved100_package_sha256": "b905d80a3b21502c2c1c9672db7833cd38f3582c35835e13c087667a0a0e7f65",
+  "console": {
+    "status": "PENDING",
+    "needed": [
+      "Live/new and saved sign-in->Instances,correctbutton/signout",
+      "Snapshotdefault/newlibraryand retainedsavedchoices",
+      "Active tabs anddropdownresolution/coordinatealignment",
+      "Cursor-onlygamemenusandtextkeyboard",
+      "Ownedplayercustomskin andnetwork/errorregression",
+      "Retained100smoothness/120Hz/audio,input,save/reload,Quit/relaunch"
+    ]
+  },
+  "publication": "RuntimefixpublishedJava repo;consumerdevelopmentsourceProsperoCraft;local101testpackageonly. Existing100release/Storeunchanged.NoALLPASS/frozenmilestone."
+}
