@@ -16,8 +16,8 @@ public:
  VkCommandPool pool{};VkCommandBuffer cmd{};VkFence fence{};
  VkImage image{};VkDeviceMemory image_memory{},read_memory{};VkImageView view{};
  VkRenderPass pass{};VkFramebuffer framebuffer{};VkBuffer read_buffer{};void* pixels{};
- hui::gfx::VkRenderer renderer;hui::gfx::Font regular,semibold;hui::ui::Fonts fonts{};
- hui::gfx::DrawList list;std::uint32_t logo=0;bool poisoned=false,ready=false;
+ hui::gfx::VkRenderer renderer;hui::gfx::Font regular,semibold,display;hui::ui::Fonts fonts{};
+ hui::gfx::DrawList list;hui::gfx::BackdropSpec backdrop{},previous_backdrop{};float background_mix=1;bool glass=false;std::uint32_t logo=0;bool poisoned=false,ready=false;
  VkPhysicalDeviceMemoryProperties memory{};
  const char* stage="not initialized";
  VkResult error=VK_SUCCESS;
@@ -62,7 +62,7 @@ public:
   vkGetBufferMemoryRequirements(device,read_buffer,&req);if(!allocate(req,VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT|VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,read_memory)||!ok(vkBindBufferMemory(device,read_buffer,read_memory,0))||!ok(vkMapMemory(device,read_memory,0,VK_WHOLE_SIZE,0,&pixels)))return false;
   hui::gfx::VkRendererConfig config;config.physical_device=physical;config.device=device;config.queue=queue;config.queue_family=family;config.frames_in_flight=1;config.render_pass=pass;
   stage="toolkit pipelines and font uploads";if(!renderer.init(config)||!font(font_dir,"inter-regular.huifont",regular,fonts.regular)||!font(font_dir,"inter-semibold.huifont",semibold,fonts.semibold))return false;
-  fonts.display=fonts.mono=fonts.pixel=fonts.hand=fonts.semibold;stage="ready";ready=true;return true;
+  if(!font(font_dir,"montserrat-medium.huifont",display,fonts.display))return false;fonts.mono=fonts.pixel=fonts.hand=fonts.semibold;stage="ready";ready=true;return true;
  }
  bool render(){
   // A single slot: completion precedes every prepare and every CPU read.
@@ -70,7 +70,7 @@ public:
   if(!ok(vkWaitForFences(device,1,&fence,VK_TRUE,5000000000ULL))){poisoned=true;return false;}
   if(!ok(vkResetCommandBuffer(cmd,0)))return false;
   VkCommandBufferBeginInfo begin{};begin.sType=VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;if(!ok(vkBeginCommandBuffer(cmd,&begin)))return false;
-  renderer.begin();renderer.draw(list);renderer.prepare(cmd,0);
+  renderer.begin();if(background_mix<1&&previous_backdrop.mode!=hui::gfx::BackdropMode::none)renderer.backdrop(previous_backdrop);if(backdrop.mode!=hui::gfx::BackdropMode::none)renderer.backdrop(backdrop,background_mix);if(glass)renderer.glass();renderer.draw(list);renderer.prepare(cmd,0);
   if(renderer.last_error()!=VK_SUCCESS){error=renderer.last_error();return false;}
   VkClearValue clear{};VkRenderPassBeginInfo rp{};rp.sType=VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;rp.renderPass=pass;rp.framebuffer=framebuffer;rp.renderArea.extent={1920,1080};rp.clearValueCount=1;rp.pClearValues=&clear;
   vkCmdBeginRenderPass(cmd,&rp,VK_SUBPASS_CONTENTS_INLINE);renderer.draw(cmd,1920,1080);vkCmdEndRenderPass(cmd);

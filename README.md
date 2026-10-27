@@ -96,6 +96,12 @@ The Java model and existing library data remain. Demo/Offline candidates are
 experimental and require PS5 startup, performance and game-handoff checks.
 The public Store release remains083.
 
+[Development088](docs/client-motion-088.md) keeps the layout and adds the toolkit's
+live backgrounds, frosted panels, animated grid/cards/dialogs and saved background
+selection (**Settings → Square**). [Motion preview](docs/launcher/088/motion.webp).
+Both development channels are built and host-checked; PS5 smoothness and lifecycle
+validation remain pending. Store083 is unchanged.
+
 ## Roadmap
 
 ### Full account release goals

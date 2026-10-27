@@ -8,7 +8,7 @@ public final class ProsperoLibrary {
  static final String[] ICONS={"Crafting table","Grass","Amethyst","Ocean","Redstone","Forest","Gold","Snow"};
  static final int GAME_WIDTH=1920,GAME_HEIGHT=1080,LOCKED_RESOLUTION=2;
  static final class Instance {String id=UUID.randomUUID().toString(),name,version;int icon;boolean ready;Instance(String n,String v,int i){name=clean(n);version=v;icon=i;}}
- static final class Settings {int resolution=LOCKED_RESOLUTION,workers=4;boolean reducedMotion=false,snapshots=false,showIntro=true;}
+ static final class Settings {int resolution=LOCKED_RESOLUTION,workers=4,background=2;boolean reducedMotion=false,snapshots=false,showIntro=true;}
  static final class State {int schema=1;ArrayList<Instance> instances=new ArrayList<>();Settings settings=new Settings();}
  final Path root;private State state;
  ProsperoLibrary(Path root)throws Exception {
@@ -25,6 +25,7 @@ public final class ProsperoLibrary {
  private void validate()throws Exception {
   if(state==null||state.schema!=1||state.instances==null||state.settings==null||state.instances.size()>256)throw new IOException();Set<String> ids=new HashSet<>();
   for(var i:state.instances){if(i==null||!i.id.matches("[a-f0-9-]{36}")||!ids.add(i.id)||!i.version.matches("26\\.[0-9][A-Za-z0-9._-]{0,70}")||i.icon<0||i.icon>=ICONS.length)throw new IOException();clean(i.name);}
+  if(state.settings.background<1||state.settings.background>10)state.settings.background=2;
   if(state.settings.resolution<0||state.settings.resolution>LOCKED_RESOLUTION||state.settings.workers<1||state.settings.workers>6)throw new IOException();
  }
  synchronized List<Instance> instances(){return List.copyOf(state.instances);}
