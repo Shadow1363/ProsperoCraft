@@ -17,7 +17,7 @@ public class OfflineCheck {
  static void done(ProsperoLauncher model)throws Exception{for(int n=0;n<500&&model.tick(0)[64].equals("BUSY");n++)Thread.sleep(10);if(model.tick(0)[64].equals("BUSY"))throw new AssertionError("worker timed out");}
  public static void main(String[] args)throws Exception{
   Path root=Path.of(args[0]);Files.createDirectories(root);var gen=KeyPairGenerator.getInstance("RSA");gen.initialize(2048);var key=gen.generateKeyPair();byte[] pub=key.getPublic().getEncoded();Files.write(Path.of(args[1]).resolve("offline-import-public-key.der"),pub);
-  long now=System.currentTimeMillis();Path proof=root.resolve("offline-account.json");String good=record(key,now,now+86400000,"OwnedPlayer");Files.writeString(proof,good);
+  Files.writeString(Path.of(args[1]).resolve("prosperocraft-channel.txt"),"offline");long now=System.currentTimeMillis();Path proof=root.resolve("offline-account.json");String good=record(key,now,now+86400000,"OwnedPlayer");Files.writeString(proof,good);
   var account=ProsperoOfflineAccount.load(root,now);if(account==null||!account.name.equals("OwnedPlayer"))throw new AssertionError("valid proof rejected");
   reject(()->ProsperoOfflineAccount.read(proof,gen.generateKeyPair().getPublic().getEncoded(),now));
   Files.writeString(proof,record(key,now-10000,now-1,"OwnedPlayer"));reject(()->ProsperoOfflineAccount.read(proof,pub,now));
@@ -33,6 +33,10 @@ public class OfflineCheck {
   Files.writeString(proof,record(key,now-10000,now-1,"OwnedPlayer"));try{model.arguments(null,null);throw new AssertionError("expired after selection accepted");}catch(java.io.IOException expected){}Files.writeString(proof,good);
   var demo=new ProsperoLauncher(new ProsperoAuth(),root,url->{throw new AssertionError("network");});demo.tick(0x4000);demo.tick(0x4000);done(demo);if(!Arrays.asList(demo.arguments(null,null)).contains("--demo"))throw new AssertionError("demo changed");
   if(!Files.readString(lib.game(instance).resolve("keep-world.txt")).equals("keep"))throw new AssertionError("world lost");Files.delete(proof);var absent=new ProsperoLauncher(new ProsperoAuth(),root,url->{throw new AssertionError("network");});if(!absent.tick(0)[71].isEmpty())throw new AssertionError("missing proof accepted");
+  Files.writeString(proof,good);Files.writeString(Path.of(args[1]).resolve("prosperocraft-channel.txt"),"demo");
+  var publicModel=new ProsperoLauncher(new ProsperoAuth(),root,url->{throw new AssertionError("network");});if(!publicModel.tick(0)[71].isEmpty()||!publicModel.tick(0)[73].equals("DEMO BRANCH")||ProsperoOfflineAccount.load(root,now)!=null)throw new AssertionError("Demo accepted offline profile");
+  set(model,"offlineLaunch",true);try{model.arguments(null,null);throw new AssertionError("Demo allowed forced offline launch");}catch(java.io.IOException expected){}
+  Files.delete(Path.of(args[1]).resolve("prosperocraft-channel.txt"));if(ProsperoChannel.offline())throw new AssertionError("missing channel enabled offline");Files.writeString(Path.of(args[1]).resolve("prosperocraft-channel.txt"),"unexpected");if(ProsperoChannel.offline())throw new AssertionError("invalid channel enabled offline");
   System.out.println("PASS signed ownership lease/signature tampering/wrong key/expiry/future/invalid profile; actual offline controller/cache/arguments, no network/token, demo/world/1080p preserved");
  }
 }'''

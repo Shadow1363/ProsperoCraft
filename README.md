@@ -73,6 +73,19 @@ Release082 retains that implementation; the074playtest does not establish an082r
 For individual fixes, console evidence and earlier milestones, read the detailed
 **[CHANGELOG.md](CHANGELOG.md)**.
 
+## Demo and Offline branches
+
+The **Demo branch** is the public ProsperoStore line while appID approval is
+pending. The **Offline branch** is the owner's verified single-player line for
+future mod tests and extra features. Shared fixes reach both. The branches are
+`codex/demo` and `codex/offline`; `main` contains shared code with a Demo default.
+
+[Development085](docs/client-channels-delete-085.md) adds a visible branch label
+and **Instance Settings → Delete Instance** to both builds. Deletion moves the
+instance and its worlds to Trash; **Triangle** on the grid undoes it, even after
+restart. Both085variants need exact PS5validation. The published Store release
+remains083; Offline084has the scoped positive gameplay feedback above.
+
 ## Roadmap
 
 ### Required for store release

@@ -794,3 +794,25 @@ a1e6774ba8bebe1faac0d9c36c4ff7cc17da1cf5622c2f9519bffc50eec57822 package and
 2063966a99e5930773727b6bfd4a19523eb7a48792ecf326e311c772d507badf symbols in
 local dist/candidates/ProsperoCraft-01.000.084. No new frozen milestone or public
 release requested by this feedback. AppID approval remains pending.
+
+## Demo / Offline branch split and shared instance deletion — 2026-10-27
+
+User defines public Demo branch (ProsperoStore until appID approval) and personal
+Offline branch (verified offline play, future mods/extra features). Shared fixes
+must reach both. Main is shared with Demo default; codex/demo and codex/offline
+are named Git branches. Only the Offline branch default channel pin differs at
+this split. Future Offline experiments must not enter Demo implicitly.
+Read docs/client-channels-delete-085.md. Startup packaging accepts explicit
+--launcher-channel demo|offline (distinct from cached-dependency --offline).
+085embeds channel identity and shows it in the launcher. Demo ignores personal
+proofs and excludes the offline public key; no runtime override enables Offline.
+Both variants use same title/data and replace each other, not side-by-side apps.
+
+Both085channels add Instance Settings/Delete Instance with Cancel-first prompt,
+complete instance/world/options archival to app-local Trash and Triangle Undo
+from the grid, including restart. No shared cache/account deletion or automatic
+purge. Roll back save failures/reconcile interrupted folder moves; reject symlinks
+and overwrite conflicts. Preserve084candidate/package/human offline feedback,
+published083/082and frozen milestones. Exact085PS5delete/undo/save/reload/input/
+audio/lifecycle remain pending. Do not publish a new Store release from these
+host checks alone; current request adds the feature to both development channels.

@@ -10,6 +10,7 @@ final class ProsperoOfflineAccount {
  final String name,id;final long expiresAt;
  private ProsperoOfflineAccount(String name,String id,long expiresAt){this.name=name;this.id=id;this.expiresAt=expiresAt;}
  static ProsperoOfflineAccount load(Path root,long now){
+  if(!ProsperoChannel.offline())return null;
   try(var key=ProsperoOfflineAccount.class.getResourceAsStream("/offline-import-public-key.der")){if(key==null)return null;return read(root.resolve("offline-account.json"),key.readNBytes(1025),now);}catch(Exception unavailable){return null;}
  }
  static ProsperoOfflineAccount read(Path file,byte[] key,long now)throws Exception {
