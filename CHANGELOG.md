@@ -6,6 +6,15 @@ builds, console results, fixes, known failures and frozen milestones.
 [← Project overview](README.md) · [Current roadmap](README.md#roadmap) ·
 [All releases](https://github.com/mateo-cogeanu/ProsperoCraft/releases)
 
+## 2026-10-27 — Review097stutters before098publication
+
+Safari-retrieved same-run GC reports show125safepoints over58.889seconds,
+10.886msmedian/23.792msmaximum;115exceed120Hzframe budget. No fullGC occurs.
+MixedG1copy/evacuation pauses plausibly explain short hitches;frame correlation
+and other causes remain unresolved.098retains info summaries and removes verbose
+GC/safepoint/class logging;heap/collector/quality remain unchanged. Stutter relief
+requires console comparison. [Findings](docs/client-stutters-098.md).
+
 ## 2026-10-27 — ProsperoCraft0.98 high-refresh release
 
 Build097reached119FPS on PS5 with VSync disabled and a120FPS target, reported by

@@ -114,7 +114,7 @@ with zipfile.ZipFile(package)as z,zipfile.ZipFile(ROOT/'dist/milestones/Client_C
  with zipfile.ZipFile(io.BytesIO(cpu_overlay)) as cpu_jar:assert all(not n.startswith(('net/minecraft/','com/mojang/')) for n in cpu_jar.namelist())
  assert z.read(prefix+'licenses/ProsperoCraft-LICENSE-GPL-3.0.txt')==(ROOT/'LICENSE').read_bytes()
  assert z.read(prefix+'licenses/ProsperoCraft-NOTICE.txt')==(ROOT/'NOTICE').read_bytes()
- assert b'-Xlog:gc*=debug,safepoint*=debug,class+load=info,class+init=info:file=/download0/java25-gc.log:uptimemillis,level,tags:filecount=1,filesize=4M'in z.read(prefix+'eboot.bin')
+ assert b'-Xlog:gc=info,safepoint=info:file=/download0/java25-gc.log:uptimemillis,level,tags:filecount=1,filesize=4M'in z.read(prefix+'eboot.bin')
  for route in (b'/gc.log',b'/gc-rotated.log',b'/previous-gc.log',b'/previous-gc-rotated.log'):assert route in z.read(prefix+'eboot.bin')
  assert b'PS5_TEMPORARY_CONTROLS' in fixture and b'ps5.temporaryControls' in fixture
  assert b'inactivityFpsLimit' in fixture and b'minimized' in fixture and b'options.before-menu063.txt' in fixture

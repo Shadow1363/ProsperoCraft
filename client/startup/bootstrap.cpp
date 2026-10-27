@@ -298,7 +298,7 @@ void run_test(int i) {
    // Bootstrap class metadata needs far less than the default 1 GiB reservation.
    {const_cast<char *>("-XX:CompressedClassSpaceSize=64m"),nullptr},
    {const_cast<char *>("-Xshare:off"),nullptr},
-   {const_cast<char *>("-Xlog:gc*=debug,safepoint*=debug,class+load=info,class+init=info:file=/download0/java25-gc.log:uptimemillis,level,tags:filecount=1,filesize=4M"),nullptr},
+   {const_cast<char *>("-Xlog:gc=info,safepoint=info:file=/download0/java25-gc.log:uptimemillis,level,tags:filecount=1,filesize=4M"),nullptr},
    {const_cast<char *>("-XX:+UseG1GC"),nullptr},
    {const_cast<char *>("-XX:MaxGCPauseMillis=8"),nullptr},
    {const_cast<char *>("-XX:ParallelGCThreads=4"),nullptr},

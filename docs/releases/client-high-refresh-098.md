@@ -5,6 +5,7 @@
 - Enable 120 Hz output on compatible displays, lifting the previous 60 FPS presentation ceiling. Minecraft reached **119 FPS** in PS5 testing of the high-refresh update.
 - Prefer supported refresh rates up to 120 Hz, with automatic 60 Hz fallback when high-refresh output is unavailable.
 - Fix the launcher footer so it displays the installed build version correctly.
+- Reduce background diagnostic logging while retaining GC and safepoint pause summaries.
 
 ## Playing at 120 FPS
 
@@ -20,7 +21,7 @@ Back up your worlds and preserve `/download0/ProsperoCraft` when updating. Insta
 
 Minecraft **26.3** is the playable native baseline. Other 26.x releases and snapshots can be downloaded, but launch support is still in development. Client mod loaders and full Controlify integration remain planned; LAN hosting is deferred.
 
-The 119 FPS result was reported on build 01.000.097. Version 01.000.098 includes the same high-refresh changes plus the visible-version correction. Its target build, package checks and source/relink verification pass; a separate console regression test of the exact 098 package is still pending. Frame-time consistency, long-session endurance and broader save/reload and lifecycle coverage remain under testing. Authentication retains the existing experimental account flow.
+The 119 FPS result was reported on build 01.000.097. Version 01.000.098 includes the same high-refresh changes plus the visible-version correction and quieter diagnostic logging. Its target build, package checks and source/relink verification pass; a separate console regression test of the exact 098 package is still pending. Brief GC-related hitches remain under investigation: captured build097 pauses commonly exceed the 8.3 ms budget for 120 FPS. Reduced logging is not a confirmed stutter fix. Frame-time consistency, long-session endurance and broader save/reload and lifecycle coverage remain under testing. Authentication retains the existing experimental account flow.
 
 ## Credits and source
 

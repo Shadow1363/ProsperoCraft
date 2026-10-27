@@ -1061,3 +1061,13 @@ ALL PASS,endurance or independently logged frame-time result. Exact098console
 regression remains pending. Mark supported120Hz ceiling removal complete while
 keeping true uncapped VSync-off unimplemented/FIFO explicit. Public descriptions
 must address players rather than narrating requests or private candidate history.
+
+
+User asks Safari log review before098Store publication. Retrieved097native/GC
+reports match current run;125safepoints over58.889s,median10.886ms/max23.792ms,
+115over8.34ms;no fullGC. See docs/client-stutters-098.md and matching observation
+JSON.098now removes verbose GC/safepoint/class diagnostics but retains info
+summaries;no GC/heap/quality tuning. Preserve pre-review098local artifact under
+before-log-review;it was never released/console accepted. Do not claim hitches
+fixed. Safari connection lost before additional reports;raw logs remain local.
+Release notes must disclose outstanding GC-related hitches and exact098tests.

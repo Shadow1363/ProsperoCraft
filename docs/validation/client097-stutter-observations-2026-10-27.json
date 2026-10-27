@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-27",
+  "build": "01.000.097",
+  "run": "client-01.000.097-1793111842-641999695",
+  "retrieval": "Safari computer use; explicit Download Linked File As into ignored private logs.",
+  "files": {
+    "gc-rotated.log": {
+      "bytes": 4194336,
+      "sha256": "ad795a5528c9f79d8b1a689229a0cd4a4c8833ef0b91f84b2b670f28a22fc7c6"
+    },
+    "native-stderr.log": {
+      "bytes": 36767,
+      "sha256": "1f6939d13ca3f9eec122156a07322a0567d89fd673619383f0da0d4d89c2d547"
+    },
+    "gc.log": {
+      "bytes": 72218,
+      "sha256": "89dee5b9e96f960b1d53e6da0a6d65608c5f93e5c5b1ffc859334f32888b7d19"
+    },
+    "server.log": {
+      "bytes": 31,
+      "sha256": "6f7cce39d7b293ab83384788a0d314995feec159eecf4c97eccb05c002622ca1"
+    }
+  },
+  "window_uptime_ms": [
+    368788,
+    427677
+  ],
+  "safepoints": {
+    "count": 125,
+    "median_total_ms": 10.886133,
+    "p95_total_ms": 15.79749,
+    "maximum_total_ms": 23.791576,
+    "over_120hz_frame_budget_8_34ms": 115,
+    "over_60hz_frame_budget_16_68ms": 5,
+    "types": {
+      "G1CollectForAllocation": 94,
+      "G1TryInitiateConcMark": 11,
+      "G1PauseRemark": 10,
+      "G1PauseCleanup": 10
+    }
+  },
+  "observations": [
+    "No Pause Full entries in retrieved window; not full-GC thrashing.",
+    "One G1 humongous-allocation evacuation failure attributed to pinned regions;no full-GC escalation observed in this window.",
+    "Worst23.469ms mixed GC includes16.26ms collection-set evacuation and maximum12.74ms worker object-copy time.",
+    "1MiB G1 regions; many524312-byte arrays classified humongous. This suggests further region/collector work,not evidence that changing region size is safe or sufficient.",
+    "125Java stop-the-world safepoints over58.889s,115longer than8.34ms;strong plausible source of brief120FPS hitches,not frame-time correlation proof."
+  ],
+  "limits": [
+    "No frame-time recording or stutter timestamps; other causes cannot be excluded.",
+    "server.log endpoint returned unavailable;Minecraft console text is present in exceptions.log.",
+    "Two distinct097run IDs are recorded separately,not merged into one timing distribution."
+  ],
+  "repair": "098changes verbose gc*/safepoint*/class-loading logging to gc=info,safepoint=info. Retains bounded pause/heap transition summaries and rollover; no collector/heap/thread/quality/game-JAR changes. Reduces diagnostic work;actual pause improvement unverified.",
+  "release": "Do not claim stutter-free or sustained120FPS;exact098console regression pending.",
+  "followup_run": {
+    "run": "client-01.000.097-1793112568-226082328",
+    "identity": "Downloaded session and native stderr agree; distinct from first capture.",
+    "window_uptime_ms": [
+      38797,
+      87933
+    ],
+    "safepoints": 148,
+    "median_total_ms": 10.173325,
+    "p95_total_ms": 13.833669,
+    "max_total_ms": 30.407835,
+    "over8_34ms": 136,
+    "full_GC": false,
+    "jit": "Actual C1 compilation continues through~54.7s startup;no code-cache full/disabled diagnostic observed. Not a synchronous JIT pause attribution.",
+    "resource_samples": "Only current-run header;observer disabled,not a memory-availability sample.",
+    "minecraft_console": "exceptions.log also contains Minecraft logging;resource/chunk-buffer growth observed,not proof of each hitch.",
+    "connection": "Fresh Safari tab restored connection;startup/JIT/session/resource/exception and fresh GC/native reports downloaded."
+  },
+  "followup_files": {
+    "session.txt": {
+      "sha256": "307ac5b7e2abc0e1a04b61ced11a771fc1b6fefee48df2f95cb422ac73143456",
+      "bytes": 133
+    },
+    "startup-tail.log": {
+      "sha256": "4b74c85cd798c41721bdb7d274d4645d03a1f8de58fc8f5197a054ef2b867f8a",
+      "bytes": 524288
+    },
+    "jit.log": {
+      "sha256": "1fcbd61a313c7d0630515485ef11fda4713a0fdd0e1af32a8b337397e9843e19",
+      "bytes": 2183075
+    },
+    "process-usage.log": {
+      "sha256": "f56fe37f0d62da93c96781b6938ff5b099fb66fe321f18ca7c736dc933aea6e5",
+      "bytes": 164
+    },
+    "exceptions.log": {
+      "sha256": "33f37bc35df6c009702ee428219f8c4fef245ff44a058c4b7d9b38d7fda3ea50",
+      "bytes": 23850
+    },
+    "gc-second-run.log": {
+      "sha256": "e75f909a9d40617fa0ddb4e6ac90a9fc3a0accbdc8dfb8a77a19a15953f05ce3",
+      "bytes": 2820684
+    },
+    "gc-second-run-rotated.log": {
+      "sha256": "7656c9dbf431d37aef6191da49a15fe3614da60a94e8a7848164320ed0633710",
+      "bytes": 4194306
+    },
+    "native-second-run.log": {
+      "sha256": "a4a0a7d0d4657b71f711db06386cd4a7f00bcf7cc53b4b5733f0864fc25cd718",
+      "bytes": 32288
+    }
+  }
+}
