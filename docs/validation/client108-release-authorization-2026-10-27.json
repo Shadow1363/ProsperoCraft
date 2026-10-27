@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-27",
+  "version": "01.000.108",
+  "package_sha256": "545678bd4801cbf9e00b7209c25a89a9dfb0b3be7b645e3cd98f75633e455560",
+  "release_authorization": "User explicitly requests ProsperoStore release,Native Java25Runtime/nativePS5 main description,existingcredits andnewfeaturechangelog",
+  "console_feedback": "Keyboardworks per human on107;earlier101functionalacceptance retained. No explicit108dependencytestresult or formalALLPASS supplied.",
+  "validation": "Host/package/liveVitrailSodiumFabricAPI dependency checks pass;exact108package preserved.",
+  "pending": "Dependency108PS5repair/startup,mouse,Controlify,audibleaudio/lifecycle,save/reload/memory/endurance;no new frozenmilestone."
+}

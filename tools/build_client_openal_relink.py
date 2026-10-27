@@ -24,6 +24,7 @@ def build(runtime,output,variant="native_bootstrap",version="01.000.026",tested_
    args.append(keep(obj))
  for name in ['main.o','renderer.o','crt.o','cpp_runtime.o']:args.append(keep(work/name))
  args+=[keep(ROOT/'build/client-graphics/libSceAgc.so'),keep(ROOT/'build/client-graphics/libSceAgcDriver.so')]
+ if variant=='startup' and (work/'libSceMouse.so').exists():args.append(keep(work/'libSceMouse.so'))
  for token in flags:args.append(token if token.startswith('-')else keep(token))
  # All libraries are preserved explicitly; discard the build-machine search path.
  args=[token for token in args if not token.startswith('-L')]

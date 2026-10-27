@@ -1275,3 +1275,14 @@ JARs,forceupgradeorremoveconflictingmods. Healthy/offlinecompleteinstancesneed
 nodependencynetwork. See docs/client-auto-dependencies-108.md. Keep107/106 and
 101release/frozenpasses;userwilltest108thenconfirmStorepublication. NoStore/public
 binaryreleaseyet;publishconsumersourcehere,Javaunchanged42fe3a5.
+
+
+##108 public release authorization — 2026-10-27
+
+User explicitly authorizes ProsperoStore release now withmainNativeJava25Runtime/
+MinecraftJavaNativePS5description,retainedcredits andnewfeaturechangelog.
+Publishexact108545678bd4801cbf9e00b7209c25a89a9dfb0b3be7b645e3cd98f75633e455560,
+notrebuiltbytes. This lifts prior108releasehold,notformalALLPASSor108dependency
+acceptance. Recordkeyboardpositive107feedback andremainingconsolechecks honestly.
+Preserve101/olderreleases/frozenpasses/098draft. IncludeexactOpenALsource/relinks,
+checksums andvalidation;verifyuploads/catalogPR/deployment/liveStore. Javaunchanged.

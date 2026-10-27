@@ -2,16 +2,17 @@
 
 # ProsperoCraft
 
-**Minecraft Java Edition on native PlayStation 5 hardware — powered by our PS5 OpenJDK 25 port.**
+**Minecraft Java Edition running natively on PlayStation 5, powered by a Native Java 25 Runtime.**
 
 Download Minecraft on your console, manage separate instances and play with DualSense controls, native graphics and game audio. Minecraft gameplay and account login have been tested on PS5. The high-refresh update reached 119 FPS in console testing; extended endurance remains under testing.
 
-**[Download 01.000.101](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.101)** · [Install and release notes](docs/releases/client-launcher-skins-101.md) · [Changelog](CHANGELOG.md)
+**[Download 01.000.108](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.108)** · [Install and release notes](docs/releases/client-mods-input-108.md) · [Changelog](CHANGELOG.md)
 
 ## Downloads
 
 | Release | Includes |
 | :--- | :--- |
+| [**ProsperoCraft 01.000.108**](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.108) | Fabric, Modrinth content, dependency repair, input controls, larger icons and Uninstall. |
 | [**ProsperoCraft 01.000.101**](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.101) | Clearer tabs, correct account actions, dropdown resolution, cursor-only game menus and custom player skins. |
 | [Previous high-refresh release 01.000.100](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.100) | Smoother gameplay, up to 120 Hz output, 60 Hz fallback and the correct in-app version. |
 | [Previous authenticated launcher 01.000.096](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.096) | Authenticated-play experiment, Vulkan launcher, instance downloads, saved sign-in, controller keyboard and refreshed presentation. |
