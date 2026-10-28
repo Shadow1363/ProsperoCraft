@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-28",
+  "version": "01.000.114",
+  "title_id": "PPSA99874",
+  "sha256": {
+    "PPSA99874.zip": "b732e92965c5c1681e95ece23eb8399ee89dd2d7e500eb453f27713e63f58411",
+    "bootstrap-symbols.elf": "fd0a98cd1ebb515730e634287e5097b351bcd5c9ddae8f41143637bb5a89b813"
+  },
+  "runtime_commit": "ce7599d81f140aa7169c55e43558d0efe05a563b",
+  "policy": "ps5.zip.maxOpenFiles=64;immutable reopenable ZipFile inputs;OPEN_DELETE/non-ZipFile handles outside cap",
+  "checks": [
+    "PASS actual target ZipFile300archives under96-fd cap with16-handle pool and omitted-option exhaustion control",
+    "PASS concurrent/partial-stream/data-integrity/changed-input/OPEN_DELETE/cleanup checks",
+    "PASS actual deep filesystem write/read/walk/delete with archives held open",
+    "PASS target java.base/module-image rebuild and actual114package/CRC/signature/constructor/resident/toolkit/core audits"
+  ],
+  "console": "113haptics accepted by user;114world lifecycle/headroom/performance pending;exact title quota unproven",
+  "store": "108 unchanged",
+  "source_sha256": {
+    "client/startup/bootstrap.cpp": "8cf73980bc90cdfb2030b3088c85394ff2d7edf01717d5f4d04135a0ef8c4b3d",
+    "client/startup/param.json": "b3fafece3205cf4bafbb0b53d69ab50f68ea771699beaf5b00c6fecec8c772b1",
+    "tools/package_client_gpu_link.py": "29e1e4f912e95c9a2aca8100e754d9e2717a4b6729652a6b0abf611a0732f27e",
+    "tools/test_client_startup_package.py": "0fc6f33eef07336c3b521e6db56e9194d6aef1b259188bf9b6fd3f296a2a39e8"
+  }
+}

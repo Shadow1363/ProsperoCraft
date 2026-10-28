@@ -1344,3 +1344,7 @@ The optional compression/database builder and descriptor diagnostics live in run
 ## Development113 save and rumble follow-through
 
 112 console reports reproduce EMFILE for chunk reads/writes without DH installed. Do not blame DH or claim soft-limit adjustment solved it.113 integrates runtime0125 descriptor-first JNI canonicalization and native stat/accounting diagnostics from 0985f92f9c80459c8444b7383feb503e8b9beb07. Leak owner and PS5 recovery remain unresolved.113 adds actual compatible rumble probes/output and shared HD/compatible vibration-mode selection. Keep raw reports local; see docs/client-save-rumble-113.md. Public/Store108 and frozen passing packages stay preserved.
+
+## Development114 world handle pressure
+
+113user confirms haptics, but world validation/delete fail EMFILE. Live native inventory241regular files/261total,238tracked opens including many JARs,mostlybalanced counts. Do not claim an exact title quota or proven unbounded leak.114enables ps5.zip.maxOpenFiles=64 from runtime0126 commit ce7599d81f140aa7169c55e43558d0efe05a563b and packages its rebuilt module image. Immutable archive contract,OPEN_DELETE/non-ZipFile exclusions and reopen costs are documented in docs/client-world-handles-114.md. Actual world lifecycle/headroom/performance pending;preserve113haptics and public108Store/frozenpackages. Raw reports remain ignored.

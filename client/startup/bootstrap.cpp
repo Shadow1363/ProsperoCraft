@@ -293,6 +293,7 @@ void run_test(int i) {
   log_stage("Runtime ENTER/DONE checkpoint sampling enabled: 1 in 4096");
   log_stage("Core image opened and JIMAGE header verified");
   JavaVMOption options[]={
+   {const_cast<char *>("-Dps5.zip.maxOpenFiles=64"),nullptr},
    {const_cast<char *>("-Xmixed"),nullptr},
    {const_cast<char *>("-XX:TieredStopAtLevel=1"),nullptr},
    {const_cast<char *>("-XX:CICompilerCount=1"),nullptr},

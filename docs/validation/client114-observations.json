@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-28",
+  "run": "client-01.000.113-1793181666-202083072",
+  "reports": {
+    "exceptions-7.log": {
+      "bytes": 97056,
+      "sha256": "8a75e6b84e4c314487a6c67a792271074b25238e542b66a2eb58cb8577b1dd3d"
+    },
+    "native-stderr-9.log": {
+      "bytes": 34225,
+      "sha256": "35f08f0be826f2173ebfc70d8965ee019b6f51399ef41efcc2bd3d3452a21914"
+    },
+    "startup-tail-10.log": {
+      "bytes": 524288,
+      "sha256": "458a7b4d75a438ce8a3e1571d81f062195f4bce238a00521479bf8a2bc17ac65"
+    },
+    "file-activity.txt": {
+      "bytes": 2278,
+      "sha256": "0255585194fb3505e4acf9910d40738ecd774cf14f0b2fc61936baa51795ab0e"
+    },
+    "resource-status.txt": {
+      "bytes": 136,
+      "sha256": "8f678371d96b6c49b54919621a9c58a4cc53899452f5bfa3d1a98f90a55df9fb"
+    },
+    "session-7.txt": {
+      "bytes": 133,
+      "sha256": "0e10e310489d0c904a411a04d346e20c4c490588a12d6a90bf45d309dd6bc64c"
+    }
+  },
+  "observations": [
+    "User reports113haptics work;world access and deletion fail",
+    "World validation/delete fail EMFILE in NIO readAttributes during nested tree walk",
+    "Native inventory261open,241regular,4sockets,0directories,0unknown probes;another live snapshot262open/5sockets",
+    "238tracked live opens,many JARs;open/close counts largely balanced",
+    "Budget smaller than RLIMIT_NOFILE is a hypothesis;exact title quota not measured"
+  ],
+  "114_console": "pending"
+}

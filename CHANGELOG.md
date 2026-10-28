@@ -1,5 +1,11 @@
 # Changelog
 
+## Development 01.000.114
+
+- Reserve filesystem room for world operations by enabling a64-handle cache for immutable, reopenable Java ZIP/JAR sources. Integrate runtime0126 and its rebuilt core image.
+- Verify300logical archives plus deep write/read/walk/delete under a96-fd host cap; the omitted-option control fails from exhaustion. Actual PS5 world lifecycle and headroom remain pending.
+- Record positive113haptics feedback and preserve that implementation. Public/Store remain108. See [details](docs/client-world-handles-114.md).
+
 ## Development 01.000.113
 
 - Add native compatible two-motor rumble after a successful real capability probe; share vibration-mode selection with HD audio and log its first nonzero samples.

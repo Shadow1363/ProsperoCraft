@@ -20,6 +20,8 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  run('python3',runtime/'tools/java25_builtin_runtime.py','--management',*(['--imageio','--library-alias','SDL3=ps5sdl','--library-alias','libzstd-jni_dh-1.5.7-12=ps5zstddh','--library-alias','zstd-jni_dh-1.5.7-12=ps5zstddh','--library-alias','sqlitejdbc=ps5sqlitedh'] if variant=='startup' else []),'--external-libraries',manifest)
  shutil.copyfile(build/'builtin-resident-audit.json',java/'resident-libraries-audit.json')
  if variant=='startup':
+  shutil.copy2(runtime/'build/java25/boot-image/lib/modules',java/'lib/modules')
+  shutil.copy2(runtime/'build/java25/boot-image-audit.json',java/'boot-image-audit.json')
   shutil.copy2(runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_libs/java.base/libnio.so',java/'lib/libnio.so')
   for name in ['awt','lcms']:shutil.copy2(build/'imageio-target'/('lib'+name+'.so'),java/'lib'/('lib'+name+'.so'))
   shutil.copy2(build/'imageio-target/audit.json',java/'imageio-native-audit.json')
