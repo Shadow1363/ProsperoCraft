@@ -1361,3 +1361,8 @@ User reports115works.116adds independent instance-folder duplication with marked
 ## Development117 buttons and trigger fallback
 
 Instance Settings uses a 2x2 Mods/Shaders/Resource Packs/Duplicate grid and matching Java navigation. Common consumer controls share Settings-style glass/focus/press motion; Reduced Motion must snap without replaying stale presses. Original116 console logs show native per-zone mode4 returns0x80920001 while OFF succeeds. Retain full native modes when accepted; cache only this invalid-argument rejection and follow actual trigger travel with basic effects/hysteresis/dedup. This approximates per-zone effects; physical basic-mode acceptance and feel remain pending. Preserve haptic audio, gyro, accepted world-handle policy, runtime pins, prior candidates and Store108. See docs/client-buttons-triggers-117.md. No Java runtime source change.
+
+
+##117 release authorization — 2026-10-28
+
+User explicitly requests ProsperoStore117 now. Preserve the exact candidate ZIP52198449e6a623995e261b636a06ec847669af5321c9919a3932afbb1df804c5; no rebuild. Keep Store main description and credits byte-identical; update changelog via release notes plus required version/artifact/digest metadata. Include exact OpenAL corresponding source/relink kit, checksums and validation. This lifts the117publication hold, not formal ALL PASS: adaptive triggers/latest launcher/endurance pending; microphone explicitly deferred without code changes. Verify uploaded bytes, catalog PR/deployment and live API. Preserve108and all previous release/frozen assets.

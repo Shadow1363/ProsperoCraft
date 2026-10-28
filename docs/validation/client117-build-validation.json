@@ -1,0 +1,15 @@
+{
+  "version": "01.000.117",
+  "implementation_commit": "e67ffcf59cf0965a3678e27a26dee7dcf4543aee",
+  "package_sha256": "52198449e6a623995e261b636a06ec847669af5321c9919a3932afbb1df804c5",
+  "checks": [
+    "startup host policy and original JAR integrity",
+    "original Controlify packet serialization and native ABI under sanitizers",
+    "SDL trigger fallback, gyro and rumble fixtures",
+    "instance duplication/isolation/recovery/navigation",
+    "actual Vulkan UI/motion/Reduced Motion rendering",
+    "target link, package CRC/signatures/identity, source/toolkit hashes"
+  ],
+  "runtime": "0126 existing integration; no new runtime source changes",
+  "console": "117 adaptive trigger behavior and launcher changes pending; no formal ALL PASS"
+}

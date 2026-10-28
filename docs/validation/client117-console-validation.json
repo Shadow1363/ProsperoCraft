@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-28",
+  "version": "01.000.117",
+  "authorization": "User explicitly requests ProsperoStore release117, preserving the description and changing only the changelog.",
+  "feedback": "Earlier keyboard and haptic feedback positive;114 world play/reload confirmed.116 per-zone adaptive triggers rejected on console.117 physical fallback remains pending.",
+  "microphone": "Deferred by user; not implemented",
+  "formal_all_pass": false,
+  "preservation": "Older release assets and frozen milestones retained"
+}

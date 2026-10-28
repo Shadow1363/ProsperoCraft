@@ -6,12 +6,13 @@
 
 Download Minecraft on your console, manage separate instances and play with DualSense controls, native graphics and game audio. Minecraft gameplay and account login have been tested on PS5. The high-refresh update reached 119 FPS in console testing; extended endurance remains under testing.
 
-**[Download 01.000.108](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.108)** · [Install and release notes](docs/releases/client-mods-input-108.md) · [Changelog](CHANGELOG.md)
+**[Download 01.000.117](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.117)** · [Install and release notes](docs/releases/client-controls-worlds-117.md) · [Changelog](CHANGELOG.md)
 
 ## Downloads
 
 | Release | Includes |
 | :--- | :--- |
+| [**ProsperoCraft 01.000.117**](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.117) | Instance duplication, consistent animated controls, default Controlify, world-handle repair and improved dependency queues. |
 | [**ProsperoCraft 01.000.108**](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.108) | Fabric, Modrinth content, dependency repair, input controls, larger icons and Uninstall. |
 | [**ProsperoCraft 01.000.101**](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.101) | Clearer tabs, correct account actions, dropdown resolution, cursor-only game menus and custom player skins. |
 | [Previous high-refresh release 01.000.100](https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.100) | Smoother gameplay, up to 120 Hz output, 60 Hz fallback and the correct in-app version. |
@@ -23,7 +24,7 @@ Install the release's **PPSA99874.zip** using your normal homebrew workflow. The
 
 The client and server share **PPSA99874**: installing one replaces the other. Back up your worlds and preserve `/download0/ProsperoCraft` when updating. Storage remains 4 GiB; existing instances and cache are retained. Instance deletion is permanent after confirmation, including that instance's worlds—there is no Undo for new deletions.
 
-Development117 arranges Mods, Shaders, Resource Packs and Duplicate Instance in a 2×2 grid and shares animated Settings-style buttons across instance/content controls. It adds a trigger-travel fallback for the native per-zone effect rejection observed in116. Host checks pass; physical adaptive triggers and launcher behavior require PS5 testing. See [development notes](docs/client-buttons-triggers-117.md). Public download and Store version remain108.
+Development117 arranges Mods, Shaders, Resource Packs and Duplicate Instance in a 2×2 grid and shares animated Settings-style buttons across instance/content controls. It adds a trigger-travel fallback for the native per-zone effect rejection observed in116. Host checks pass; physical adaptive triggers and launcher behavior require PS5 testing. See [development notes](docs/client-buttons-triggers-117.md). Release117 is authorized; Store deployment is tracked in the publication record.
 
 ## Current status
 
