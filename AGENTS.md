@@ -1320,3 +1320,19 @@ manifestIDs/nestedmodules before repair/launch and explains UninstallIris/use
 Vitrail. Preservefiles;noGLimplementation/JARtransforms. Guard blocks currentIris
 policy pending futurebackend support;host checks notPS5 acceptance. Publishsource,
 provide110candidate;keep108Store/frozenpackages. See docs/client-iris-vulkan-110.md.
+
+
+##111 explicitly authorized dependency upgrades — 2026-10-28
+
+User now explicitly requests updating an installed older mod when another mod
+requires a newer one. This overrides the earlier keep/remove-only policy within
+this dependency scope.111consumer supports verified receipt-managed Fabric mod
+upgrades,actual root ID and upstream newer-version comparison;prospective graph
+checks exclude only replaced JARs. Installed root pins become preferences under
+actual required metadata pins. Manifest-only known outdated deps/API can resolve
+newer candidates;unknown/manual/modified/conflicting/downgrade cases stay protected.
+Stage oldfiles privately,publish completeplan/save receipt once;precommit failure
+or cancellation rolls back,postcommit cleanup may retain backups. No durable
+power-loss recovery claim. Tests/docs in docs/client-dependency-updates-111.md.
+Publish consumer source/provide111candidate;PS5 tests pending. Java source unchanged,
+108publicStore/frozenmilestones preserved;no newStore release requested.

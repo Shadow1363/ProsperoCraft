@@ -10,7 +10,7 @@ public class DependencyCheck {
  static Map<String,byte[]> network=new HashMap<>();static int reads;
  static byte[] bytes(String s){return s.getBytes(java.nio.charset.StandardCharsets.UTF_8);}
  static byte[] jar(String id,String version,String depends,byte[] nested)throws Exception {var out=new ByteArrayOutputStream();try(var z=new ZipOutputStream(out)){z.putNextEntry(new ZipEntry("fabric.mod.json"));z.write(bytes("{\"id\":\""+id+"\",\"version\":\""+version+"\",\"depends\":"+depends+(nested==null?"":",\"jars\":[{\"file\":\"META-INF/jars/keys.jar\"}]")+"}"));z.closeEntry();if(nested!=null){z.putNextEntry(new ZipEntry("META-INF/jars/keys.jar"));z.write(nested);z.closeEntry();}}return out.toByteArray();}
- static void version(String project,String version,String filename,byte[] jar,String deps)throws Exception {String url="https://cdn.modrinth.com/data/"+project+"/"+filename;network.put(url,jar);String hash=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-512").digest(jar));String metadata="{\"id\":\""+version+"\",\"project_id\":\""+project+"\",\"game_versions\":[\"26.3\"],\"loaders\":[\"fabric\"],\"dependencies\":"+deps+",\"files\":[{\"filename\":\""+filename+"\",\"url\":\""+url+"\",\"primary\":true,\"size\":"+jar.length+",\"hashes\":{\"sha512\":\""+hash+"\"}}]}";network.put("meta:"+project,bytes("["+metadata+"]"));network.put(ProsperoModrinth.API+"version/"+version,bytes(metadata));}
+ static void version(String project,String version,String filename,byte[] jar,String deps)throws Exception {String url="https://cdn.modrinth.com/data/"+project+"/"+version+"/"+filename;network.put(url,jar);String hash=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-512").digest(jar));String metadata="{\"id\":\""+version+"\",\"project_id\":\""+project+"\",\"game_versions\":[\"26.3\"],\"loaders\":[\"fabric\"],\"dependencies\":"+deps+",\"files\":[{\"filename\":\""+filename+"\",\"url\":\""+url+"\",\"primary\":true,\"size\":"+jar.length+",\"hashes\":{\"sha512\":\""+hash+"\"}}]}";network.put("meta:"+project,bytes("["+metadata+"]"));network.put(ProsperoModrinth.API+"version/"+version,bytes(metadata));}
  static InputStream open(String url)throws Exception{reads++;byte[] b=network.get(url);if(b==null&&url.contains("/project/"))b=network.get("meta:"+url.split("/project/")[1].split("/")[0]);if(b==null)throw new IOException("Unexpected request "+url);return new ByteArrayInputStream(b);}
  static void check(boolean yes,String why){if(!yes)throw new AssertionError(why);}
  public static void main(String[]args)throws Exception {Path root=Path.of(args[0]),game=root.resolve("game");Files.createDirectories(game);Files.writeString(game.resolve("world-marker"),"KEEP");
@@ -32,7 +32,7 @@ public class DependencyCheck {
    Files.delete(game.resolve("mods/fabric-api.jar"));client.repair(game,"26.3","fabric",versions,(m,d,t)->{},()->false,false);check(Files.exists(game.resolve("mods/fabric-api.jar")),"missing dependency with retained receipt not restored");
    check(Files.readString(game.resolve("world-marker")).equals("KEEP"),"world changed");
    byte[] conflict=jar("other","1.0.0","{\"fabric-key-mapping-api-v1\":\">=99\"}",null);Files.write(game.resolve("mods/conflict.jar"),conflict);
-   try{client.repair(game,"26.3","fabric",versions,(m,d,t)->{},()->false,false);throw new AssertionError("wrong dependency version accepted");}catch(IOException expected){check(expected.getMessage().contains("installed 3.0.0"),"conflict not explained");}
+   try{client.repair(game,"26.3","fabric",versions,(m,d,t)->{},()->false,false);throw new AssertionError("wrong dependency version accepted");}catch(IOException expected){check(expected.getMessage().contains("fabric-key-mapping-api-v1")&&expected.getMessage().contains(">=99"),"conflict not explained: "+expected.getMessage());}
    check(Arrays.equals(conflict,Files.readAllBytes(game.resolve("mods/conflict.jar"))),"conflict overwritten");Files.delete(game.resolve("mods/conflict.jar"));
    byte[] unknown=jar("unknown","1.0","{\"unmapped-library\":\"*\"}",null);version("unknown","vUnknown","unknown.jar",unknown,"[]");client.toggle(game,new ProsperoModrinth.Selection("unknown","Unknown",ProsperoModrinth.Kind.MOD));
    try{client.downloadAll(game,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);throw new AssertionError("missing unknown dependency allowed");}catch(IOException expected){check(expected.getMessage().contains("unmapped-library"),"missing dependency not named");}
@@ -73,6 +73,46 @@ public class DependencyCheck {
    for(String project:List.of("iris","otherroot"))client.toggle(incompatible,new ProsperoModrinth.Selection(project,project,ProsperoModrinth.Kind.MOD));
    try{client.downloadAll(incompatible,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);throw new AssertionError("incompatible exact dependency pins accepted");}catch(IOException expected){check(expected.getMessage().contains("sodium")&&expected.getMessage().contains("oldSodium")&&expected.getMessage().contains("newSodium"),"conflicting dependency not identified");}
    check(client.local(incompatible,ProsperoModrinth.Kind.MOD).isEmpty()&&client.queue(incompatible).size()==2,"conflict published files or lost queue");
+
+   for(boolean sameName:List.of(false,true)){
+    Path updateGame=root.resolve("update-"+sameName+"/game");Files.createDirectories(updateGame);Files.writeString(updateGame.resolve("world-marker"),"KEEP");
+    byte[] oldLib=jar("library","1.0.0","{}",null),newLib=jar("library","2.0.0","{}",null);
+    String oldName="library-old.jar",newName=sameName?oldName:"library-new.jar";
+    version("library","libOld",oldName,oldLib,"[]");client.toggle(updateGame,new ProsperoModrinth.Selection("library","Library",ProsperoModrinth.Kind.MOD));client.downloadAll(updateGame,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);
+    version("library","libNew",newName,newLib,"[]");
+    version("requiring","requiringVersion","requiring.jar",jar("requiring","1.0.0","{\"library\":\">=2.0.0\"}",null),"[{\"project_id\":\"library\",\"version_id\":\"libNew\",\"dependency_type\":\"required\"}]");
+    client.toggle(updateGame,new ProsperoModrinth.Selection("requiring","Requiring",ProsperoModrinth.Kind.MOD));
+    client.downloadAll(updateGame,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);
+    check(Arrays.equals(newLib,Files.readAllBytes(updateGame.resolve("mods/"+newName)))&&(sameName||!Files.exists(updateGame.resolve("mods/"+oldName)))&&client.installed(updateGame).files.size()==2&&client.installed(updateGame).files.stream().anyMatch(f->f.version().equals("libNew")),"dependency upgrade not committed or duplicate old JAR retained");
+    check(Files.readString(updateGame.resolve("world-marker")).equals("KEEP"),"upgrade changed world");
+   }
+   // Missing manifest-only constraints use the known installed project's newer candidate.
+   Path manifestGame=root.resolve("manifest-update/game");Files.createDirectories(manifestGame);
+   byte[] oldLibrary=jar("library","1.0.0","{}",null),newLibrary=jar("library","2.0.0","{}",null);
+   version("library","libOld","library-old.jar",oldLibrary,"[]");client.toggle(manifestGame,new ProsperoModrinth.Selection("library","Library",ProsperoModrinth.Kind.MOD));client.downloadAll(manifestGame,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);
+   version("library","libNew","library-new.jar",newLibrary,"[]");
+   Files.write(manifestGame.resolve("mods/manual-root.jar"),jar("manualroot","1.0","{\"library\":\">=2\"}",null));
+   try{client.repair(manifestGame,"26.3","fabric",versions,(m,d,t)->{},()->false,true);throw new AssertionError("offline outdated mod allowed");}catch(IOException expected){}
+   client.repair(manifestGame,"26.3","fabric",versions,(m,d,t)->{},()->false,false);
+   check(Files.exists(manifestGame.resolve("mods/library-new.jar"))&&!Files.exists(manifestGame.resolve("mods/library-old.jar")),"pre-Play manifest-only dependency update failed");
+   int healthyReads=reads;client.repair(manifestGame,"26.3","fabric",versions,(m,d,t)->{},()->false,false);check(reads==healthyReads,"healthy updated launch used network");
+   for(String failure:List.of("hash","cancel","receipt","othermod","modified","downgrade")){
+    Path failing=root.resolve("failure-"+failure+"/game");Files.createDirectories(failing);
+    version("library","libOld","library-old.jar",oldLibrary,"[]");client.toggle(failing,new ProsperoModrinth.Selection("library","Library",ProsperoModrinth.Kind.MOD));client.downloadAll(failing,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);
+    Path receiptPath=ProsperoModrinth.state(failing,"content-installed.json");String priorReceipt=Files.readString(receiptPath);
+    byte[] actualOld=oldLibrary;if(failure.equals("modified")){actualOld=jar("library","1.0.0","{\"java\":\">=25\"}",null);Files.write(failing.resolve("mods/library-old.jar"),actualOld);}
+    if(failure.equals("othermod"))Files.write(failing.resolve("mods/other.jar"),jar("other","1.0","{\"library\":\"<2\"}",null));
+    byte[] desired=failure.equals("downgrade")?jar("library","0.5.0","{}",null):newLibrary;
+    version("library","libNew","library-new.jar",desired,"[]");
+    version("requiring","requiringVersion","requiring.jar",jar("requiring","1.0","{}",null),"[{\"project_id\":\"library\",\"version_id\":\"libNew\",\"dependency_type\":\"required\"}]");
+    client.toggle(failing,new ProsperoModrinth.Selection("requiring","Requiring",ProsperoModrinth.Kind.MOD));
+    if(failure.equals("hash"))network.put("https://cdn.modrinth.com/data/library/libNew/library-new.jar",bytes("BAD"));
+    if(failure.equals("receipt"))Files.createDirectory(receiptPath.resolveSibling("content-installed.json.tmp"));
+    java.util.function.BooleanSupplier stop=()->failure.equals("cancel")&&!Files.exists(failing.resolve("mods/library-old.jar"));
+    try{client.downloadAll(failing,"26.3","fabric",(m,d,t)->{},stop,f->{},versions);throw new AssertionError("upgrade failure accepted: "+failure);}catch(IOException expected){}
+    check(Arrays.equals(actualOld,Files.readAllBytes(failing.resolve("mods/library-old.jar")))&&!Files.exists(failing.resolve("mods/library-new.jar"))&&!Files.exists(failing.resolve("mods/requiring.jar"))&&Files.readString(receiptPath).equals(priorReceipt)&&client.queue(failing).size()==1,"failed update did not preserve old bytes/receipt/queue: "+failure);
+   }
+   System.out.println("PASS dependency upgrades with same/different filenames,manifest-only pre-Play repair,offline/healthy behavior,and hash/cancel/receipt-write/other-mod/modified-file/downgrade failures preserve previous state");
   }
   System.out.println("PASS actual upstream Fabric predicates,manifest-only missing API,nested module providers,hash-pinned auto-install,old-instance repair,healthy offline/no-network launch,offline failure,conflicts/unmapped requirements before publication and world/file preservation");
  }

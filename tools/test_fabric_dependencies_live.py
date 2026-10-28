@@ -35,6 +35,22 @@ public class LiveDependencies {
     try{ProsperoDependencies.verifyVulkan(irisJars);throw new AssertionError("real Iris accepted for Vulkan launch");}catch(IOException expected){if(!expected.getMessage().contains("OpenGL"))throw expected;}
 
    }
+   Path upgradeGame=root.resolve("upgrade111/game");
+   if(Files.exists(upgradeGame.getParent()))try(var walk=Files.walk(upgradeGame.getParent())){for(var path:walk.sorted(Comparator.reverseOrder()).toList())Files.delete(path);}
+   Files.createDirectories(upgradeGame);Files.writeString(upgradeGame.resolve("world-marker"),"KEEP");
+   boolean[] oldSelection={true};
+   var upgrade=new ProsperoModrinth(new ProsperoDownloads(url->{
+    String pin=url.startsWith(ProsperoModrinth.API+"project/AANobbMI/version?")?(oldSelection[0]?"v4PSXean":"g6ju16VJ"):url.startsWith(ProsperoModrinth.API+"project/oSIKhgz3/version?")?"Q3nKuPKJ":url.startsWith(ProsperoModrinth.API+"project/P7dR8mSH/version?")?"EQKgpeKu":"";
+    if(pin.isEmpty())return ProsperoDownloads.network(url);byte[] metadata=new ProsperoDownloads().bytes(ProsperoModrinth.API+"version/"+pin,1024*1024,()->false);
+    return new ByteArrayInputStream(("["+new String(metadata,java.nio.charset.StandardCharsets.UTF_8)+"]").getBytes(java.nio.charset.StandardCharsets.UTF_8));
+   }));
+   upgrade.toggle(upgradeGame,new ProsperoModrinth.Selection("AANobbMI","Sodium alpha",ProsperoModrinth.Kind.MOD));upgrade.downloadAll(upgradeGame,"26.3","fabric",(m,d,t)->System.out.println(m),()->false,x->{},versions);
+   String oldSodium=upgrade.installed(upgradeGame).files.stream().filter(x->x.project().equals("AANobbMI")).findFirst().orElseThrow().filename();
+   oldSelection[0]=false;
+   upgrade.toggle(upgradeGame,new ProsperoModrinth.Selection("oSIKhgz3","Vitrail",ProsperoModrinth.Kind.MOD));upgrade.downloadAll(upgradeGame,"26.3","fabric",(m,d,t)->System.out.println(m),()->false,x->{},versions);
+   if(Files.exists(upgradeGame.resolve("mods/"+oldSodium))||upgrade.installed(upgradeGame).files.stream().noneMatch(x->x.project().equals("AANobbMI")&&x.version().equals("g6ju16VJ"))||upgrade.installed(upgradeGame).files.size()!=3||!Files.readString(upgradeGame.resolve("world-marker")).equals("KEEP"))throw new AssertionError("real Vitrail required Sodium upgrade failed");
+   var upgradeJars=upgrade.local(upgradeGame,ProsperoModrinth.Kind.MOD).stream().map(x->upgradeGame.resolve("mods").resolve(x.filename())).toList();if(!ProsperoDependencies.missing(upgradeJars,"26.3",versions).isEmpty())throw new AssertionError("real upgraded manifests incompatible");ProsperoDependencies.verifyVulkan(upgradeJars);
+   System.out.println("PASS real Vitrail required-dependency resolution updates installed Sodium0.9.3alpha to0.9.3beta;old JAR removed,receipt changed,API added,world preserved,all original hashes and upstream predicates verified");
    System.out.println("PASS real Iris1.11.7 plus separately queued Sodium0.9.3beta and FabricAPI selects required Sodium0.9.2 in both queue orders; verified original bytes and upstream Fabric predicates; no PS5 rendering claim");
    System.out.println("PASS real pinned Vitrail0.13.0/Sodium/Fabric API verified downloads,upstream0.20.1predicates,nested required module discovery,API auto-install and existing-instance repair;official JARs untouched,no game execution");
   }

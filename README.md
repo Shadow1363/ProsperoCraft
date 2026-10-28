@@ -23,7 +23,7 @@ Install the release's **PPSA99874.zip** using your normal homebrew workflow. The
 
 The client and server share **PPSA99874**: installing one replaces the other. Back up your worlds and preserve `/download0/ProsperoCraft` when updating. Storage remains 4 GiB; existing instances and cache are retained. Instance deletion is permanent after confirmation, including that instance's worlds—there is no Undo for new deletions.
 
-Development110 detects Iris before Vulkan launch and explains how to uninstall it and use Vitrail for shaders. This follows a confirmed109 Iris OpenGL initialization abort. It retains109's Iris/Sodium download queue fix; Iris rendering is unsupported. PS5 launcher-guard testing remains pending. See [development notes](docs/client-iris-vulkan-110.md). Public download and Store version remain108.
+Development111 automatically upgrades known installed Fabric dependencies when another mod resolves to a newer required version. Downloads and the resulting mod requirements are checked before replacement, with rollback on pre-commit cancellation or write failure. It retains110's Iris/Vulkan launch guard. PS5 update/launch tests remain pending. See [development notes](docs/client-dependency-updates-111.md). Public download and Store version remain108.
 
 ## Current status
 

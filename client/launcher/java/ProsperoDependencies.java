@@ -44,7 +44,13 @@ final class ProsperoDependencies {
   Scan scan=new Scan();for(Path path:jars)scan.file(path);
   if(scan.modules.containsKey("iris"))throw new IOException("Iris needs OpenGL; this build uses Vulkan. Uninstall Iris in Installed. Use Vitrail for shaders.");
  }
- static List<Need> missing(Collection<Path> jars,String game,Versions versions)throws Exception {
+ static Set<String> providedIds(Path jar)throws Exception {Scan scan=new Scan();scan.file(jar);return Set.copyOf(scan.modules.keySet());}
+ static Module rootModule(Path jar)throws Exception {
+  Scan scan=new Scan();scan.file(jar);if(scan.roots.size()!=1)throw new IOException("Cannot identify installed Fabric mod for update");return scan.roots.values().iterator().next();
+ }
+ static List<Need> missing(Collection<Path> jars,String game,Versions versions)throws Exception {return missing(jars,game,versions,false);}
+ static List<Need> requiredUpdates(Collection<Path> jars,String game,Versions versions)throws Exception {return missing(jars,game,versions,true);}
+ private static List<Need> missing(Collection<Path> jars,String game,Versions versions,boolean updates)throws Exception {
   Scan scan=new Scan();for(Path path:jars)scan.file(path);
   var chosen=new HashMap<String,Module>();for(var e:scan.modules.entrySet()){
    Module best=scan.roots.get(e.getKey());if(best==null)for(Module candidate:e.getValue())if(best==null||(versions==null?candidate.version.compareTo(best.version):versions.compare(candidate.version,best.version))>0)best=candidate;chosen.put(e.getKey(),best);
@@ -61,7 +67,7 @@ final class ProsperoDependencies {
     for(Module candidate:candidates){if(fixed!=null&&!fixed.version.equals(candidate.version))continue;boolean fits=true;for(Need need:entry.getValue())if(!accepts(versions,candidate.version,need.versions)){fits=false;break;}
      if(fits&&(best==null||(versions==null?candidate.version.compareTo(best.version):versions.compare(candidate.version,best.version))>0))best=candidate;
     }
-    if(best==null){Need n=entry.getValue().getFirst();throw new IOException(n.owner+" requires "+id+" "+n.versions+"; installed "+chosen.get(id).version+". Change the conflicting mod first.");}
+    if(best==null){if(updates){for(Need need:entry.getValue())if(!accepts(versions,chosen.get(id).version,need.versions))missing.add(need);continue;}Need n=entry.getValue().getFirst();throw new IOException(n.owner+" requires "+id+" "+n.versions+"; installed "+chosen.get(id).version+". Change the conflicting mod first.");}
     if(!best.equals(chosen.get(id))){chosen.put(id,best);changed=true;}
    }
    if(!changed)return missing;

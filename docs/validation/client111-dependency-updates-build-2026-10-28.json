@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-28",
+  "version": "01.000.111",
+  "title_id": "PPSA99874",
+  "authorization": "Human explicitly requested automatically updating installed older mods when another mod requires a newer version.",
+  "package": {
+    "path": "dist/candidates/ProsperoCraft-01.000.111/PPSA99874.zip",
+    "size": 121876284,
+    "sha256": "7ee993f95c1ec897b4e61d893a01dc001202a8e7c8d58c43fb3e94ba6e2243e7",
+    "elf_sha256": "03d47b4401602f4b859d9cf766f71195ddeff4bd11da113cb4d2bd0e7d8b9806"
+  },
+  "checks": {
+    "dependencies": "PASS",
+    "original_mods": "PASS",
+    "content": "PASS",
+    "startup_host": "PASS",
+    "native_build": "PASS",
+    "package": "PASS",
+    "toolkit": "PASS"
+  },
+  "coverage": [
+    "same and changed JAR filenames",
+    "exact Modrinth required version upgrades over installed root preferences",
+    "known manifest-only outdated dependency repaired before Play",
+    "healthy repaired instance uses no dependency network",
+    "offline outdated requirement stops",
+    "cancellation after old JAR moved restores original bytes",
+    "receipt-write failure restores original bytes and removes all new JARs",
+    "bad hash,conflicting installed required version,modified installed file and downgrade rejected with old receipt/files/queue preserved",
+    "Iris renamed/nested and actual launcher online/offline guard retained",
+    "original Vitrail required project resolves Sodium0.9.3alpha to0.9.3beta;old JAR gone,receipt updated,FabricAPI autoadded,world marker retained;publisher hashes/upstream predicates pass"
+  ],
+  "real_artifacts": {
+    "initial_sodium": "v4PSXean",
+    "resolved_sodium": "g6ju16VJ",
+    "vitrail": "Q3nKuPKJ",
+    "fabric_api": "EQKgpeKu"
+  },
+  "runtime": {
+    "source_changes": false,
+    "commit": "42fe3a5709beb65b5f54470aabb169a376ccbdc3"
+  },
+  "source_sha256": {
+    "AGENTS.md": "95034c12b2b8f4e6a3c5590b49e97cb3605bf31714c8acd1a254d6ac3effb879",
+    "CHANGELOG.md": "26822b3798228936b95a201442b2ffb1242f22af71af422f48c85845a502e4bb",
+    "README.md": "af7145529175e5595467e2c7f4000f454a57a82c6980f686642f877b34c17cfc",
+    "client/launcher/java/ProsperoDependencies.java": "cc773657fe007f7fd96f87e1ba077b6244900cafb5b172435f65f8854286a089",
+    "client/launcher/java/ProsperoModrinth.java": "0483ce01b84446ed2c2c5cfd8247ca6c955894038be219203be4adf3047e2db8",
+    "client/startup/param.json": "099867582ac63e791007ea64fc60ec36479a05b7e4c2d0190a5077cdfb4f5de1",
+    "tools/test_client_startup_package.py": "11aff0d944c9c5e378b514eafc295891f0a188472758c7762146051003ffa39b",
+    "tools/test_fabric_dependencies.py": "e3cf6befcfa50eb1ce7a3c821fb1c499705d536f606a18de661405cac43c2304",
+    "tools/test_fabric_dependencies_live.py": "4873a4ebffc6e388f0f5420e7a993b3c6d007b32e7a553f6285eb7b3881af10d",
+    "tools/test_launcher_toolkit_packages.py": "f6a63e691248372c5fc36bb5bdda2c8f796821ec40b6de48e5f5bf4d9b684872",
+    "docs/client-dependency-updates-111.md": "28e05f91cb3975526d1b517747bb18c6ca69c45fef13017de897f28130721e68"
+  },
+  "limits": [
+    "Updates require known receipt-managed original Fabric mods and strictly newer manifest versions;manual or modified files and downgrades preserved",
+    "Manifest checks supplement full upstream Fabric resolution;bounded candidate expansion does not search all historical versions",
+    "Post-receipt-commit cleanup/queue-save failures leave committed mods in place;private backups may remain",
+    "Power-loss recovery across JAR/receipt commit window remains unvalidated;no durable transaction or Undo claim"
+  ],
+  "console": "PENDING exact111 automatic dependency update,pre-Play outdated repair,launcher/game startup,save/reload and lifecycle/endurance. Host success does not freeze a PS5 milestone.",
+  "publication": "Consumer development source only and local111candidate. Public108GitHub/Store and frozen snapshots preserved;no runtime source change or Store publication."
+}

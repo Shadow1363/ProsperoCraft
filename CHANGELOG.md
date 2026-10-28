@@ -1,5 +1,11 @@
 # Changelog
 
+## Development 01.000.111
+
+- Automatically upgrade receipt-managed Fabric dependencies when a newly downloaded mod requires a newer resolved version, including known outdated requirements repaired before Play.
+- Verify new downloads and the resulting mod dependency graph before replacing files. Restore old JARs on cancellation or write failure before receipt commit, and remove obsolete JAR filenames after successful updates.
+- Preserve modified/manual files and reject incompatible combinations or automatic downgrades. PS5 update and launch validation is pending.
+
 ## Development 01.000.110
 
 - Detect installed Iris before Vulkan game launch and show an OpenGL compatibility message with Installed/Uninstall and Vitrail guidance. Prevents the observed Iris initialization path from aborting the app.

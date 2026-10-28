@@ -118,27 +118,65 @@ final class ProsperoModrinth {
   for(int pass=0;pass<128;pass++){
    ProsperoInstall.active(cancel);
    if(!seen.add(Map.copyOf(constraints)))throw new IOException("Required mod versions do not converge; change the conflicting selection");
-   plan.clear();versions.clear();Map<String,String> required=new HashMap<>(pins);
-   for(var s:selected)resolve(s,pins.getOrDefault(s.project,""),game,plan,new HashSet<>(),versions,cancel,constraints,required);
+   plan.clear();versions.clear();Map<String,String> required=new HashMap<>();
+   for(var s:selected)resolve(s,"",game,plan,new HashSet<>(),versions,cancel,constraints,required);
    boolean matches=true;for(var entry:required.entrySet()){
     File f=plan.get("MOD:"+entry.getKey());if(f==null||!f.version.equals(entry.getValue())){matches=false;break;}
    }
    if(matches)return;
-   constraints=required;
+   constraints=new HashMap<>(pins);constraints.putAll(required);
   }
   throw new IOException("Too many dependency version resolution passes");
  }
  Installed installed(Path game)throws Exception {
   Path path=state(game,"content-installed.json");if(!Files.exists(path))return new Installed();if(Files.size(path)>1024*1024)throw new IOException("Content receipt too large");
-  Installed r=new Gson().fromJson(Files.readString(path),Installed.class);if(r==null||r.files==null||r.files.size()>1024)throw new IOException("Invalid content receipt");return r;
+  Installed r=new Gson().fromJson(Files.readString(path),Installed.class);if(r==null||r.files==null||r.files.size()>1024)throw new IOException("Invalid content receipt");
+  Set<String> entries=new HashSet<>();for(File f:r.files){
+   if(f==null||f.kind==null||f.pin==null||f.filename==null||!f.filename.matches("[A-Za-z0-9_.+() -]{1,180}")||f.filename.startsWith(".")||!f.filename.endsWith(f.kind==Kind.MOD?".jar":".zip"))throw new IOException("Invalid content receipt filename");
+   id(f.project);id(f.version);if(!entries.add(f.kind+":"+f.project))throw new IOException("Duplicate content receipt project");
+   if(!Set.of("SHA-512","SHA-1").contains(f.pin.algorithm())||f.pin.hash()==null||!f.pin.hash().matches(f.pin.algorithm().equals("SHA-512")?"[a-f0-9]{128}":"[a-f0-9]{40}"))throw new IOException("Invalid content receipt hash");
+  }return r;
  }
- private List<Path> modPaths(Path game,Map<String,File> plan,Path stage)throws Exception {
-  Map<String,Path> paths=new LinkedHashMap<>();for(Local local:local(game,Kind.MOD))paths.put(local.filename,game.resolve("mods").resolve(local.filename));
+ private List<Path> modPaths(Path game,Map<String,File> plan,Path stage,Set<Path> replaced)throws Exception {
+  Map<String,Path> paths=new LinkedHashMap<>();for(Local local:local(game,Kind.MOD)){Path path=game.resolve("mods").resolve(local.filename);if(!replaced.contains(path))paths.put(local.filename,path);}
   for(File f:plan.values())if(f.kind==Kind.MOD)paths.put(f.filename,stage.resolve(f.pin.hash()+".bin"));return List.copyOf(paths.values());
+ }
+ private Map<Path,File> replacements(Path game,Installed receipt,Map<String,File> plan,Path stage,ProsperoDependencies.Versions checker)throws Exception {
+  Map<Path,File> replaced=new LinkedHashMap<>();
+  for(File next:plan.values())for(File old:receipt.files)if(old.kind==next.kind&&old.project.equals(next.project)&&!old.version.equals(next.version)){
+   Path path=game.resolve(old.kind.folder).resolve(old.filename);ProsperoDownloads.noLinks(path);
+   if(!Files.exists(path))continue;
+   if(next.kind!=Kind.MOD||checker==null)throw new IOException("Another version is already installed. Keep it or remove it before adding a new version.");
+   if(!Files.isRegularFile(path,LinkOption.NOFOLLOW_LINKS)||!ProsperoDownloads.hash(path,old.pin.algorithm()).equals(old.pin.hash()))throw new IOException("Installed mod was modified: "+old.filename+". Keep it or uninstall it before updating.");
+   var before=ProsperoDependencies.rootModule(path);var after=ProsperoDependencies.rootModule(stage.resolve(next.pin.hash()+".bin"));
+   if(!before.id().equals(after.id())||checker.compare(after.version(),before.version())<=0)throw new IOException("Required mod version would not upgrade "+old.filename+". Automatic downgrades are not allowed.");
+   if(replaced.put(path,next)!=null)throw new IOException("Duplicate installed mod update target");
+  }
+  return replaced;
+ }
+ private void publish(Path game,Installed receipt,Map<String,File> plan,Path stage,Map<Path,File> replaced,BooleanSupplier cancel)throws Exception {
+  Path backup=state(game,"content-updates").resolve(UUID.randomUUID().toString());ProsperoDownloads.noLinks(backup);Files.createDirectories(backup);
+  Map<Path,Path> moved=new LinkedHashMap<>();List<Path> created=new ArrayList<>();
+  try{
+   for(Path old:replaced.keySet()){ProsperoInstall.active(cancel);Path saved=backup.resolve(Integer.toString(moved.size()));Files.move(old,saved);moved.put(old,saved);}
+   for(File f:plan.values()){
+    ProsperoInstall.active(cancel);Path target=game.resolve(f.kind.folder).resolve(f.filename);ProsperoDownloads.noLinks(target);Files.createDirectories(target.getParent());
+    if(!Files.exists(target)){Path part=target.resolveSibling(f.filename+".part");ProsperoDownloads.noLinks(part);try{Files.copy(stage.resolve(f.pin.hash()+".bin"),part,StandardCopyOption.REPLACE_EXISTING);ProsperoInstall.active(cancel);Files.move(part,target);created.add(target);}finally{Files.deleteIfExists(part);}}
+   }
+   Installed next=new Installed();next.files.addAll(receipt.files);
+   for(File f:plan.values()){next.files.removeIf(old->old.project.equals(f.project)&&old.kind==f.kind);next.files.add(f);}
+   ProsperoInstall.active(cancel);ProsperoInstall.save(state(game,"content-installed.json"),new Gson().toJson(next));
+  }catch(Exception failure){
+   for(int i=created.size()-1;i>=0;i--)try{Files.delete(created.get(i));}catch(Exception rollback){failure.addSuppressed(rollback);}
+   for(var entry:moved.entrySet())try{Files.move(entry.getValue(),entry.getKey());}catch(Exception rollback){failure.addSuppressed(rollback);}
+   try{Files.delete(backup);}catch(Exception cleanup){failure.addSuppressed(cleanup);}throw failure;
+  }
+  // A cleanup failure leaves private backups outside mods; the committed instance stays valid.
+  try{for(Path saved:moved.values())Files.delete(saved);Files.delete(backup);}catch(IOException cleanup){System.err.println("PS5_CONTENT update backup cleanup pending");}
  }
  void repair(Path game,String version,String loader,ProsperoDependencies.Versions checker,ProsperoInstall.Progress progress,BooleanSupplier cancel,boolean offline)throws Exception {
   var paths=new ArrayList<Path>();for(var local:local(game,Kind.MOD))paths.add(game.resolve("mods").resolve(local.filename));
-  if(ProsperoDependencies.missing(paths,version,checker).isEmpty())return;
+  if(ProsperoDependencies.requiredUpdates(paths,version,checker).isEmpty())return;
   if(offline)throw new IOException("Required mod dependencies are missing. Connect online to repair this instance.");
   var roots=new ArrayList<Selection>();var pins=new HashMap<String,String>();
   for(File f:installed(game).files)if(f.kind==Kind.MOD&&Files.isRegularFile(game.resolve("mods").resolve(f.filename))){roots.add(new Selection(f.project,f.filename,Kind.MOD));pins.put(f.project,f.version);}
@@ -154,38 +192,42 @@ final class ProsperoModrinth {
   var roots=new ArrayList<>(selected);var rootPins=new HashMap<>(pins);
   progress.update("Resolving selected content and required versions",0,1);resolveAll(roots,rootPins,gameVersion,plan,versions,cancel);
   Installed receipt=installed(game);
-  Path stage=game.getParent().resolve("content-downloads");long total=0,done=0;
-  for(int pass=0;pass<2;pass++){
+  Path stage=game.getParent().resolve("content-downloads");long total=0,done=0;Map<Path,File> replaced=Map.of();
+  for(int pass=0;pass<16;pass++){
    total=plan.values().stream().mapToLong(f->f.pin.size()).sum();done=0;
    for(File f:plan.values()){ProsperoInstall.active(cancel);current.accept(f);progress.update("Downloading "+f.filename,done,total);download.obtain(f.pin,stage.resolve(f.pin.hash()+".bin"),cancel);done+=f.pin.size();progress.update("Downloading "+f.filename,done,total);}
+   replaced=replacements(game,receipt,plan,stage,checker);
    if(!loader.equals("fabric"))break;
-   var needs=ProsperoDependencies.missing(modPaths(game,plan,stage),gameVersion,checker);
+   var needs=ProsperoDependencies.requiredUpdates(modPaths(game,plan,stage,replaced.keySet()),gameVersion,checker);
    if(needs.isEmpty())break;
-   boolean api=needs.stream().anyMatch(n->n.id().equals("fabric")||n.id().startsWith("fabric-"));
-   if(pass==0&&api&&!plan.containsKey("MOD:P7dR8mSH")){
-    progress.update("Adding Fabric API required by "+needs.getFirst().owner(),0,1);
-    var installedApi=receipt.files.stream().filter(f->f.kind==Kind.MOD&&f.project.equals("P7dR8mSH")).findFirst();
-    roots.add(new Selection("P7dR8mSH","Fabric API",Kind.MOD));if(installedApi.isPresent())rootPins.put("P7dR8mSH",installedApi.get().version);
-    resolveAll(roots,rootPins,gameVersion,plan,versions,cancel);continue;
+   if(pass<15){
+    Set<String> projects=new LinkedHashSet<>();
+    if(needs.stream().anyMatch(n->n.id().equals("fabric")||n.id().startsWith("fabric-")))projects.add("P7dR8mSH");
+    for(File old:receipt.files)if(old.kind==Kind.MOD){Path path=game.resolve("mods").resolve(old.filename);if(!Files.isRegularFile(path))continue;
+     var ids=ProsperoDependencies.providedIds(path);if(needs.stream().anyMatch(n->ids.contains(n.id())))projects.add(old.project);
+    }
+    boolean changed=false;
+    for(String project:projects){
+     File prior=plan.get("MOD:"+project);String latest=version(project,"",Kind.MOD,gameVersion,cancel).get("id").getAsString();
+     if(prior!=null&&prior.version.equals(latest))continue;
+     progress.update("Updating required dependency "+project,0,1);
+     if(roots.stream().noneMatch(s->s.project.equals(project)))roots.add(new Selection(project,project,Kind.MOD));rootPins.put(project,latest);changed=true;
+    }
+    if(changed){var priorPlan=new LinkedHashMap<>(plan);resolveAll(roots,rootPins,gameVersion,plan,versions,cancel);if(!priorPlan.equals(plan))continue;}
    }
    var n=needs.getFirst();throw new IOException(n.owner()+" needs "+n.id()+" "+n.versions()+". No compatible automatic dependency was found; files are kept.");
   }
   for(var v:versions)if(v.has("dependencies"))for(var item:v.getAsJsonArray("dependencies")){
    var d=item.getAsJsonObject();if(!"incompatible".equals(ProsperoDownloads.text(d,"dependency_type")))continue;
    String project=ProsperoDownloads.text(d,"project_id"),id=ProsperoDownloads.text(d,"version_id");
-   if(plan.values().stream().anyMatch(f->f.project.equals(project)||( !id.isEmpty()&&f.version.equals(id)))||receipt.files.stream().anyMatch(f->f.project.equals(project)||(!id.isEmpty()&&f.version.equals(id))))throw new IOException("Selected content conflicts with another installed or queued mod");
+   if(plan.values().stream().anyMatch(f->f.project.equals(project)||( !id.isEmpty()&&f.version.equals(id)))||receipt.files.stream().filter(f->!plan.containsKey(f.kind+":"+f.project)).anyMatch(f->f.project.equals(project)||(!id.isEmpty()&&f.version.equals(id))))throw new IOException("Selected content conflicts with another installed or queued mod");
   }
   Set<Path> targets=new HashSet<>();for(File f:plan.values()){
    Path target=game.resolve(f.kind.folder).resolve(f.filename);ProsperoDownloads.noLinks(target);if(!targets.add(target))throw new IOException("Two downloads use the same filename");
-   if(Files.exists(target)&&!ProsperoDownloads.hash(target,f.pin.algorithm()).equals(f.pin.hash()))throw new IOException("Existing content uses "+f.filename+". Keep or remove it before downloading.");
-   for(File old:receipt.files)if(old.project.equals(f.project)&&old.kind==f.kind&&!old.version.equals(f.version))throw new IOException("Another version is already installed. Keep it or remove it before adding a new version.");
+   if(replaced.containsKey(target)&&!replaced.get(target).project.equals(f.project))throw new IOException("An updated mod uses another project's filename");
+   if(Files.exists(target)&&!replaced.containsKey(target)&&!ProsperoDownloads.hash(target,f.pin.algorithm()).equals(f.pin.hash()))throw new IOException("Existing content uses "+f.filename+". Keep or remove it before downloading.");
   }
-  for(File f:plan.values()){
-   ProsperoInstall.active(cancel);Path target=game.resolve(f.kind.folder).resolve(f.filename);ProsperoDownloads.noLinks(target);Files.createDirectories(target.getParent());
-   if(!Files.exists(target)){Path part=target.resolveSibling(f.filename+".part");ProsperoDownloads.noLinks(part);try{Files.copy(stage.resolve(f.pin.hash()+".bin"),part,StandardCopyOption.REPLACE_EXISTING);ProsperoInstall.active(cancel);Files.move(part,target);}finally{Files.deleteIfExists(part);}}
-   receipt.files.removeIf(old->old.project.equals(f.project)&&old.kind==f.kind);receipt.files.add(f);
-   ProsperoInstall.save(state(game,"content-installed.json"),new Gson().toJson(receipt));
-  }
+  publish(game,receipt,plan,stage,replaced,cancel);
   ProsperoInstall.active(cancel);if(clearQueue)ProsperoInstall.save(state(game,"content-queue.json"),"[]");
   for(File f:plan.values())Files.deleteIfExists(stage.resolve(f.pin.hash()+".bin"));progress.update("Downloads complete",total,total);
  }
