@@ -16,11 +16,12 @@ inline Surface* surface=nullptr;
 inline std::atomic<bool> healthy{true};
 inline bool motion=false,reduced=false;
 inline float dt=1.0f/60;
-inline std::array<hui::ui::PushButton,16>* buttons=nullptr;
+struct MenuControlMotion {hui::tween::Spring focus;hui::ui::Pulse press;int page=-1,x=0,y=0,w=0,h=0;std::uint64_t last_press=0;};
+inline std::array<MenuControlMotion,32>* buttons=nullptr;
 inline unsigned button_index=0;
 inline std::array<std::uint32_t,prospero_icons::count> icon_textures{};
 inline hui::gfx::Color color(std::uint32_t c){return {float(c&255)/255,float((c>>8)&255)/255,float((c>>16)&255)/255,float((c>>24)&255)/255};}
-inline hui::ui::Theme theme(){auto t=hui::ui::default_theme();t.style=hui::ui::SurfaceStyle::glass;t.page=hui::gfx::Color::rgb(0x081a13);t.surface=hui::gfx::Color::rgb(0x08251d,0.78f);t.primary=hui::gfx::Color::rgb(0xb6f2be);t.on_primary=hui::gfx::Color::rgb(0x102c1b);t.secondary=hui::gfx::Color::rgb(0x244438);t.on_secondary=t.text=hui::gfx::Color::rgb(0xeaf0e8);t.focus=hui::gfx::Color::rgb(0xa9eab6);t.accent=hui::gfx::Color::rgb(0x81e6af);t.radius=20;t.radius_card=28;t.shadow_blur=30;t.focus_width=2;t.omega=18;t.damping=0.86f;t.outline=hui::gfx::Color::rgb(0xb3efd4,0.2f);return t;}
+inline hui::ui::Theme theme(){auto t=hui::ui::default_theme();t.style=hui::ui::SurfaceStyle::glass;t.page=hui::gfx::Color::rgb(0x081a13);t.surface=hui::gfx::Color::rgb(0x08251d,0.78f);t.primary=hui::gfx::Color::rgb(0xb6f2be);t.on_primary=hui::gfx::Color::rgb(0x102c1b);t.secondary=hui::gfx::Color::rgb(0x142b24);t.on_secondary=t.text=hui::gfx::Color::rgb(0xeaf0e8);t.focus=hui::gfx::Color::rgb(0xa9eab6);t.accent=hui::gfx::Color::rgb(0x81e6af);t.radius=20;t.radius_card=28;t.shadow_blur=30;t.focus_width=2;t.omega=18;t.damping=0.86f;t.outline=hui::gfx::Color::rgb(0xb3efd4,0.2f);return t;}
 struct Canvas {
  void gradient(std::uint32_t,std::uint32_t){button_index=0;motion=false;}
  template<class F> void context(const F& fields,std::uint64_t press_time){
@@ -28,7 +29,7 @@ struct Canvas {
   const int page=num(11),selected=num(9);e.page_changed=page!=e.page;
   if(e.page_changed){e.previous_page=e.page;e.page=page;e.age=0;e.entrance.start(reduced?0.0f:0.48f);e.grid.enter();if(page!=9)e.dialog.close(e.feedback);}
   e.age+=dt;e.clock+=reduced?0.0f:dt;e.entrance.update(dt);e.press.update(dt,10);
-  if(press_time&&press_time!=e.last_press){e.last_press=press_time;if(!reduced)e.press.trigger();}
+  if(press_time&&press_time!=e.last_press){e.last_press=press_time;e.press_page=page;e.press_row=num(15);if(!reduced)e.press.trigger();}
   int icon=page==1?num(24):num(18);if(page==0){int slot=selected-num(14);icon=slot>=0&&slot<8?num(34+slot*4):0;}
   auto accent=icon_color(icon);using hui::gfx::Color;auto green=Color::rgb(0x2dbe89);
   Color targets[]={Color::rgb(0x031512),Color::rgb(0x0b382f),hui::gfx::mix(Color::rgb(0x146850),accent,0.25f),hui::gfx::mix(green,accent,0.45f)};
@@ -80,18 +81,41 @@ struct Canvas {
   int focus=std::clamp(num(9)-num(14),0,std::max(0,count-1));if(grid.focus()!=focus||e.page_changed)grid.set_focus(focus,reduced||e.page_changed);grid.set_active(std::strcmp(fields[28].data(),"TOP")!=0);grid.update(reduced?1:dt);hui::ui::Canvas c{surface->list,surface->fonts,surface->renderer.glass_texture(),e.clock};grid.draw(c);
  }
  void confirm(const char* name,int row){auto& e=*effects;auto& dialog=e.dialog;dialog.style.theme=theme();dialog.style.reduced_motion=reduced;dialog.style.width=1450;dialog.style.title_size=48;dialog.style.body_size=28;dialog.style.padding=60;dialog.style.centered=false;dialog.style.enter_scale=0.94f;dialog.style.enter_rise=34;dialog.style.frost=0.72f;dialog.style.button_height=76;
-  if(e.page_changed||!dialog.is_open()){hui::ui::DialogContent content;content.title="Delete "+std::string(name)+"?";content.body="Permanently delete this instance, all of its worlds and its settings? This cannot be undone. Shared downloads are kept.";content.buttons={{"NO",hui::ui::ButtonKind::primary,false},{"YES, DELETE",hui::ui::ButtonKind::primary,true}};content.default_button=0;dialog.open(std::move(content),e.feedback);}
+  if(e.page_changed||!dialog.is_open()){hui::ui::DialogContent content;content.title="Delete "+std::string(name)+"?";content.body="Permanently delete this instance, all of its worlds and its settings? This cannot be undone. Shared downloads are kept.";content.buttons={{"NO",hui::ui::ButtonKind::secondary,false},{"YES, DELETE",hui::ui::ButtonKind::secondary,true}};content.default_button=0;dialog.open(std::move(content),e.feedback);}
   dialog.set_focus(row);dialog.update(reduced?1:dt);hui::ui::Canvas c{surface->list,surface->fonts,surface->renderer.glass_texture(),e.clock};dialog.draw(c);
  }
  void instance_icon(int x,int y,int size,int kind){unsigned index=kind>=0&&unsigned(kind)<icon_textures.size()?unsigned(kind):0;surface->list.image(icon_textures[index],{float(x),float(y),float(size),float(size)},{0,0,1,1},hui::gfx::Color::rgb(0xffffff),0);}
  void logo(int x,int y,int size){surface->list.image(surface->logo,{float(x),float(y),float(size),float(size)},{0,0,1,1},hui::gfx::Color::rgb(0xffffff),0);}
- void button(int x,int y,int w,int h,const char* text,bool active,bool primary,bool press=false){
-  if(button_index>=buttons->size())return;auto& b=(*buttons)[button_index++];b.style.theme=theme();b.style.height=float(h);b.style.text_size=30;b.style.reduced_motion=reduced;b.style.press_scale=reduced?0:0.018f;b.style.role=primary?(std::string_view(text)=="DELETE INSTANCE"?hui::ui::ButtonRole::danger:hui::ui::ButtonRole::primary):hui::ui::ButtonRole::secondary;b.label=text;b.set_bounds({float(x),float(y),float(w),float(h)});b.set_active(active);if(active&&press&&!reduced)b.press();b.update(reduced?1.0f:dt);hui::ui::Canvas c{surface->list,surface->fonts,surface->renderer.glass_texture(),effects->clock};b.draw(c);
+ void control(int x,int y,int w,int h,bool active,bool press_live=false,bool positive=false){
+  if(button_index>=buttons->size())return;auto& state=(*buttons)[button_index++];auto& e=*effects;
+  if(state.page!=e.page||state.w!=w||state.h!=h){state=MenuControlMotion{};state.page=e.page;state.x=x;state.y=y;state.w=w;state.h=h;}
+  state.focus.target=active?1.0f:0.0f;
+  if(reduced){state.focus.snap(state.focus.target);state.press.value=0;}
+  else{
+   if(press_live&&active&&!e.page_changed&&e.last_press&&state.last_press!=e.last_press&&e.press_page==e.page&&e.press_row==e.model_row){state.press.trigger();state.last_press=e.last_press;}
+   state.focus.update(dt,22);state.press.update(dt,10);
+  }
+  float focus=std::clamp(state.focus.value,0.0f,1.0f),press=reduced?0:state.press.value;float inset=2.0f*press;
+  hui::gfx::Rect rect{float(x)+inset,float(y)+inset,float(w)-2*inset,float(h)-2*inset};
+  auto fill=hui::gfx::mix(hui::gfx::Color::rgb(positive?0x477f4a:0x142b24),hui::gfx::Color::rgb(positive?0x62a565:0x1e3c30),focus);
+  fill=hui::gfx::mix(fill,hui::gfx::Color::rgb(0x325a42),press*0.4f);
+  surface->list.shadow({rect.x,rect.y+10,rect.w,rect.h},20,26,hui::gfx::Color::rgb(0x000000,0.24f));
+  surface->list.glass(surface->renderer.glass_texture(),rect,20,fill.with_alpha(0.78f));
+  surface->list.bordered_rect(rect,20,positive?fill.with_alpha(0.96f):hui::gfx::Color::rgb(0,0),1.2f,hui::gfx::Color::rgb(0xb3efd4,0.13f+focus*0.14f));
+  motion=motion||std::abs(state.focus.value-state.focus.target)>0.001f||press>0.001f;
  }
+ void button(int x,int y,int w,int h,const char* text,bool active,bool primary,bool press=false){
+  control(x,y,w,h,active,press,std::string_view(text)=="DONE");const float size=h<64?24:30;
+  auto& face=surface->fonts.semibold;auto clipped=face.font->fit(text,size,float(w-98));
+  const bool danger=std::string_view(text)=="DELETE INSTANCE"||std::string_view(text)=="UNINSTALL";
+  hui::ui::text(surface->list,face,clipped,float(x+32),float(y)+(h-size)/2+face.font->ascent(size),size,hui::gfx::Color::rgb(danger?0xf0b4ac:primary?0xc9f5cd:0xeaf0e8));
+  label(x+w-48,y+int((h-size)/2),">",unsigned(size),0xa9eab6);
+ }
+
 };
 inline bool open(const char* fonts){
  if(surface)return healthy;
- surface=new Surface;effects=new Effects;buttons=new std::array<hui::ui::PushButton,16>;healthy=surface->init(fonts);
+ surface=new Surface;effects=new Effects;buttons=new std::array<MenuControlMotion,32>;healthy=surface->init(fonts);
  if(healthy){std::array<std::uint32_t,72*72> pixels{};for(unsigned i=0;i<pixels.size();i++)pixels[i]=prospero_menu::logo_pixels[i];surface->logo=surface->renderer.create_texture(72,72,reinterpret_cast<const std::uint8_t*>(pixels.data()));healthy=surface->logo!=0;}
  if(healthy)for(unsigned i=0;i<icon_textures.size();i++){icon_textures[i]=surface->renderer.create_texture(72,72,reinterpret_cast<const std::uint8_t*>(prospero_icons::pixels[i]));if(!icon_textures[i]){healthy=false;break;}}
  std::fprintf(stderr,"PS5_UI Vulkan init=%s stage=%s result=%d\n",healthy?"READY":"FAIL",surface->stage,int(surface->error));

@@ -49,6 +49,16 @@ if a.motion:
    std::ofstream f(std::string(argv[1])+name,std::ios::binary);f<<"P6\n1920 1080\n255\n";
    for(int pixel=0;pixel<1920*1080;pixel++)f.write(reinterpret_cast<const char*>(px+pixel*4),3);
   }
+  set_field(11,"5");set_field(15,"2");settle_preview();
+  set_field(15,"7");prospero_ui::surface->list.clear();{prospero_ui::Canvas c;prospero_menu::compose(c);}
+  assert(prospero_menu::focus.x>760&&prospero_menu::focus.x<1320);
+  settle_preview();assert(std::abs(prospero_menu::focus.x-1320)<1);
+  prospero_menu::pressed_at=prospero_menu::now_ms();prospero_ui::surface->list.clear();{prospero_ui::Canvas c;prospero_menu::compose(c);}
+  assert((*prospero_ui::buttons)[5].press.value>0);assert(prospero_ui::surface->render());
+  settle_preview();assert((*prospero_ui::buttons)[5].press.value<0.001f);
+  set_field(30,"ON");set_field(15,"2");prospero_ui::surface->list.clear();{prospero_ui::Canvas c;prospero_menu::compose(c);}
+  assert(prospero_menu::focus.x==760&&(*prospero_ui::buttons)[2].focus.value==1&&(*prospero_ui::buttons)[5].press.value==0);
+  puts("PASS instance 2x2 focus travels and settles, action press animates and settles, Reduced Motion snaps immediately");
   set_field(11,"0");set_field(9,"0");set_field(30,"ON");set_field(75,"2");settle_preview();
   assert(prospero_ui::surface->render());std::vector<unsigned char> frozen(1920*1080*4);memcpy(frozen.data(),prospero_ui::surface->pixels,frozen.size());
   for(int frame=0;frame<4;frame++){prospero_ui::surface->list.clear();prospero_ui::Canvas canvas;prospero_menu::compose(canvas);assert(prospero_ui::surface->render());assert(memcmp(frozen.data(),prospero_ui::surface->pixels,frozen.size())==0);}

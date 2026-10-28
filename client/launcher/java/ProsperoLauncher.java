@@ -212,10 +212,10 @@ public final class ProsperoLauncher {
     if(buttons!=0)cached=null;return state();
    }
    if(page==5){
-    if((buttons&0x80)!=0){if(row==3)row=2;else if(row==6)row=5;}
-    if((buttons&0x20)!=0){if(row==2)row=3;else if(row==5)row=6;}
-    if((buttons&0x10)!=0){if(row==0)top=true;else row=switch(row){case 1->0;case 2,3->1;case 4->2;case 7->4;default->7;};}
-    if((buttons&0x40)!=0)row=switch(row){case 0->1;case 1->2;case 2,3->4;case 4->7;case 7->5;default->row;};
+    if((buttons&0x80)!=0){if(row==3)row=2;else if(row==7)row=4;else if(row==6)row=5;}
+    if((buttons&0x20)!=0){if(row==2)row=3;else if(row==4)row=7;else if(row==5)row=6;}
+    if((buttons&0x10)!=0){if(row==0)top=true;else row=switch(row){case 1->0;case 2,3->1;case 4->2;case 7->3;case 5->4;default->7;};}
+    if((buttons&0x40)!=0)row=switch(row){case 0->1;case 1->2;case 2->4;case 3->7;case 4->5;case 7->6;default->row;};
    }else if((buttons&0x10)!=0){if(row==0)top=true;else row--;}
    if(page!=5&&(buttons&0x40)!=0)row=Math.min(page==1?4:page==2?5:page==3?0:page==4?(ProsperoChannel.offline()&&offlineAccount!=null?3:2):page==5?6:2,row+1);
    int direction=(buttons&0x80)!=0?-1:(buttons&0x20)!=0?1:0;

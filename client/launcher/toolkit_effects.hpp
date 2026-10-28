@@ -19,7 +19,7 @@ struct Effects {
  hui::ui::Pulse press;
  float clock=0,age=0,mode_age=1;
  int backdrop=5;
- int page=-1,previous_page=-1,selection=-1,model_row=-1;
+ int page=-1,previous_page=-1,selection=-1,model_row=-1,press_page=-1,press_row=-1;
  bool page_changed=false,ready=false;
  std::string items_key;
  std::uint64_t last_press=0;

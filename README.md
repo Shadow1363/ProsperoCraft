@@ -23,7 +23,7 @@ Install the release's **PPSA99874.zip** using your normal homebrew workflow. The
 
 The client and server share **PPSA99874**: installing one replaces the other. Back up your worlds and preserve `/download0/ProsperoCraft` when updating. Storage remains 4 GiB; existing instances and cache are retained. Instance deletion is permanent after confirmation, including that instance's worlds—there is no Undo for new deletions.
 
-Development116 adds Duplicate Instance and native Controlify adaptive-trigger translation. Duplicate byte isolation/recovery, native UI rendering, original Controlify packet and package checks pass; PS5 duplication and physical trigger effects still need testing. User feedback for115is positive. See [development notes](docs/client-duplicate-triggers-116.md). Public download and Store version remain108.
+Development117 arranges Mods, Shaders, Resource Packs and Duplicate Instance in a 2×2 grid and shares animated Settings-style buttons across instance/content controls. It adds a trigger-travel fallback for the native per-zone effect rejection observed in116. Host checks pass; physical adaptive triggers and launcher behavior require PS5 testing. See [development notes](docs/client-buttons-triggers-117.md). Public download and Store version remain108.
 
 ## Current status
 

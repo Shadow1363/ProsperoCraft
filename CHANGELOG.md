@@ -1,5 +1,12 @@
 # Changelog
 
+## Development 01.000.117
+
+- Arrange Mods, Shaders, Resource Packs and Duplicate Instance in a 2x2 grid with matching directional navigation.
+- Share Settings-style dark glass button faces, animated focus and press feedback across instance actions and content controls; give Done a distinct green fill and respect Reduced Motion.
+- Handle the observed PS5 rejection of per-zone adaptive trigger resistance by following trigger travel with basic native effects, with hysteresis and redundant-update suppression. Physical effects still require PS5 validation.
+- See [validation and limitations](docs/client-buttons-triggers-117.md). Public and Store remain108.
+
 ## Development 01.000.116
 
 - Add Duplicate Instance with independent worlds/mods/packs/settings, unique names/IDs, progress, cancellation and staged publication/recovery.

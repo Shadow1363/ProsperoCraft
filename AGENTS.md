@@ -1356,3 +1356,8 @@ User confirms114world play/reload;matching feedback is in docs/validation/client
 ## Development116 duplicate and trigger integration
 
 User reports115works.116adds independent instance-folder duplication with marked journals/newUUID/name,publication rollback and best-effort recovery. Keep originals/account/cache intact;do not claim a durable power-loss snapshot or follow links. Instance Settings navigation/layout includes Duplicate above Done/Delete. SDL decodes original Controlify47-byte trigger packets into real120-byte native commands after OFF probe;never raw-forward arbitrary HID/calibration modes. Reset active effects on close/disconnect/interception;physical feel/coexistence pending. See docs/client-duplicate-triggers-116.md. Java runtime unchanged;public108Store/frozen snapshots preserved.
+
+
+## Development117 buttons and trigger fallback
+
+Instance Settings uses a 2x2 Mods/Shaders/Resource Packs/Duplicate grid and matching Java navigation. Common consumer controls share Settings-style glass/focus/press motion; Reduced Motion must snap without replaying stale presses. Original116 console logs show native per-zone mode4 returns0x80920001 while OFF succeeds. Retain full native modes when accepted; cache only this invalid-argument rejection and follow actual trigger travel with basic effects/hysteresis/dedup. This approximates per-zone effects; physical basic-mode acceptance and feel remain pending. Preserve haptic audio, gyro, accepted world-handle policy, runtime pins, prior candidates and Store108. See docs/client-buttons-triggers-117.md. No Java runtime source change.

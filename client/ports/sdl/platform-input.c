@@ -10,7 +10,7 @@
  */
 /* Consumer adapter: input plus opt-in native motion; haptic audio is separate. */
 #include "platform.h"
-#include "ps5_trigger_effect.h"
+#include "ps5_trigger_follow.h"
 #include <stddef.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -88,7 +88,10 @@ struct pad_player_state {
    bool motion_supported, motion_enabled;
    bool rumble_supported, rumble_active;
    bool trigger_supported,intercepted,trigger_reported;
-   uint8_t trigger_active;
+   uint8_t trigger_active,trigger_requested,trigger_follow,trigger_sent;
+   unsigned trigger_rejected;
+   int trigger_zone[2],trigger_error[2];
+   ProsperoTriggerCommand trigger_profile[2],trigger_applied[2];
    struct pad_sample last;
    struct pad_reading taken[64];
    int taken_count;
@@ -275,6 +278,7 @@ pad_poll(struct pad *pad)
             state->last = *s;
       }
    }
+   for(int player=0;player<PAD_PLAYERS;player++)pad_player_update_triggers(player);
    (void)pad_player(0, pad);
 }
 
@@ -340,13 +344,49 @@ bool pad_player_rumble(int player,uint16_t low,uint16_t high){
  return rc>=0;
 }
 
+static atomic_flag trigger_lock=ATOMIC_FLAG_INIT;
+static void trigger_acquire(void){while(atomic_flag_test_and_set_explicit(&trigger_lock,memory_order_acquire)){}}
+static void trigger_release(void){atomic_flag_clear_explicit(&trigger_lock,memory_order_release);}
+static int trigger_submit(struct pad_player_state *s,int player,int index,const ProsperoTriggerCommand *command){
+ unsigned bit=1u<<index;
+ if((s->trigger_sent&bit)&&!memcmp(&s->trigger_applied[index],command,sizeof(*command)))return 0;
+ ProsperoTriggerEffect native={0};native.mask=(uint8_t)bit;if(index==0)native.left=*command;else native.right=*command;
+ int rc=scePadSetTriggerEffect(s->handle,&native);
+ if(rc>=0){s->trigger_applied[index]=*command;s->trigger_sent|=bit;s->trigger_active=(s->trigger_active&~bit)|(command->mode?bit:0);}
+ if((rc<0&&rc!=s->trigger_error[index])||(rc>=0&&!s->trigger_reported&&command->mode)){
+  say("PS5_INPUT trigger native player=%d side=%d mode=%d position=%u strength=%u result=0x%x",player,index,command->mode,(unsigned)command->data[0],(unsigned)command->data[1],(unsigned)rc);if(rc>=0)s->trigger_reported=true;
+ }s->trigger_error[index]=rc;return rc;
+}
+static bool trigger_apply(struct pad_player_state *s,int player,int index){
+ unsigned bit=1u<<index;ProsperoTriggerCommand *profile=&s->trigger_profile[index];
+ if((profile->mode==4||profile->mode==6)&&!(s->trigger_rejected&(1u<<profile->mode))){
+  int rc=trigger_submit(s,player,index,profile);if(rc>=0){s->trigger_follow&=~bit;return true;}
+  if((uint32_t)rc!=0x80920001u)return false;
+  s->trigger_rejected|=1u<<profile->mode;
+  say("PS5_INPUT trigger profile mode=%d rejected;using position-followed basic effects",profile->mode);
+ }
+ ProsperoTriggerCommand native;
+ if(profile->mode==4||profile->mode==6){s->trigger_follow|=bit;prospero_trigger_follow(profile,index?s->last.r2:s->last.l2,&s->trigger_zone[index],&native);}
+ else{s->trigger_follow&=~bit;native=*profile;}
+ int rc=trigger_submit(s,player,index,&native);if(rc<0)s->trigger_follow&=~bit;return rc>=0;
+}
 bool pad_player_reset_triggers(int player){
- struct pad_player_state *s=pad_state(player);if(!s||!s->trigger_supported||!s->trigger_active)return true;
- ProsperoTriggerEffect off={0};off.mask=3;int rc=scePadSetTriggerEffect(s->handle,&off);if(rc>=0)s->trigger_active=false;return rc>=0;
+ struct pad_player_state *s=pad_state(player);if(!s||!s->trigger_supported)return true;
+ trigger_acquire();s->trigger_requested=s->trigger_follow=0;int rc=0;
+ if(s->trigger_active){ProsperoTriggerEffect off={0};off.mask=3;rc=scePadSetTriggerEffect(s->handle,&off);if(rc>=0){s->trigger_active=0;s->trigger_sent=3;memset(s->trigger_applied,0,sizeof(s->trigger_applied));}}
+ trigger_release();return rc>=0;
+}
+void pad_player_update_triggers(int player){
+ struct pad_player_state *s=pad_state(player);if(!s||!s->trigger_supported||!s->connected||s->intercepted)return;
+ trigger_acquire();for(int i=0;i<2;i++)if(s->trigger_follow&(1u<<i))(void)trigger_apply(s,player,i);trigger_release();
 }
 bool pad_player_send_effect(int player,const void *data,int size){
  struct pad_player_state *s=pad_state(player);if(!s||!s->trigger_supported||!s->connected||s->intercepted)return false;
  ProsperoTriggerEffect effect;if(!prospero_trigger_packet(data,size,&effect))return false;if(!effect.mask)return true;
- int rc=scePadSetTriggerEffect(s->handle,&effect);if(rc>=0){if(effect.mask&1)s->trigger_active=(s->trigger_active&~1u)|(effect.left.mode?1:0);if(effect.mask&2)s->trigger_active=(s->trigger_active&~2u)|(effect.right.mode?2:0);}
- if(rc<0||!s->trigger_reported){say("PS5_INPUT trigger player=%d mask=%u left=%d right=%d result=0x%x",player,(unsigned)effect.mask,effect.left.mode,effect.right.mode,(unsigned)rc);if(rc>=0)s->trigger_reported=true;}return rc>=0;
+ trigger_acquire();bool success=true;for(int i=0;i<2;i++)if(effect.mask&(1u<<i)){
+  const ProsperoTriggerCommand *command=i?&effect.right:&effect.left;
+  if(memcmp(command,&s->trigger_profile[i],sizeof(*command)))s->trigger_zone[i]=-1;
+  s->trigger_profile[i]=*command;s->trigger_requested|=1u<<i;
+  if(!trigger_apply(s,player,i))success=false;
+ }trigger_release();return success;
 }

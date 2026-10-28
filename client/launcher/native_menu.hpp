@@ -133,7 +133,7 @@ inline void selection(Canvas& c,int x,int y,int w,int h){
 #endif
  auto distance=[](float a,float b){return a>b?a-b:b-a;};if(distance(focus.x,float(x))+distance(focus.y,float(y))+distance(focus.w,float(w))+distance(focus.h,float(h))>1.0f)animating=true;
  else focus={float(x),float(y),float(w),float(h),true};
- const bool press=!reduced&&pressed_at&&now_ms()-pressed_at<110;
+ const bool press=std::strcmp(fields[30].data(),"ON")!=0&&pressed_at&&now_ms()-pressed_at<110;
  if(press)animating=true;
  const int inset=press?2:0;
 #ifdef PROSPERO_TOOLKIT
@@ -145,7 +145,7 @@ inline void selection(Canvas& c,int x,int y,int w,int h){
 inline void action(Canvas& c,int x,int y,int w,const char* text,bool active,bool primary=false){
 #ifdef PROSPERO_TOOLKIT
  const bool press=active&&pressed_at&&now_ms()-pressed_at<110;
- c.button(x,y,w,76,text,active,primary,press);if(press)animating=true;
+ if(active)selection(c,x,y,w,76);c.button(x,y,w,76,text,active,primary,press);if(press)animating=true;
  // Continue refreshing while the component's own focus and press springs settle.
  if(now_ms()<component_motion_until)animating=true;
  return;
@@ -153,7 +153,13 @@ inline void action(Canvas& c,int x,int y,int w,const char* text,bool active,bool
  if(active)selection(c,x,y,w,76);c.rounded(x,y,w,76,18,ink(primary?0xb6f2be:0x244438));label(c,x+28,y+22,text,30,primary?0x102c1b:0xeaf0e8);
 }
 inline void row_control(Canvas& c,int y,const char* name,const char* value,bool active,bool editable=true){
- if(active)selection(c,760,y,1080,96);c.rounded(760,y,1080,96,20,ink(active?0x1e3c30:0x142b24));label(c,792,y+16,name,24,0x8fae9d);title(c,792,y+47,value,30,960);if(editable){
+ if(active)selection(c,760,y,1080,96);
+#ifdef PROSPERO_TOOLKIT
+ c.control(760,y,1080,96,active,std::strcmp(fields[30].data(),"ON")!=0&&pressed_at&&now_ms()-pressed_at<110);
+#else
+ c.rounded(760,y,1080,96,20,ink(active?0x1e3c30:0x142b24));
+#endif
+ label(c,792,y+16,name,24,0x8fae9d);title(c,792,y+47,value,30,960);if(editable){
 #ifdef PROSPERO_TOOLKIT
  bool toggle=std::strcmp(name,"REDUCED MOTION")==0||std::strcmp(name,"SHOW SNAPSHOTS")==0||std::strcmp(name,"STARTUP NOTICE")==0;
  if(toggle)c.toggle(std::strcmp(name,"REDUCED MOTION")==0?0:std::strcmp(name,"SHOW SNAPSHOTS")==0?1:2,1728,y+27,std::strcmp(value,"ON")==0,active);
@@ -195,7 +201,7 @@ inline void compose(Canvas& c) noexcept {
   label(c,70,185+slide,page==1?"A world of your own.":"Make it yours.",64);label(c,75,269+slide,page==1?"One instance. Its own settings, worlds and memories.":"Your worlds stay right where they are.",24,0x91ad9b);
   c.rounded(70,338+slide,620,548,28,ink(0x10221c));block(c,275,402+slide,204,page==1?number(24):number(18));title(c,105,690+slide,page==1?fields[22].data():fields[16].data(),42,540);label(c,108,761+slide,"JAVA EDITION / INSTANCE",24,0x8db69a);
   if(page==1){row_control(c,320+slide,"VERSION",fields[23].data(),row==0);row_control(c,430+slide,"LOADER",fields[82].data(),row==1,true);row_control(c,540+slide,"NAME",fields[22].data(),row==2);row_control(c,650+slide,"ICON","Choose instance icon",row==3);action(c,760,774+slide,1080,"CREATE & DOWNLOAD",row==4,true);wrap(c,790,884+slide,fields[70].data(),1000,1);}
-  else{row_control(c,310+slide,"INSTANCE NAME",fields[16].data(),row==0);row_control(c,420+slide,"INSTANCE ICON","Choose instance icon",row==1);action(c,760,535+slide,520,"MODS",row==2);action(c,1320,535+slide,520,"SHADERS",row==3);action(c,760,630+slide,1080,"RESOURCE PACKS",row==4);action(c,760,725+slide,1080,"DUPLICATE INSTANCE",row==7);action(c,760,820+slide,520,"DONE",row==5,true);action(c,1320,820+slide,520,"DELETE INSTANCE",row==6);}
+  else{row_control(c,310+slide,"INSTANCE NAME",fields[16].data(),row==0);row_control(c,420+slide,"INSTANCE ICON","Choose instance icon",row==1);action(c,760,535+slide,520,"MODS",row==2);action(c,1320,535+slide,520,"SHADERS",row==3);action(c,760,630+slide,520,"RESOURCE PACKS",row==4);action(c,1320,630+slide,520,"DUPLICATE INSTANCE",row==7);action(c,760,725+slide,520,"DONE",row==5,true);action(c,1320,725+slide,520,"DELETE INSTANCE",row==6);}
  }else if(page==14){
   title(c,70,225,fields[82].data(),64,1750);content_icon(c,85,365,96,fields[96].data());title(c,220,385,fields[85].data(),36,1550);wrap(c,85,515,fields[70].data(),1640,3);
   action(c,760,740,520,"CANCEL",row==0,true);action(c,1320,740,520,"UNINSTALL",row==1);
@@ -205,7 +211,13 @@ inline void compose(Canvas& c) noexcept {
   title(c,70,185,fields[82].data(),64,1500);title(c,75,270,fields[70].data(),24,1770,0x91ad9b);
   action(c,70,325,1010,fields[92].data(),row==0,true);char queue[80];std::snprintf(queue,sizeof(queue),"DOWNLOAD ALL (%s)",fields[91].data());action(c,1120,325,720,queue,row==1,true);
   action(c,70,435,330,"PREVIOUS",row==2);action(c,430,435,330,"NEXT",row==3);char count[100];std::snprintf(count,sizeof(count),"%d / %s results",number(84),fields[83].data());if(std::strcmp(fields[82].data(),"Shaders")==0)action(c,800,435,470,fields[95].data(),row==11);else label(c,800,461,count,24,0x91ad9b);action(c,1320,435,520,std::strcmp(fields[103].data(),"INSTALLED")==0?"BROWSE":"INSTALLED",row==10);
-  for(int i=0;i<number(93)&&i<4;i++){int y=535+i*92;if(row==i+4)selection(c,70,y,1770,86);c.rounded(70,y,1770,86,12,ink(row==i+4?0x1e3c30:0x10251d));bool installed=std::strncmp(fields[85+i].data(),"[I]",3)==0,checked=installed||std::strncmp(fields[85+i].data(),"[X]",3)==0;
+  for(int i=0;i<number(93)&&i<4;i++){int y=535+i*92;if(row==i+4)selection(c,70,y,1770,86);
+#ifdef PROSPERO_TOOLKIT
+   c.control(70,y,1770,86,row==i+4,std::strcmp(fields[30].data(),"ON")!=0&&pressed_at&&now_ms()-pressed_at<110);
+#else
+   c.rounded(70,y,1770,86,12,ink(row==i+4?0x1e3c30:0x10251d));
+#endif
+   bool installed=std::strncmp(fields[85+i].data(),"[I]",3)==0,checked=installed||std::strncmp(fields[85+i].data(),"[X]",3)==0;
 #ifdef PROSPERO_TOOLKIT
    c.toggle(4+i,82,y+23,checked,row==i+4,true);
 #else
@@ -214,7 +226,7 @@ inline void compose(Canvas& c) noexcept {
    content_icon(c,139,y+7,72,fields[96+i].data());const char* text=fields[85+i].data();if(std::strlen(text)>=4)text+=4;bool local_view=std::strcmp(fields[103].data(),"INSTALLED")==0;title(c,235,y+31,text,24,local_view?1210:installed?1350:1570);
    if(local_view){
 #ifdef PROSPERO_TOOLKIT
-    c.button(1500,y+18,320,51,"UNINSTALL",row==20+i,false);
+    if(row==20+i)selection(c,1500,y+18,320,51);c.button(1500,y+18,320,51,"UNINSTALL",row==20+i,false,std::strcmp(fields[30].data(),"ON")!=0&&pressed_at&&now_ms()-pressed_at<110);
 #else
     if(row==20+i)selection(c,1500,y+18,320,51);c.rounded(1500,y+18,320,51,12,ink(0x284538));label(c,1570,y+31,"UNINSTALL",24);
 #endif
