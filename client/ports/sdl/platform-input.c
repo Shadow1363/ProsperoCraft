@@ -10,6 +10,7 @@
  */
 /* Consumer adapter: input plus opt-in native motion; haptic audio is separate. */
 #include "platform.h"
+#include "ps5_trigger_effect.h"
 #include <stddef.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -37,6 +38,7 @@ int scePadClose(int32_t handle);
 int scePadSetVibrationMode(int32_t handle, int32_t mode);
 int scePadSetMotionSensorState(int32_t handle, bool enabled);
 int scePadSetVibration(int32_t handle, const void *vibration);
+int scePadSetTriggerEffect(int32_t handle,const ProsperoTriggerEffect *effect);
 int scePadSetLightBar(int32_t handle, const void *color);
 int sceKernelUsleep(uint32_t microseconds);
 static atomic_flag vibration_lock=ATOMIC_FLAG_INIT;
@@ -85,6 +87,8 @@ struct pad_player_state {
    bool connected;
    bool motion_supported, motion_enabled;
    bool rumble_supported, rumble_active;
+   bool trigger_supported,intercepted,trigger_reported;
+   uint8_t trigger_active;
    struct pad_sample last;
    struct pad_reading taken[64];
    int taken_count;
@@ -143,6 +147,8 @@ pad_player_open(int player, int32_t user, int attempts)
    int rumble=rumble_mode<0?rumble_mode:scePadSetVibration(handle,stopped);
    state->rumble_supported=rumble>=0;
    say("PS5_INPUT rumble probe player=%d result=0x%x",player,(unsigned)rumble);
+   ProsperoTriggerEffect off={0};off.mask=3;int trigger=scePadSetTriggerEffect(handle,&off);state->trigger_supported=trigger>=0;
+   say("PS5_INPUT trigger probe player=%d result=0x%x",player,(unsigned)trigger);
    int motion = scePadSetMotionSensorState(handle, false);
    state->motion_supported = motion >= 0;
    say("PS5_INPUT motion probe player=%d result=0x%x",player,(unsigned)motion);
@@ -156,6 +162,7 @@ pad_player_close(int player, const char *why)
    struct pad_player_state *state = &pad_states[player];
    if (state->handle < 0)
       return;
+   (void)pad_player_reset_triggers(player);
    say("pad: player %d let go (user %d %s), close %d", player, (int)state->user, why,
        scePadClose(state->handle));
    pad_rest(state);
@@ -255,15 +262,15 @@ pad_poll(struct pad *pad)
          continue;
       state->taken_count = 0;
       const int count = scePadRead(state->handle, samples, 64);
-      if (count < 0)
-         state->connected = false;
+      if (count < 0){state->connected = false;(void)pad_player_reset_triggers(player);}
       for (int i = 0; i < count && i < 64; i++) {
          const struct pad_sample *s = &samples[i];
          state->taken[state->taken_count++] = (struct pad_reading){
             s->buttons, s->left_x, s->left_y, s->right_x, s->right_y, s->l2, s->r2,
             s->connected != 0, s->timestamp_us,
             {s->angular_velocity[0],s->angular_velocity[1],s->angular_velocity[2]}};
-         state->connected = s->connected != 0;
+         state->connected = s->connected != 0;state->intercepted=(s->buttons&PAD_INTERCEPTED)!=0;
+         if(!s->connected||(s->buttons&PAD_INTERCEPTED))(void)pad_player_reset_triggers(player);
          if (s->connected && !(s->buttons & PAD_INTERCEPTED))
             state->last = *s;
       }
@@ -331,4 +338,15 @@ bool pad_player_rumble(int player,uint16_t low,uint16_t high){
  if(rc>=0)s->rumble_active=low||high;
  say("PS5_INPUT rumble player=%d low=%u high=%u result=0x%x",player,(unsigned)motors[0],(unsigned)motors[1],(unsigned)rc);
  return rc>=0;
+}
+
+bool pad_player_reset_triggers(int player){
+ struct pad_player_state *s=pad_state(player);if(!s||!s->trigger_supported||!s->trigger_active)return true;
+ ProsperoTriggerEffect off={0};off.mask=3;int rc=scePadSetTriggerEffect(s->handle,&off);if(rc>=0)s->trigger_active=false;return rc>=0;
+}
+bool pad_player_send_effect(int player,const void *data,int size){
+ struct pad_player_state *s=pad_state(player);if(!s||!s->trigger_supported||!s->connected||s->intercepted)return false;
+ ProsperoTriggerEffect effect;if(!prospero_trigger_packet(data,size,&effect))return false;if(!effect.mask)return true;
+ int rc=scePadSetTriggerEffect(s->handle,&effect);if(rc>=0){if(effect.mask&1)s->trigger_active=(s->trigger_active&~1u)|(effect.left.mode?1:0);if(effect.mask&2)s->trigger_active=(s->trigger_active&~2u)|(effect.right.mode?2:0);}
+ if(rc<0||!s->trigger_reported){say("PS5_INPUT trigger player=%d mask=%u left=%d right=%d result=0x%x",player,(unsigned)effect.mask,effect.left.mode,effect.right.mode,(unsigned)rc);if(rc>=0)s->trigger_reported=true;}return rc>=0;
 }

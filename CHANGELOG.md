@@ -1,5 +1,11 @@
 # Changelog
 
+## Development 01.000.116
+
+- Add Duplicate Instance with independent worlds/mods/packs/settings, unique names/IDs, progress, cancellation and staged publication/recovery.
+- Translate Controlify adaptive-trigger packets to native feedback, weapon and vibration effects, including per-zone patterns. Reset on close/disconnect/interception; physical PS5 effects remain pending.
+- Record positive115feedback. Host/native-protocol/UI-render and package checks pass;116console tests and Store update remain pending. See [details](docs/client-duplicate-triggers-116.md).
+
 ## Development 01.000.115
 
 - Install Controlify and required dependencies once when setting up a new Fabric instance. Preserve existing instances, user queues and later uninstalls; retain a pending marker for failed/cancelled setup retries. NeoForge remains coming soon.

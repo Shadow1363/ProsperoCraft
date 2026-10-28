@@ -66,6 +66,12 @@ public final class ProsperoLauncher {
   if(play)repairDependencies(instance,attempt,false);
   synchronized(this){if(!cancelled(attempt)){library.ready(instance,true);if(session!=null&&avatar.isEmpty()&&auth.skin(session).isEmpty())try{avatar=ProsperoAvatar.defaultFace(library.root,session.id);}catch(Exception ignored){}message="Download complete. Ready for your next world.";feedback("success");if(play)prepareLaunch(instance,installed);cached=null;}}
  });}
+ private void duplicateInstance(){
+  if(detail==null||busy)return;var original=detail;
+  runTask("DUPLICATE",attempt->{var copy=library.duplicate(original,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;completed=done;total=size;cached=null;}}},()->cancelled(attempt));
+   synchronized(this){if(!cancelled(attempt)){detail=copy;selected=library.instances().indexOf(copy);page=4;row=0;top=false;message="Created "+copy.name;feedback("success");cached=null;}}
+  });
+ }
  private void repairDependencies(ProsperoLibrary.Instance instance,int attempt,boolean offline)throws Exception {
   if(!"fabric".equals(instance.loader))return;
   var game=library.game(instance);
@@ -208,8 +214,8 @@ public final class ProsperoLauncher {
    if(page==5){
     if((buttons&0x80)!=0){if(row==3)row=2;else if(row==6)row=5;}
     if((buttons&0x20)!=0){if(row==2)row=3;else if(row==5)row=6;}
-    if((buttons&0x10)!=0){if(row==0)top=true;else row=switch(row){case 1->0;case 2,3->1;case 4->2;default->4;};}
-    if((buttons&0x40)!=0)row=switch(row){case 0->1;case 1->2;case 2,3->4;case 4->5;default->row;};
+    if((buttons&0x10)!=0){if(row==0)top=true;else row=switch(row){case 1->0;case 2,3->1;case 4->2;case 7->4;default->7;};}
+    if((buttons&0x40)!=0)row=switch(row){case 0->1;case 1->2;case 2,3->4;case 4->7;case 7->5;default->row;};
    }else if((buttons&0x10)!=0){if(row==0)top=true;else row--;}
    if(page!=5&&(buttons&0x40)!=0)row=Math.min(page==1?4:page==2?5:page==3?0:page==4?(ProsperoChannel.offline()&&offlineAccount!=null?3:2):page==5?6:2,row+1);
    int direction=(buttons&0x80)!=0?-1:(buttons&0x20)!=0?1:0;
@@ -223,7 +229,7 @@ public final class ProsperoLauncher {
     else if(page==2){if(row==5){page=13;row=0;cached=null;return state();}var settings=library.settings();if(row==0){dropdown(3,settings.resolution);cached=null;return state();}if(row==1){dropdown(4,settings.workers-1);cached=null;return state();}if(row==2)settings.reducedMotion=!settings.reducedMotion;if(row==3){settings.snapshots=!settings.snapshots;versions=List.of();}if(row==4)settings.showIntro=!settings.showIntro;library.save();}
     else if(page==3&&row==0){if(session==null)signIn();else{cancel();session=null;avatar="";accounts.clear();message="Signed out. Saved account removed from this console.";}}
     else if(!top&&page==4){if(row==0){play();cached=null;return state();}else if(row==1){page=5;row=0;}else if(row==2)install(false);else if(row==3)playOffline();}
-    else if(page==5){if(row>=2&&row<=4&&!busy){openContent(ProsperoModrinth.Kind.values()[row-2]);cached=null;return state();}if(row==0)beginName(5);if(row==1){dropdown(2,detail.icon);cached=null;return state();}if(row==5){page=4;row=0;}if(row==6){if(busy){message="Wait for the current task before deleting an instance.";feedback("error");}else{page=9;row=0;}}}
+    else if(page==5){if(row==7){duplicateInstance();cached=null;return state();}if(row>=2&&row<=4&&!busy){openContent(ProsperoModrinth.Kind.values()[row-2]);cached=null;return state();}if(row==0)beginName(5);if(row==1){dropdown(2,detail.icon);cached=null;return state();}if(row==5){page=4;row=0;}if(row==6){if(busy){message="Wait for the current task before deleting an instance.";feedback("error");}else{page=9;row=0;}}}
    }
    if(buttons!=0)cached=null;
   }catch(Exception error){message=friendly(error);feedback("error");}

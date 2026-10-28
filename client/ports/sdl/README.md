@@ -22,3 +22,5 @@ remain pending PS5 checks. Standalone SDL sensors,standard rumble,adaptive
 triggers and LEDs remain unsupported;controller identity alone is not acceptance.
 
 Development113 adds native compatible two-motor rumble after a successful zero-output capability probe. SDL owns duration/stop timing. HD audio selects advanced mode only for actual nonzero actuator samples, sharing mode state with compatible rumble. LED/adaptive triggers remain unsupported. Physical effects and mode arbitration require PS5 validation.
+
+Development116 translates Controlify47-byte raw DualSense packets to real native120-byte trigger commands after an OFF capability probe. Supports OFF,uniform/per-zone feedback,weapon and uniform/per-zone vibration;Controlify slope effects use feedback zones. Unknown/calibration modes are rejected. Close,disconnect and interception reset active effects. Impulse trigger rumble and LEDs remain unsupported. Hardware effect feel/coexistence remain pending.

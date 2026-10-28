@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-28",
+  "version": "01.000.116",
+  "title_id": "PPSA99874",
+  "sha256": {
+    "PPSA99874.zip": "31cda13617b64b43511c7fecb66b5cbf39ef02cd8f2c2491bf9c071a4c788fb3",
+    "bootstrap-symbols.elf": "28d5d99f82fa6f9870f4b34cf68126117b7d59cbe7f81a4f11ec9a0de76ab626"
+  },
+  "runtime": "ce7599d81f140aa7169c55e43558d0efe05a563b implementation unchanged",
+  "checks": [
+    "PASS actual independent duplicate bytes,metadata,names,queues,packs,progress,cancel/save rollback,link protection,recovery and async UI routing",
+    "PASS actual native Vulkan duplicate-button render/visual check and lifecycle fixtures",
+    "PASS unchanged Controlify3.5.3 FFM packet serialization into native120-byte trigger ABI under ASan/UBSan",
+    "PASS pad adapter and disconnect reset fixtures",
+    "PASS startup host,SDL/app target build and final package/CRC/signature/core/toolkit/channel checks"
+  ],
+  "console": "115positive user feedback;116duplicate world lifecycle and physical trigger effects/coexistence pending",
+  "source_sha256": {
+    "client/launcher/java/ProsperoLauncher.java": "fe2e2bec1b704bc4ca0e649c7c338699787f85c6e287dd18f6e2c6c182d3b978",
+    "client/launcher/java/ProsperoLibrary.java": "91d631b1a5593fc8801f0e7bd0754aa67296edcf41645eda1ccac92c4228ba3d",
+    "client/launcher/native_menu.hpp": "d62f25c00d128e57ccccc26350dd68d7ecbd28db951694e0d0b9b2166bc658ba",
+    "client/ports/sdl/SDL_ps5joystick.c": "db16c6fe639dc01b7689422d86264c7bf4c469cd29195f97c1cd34d1e4c895a0",
+    "client/ports/sdl/platform-input.c": "1fa77402f5270fb12f696401c32d6314a4ef449a9f1dafbac0e6ed8ccdb3b3ab",
+    "client/ports/sdl/ps5_trigger_effect.h": "ffd7a61de7c3b1d27ab105b9ec73ee7158c33c57666b8205d3cb22a18409a95f",
+    "tools/test_launcher_duplicate.py": "9d60426aa402273fbc04c4e1649ba873630d7502c78ec29f442466a01539832d",
+    "tools/test_controlify_triggers.py": "48d15236efc89b4668b3614fb73b5cd0037666a6d41cf933fd8c927ca9638fda"
+  },
+  "store": "108 unchanged"
+}

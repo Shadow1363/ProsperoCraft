@@ -23,7 +23,7 @@ Install the release's **PPSA99874.zip** using your normal homebrew workflow. The
 
 The client and server share **PPSA99874**: installing one replaces the other. Back up your worlds and preserve `/download0/ProsperoCraft` when updating. Storage remains 4 GiB; existing instances and cache are retained. Instance deletion is permanent after confirmation, including that instance's worlds—there is no Undo for new deletions.
 
-Development115 installs Controlify and its required dependencies during new Fabric-instance setup and accepts safe Unicode/formatting characters in content filenames, including C418 Songs Only. User feedback confirms world play/reload on114; host/live-download checks pass for115, with PS5 new-instance and pack tests pending. See [development notes](docs/client-default-controlify-unicode-115.md). Public download and Store version remain108.
+Development116 adds Duplicate Instance and native Controlify adaptive-trigger translation. Duplicate byte isolation/recovery, native UI rendering, original Controlify packet and package checks pass; PS5 duplication and physical trigger effects still need testing. User feedback for115is positive. See [development notes](docs/client-duplicate-triggers-116.md). Public download and Store version remain108.
 
 ## Current status
 

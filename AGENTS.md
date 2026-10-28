@@ -1352,3 +1352,7 @@ The optional compression/database builder and descriptor diagnostics live in run
 ## Development115 defaults and Unicode content
 
 User confirms114world play/reload;matching feedback is in docs/validation/client114-console-feedback-2026-10-28.json.115adds one-time Controlify defaults for new Fabric instances using existing verified dependency installs. Preserve old instances/queues and later uninstall choices;failed setup stays pending. NeoForge default-project policy is prepared but loader/resolver remains disabled. Unicode pack filenames now share a safe single-component/180UTF8byte policy across downloads and receipts;C418contains§formatting. See docs/client-default-controlify-unicode-115.md. Runtime0126/haptics unchanged;115PS5tests pending,Store108 preserved.
+
+## Development116 duplicate and trigger integration
+
+User reports115works.116adds independent instance-folder duplication with marked journals/newUUID/name,publication rollback and best-effort recovery. Keep originals/account/cache intact;do not claim a durable power-loss snapshot or follow links. Instance Settings navigation/layout includes Duplicate above Done/Delete. SDL decodes original Controlify47-byte trigger packets into real120-byte native commands after OFF probe;never raw-forward arbitrary HID/calibration modes. Reset active effects on close/disconnect/interception;physical feel/coexistence pending. See docs/client-duplicate-triggers-116.md. Java runtime unchanged;public108Store/frozen snapshots preserved.

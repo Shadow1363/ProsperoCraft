@@ -7,7 +7,7 @@
  *
  * SPDX-License-Identifier: Zlib
  */
-/* Consumer changes: native gyro and compatible rumble; LED/effects unsupported. */
+/* Consumer changes: native gyro,rumble and translated DualSense trigger effects. */
 #include "SDL_internal.h"
 
 #ifdef SDL_JOYSTICK_PS5
@@ -153,7 +153,7 @@ static bool PS5_JoystickSetLED(SDL_Joystick *joystick, Uint8 red, Uint8 green, U
 
 static bool PS5_JoystickSendEffect(SDL_Joystick *joystick, const void *data, int size)
 {
-    return SDL_Unsupported();
+    return pad_player_send_effect((int)joystick->instance_id-1,data,size)?true:SDL_SetError("PS5 trigger effect unavailable,unsupported or failed");
 }
 
 static bool PS5_JoystickSetSensorsEnabled(SDL_Joystick *joystick, bool enabled)
@@ -207,6 +207,7 @@ static void PS5_JoystickUpdate(SDL_Joystick *joystick)
 
 static void PS5_JoystickClose(SDL_Joystick *joystick)
 {
+    (void)pad_player_reset_triggers((int)joystick->instance_id-1);
     if(pad_player_has_rumble((int)joystick->instance_id-1))(void)pad_player_rumble((int)joystick->instance_id-1,0,0);
     if(pad_player_motion_enabled((int)joystick->instance_id-1))(void)pad_player_set_motion((int)joystick->instance_id-1,false);
 }
