@@ -1366,3 +1366,5 @@ Instance Settings uses a 2x2 Mods/Shaders/Resource Packs/Duplicate grid and matc
 ##117 release authorization — 2026-10-28
 
 User explicitly requests ProsperoStore117 now. Preserve the exact candidate ZIP52198449e6a623995e261b636a06ec847669af5321c9919a3932afbb1df804c5; no rebuild. Keep Store main description and credits byte-identical; update changelog via release notes plus required version/artifact/digest metadata. Include exact OpenAL corresponding source/relink kit, checksums and validation. This lifts the117publication hold, not formal ALL PASS: adaptive triggers/latest launcher/endurance pending; microphone explicitly deferred without code changes. Verify uploaded bytes, catalog PR/deployment and live API. Preserve108and all previous release/frozen assets.
+
+117release published: all5downloadedassets match; normal/replacement OpenAL relinks exact. CatalogPR896 submitted with description/credits/icon unchanged. User explicitly says make thePR then do not monitor: do not poll its CI/merge/deployment/liveStore unless newly requested. Source117publication record records pending console tests, noformalALLPASS.

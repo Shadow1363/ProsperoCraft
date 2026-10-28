@@ -223,3 +223,10 @@ version/content_version01.000.101and exacttestedpackageSHA256
 c784e08043314b02ff49cc9bb2a7c1643f558b35b1cee23ba278091a5d05e131.
 101is live,independentlyverifiedaftermergeanddeployment. Humanreaffirms all
 requestedfunctionsaccepted;broaderendurance/memory/lifecycletests remain scoped.
+
+
+##117 publication — 2026-10-28
+
+Exact117release is public, with five downloaded/hash-verified assets and matching OpenAL source/relink materials. Existing description and credits are unchanged; only catalog version/artifact/digest are updated, with release changelog. Catalog PR: https://github.com/darkxex/ps5-homebrew-catalog/pull/896
+
+User requested no PR monitoring. Checks, merge, deployment and live Store availability are deliberately uninspected. See validation/client117-store-publication-2026-10-28.json. No new console ALL PASS or frozen milestone is inferred.

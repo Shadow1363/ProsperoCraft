@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-28",
+  "version": "01.000.117",
+  "release_url": "https://github.com/mateo-cogeanu/ProsperoCraft/releases/tag/01.000.117",
+  "release_tag_commit": "e6f248b5a1fd0c1d64b513851d6e8918ffa1ea85",
+  "implementation_commit": "e67ffcf59cf0965a3678e27a26dee7dcf4543aee",
+  "package_sha256": "52198449e6a623995e261b636a06ec847669af5321c9919a3932afbb1df804c5",
+  "assets": [
+    {
+      "name": "PPSA99874.zip",
+      "bytes": 122882781,
+      "sha256": "52198449e6a623995e261b636a06ec847669af5321c9919a3932afbb1df804c5"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 379,
+      "sha256": "9d2c08fd3489cdc73d72031457f0a2405a86d2b26b349b97bf5a869c2ad923aa"
+    },
+    {
+      "name": "client117-build-validation.json",
+      "bytes": 752,
+      "sha256": "0534a74e1fbbb4a77109896d38b556e9b2e71962a315a143baec764cfe922b1b"
+    },
+    {
+      "name": "client117-console-validation.json",
+      "bytes": 526,
+      "sha256": "94c0f67ceec60bf00a56c3c750d5ad8bd662efe3395f45f6a3ea542ab42f286f"
+    },
+    {
+      "name": "client117-openal-source-relink.zip",
+      "bytes": 90191070,
+      "sha256": "9b883a4984f1b58b1855e36a00b082c9fee3d19685028692433582e0a82bd8e3"
+    }
+  ],
+  "verification": "All5public assets downloaded and hashes match; kit CRC/every retained input hash passes; normal/replacement native ELF exact.149catalog records valid,232tests/2skipped; online record verify0errors/0warnings.",
+  "catalog_pr": "https://github.com/darkxex/ps5-homebrew-catalog/pull/896",
+  "catalog_commit": "725ca02",
+  "catalog_status": "Submitted. User explicitly requested no monitoring after PR creation; checks/merge/deployment/live availability not inspected.",
+  "store_description": "Minecraft Java runs natively on PS5 with a Native Java 25 Runtime. Java ownership required. GUI: mihawk-99/PS5_VKHomebrewUI; icons: MultiMC/Prism.",
+  "store_metadata": "Description/credits/icon unchanged. Only version/artifact/digest updated; changelog supplied by release notes.",
+  "console_validation": "No formal117ALLPASS. Physical adaptive triggers/latest launcher/endurance pending; earlier world play/reload and haptics feedback retained.",
+  "runtime": "No new Java runtime changes",
+  "microphone": "Explicitly deferred; no source changes"
+}
