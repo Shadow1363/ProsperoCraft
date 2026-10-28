@@ -1308,3 +1308,15 @@ existing installed mods stay protected. Host synthetic and original-JAR tests ar
 not PS5 Iris launch/rendering acceptance. See docs/client-iris-resolution-109.md.
 Publish consumer source; no Java runtime fix. Preserve108Store/release and frozen
 milestones. New109public/Store release awaits user direction after console testing.
+
+
+##110 observed Iris OpenGL abort — 2026-10-28
+
+Safari logs match109 run1793174236-428176634:Fabric loadsIris1.11.7/Sodium0.9.2/
+FabricAPI;forcedVulkan renderer enters IrisSamplerLimits GL11C.glGetInteger with
+noOpenGLcontext,LWJGLfatal then VMABORT in startup-tail.109downloadfix succeeded;
+OSHI/storagewarnings are caught,notfatal.110consumer guard reads originalFabric
+manifestIDs/nestedmodules before repair/launch and explains UninstallIris/use
+Vitrail. Preservefiles;noGLimplementation/JARtransforms. Guard blocks currentIris
+policy pending futurebackend support;host checks notPS5 acceptance. Publishsource,
+provide110candidate;keep108Store/frozenpackages. See docs/client-iris-vulkan-110.md.

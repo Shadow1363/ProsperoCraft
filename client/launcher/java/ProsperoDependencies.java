@@ -40,6 +40,10 @@ final class ProsperoDependencies {
    if(entries.containsKey("fabric.mod.json"))manifest(entries.get("fabric.mod.json"),p->{byte[] b=entries.get(p);if(b==null)throw new IllegalArgumentException("Nested mod missing");return b;},depth);
   }
  }
+ static void verifyVulkan(Collection<Path> jars)throws Exception {
+  Scan scan=new Scan();for(Path path:jars)scan.file(path);
+  if(scan.modules.containsKey("iris"))throw new IOException("Iris needs OpenGL; this build uses Vulkan. Uninstall Iris in Installed. Use Vitrail for shaders.");
+ }
  static List<Need> missing(Collection<Path> jars,String game,Versions versions)throws Exception {
   Scan scan=new Scan();for(Path path:jars)scan.file(path);
   var chosen=new HashMap<String,Module>();for(var e:scan.modules.entrySet()){

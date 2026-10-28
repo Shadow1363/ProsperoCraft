@@ -38,6 +38,19 @@ public class DependencyCheck {
    try{client.downloadAll(game,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);throw new AssertionError("missing unknown dependency allowed");}catch(IOException expected){check(expected.getMessage().contains("unmapped-library"),"missing dependency not named");}
    check(!Files.exists(game.resolve("mods/unknown.jar"))&&client.queue(game).size()==1,"unresolved dependency published or queue lost");
 
+
+   ProsperoDependencies.verifyVulkan(List.of(game.resolve("mods/vitrail.jar"),game.resolve("mods/fabric-api.jar")));
+   Path renamed=root.resolve("renamed-shader.jar");byte[] irisBytes=jar("iris","1.11.7+mc26.3","{}",null);Files.write(renamed,irisBytes);
+   try{ProsperoDependencies.verifyVulkan(List.of(renamed));throw new AssertionError("Iris Vulkan launch allowed");}catch(IOException expected){check(expected.getMessage().contains("OpenGL")&&expected.getMessage().contains("Vitrail")&&expected.getMessage().contains("Uninstall"),"Iris launch explanation missing");}
+   check(Arrays.equals(irisBytes,Files.readAllBytes(renamed)),"Iris guard modified mod");
+   Files.write(renamed,jar("shader-wrapper","1.0","{}",irisBytes));
+   try{ProsperoDependencies.verifyVulkan(List.of(renamed));throw new AssertionError("nested Iris launch allowed");}catch(IOException expected){check(expected.getMessage().contains("OpenGL"),"nested Iris not identified");}
+
+   Path launchRoot=root.resolve("launcher-guard");var launchLibrary=new ProsperoLibrary(launchRoot);var launchInstance=launchLibrary.add("Iris test","26.3",0,"fabric");Path launchMods=launchLibrary.game(launchInstance).resolve("mods");Files.createDirectories(launchMods);Files.write(launchMods.resolve("arbitrary-name.jar"),irisBytes);
+   var launcher=new ProsperoLauncher(new ProsperoAuth(),launchRoot,url->{throw new AssertionError("guard attempted download");});
+   var prepare=ProsperoLauncher.class.getDeclaredMethod("repairDependencies",ProsperoLibrary.Instance.class,int.class,boolean.class);prepare.setAccessible(true);
+   for(boolean offline:List.of(false,true))try{prepare.invoke(launcher,launchInstance,0,offline);throw new AssertionError("launcher accepted Iris");}catch(java.lang.reflect.InvocationTargetException expected){check(expected.getCause() instanceof IOException&&expected.getCause().getMessage().contains("OpenGL"),"launcher failed before compatibility explanation");}
+   var launched=ProsperoLauncher.class.getDeclaredField("launch");launched.setAccessible(true);check(!launched.getBoolean(launcher)&&Arrays.equals(irisBytes,Files.readAllBytes(launchMods.resolve("arbitrary-name.jar"))),"guard handed off or modified files");
    version("sodium","oldSodium","sodium-old.jar",jar("sodium","0.9.2","{}",null),"[]");
    version("unused","unusedVersion","unused.jar",jar("unused","1.0","{}",null),"[]");
    version("sodium","newSodium","sodium-new.jar",jar("sodium","0.9.3-beta.1","{}",null),"[{\"project_id\":\"unused\",\"version_id\":\"unusedVersion\",\"dependency_type\":\"required\"}]");

@@ -64,6 +64,8 @@ public final class ProsperoLauncher {
  });}
  private void repairDependencies(ProsperoLibrary.Instance instance,int attempt,boolean offline)throws Exception {
   if(!"fabric".equals(instance.loader))return;
+  var game=library.game(instance);
+  ProsperoDependencies.verifyVulkan(modrinth.local(game,ProsperoModrinth.Kind.MOD).stream().map(file->game.resolve("mods").resolve(file.filename())).toList());
   try(var checker=fabric.dependencies(instance.version)){modrinth.repair(library.game(instance),instance.version,instance.loader,checker,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;completed=done;total=size;cached=null;}}},()->cancelled(attempt),offline);}
  }
  private void prepareLaunch(ProsperoLibrary.Instance instance,ProsperoInstall.Receipt installed)throws Exception {prepareLaunch(instance,installed,false);}

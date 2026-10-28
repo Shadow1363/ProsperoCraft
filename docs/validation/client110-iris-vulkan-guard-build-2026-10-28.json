@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-28",
+  "version": "01.000.110",
+  "title_id": "PPSA99874",
+  "observed_crash": "docs/validation/client109-iris-launch-crash-2026-10-28.json",
+  "change": "Consumer launch policy detects original Fabric manifest iris ID before dependency repair and game display handoff;clear OpenGL/Vulkan,Uninstall and Vitrail guidance;files remain untouched",
+  "package": {
+    "path": "dist/candidates/ProsperoCraft-01.000.110/PPSA99874.zip",
+    "size": 121872394,
+    "sha256": "67cc61e7d5528a6ddaea42978ceddc16e7d13205b25e4630f355eb71b32175ca",
+    "elf_sha256": "16beeb87f3d83c0b2506181a973937d2047aeefe003060c22ec55404c40c068d"
+  },
+  "checks": {
+    "synthetic": "PASS renamed/nested Iris,OpenGL/Vitrail/Uninstall explanation,byte preservation,Vitrail allowed;actual launcher repair entry online/offline blocks before missing Fabric cache/repair network/handoff;109 queue ordering and conflicting pins tests retained",
+    "real_downloads": "PASS original pinned Iris1.11.7 blocked by guard in both queue orders;Vitrail original JARs accepted;109 required Sodium0.9.2 download plan and API repair remain passing",
+    "startup_host": "PASS launch policy and exact original game JAR;host Main stops at expected unprovided host-native dependency",
+    "build": "PASS exact110 self integrity,empty automatic constructor section,staged native groups",
+    "package": "PASS110 CRC,signatures,identity,exact current Java class bytes,core/resident-library/native audits,preserved frozen package hashes",
+    "toolkit": "PASS110 CRC/identity/pinned toolkit/font/licenses/constructor/allocation audits"
+  },
+  "source_sha256": {
+    "AGENTS.md": "d495ad39fad6de5af477ea7c7f5dfc5fd0cce4e257fb8180e883556251784618",
+    "CHANGELOG.md": "3f9491443181f7c60d8ea6d6606b90cd49adbd179990fda24272e33d503718ff",
+    "README.md": "b5926ca88b5d5485ba78a524cf1226b1942bb8ced99879a591ed861b01e40fa3",
+    "client/launcher/java/ProsperoDependencies.java": "ccee91ef55576e9bc17ee61af8df022f68dff1c5dfb7d1f1e1056dd1b29ccd15",
+    "client/launcher/java/ProsperoLauncher.java": "0dd44cc7655f657b1e6433afdada89857699b800b9fe08ade5ae14683c64004c",
+    "client/startup/param.json": "0afa468fec54980a63a8cd61b22904d47b831ae6b11ef633ae63d341658b639a",
+    "tools/test_client_startup_package.py": "90638bd7a0f0bebc88e983b947747917c0ce657eff7162529f81b12959d884f2",
+    "tools/test_fabric_dependencies.py": "8a303632a944458ea06b347eb618a96e493317bffe9aa2b59729122d48e272bc",
+    "tools/test_fabric_dependencies_live.py": "d5ffbdfaa951d46b9c7a76f43d0d542871e3c69c4e8fa1f1ae8d5b31b5ba05e4",
+    "tools/test_launcher_toolkit_packages.py": "ed91dfd3b8fde762c676561833ec1e99ac89f15b8209baae3e96ba32cc6cdac0",
+    "docs/client-iris-vulkan-110.md": "db18116338442dfc743aa233b5f5df6ad61b9f3a92a13c9638a6569f7d65efb5",
+    "docs/validation/client109-iris-launch-crash-2026-10-28.json": "4df2a9b1316a50601f0ac80bac39a1fb8ca1e07fddafb348a1072584c4d19d15"
+  },
+  "runtime": {
+    "source_changes": false,
+    "commit": "42fe3a5709beb65b5f54470aabb169a376ccbdc3"
+  },
+  "console": "PENDING exact110 guard message and launcher remaining usable,manual Iris uninstall and Vitrail launch. No Iris rendering or game OpenGL support claim. Save/reload/lifecycle/endurance pending.",
+  "publication": "Consumer source pushed;local110 candidate for testing. Public108Store/GitHub release and all frozen milestones unchanged."
+}

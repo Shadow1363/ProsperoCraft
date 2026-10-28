@@ -13,6 +13,7 @@ public class LiveDependencies {
    if(api.local(game,ProsperoModrinth.Kind.MOD).isEmpty()){if(api.queue(game).stream().noneMatch(q->q.project().equals("oSIKhgz3")))api.toggle(game,new ProsperoModrinth.Selection("oSIKhgz3","Vitrail0.13.0",ProsperoModrinth.Kind.MOD));api.downloadAll(game,"26.3","fabric",(m,d,t)->System.out.println(m),()->false,x->{},versions);}
    if(api.installed(game).files.stream().noneMatch(x->x.project().equals("P7dR8mSH")))throw new AssertionError("real Fabric API was not auto-installed");
    var jars=api.local(game,ProsperoModrinth.Kind.MOD).stream().map(x->game.resolve("mods").resolve(x.filename())).toList();if(!ProsperoDependencies.missing(jars,"26.3",versions).isEmpty())throw new AssertionError("real JAR dependencies unresolved");
+   ProsperoDependencies.verifyVulkan(jars);
    var item=api.local(game,ProsperoModrinth.Kind.MOD).stream().filter(x->x.project().equals("P7dR8mSH")).findFirst().orElseThrow();api.uninstall(game,item);api.repair(game,"26.3","fabric",versions,(m,d,t)->{},()->false,false);
    if(api.local(game,ProsperoModrinth.Kind.MOD).stream().noneMatch(x->x.project().equals("P7dR8mSH")))throw new AssertionError("real existing-instance repair failed");
    api.repair(game,"26.3","fabric",versions,(m,d,t)->{},()->false,true);
@@ -31,6 +32,8 @@ public class LiveDependencies {
     if(!sodium.version().equals("bAZQdGpg")||iris.installed(irisGame).files.size()!=3||!iris.queue(irisGame).isEmpty())throw new AssertionError("real Iris exact Sodium pin not honored");
     var irisJars=iris.local(irisGame,ProsperoModrinth.Kind.MOD).stream().map(x->irisGame.resolve("mods").resolve(x.filename())).toList();
     if(!ProsperoDependencies.missing(irisJars,"26.3",versions).isEmpty())throw new AssertionError("real Iris dependency manifests unresolved");
+    try{ProsperoDependencies.verifyVulkan(irisJars);throw new AssertionError("real Iris accepted for Vulkan launch");}catch(IOException expected){if(!expected.getMessage().contains("OpenGL"))throw expected;}
+
    }
    System.out.println("PASS real Iris1.11.7 plus separately queued Sodium0.9.3beta and FabricAPI selects required Sodium0.9.2 in both queue orders; verified original bytes and upstream Fabric predicates; no PS5 rendering claim");
    System.out.println("PASS real pinned Vitrail0.13.0/Sodium/Fabric API verified downloads,upstream0.20.1predicates,nested required module discovery,API auto-install and existing-instance repair;official JARs untouched,no game execution");

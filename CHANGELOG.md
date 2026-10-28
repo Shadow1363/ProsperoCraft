@@ -1,5 +1,10 @@
 # Changelog
 
+## Development 01.000.110
+
+- Detect installed Iris before Vulkan game launch and show an OpenGL compatibility message with Installed/Uninstall and Vitrail guidance. Prevents the observed Iris initialization path from aborting the app.
+- Check original Fabric manifests, including renamed and bundled Iris, while preserving files and the109 download fix. PS5 validation is pending.
+
 ## Development 01.000.109
 
 - Resolve exact required dependency versions before downloading, allowing Iris and Sodium to be queued together in either order.
