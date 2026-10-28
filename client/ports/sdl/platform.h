@@ -110,6 +110,7 @@ void audio_stop(void);
 
 void pad_player_update_triggers(int player);
 bool pad_player_reset_triggers(int player);
+void pad_player_suspend_triggers(int player);
 bool pad_player_send_effect(int player,const void *data,int size);
 bool pad_player_has_rumble(int player);
 bool pad_player_rumble(int player,uint16_t low,uint16_t high);

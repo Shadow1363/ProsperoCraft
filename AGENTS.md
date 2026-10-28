@@ -1368,3 +1368,8 @@ Instance Settings uses a 2x2 Mods/Shaders/Resource Packs/Duplicate grid and matc
 User explicitly requests ProsperoStore117 now. Preserve the exact candidate ZIP52198449e6a623995e261b636a06ec847669af5321c9919a3932afbb1df804c5; no rebuild. Keep Store main description and credits byte-identical; update changelog via release notes plus required version/artifact/digest metadata. Include exact OpenAL corresponding source/relink kit, checksums and validation. This lifts the117publication hold, not formal ALL PASS: adaptive triggers/latest launcher/endurance pending; microphone explicitly deferred without code changes. Verify uploaded bytes, catalog PR/deployment and live API. Preserve108and all previous release/frozen assets.
 
 117release published: all5downloadedassets match; normal/replacement OpenAL relinks exact. CatalogPR896 submitted with description/credits/icon unchanged. User explicitly says make thePR then do not monitor: do not poll its CI/merge/deployment/liveStore unless newly requested. Source117publication record records pending console tests, noformalALLPASS.
+
+
+## Development118 review fixes
+
+Review of115–117 found that a failed default Controlify install blocked new Fabric instances from becoming ready, and that interception cleared requested trigger profiles. 118 keeps default content pending without blocking play (Repair Download retries it; offline verify stays network-free), and suspends/restores trigger profiles across interception while close/disconnect still reset. One native OFF attempt per state change. Host SDL fixtures pass; launcher compiled only. Candidate not built in this workspace; no package hash. See docs/client-trigger-restore-default-content-118.md. Public117/Store PR896 and frozen snapshots unchanged.

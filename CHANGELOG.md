@@ -1,5 +1,12 @@
 # Changelog
 
+## Development 01.000.118
+
+- Keep a new Fabric instance playable when the default Controlify install fails; it stays pending and Repair Download retries it.
+- Restore requested adaptive-trigger effects after the PS button or a system overlay instead of dropping them until the next effect change.
+- Make one native trigger OFF attempt per state change instead of retrying a failed write every poll.
+- Host input-adapter fixtures pass; candidate build and PS5 checks pending. See [details](docs/client-trigger-restore-default-content-118.md). Public release117 unchanged.
+
 ## Development 01.000.117
 
 - Arrange Mods, Shaders, Resource Packs and Duplicate Instance in a 2x2 grid with matching directional navigation.

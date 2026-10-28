@@ -87,7 +87,7 @@ struct pad_player_state {
    bool connected;
    bool motion_supported, motion_enabled;
    bool rumble_supported, rumble_active;
-   bool trigger_supported,intercepted,trigger_reported;
+   bool trigger_supported,intercepted,trigger_reported,trigger_suspended;
    uint8_t trigger_active,trigger_requested,trigger_follow,trigger_sent;
    unsigned trigger_rejected;
    int trigger_zone[2],trigger_error[2];
@@ -273,7 +273,8 @@ pad_poll(struct pad *pad)
             s->connected != 0, s->timestamp_us,
             {s->angular_velocity[0],s->angular_velocity[1],s->angular_velocity[2]}};
          state->connected = s->connected != 0;state->intercepted=(s->buttons&PAD_INTERCEPTED)!=0;
-         if(!s->connected||(s->buttons&PAD_INTERCEPTED))(void)pad_player_reset_triggers(player);
+         if(!s->connected)(void)pad_player_reset_triggers(player);
+         else if(s->buttons&PAD_INTERCEPTED)pad_player_suspend_triggers(player);
          if (s->connected && !(s->buttons & PAD_INTERCEPTED))
             state->last = *s;
       }
@@ -370,15 +371,33 @@ static bool trigger_apply(struct pad_player_state *s,int player,int index){
  else{s->trigger_follow&=~bit;native=*profile;}
  int rc=trigger_submit(s,player,index,&native);if(rc<0)s->trigger_follow&=~bit;return rc>=0;
 }
+// One OFF attempt per state change. A failed write is not retried every poll;
+// cleared send state makes the next real request reach the pad again.
+static int trigger_off(struct pad_player_state *s,int player,const char *why){
+ int rc=0;
+ if(s->trigger_active){ProsperoTriggerEffect off={0};off.mask=3;rc=scePadSetTriggerEffect(s->handle,&off);if(rc<0)say("PS5_INPUT trigger off player=%d reason=%s result=0x%x",player,why,(unsigned)rc);}
+ s->trigger_active=0;s->trigger_sent=0;memset(s->trigger_applied,0,sizeof(s->trigger_applied));return rc;
+}
 bool pad_player_reset_triggers(int player){
  struct pad_player_state *s=pad_state(player);if(!s||!s->trigger_supported)return true;
- trigger_acquire();s->trigger_requested=s->trigger_follow=0;int rc=0;
- if(s->trigger_active){ProsperoTriggerEffect off={0};off.mask=3;rc=scePadSetTriggerEffect(s->handle,&off);if(rc>=0){s->trigger_active=0;s->trigger_sent=3;memset(s->trigger_applied,0,sizeof(s->trigger_applied));}}
+ trigger_acquire();s->trigger_requested=s->trigger_follow=0;s->trigger_suspended=false;int rc=trigger_off(s,player,"reset");
  trigger_release();return rc>=0;
+}
+// System interception stops output but keeps the requested profiles, so the
+// game's last effect returns with the pad instead of waiting for a new packet.
+void pad_player_suspend_triggers(int player){
+ struct pad_player_state *s=pad_state(player);if(!s||!s->trigger_supported||s->trigger_suspended)return;
+ trigger_acquire();s->trigger_suspended=true;(void)trigger_off(s,player,"intercepted");trigger_release();
 }
 void pad_player_update_triggers(int player){
  struct pad_player_state *s=pad_state(player);if(!s||!s->trigger_supported||!s->connected||s->intercepted)return;
- trigger_acquire();for(int i=0;i<2;i++)if(s->trigger_follow&(1u<<i))(void)trigger_apply(s,player,i);trigger_release();
+ trigger_acquire();
+ if(s->trigger_suspended){
+  s->trigger_suspended=false;
+  for(int i=0;i<2;i++)if(s->trigger_requested&(1u<<i))(void)trigger_apply(s,player,i);
+  if(s->trigger_requested)say("PS5_INPUT trigger restore player=%d sides=%u",player,(unsigned)s->trigger_requested);
+ }else for(int i=0;i<2;i++)if(s->trigger_follow&(1u<<i))(void)trigger_apply(s,player,i);
+ trigger_release();
 }
 bool pad_player_send_effect(int player,const void *data,int size){
  struct pad_player_state *s=pad_state(player);if(!s||!s->trigger_supported||!s->connected||s->intercepted)return false;

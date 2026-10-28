@@ -59,12 +59,16 @@ public final class ProsperoLauncher {
   if(version==null)version=installer.catalog(true,()->cancelled(attempt)).stream().filter(v->v.id().equals(instance.version)).findFirst().orElseThrow(()->new java.io.IOException("This version is not in the publisher catalog"));
   var installed=installer.install(version,library.settings().workers,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){completed=done;total=size;long now=System.currentTimeMillis();if(now-lastProgress>100||done==size){message=text;lastProgress=now;cached=null;}}}},()->cancelled(attempt));
   if("fabric".equals(instance.loader))fabric.install(instance.version,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;cached=null;}}},()->cancelled(attempt));
+  boolean defaultsPending=false;
   if(instance.defaultContentPending&&!ProsperoModrinth.defaultMods(instance.loader).isEmpty()){
-   try(var checker=fabric.dependencies(instance.version)){modrinth.installDefaults(library.game(instance),instance.version,instance.loader,checker,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;completed=done;total=size;cached=null;}}},()->cancelled(attempt));}
-   ProsperoInstall.active(()->cancelled(attempt));library.defaultContentInstalled(instance);
+   // Default mods are optional: a Modrinth failure keeps them pending for Repair Download instead of blocking the game.
+   try{
+    try(var checker=fabric.dependencies(instance.version)){modrinth.installDefaults(library.game(instance),instance.version,instance.loader,checker,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;completed=done;total=size;cached=null;}}},()->cancelled(attempt));}
+    ProsperoInstall.active(()->cancelled(attempt));library.defaultContentInstalled(instance);
+   }catch(Exception defaults){ProsperoInstall.active(()->cancelled(attempt));defaultsPending=true;System.err.println("PS5_INSTANCE default content pending storageCode="+(defaults instanceof java.io.IOException io?ProsperoStorage.code(io):"NONE"));}
   }
   if(play)repairDependencies(instance,attempt,false);
-  synchronized(this){if(!cancelled(attempt)){library.ready(instance,true);if(session!=null&&avatar.isEmpty()&&auth.skin(session).isEmpty())try{avatar=ProsperoAvatar.defaultFace(library.root,session.id);}catch(Exception ignored){}message="Download complete. Ready for your next world.";feedback("success");if(play)prepareLaunch(instance,installed);cached=null;}}
+  synchronized(this){if(!cancelled(attempt)){library.ready(instance,true);if(session!=null&&avatar.isEmpty()&&auth.skin(session).isEmpty())try{avatar=ProsperoAvatar.defaultFace(library.root,session.id);}catch(Exception ignored){}message=defaultsPending?"Ready to play. Controlify could not be added; Repair Download retries it.":"Download complete. Ready for your next world.";feedback("success");if(play)prepareLaunch(instance,installed);cached=null;}}
  });}
  private void duplicateInstance(){
   if(detail==null||busy)return;var original=detail;

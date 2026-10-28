@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-28",
+  "version": "01.000.118",
+  "title_id": "PPSA99874",
+  "status": "source only; candidate package not built",
+  "sha256": {},
+  "runtime": "ce7599d81f140aa7169c55e43558d0efe05a563b implementation unchanged",
+  "checks": [
+    "PASS actual SDL input adapter interception OFF once,restore of followed L2 and R2 weapon profiles,dedup after restore,failed OFF not retried per poll,existing decode/follow/disconnect/rumble/gyro fixtures under ASan/UBSan",
+    "PASS launcher Java sources compile with host JDK21 and Gson 2.11.0",
+    "NOT RUN Controlify packet, launcher content/duplicate, startup and package suites: JDK25, pinned client artifacts and PS5 build toolchain absent from this workspace"
+  ],
+  "console": "118trigger restore after PS button, first Fabric install with Modrinth unreachable plus Repair Download, and117regressions pending",
+  "source_sha256": {
+    "client/launcher/java/ProsperoLauncher.java": "9bd62a5d1a844d507460e5d54ddaeca6e853f35fe16e6f7ece26f81bf7b8be0a",
+    "client/ports/sdl/platform-input.c": "25050bab01b86e30441d79bef0485b8dfc0cf18a0acb802d57b7ed6703a90a89",
+    "client/ports/sdl/platform.h": "8471c8da780d7d96073e6cc2b3abf14ed6cfa12465ba160dd4093c8a55f20f0f",
+    "tools/test_sdl_pad_platform.py": "a5a5852437a675f393245e384806bfb464b7afc03eb70ac82e9b42d1cafa69bb"
+  },
+  "store": "117 release unchanged; PR896 not monitored"
+}
