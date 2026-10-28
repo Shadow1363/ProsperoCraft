@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-28",
+  "failed_run": "client-01.000.112-1793180348-576695195",
+  "reports": {
+    "previous-exceptions-6.log": {
+      "bytes": 6747975,
+      "sha256": "482d488f9a23cf1712bb8c83f22b993c3a82d7245aa4eaf5b51eef29a0a0909e"
+    },
+    "previous-native-stderr-6.log": {
+      "bytes": 34383,
+      "sha256": "65a2be5440be8594864afb14428df7c39a8eef7ba29da83bcd7eb9b62cfc48e3"
+    },
+    "startup-tail-9.log": {
+      "bytes": 524288,
+      "sha256": "ddbc2d35cfef656970906ecc412e66c55d70268d667d8e16a6ad19563c0ee52e"
+    }
+  },
+  "observations": [
+    "Chunk load and save fail EMFILE;112 budget request insufficient;leak owner unproven",
+    "Descriptor fcntl scan reports8192unknown probes;not a usable count",
+    "Controlify opens four-channel endpoint and advanced mode succeeds;no nonzero-PCM evidence yet",
+    "Standard rumble unsupported in112 driver;113 adds real native path",
+    "This run lists73mods without Distant Horizons;do not attribute its chunk errors to DH"
+  ],
+  "113_console": "pending"
+}

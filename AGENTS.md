@@ -1340,3 +1340,7 @@ Publish consumer source/provide111candidate;PS5 tests pending. Java source uncha
 ## Development112 native integration
 
 The optional compression/database builder and descriptor diagnostics live in runtime commit 93b24126d915c8ee69e37b7f09871be5829a2995. Consumer namespace/group/alias references are in client/ports/distant_horizons/runtime.json. The Distant Horizons PS5 variant is a complete pinned upstream source build with an explicit platform enum, never an installed-JAR rewrite. Keep its pending PS5 rendering/save validation explicit. Audio reuse, native pad/actuator integration and partial download queue behavior are consumer-owned. See docs/client-native-input-storage-112.md. Public release/Store remain108 until separately accepted.
+
+## Development113 save and rumble follow-through
+
+112 console reports reproduce EMFILE for chunk reads/writes without DH installed. Do not blame DH or claim soft-limit adjustment solved it.113 integrates runtime0125 descriptor-first JNI canonicalization and native stat/accounting diagnostics from 0985f92f9c80459c8444b7383feb503e8b9beb07. Leak owner and PS5 recovery remain unresolved.113 adds actual compatible rumble probes/output and shared HD/compatible vibration-mode selection. Keep raw reports local; see docs/client-save-rumble-113.md. Public/Store108 and frozen passing packages stay preserved.

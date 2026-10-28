@@ -20,6 +20,7 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  run('python3',runtime/'tools/java25_builtin_runtime.py','--management',*(['--imageio','--library-alias','SDL3=ps5sdl','--library-alias','libzstd-jni_dh-1.5.7-12=ps5zstddh','--library-alias','zstd-jni_dh-1.5.7-12=ps5zstddh','--library-alias','sqlitejdbc=ps5sqlitedh'] if variant=='startup' else []),'--external-libraries',manifest)
  shutil.copyfile(build/'builtin-resident-audit.json',java/'resident-libraries-audit.json')
  if variant=='startup':
+  shutil.copy2(runtime/'.tools/java25/openjdk/build/ps5-bootstrap/support/modules_libs/java.base/libnio.so',java/'lib/libnio.so')
   for name in ['awt','lcms']:shutil.copy2(build/'imageio-target'/('lib'+name+'.so'),java/'lib'/('lib'+name+'.so'))
   shutil.copy2(build/'imageio-target/audit.json',java/'imageio-native-audit.json')
   shutil.copytree(runtime/'.tools/java25/openjdk/src/java.desktop/share/legal',java/'legal/java.desktop',dirs_exist_ok=True)
@@ -35,7 +36,7 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
  flags=[p for p in inputs if p.startswith('-')]
  backends=[p for p in inputs if not p.startswith('-')and not p.endswith('.a')]
  archives=[p for p in inputs if p.endswith('.a')]
- inputs=[*flags,str(build/'embedded-jvm.o'),*old_objects,str(gpu_support),*backends,*archives,'--defsym=__cxa_thread_atexit_impl=clientgpu_ps5___cxa_thread_atexit_impl']
+ inputs=[*flags,'--wrap=close',str(build/'embedded-jvm.o'),*old_objects,str(gpu_support),*backends,*archives,'--defsym=__cxa_thread_atexit_impl=clientgpu_ps5___cxa_thread_atexit_impl']
  layout=work/'gpu-probe.ld';s=(build/'jni-probe.ld').read_text();needle='        *(.data.rel.ro .data.rel.ro.*)';assert needle in s
  s=s.replace(needle,'''        PROVIDE_HIDDEN(__client_gl_init_start = .);
         KEEP(*(SORT(.data.rel.ro.clientgl.init_array.*)))

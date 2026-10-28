@@ -1,0 +1,13 @@
+# Development113: chunk failures and ordinary vibration
+
+Build112 PS5 run client-01.000.112-1793180348-576695195 fails both chunk reads and writes with Too many open files. It lists73mods without Distant Horizons, so this failure is not evidence against the DH variant.112's soft-limit request did not prevent exhaustion. The fcntl scan returned8192unknown probes and cannot be used as a descriptor count. See [report hashes and bounded observations](validation/client113-observations.json); raw reports remain local.
+
+113 integrates runtime0125's descriptor-first canonicalization for absolute PS5 paths. It uses the existing checked, non-following component walk before the previously denied desktop realpath API. There is no path-existence bypass, result cache or game-class change. Symlink and relative path cases still request native resolution. Actual JNI and ZipFS tests, repeated successful/failed path walks under a64-fd cap and target compilation pass. This removes redundant denied calls; the cause of accumulated handles is still unproven, and actual console chunk loading/saving remains pending.
+
+Native descriptor inventory now calls sceKernelFstat and distinguishes regular files, directories, sockets and unknown errors. The new /file-activity.txt report tracks consumer-linked open/close calls using opt-in static memory, and stays readable without opening another file. It records paths only in local diagnostics and does not own, forcibly close or delete any handles. Native-library-internal calls and racing reuse can be absent from this best-effort record; compare it with the native inventory. No normal periodic scan runs on the game loop.
+
+112 only exposed an HD-haptic audio endpoint; ordinary SDL rumble stayed unsupported.113 probes the actual compatible two-motor API with zero output and advertises rumble only after success. SDL low/high amplitudes map to native large/small motor bytes, and SDL handles expiration/stop. Native failures remain errors. The mode selector is shared with HD audio; only nonzero actuator samples switch to advanced mode, so silent audio does not continuously override compatible rumble. First nonzero HD PCM is logged once. LED/adaptive trigger support is unchanged. Host native-call fixtures and actual haptic backend tests pass; physical rumble, HD feel, controller reconnect and simultaneous modes require PS5 testing.
+
+The separate Distant Horizons112 test JAR remains unchanged and can be used with113; do not reinstall duplicate DH JARs.113 does not establish DH rendering or persistence. Public release and ProsperoStore remain108; frozen packages are preserved.
+
+Candidate ZIP SHA-256: `3b04ea3f417f4add2f60914c1363b483a13c9b7cae03715fe2321d718bc53bd9`.

@@ -23,7 +23,7 @@ Install the release's **PPSA99874.zip** using your normal homebrew workflow. The
 
 The client and server share **PPSA99874**: installing one replaces the other. Back up your worlds and preserve `/download0/ProsperoCraft` when updating. Storage remains 4 GiB; existing instances and cache are retained. Instance deletion is permanent after confirmation, including that instance's worlds—there is no Undo for new deletions.
 
-Development112 adds independent mod-download failure handling, native gyro/haptic integration, audio reload port retention, file-descriptor diagnostics and an optional source-built Distant Horizons test variant. Host checks and target packaging pass; actual PS5 compatibility, sound reloads and world saves remain pending. See [development notes](docs/client-native-input-storage-112.md). Public download and Store version remain108.
+Development113 adds ordinary native rumble, descriptor-first path lookup and improved handle diagnostics after112 reproduced chunk read/save failures. Host and target package checks pass; the descriptor leak owner and PS5 save/vibration acceptance remain pending. See [development notes](docs/client-save-rumble-113.md). Public download and Store version remain108.
 
 ## Current status
 

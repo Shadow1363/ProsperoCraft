@@ -1,3 +1,4 @@
+#define PS5_TRACK_FILE_ACTIVITY 1
 extern "C" int prospero_haptic_reserve();
 extern "C" void prospero_hid_preload(void);
 extern "C" int sceAudioOutOpen(int,int,int,unsigned,unsigned,unsigned);
@@ -58,6 +59,7 @@ extern "C" int __wrap_open(const char *path,int flags,...) {
  if(flags&O_CREAT) {va_list args;va_start(args,flags);mode=static_cast<mode_t>(va_arg(args,int));va_end(args);}
  int fd=__real_open(path,flags,mode);
  int error=errno;
+ ps5::file_activity::open_result(fd,path);
  if(fd<0 && ps5_native_trace::enabled.load() &&
     pthread_equal(ps5_native_trace::owner,pthread_self()) &&
     !ps5_vm_trace_io_active() && path && std::strncmp(path,"/download0/",11)==0) {
@@ -69,6 +71,8 @@ extern "C" int __wrap_open(const char *path,int flags,...) {
  }
  errno=error;return fd;
 }
+extern "C" int __real_close(int);
+extern "C" int __wrap_close(int fd){int result=__real_close(fd);int saved=errno;ps5::file_activity::close_result(fd,result);errno=saved;return result;}
 #endif
 extern "C" int ps5shaderc_fault_begin(void);
 extern "C" void ps5shaderc_fault_end(void);

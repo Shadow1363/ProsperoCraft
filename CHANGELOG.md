@@ -1,5 +1,11 @@
 # Changelog
 
+## Development 01.000.113
+
+- Add native compatible two-motor rumble after a successful real capability probe; share vibration-mode selection with HD audio and log its first nonzero samples.
+- Use checked descriptor-first canonical paths and native stat-based handle inventory after112 reproduced EMFILE chunk read/save failures. Add opt-in in-memory file accounting. The leak owner and PS5 recovery remain unproven.
+- Host/native fixture and target package checks pass; console save and physical vibration testing remain pending. See [details](docs/client-save-rumble-113.md). Public/Store remain108.
+
 ## Development 01.000.112
 
 - Continue independent queued downloads after failures and retain failed selections with detailed errors.

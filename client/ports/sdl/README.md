@@ -20,3 +20,5 @@ across logical audio reloads. Capabilities require successful native probes.
 Hardware motion values/axis signs,HD haptic feel,hotplug and simultaneous sound
 remain pending PS5 checks. Standalone SDL sensors,standard rumble,adaptive
 triggers and LEDs remain unsupported;controller identity alone is not acceptance.
+
+Development113 adds native compatible two-motor rumble after a successful zero-output capability probe. SDL owns duration/stop timing. HD audio selects advanced mode only for actual nonzero actuator samples, sharing mode state with compatible rumble. LED/adaptive triggers remain unsupported. Physical effects and mode arbitration require PS5 validation.

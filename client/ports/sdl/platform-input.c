@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <stdatomic.h>
 extern void client_sdl_diagnostic(const char* text);
 void say(const char *format, ...){char line[384];va_list args;va_start(args,format);vsnprintf(line,sizeof(line),format,args);va_end(args);client_sdl_diagnostic(line);}
 
@@ -38,6 +39,14 @@ int scePadSetMotionSensorState(int32_t handle, bool enabled);
 int scePadSetVibration(int32_t handle, const void *vibration);
 int scePadSetLightBar(int32_t handle, const void *color);
 int sceKernelUsleep(uint32_t microseconds);
+static atomic_flag vibration_lock=ATOMIC_FLAG_INIT;
+static int vibration_handle=-1,vibration_mode=-1;
+int prospero_pad_set_vibration_mode(int handle,int mode){
+ while(atomic_flag_test_and_set_explicit(&vibration_lock,memory_order_acquire)){}
+ int rc=0;
+ if(vibration_handle!=handle||vibration_mode!=mode){rc=scePadSetVibrationMode(handle,mode);if(rc>=0){vibration_handle=handle;vibration_mode=mode;}}
+ atomic_flag_clear_explicit(&vibration_lock,memory_order_release);return rc;
+}
 /* ----------------------------------------------------------------- the pad */
 
 /* One sample as the console writes it: 120 bytes, the layout PS5_vkQuake and
@@ -75,6 +84,7 @@ struct pad_player_state {
    int32_t handle;
    bool connected;
    bool motion_supported, motion_enabled;
+   bool rumble_supported, rumble_active;
    struct pad_sample last;
    struct pad_reading taken[64];
    int taken_count;
@@ -128,6 +138,11 @@ pad_player_open(int player, int32_t user, int attempts)
    }
    state->user = user;
    state->handle = handle;
+   unsigned char stopped[2]={0,0};
+   int rumble_mode=prospero_pad_set_vibration_mode(handle,PAD_VIBRATION_COMPATIBLE);
+   int rumble=rumble_mode<0?rumble_mode:scePadSetVibration(handle,stopped);
+   state->rumble_supported=rumble>=0;
+   say("PS5_INPUT rumble probe player=%d result=0x%x",player,(unsigned)rumble);
    int motion = scePadSetMotionSensorState(handle, false);
    state->motion_supported = motion >= 0;
    say("PS5_INPUT motion probe player=%d result=0x%x",player,(unsigned)motion);
@@ -305,3 +320,15 @@ bool pad_player_set_motion(int player,bool enabled){
  if(rc<0)return false;s->motion_enabled=enabled;return true;
 }
 bool pad_player_motion_enabled(int player){const struct pad_player_state *s=pad_state(player);return s&&s->motion_enabled;}
+
+bool pad_player_has_rumble(int player){struct pad_player_state *s=pad_state(player);return s&&s->rumble_supported;}
+bool pad_player_rumble(int player,uint16_t low,uint16_t high){
+ struct pad_player_state *s=pad_state(player);if(!s||!s->rumble_supported)return false;
+ if(!low&&!high&&!s->rumble_active)return true;
+ unsigned char motors[2]={(unsigned char)(low>>8),(unsigned char)(high>>8)};
+ int rc=prospero_pad_set_vibration_mode(s->handle,PAD_VIBRATION_COMPATIBLE);
+ if(rc>=0)rc=scePadSetVibration(s->handle,motors);
+ if(rc>=0)s->rumble_active=low||high;
+ say("PS5_INPUT rumble player=%d low=%u high=%u result=0x%x",player,(unsigned)motors[0],(unsigned)motors[1],(unsigned)rc);
+ return rc>=0;
+}

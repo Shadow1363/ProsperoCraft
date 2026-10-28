@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-28",
+  "version": "01.000.113",
+  "title_id": "PPSA99874",
+  "sha256": {
+    "PPSA99874.zip": "3b04ea3f417f4add2f60914c1363b483a13c9b7cae03715fe2321d718bc53bd9",
+    "bootstrap-symbols.elf": "6fcf2a66054e65c9d3046acb7234fe026dc192f76f419ed4639bdf0f68be71bc"
+  },
+  "runtime": {
+    "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+    "commit": "0985f92f9c80459c8444b7383feb503e8b9beb07",
+    "patch": "0125-ps5-descriptor-first-realpath.patch"
+  },
+  "checks": [
+    "PASS package/signatures/CRC,exact core and staged constructors/resident groups",
+    "PASS launcher toolkit/source/license/channel audits",
+    "PASS actual JNI canonicalization/ZipFS4096 calls and64-fd sanitizer stress",
+    "PASS native rumble fixture,HD audio backend/mode/failure fixtures",
+    "PASS HTTP EMFILE/resource reports and bounded concurrent accounting"
+  ],
+  "console": "pending chunk read/save,ordinary rumble/HD haptics/lifecycle;descriptor leak owner unresolved",
+  "store": "108 unchanged",
+  "source_sha256": {
+    "client/startup/bootstrap.cpp": "8afa950b750d9f4c4c503999bf48d7e98286d22fcba43345516050c78a4ed5a5",
+    "client/ports/sdl/platform-input.c": "b47abccf6591c035db8244fa9ae3ea68fcaabf3de663ef53d396ec16c28eb69a",
+    "client/ports/sdl/SDL_ps5audio.c": "afdf8d072db3e2add072ebd3bc687c0251faee5338af2dcaed25fc200db47cf6",
+    "client/ports/sdl/SDL_ps5joystick.c": "47ded0f99f3b3df58fcda37e0b0fd81cea1a8eecde23dcb0b93d33e66c414cd3",
+    "tools/package_client_gpu_link.py": "6dc84c36b77fa3c8747c6a5b5b2ca61a98b6f7bbda8ffcdab5e98439c5b21d31"
+  }
+}

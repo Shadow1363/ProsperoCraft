@@ -108,6 +108,9 @@ bool audio_start(audio_fill_fn fill, void *user);
 /* Stops the thread and closes the output; call it before what fill uses goes. */
 void audio_stop(void);
 
+bool pad_player_has_rumble(int player);
+bool pad_player_rumble(int player,uint16_t low,uint16_t high);
+
 #ifdef __cplusplus
 }
 #endif

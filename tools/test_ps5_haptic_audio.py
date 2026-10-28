@@ -49,7 +49,7 @@ int sceAudioOutClose(int port){assert(port==99);closed++;return 0;}
 int sceAudioOutOutput(int port,const void *pcm){assert(port==99);if(pcm){outputs++;memcpy(last,pcm,sizeof(last));}return fail_output?-1:0;}
 int sceUserServiceGetInitialUser(int *u){*u=42;return 0;}
 int scePadGetHandle(int user,int type,int index){assert(user==42&&type==0&&index==0);return 7;}
-int scePadSetVibrationMode(int pad,int mode){assert(pad==7);if(mode==1){advanced++;return fail_mode?-1:0;}assert(mode==2);compatible++;return 0;}
+int prospero_pad_set_vibration_mode(int pad,int mode){assert(pad==7);if(mode==1){advanced++;return fail_mode?-1:0;}assert(mode==2);compatible++;return 0;}
 void client_sdl_diagnostic(const char *text){assert(strstr(text,"PS5_HAPTIC"));}
 #include "SDL_ps5audio.c"
 int main(void){

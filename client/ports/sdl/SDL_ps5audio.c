@@ -15,13 +15,13 @@ extern int sceAudioOutOutput(int,const void *);
 extern int sceAudioOutClose(int);
 extern int sceUserServiceGetInitialUser(int *);
 extern int scePadGetHandle(int,int,int);
-extern int scePadSetVibrationMode(int,int);
+extern int prospero_pad_set_vibration_mode(int,int);
 extern void client_sdl_diagnostic(const char *);
 
 #define PS5_HAPTIC_FRAMES 256
 typedef struct { int user,pad; } PS5_HapticDevice;
 struct SDL_PrivateAudioData {
-    int port,pad;bool healthy;
+    int port,pad;bool healthy,reported_nonzero;
     Uint8 *buffer;
     Sint16 *pcm;
 };
@@ -50,8 +50,8 @@ static void PS5AUDIO_DetectDevices(SDL_AudioDevice **playback,SDL_AudioDevice **
     if(init<0&&(Uint32)init!=0x8026000eu&&(Uint32)init!=0x80260002u)return;
     int port=prospero_haptic_reserve();PS5AUDIO_Report("probe-port",port);
     if(port<0)return;
-    int mode=scePadSetVibrationMode(pad,1);PS5AUDIO_Report("probe-advanced",mode);
-    int restore=scePadSetVibrationMode(pad,2);
+    int mode=prospero_pad_set_vibration_mode(pad,1);PS5AUDIO_Report("probe-advanced",mode);
+    int restore=prospero_pad_set_vibration_mode(pad,2);
     if(mode<0||restore<0){(void)sceAudioOutClose(port);retained_port=-1;return;}
     PS5_HapticDevice *handle=SDL_malloc(sizeof(*handle));if(!handle)return;
     *handle=(PS5_HapticDevice){user,pad};
@@ -75,7 +75,7 @@ static bool PS5AUDIO_OpenDevice(SDL_AudioDevice *device)
     if(retained_port>=0&&retained_user==handle->user){data->port=retained_port;retained_port=-1;}
     else data->port=sceAudioOutOpen(handle->user,10,0,PS5_HAPTIC_FRAMES,48000,1);PS5AUDIO_Report("open-port",data->port);
     if(data->port<0)return SDL_SetError("PS5 DualSense haptic audio port unavailable");
-    int mode=scePadSetVibrationMode(handle->pad,1);PS5AUDIO_Report("advanced",mode);
+    int mode=prospero_pad_set_vibration_mode(handle->pad,1);PS5AUDIO_Report("advanced",mode);
     if(mode<0){data->healthy=false;return SDL_SetError("PS5 DualSense advanced vibration mode unavailable");}
     return true;
 }
@@ -85,6 +85,9 @@ static bool PS5AUDIO_PlayDevice(SDL_AudioDevice *device,const Uint8 *buffer,int 
     if(size!=PS5_HAPTIC_FRAMES*4*(int)sizeof(float))return SDL_SetError("Unexpected PS5 haptic buffer size");
     struct SDL_PrivateAudioData *data=device->hidden;
     prospero_haptic_pcm((const float *)buffer,data->pcm,PS5_HAPTIC_FRAMES);
+    bool nonzero=false;for(int i=0;i<PS5_HAPTIC_FRAMES*2;i++)if(data->pcm[i]){nonzero=true;break;}
+    if(nonzero){int mode=prospero_pad_set_vibration_mode(data->pad,1);if(mode<0){data->healthy=false;return SDL_SetError("PS5 haptic mode unavailable");}
+        if(!data->reported_nonzero){PS5AUDIO_Report("first-nonzero-pcm",1);data->reported_nonzero=true;}}
     int result=sceAudioOutOutput(data->port,data->pcm);
     if(result<0){data->healthy=false;PS5AUDIO_Report("output-failed",result);return SDL_SetError("PS5 haptic output failed");}
     return true;
@@ -94,7 +97,7 @@ static Uint8 *PS5AUDIO_GetDeviceBuf(SDL_AudioDevice *device,int *size){*size=dev
 static void PS5AUDIO_CloseDevice(SDL_AudioDevice *device)
 {
     struct SDL_PrivateAudioData *data=device->hidden;if(!data)return;
-    if(data->port>=0){int drained=sceAudioOutOutput(data->port,NULL);(void)scePadSetVibrationMode(data->pad,2);
+    if(data->port>=0){int drained=sceAudioOutOutput(data->port,NULL);(void)prospero_pad_set_vibration_mode(data->pad,2);
         if(data->healthy&&drained>=0&&retained_port<0){retained_port=data->port;retained_user=((PS5_HapticDevice *)device->handle)->user;PS5AUDIO_Report("retain-port",retained_port);}
         else PS5AUDIO_Report("close-port",sceAudioOutClose(data->port));}
     SDL_aligned_free(data->buffer);SDL_aligned_free(data->pcm);SDL_free(data);device->hidden=NULL;

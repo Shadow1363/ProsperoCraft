@@ -7,7 +7,7 @@
  *
  * SPDX-License-Identifier: Zlib
  */
-/* Consumer changes: native gyro; rumble/LED/effects remain unsupported. */
+/* Consumer changes: native gyro and compatible rumble; LED/effects unsupported. */
 #include "SDL_internal.h"
 
 #ifdef SDL_JOYSTICK_PS5
@@ -131,14 +131,14 @@ static bool PS5_JoystickOpen(SDL_Joystick *joystick, int device_index)
     joystick->naxes = PS5_AXES;
     joystick->nhats = 0;
     if(pad_player_has_gyro(ps5_device_player[device_index]))SDL_PrivateJoystickAddSensor(joystick,SDL_SENSOR_GYRO,0.0f);
-    SDL_SetBooleanProperty(SDL_GetJoystickProperties(joystick), SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN, false);
+    SDL_SetBooleanProperty(SDL_GetJoystickProperties(joystick), SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN, pad_player_has_rumble(ps5_device_player[device_index]));
     SDL_SetBooleanProperty(SDL_GetJoystickProperties(joystick), SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN, false);
     return true;
 }
 
 static bool PS5_JoystickRumble(SDL_Joystick *joystick, Uint16 low_frequency_rumble, Uint16 high_frequency_rumble)
 {
-    return SDL_Unsupported();
+    return pad_player_rumble((int)joystick->instance_id-1,low_frequency_rumble,high_frequency_rumble)?true:SDL_SetError("PS5 compatible rumble failed");
 }
 
 static bool PS5_JoystickRumbleTriggers(SDL_Joystick *joystick, Uint16 left, Uint16 right)
@@ -207,6 +207,7 @@ static void PS5_JoystickUpdate(SDL_Joystick *joystick)
 
 static void PS5_JoystickClose(SDL_Joystick *joystick)
 {
+    if(pad_player_has_rumble((int)joystick->instance_id-1))(void)pad_player_rumble((int)joystick->instance_id-1,0,0);
     if(pad_player_motion_enabled((int)joystick->instance_id-1))(void)pad_player_set_motion((int)joystick->instance_id-1,false);
 }
 
