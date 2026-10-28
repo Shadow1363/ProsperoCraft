@@ -1,5 +1,11 @@
 # Changelog
 
+## Development 01.000.109
+
+- Resolve exact required dependency versions before downloading, allowing Iris and Sodium to be queued together in either order.
+- Discard dependencies of superseded download choices and identify genuine conflicting project/version IDs. Existing installed files stay protected.
+- PS5 download, launch and Iris rendering tests are pending; public Store release remains108.
+
 ## Development 01.000.108
 
 - Check Fabric manifests and bundled modules alongside recursive Modrinth required dependencies; automatically add Fabric API when a required module is missing.

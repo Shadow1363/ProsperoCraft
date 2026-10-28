@@ -37,6 +37,29 @@ public class DependencyCheck {
    byte[] unknown=jar("unknown","1.0","{\"unmapped-library\":\"*\"}",null);version("unknown","vUnknown","unknown.jar",unknown,"[]");client.toggle(game,new ProsperoModrinth.Selection("unknown","Unknown",ProsperoModrinth.Kind.MOD));
    try{client.downloadAll(game,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);throw new AssertionError("missing unknown dependency allowed");}catch(IOException expected){check(expected.getMessage().contains("unmapped-library"),"missing dependency not named");}
    check(!Files.exists(game.resolve("mods/unknown.jar"))&&client.queue(game).size()==1,"unresolved dependency published or queue lost");
+
+   version("sodium","oldSodium","sodium-old.jar",jar("sodium","0.9.2","{}",null),"[]");
+   version("unused","unusedVersion","unused.jar",jar("unused","1.0","{}",null),"[]");
+   version("sodium","newSodium","sodium-new.jar",jar("sodium","0.9.3-beta.1","{}",null),"[{\"project_id\":\"unused\",\"version_id\":\"unusedVersion\",\"dependency_type\":\"required\"}]");
+   version("iris","irisVersion","iris.jar",jar("iris","1.11.7","{\"sodium\":\"0.9.x\"}",null),"[{\"project_id\":\"sodium\",\"version_id\":\"oldSodium\",\"dependency_type\":\"required\"}]");
+   for(boolean reverse:List.of(false,true)){
+    Path fresh=root.resolve("queue-"+reverse+"/game");Files.createDirectories(fresh);
+    for(String project:reverse?List.of("sodium","iris"):List.of("iris","sodium"))client.toggle(fresh,new ProsperoModrinth.Selection(project,project,ProsperoModrinth.Kind.MOD));
+    client.downloadAll(fresh,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);
+    check(Files.exists(fresh.resolve("mods/iris.jar"))&&Files.exists(fresh.resolve("mods/sodium-old.jar"))&&!Files.exists(fresh.resolve("mods/sodium-new.jar"))&&!Files.exists(fresh.resolve("mods/unused.jar")),"queue order selected wrong version or retained obsolete dependency");
+    check(client.installed(fresh).files.size()==2&&client.queue(fresh).isEmpty(),"wrong dependency receipt or queue");
+   }
+
+   Path existing=root.resolve("already-installed/game");Files.createDirectories(existing.resolve("mods"));
+   byte[] installedNew=jar("sodium","0.9.3-beta.1","{}",null);Files.write(existing.resolve("mods/sodium-new.jar"),installedNew);
+   client.toggle(existing,new ProsperoModrinth.Selection("iris","Iris",ProsperoModrinth.Kind.MOD));
+   try{client.downloadAll(existing,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);throw new AssertionError("existing Sodium silently replaced");}catch(IOException expected){check(expected.getMessage().contains("Multiple top-level versions"),"installed conflict not explained");}
+   check(Arrays.equals(installedNew,Files.readAllBytes(existing.resolve("mods/sodium-new.jar")))&&!Files.exists(existing.resolve("mods/iris.jar"))&&client.queue(existing).size()==1,"existing conflicting files changed or queue lost");
+   version("otherroot","otherVersion","otherroot.jar",jar("otherroot","1.0","{}",null),"[{\"project_id\":\"sodium\",\"version_id\":\"newSodium\",\"dependency_type\":\"required\"}]");
+   Path incompatible=root.resolve("incompatible/game");Files.createDirectories(incompatible);
+   for(String project:List.of("iris","otherroot"))client.toggle(incompatible,new ProsperoModrinth.Selection(project,project,ProsperoModrinth.Kind.MOD));
+   try{client.downloadAll(incompatible,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);throw new AssertionError("incompatible exact dependency pins accepted");}catch(IOException expected){check(expected.getMessage().contains("sodium")&&expected.getMessage().contains("oldSodium")&&expected.getMessage().contains("newSodium"),"conflicting dependency not identified");}
+   check(client.local(incompatible,ProsperoModrinth.Kind.MOD).isEmpty()&&client.queue(incompatible).size()==2,"conflict published files or lost queue");
   }
   System.out.println("PASS actual upstream Fabric predicates,manifest-only missing API,nested module providers,hash-pinned auto-install,old-instance repair,healthy offline/no-network launch,offline failure,conflicts/unmapped requirements before publication and world/file preservation");
  }

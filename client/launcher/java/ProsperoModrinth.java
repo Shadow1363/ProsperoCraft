@@ -95,8 +95,11 @@ final class ProsperoModrinth {
   JsonObject hashes=selected.getAsJsonObject("hashes");String algorithm=hashes.has("sha512")?"SHA-512":"SHA-1",hash=hashes.get(algorithm.equals("SHA-512")?"sha512":"sha1").getAsString();
   return new File(project,id,kind,name,new ProsperoDownloads.Pin(selected.get("url").getAsString(),algorithm,hash,selected.get("size").getAsLong()));
  }
- private void resolve(Selection s,String pinned,String game,LinkedHashMap<String,File> plan,Set<String> active,List<JsonObject> versions,BooleanSupplier cancel)throws Exception {
-  String key=s.kind+":"+s.project;File prior=plan.get(key);if(prior!=null){if(!pinned.isEmpty()&&!pinned.equals(prior.version))throw new IOException("Required mod versions conflict");return;}
+ private void resolve(Selection s,String pinned,String game,LinkedHashMap<String,File> plan,Set<String> active,List<JsonObject> versions,BooleanSupplier cancel,Map<String,String> constraints,Map<String,String> required)throws Exception {
+  String key=s.kind+":"+s.project;
+  if(!pinned.isEmpty()){String other=required.putIfAbsent(s.project,pinned);if(other!=null&&!other.equals(pinned))throw new IOException("Required mod versions conflict for "+s.project+": "+other+" and "+pinned);}
+  File prior=plan.get(key);if(prior!=null)return;
+  if(pinned.isEmpty())pinned=constraints.getOrDefault(s.project,"");
   if(plan.size()+active.size()>=128)throw new IOException("Too many required dependencies");if(!active.add(key))throw new IOException("Dependency cycle in Modrinth metadata");
   var v=version(s.project,pinned,s.kind,game,cancel);File f=file(v,s.kind);versions.add(v);
   if(v.has("dependencies"))for(var element:v.getAsJsonArray("dependencies")){
@@ -106,9 +109,24 @@ final class ProsperoModrinth {
    if(project.isEmpty())throw new IOException("A required dependency needs manual installation");
    // Modrinth libraries required by Fabric mods are mods, never desktop natives.
    if(s.kind!=Kind.MOD)throw new IOException("This pack has required dependencies; install them separately first");
-   resolve(new Selection(project,project,Kind.MOD),id,game,plan,active,versions,cancel);
+   resolve(new Selection(project,project,Kind.MOD),id,game,plan,active,versions,cancel,constraints,required);
   }
   active.remove(key);plan.put(key,f);
+ }
+ private void resolveAll(List<Selection> selected,Map<String,String> pins,String game,LinkedHashMap<String,File> plan,List<JsonObject> versions,BooleanSupplier cancel)throws Exception {
+  Map<String,String> constraints=new HashMap<>(pins);Set<Map<String,String>> seen=new HashSet<>();
+  for(int pass=0;pass<128;pass++){
+   ProsperoInstall.active(cancel);
+   if(!seen.add(Map.copyOf(constraints)))throw new IOException("Required mod versions do not converge; change the conflicting selection");
+   plan.clear();versions.clear();Map<String,String> required=new HashMap<>(pins);
+   for(var s:selected)resolve(s,pins.getOrDefault(s.project,""),game,plan,new HashSet<>(),versions,cancel,constraints,required);
+   boolean matches=true;for(var entry:required.entrySet()){
+    File f=plan.get("MOD:"+entry.getKey());if(f==null||!f.version.equals(entry.getValue())){matches=false;break;}
+   }
+   if(matches)return;
+   constraints=required;
+  }
+  throw new IOException("Too many dependency version resolution passes");
  }
  Installed installed(Path game)throws Exception {
   Path path=state(game,"content-installed.json");if(!Files.exists(path))return new Installed();if(Files.size(path)>1024*1024)throw new IOException("Content receipt too large");
@@ -133,7 +151,8 @@ final class ProsperoModrinth {
   if(clearQueue&&selected.isEmpty())throw new IOException("Select something for the queue first");
   if(!loader.equals("fabric")&&selected.stream().anyMatch(s->s.kind==Kind.MOD))throw new IOException("Mods require a Fabric instance");
   LinkedHashMap<String,File> plan=new LinkedHashMap<>();ArrayList<JsonObject> versions=new ArrayList<>();
-  for(var s:selected){progress.update("Resolving "+s.title,0,1);resolve(s,pins.getOrDefault(s.project,""),gameVersion,plan,new HashSet<>(),versions,cancel);}
+  var roots=new ArrayList<>(selected);var rootPins=new HashMap<>(pins);
+  progress.update("Resolving selected content and required versions",0,1);resolveAll(roots,rootPins,gameVersion,plan,versions,cancel);
   Installed receipt=installed(game);
   Path stage=game.getParent().resolve("content-downloads");long total=0,done=0;
   for(int pass=0;pass<2;pass++){
@@ -146,7 +165,8 @@ final class ProsperoModrinth {
    if(pass==0&&api&&!plan.containsKey("MOD:P7dR8mSH")){
     progress.update("Adding Fabric API required by "+needs.getFirst().owner(),0,1);
     var installedApi=receipt.files.stream().filter(f->f.kind==Kind.MOD&&f.project.equals("P7dR8mSH")).findFirst();
-    resolve(new Selection("P7dR8mSH","Fabric API",Kind.MOD),installedApi.isPresent()?installedApi.get().version:"",gameVersion,plan,new HashSet<>(),versions,cancel);continue;
+    roots.add(new Selection("P7dR8mSH","Fabric API",Kind.MOD));if(installedApi.isPresent())rootPins.put("P7dR8mSH",installedApi.get().version);
+    resolveAll(roots,rootPins,gameVersion,plan,versions,cancel);continue;
    }
    var n=needs.getFirst();throw new IOException(n.owner()+" needs "+n.id()+" "+n.versions()+". No compatible automatic dependency was found; files are kept.");
   }

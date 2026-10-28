@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-28",
+  "version": "01.000.109",
+  "title_id": "PPSA99874",
+  "reason": "Human108 empty instance FabricAPI/Iris/Sodium queue fails required mod versions conflict. Floating Sodium selection conflicts with Iris exact metadata requirement.",
+  "runtime": {
+    "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+    "commit": "42fe3a5709beb65b5f54470aabb169a376ccbdc3",
+    "new_runtime_source_changes": false
+  },
+  "package": {
+    "path": "dist/candidates/ProsperoCraft-01.000.109/PPSA99874.zip",
+    "size": 121871538,
+    "sha256": "75acfafe14ee9aa01ecfc5e9c6ec0d63fed981d75d37d9e6a2648e1d02ea5372",
+    "elf_sha256": "543474565f36ff6fd80a7ac011c9296009fce0b9b9cccebabf52a91be0504930"
+  },
+  "checks": {
+    "unchanged108_reproduction": "PASS new regression reproduces Required mod versions conflict on unmodified108 source",
+    "synthetic": "PASS both queue orders,obsolete dependencies excluded,genuine exact-pin conflict names project/IDs,no partial publication,queue retention,already-installed conflicting Sodium preserved;108 FabricAPI repair regression remains passing",
+    "real_downloads": "PASS original Iris1.11.7 vTN4NRGW plus direct Sodium0.9.3beta g6ju16VJ plus FabricAPI EQKgpeKu in both orders resolves required Sodium0.9.2 bAZQdGpg;all hashes verified and upstream Fabric0.20.1 predicates pass;previous Vitrail repair remains passing",
+    "content_regression": "PASS",
+    "startup_host": "PASS launch policy and original Main native-bootstrap expected stop;game JAR unchanged",
+    "native_build": "PASS",
+    "package": "PASS CRC/signatures/109 identity/exact source bytecode/resident groups/native audits/prior milestone preservation",
+    "toolkit": "PASS CRC/109 identity/pinned toolkit/fonts/licenses/constructor/allocation audits"
+  },
+  "source_sha256": {
+    "AGENTS.md": "2e4c84429b8c7206c814f393776db1bb926d1080d933a86bd1c22e286b485bd3",
+    "CHANGELOG.md": "b01fb046e978e10f0f39251836301388ac1e7cea03b3aa269e39719b1ba5ff0c",
+    "README.md": "2a919253e2d8d38deb23ce38296bc3a2b64ddce41376982b85deaa30c8fe6d99",
+    "client/launcher/java/ProsperoModrinth.java": "27287d035683fb098486a85408d4bfd4f2c88a8a82cc007c760e2c882fe14054",
+    "client/startup/param.json": "5048c2c302ff823910846ab7d3db5f7b6f5dfd203b58c056898d34b80c171593",
+    "tools/test_client_startup_package.py": "04bf55d38ae4f0e100addb6c8fc4cb05b9eada997f5eddea5b2910030f321274",
+    "tools/test_fabric_dependencies.py": "9c3792dd2ed4427414d71848aea3f974eeef0df3c6de120d663f01de42b5a02f",
+    "tools/test_fabric_dependencies_live.py": "2e846bf592afecbb644c9d6572a5d0b1afe979999c05dd3e706a8e654ef1a541",
+    "tools/test_launcher_toolkit_packages.py": "957170e3e80732efe6f4d7335be60121cd447125774c40151ab016a0265d8707",
+    "docs/client-iris-resolution-109.md": "e56d6df553dd791d93add6d3abbb1d81daff9857c12c495eb7d3b76a7ed1ea9d"
+  },
+  "console": "PENDING exact109 download on previously empty instance;Iris game launch and shader rendering;save/reload/lifecycle/endurance remain pending. Host download success is not Iris rendering acceptance.",
+  "publication": "Consumer source only. Candidate provided locally for PS5 test;public Store/GitHub108 release unchanged. No new passing milestone."
+}

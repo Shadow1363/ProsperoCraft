@@ -1295,3 +1295,16 @@ NativeJava25Runtime/nativePS5descriptionwithGUI/iconcreditsverified. See
  docs/validation/client108-store-publication-2026-10-27.json. NoformalALLPASS/new
 frozenmilestone;remainingconsoledependency/mouse/Controlify/audio/lifecycle/
 save/endurancechecks stayexplicit. Preserveolderpackagesand098draft.
+
+
+##109 Iris queue repair — 2026-10-28
+
+Human reports108 empty-instance FabricAPI/Iris/Sodium queue fails with required
+mod versions conflict. Exact Iris Modrinth dependency pins Sodium0.9.2 while direct
+Sodium selection picks0.9.3beta.109 resolves the complete plan to exact required
+pins irrespective of queue order, discarding obsolete version dependencies.
+Genuine conflicting exact pins still stop before publication and name project/IDs;
+existing installed mods stay protected. Host synthetic and original-JAR tests are
+not PS5 Iris launch/rendering acceptance. See docs/client-iris-resolution-109.md.
+Publish consumer source; no Java runtime fix. Preserve108Store/release and frozen
+milestones. New109public/Store release awaits user direction after console testing.

@@ -16,6 +16,23 @@ public class LiveDependencies {
    var item=api.local(game,ProsperoModrinth.Kind.MOD).stream().filter(x->x.project().equals("P7dR8mSH")).findFirst().orElseThrow();api.uninstall(game,item);api.repair(game,"26.3","fabric",versions,(m,d,t)->{},()->false,false);
    if(api.local(game,ProsperoModrinth.Kind.MOD).stream().noneMatch(x->x.project().equals("P7dR8mSH")))throw new AssertionError("real existing-instance repair failed");
    api.repair(game,"26.3","fabric",versions,(m,d,t)->{},()->false,true);
+   for(boolean reverse:List.of(false,true)){
+    Path irisGame=root.resolve("iris-"+reverse+"/game");
+    if(Files.exists(irisGame.getParent()))try(var walk=Files.walk(irisGame.getParent())){for(var path:walk.sorted(Comparator.reverseOrder()).toList())Files.delete(path);}
+    Files.createDirectories(irisGame);var iris=new ProsperoModrinth(new ProsperoDownloads(url->{
+     String pin=url.startsWith(ProsperoModrinth.API+"project/YL57xq9U/version?")?"vTN4NRGW":url.startsWith(ProsperoModrinth.API+"project/AANobbMI/version?")?"g6ju16VJ":url.startsWith(ProsperoModrinth.API+"project/P7dR8mSH/version?")?"EQKgpeKu":"";
+     if(pin.isEmpty())return ProsperoDownloads.network(url);
+     byte[] metadata=new ProsperoDownloads().bytes(ProsperoModrinth.API+"version/"+pin,1024*1024,()->false);
+     return new ByteArrayInputStream(("["+new String(metadata,java.nio.charset.StandardCharsets.UTF_8)+"]").getBytes(java.nio.charset.StandardCharsets.UTF_8));
+    }));
+    for(String project:reverse?List.of("AANobbMI","P7dR8mSH","YL57xq9U"):List.of("P7dR8mSH","YL57xq9U","AANobbMI"))iris.toggle(irisGame,new ProsperoModrinth.Selection(project,project,ProsperoModrinth.Kind.MOD));
+    iris.downloadAll(irisGame,"26.3","fabric",(m,d,t)->System.out.println(m),()->false,x->{},versions);
+    var sodium=iris.installed(irisGame).files.stream().filter(x->x.project().equals("AANobbMI")).findFirst().orElseThrow();
+    if(!sodium.version().equals("bAZQdGpg")||iris.installed(irisGame).files.size()!=3||!iris.queue(irisGame).isEmpty())throw new AssertionError("real Iris exact Sodium pin not honored");
+    var irisJars=iris.local(irisGame,ProsperoModrinth.Kind.MOD).stream().map(x->irisGame.resolve("mods").resolve(x.filename())).toList();
+    if(!ProsperoDependencies.missing(irisJars,"26.3",versions).isEmpty())throw new AssertionError("real Iris dependency manifests unresolved");
+   }
+   System.out.println("PASS real Iris1.11.7 plus separately queued Sodium0.9.3beta and FabricAPI selects required Sodium0.9.2 in both queue orders; verified original bytes and upstream Fabric predicates; no PS5 rendering claim");
    System.out.println("PASS real pinned Vitrail0.13.0/Sodium/Fabric API verified downloads,upstream0.20.1predicates,nested required module discovery,API auto-install and existing-instance repair;official JARs untouched,no game execution");
   }
  }
