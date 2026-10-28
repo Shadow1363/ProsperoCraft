@@ -1,5 +1,11 @@
 # Changelog
 
+## Development 01.000.115
+
+- Install Controlify and required dependencies once when setting up a new Fabric instance. Preserve existing instances, user queues and later uninstalls; retain a pending marker for failed/cancelled setup retries. NeoForge remains coming soon.
+- Accept safe Unicode content filenames and installed receipts, fixing the section-sign formatting in C418 Songs Only. Preserve original names/bytes and reject unsafe path/control characters.
+- Record successful114PS5world play/reload.115host/live-download checks pass; actual new-instance and formatted pack tests remain pending. See [details](docs/client-default-controlify-unicode-115.md). Public/Store remain108.
+
 ## Development 01.000.114
 
 - Reserve filesystem room for world operations by enabling a64-handle cache for immutable, reopenable Java ZIP/JAR sources. Integrate runtime0126 and its rebuilt core image.

@@ -9,7 +9,7 @@ public final class ProsperoLibrary {
  static final int GAME_WIDTH=1920,GAME_HEIGHT=1080,LOCKED_RESOLUTION=2;
  static final int[][] RESOLUTIONS={{1280,720},{1600,900},{1920,1080},{2560,1440},{3840,2160}};
  static String resolutionLabel(int i){return RESOLUTIONS[i][0]+" x "+RESOLUTIONS[i][1];}
- static final class Instance {String id=UUID.randomUUID().toString(),name,version,loader="vanilla";int icon;boolean ready;Instance(String n,String v,int i){name=clean(n);version=v;icon=i;}}
+ static final class Instance {String id=UUID.randomUUID().toString(),name,version,loader="vanilla";int icon;boolean ready,defaultContentPending;Instance(String n,String v,int i){name=clean(n);version=v;icon=i;}}
  static final class Favorite {String instance,kind,target,name;Favorite(String i,ProsperoDestinations.Entry e){instance=i;kind=e.kind();target=e.target();name=e.name();}}
  static final class Settings {int[] controllerKeys=ProsperoInput.DEFAULT.clone();int resolution=LOCKED_RESOLUTION,workers=4,background=5,backgroundDefaultsRevision=0;boolean vibration=true,reducedMotion=false,snapshots=false,showIntro=true,showControls=true;}
  static final class State {int schema=1;ArrayList<Instance> instances=new ArrayList<>();Settings settings=new Settings();ArrayList<Favorite> favorites=new ArrayList<>();}
@@ -41,7 +41,7 @@ public final class ProsperoLibrary {
  synchronized Instance add(String name,String version,int icon,String loader)throws Exception {
   if(!Set.of("vanilla","fabric").contains(loader))throw new IOException("This loader is coming soon");
   if(state.instances.size()>=256)throw new IOException("This library is full");if(!version.matches("26\\.[0-9][A-Za-z0-9._-]{0,70}")||icon<0||icon>=ICONS.length)throw new IOException("Invalid instance choice");
-  Instance instance=new Instance(name,version,icon);instance.loader=loader;Files.createDirectories(game(instance));state.instances.add(instance);try{save();}catch(Exception error){state.instances.remove(instance);throw error;}return instance;
+  Instance instance=new Instance(name,version,icon);instance.loader=loader;instance.defaultContentPending=Set.of("fabric","neoforge").contains(loader);Files.createDirectories(game(instance));state.instances.add(instance);try{save();}catch(Exception error){state.instances.remove(instance);throw error;}return instance;
  }
  Path game(Instance i){return root.resolve("instances").resolve(i.id).resolve("game");}
  synchronized List<Favorite> favorites(){return state.favorites.stream().filter(f->state.instances.stream().anyMatch(i->i.id.equals(f.instance))).toList();}
@@ -99,6 +99,7 @@ public final class ProsperoLibrary {
  }
  synchronized void rename(Instance i,String name)throws Exception{String before=i.name;i.name=clean(name);try{save();}catch(Exception error){i.name=before;throw error;}}
  synchronized void icon(Instance i,int icon)throws Exception{if(icon<0||icon>=ICONS.length)throw new IOException("Invalid icon");int before=i.icon;i.icon=icon;try{save();}catch(Exception error){i.icon=before;throw error;}}
+ synchronized void defaultContentInstalled(Instance i)throws Exception{boolean before=i.defaultContentPending;i.defaultContentPending=false;try{save();}catch(Exception error){i.defaultContentPending=before;throw error;}}
  synchronized void ready(Instance i,boolean value)throws Exception{i.ready=value;save();}
  synchronized void save()throws Exception {
   validate();Path file=root.resolve("library.json");if(Files.isRegularFile(file))Files.copy(file,root.resolve("library.json.backup"),StandardCopyOption.REPLACE_EXISTING);ProsperoInstall.save(file,new GsonBuilder().setPrettyPrinting().create().toJson(state));

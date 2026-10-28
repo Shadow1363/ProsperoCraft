@@ -1348,3 +1348,7 @@ The optional compression/database builder and descriptor diagnostics live in run
 ## Development114 world handle pressure
 
 113user confirms haptics, but world validation/delete fail EMFILE. Live native inventory241regular files/261total,238tracked opens including many JARs,mostlybalanced counts. Do not claim an exact title quota or proven unbounded leak.114enables ps5.zip.maxOpenFiles=64 from runtime0126 commit ce7599d81f140aa7169c55e43558d0efe05a563b and packages its rebuilt module image. Immutable archive contract,OPEN_DELETE/non-ZipFile exclusions and reopen costs are documented in docs/client-world-handles-114.md. Actual world lifecycle/headroom/performance pending;preserve113haptics and public108Store/frozenpackages. Raw reports remain ignored.
+
+## Development115 defaults and Unicode content
+
+User confirms114world play/reload;matching feedback is in docs/validation/client114-console-feedback-2026-10-28.json.115adds one-time Controlify defaults for new Fabric instances using existing verified dependency installs. Preserve old instances/queues and later uninstall choices;failed setup stays pending. NeoForge default-project policy is prepared but loader/resolver remains disabled. Unicode pack filenames now share a safe single-component/180UTF8byte policy across downloads and receipts;C418contains§formatting. See docs/client-default-controlify-unicode-115.md. Runtime0126/haptics unchanged;115PS5tests pending,Store108 preserved.

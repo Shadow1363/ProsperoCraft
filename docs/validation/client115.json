@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-28",
+  "version": "01.000.115",
+  "title_id": "PPSA99874",
+  "sha256": {
+    "PPSA99874.zip": "aeefb76f4f4556f65b4d055c14360be13b62edce2a32cd3e923cecf9455d995e",
+    "bootstrap-symbols.elf": "1c009e89df4f5113dab8e5657460458685fd94f9e023bc7d6c977c72da82e91f"
+  },
+  "runtime_implementation": "ce7599d81f140aa7169c55e43558d0efe05a563b unchanged0126",
+  "runtime_feedback_commit": "c5c097fae084d917d09be9e669fda947fce9b445",
+  "live_pins": {
+    "controlify_project": "DOUdJVEm",
+    "controlify_version": "fo76vL20",
+    "resource_project": "jJAtxomy",
+    "resource_version": "xkCRrVC3",
+    "resource_filename": "§lC418 §rSongs Only.zip"
+  },
+  "checks": [
+    "PASS content Unicode download/receipt/uninstall and unsafe-path controls",
+    "PASS default policy and metadata completion/migration,required dependencies and queue preservation",
+    "PASS real Controlify/Fabric API/YACL and original C418 publisher downloads/manifest/hash/pack checks",
+    "PASS startup host regression and actual115package/CRC/signature/core/toolkit/channel audits"
+  ],
+  "console": "114world play/reload and113haptics accepted;115newFabric default setup/formattedpack UI and installation pending",
+  "store": "108 unchanged",
+  "source_sha256": {
+    "client/launcher/java/ProsperoLauncher.java": "005cbca27dc185ad765da075f82023d7cc9d9ad0a61f0d75921fdb94f5861e9b",
+    "client/launcher/java/ProsperoLibrary.java": "aa83cb7624bdd675c67ff471e013e9830d2c9fe60f6aa45ee2269af3e34c58aa",
+    "client/launcher/java/ProsperoModrinth.java": "70f43ed5a76be19c4ff8beeeae278fc44a9b419bf735edbf8db26c590e8e2b82",
+    "client/startup/param.json": "4b39458947a61e4a16b3c558f647dcd36de1756816fa83aa201961d4a22ec7e8",
+    "tools/test_default_controlify_live.py": "e2e2393b4e37d9db15baea15abc5ce3620c833a6047ea7e48f5dcb542e968611"
+  }
+}

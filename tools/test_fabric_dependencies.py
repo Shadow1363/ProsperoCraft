@@ -15,6 +15,11 @@ public class DependencyCheck {
  static void check(boolean yes,String why){if(!yes)throw new AssertionError(why);}
  public static void main(String[]args)throws Exception {Path root=Path.of(args[0]),game=root.resolve("game");Files.createDirectories(game);Files.writeString(game.resolve("world-marker"),"KEEP");
   try(var versions=new ProsperoDependencies.Versions(Path.of(args[1]),"0.20.1")){
+   Path defaults=root.resolve("defaults/game");Files.createDirectories(defaults);var defaultsClient=new ProsperoModrinth(new ProsperoDownloads(DependencyCheck::open));
+   version("defaultdep","vDefaultDep","dependency.jar",jar("defaultdep","1.0","{}",null),"[]");version("DOUdJVEm","vControlify","controlify.jar",jar("controlify","1.0","{\"defaultdep\":\"*\"}",null),"[{\"dependency_type\":\"required\",\"project_id\":\"defaultdep\",\"version_id\":null}]");
+   defaultsClient.toggle(defaults,new ProsperoModrinth.Selection("userQueued","Keep queued",ProsperoModrinth.Kind.RESOURCE));
+   defaultsClient.installDefaults(defaults,"26.3","fabric",versions,(m,d,t)->{},()->false);check(Files.exists(defaults.resolve("mods/controlify.jar"))&&Files.exists(defaults.resolve("mods/dependency.jar"))&&defaultsClient.queue(defaults).size()==1,"defaults missing dependency or changed user queue");
+   defaultsClient.installDefaults(defaults,"26.3","fabric",versions,(m,d,t)->{},()->false);check(defaultsClient.installed(defaults).files.size()==2,"duplicate defaults");
    check(versions.accepts("0.20.1",List.of(">=0.18.4"))&&versions.accepts("26.3",List.of("~26.3"))&&!versions.accepts("1.0.0",List.of(">=2")),"official version predicates");
    byte[] mod=jar("vitrail","0.13.0-beta","{\"fabric-key-mapping-api-v1\":\"*\",\"minecraft\":\"~26.3\",\"java\":\">=25\"}",null);
    byte[] api=jar("fabric-api","0.165.0+26.3","{\"fabricloader\":\">=0.18\"}",jar("fabric-key-mapping-api-v1","3.0.0","{}",null));

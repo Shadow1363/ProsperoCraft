@@ -17,6 +17,16 @@ final class ProsperoModrinth {
  ProsperoModrinth(){this(new ProsperoDownloads());}
  ProsperoModrinth(ProsperoDownloads download){this.download=download;}
  static void id(String id)throws IOException {if(id==null||!id.matches("[A-Za-z0-9_-]{1,80}"))throw new IOException("Invalid Modrinth identifier");}
+ static boolean validFilename(String name,Kind kind){
+  if(name==null||kind==null||name.isEmpty()||name.startsWith(".")||name.endsWith(" ")||name.getBytes(java.nio.charset.StandardCharsets.UTF_8).length>180||!name.endsWith(kind==Kind.MOD?".jar":".zip"))return false;
+  for(int cp:name.codePoints().toArray())if(Character.isISOControl(cp)||Character.getType(cp)==Character.FORMAT||Character.getType(cp)==Character.LINE_SEPARATOR||Character.getType(cp)==Character.PARAGRAPH_SEPARATOR||cp>=0xd800&&cp<=0xdfff||"/\\:<>\"|?*".indexOf(cp)>=0)return false;
+  return true;
+ }
+ static List<Selection> defaultMods(String loader){return Set.of("fabric","neoforge").contains(loader)?List.of(new Selection("DOUdJVEm","Controlify",Kind.MOD)):List.of();}
+ void installDefaults(Path game,String version,String loader,ProsperoDependencies.Versions checker,ProsperoInstall.Progress progress,BooleanSupplier cancel)throws Exception{
+  List<Selection> defaults=defaultMods(loader);if(defaults.isEmpty())return;
+  installSelected(game,version,loader,progress,cancel,f->{},checker,defaults,Map.of(),false);
+ }
  static String array(String s){return new Gson().toJson(List.of(s));}
  Results search(Kind kind,String game,String loader,String query,int offset,BooleanSupplier cancel)throws Exception {
   ProsperoFabric.game(game);if(query.length()>80||offset<0||offset>100000)throw new IOException("Invalid content search");
@@ -90,7 +100,7 @@ final class ProsperoModrinth {
  File file(JsonObject version,Kind kind)throws Exception {
   JsonObject selected=null;for(var item:version.getAsJsonArray("files")){var f=item.getAsJsonObject();if(selected==null)selected=f;if(f.has("primary")&&f.get("primary").getAsBoolean()){selected=f;break;}}
   if(selected==null)throw new IOException("Content has no downloadable file");String name=selected.get("filename").getAsString();
-  if(!name.matches("[A-Za-z0-9_.+() -]{1,180}")||name.startsWith(".")||!name.endsWith(kind==Kind.MOD?".jar":".zip"))throw new IOException("Unsupported content filename");
+  if(!validFilename(name,kind))throw new IOException("Unsupported content filename");
   String project=version.get("project_id").getAsString(),id=version.get("id").getAsString();id(project);id(id);
   JsonObject hashes=selected.getAsJsonObject("hashes");String algorithm=hashes.has("sha512")?"SHA-512":"SHA-1",hash=hashes.get(algorithm.equals("SHA-512")?"sha512":"sha1").getAsString();
   return new File(project,id,kind,name,new ProsperoDownloads.Pin(selected.get("url").getAsString(),algorithm,hash,selected.get("size").getAsLong()));
@@ -132,7 +142,7 @@ final class ProsperoModrinth {
   Path path=state(game,"content-installed.json");if(!Files.exists(path))return new Installed();if(Files.size(path)>1024*1024)throw new IOException("Content receipt too large");
   Installed r=new Gson().fromJson(Files.readString(path),Installed.class);if(r==null||r.files==null||r.files.size()>1024)throw new IOException("Invalid content receipt");
   Set<String> entries=new HashSet<>();for(File f:r.files){
-   if(f==null||f.kind==null||f.pin==null||f.filename==null||!f.filename.matches("[A-Za-z0-9_.+() -]{1,180}")||f.filename.startsWith(".")||!f.filename.endsWith(f.kind==Kind.MOD?".jar":".zip"))throw new IOException("Invalid content receipt filename");
+   if(f==null||f.kind==null||f.pin==null||!validFilename(f.filename,f.kind))throw new IOException("Invalid content receipt filename");
    id(f.project);id(f.version);if(!entries.add(f.kind+":"+f.project))throw new IOException("Duplicate content receipt project");
    if(!Set.of("SHA-512","SHA-1").contains(f.pin.algorithm())||f.pin.hash()==null||!f.pin.hash().matches(f.pin.algorithm().equals("SHA-512")?"[a-f0-9]{128}":"[a-f0-9]{40}"))throw new IOException("Invalid content receipt hash");
   }return r;
