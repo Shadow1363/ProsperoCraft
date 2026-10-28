@@ -79,6 +79,7 @@ struct pad_reading {
    uint8_t l2, r2;                           /* 0..255 */
    bool connected;
    uint64_t timestamp_us;
+   float angular_velocity[3]; /* radians/second */
 };
 
 /* Every reading the last pad_poll took, oldest first (the console keeps up to
@@ -86,6 +87,10 @@ struct pad_reading {
  * frame. Returns their number; *readings stays valid until the next poll. */
 int pad_readings(const struct pad_reading **readings);
 int pad_player_readings(int player, const struct pad_reading **readings);
+
+bool pad_player_has_gyro(int player);
+bool pad_player_set_motion(int player,bool enabled);
+bool pad_player_motion_enabled(int player);
 
 /* Rumble: the large and the small motor, 0..1 each; 0, 0 stops it. */
 void pad_vibrate(float large, float small);

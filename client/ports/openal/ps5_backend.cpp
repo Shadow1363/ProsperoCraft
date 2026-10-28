@@ -5,6 +5,7 @@
  */
 #include "config.h"
 #include "ps5_backend.h"
+#include "ps5_port_pool.hpp"
 #include <array>
 #include <atomic>
 #include <cstdint>
@@ -46,6 +47,7 @@ int initialize()
     if(result>=0 || static_cast<std::uint32_t>(result)==AudioAlreadyInit)state.ready=true;
     return result;
 }
+ps5audio::PortPool& ports(){static ps5audio::PortPool pool;return pool;}
 void confirmedOpen()
 {
     auto& state=audioState();const auto lock=std::lock_guard{state.mutex};state.ready=true;
@@ -53,15 +55,16 @@ void confirmedOpen()
 struct Ps5Backend final : BackendBase {
     explicit Ps5Backend(gsl::not_null<DeviceBase*> device) noexcept : BackendBase{device}{}
     ~Ps5Backend() override {stop();close();}
-    int port=-1;
+    int port=-1;bool healthy=true;
     std::atomic<bool> kill{true};
     std::thread thread;
     alignas(64) std::array<std::int16_t,Frames*Channels> pcm{};
     void close() noexcept {
         if(port<0)return;
         const int handle=port;port=-1;
-        report("drain",sceAudioOutOutput(handle,nullptr));
-        report("close",sceAudioOutClose(handle));
+        const int drained=sceAudioOutOutput(handle,nullptr);report("drain",drained);
+        if(healthy&&drained>=0&&ports().keep(handle))report("retain silent port for reload",handle);
+        else report("close",sceAudioOutClose(handle));
     }
     void open(std::string_view name) override {
         if(!name.empty() && name!=DeviceName)
@@ -69,6 +72,7 @@ struct Ps5Backend final : BackendBase {
         {auto& state=audioState();const auto lock=std::lock_guard{state.mutex};
          if(client_ps5_audio_early_port>=0){port=client_ps5_audio_early_port;client_ps5_audio_early_port=-1;state.ready=true;report("adopt pre-JVM port",port);}
         }
+        if(port<0){port=ports().take();if(port>=0)report("reuse retained port",port);}
         if(port>=0){mDeviceName=DeviceName;return;}
         // A busy init is not success. Probe the real port: it must actually open.
         // Retry only explicit busy/not-initialized recovery, at most450ms total.
@@ -108,16 +112,16 @@ struct Ps5Backend final : BackendBase {
                 // AudioOut consumes/blocks on this buffer; keep storage alive until stop joins.
                 const int result=sceAudioOutOutput(port,pcm.data());
                 if(result<0) {
-                    report("output failure",result);
+                    healthy=false;report("output failure",result);
                     mDevice->handleDisconnect("PS5 AudioOut failed: {}",result);break;
                 }
                 if(++blocks==1)report("first PCM block submitted",result);
             }
         } catch(const std::exception& error) {
-            std::fprintf(stderr,"PS5 OpenAL mixer exception: %s\n",error.what());std::fflush(stderr);
+            healthy=false;std::fprintf(stderr,"PS5 OpenAL mixer exception: %s\n",error.what());std::fflush(stderr);
             mDevice->handleDisconnect("PS5 mixer exception");
         } catch(...) {
-            report("unknown mixer exception",-1);mDevice->handleDisconnect("PS5 mixer exception");
+            healthy=false;report("unknown mixer exception",-1);mDevice->handleDisconnect("PS5 mixer exception");
         }
         kill.store(true,std::memory_order_release);
     }

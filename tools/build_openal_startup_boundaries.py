@@ -124,6 +124,6 @@ def build(host=False,speakers=False,host_objects=()):
   assert sha(original_archive)==before
   audit.update(original_archive_sha256=before,private_archive_sha256=sha(archive),original_archive_unchanged=True,constructor_sections=ctors,replaced_members=['alc.cpp.o','helpers.cpp.o'])
  if speakers:
-  audit['speaker_backend']={'source_sha256':sha(ROOT/'client/ports/openal/ps5_backend.cpp'),'header_sha256':sha(ROOT/'client/ports/openal/ps5_backend.h'),'object_sha256':sha(speaker_obj),'name':'ps5/PS5 Speakers','format':'ActualOpenALmixer->AudioOutSYSTEM/main,48kHz,stereoS16,256frames;outputpacedworker,joinbeforeclose','console':'PendingactualPS5sound'}
+  audit['speaker_backend']={'source_sha256':sha(ROOT/'client/ports/openal/ps5_backend.cpp'),'header_sha256':sha(ROOT/'client/ports/openal/ps5_backend.h'),'port_pool_header_sha256':sha(ROOT/'client/ports/openal/ps5_port_pool.hpp'),'object_sha256':sha(speaker_obj),'name':'ps5/PS5 Speakers','format':'ActualOpenALmixer->AudioOutSYSTEM/main,48kHz,stereoS16,256frames;outputpacedworker,joinbeforeclose','console':'PendingactualPS5sound'}
  audit['output_sha256']=sha(result);(out/'audit.json').write_text(json.dumps(audit,indent=2)+'\n')
  return result,audit

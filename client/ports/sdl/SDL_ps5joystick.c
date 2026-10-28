@@ -7,7 +7,7 @@
  *
  * SPDX-License-Identifier: Zlib
  */
-/* Altered for PS5 Java probe: do not advertise unvalidated rumble/LED support. */
+/* Consumer changes: native gyro; rumble/LED/effects remain unsupported. */
 #include "SDL_internal.h"
 
 #ifdef SDL_JOYSTICK_PS5
@@ -130,6 +130,7 @@ static bool PS5_JoystickOpen(SDL_Joystick *joystick, int device_index)
     joystick->nbuttons = PS5_BUTTONS;
     joystick->naxes = PS5_AXES;
     joystick->nhats = 0;
+    if(pad_player_has_gyro(ps5_device_player[device_index]))SDL_PrivateJoystickAddSensor(joystick,SDL_SENSOR_GYRO,0.0f);
     SDL_SetBooleanProperty(SDL_GetJoystickProperties(joystick), SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN, false);
     SDL_SetBooleanProperty(SDL_GetJoystickProperties(joystick), SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN, false);
     return true;
@@ -157,7 +158,8 @@ static bool PS5_JoystickSendEffect(SDL_Joystick *joystick, const void *data, int
 
 static bool PS5_JoystickSetSensorsEnabled(SDL_Joystick *joystick, bool enabled)
 {
-    return SDL_Unsupported();
+    if(!pad_player_set_motion((int)joystick->instance_id-1,enabled))return SDL_SetError("PS5 motion sensor could not change state");
+    return true;
 }
 
 static Sint16 PS5_Stick(float value)
@@ -190,11 +192,22 @@ static void PS5_JoystickUpdate(SDL_Joystick *joystick)
     SDL_SendJoystickAxis(timestamp, joystick, 3, PS5_Stick(pad.right_y));
     SDL_SendJoystickAxis(timestamp, joystick, 4, PS5_Trigger(pad.l2));
     SDL_SendJoystickAxis(timestamp, joystick, 5, PS5_Trigger(pad.r2));
+    int player=(int)joystick->instance_id-1;
+    if(pad_player_motion_enabled(player)){
+        const struct pad_reading *samples=NULL;int count=pad_player_readings(player,&samples);
+        for(int i=0;i<count;i++){
+            const struct pad_reading *s=&samples[i];
+            if(!s->connected||(s->buttons&PAD_INTERCEPTED))continue;
+            if(!__builtin_isfinite(s->angular_velocity[0])||!__builtin_isfinite(s->angular_velocity[1])||!__builtin_isfinite(s->angular_velocity[2]))continue;
+            if(s->timestamp_us>UINT64_MAX/1000)continue;
+            SDL_SendJoystickSensor(timestamp,joystick,SDL_SENSOR_GYRO,s->timestamp_us*1000,s->angular_velocity,3);
+        }
+    }
 }
 
 static void PS5_JoystickClose(SDL_Joystick *joystick)
 {
-    /* Input-only probe; no rumble side effects. */
+    if(pad_player_motion_enabled((int)joystick->instance_id-1))(void)pad_player_set_motion((int)joystick->instance_id-1,false);
 }
 
 static void PS5_JoystickQuit(void)

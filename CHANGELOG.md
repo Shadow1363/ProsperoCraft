@@ -1,5 +1,12 @@
 # Changelog
 
+## Development 01.000.112
+
+- Continue independent queued downloads after failures and retain failed selections with detailed errors.
+- Add native DualSense gyro and a separate Controlify actuator-audio endpoint, with real native capability probes. Physical PS5 input/haptic validation remains pending.
+- Retain a healthy OpenAL output across resource reloads; raise the soft descriptor budget within its hard cap and improve exhausted-file diagnostics after observed save failures. Console save/audio validation remains pending.
+- Integrate genuine native compression/database libraries and a separate full-source Distant Horizons PS5 test variant. Game launch/rendering and persistence remain pending. See [details](docs/client-native-input-storage-112.md).
+
 ## Development 01.000.111
 
 - Automatically upgrade receipt-managed Fabric dependencies when a newly downloaded mod requires a newer resolved version, including known outdated requirements repaired before Play.

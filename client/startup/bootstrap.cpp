@@ -1,3 +1,4 @@
+extern "C" int prospero_haptic_reserve();
 extern "C" void prospero_hid_preload(void);
 extern "C" int sceAudioOutOpen(int,int,int,unsigned,unsigned,unsigned);
 /* SPDX-License-Identifier: GPL-3.0-or-later */
@@ -234,6 +235,9 @@ void run_test(int i) {
   std::fprintf(startup_log,"\n=== CLIENT RUN %s BUILD %s ===\n",run_id,build_version);std::fflush(startup_log);
   char capture_status[160];std::snprintf(capture_status,sizeof(capture_status),"Native stderr FILE capture status%d;raw descriptor2 unchanged;diagnostic failure is nonfatal",native_stderr_error);log_stage(capture_status);
   log_stage("Prior startup/VM diagnostic tails retained: max512KiB each before new run");
+  const auto file_budget=ps5::file_limits::prepare(8192);
+  char file_stage[256];std::snprintf(file_stage,sizeof(file_stage),"PS5_FILE_LIMIT query=%d change=%d errno=%d before=%llu after=%llu hard=%llu",file_budget.query,file_budget.change,file_budget.error,(unsigned long long)file_budget.before,(unsigned long long)file_budget.after,(unsigned long long)file_budget.hard);log_stage(file_stage);
+  ps5::file_limits::snapshot(file_stage,sizeof(file_stage));log_stage(file_stage);
   log_stage("Storage /download0: title-local reservation requested4096MiB; actual capacity is unavailable, not zero");
   prospero_hid_preload();
   log_stage("Begin embedded core constructors");
@@ -245,9 +249,10 @@ void run_test(int i) {
   char audio_stage[160];std::snprintf(audio_stage,sizeof(audio_stage),"AudioOut pre-JVM init result=%d (0x%08X);failure is nonfatal",client_ps5_audio_early_init_result,static_cast<unsigned>(client_ps5_audio_early_init_result));log_stage(audio_stage);
   std::fprintf(stderr,"PS5 OpenAL AudioOut pre-JVM init result=%d\n",client_ps5_audio_early_init_result);std::fflush(stderr);
   // Reserve the real output port before JVM heaps and Vulkan allocations.
-  // OpenAL takes ownership once; its normal drain/close path remains responsible.
+  // OpenAL claims it and retains one drained port across logical device reloads.
   if(client_ps5_audio_early_init_result>=0||static_cast<unsigned>(client_ps5_audio_early_init_result)==0x8026000eu)
    client_ps5_audio_early_port=sceAudioOutOpen(0xff,0,0,256,48000,1);
+  (void)prospero_haptic_reserve();
   std::fprintf(stderr,"PS5 OpenAL AudioOut pre-JVM port result=%d (0x%08X)\n",client_ps5_audio_early_port,static_cast<unsigned>(client_ps5_audio_early_port));std::fflush(stderr);
   long page_size=sysconf(_SC_PAGESIZE);
   if(startup_log) {std::fprintf(startup_log,"Runtime constructors: %zu; page size: %ld bytes\n",count,page_size);std::fflush(startup_log);}

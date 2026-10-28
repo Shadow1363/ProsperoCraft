@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/mateo-cogeanu/ps5-java25-homebrew",
+  "commit": "93b24126d915c8ee69e37b7f09871be5829a2995",
+  "builder": "Development/tools/java25_native_storage.py",
+  "resident_groups": {
+    "ps5zstddh": "dhcomgithubluben.zstd",
+    "ps5sqlitedh": "dh_sqlite"
+  },
+  "library_aliases": {
+    "libzstd-jni_dh-1.5.7-12": "ps5zstddh",
+    "zstd-jni_dh-1.5.7-12": "ps5zstddh",
+    "sqlitejdbc": "ps5sqlitedh"
+  },
+  "consumer": "112;PS5 validation pending;default core unchanged"
+}

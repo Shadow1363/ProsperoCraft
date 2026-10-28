@@ -276,6 +276,16 @@ if args.spvc_bootstrap or args.startup:
  shutil.copyfile(ROOT/'client/ports/lwjgl/LICENSE.md',licenses/'LWJGL-LICENSE.txt')
  shutil.copyfile(ROOT/'.tools/spirv-cross-source.tar.gz',licenses/'SPIRV-Cross-source.tar.gz')
  shutil.copyfile(ROOT/'client/ports/spvc/0001-ps5-native-localeconv.patch',licenses/'0001-ps5-native-localeconv.patch')
+if args.startup:
+ from build_native_storage import build as build_storage
+ storage,storage_audits,storage_sources=build_storage(runtime,args.offline)
+ spec['resident_libraries'].extend(storage)
+ (java/'native-storage-audit.json').write_text(json.dumps(storage_audits,indent=2)+'\n')
+ licenses=java/'native-storage-licenses';licenses.mkdir()
+ for component,source in storage_sources.items():
+  folder=licenses/component;folder.mkdir()
+  for name in ['LICENSE','LICENSE.zentus','NOTICE']:
+   if (source/name).exists():shutil.copy2(source/name,folder/name)
 shutil.copyfile(ROOT/'build/client-ports/lwjgl-native/ps5/audit.json',java/'lwjgl-native-audit.json')
 specfile=work/'probe-spec.json';specfile.write_text(json.dumps(spec,indent=2)+'\n')
 # Prepare the normal JVM/core embedding first using the existing002 tool/spec.

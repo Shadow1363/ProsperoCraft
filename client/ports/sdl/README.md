@@ -11,3 +11,12 @@ static-dynapi/process-build changes are an explicit dependency patch.
 Build with tools/build_sdl_native.py. The generated source/cache/build outputs
 remain ignored. SDL is statically resident; no arbitrary ELF loading or desktop
 window provider is claimed. Java SDL/Vulkan and game JARs remain original.
+
+Development112 adds native joystick gyro and a primary DualSense actuator-only
+SDL audio endpoint for Controlify. The four-channel logical stream sends only
+channels2/3 to the actual type10 stereo haptic port. Main game speaker audio
+remains OpenAL. One silent actuator output is reserved before the JVM and retained
+across logical audio reloads. Capabilities require successful native probes.
+Hardware motion values/axis signs,HD haptic feel,hotplug and simultaneous sound
+remain pending PS5 checks. Standalone SDL sensors,standard rumble,adaptive
+triggers and LEDs remain unsupported;controller identity alone is not acceptance.

@@ -1,0 +1,25 @@
+diff --git a/core/src/main/java/com/seibel/distanthorizons/core/jar/EPlatform.java b/core/src/main/java/com/seibel/distanthorizons/core/jar/EPlatform.java
+index 0d19cfb..cf6f2bd 100644
+--- a/core/src/main/java/com/seibel/distanthorizons/core/jar/EPlatform.java
++++ b/core/src/main/java/com/seibel/distanthorizons/core/jar/EPlatform.java
+@@ -27,6 +27,7 @@ package com.seibel.distanthorizons.core.jar;
+  */
+ public enum EPlatform
+ {
++	PS5("PS5", true),
+ 	WINDOWS("Windows", false),
+ 	LINUX("Linux", true),
+ 	MACOS("macOS", true),
+@@ -64,7 +65,11 @@ public enum EPlatform
+ 	static
+ 	{
+ 		String osName = System.getProperty("os.name").toLowerCase();
+-		if (osName.contains("windows"))
++		if (osName.equals("ps5"))
++		{
++			current = PS5;
++		}
++		else if (osName.contains("windows"))
+ 		{ // Proper name is "Windows"
+ 			current = WINDOWS;
+ 		}

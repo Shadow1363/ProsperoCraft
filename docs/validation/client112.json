@@ -1,0 +1,28 @@
+{
+  "version": "01.000.112",
+  "title_id": "PPSA99874",
+  "sha256": {
+    "PPSA99874.zip": "ff2ef87a5f7980016385d7f50da34b42be212eb75ae88165583f59d8c9051ade",
+    "bootstrap-symbols.elf": "6895136c10e278056818b8e6e5cd652d9ee2b3f65855dc02da7cf4e303e10d7e"
+  },
+  "console": "pending",
+  "store": "108 unchanged",
+  "checks": [
+    "Target link/package CRC/signatures and exact runtime/constructor/resident audits PASS",
+    "Launcher toolkit/source/license and channel identity PASS",
+    "OpenAL real mixer with native fixtures:16 modes and reload retention PASS",
+    "SDL gyro native fixture and haptic backend ASan/UBSan tests PASS",
+    "Queue failure isolation, dependency upgrade/rollback and real publisher artifacts PASS",
+    "Original DH Java Zstd/SQLite JNI and source-built PS5 platform enum PASS"
+  ],
+  "runtime_commit": "93b24126d915c8ee69e37b7f09871be5829a2995",
+  "source_sha256": {
+    "client/startup/bootstrap.cpp": "008c46e5bf218d0b655296e13ddc237349c6e2837b8a6a36d50aa49211dbf598",
+    "client/ports/sdl/SDL_ps5audio.c": "271cb1b4fd9aa256033a0766ef2aa15b1ccba1910ebcc21056c1167692d9c0d4",
+    "client/ports/sdl/platform-input.c": "fdd2c778d9f939a1ecf154c76cfc928016502535a3430722e2fe57912321e089",
+    "client/ports/openal/ps5_backend.cpp": "0caba23dfaefd06373fcae1d1ff111362979ea1d17f786eee2a2912d4d14cb71",
+    "client/launcher/java/ProsperoModrinth.java": "74baa610d63451963e9674d28cc8dccf29e18214af59b81f9794ad6959655ac3",
+    "tools/build_native_storage.py": "6dc58cf8def7c301970e898a9b4d08717fd9c004050638d353805dd15636038e",
+    "client/ports/distant_horizons/0001-explicit-ps5-platform.patch": "625e14c4fb41429ef3f46971094440090c0b3ab9e5e184ef833cb455a8d573b9"
+  }
+}

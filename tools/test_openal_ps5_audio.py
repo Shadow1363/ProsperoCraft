@@ -49,7 +49,7 @@ subprocess.run(['install_name_tool','-id',str(library),str(library)],check=True)
 #include <unistd.h>
 extern "C" {void test_audio_mode(int);int test_audio_blocks();int test_audio_nonzero();int test_audio_opens();int test_audio_closes();int test_audio_inits();int test_audio_waits();int test_audio_attempts();double test_audio_balance();}
 int main(int argc,char**argv){int mode=argc>1?atoi(argv[1]):0;test_audio_mode(mode);
- for(int cycle=0;cycle<((mode==3||mode==15)?1:3);++cycle){
+ for(int cycle=0;cycle<(mode==3?1:3);++cycle){
   ALCdevice*d=alcOpenDevice("PS5 Speakers");
   if(mode==1||mode==2||mode==5||mode==8||mode==9||mode==14){assert(!d);assert(test_audio_opens()==0&&test_audio_closes()==0);
    if(mode==5)assert(test_audio_inits()==10&&test_audio_attempts()==10&&test_audio_waits()==9);
@@ -70,10 +70,10 @@ int main(int argc,char**argv){int mode=argc>1?atoi(argv[1]):0;test_audio_mode(mo
    alSourceStop(source);alDeleteSources(1,&source);alDeleteBuffers(1,&buffer);assert(alGetError()==AL_NO_ERROR);
   }
   alcMakeContextCurrent(nullptr);alcDestroyContext(c);assert(alcCloseDevice(d));
-  assert(test_audio_opens()==cycle+1&&test_audio_closes()==cycle+1);
+  assert(test_audio_opens()==1&&test_audio_closes()==(mode==3?1:0));
  }
- assert(test_audio_inits()==(mode==10||mode==11||mode==15?0:mode==4?3:1));assert(test_audio_waits()==(mode==4?2:0));if(mode==15){assert(test_audio_attempts()==0);assert(!alcOpenDevice("PS5 Speakers"));assert(test_audio_opens()==1&&test_audio_closes()==1);}assert(test_audio_balance()>0.8&&test_audio_balance()<1.2);
- printf("PASS real OpenAL PS5 backend:3cycles or error-disconnect,pause/resume,44100Hz mono440Hz -> actual48000Hz stereoS16 PCM,portformat/alignment,join/close/init lifetime,nonzero=%d;host AudioOut fixture,not audible PS5 acceptance\n",test_audio_nonzero());
+ assert(test_audio_inits()==(mode==10||mode==11||mode==15?0:mode==4?3:1));assert(test_audio_waits()==(mode==4?2:0));if(mode==15){assert(test_audio_attempts()==0);ALCdevice* reopened=alcOpenDevice("PS5 Speakers");assert(reopened&&alcCloseDevice(reopened));assert(test_audio_attempts()==0&&test_audio_opens()==1&&test_audio_closes()==0);}assert(test_audio_balance()>0.8&&test_audio_balance()<1.2);
+ printf("PASS real OpenAL PS5 backend:3cycles or error-disconnect,pause/resume,44100Hz mono440Hz -> actual48000Hz stereoS16 PCM,portformat/alignment,join/retained-port/init lifetime,nonzero=%d;host AudioOut fixture,not audible PS5 acceptance\n",test_audio_nonzero());
 }
 ''')
 source=ROOT/'.tools/openal-soft-src'

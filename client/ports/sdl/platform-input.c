@@ -8,7 +8,7 @@
  * Every console call here is one PS5_vkQuake, PS5_RetroArch or PS5_Vulkan's
  * smoke test runs with; no SDK header declares them.
  */
-/* Altered: input-only extraction for PS5 Java probe; no audio/rumble/LED. */
+/* Consumer adapter: input plus opt-in native motion; haptic audio is separate. */
 #include "platform.h"
 #include <stddef.h>
 #include <stdarg.h>
@@ -34,6 +34,7 @@ int scePadGetHandle(int32_t user_id, int32_t port_type, int32_t index);
 int scePadRead(int32_t handle, void *samples, int32_t capacity);
 int scePadClose(int32_t handle);
 int scePadSetVibrationMode(int32_t handle, int32_t mode);
+int scePadSetMotionSensorState(int32_t handle, bool enabled);
 int scePadSetVibration(int32_t handle, const void *vibration);
 int scePadSetLightBar(int32_t handle, const void *color);
 int sceKernelUsleep(uint32_t microseconds);
@@ -44,13 +45,18 @@ int sceKernelUsleep(uint32_t microseconds);
 struct pad_sample {
    uint32_t buttons;
    uint8_t left_x, left_y, right_x, right_y, l2, r2;
-   uint8_t reserved[66];
+   uint8_t motion_alignment[2];
+   float orientation[4];
+   float acceleration[3];
+   float angular_velocity[3];
+   uint8_t reserved[24];
    int32_t connected;
    uint64_t timestamp_us;
    uint8_t extension[16];
    uint8_t connected_count;
    uint8_t remaining[15];
 };
+_Static_assert(offsetof(struct pad_sample, angular_velocity) == 0x28, "angular velocity sits at 0x28");
 _Static_assert(sizeof(struct pad_sample) == 120, "the console's pad samples are 120 bytes");
 _Static_assert(offsetof(struct pad_sample, connected) == 0x4c, "connection state sits at 0x4c");
 _Static_assert(offsetof(struct pad_sample, timestamp_us) == 0x50, "the timestamp sits at 0x50");
@@ -68,6 +74,7 @@ struct pad_player_state {
    int32_t user;
    int32_t handle;
    bool connected;
+   bool motion_supported, motion_enabled;
    struct pad_sample last;
    struct pad_reading taken[64];
    int taken_count;
@@ -121,6 +128,9 @@ pad_player_open(int player, int32_t user, int attempts)
    }
    state->user = user;
    state->handle = handle;
+   int motion = scePadSetMotionSensorState(handle, false);
+   state->motion_supported = motion >= 0;
+   say("PS5_INPUT motion probe player=%d result=0x%x",player,(unsigned)motion);
    say("pad: player %d opened", player);
    return true;
 }
@@ -236,7 +246,8 @@ pad_poll(struct pad *pad)
          const struct pad_sample *s = &samples[i];
          state->taken[state->taken_count++] = (struct pad_reading){
             s->buttons, s->left_x, s->left_y, s->right_x, s->right_y, s->l2, s->r2,
-            s->connected != 0, s->timestamp_us};
+            s->connected != 0, s->timestamp_us,
+            {s->angular_velocity[0],s->angular_velocity[1],s->angular_velocity[2]}};
          state->connected = s->connected != 0;
          if (s->connected && !(s->buttons & PAD_INTERCEPTED))
             state->last = *s;
@@ -285,3 +296,12 @@ pad_readings(const struct pad_reading **readings)
    return pad_player_readings(0, readings);
 }
 
+
+/* ScePad angular velocity uses radians/second in the controller's local axes. */
+bool pad_player_has_gyro(int player){const struct pad_player_state *s=pad_state(player);return s&&s->motion_supported;}
+bool pad_player_set_motion(int player,bool enabled){
+ struct pad_player_state *s=pad_state(player);if(!s||!s->motion_supported)return false;
+ int rc=scePadSetMotionSensorState(s->handle,enabled);say("PS5_INPUT motion player=%d enabled=%d result=0x%x",player,enabled,(unsigned)rc);
+ if(rc<0)return false;s->motion_enabled=enabled;return true;
+}
+bool pad_player_motion_enabled(int player){const struct pad_player_state *s=pad_state(player);return s&&s->motion_enabled;}

@@ -149,8 +149,10 @@ public final class ProsperoLauncher {
   if(row==1){var instance=detail;message="Preparing download queue";completed=0;total=1;runTask("CONTENT",attempt->{
    try(var checker="fabric".equals(instance.loader)?fabric.dependencies(instance.version):null){
     modrinth.downloadAll(library.game(instance),instance.version,instance.loader,(text,done,size)->{synchronized(this){if(!cancelled(attempt)){message=text;completed=done;total=size;cached=null;}}},()->cancelled(attempt),file->{String icon=modrinth.icon(library.game(instance),file.project(),"",()->cancelled(attempt));synchronized(this){if(!cancelled(attempt)){activeContentIcon=icon;cached=null;}}},checker);
+   }finally{
+    synchronized(this){if(!cancelled(attempt)){contentQueue=modrinth.queue(library.game(instance));localContent=modrinth.local(library.game(instance),contentKind);activeContentIcon="";cached=null;}}
    }
-   synchronized(this){if(!cancelled(attempt)){contentQueue=modrinth.queue(library.game(instance));localContent=modrinth.local(library.game(instance),contentKind);activeContentIcon="";message="Downloads and required dependencies complete.";feedback("success");cached=null;}}
+   synchronized(this){if(!cancelled(attempt)){message="Downloads and required dependencies complete.";feedback("success");cached=null;}}
   });return;}
 
   if(row==2||row==3){int next=row==2?Math.max(0,contentOffset-4):contentOffset+4;if(next!=contentOffset&&next<contentTotal){contentOffset=next;contentHits=List.of();browse();}return;}

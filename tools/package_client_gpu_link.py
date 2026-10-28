@@ -17,7 +17,7 @@ def finish(runtime,java_home,work,assets,spec,gpu_support,gpu_audit,variant="gpu
   else:shutil.copyfile(path,dest)
  shutil.copytree(work/'classes',java/'classes',dirs_exist_ok=True)
  manifest=work/'resident-libraries.json';manifest.write_text(json.dumps(spec['resident_libraries'],indent=2)+'\n')
- run('python3',runtime/'tools/java25_builtin_runtime.py','--management',*(['--imageio','--library-alias','SDL3=ps5sdl'] if variant=='startup' else []),'--external-libraries',manifest)
+ run('python3',runtime/'tools/java25_builtin_runtime.py','--management',*(['--imageio','--library-alias','SDL3=ps5sdl','--library-alias','libzstd-jni_dh-1.5.7-12=ps5zstddh','--library-alias','zstd-jni_dh-1.5.7-12=ps5zstddh','--library-alias','sqlitejdbc=ps5sqlitedh'] if variant=='startup' else []),'--external-libraries',manifest)
  shutil.copyfile(build/'builtin-resident-audit.json',java/'resident-libraries-audit.json')
  if variant=='startup':
   for name in ['awt','lcms']:shutil.copy2(build/'imageio-target'/('lib'+name+'.so'),java/'lib'/('lib'+name+'.so'))

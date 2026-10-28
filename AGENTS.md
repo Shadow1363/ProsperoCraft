@@ -1336,3 +1336,7 @@ or cancellation rolls back,postcommit cleanup may retain backups. No durable
 power-loss recovery claim. Tests/docs in docs/client-dependency-updates-111.md.
 Publish consumer source/provide111candidate;PS5 tests pending. Java source unchanged,
 108publicStore/frozenmilestones preserved;no newStore release requested.
+
+## Development112 native integration
+
+The optional compression/database builder and descriptor diagnostics live in runtime commit 93b24126d915c8ee69e37b7f09871be5829a2995. Consumer namespace/group/alias references are in client/ports/distant_horizons/runtime.json. The Distant Horizons PS5 variant is a complete pinned upstream source build with an explicit platform enum, never an installed-JAR rewrite. Keep its pending PS5 rendering/save validation explicit. Audio reuse, native pad/actuator integration and partial download queue behavior are consumer-owned. See docs/client-native-input-storage-112.md. Public release/Store remain108 until separately accepted.

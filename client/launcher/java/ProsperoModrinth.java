@@ -183,8 +183,47 @@ final class ProsperoModrinth {
   installSelected(game,version,loader,progress,cancel,f->{},checker,roots,pins,false);
  }
  void downloadAll(Path game,String gameVersion,String loader,ProsperoInstall.Progress progress,BooleanSupplier cancel)throws Exception {downloadAll(game,gameVersion,loader,progress,cancel,f->{});}
- void downloadAll(Path game,String gameVersion,String loader,ProsperoInstall.Progress progress,BooleanSupplier cancel,java.util.function.Consumer<File> current)throws Exception {installSelected(game,gameVersion,loader,progress,cancel,current,null,queue(game),Map.of(),true);}
- void downloadAll(Path game,String gameVersion,String loader,ProsperoInstall.Progress progress,BooleanSupplier cancel,java.util.function.Consumer<File> current,ProsperoDependencies.Versions versions)throws Exception {installSelected(game,gameVersion,loader,progress,cancel,current,versions,queue(game),Map.of(),true);}
+ void downloadAll(Path game,String gameVersion,String loader,ProsperoInstall.Progress progress,BooleanSupplier cancel,java.util.function.Consumer<File> current)throws Exception {downloadQueued(game,gameVersion,loader,progress,cancel,current,null);}
+ void downloadAll(Path game,String gameVersion,String loader,ProsperoInstall.Progress progress,BooleanSupplier cancel,java.util.function.Consumer<File> current,ProsperoDependencies.Versions versions)throws Exception {downloadQueued(game,gameVersion,loader,progress,cancel,current,versions);}
+ record DownloadFailure(String project,String title,Kind kind,String error){}
+ static final class ContentDownloadFailure extends IOException {
+  final String key;ContentDownloadFailure(File file,IOException cause){super(file.filename+": "+cause.getMessage(),cause);key=file.kind+":"+file.project;}
+ }
+ private void downloadQueued(Path game,String gameVersion,String loader,ProsperoInstall.Progress progress,BooleanSupplier cancel,java.util.function.Consumer<File> current,ProsperoDependencies.Versions checker)throws Exception {
+  var selected=queue(game);if(selected.isEmpty())throw new IOException("Select something for the queue first");
+  List<List<Selection>> groups=new ArrayList<>();List<Set<String>> keys=new ArrayList<>();Map<Selection,Set<String>> requiredByRoot=new HashMap<>();
+  for(Selection root:selected){
+   ProsperoInstall.active(cancel);var plan=new LinkedHashMap<String,File>();Set<String> linked=new HashSet<>();linked.add(root.kind+":"+root.project);
+   try{resolveAll(List.of(root),Map.of(),gameVersion,plan,new ArrayList<>(),cancel);}catch(Exception unavailable){ProsperoInstall.active(cancel);}
+   linked.addAll(plan.keySet());requiredByRoot.put(root,Set.copyOf(linked));List<Selection> group=new ArrayList<>();group.add(root);
+   for(int i=groups.size()-1;i>=0;i--)if(!Collections.disjoint(linked,keys.get(i))){group.addAll(groups.remove(i));linked.addAll(keys.remove(i));}
+   groups.add(group);keys.add(linked);
+  }
+  List<DownloadFailure> failures=new ArrayList<>();int complete=0;
+  for(var original:groups){
+   var group=new ArrayList<>(original);
+   while(!group.isEmpty()){
+    ProsperoInstall.active(cancel);
+    try{installSelected(game,gameVersion,loader,progress,cancel,current,checker,group,Map.of(),false);}
+    catch(Exception failure){
+     ProsperoInstall.active(cancel);String error=failure.getMessage();if(error==null)error="Download could not finish";
+     var blocked=new ArrayList<Selection>();
+     if(failure instanceof ContentDownloadFailure unavailable)for(var root:group)if(requiredByRoot.get(root).contains(unavailable.key))blocked.add(root);
+     if(blocked.isEmpty())blocked.addAll(group);
+     for(var root:blocked)failures.add(new DownloadFailure(root.project,root.title,root.kind,error));
+     group.removeAll(blocked);continue;
+    }
+    var remaining=new ArrayList<>(queue(game));remaining.removeIf(s->group.stream().anyMatch(root->root.project.equals(s.project)&&root.kind==s.kind));
+    ProsperoInstall.save(state(game,"content-queue.json"),new Gson().toJson(remaining));complete+=group.size();break;
+   }
+  }
+  ProsperoInstall.save(state(game,"content-download-errors.json"),new Gson().toJson(failures));
+  if(!failures.isEmpty()){
+   StringBuilder message=new StringBuilder("Downloaded "+complete+" queued items; "+failures.size()+" failed and remain queued. ");
+   for(var failure:failures){String detail=failure.title+": "+failure.error;if(message.length()+detail.length()>450)break;message.append(detail).append(" ");}
+   throw new IOException(message.toString());
+  }
+ }
  private void installSelected(Path game,String gameVersion,String loader,ProsperoInstall.Progress progress,BooleanSupplier cancel,java.util.function.Consumer<File> current,ProsperoDependencies.Versions checker,List<Selection> selected,Map<String,String> pins,boolean clearQueue)throws Exception {
   if(clearQueue&&selected.isEmpty())throw new IOException("Select something for the queue first");
   if(!loader.equals("fabric")&&selected.stream().anyMatch(s->s.kind==Kind.MOD))throw new IOException("Mods require a Fabric instance");
@@ -195,7 +234,7 @@ final class ProsperoModrinth {
   Path stage=game.getParent().resolve("content-downloads");long total=0,done=0;Map<Path,File> replaced=Map.of();
   for(int pass=0;pass<16;pass++){
    total=plan.values().stream().mapToLong(f->f.pin.size()).sum();done=0;
-   for(File f:plan.values()){ProsperoInstall.active(cancel);current.accept(f);progress.update("Downloading "+f.filename,done,total);download.obtain(f.pin,stage.resolve(f.pin.hash()+".bin"),cancel);done+=f.pin.size();progress.update("Downloading "+f.filename,done,total);}
+   for(File f:plan.values()){ProsperoInstall.active(cancel);current.accept(f);progress.update("Downloading "+f.filename,done,total);try{download.obtain(f.pin,stage.resolve(f.pin.hash()+".bin"),cancel);}catch(IOException failure){ProsperoInstall.active(cancel);throw new ContentDownloadFailure(f,failure);}done+=f.pin.size();progress.update("Downloading "+f.filename,done,total);}
    replaced=replacements(game,receipt,plan,stage,checker);
    if(!loader.equals("fabric"))break;
    var needs=ProsperoDependencies.requiredUpdates(modPaths(game,plan,stage,replaced.keySet()),gameVersion,checker);

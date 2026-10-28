@@ -113,6 +113,26 @@ public class DependencyCheck {
     check(Arrays.equals(actualOld,Files.readAllBytes(failing.resolve("mods/library-old.jar")))&&!Files.exists(failing.resolve("mods/library-new.jar"))&&!Files.exists(failing.resolve("mods/requiring.jar"))&&Files.readString(receiptPath).equals(priorReceipt)&&client.queue(failing).size()==1,"failed update did not preserve old bytes/receipt/queue: "+failure);
    }
    System.out.println("PASS dependency upgrades with same/different filenames,manifest-only pre-Play repair,offline/healthy behavior,and hash/cancel/receipt-write/other-mod/modified-file/downgrade failures preserve previous state");
+
+   for(String broken:List.of("root","dependency","metadata")){
+    Path partial=root.resolve("partial-"+broken+"/game");Files.createDirectories(partial);
+    version("shared","sharedV","shared.jar",jar("shared","1.0","{}",null),"[]");
+    String shared="[{\"project_id\":\"shared\",\"version_id\":\"sharedV\",\"dependency_type\":\"required\"}]";
+    version("brokenroot","brokenV","broken.jar",jar("brokenroot","1.0","{}",null),shared);
+    version("dependent","dependentV","dependent.jar",jar("dependent","1.0","{}",null),"[{\"project_id\":\"brokenroot\",\"version_id\":\"brokenV\",\"dependency_type\":\"required\"}]");
+    version("otherroot","otherV","other.jar",jar("otherroot","1.0","{}",null),shared);
+    version("pack","packV","pack.zip",bytes("PACK"),"[]");
+    if(broken.equals("root"))network.put("https://cdn.modrinth.com/data/brokenroot/brokenV/broken.jar",bytes("BAD"));
+    if(broken.equals("dependency"))network.put("https://cdn.modrinth.com/data/shared/sharedV/shared.jar",bytes("BAD"));
+    if(broken.equals("metadata")){network.remove("meta:brokenroot");network.remove(ProsperoModrinth.API+"version/brokenV");}
+    for(String project:List.of("brokenroot","dependent","otherroot","shared"))client.toggle(partial,new ProsperoModrinth.Selection(project,project,ProsperoModrinth.Kind.MOD));
+    client.toggle(partial,new ProsperoModrinth.Selection("pack","Pack",ProsperoModrinth.Kind.RESOURCE));
+    try{client.downloadAll(partial,"26.3","fabric",(m,d,t)->{},()->false,f->{},versions);throw new AssertionError("partial failure not reported");}catch(IOException expected){check(expected.getMessage().contains("remain queued"),"partial summary missing");}
+    check(Files.exists(partial.resolve("resourcepacks/pack.zip"))&&!Files.exists(partial.resolve("mods/broken.jar"))&&!Files.exists(partial.resolve("mods/dependent.jar")),"independent pack blocked or failed dependent installed");
+    boolean sharedOk=!broken.equals("dependency");check(Files.exists(partial.resolve("mods/shared.jar"))==sharedOk&&Files.exists(partial.resolve("mods/other.jar"))==sharedOk,"directional dependency failure blocked independent library/root");
+    int failed=sharedOk?2:4;check(client.queue(partial).size()==failed&&JsonParser.parseString(Files.readString(ProsperoModrinth.state(partial,"content-download-errors.json"))).getAsJsonArray().size()==failed,"success selections retained or failed roots lost");
+   }
+   System.out.println("PASS partial queue root/dependency/metadata failures:failed roots/transitive dependents retained with errors;independent packs and healthy shared-library users continue;success selections removed from queue");
   }
   System.out.println("PASS actual upstream Fabric predicates,manifest-only missing API,nested module providers,hash-pinned auto-install,old-instance repair,healthy offline/no-network launch,offline failure,conflicts/unmapped requirements before publication and world/file preservation");
  }
